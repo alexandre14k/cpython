@@ -28,11 +28,25 @@ To build myFRpy from source on Linux or other Unix-like systems::
 
     ./make.sh
 
-This installs the interpreter as ``myFRpy``.
+    project <myFRpy>
 
-You can view available configuration options with::
+    d -- tree  | arborescence
+    p -- regen | configurer
+    b -- build | construire
+    r -- run   | exécuter
+    c -- clean | nettoyer
+    e -- erase | effacer
+    x -- exit  | quitter
 
-    ./configure --help
+First on a new setup press `c` to clean the environment and configure it.
+
+Then edit press `p` to regen after grammar `python.gram` has changed.
+
+Third press `b` to make. This creates the interpreter as ``myFRpy``.
+
+The output ``myFRpy`` is built dynamically (requires external libraries).
+
+Pressing `r` allows to run in from the bash menu.
 
 # Dependencies
 ------------
@@ -43,28 +57,6 @@ Building myFRpy requires standard development tools and libraries such as:
 - development headers for zlib, libffi, OpenSSL, SQLite, and others
 
 Refer to your distribution’s package manager for installation.
-
-# Optimized Builds
-----------------
-
-To enable Profile Guided Optimization (PGO) and Link Time Optimization (LTO)::
-
-    ./configure --enable-optimizations
-    make
-
-# Testing
--------
-
-Run the full test suite with::
-
-    make test
-
-Verbose testing example::
-
-    make test TESTOPTS="-v test_os test_gdb"
-
-If you encounter issues that appear to be bugs in myFRpy, please open an
-issue with the failing test output.
 
 # License
 -------
