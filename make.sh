@@ -11,12 +11,26 @@ do_rename() {
     ROOT="$(realpath "${1:-.}")"
     S=(-e 's/PYTHON/MYFRPY/g' -e 's/Python/MyFRpy/g' -e 's/python/myFRpy/g')
 
-    find "$ROOT" -type f -not -path '*/.git/*' -not -name 'make.sh' -print0 \
+    find "$ROOT" -type f -not -path '*/.git/*' \
+      -not -name 'make.sh'\
+      -not -name 'LICENSE'\
+      -not -name 'LICENSE.old'\
+      -not -name 'README.md'\
+      -not -name 'README.old.rst'\
+      -not -name 'README.rst'\
+       -print0 \
       | xargs -0 grep -liI 'python' -- 2>/dev/null \
       | tr '\n' '\0' \
       | xargs -0 --no-run-if-empty sed -i "${S[@]}"
 
-    find "$ROOT" -depth -not -path '*/.git' -not -path '*/.git/*' -not -name 'make.sh' -print0 \
+    find "$ROOT" -depth -not -path '*/.git' -not -path '*/.git/*' \
+      -not -name 'make.sh'\
+      -not -name 'LICENSE'\
+      -not -name 'LICENSE.old'\
+      -not -name 'README.md'\
+      -not -name 'README.old.rst'\
+      -not -name 'README.rst'\
+      -print0 \
       | while IFS= read -r -d '' p; do
           d=$(dirname "$p"); b=$(basename "$p")
           n=$(printf '%s' "$b" | sed "${S[@]}")
