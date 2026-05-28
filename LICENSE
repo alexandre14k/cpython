@@ -1,11 +1,11 @@
 myFRpy License
 ==============
 
-myFRpy is a derivative work of CMyFRpy 3.12.3.
+myFRpy is a derivative work of CPython 3.12.3.
 
-This project is distributed under the same terms as the MyFRpy Software
+This project is distributed under the same terms as the Python Software
 Foundation License, with modifications specific to this fork.
 
-The original CMyFRpy license is preserved in ``LICENSE.old``.
+The original CPython license is preserved in ``LICENSE.old``.
 
 All changes made in this repository are © 2024–2026 <alexander14k28@gmail.com>.

@@ -24,21 +24,23 @@ from scratch on Linux.
 # Build Instructions (Linux Mint 22.2)
 --------------------------
 
-To build myFRpy from source on Linux or other Unix-like systems::
+To build myFRpy from source on Linux or other Unix-like systems:
 
+``` bash
     ./make.sh
 
-   project <myFRpy>
+    project <myFRpy>
 
-   t -- rename  | renommer
-   d -- tree    | arborescence
-   p -- regen   | configurer
-   b -- build   | construire
-   i -- install | installer
-   r -- run     | exécuter
-   c -- clean   | nettoyer
-   e -- erase   | effacer
-   x -- exit    | quitter
+    t -- rename  | renommer
+    d -- tree    | arborescence
+    p -- regen   | configurer
+    b -- build   | construire
+    i -- install | installer
+    r -- run     | exécuter
+    c -- clean   | nettoyer
+    e -- erase   | effacer
+    x -- exit    | quitter
+```
 
 # Todo
 1. on a new setup press `c` to clean the environment and reconfigure
