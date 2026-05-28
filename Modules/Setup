@@ -244,7 +244,7 @@ _ctypes _ctypes/_ctypes.c _ctypes/callbacks.c _ctypes/callproc.c _ctypes/stgdict
 #	-lX11
 
 # !! Correct format
-# !! install on linux mint 22.3 with:
+# !! install on Linux Mint 22.2 with:
 # !! sudo apt install tcl-dev tk-dev libx11-dev libgl-dev \
 #                     libglu1-mesa-dev libxext-dev libxmu-dev
 # !! then call pkg-config:

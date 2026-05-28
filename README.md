@@ -21,37 +21,37 @@ Prebuilt packages or installation instructions may be provided separately.
 This repository contains the full source code for building the interpreter
 from scratch on Linux.
 
-# Build Instructions (Linux)
+# Build Instructions (Linux Mint 22.2)
 --------------------------
 
 To build myFRpy from source on Linux or other Unix-like systems::
 
     ./make.sh
 
-    project <myFRpy>
+   project <myFRpy>
 
-    d -- tree  | arborescence
-    p -- regen | configurer
-    b -- build | construire
-    r -- run   | exécuter
-    c -- clean | nettoyer
-    e -- erase | effacer
-    x -- exit  | quitter
+   t -- rename  | renommer
+   d -- tree    | arborescence
+   p -- regen   | configurer
+   b -- build   | construire
+   i -- install | installer
+   r -- run     | exécuter
+   c -- clean   | nettoyer
+   e -- erase   | effacer
+   x -- exit    | quitter
 
-First on a new setup press `c` to clean the environment and configure it.
-
-Then edit press `p` to regen after grammar `myFRpy.gram` has changed.
-
-Third press `b` to make. This creates the interpreter as ``myFRpy``.
-
-The output ``myFRpy`` is built dynamically (requires external libraries).
-
-Pressing `r` allows to run in from the bash menu.
+# Todo
+1. on a new setup press `c` to clean the environment and reconfigure
+2. press `p` to regen after grammar `myFRpy.gram` has changed
+3. press `b` to make. This creates the interpreter as ``myFRpy``
+4. output ``myFRpy`` is dynamically built
+5. pressing `r` allows to run from the bash menu
+6. pressing `i` allows to local install (see `output/bin/myFRpy3.12`)
 
 # Dependencies
 ------------
 
-Building myFRpy requires standard development tools and libraries such as:
+Building myFRpy requires standard development tools and libraries :
 
 - a C compiler (GCC or Clang)
 - development headers for zlib, libffi, OpenSSL, SQLite, and others
