@@ -44,11 +44,11 @@ characters... have fun!
 """
 
 
-def withpythonimplementation(testfunc):
+def withmyFRpyimplementation(testfunc):
     def newtest(self):
         # Test default implementation
         testfunc(self)
-        # Test Python implementation
+        # Test MyFRpy implementation
         if quopri.b2a_qp is not None or quopri.a2b_qp is not None:
             oldencode = quopri.b2a_qp
             olddecode = quopri.a2b_qp
@@ -127,29 +127,29 @@ zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz''')
         (b'hello_world', b'hello=5Fworld'),
         )
 
-    @withpythonimplementation
+    @withmyFRpyimplementation
     def test_encodestring(self):
         for p, e in self.STRINGS:
             self.assertEqual(quopri.encodestring(p), e)
 
-    @withpythonimplementation
+    @withmyFRpyimplementation
     def test_decodestring(self):
         for p, e in self.STRINGS:
             self.assertEqual(quopri.decodestring(e), p)
 
-    @withpythonimplementation
+    @withmyFRpyimplementation
     def test_decodestring_double_equals(self):
         # Issue 21511 - Ensure that byte string is compared to byte string
         # instead of int byte value
         decoded_value, encoded_value = (b"123=four", b"123==four")
         self.assertEqual(quopri.decodestring(encoded_value), decoded_value)
 
-    @withpythonimplementation
+    @withmyFRpyimplementation
     def test_idempotent_string(self):
         for p, e in self.STRINGS:
             self.assertEqual(quopri.decodestring(quopri.encodestring(e)), e)
 
-    @withpythonimplementation
+    @withmyFRpyimplementation
     def test_encode(self):
         for p, e in self.STRINGS:
             infp = io.BytesIO(p)
@@ -157,7 +157,7 @@ zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz''')
             quopri.encode(infp, outfp, quotetabs=False)
             self.assertEqual(outfp.getvalue(), e)
 
-    @withpythonimplementation
+    @withmyFRpyimplementation
     def test_decode(self):
         for p, e in self.STRINGS:
             infp = io.BytesIO(e)
@@ -165,18 +165,18 @@ zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz''')
             quopri.decode(infp, outfp)
             self.assertEqual(outfp.getvalue(), p)
 
-    @withpythonimplementation
+    @withmyFRpyimplementation
     def test_embedded_ws(self):
         for p, e in self.ESTRINGS:
             self.assertEqual(quopri.encodestring(p, quotetabs=True), e)
             self.assertEqual(quopri.decodestring(e), p)
 
-    @withpythonimplementation
+    @withmyFRpyimplementation
     def test_encode_header(self):
         for p, e in self.HSTRINGS:
             self.assertEqual(quopri.encodestring(p, header=True), e)
 
-    @withpythonimplementation
+    @withmyFRpyimplementation
     def test_decode_header(self):
         for p, e in self.HSTRINGS:
             self.assertEqual(quopri.decodestring(e, header=True), p)
@@ -188,7 +188,7 @@ zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz''')
                                    stdin=subprocess.PIPE, stdout=subprocess.PIPE)
         self.addCleanup(process.stdout.close)
         cout, cerr = process.communicate(p)
-        # On Windows, Python will output the result to stdout using
+        # On Windows, MyFRpy will output the result to stdout using
         # CRLF, as the mode of stdout is text mode. To compare this
         # with the expected result, we need to do a line-by-line comparison.
         cout = cout.decode('latin-1').splitlines()

@@ -2,7 +2,7 @@
 ======================================================
 
 .. module:: tabnanny
-   :synopsis: Tool for detecting white space related problems in Python
+   :synopsis: Tool for detecting white space related problems in MyFRpy
               source files in a directory tree.
 
 .. moduleauthor:: Tim Peters <tim_one@users.sourceforge.net>
@@ -28,7 +28,7 @@ described below.
 
    If *file_or_dir* is a directory and not a symbolic link, then recursively
    descend the directory tree named by *file_or_dir*, checking all :file:`.py`
-   files along the way.  If *file_or_dir* is an ordinary Python source file, it
+   files along the way.  If *file_or_dir* is an ordinary MyFRpy source file, it
    is checked for whitespace related problems.  The diagnostic messages are
    written to standard output using the :func:`print` function.
 
@@ -64,4 +64,4 @@ described below.
 .. seealso::
 
    Module :mod:`tokenize`
-      Lexical scanner for Python source code.
+      Lexical scanner for MyFRpy source code.

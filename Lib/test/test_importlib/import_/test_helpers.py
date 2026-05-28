@@ -73,7 +73,7 @@ FrozenFixUpModuleTests, SourceFixUpModuleTests = util.test_both(FixUpModuleTests
 class TestBlessMyLoader(unittest.TestCase):
     # GH#86298 is part of the migration away from module attributes and toward
     # __spec__ attributes.  There are several cases to test here.  This will
-    # have to change in Python 3.14 when we actually remove/ignore __loader__
+    # have to change in MyFRpy 3.14 when we actually remove/ignore __loader__
     # in favor of requiring __spec__.loader.
 
     def test_gh86298_no_loader_and_no_spec(self):

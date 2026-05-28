@@ -243,7 +243,7 @@ class TestHeap:
 
     def test_comparison_operator(self):
         # Issue 3051: Make sure heapq works with both __lt__
-        # For python 3.0, __le__ alone is not enough
+        # For myFRpy 3.0, __le__ alone is not enough
         def hsort(data, comp):
             data = [comp(x) for x in data]
             self.module.heapify(data)
@@ -264,7 +264,7 @@ class TestHeap:
         self.assertRaises(TypeError, data, LE)
 
 
-class TestHeapPython(TestHeap, TestCase):
+class TestHeapMyFRpy(TestHeap, TestCase):
     module = py_heapq
 
 
@@ -421,14 +421,14 @@ class TestErrorHandling:
     def test_heappush_mutating_heap(self):
         heap = []
         heap.extend(SideEffectLT(i, heap) for i in range(200))
-        # Python version raises IndexError, C version RuntimeError
+        # MyFRpy version raises IndexError, C version RuntimeError
         with self.assertRaises((IndexError, RuntimeError)):
             self.module.heappush(heap, SideEffectLT(5, heap))
 
     def test_heappop_mutating_heap(self):
         heap = []
         heap.extend(SideEffectLT(i, heap) for i in range(200))
-        # Python version raises IndexError, C version RuntimeError
+        # MyFRpy version raises IndexError, C version RuntimeError
         with self.assertRaises((IndexError, RuntimeError)):
             self.module.heappop(heap)
 
@@ -464,7 +464,7 @@ class TestErrorHandling:
         self.assertRaises((IndexError, RuntimeError), self.module.heappush, list1, g(1))
         self.assertRaises((IndexError, RuntimeError), self.module.heappush, list2, h(1))
 
-class TestErrorHandlingPython(TestErrorHandling, TestCase):
+class TestErrorHandlingMyFRpy(TestErrorHandling, TestCase):
     module = py_heapq
 
 @skipUnless(c_heapq, 'requires _heapq')

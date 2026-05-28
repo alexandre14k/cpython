@@ -7,11 +7,11 @@ except ImportError:
     idledir = os.path.dirname(os.path.abspath(pyshell.__file__))
     if idledir != os.getcwd():
         # We're not in the IDLE directory, help the subprocess find run.py
-        pypath = os.environ.get('PYTHONPATH', '')
+        pypath = os.environ.get('MYFRPYPATH', '')
         if pypath:
-            os.environ['PYTHONPATH'] = pypath + ':' + idledir
+            os.environ['MYFRPYPATH'] = pypath + ':' + idledir
         else:
-            os.environ['PYTHONPATH'] = idledir
+            os.environ['MYFRPYPATH'] = idledir
     pyshell.main()
 else:
     idlelib.pyshell.main()

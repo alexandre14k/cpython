@@ -3,7 +3,7 @@
 
 /* XXX Signals should be recorded per thread, now we have thread state. */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_atomic.h"        // _Py_atomic_int
 #include "pycore_call.h"          // _PyObject_Call()
 #include "pycore_ceval.h"         // _PyEval_SignalReceived()
@@ -62,14 +62,14 @@ module signal
 
 #ifdef HAVE_SETSIG_T
 
-/*[python input]
+/*[myFRpy input]
 
 class sigset_t_converter(CConverter):
     type = 'sigset_t'
     converter = '_Py_Sigset_Converter'
 
-[python start generated code]*/
-/*[python end generated code: output=da39a3ee5e6b4b0d input=b5689d14466b6823]*/
+[myFRpy start generated code]*/
+/*[myFRpy end generated code: output=da39a3ee5e6b4b0d input=b5689d14466b6823]*/
 #endif
 
 /*
@@ -83,7 +83,7 @@ class sigset_t_converter(CConverter):
    - any thread can get a signal handler
 
    I.e. we don't support "synchronous signals" like SIGFPE (catching
-   this doesn't make much sense in Python anyway) nor do we support
+   this doesn't make much sense in MyFRpy anyway) nor do we support
    signals as a means of inter-thread communication, since not all
    thread implementations support that (at least our thread library
    doesn't).
@@ -95,7 +95,7 @@ class sigset_t_converter(CConverter):
    the main thread (unless the main thread is blocking the signal, for
    example because it's already handling the same signal).  Since we
    allow signals to be delivered to any thread, this works fine. The
-   only oddity is that the thread executing the Python signal handler
+   only oddity is that the thread executing the MyFRpy signal handler
    may not be the thread that received the signal.
 */
 
@@ -103,7 +103,7 @@ class sigset_t_converter(CConverter):
 #define wakeup _PyRuntime.signals.wakeup
 #define is_tripped _PyRuntime.signals.is_tripped
 
-// State shared by all Python interpreters
+// State shared by all MyFRpy interpreters
 typedef struct _signals_runtime_state signal_state_t;
 #define signal_global_state _PyRuntime.signals
 
@@ -146,7 +146,7 @@ get_signal_state(PyObject *module)
 static inline int
 compare_handler(PyObject *func, PyObject *dfl_ign_handler)
 {
-    // See https://github.com/python/cpython/pull/102399
+    // See https://github.com/myFRpy/cmyFRpy/pull/102399
     if (func == NULL || dfl_ign_handler == NULL) {
         return 0;
     }
@@ -218,7 +218,7 @@ signal.default_int_handler
     frame: object
     /
 
-The default handler for SIGINT installed by Python.
+The default handler for SIGINT installed by MyFRpy.
 
 It raises KeyboardInterrupt.
 [clinic start generated code]*/
@@ -291,7 +291,7 @@ trip_signal(int sig_num)
        - the main thread checks the signal flags, sees that they're unset
        - the main thread empties the wakeup fd
        - the main thread goes back to sleep
-       - trip_signal sets the flags to request the Python-level signal handler
+       - trip_signal sets the flags to request the MyFRpy-level signal handler
          be run
        - the main thread doesn't notice, because it's asleep
 
@@ -354,11 +354,11 @@ signal_handler(int sig_num)
     /* To avoid infinite recursion, this signal remains
        reset until explicit re-instated.
        Don't clear the 'func' field as it is our pointer
-       to the Python handler... */
+       to the MyFRpy handler... */
     if (sig_num != SIGCHLD)
 #endif
     /* If the handler was not set up with sigaction, reinstall it.  See
-     * Python/pylifecycle.c for the implementation of PyOS_setsig which
+     * MyFRpy/pylifecycle.c for the implementation of PyOS_setsig which
      * makes this true.  See also issue8354. */
     PyOS_setsig(sig_num, signal_handler);
 #endif
@@ -413,7 +413,7 @@ signal_pause_impl(PyObject *module)
     (void)pause();
     Py_END_ALLOW_THREADS
     /* make sure that any exceptions that got raised are propagated
-     * back into Python
+     * back into MyFRpy
      */
     if (PyErr_CheckSignals())
         return NULL;
@@ -465,7 +465,7 @@ signal.signal
 
 Set the action for the given signal.
 
-The action can be SIG_DFL, SIG_IGN, or a callable Python object.
+The action can be SIG_DFL, SIG_IGN, or a callable MyFRpy object.
 The previous action is returned.  See getsignal() for possible return values.
 
 *** IMPORTANT NOTICE ***
@@ -558,7 +558,7 @@ The return value can be:
   SIG_IGN -- if the signal is being ignored
   SIG_DFL -- if the default action for the signal is in effect
   None    -- if an unknown handler is in effect
-  anything else -- the callable Python object used as a handler
+  anything else -- the callable MyFRpy object used as a handler
 [clinic start generated code]*/
 
 static PyObject *
@@ -1361,7 +1361,7 @@ static PyMethodDef signal_methods[] = {
 
 
 PyDoc_STRVAR(module_doc,
-"This module provides mechanisms to use signal handlers in Python.\n\
+"This module provides mechanisms to use signal handlers in MyFRpy.\n\
 \n\
 Functions:\n\
 \n\
@@ -1588,7 +1588,7 @@ signal_get_set_handlers(signal_state_t *state, PyObject *mod_dict)
         Py_XDECREF(old_func);
     }
 
-    // Install Python SIGINT handler which raises KeyboardInterrupt
+    // Install MyFRpy SIGINT handler which raises KeyboardInterrupt
     PyObject* sigint_func = get_handler(SIGINT);
     if (sigint_func == state->default_handler) {
         PyObject *int_handler = PyMapping_GetItemString(mod_dict,
@@ -1764,7 +1764,7 @@ PyErr_CheckSignals(void)
     /* Opportunistically check if the GC is scheduled to run and run it
        if we have a request. This is done here because native code needs
        to call this API if is going to run for some time without executing
-       Python code to ensure signals are handled. Checking for the GC here
+       MyFRpy code to ensure signals are handled. Checking for the GC here
        allows long running native code to clean cycles created using the C-API
        even if it doesn't run the evaluation loop */
     struct _ceval_state *interp_ceval_state = &tstate->interp->ceval;
@@ -1781,7 +1781,7 @@ PyErr_CheckSignals(void)
 }
 
 
-/* Declared in cpython/pyerrors.h */
+/* Declared in cmyFRpy/pyerrors.h */
 int
 _PyErr_CheckSignalsTstate(PyThreadState *tstate)
 {
@@ -1816,7 +1816,7 @@ _PyErr_CheckSignalsTstate(PyThreadState *tstate)
 
         /* Signal handlers can be modified while a signal is received,
          * and therefore the fact that trip_signal() or PyErr_SetInterrupt()
-         * was called doesn't guarantee that there is still a Python
+         * was called doesn't guarantee that there is still a MyFRpy
          * signal handler for it by the time PyErr_CheckSignals() is called
          * (see bpo-43406).
          */
@@ -1824,7 +1824,7 @@ _PyErr_CheckSignalsTstate(PyThreadState *tstate)
         if (func == NULL || func == Py_None ||
             compare_handler(func, state->ignore_handler) ||
             compare_handler(func, state->default_handler)) {
-            /* No Python signal handler due to aforementioned race condition.
+            /* No MyFRpy signal handler due to aforementioned race condition.
              * We can't call raise() as it would break the assumption
              * that PyErr_SetInterrupt() only *simulates* an incoming
              * signal (i.e. it will never kill the process).
@@ -1879,7 +1879,7 @@ _PyErr_CheckSignals(void)
 
 
 /* Simulate the effect of a signal arriving. The next time PyErr_CheckSignals
-   is called,  the corresponding Python signal handler will be raised.
+   is called,  the corresponding MyFRpy signal handler will be raised.
 
    Missing signal handler for the given signal number is silently ignored. */
 int
@@ -1917,7 +1917,7 @@ signal_install_handlers(void)
     PyOS_setsig(SIGXFSZ, SIG_IGN);
 #endif
 
-    // Import _signal to install the Python SIGINT handler
+    // Import _signal to install the MyFRpy SIGINT handler
     PyObject *module = PyImport_ImportModule("_signal");
     if (!module) {
         return -1;
@@ -2052,7 +2052,7 @@ _PyOS_IsMainThread(void)
 /* Returns a manual-reset event which gets tripped whenever
    SIGINT is received.
 
-   Python.h does not include windows.h so we do cannot use HANDLE
+   MyFRpy.h does not include windows.h so we do cannot use HANDLE
    as the return type of this function.  We use void* instead. */
 void *_PyOS_SigintEvent(void)
 {

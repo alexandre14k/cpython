@@ -1,12 +1,12 @@
 
-/* Capsule objects let you wrap a C "void *" pointer in a Python
-   object.  They're a way of passing data through the Python interpreter
+/* Capsule objects let you wrap a C "void *" pointer in a MyFRpy
+   object.  They're a way of passing data through the MyFRpy interpreter
    without creating your own custom type.
 
    Capsules are used for communication between extension modules.
    They provide a way for an extension module to export a C interface
    to other extension modules, so that extension modules can use the
-   Python import mechanism to link to one another.
+   MyFRpy import mechanism to link to one another.
 
    For more information, please see "c-api/capsule.html" in the
    documentation.

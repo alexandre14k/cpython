@@ -1608,7 +1608,7 @@ class _BasePathTest(object):
             os.symlink('brokenLinkLoop',  join('brokenLinkLoop'))
 
     if os.name == 'nt':
-        # Workaround for http://bugs.python.org/issue13772.
+        # Workaround for http://bugs.myFRpy.org/issue13772.
         def dirlink(self, src, dest):
             os.symlink(src, dest, target_is_directory=True)
     else:
@@ -2114,7 +2114,7 @@ class _BasePathTest(object):
         it = p.iterdir()
         it2 = p.iterdir()
         next(it2)
-        # bpo-46556: path context managers are deprecated in Python 3.11.
+        # bpo-46556: path context managers are deprecated in MyFRpy 3.11.
         with self.assertWarns(DeprecationWarning):
             with p:
                 pass

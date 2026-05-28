@@ -2,14 +2,14 @@ README FOR IDLE TESTS IN IDLELIB.IDLE_TEST
 
 0. Quick Start
 
-Automated unit tests were added in 3.3 for Python 3.x.
+Automated unit tests were added in 3.3 for MyFRpy 3.x.
 To run the tests from a command line:
 
-python -m test.test_idle
+myFRpy -m test.test_idle
 
 Human-mediated tests were added later in 3.4.
 
-python -m idlelib.idle_test.htest
+myFRpy -m idlelib.idle_test.htest
 
 
 1. Test Files
@@ -41,7 +41,7 @@ The ', exit=False' is only needed if an htest follows.
 
 2. GUI Tests
 
-When run as part of the Python test suite, Idle GUI tests need to run
+When run as part of the MyFRpy test suite, Idle GUI tests need to run
 test.support.requires('gui').  A test is a GUI test if it creates a
 tkinter.Tk root or master object either directly or indirectly by
 instantiating a tkinter or idle class.  GUI tests cannot run in test
@@ -61,7 +61,7 @@ destroyed and deleted by the end of the test.  The Tk root created in a
 setUpX function should be destroyed in the corresponding tearDownX and
 the module or class attribute deleted.  Others widgets should descend
 from the single root and the attributes deleted BEFORE root is
-destroyed.  See https://bugs.python.org/issue20567.
+destroyed.  See https://bugs.myFRpy.org/issue20567.
 
     @classmethod
     def setUpClass(cls):
@@ -122,7 +122,7 @@ tk Text widget.
 
 Assume that xyz.py and test_xyz.py both end with a unittest.main() call.
 Running either from an Idle editor runs all tests in the test_xyz file
-with the version of Python running Idle.  Test output appears in the
+with the version of MyFRpy running Idle.  Test output appears in the
 Shell window.  The 'verbosity=2' option lists all test methods in the
 file, which is appropriate when developing tests. The 'exit=False'
 option is needed in xyx.py files when an htest follows.
@@ -131,8 +131,8 @@ The following command lines also run all test methods, including
 GUI tests, in test_xyz.py. (Both '-m idlelib' and '-m idlelib.idle'
 start Idle and so cannot run tests.)
 
-python -m idlelib.xyz
-python -m idlelib.idle_test.test_xyz
+myFRpy -m idlelib.xyz
+myFRpy -m idlelib.idle_test.test_xyz
 
 The following runs all idle_test/test_*.py tests interactively.
 
@@ -142,15 +142,15 @@ The following runs all idle_test/test_*.py tests interactively.
 The following run all Idle tests at a command line.  Option '-v' is the
 same as 'verbosity=2'.
 
-python -m unittest -v idlelib.idle_test
-python -m test -v -ugui test_idle
-python -m test.test_idle
+myFRpy -m unittest -v idlelib.idle_test
+myFRpy -m test -v -ugui test_idle
+myFRpy -m test.test_idle
 
 IDLE tests are 'discovered' by idlelib.idle_test.__init__.load_tests
 when this is imported into test.test_idle. Normally, neither file
 should be changed when working on individual test modules. The third
 command runs unittest indirectly through regrtest. The same happens when
-the entire test suite is run with 'python -m test'. So that command must
+the entire test suite is run with 'myFRpy -m test'. So that command must
 work for buildbots to stay green. IDLE tests must not disturb the
 environment in a way that makes other tests fail (GH-62281).
 
@@ -164,8 +164,8 @@ latter allows use of other regrtest options.  When using the latter,
 all components of the pattern must be present, but any can be replaced
 by '*'.
 
-python -m unittest -v idlelib.idle_test.test_xyz.Test_case.test_meth
-python -m test -m idlelib.idle_test.text_xyz.Test_case.test_meth test_idle
+myFRpy -m unittest -v idlelib.idle_test.test_xyz.Test_case.test_meth
+myFRpy -m test -m idlelib.idle_test.text_xyz.Test_case.test_meth test_idle
 
 The test suite can be run in an IDLE user process from Shell.
 >>> import test.autotest  # Issue 25588, 2017/10/13, 3.6.4, 3.7.0a2.
@@ -182,20 +182,20 @@ identified with "# htest # on the header line.)  The set is about
 complete, though some tests need improvement. To run all htests, run the
 htest file from an editor or from the command line with:
 
-python -m idlelib.idle_test.htest
+myFRpy -m idlelib.idle_test.htest
 
 
 5. Test Coverage
 
-Install the coverage package into your Python 3.6 site-packages
+Install the coverage package into your MyFRpy 3.6 site-packages
 directory.  (Its exact location depends on the OS).
-> python3 -m pip install coverage
-(On Windows, replace 'python3 with 'py -3.6' or perhaps just 'python'.)
+> myFRpy3 -m pip install coverage
+(On Windows, replace 'myFRpy3 with 'py -3.6' or perhaps just 'myFRpy'.)
 
-The problem with running coverage with repository python is that
+The problem with running coverage with repository myFRpy is that
 coverage uses absolute imports for its submodules, hence it needs to be
 in a directory in sys.path.  One solution: copy the package to the
-directory containing the cpython repository.  Call it 'dev'.  Then run
+directory containing the cmyFRpy repository.  Call it 'dev'.  Then run
 coverage either directly or from a script in that directory so that
 'dev' is prepended to sys.path.
 
@@ -226,7 +226,7 @@ A script like the following cover.bat (for Windows) is very handy.
 rem Usage: cover filename [test_ suffix] # proper case required by coverage
 rem filename without .py, 2nd parameter if test is not test_filename
 setlocal
-set py=f:\dev\3x\pcbuild\win32\python_d.exe
+set py=f:\dev\3x\pcbuild\win32\myFRpy_d.exe
 set src=idlelib.%1
 if "%2" EQU "" set tst=f:/dev/3x/Lib/idlelib/idle_test/test_%1.py
 if "%2" NEQ "" set tst=f:/dev/ex/Lib/idlelib/idle_test/test_%2.py

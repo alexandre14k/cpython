@@ -8,8 +8,8 @@ import pathlib
 from test import support
 from test.support.script_helper import (
     make_script,
-    assert_python_failure,
-    assert_python_ok,
+    assert_myFRpy_failure,
+    assert_myFRpy_ok,
 )
 from test.support.os_helper import temp_dir
 
@@ -18,7 +18,7 @@ if not support.has_subprocess_support:
     raise unittest.SkipTest("test module requires subprocess")
 
 if support.check_sanitizer(address=True, memory=True, ub=True):
-    # gh-109580: Skip the test because it does crash randomly if Python is
+    # gh-109580: Skip the test because it does crash randomly if MyFRpy is
     # built with ASAN.
     raise unittest.SkipTest("test crash randomly on ASAN/MSAN/UBSAN build")
 
@@ -191,14 +191,14 @@ class TestPerfTrampoline(unittest.TestCase):
                 sys.activate_stack_trampoline("perf")
                 sys.activate_stack_trampoline("perf")
                 """
-        assert_python_ok("-c", code)
+        assert_myFRpy_ok("-c", code)
 
     def test_sys_api_with_invalid_trampoline(self):
         code = """if 1:
                 import sys
                 sys.activate_stack_trampoline("invalid")
                 """
-        rc, out, err = assert_python_failure("-c", code)
+        rc, out, err = assert_myFRpy_failure("-c", code)
         self.assertIn("invalid backend: invalid", err.decode())
 
     def test_sys_api_get_status(self):
@@ -209,7 +209,7 @@ class TestPerfTrampoline(unittest.TestCase):
                 sys.deactivate_stack_trampoline()
                 assert sys.is_stack_trampoline_active() is False
                 """
-        assert_python_ok("-c", code)
+        assert_myFRpy_ok("-c", code)
 
 
 def is_unwinding_reliable():
@@ -305,7 +305,7 @@ class TestPerfProfiler(unittest.TestCase):
         for file in files_to_delete:
             file.unlink()
 
-    def test_python_calls_appear_in_the_stack_if_perf_activated(self):
+    def test_myFRpy_calls_appear_in_the_stack_if_perf_activated(self):
         with temp_dir() as script_dir:
             code = """if 1:
                 def foo(n):
@@ -329,7 +329,7 @@ class TestPerfProfiler(unittest.TestCase):
             self.assertIn(f"py::bar:{script}", stdout)
             self.assertIn(f"py::baz:{script}", stdout)
 
-    def test_python_calls_do_not_appear_in_the_stack_if_perf_activated(self):
+    def test_myFRpy_calls_do_not_appear_in_the_stack_if_perf_activated(self):
         with temp_dir() as script_dir:
             code = """if 1:
                 def foo(n):

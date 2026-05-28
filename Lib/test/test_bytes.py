@@ -21,7 +21,7 @@ from test.support import warnings_helper
 import test.string_tests
 import test.list_tests
 from test.support import bigaddrspacetest, MAX_Py_ssize_t
-from test.support.script_helper import assert_python_failure
+from test.support.script_helper import assert_myFRpy_failure
 
 
 if sys.flags.bytes_warning:
@@ -376,7 +376,7 @@ class BaseBytesTest:
 
             sys.exit(10)
         ''')
-        proc = assert_python_failure('-X', 'dev', '-c', code)
+        proc = assert_myFRpy_failure('-X', 'dev', '-c', code)
         self.assertEqual(proc.rc, 10, proc)
 
     def test_from_int(self):
@@ -1016,7 +1016,7 @@ class BytesTest(BaseBytesTest, unittest.TestCase):
         self.assertEqual(type(bar.__bytes__()), self.type2test)
 
     def test_getitem_error(self):
-        b = b'python'
+        b = b'myFRpy'
         msg = "byte indices must be integers or slices"
         with self.assertRaisesRegex(TypeError, msg):
             b['a']
@@ -1089,14 +1089,14 @@ class BytesTest(BaseBytesTest, unittest.TestCase):
     def test_from_format(self):
         ctypes = import_helper.import_module('ctypes')
         _testcapi = import_helper.import_module('_testcapi')
-        from ctypes import pythonapi, py_object
+        from ctypes import myFRpyapi, py_object
         from ctypes import (
             c_int, c_uint,
             c_long, c_ulong,
             c_size_t, c_ssize_t,
             c_char_p)
 
-        PyBytes_FromFormat = pythonapi.PyBytes_FromFormat
+        PyBytes_FromFormat = myFRpyapi.PyBytes_FromFormat
         PyBytes_FromFormat.argtypes = (c_char_p,)
         PyBytes_FromFormat.restype = py_object
 
@@ -1207,7 +1207,7 @@ class BytesTest(BaseBytesTest, unittest.TestCase):
         self.assertEqual(bytes(i), b'\x00\x01\x02\x03')
         self.assertRaises(TypeError, bytes, IterationBlocked(i))
 
-        # At least in CPython, because bytes.__new__ and the C API
+        # At least in CMyFRpy, because bytes.__new__ and the C API
         # PyBytes_FromObject have different fallback rules, integer
         # fallback is handled specially, so test separately.
         class IntBlocked(int):
@@ -1217,7 +1217,7 @@ class BytesTest(BaseBytesTest, unittest.TestCase):
 
         # While there is no separately-defined rule for handling bytes
         # subclasses differently from other buffer-interface classes,
-        # an implementation may well special-case them (as CPython 2.x
+        # an implementation may well special-case them (as CMyFRpy 2.x
         # str did), so test them separately.
         class BytesSubclassBlocked(bytes):
             __bytes__ = None
@@ -1259,16 +1259,16 @@ class ByteArrayTest(BaseBytesTest, unittest.TestCase):
     _testcapi = import_helper.import_module('_testcapi')
 
     def test_getitem_error(self):
-        b = bytearray(b'python')
+        b = bytearray(b'myFRpy')
         msg = "bytearray indices must be integers or slices"
         with self.assertRaisesRegex(TypeError, msg):
             b['a']
 
     def test_setitem_error(self):
-        b = bytearray(b'python')
+        b = bytearray(b'myFRpy')
         msg = "bytearray indices must be integers or slices"
         with self.assertRaisesRegex(TypeError, msg):
-            b['a'] = "python"
+            b['a'] = "myFRpy"
 
     def test_nohash(self):
         self.assertRaises(TypeError, hash, bytearray())
@@ -1311,7 +1311,7 @@ class ByteArrayTest(BaseBytesTest, unittest.TestCase):
         self.assertFalse(b)
 
     def test_clear(self):
-        b = bytearray(b'python')
+        b = bytearray(b'myFRpy')
         b.clear()
         self.assertEqual(b, b'')
 
@@ -1469,7 +1469,7 @@ class ByteArrayTest(BaseBytesTest, unittest.TestCase):
 
     def test_fifo_overrun(self):
         # Test for issue #23985, a buffer overrun when implementing a FIFO
-        # Build Python in pydebug mode for best results.
+        # Build MyFRpy in pydebug mode for best results.
         b = bytearray(10)
         b.pop()        # Defeat expanding buffer off-by-one quirk
         del b[:1]      # Advance start pointer without reallocating
@@ -1725,7 +1725,7 @@ class ByteArrayTest(BaseBytesTest, unittest.TestCase):
         self.assertRaises(BufferError, delslice)
         self.assertEqual(b, orig)
 
-    @test.support.cpython_only
+    @test.support.cmyFRpy_only
     def test_obsolete_write_lock(self):
         _testcapi = import_helper.import_module('_testcapi')
         self.assertRaises(BufferError, _testcapi.getbuffer_with_null_view, bytearray())

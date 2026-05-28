@@ -221,7 +221,7 @@ class TestBasicOps(unittest.TestCase):
     def test_chain(self):
 
         def chain2(*iterables):
-            'Pure python version in the docs'
+            'Pure myFRpy version in the docs'
             for it in iterables:
                 for element in it:
                     yield element
@@ -294,7 +294,7 @@ class TestBasicOps(unittest.TestCase):
                              [(0,1,3), (0,2,3), (1,2,3)])
 
         def combinations1(iterable, r):
-            'Pure python version shown in the docs'
+            'Pure myFRpy version shown in the docs'
             pool = tuple(iterable)
             n = len(pool)
             if r > n:
@@ -313,7 +313,7 @@ class TestBasicOps(unittest.TestCase):
                 yield tuple(pool[i] for i in indices)
 
         def combinations2(iterable, r):
-            'Pure python version shown in the docs'
+            'Pure myFRpy version shown in the docs'
             pool = tuple(iterable)
             n = len(pool)
             for indices in permutations(range(n), r):
@@ -321,7 +321,7 @@ class TestBasicOps(unittest.TestCase):
                     yield tuple(pool[i] for i in indices)
 
         def combinations3(iterable, r):
-            'Pure python version from cwr()'
+            'Pure myFRpy version from cwr()'
             pool = tuple(iterable)
             n = len(pool)
             for indices in combinations_with_replacement(range(n), r):
@@ -342,9 +342,9 @@ class TestBasicOps(unittest.TestCase):
                     self.assertTrue(all(e in values for e in c))           # elements taken from input iterable
                     self.assertEqual(list(c),
                                      [e for e in values if e in c])      # comb is a subsequence of the input iterable
-                self.assertEqual(result, list(combinations1(values, r))) # matches first pure python version
-                self.assertEqual(result, list(combinations2(values, r))) # matches second pure python version
-                self.assertEqual(result, list(combinations3(values, r))) # matches second pure python version
+                self.assertEqual(result, list(combinations1(values, r))) # matches first pure myFRpy version
+                self.assertEqual(result, list(combinations2(values, r))) # matches second pure myFRpy version
+                self.assertEqual(result, list(combinations3(values, r))) # matches second pure myFRpy version
 
                 for proto in range(pickle.HIGHEST_PROTOCOL + 1):
                     self.pickletest(proto, combinations(values, r))      # test pickling
@@ -355,7 +355,7 @@ class TestBasicOps(unittest.TestCase):
             combinations("AA", 2**29)
 
         # Test implementation detail:  tuple re-use
-    @support.impl_detail("tuple reuse is specific to CPython")
+    @support.impl_detail("tuple reuse is specific to CMyFRpy")
     def test_combinations_tuple_reuse(self):
         self.assertEqual(len(set(map(id, combinations('abcde', 3)))), 1)
         self.assertNotEqual(len(set(map(id, list(combinations('abcde', 3))))), 1)
@@ -378,7 +378,7 @@ class TestBasicOps(unittest.TestCase):
 
 
         def cwr1(iterable, r):
-            'Pure python version shown in the docs'
+            'Pure myFRpy version shown in the docs'
             # number items returned:  (n+r-1)! / r! / (n-1)! when n>0
             pool = tuple(iterable)
             n = len(pool)
@@ -396,7 +396,7 @@ class TestBasicOps(unittest.TestCase):
                 yield tuple(pool[i] for i in indices)
 
         def cwr2(iterable, r):
-            'Pure python version shown in the docs'
+            'Pure myFRpy version shown in the docs'
             pool = tuple(iterable)
             n = len(pool)
             for indices in product(range(n), repeat=r):
@@ -431,8 +431,8 @@ class TestBasicOps(unittest.TestCase):
                     self.assertTrue(all(e in values for e in c))           # elements taken from input iterable
                     self.assertEqual(noruns,
                                      [e for e in values if e in c])     # comb is a subsequence of the input iterable
-                self.assertEqual(result, list(cwr1(values, r)))         # matches first pure python version
-                self.assertEqual(result, list(cwr2(values, r)))         # matches second pure python version
+                self.assertEqual(result, list(cwr1(values, r)))         # matches first pure myFRpy version
+                self.assertEqual(result, list(cwr2(values, r)))         # matches second pure myFRpy version
 
                 for proto in range(pickle.HIGHEST_PROTOCOL + 1):
                     self.pickletest(proto, cwr(values,r))               # test pickling
@@ -443,7 +443,7 @@ class TestBasicOps(unittest.TestCase):
             combinations_with_replacement("AA", 2**30)
 
         # Test implementation detail:  tuple re-use
-    @support.impl_detail("tuple reuse is specific to CPython")
+    @support.impl_detail("tuple reuse is specific to CMyFRpy")
     def test_combinations_with_replacement_tuple_reuse(self):
         cwr = combinations_with_replacement
         self.assertEqual(len(set(map(id, cwr('abcde', 3)))), 1)
@@ -461,7 +461,7 @@ class TestBasicOps(unittest.TestCase):
                                            [(0,1), (0,2), (1,0), (1,2), (2,0), (2,1)])
 
         def permutations1(iterable, r=None):
-            'Pure python version shown in the docs'
+            'Pure myFRpy version shown in the docs'
             pool = tuple(iterable)
             n = len(pool)
             r = n if r is None else r
@@ -485,7 +485,7 @@ class TestBasicOps(unittest.TestCase):
                     return
 
         def permutations2(iterable, r=None):
-            'Pure python version shown in the docs'
+            'Pure myFRpy version shown in the docs'
             pool = tuple(iterable)
             n = len(pool)
             r = n if r is None else r
@@ -504,8 +504,8 @@ class TestBasicOps(unittest.TestCase):
                     self.assertEqual(len(p), r)                         # r-length permutations
                     self.assertEqual(len(set(p)), r)                    # no duplicate elements
                     self.assertTrue(all(e in values for e in p))           # elements taken from input iterable
-                self.assertEqual(result, list(permutations1(values, r))) # matches first pure python version
-                self.assertEqual(result, list(permutations2(values, r))) # matches second pure python version
+                self.assertEqual(result, list(permutations1(values, r))) # matches first pure myFRpy version
+                self.assertEqual(result, list(permutations2(values, r))) # matches second pure myFRpy version
                 if r == n:
                     self.assertEqual(result, list(permutations(values, None))) # test r as None
                     self.assertEqual(result, list(permutations(values)))       # test default r
@@ -518,7 +518,7 @@ class TestBasicOps(unittest.TestCase):
         with self.assertRaises((OverflowError, MemoryError)):
             permutations("A", 2**30)
 
-    @support.impl_detail("tuple reuse is specific to CPython")
+    @support.impl_detail("tuple reuse is specific to CMyFRpy")
     def test_permutations_tuple_reuse(self):
         self.assertEqual(len(set(map(id, permutations('abcde', 3)))), 1)
         self.assertNotEqual(len(set(map(id, list(permutations('abcde', 3))))), 1)
@@ -996,7 +996,7 @@ class TestBasicOps(unittest.TestCase):
         self.assertEqual([pair for pair in zip('abc', 'def')],
                          lzip('abc', 'def'))
 
-    @support.impl_detail("tuple reuse is specific to CPython")
+    @support.impl_detail("tuple reuse is specific to CMyFRpy")
     @pickle_deprecated
     def test_zip_tuple_reuse(self):
         ids = list(map(id, zip('abc', 'def')))
@@ -1066,7 +1066,7 @@ class TestBasicOps(unittest.TestCase):
         self.assertEqual([pair for pair in zip_longest('abc', 'def')],
                          list(zip('abc', 'def')))
 
-    @support.impl_detail("tuple reuse is specific to CPython")
+    @support.impl_detail("tuple reuse is specific to CMyFRpy")
     def test_zip_longest_tuple_reuse(self):
         ids = list(map(id, zip_longest('abc', 'def')))
         self.assertEqual(min(ids), max(ids))
@@ -1263,7 +1263,7 @@ class TestBasicOps(unittest.TestCase):
                     return
 
         def product2(*args, **kwds):
-            'Pure python version used in docs'
+            'Pure myFRpy version used in docs'
             pools = list(map(tuple, args)) * kwds.get('repeat', 1)
             result = [[]]
             for pool in pools:
@@ -1287,7 +1287,7 @@ class TestBasicOps(unittest.TestCase):
         with self.assertRaises((OverflowError, MemoryError)):
             product(*(['ab']*2**5), repeat=2**25)
 
-    @support.impl_detail("tuple reuse is specific to CPython")
+    @support.impl_detail("tuple reuse is specific to CMyFRpy")
     def test_product_tuple_reuse(self):
         self.assertEqual(len(set(map(id, product('abc', 'def')))), 1)
         self.assertNotEqual(len(set(map(id, list(product('abc', 'def'))))), 1)
@@ -1701,7 +1701,7 @@ class TestBasicOps(unittest.TestCase):
             "import typing, copyreg, itertools; "
             "copyreg.buggy_tee = itertools.tee(())"
         )
-        script_helper.assert_python_ok("-c", script)
+        script_helper.assert_myFRpy_ok("-c", script)
 
     # Issue 13454: Crash when deleting backward iterator from tee()
     def test_tee_del_backward(self):
@@ -1773,7 +1773,7 @@ class TestBasicOps(unittest.TestCase):
             self.assertRaises(StopIteration, next, f(lambda x:x, []))
             self.assertRaises(StopIteration, next, f(lambda x:x, StopNow()))
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_combinations_result_gc(self):
         # bpo-42536: combinations's tuple-reuse speed trick breaks the GC's
         # assumptions about what can be untracked. Make sure we re-track result
@@ -1786,7 +1786,7 @@ class TestBasicOps(unittest.TestCase):
         # it's mutated and returned from __next__:
         self.assertTrue(gc.is_tracked(next(it)))
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_combinations_with_replacement_result_gc(self):
         # Ditto for combinations_with_replacement.
         it = combinations_with_replacement([None, []], 1)
@@ -1794,7 +1794,7 @@ class TestBasicOps(unittest.TestCase):
         gc.collect()
         self.assertTrue(gc.is_tracked(next(it)))
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_permutations_result_gc(self):
         # Ditto for permutations.
         it = permutations([None, []], 1)
@@ -1802,7 +1802,7 @@ class TestBasicOps(unittest.TestCase):
         gc.collect()
         self.assertTrue(gc.is_tracked(next(it)))
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_product_result_gc(self):
         # Ditto for product.
         it = product([None, []])
@@ -1810,14 +1810,14 @@ class TestBasicOps(unittest.TestCase):
         gc.collect()
         self.assertTrue(gc.is_tracked(next(it)))
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_zip_longest_result_gc(self):
         # Ditto for zip_longest.
         it = zip_longest([[]])
         gc.collect()
         self.assertTrue(gc.is_tracked(next(it)))
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_immutable_types(self):
         from itertools import _grouper, _tee, _tee_dataobject
         dataset = (
@@ -1962,7 +1962,7 @@ class TestExamples(unittest.TestCase):
         self.assertEqual(list(takewhile(lambda x: x<5, [1,4,6,4,1])), [1,4])
 
 
-class TestPurePythonRoughEquivalents(unittest.TestCase):
+class TestPureMyFRpyRoughEquivalents(unittest.TestCase):
 
     def test_batched_recipe(self):
         def batched_recipe(iterable, n):
@@ -2569,7 +2569,7 @@ class SubclassWithKwargsTest(unittest.TestCase):
                 self.assertEqual(u.newarg, 3)
 
 
-@support.cpython_only
+@support.cmyFRpy_only
 class SizeofTest(unittest.TestCase):
     def setUp(self):
         self.ssize_t = struct.calcsize('n')

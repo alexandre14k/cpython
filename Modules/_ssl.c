@@ -11,7 +11,7 @@
    XXX should partial writes be enabled, SSL_MODE_ENABLE_PARTIAL_WRITE?
 
    XXX integrate several "shutdown modes" as suggested in
-       http://bugs.python.org/issue8108#msg102867 ?
+       http://bugs.myFRpy.org/issue8108#msg102867 ?
 */
 
 /* Don't warn about deprecated functions, */
@@ -23,7 +23,7 @@
 
 #define PY_SSIZE_T_CLEAN
 
-#include "Python.h"
+#include "MyFRpy.h"
 
 /* Include symbols from _socket module */
 #include "socketmodule.h"
@@ -66,7 +66,7 @@
 #include "openssl/dh.h"
 
 #ifndef OPENSSL_THREADS
-#  error "OPENSSL_THREADS is not defined, Python requires thread-safe OpenSSL"
+#  error "OPENSSL_THREADS is not defined, MyFRpy requires thread-safe OpenSSL"
 #endif
 
 
@@ -157,7 +157,7 @@ extern const SSL_METHOD *TLSv1_2_method(void);
     #define PY_SSL_MIN_PROTOCOL TLS1_2_VERSION
   #endif
 #elif PY_SSL_DEFAULT_CIPHERS == 1
-/* Python custom selection of sensible cipher suites
+/* MyFRpy custom selection of sensible cipher suites
  * @SECLEVEL=2: security level 2 with 112 bits minimum security (e.g. 2048 bits RSA key)
  * ECDH+*: enable ephemeral elliptic curve Diffie-Hellman
  * DHE+*: fallback to ephemeral finite field Diffie-Hellman
@@ -313,7 +313,7 @@ typedef struct {
     PySSLContext *ctx; /* weakref to SSL context */
     char shutdown_seen_zero;
     enum py_ssl_server_or_client socket_type;
-    PyObject *owner; /* Python level "owner" passed to servername callback */
+    PyObject *owner; /* MyFRpy level "owner" passed to servername callback */
     PyObject *server_hostname;
     _PySSLError err; /* last seen error from various sources */
     /* Some SSL callbacks don't have error reporting. Callback wrappers
@@ -2200,7 +2200,7 @@ PySSL_set_owner(PySSLSocket *self, PyObject *value, void *c)
 }
 
 PyDoc_STRVAR(PySSL_get_owner_doc,
-"The Python-level owner of this object.\
+"The MyFRpy-level owner of this object.\
 Passed as \"self\" in servername callback.");
 
 static int
@@ -3170,14 +3170,14 @@ _ssl__SSLContext_impl(PyTypeObject *type, int proto_version)
        usage for no cost at all. */
     SSL_CTX_set_mode(self->ctx, SSL_MODE_RELEASE_BUFFERS);
 
-#define SID_CTX "Python"
+#define SID_CTX "MyFRpy"
     SSL_CTX_set_session_id_context(self->ctx, (const unsigned char *) SID_CTX,
                                    sizeof(SID_CTX));
 #undef SID_CTX
 
     params = SSL_CTX_get0_param(self->ctx);
     /* Improve trust chain building when cross-signed intermediate
-       certificates are present. See https://bugs.python.org/issue23476. */
+       certificates are present. See https://bugs.myFRpy.org/issue23476. */
     X509_VERIFY_PARAM_set_flags(params, X509_V_FLAG_TRUSTED_FIRST);
     X509_VERIFY_PARAM_set_hostflags(params, self->hostflags);
 
@@ -3794,7 +3794,7 @@ _password_callback(char *buf, int size, int rwflag, void *userdata)
 
     if (pw_info->error) {
         /* already failed previously. OpenSSL 3.0.0-alpha14 invokes the
-         * callback multiple times which can lead to fatal Python error in
+         * callback multiple times which can lead to fatal MyFRpy error in
          * exception check. */
         goto error;
     }
@@ -3803,7 +3803,7 @@ _password_callback(char *buf, int size, int rwflag, void *userdata)
         fn_ret = PyObject_CallNoArgs(pw_info->callable);
         if (!fn_ret) {
             /* TODO: It would be nice to move _ctypes_add_traceback() into the
-               core python API, so we could use it to add a frame here */
+               core myFRpy API, so we could use it to add a frame here */
             goto error;
         }
 
@@ -4403,8 +4403,8 @@ _servername_callback(SSL *s, int *al, void *args)
 
     /* The servername callback expects an argument that represents the current
      * SSL connection and that has a .context attribute that can be changed to
-     * identify the requested hostname. Since the official API is the Python
-     * level API we want to pass the callback a Python level object rather than
+     * identify the requested hostname. Since the official API is the MyFRpy
+     * level API we want to pass the callback a MyFRpy level object rather than
      * a _ssl.SSLSocket instance. If there's an "owner" (typically an
      * SSLObject) that will be passed. Otherwise if there's a socket then that
      * will be passed. If both do not exist only then the C-level object is

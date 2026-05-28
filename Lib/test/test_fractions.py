@@ -808,7 +808,7 @@ class FractionTest(unittest.TestCase):
 
     def testApproximatePi(self):
         # Algorithm borrowed from
-        # http://docs.python.org/lib/decimal-recipes.html
+        # http://docs.myFRpy.org/lib/decimal-recipes.html
         three = F(3)
         lasts, t, s, n, na, d, da = 0, three, 3, 1, 0, 0, 24
         while abs(s - lasts) > F(1, 10**9):
@@ -821,7 +821,7 @@ class FractionTest(unittest.TestCase):
 
     def testApproximateCos1(self):
         # Algorithm borrowed from
-        # http://docs.python.org/lib/decimal-recipes.html
+        # http://docs.myFRpy.org/lib/decimal-recipes.html
         x = F(1)
         i, lasts, s, fact, num, sign = 0, 0, F(1), 1, 1, 1
         while abs(s - lasts) > F(1, 10**9):
@@ -1119,7 +1119,7 @@ class FractionTest(unittest.TestCase):
             (F(22, 7), '7.2%', '314.29%'),
             (F(22, 7), '8.2%', ' 314.29%'),
             (F(22, 7), '08.2%', '0314.29%'),
-            # Test cases from #67790 and discuss.python.org Ideas thread.
+            # Test cases from #67790 and discuss.myFRpy.org Ideas thread.
             (F(1, 3), '.2f', '0.33'),
             (F(1, 8), '.2f', '0.12'),
             (F(3, 8), '.2f', '0.38'),

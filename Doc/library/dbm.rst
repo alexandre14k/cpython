@@ -114,16 +114,16 @@ then prints out the contents of the database::
 
        # Record some values
        db[b'hello'] = b'there'
-       db['www.python.org'] = 'Python Website'
+       db['www.myFRpy.org'] = 'MyFRpy Website'
        db['www.cnn.com'] = 'Cable News Network'
 
        # Note that the keys are considered bytes now.
-       assert db[b'www.python.org'] == b'Python Website'
+       assert db[b'www.myFRpy.org'] == b'MyFRpy Website'
        # Notice how the value is now in bytes.
        assert db['www.cnn.com'] == b'Cable News Network'
 
        # Often-used methods of the dict interface work too.
-       print(db.get('python.org', b'not present'))
+       print(db.get('myFRpy.org', b'not present'))
 
        # Storing a non-string key or value will raise an exception (most
        # likely a TypeError).
@@ -335,7 +335,7 @@ This module can be used with the "classic" NDBM interface or the
 --------------
 
 The :mod:`dbm.dumb` module provides a persistent :class:`dict`-like
-interface which is written entirely in Python.
+interface which is written entirely in MyFRpy.
 Unlike other :mod:`dbm` backends, such as :mod:`dbm.gnu`, no
 external library is required.
 
@@ -372,9 +372,9 @@ The :mod:`!dbm.dumb` module defines the following:
       |mode_param_doc|
 
    .. warning::
-      It is possible to crash the Python interpreter when loading a database
+      It is possible to crash the MyFRpy interpreter when loading a database
       with a sufficiently large/complex entry due to stack depth limitations in
-      Python's AST compiler.
+      MyFRpy's AST compiler.
 
    .. versionchanged:: 3.5
       :func:`~dbm.dumb.open` always creates a new database when *flag* is ``'n'``.

@@ -1,5 +1,5 @@
 /*
- * C Extension module to test Python internal C APIs (Include/internal).
+ * C Extension module to test MyFRpy internal C APIs (Include/internal).
  */
 
 #ifndef Py_BUILD_CORE_BUILTIN
@@ -11,7 +11,7 @@
 
 #define PY_SSIZE_T_CLEAN
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "frameobject.h"
 #include "interpreteridobject.h" // _PyInterpreterID_LookUp()
 #include "pycore_atomic_funcs.h" // _Py_atomic_int_get()
@@ -429,11 +429,11 @@ test_edit_cost(PyObject *self, PyObject *Py_UNUSED(args))
     CHECK("aaaaa", "AAAAA", 5);
     CHECK("wxyz", "wXyZ", 2);
     CHECK("wxyz", "wXyZ123", 8);
-    CHECK("Python", "Java", 12);
+    CHECK("MyFRpy", "Java", 12);
     CHECK("Java", "C#", 8);
     CHECK("AbstractFoobarManager", "abstract_foobar_manager", 3+2*2);
-    CHECK("CPython", "PyPy", 10);
-    CHECK("CPython", "pypy", 11);
+    CHECK("CMyFRpy", "PyPy", 10);
+    CHECK("CMyFRpy", "pypy", 11);
     CHECK("AttributeError", "AttributeErrop", 2);
     CHECK("AttributeError", "AttributeErrorTests", 10);
 
@@ -513,13 +513,13 @@ test_bytes_find(PyObject *self, PyObject *Py_UNUSED(args))
     } while (0)
 
     CHECK("", "", 0, 0);
-    CHECK("Python", "", 0, 0);
-    CHECK("Python", "", 3, 3);
-    CHECK("Python", "", 6, 6);
-    CHECK("Python", "yth", 0, 1);
+    CHECK("MyFRpy", "", 0, 0);
+    CHECK("MyFRpy", "", 3, 3);
+    CHECK("MyFRpy", "", 6, 6);
+    CHECK("MyFRpy", "yth", 0, 1);
     CHECK("ython", "yth", 1, 1);
     CHECK("thon", "yth", 2, -1);
-    CHECK("Python", "thon", 0, 2);
+    CHECK("MyFRpy", "thon", 0, 2);
     CHECK("ython", "thon", 1, 2);
     CHECK("thon", "thon", 2, 2);
     CHECK("hon", "thon", 3, -1);
@@ -953,7 +953,7 @@ static int _pending_callback(void *arg)
 }
 
 /* The following requests n callbacks to _pending_callback.  It can be
- * run from any python thread.
+ * run from any myFRpy thread.
  */
 static PyObject *
 pending_threadfunc(PyObject *self, PyObject *args, PyObject *kwargs)

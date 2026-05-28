@@ -1,12 +1,12 @@
-#! /usr/bin/env python3
+#! /usr/bin/env myFRpy3
 #
-# Class for profiling python code. rev 1.0  6/2/94
+# Class for profiling myFRpy code. rev 1.0  6/2/94
 #
 # Written by James Roskind
 # Based on prior profile module by Sjoerd Mullender...
 #   which was hacked somewhat by: Guido van Rossum
 
-"""Class for profiling Python code."""
+"""Class for profiling MyFRpy code."""
 
 # Copyright Disney Enterprises, Inc.  All Rights Reserved.
 # Licensed to PSF under a Contributor Agreement
@@ -494,7 +494,7 @@ class Profile:
         # lots of calls, because we're trying to quantify stopwatch overhead.
         # Do not raise any exceptions, though, because we want to know
         # exactly how many profile events are generated (one call event, +
-        # one return event, per Python-level call).
+        # one return event, per MyFRpy-level call).
 
         def f1(n):
             for i in range(n):

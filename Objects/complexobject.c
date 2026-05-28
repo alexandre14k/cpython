@@ -5,7 +5,7 @@
 
 /* Submitted by Jim Hugunin */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_call.h"          // _PyObject_CallNoArgs()
 #include "pycore_long.h"          // _PyLong_GetZero()
 #include "pycore_object.h"        // _PyObject_Init()
@@ -300,7 +300,7 @@ try_complex_special_method(PyObject *op)
         if (PyErr_WarnFormat(PyExc_DeprecationWarning, 1,
                 "__complex__ returned non-complex (type %.200s).  "
                 "The ability to return an instance of a strict subclass of complex "
-                "is deprecated, and may be removed in a future version of Python.",
+                "is deprecated, and may be removed in a future version of MyFRpy.",
                 Py_TYPE(res)->tp_name)) {
             Py_DECREF(res);
             return NULL;
@@ -764,7 +764,7 @@ complex_from_string_inner(const char *s, Py_ssize_t len, void *type)
          j
 
        are also accepted, though support for these forms may be removed from
-       a future version of Python.
+       a future version of MyFRpy.
     */
 
     /* first look for forms starting with <float> */

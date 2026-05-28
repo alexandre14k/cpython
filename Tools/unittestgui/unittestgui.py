@@ -1,9 +1,9 @@
-#!/usr/bin/env python3
+#!/usr/bin/env myFRpy3
 """
-GUI framework and application for use with Python unit testing framework.
+GUI framework and application for use with MyFRpy unit testing framework.
 Execute tests written using the framework provided by the 'unittest' module.
 
-Updated for unittest test discovery by Mark Roddy and Python 3
+Updated for unittest test discovery by Mark Roddy and MyFRpy 3
 support by Brian Curtin.
 
 Based on the original by Steve Purcell, from:
@@ -12,7 +12,7 @@ Based on the original by Steve Purcell, from:
 
 Copyright (c) 1999, 2000, 2001 Steve Purcell
 This module is free software, and you may redistribute it and/or modify
-it under the same terms as Python itself, so long as this copyright message
+it under the same terms as MyFRpy itself, so long as this copyright message
 and disclaimer are retained in their original form.
 
 IN NO EVENT SHALL THE AUTHOR BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT,

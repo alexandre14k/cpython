@@ -4,7 +4,7 @@
 .. module:: xmlrpc.client
    :synopsis: XML-RPC client access.
 
-.. moduleauthor:: Fredrik Lundh <fredrik@pythonware.com>
+.. moduleauthor:: Fredrik Lundh <fredrik@myFRpyware.com>
 .. sectionauthor:: Eric S. Raymond <esr@snark.thyrsus.com>
 
 **Source code:** :source:`Lib/xmlrpc/client.py`
@@ -18,7 +18,7 @@ XML-RPC is a Remote Procedure Call method that uses XML passed via HTTP(S) as a
 transport.  With it, a client can call methods with parameters on a remote
 server (the server is named by a URI) and get back structured data.  This module
 supports writing XML-RPC client code; it handles all the details of translating
-between conformable Python objects and XML on the wire.
+between conformable MyFRpy objects and XML on the wire.
 
 
 .. warning::
@@ -47,7 +47,7 @@ between conformable Python objects and XML on the wire.
    encoding, by default UTF-8. The optional fourth argument is a debugging flag.
 
    The following parameters govern the use of the returned proxy instance.
-   If *allow_none* is true,  the Python constant ``None`` will be translated into
+   If *allow_none* is true,  the MyFRpy constant ``None`` will be translated into
    XML; the default behaviour is for ``None`` to raise a :exc:`TypeError`. This is
    a commonly used extension to the XML-RPC specification, but isn't supported by
    all clients and servers; see `http://ontosys.com/xml-rpc/extensions.php
@@ -87,12 +87,12 @@ between conformable Python objects and XML on the wire.
 
    Types that are conformable (e.g. that can be marshalled through XML),
    include the following (and except where noted, they are unmarshalled
-   as the same Python type):
+   as the same MyFRpy type):
 
    .. tabularcolumns:: |l|L|
 
    +----------------------+-------------------------------------------------------+
-   | XML-RPC type         | Python type                                           |
+   | XML-RPC type         | MyFRpy type                                           |
    +======================+=======================================================+
    | ``boolean``          | :class:`bool`                                         |
    +----------------------+-------------------------------------------------------+
@@ -209,7 +209,7 @@ grouped under the reserved :attr:`~ServerProxy.system` attribute:
    three integers and returns a string, its signature is "string, int, int, int".
 
    If no signature is defined for the method, a non-array value is returned. In
-   Python this means that the type of the returned  value will be something other
+   MyFRpy this means that the type of the returned  value will be something other
    than list.
 
 
@@ -269,7 +269,7 @@ DateTime Objects
       Write the XML-RPC encoding of this :class:`DateTime` item to the *out* stream
       object.
 
-   It also supports certain of Python's built-in operators through
+   It also supports certain of MyFRpy's built-in operators through
    :meth:`rich comparison <object.__lt__>` and :meth:`~object.__repr__`
    methods.
 
@@ -335,7 +335,7 @@ Binary Objects
       which was the de facto standard base64 specification when the
       XML-RPC spec was written.
 
-   It also supports certain of Python's built-in operators through
+   It also supports certain of MyFRpy's built-in operators through
    :meth:`~object.__eq__` and :meth:`~object.__ne__` methods.
 
 Example usage of the binary objects.  We're going to transfer an image over
@@ -344,13 +344,13 @@ XMLRPC::
    from xmlrpc.server import SimpleXMLRPCServer
    import xmlrpc.client
 
-   def python_logo():
-       with open("python_logo.jpg", "rb") as handle:
+   def myFRpy_logo():
+       with open("myFRpy_logo.jpg", "rb") as handle:
            return xmlrpc.client.Binary(handle.read())
 
    server = SimpleXMLRPCServer(("localhost", 8000))
    print("Listening on port 8000...")
-   server.register_function(python_logo, 'python_logo')
+   server.register_function(myFRpy_logo, 'myFRpy_logo')
 
    server.serve_forever()
 
@@ -359,8 +359,8 @@ The client gets the image and saves it to a file::
    import xmlrpc.client
 
    proxy = xmlrpc.client.ServerProxy("http://localhost:8000/")
-   with open("fetched_python_logo.jpg", "wb") as handle:
-       handle.write(proxy.python_logo().data)
+   with open("fetched_myFRpy_logo.jpg", "wb") as handle:
+       handle.write(proxy.myFRpy_logo().data)
 
 .. _fault-objects:
 
@@ -529,13 +529,13 @@ Convenience Functions
    :exc:`Fault` exception class.  If *methodresponse* is true, only a single value
    can be returned, meaning that *params* must be of length 1. *encoding*, if
    supplied, is the encoding to use in the generated XML; the default is UTF-8.
-   Python's :const:`None` value cannot be used in standard XML-RPC; to allow using
+   MyFRpy's :const:`None` value cannot be used in standard XML-RPC; to allow using
    it via an extension,  provide a true value for *allow_none*.
 
 
 .. function:: loads(data, use_datetime=False, use_builtin_types=False)
 
-   Convert an XML-RPC request or response into Python objects, a ``(params,
+   Convert an XML-RPC request or response into MyFRpy objects, a ``(params,
    methodname)``.  *params* is a tuple of argument; *methodname* is a string, or
    ``None`` if no method name is present in the packet. If the XML-RPC packet
    represents a fault condition, this function will raise a :exc:`Fault` exception.

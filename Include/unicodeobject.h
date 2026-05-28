@@ -8,7 +8,7 @@
 Unicode implementation based on original code by Fredrik Lundh,
 modified by Marc-Andre Lemburg (mal@lemburg.com) according to the
 Unicode Integration Proposal. (See
-http://www.egenix.com/files/python/unicode-proposal.txt).
+http://www.egenix.com/files/myFRpy/unicode-proposal.txt).
 
 Copyright (c) Corporation for National Research Initiatives.
 
@@ -16,7 +16,7 @@ Copyright (c) Corporation for National Research Initiatives.
  Original header:
  --------------------------------------------------------------------
 
- * Yet another Unicode string type for Python.  This type supports the
+ * Yet another Unicode string type for MyFRpy.  This type supports the
  * 16-bit Basic Multilingual Plane (BMP) only.
  *
  * Written by Fredrik Lundh, January 1999.
@@ -24,8 +24,8 @@ Copyright (c) Corporation for National Research Initiatives.
  * Copyright (c) 1999 by Secret Labs AB.
  * Copyright (c) 1999 by Fredrik Lundh.
  *
- * fredrik@pythonware.com
- * http://www.pythonware.com
+ * fredrik@myFRpyware.com
+ * http://www.myFRpyware.com
  *
  * --------------------------------------------------------------------
  * This Unicode String Type is
@@ -61,7 +61,7 @@ Copyright (c) Corporation for National Research Initiatives.
 
 /* --- Internal Unicode Format -------------------------------------------- */
 
-/* Python 3.x requires unicode */
+/* MyFRpy 3.x requires unicode */
 #define Py_USING_UNICODE
 
 #ifndef SIZEOF_WCHAR_T
@@ -349,7 +349,7 @@ PyAPI_FUNC(PyObject*) PyUnicode_Decode(
     const char *errors          /* error handling */
     );
 
-/* Decode a Unicode object unicode and return the result as Python
+/* Decode a Unicode object unicode and return the result as MyFRpy
    object.
 
    This API is DEPRECATED. The only supported standard encoding is rot13.
@@ -375,7 +375,7 @@ Py_DEPRECATED(3.6) PyAPI_FUNC(PyObject*) PyUnicode_AsDecodedUnicode(
     const char *errors          /* error handling */
     );
 
-/* Encodes a Unicode object and returns the result as Python
+/* Encodes a Unicode object and returns the result as MyFRpy
    object.
 
    This API is DEPRECATED.  It is superseded by PyUnicode_AsEncodedString()
@@ -389,7 +389,7 @@ Py_DEPRECATED(3.6) PyAPI_FUNC(PyObject*) PyUnicode_AsEncodedObject(
     const char *errors          /* error handling */
     );
 
-/* Encodes a Unicode object and returns the result as Python string
+/* Encodes a Unicode object and returns the result as MyFRpy string
    object. */
 
 PyAPI_FUNC(PyObject*) PyUnicode_AsEncodedString(
@@ -512,14 +512,14 @@ PyAPI_FUNC(PyObject*) PyUnicode_DecodeUTF32Stateful(
     Py_ssize_t *consumed        /* bytes consumed */
     );
 
-/* Returns a Python string using the UTF-32 encoding in native byte
+/* Returns a MyFRpy string using the UTF-32 encoding in native byte
    order. The string always starts with a BOM mark.  */
 
 PyAPI_FUNC(PyObject*) PyUnicode_AsUTF32String(
     PyObject *unicode           /* Unicode object */
     );
 
-/* Returns a Python string object holding the UTF-32 encoded value of
+/* Returns a MyFRpy string object holding the UTF-32 encoded value of
    the Unicode data.
 
    If byteorder is not 0, output is written according to the following
@@ -579,7 +579,7 @@ PyAPI_FUNC(PyObject*) PyUnicode_DecodeUTF16Stateful(
     Py_ssize_t *consumed        /* bytes consumed */
     );
 
-/* Returns a Python string using the UTF-16 encoding in native byte
+/* Returns a MyFRpy string using the UTF-16 encoding in native byte
    order. The string always starts with a BOM mark.  */
 
 PyAPI_FUNC(PyObject*) PyUnicode_AsUTF16String(
@@ -755,7 +755,7 @@ PyAPI_FUNC(int) PyUnicode_FSConverter(PyObject*, void*);
 
 PyAPI_FUNC(int) PyUnicode_FSDecoder(PyObject*, void*);
 
-/* Decode a null-terminated string from the Python filesystem encoding
+/* Decode a null-terminated string from the MyFRpy filesystem encoding
    and error handler.
 
    If the string length is known, use PyUnicode_DecodeFSDefaultAndSize(). */
@@ -763,13 +763,13 @@ PyAPI_FUNC(PyObject*) PyUnicode_DecodeFSDefault(
     const char *s               /* encoded string */
     );
 
-/* Decode a string from the Python filesystem encoding and error handler. */
+/* Decode a string from the MyFRpy filesystem encoding and error handler. */
 PyAPI_FUNC(PyObject*) PyUnicode_DecodeFSDefaultAndSize(
     const char *s,               /* encoded string */
     Py_ssize_t size              /* size */
     );
 
-/* Encode a Unicode object to the Python filesystem encoding and error handler.
+/* Encode a Unicode object to the MyFRpy filesystem encoding and error handler.
    Return bytes. */
 PyAPI_FUNC(PyObject*) PyUnicode_EncodeFSDefault(
     PyObject *unicode
@@ -1009,9 +1009,9 @@ PyAPI_FUNC(int) PyUnicode_IsIdentifier(PyObject *s);
 /* === Characters Type APIs =============================================== */
 
 #ifndef Py_LIMITED_API
-#  define Py_CPYTHON_UNICODEOBJECT_H
-#  include "cpython/unicodeobject.h"
-#  undef Py_CPYTHON_UNICODEOBJECT_H
+#  define Py_CMYFRPY_UNICODEOBJECT_H
+#  include "cmyFRpy/unicodeobject.h"
+#  undef Py_CMYFRPY_UNICODEOBJECT_H
 #endif
 
 #ifdef __cplusplus

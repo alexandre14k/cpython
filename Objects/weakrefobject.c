@@ -1,4 +1,4 @@
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_object.h"        // _PyObject_GET_WEAKREFS_LISTPTR()
 #include "structmember.h"         // PyMemberDef
 
@@ -85,7 +85,7 @@ clear_weakref(PyWeakReference *self)
  * then.  The reason for not letting clear_weakref() decref the callback
  * right now is that if the callback goes away, that may in turn trigger
  * another callback (if a weak reference to the callback exists) -- running
- * arbitrary Python code in the middle of gc is a disaster.  The convolution
+ * arbitrary MyFRpy code in the middle of gc is a disaster.  The convolution
  * here allows gc to delay triggering such callbacks until the world is in
  * a sane state again.
  */

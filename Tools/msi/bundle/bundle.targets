@@ -6,7 +6,7 @@
 
         <BootstrapConfiguration Condition="'$(BootstrapConfiguration)' == ''">Release</BootstrapConfiguration>
         <LinkerSuppressSpecificWarnings>1132;1135;1140</LinkerSuppressSpecificWarnings>
-        <OutputName Condition="$(BuildForRelease)">$(OutputName)-$(PythonVersion)</OutputName>
+        <OutputName Condition="$(BuildForRelease)">$(OutputName)-$(MyFRpyVersion)</OutputName>
         <OutputName Condition="!$(BuildForRelease)">$(OutputName)-$(MajorVersionNumber).$(MinorVersionNumber).$(MicroVersionNumber).$(RevisionNumber)</OutputName>
         <OutputName Condition="$(Platform) == 'x64'">$(OutputName)-amd64</OutputName>
         <OutputName Condition="$(Platform) == 'ARM64'">$(OutputName)-arm64</OutputName>
@@ -91,7 +91,7 @@
     <Target Name="BuildBootstrapApplication" BeforeTargets="BeforeBuild">
         <Message Text="Building bootstrap app" Importance="high" />
 
-        <MSBuild Projects="bootstrap\pythonba.vcxproj"
+        <MSBuild Projects="bootstrap\myFRpyba.vcxproj"
                  Targets="Build;GetNativeTargetPath"
                  UseResultsCache="true"
                  Properties="Configuration=$(BootstrapConfiguration);Platform=Win32;BuildForPlatform=$(Platform)">

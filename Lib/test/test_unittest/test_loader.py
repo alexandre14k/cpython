@@ -121,7 +121,7 @@ class Test_TestLoader(unittest.TestCase):
 
     # "This test ensures that internal `TestCase` subclasses are not loaded"
     def test_loadTestsFromModule__TestCase_subclass_internals(self):
-        # See https://github.com/python/cpython/issues/84867
+        # See https://github.com/myFRpy/cmyFRpy/issues/84867
         m = types.ModuleType('m')
         # Simulate imported names:
         m.TestCase = unittest.TestCase
@@ -204,7 +204,7 @@ class Test_TestLoader(unittest.TestCase):
         self.assertIsInstance(suite, unittest.TestSuite)
         self.assertEqual(load_tests_args, [loader, suite, None])
 
-        # In Python 3.12, the undocumented and unofficial use_load_tests has
+        # In MyFRpy 3.12, the undocumented and unofficial use_load_tests has
         # been removed.
         with self.assertRaises(TypeError):
             loader.loadTestsFromModule(m, False)

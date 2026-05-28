@@ -1,4 +1,4 @@
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_call.h"          // _PyObject_CallNoArgs()
 #include "pycore_long.h"          // _PyLong_GetZero()
 #include "pycore_moduleobject.h"  // _PyModule_GetState()
@@ -53,7 +53,7 @@ class _tuplegetter "_tuplegetterobject *" "clinic_state()->tuplegetter_type"
 #undef clinic_state
 
 /* collections module implementation of a deque() datatype
-   Written and maintained by Raymond D. Hettinger <python@rcn.com>
+   Written and maintained by Raymond D. Hettinger <myFRpy@rcn.com>
 */
 
 /* The block length may be set to any number over 1.  Larger numbers
@@ -88,7 +88,7 @@ class _tuplegetter "_tuplegetterobject *" "clinic_state()->tuplegetter_type"
  * A deque d's first element is at d.leftblock[leftindex]
  * and its last element is at d.rightblock[rightindex].
  *
- * Unlike Python slice indices, these indices are inclusive on both
+ * Unlike MyFRpy slice indices, these indices are inclusive on both
  * ends.  This makes the algorithms for left and right operations
  * more symmetrical and it simplifies the design.
  *

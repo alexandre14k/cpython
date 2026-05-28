@@ -7,7 +7,7 @@ import tempfile
 import unittest
 from unittest.mock import MagicMock
 
-from test.support import (requires, verbose, SaveSignals, cpython_only,
+from test.support import (requires, verbose, SaveSignals, cmyFRpy_only,
                           check_disallow_instantiation, MISSING_C_DOCSTRINGS)
 from test.support.import_helper import import_module
 
@@ -1053,7 +1053,7 @@ class TestCurses(unittest.TestCase):
         panel.set_userptr(A())
         panel.set_userptr(None)
 
-    @cpython_only
+    @cmyFRpy_only
     @requires_curses_func('panel')
     def test_disallow_instantiation(self):
         # Ensure that the type disallows instantiation (bpo-43916)
@@ -1147,7 +1147,7 @@ class TestCurses(unittest.TestCase):
     def test_issue21088(self):
         stdscr = self.stdscr
         #
-        # http://bugs.python.org/issue21088
+        # http://bugs.myFRpy.org/issue21088
         #
         # the bug:
         # when converting curses.window.addch to Argument Clinic

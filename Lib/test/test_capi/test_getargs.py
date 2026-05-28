@@ -50,7 +50,7 @@ DBL_MAX_EXP = sys.float_info.max_exp
 INF = float('inf')
 NAN = float('nan')
 
-# fake, they are not defined in Python's header files
+# fake, they are not defined in MyFRpy's header files
 LLONG_MAX = 2**63-1
 LLONG_MIN = -2**63
 ULLONG_MAX = 2**64-1
@@ -1152,7 +1152,7 @@ class SkipitemTest(unittest.TestCase):
     def test_skipitem(self):
         """
         If this test failed, you probably added a new "format unit"
-        in Python/getargs.c, but neglected to update our poor friend
+        in MyFRpy/getargs.c, but neglected to update our poor friend
         skipitem() in the same file.  (If so, shame on you!)
 
         With a few exceptions**, this function brute-force tests all
@@ -1171,7 +1171,7 @@ class SkipitemTest(unittest.TestCase):
               get away with not testing them--this test is really intended
               to catch *new* format units.
 
-          *** Python C source files must be ASCII.  Therefore it's impossible
+          *** MyFRpy C source files must be ASCII.  Therefore it's impossible
               to have non-ASCII format units.
 
         """

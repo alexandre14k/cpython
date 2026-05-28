@@ -1,9 +1,9 @@
-# Copyright (c) 2004 Python Software Foundation.
+# Copyright (c) 2004 MyFRpy Software Foundation.
 # All rights reserved.
 
 # Written by Eric Price <eprice at tjhsst.edu>
 #    and Facundo Batista <facundo at taniquetil.com.ar>
-#    and Raymond Hettinger <python at rcn.com>
+#    and Raymond Hettinger <myFRpy at rcn.com>
 #    and Aahz <aahz at pobox.com>
 #    and Tim Peters
 
@@ -1842,7 +1842,7 @@ class Decimal(object):
 
         If only one argument is supplied, round a finite Decimal
         instance self to the nearest integer.  If self is infinite or
-        a NaN then a Python exception is raised.  If self is finite
+        a NaN then a MyFRpy exception is raised.  If self is finite
         and lies exactly halfway between two integers then it is
         rounded to the integer with even last digit.
 
@@ -1904,7 +1904,7 @@ class Decimal(object):
 
         For a finite Decimal instance self, return the greatest
         integer n such that n <= self.  If self is infinite or a NaN
-        then a Python exception is raised.
+        then a MyFRpy exception is raised.
 
         """
         if self._is_special:
@@ -1919,7 +1919,7 @@ class Decimal(object):
 
         For a finite Decimal instance self, return the least integer n
         such that n >= self.  If self is infinite or a NaN then a
-        Python exception is raised.
+        MyFRpy exception is raised.
 
         """
         if self._is_special:
@@ -2007,7 +2007,7 @@ class Decimal(object):
                 return other._fix_nan(context)
             return modulo._fix_nan(context)
 
-        # check inputs: we apply same restrictions as Python's pow()
+        # check inputs: we apply same restrictions as MyFRpy's pow()
         if not (self._isinteger() and
                 other._isinteger() and
                 modulo._isinteger()):
@@ -2044,7 +2044,7 @@ class Decimal(object):
         else:
             sign = self._sign
 
-        # convert modulo to a Python integer, and self and other to
+        # convert modulo to a MyFRpy integer, and self and other to
         # Decimal integers (i.e. force their exponents to be >= 0)
         modulo = abs(int(modulo))
         base = _WorkRep(self.to_integral_value())
@@ -4938,7 +4938,7 @@ class Context(object):
         return a.min_mag(b, context=self)
 
     def minus(self, a):
-        """Minus corresponds to unary prefix minus in Python.
+        """Minus corresponds to unary prefix minus in MyFRpy.
 
         The operation is evaluated using the same rules as subtract; the
         operation minus(a) is calculated as subtract('0', a) where the '0'
@@ -5136,7 +5136,7 @@ class Context(object):
         return a.number_class(context=self)
 
     def plus(self, a):
-        """Plus corresponds to unary prefix plus in Python.
+        """Plus corresponds to unary prefix plus in MyFRpy.
 
         The operation is evaluated using the same rules as add; the
         operation plus(a) is calculated as add('0', a) where the '0'
@@ -6044,7 +6044,7 @@ def _convert_other(other, raiseit=False, allow_float=False):
     return NotImplemented
 
 def _convert_for_comparison(self, other, equality_op=False):
-    """Given a Decimal instance self and a Python object other, return
+    """Given a Decimal instance self and a MyFRpy object other, return
     a pair (s, o) of Decimal instances such that "s op o" is
     equivalent to "self op other" for any of the 6 comparison
     operators "op".
@@ -6153,7 +6153,7 @@ _exact_half = re.compile('50*$').match
 ##### PEP3101 support functions ##############################################
 # The functions in this section have little to do with the Decimal
 # class, and could potentially be reused or adapted for other pure
-# Python numeric classes that want to implement __format__
+# MyFRpy numeric classes that want to implement __format__
 #
 # A format specifier for Decimal looks like:
 #
@@ -6226,7 +6226,7 @@ def _parse_format_specifier(format_spec, _localeconv=None):
     format_dict['fill'] = fill or ' '
     # PEP 3101 originally specified that the default alignment should
     # be left;  it was later agreed that right-aligned makes more sense
-    # for numeric types.  See http://bugs.python.org/issue6857.
+    # for numeric types.  See http://bugs.myFRpy.org/issue6857.
     format_dict['align'] = align or '>'
 
     # default sign handling: '-' for negative, '' for positive

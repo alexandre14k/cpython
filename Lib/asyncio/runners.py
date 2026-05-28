@@ -36,7 +36,7 @@ class Runner:
 
     The run() method can be called multiple times within the runner's context.
 
-    This can be useful for interactive console (e.g. IPython),
+    This can be useful for interactive console (e.g. IMyFRpy),
     unittest runners, console tools, -- everywhere when async code
     is called from existing sync framework and where the preferred single
     asyncio.run() call doesn't work.

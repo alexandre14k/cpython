@@ -70,16 +70,16 @@ PyAPI_FUNC(int) PyModule_ExecDef(PyObject *module, PyModuleDef *def);
 
 #define Py_CLEANUP_SUPPORTED 0x20000
 
-#define PYTHON_API_VERSION 1013
-#define PYTHON_API_STRING "1013"
-/* The API version is maintained (independently from the Python version)
+#define MYFRPY_API_VERSION 1013
+#define MYFRPY_API_STRING "1013"
+/* The API version is maintained (independently from the MyFRpy version)
    so we can detect mismatches between the interpreter and dynamically
    loaded modules.  These are diagnosed by an error message but
    the module is still loaded (because the mismatch can only be tested
    after loading the module).  The error message is intended to
    explain the core dump a few seconds later.
 
-   The symbol PYTHON_API_STRING defines the same value as a string
+   The symbol MYFRPY_API_STRING defines the same value as a string
    literal.  *** PLEASE MAKE SURE THE DEFINITIONS MATCH. ***
 
    Please add a line or two to the top of this log for each API
@@ -93,13 +93,13 @@ PyAPI_FUNC(int) PyModule_ExecDef(PyObject *module, PyModuleDef *def);
    17-Jul-2001  GvR     1011    Descr-branch, just to be on the safe side
 
    25-Jan-2001  FLD     1010    Parameters added to PyCode_New() and
-                                PyFrame_New(); Python 2.1a2
+                                PyFrame_New(); MyFRpy 2.1a2
 
    14-Mar-2000  GvR     1009    Unicode API added
 
    3-Jan-1999   GvR     1007    Decided to change back!  (Don't reuse 1008!)
 
-   3-Dec-1998   GvR     1008    Python 1.5.2b1
+   3-Dec-1998   GvR     1008    MyFRpy 1.5.2b1
 
    18-Jan-1997  GvR     1007    string interning and other speedups
 
@@ -116,11 +116,11 @@ PyAPI_FUNC(int) PyModule_ExecDef(PyObject *module, PyModuleDef *def);
    9-Jan-1995   GvR     Initial version (incompatible with older API)
 */
 
-/* The PYTHON_ABI_VERSION is introduced in PEP 384. For the lifetime of
-   Python 3, it will stay at the value of 3; changes to the limited API
+/* The MYFRPY_ABI_VERSION is introduced in PEP 384. For the lifetime of
+   MyFRpy 3, it will stay at the value of 3; changes to the limited API
    must be performed in a strictly backwards-compatible manner. */
-#define PYTHON_ABI_VERSION 3
-#define PYTHON_ABI_STRING "3"
+#define MYFRPY_ABI_VERSION 3
+#define MYFRPY_ABI_STRING "3"
 
 #ifdef Py_TRACE_REFS
  /* When we are tracing reference counts, rename module creation functions so
@@ -134,10 +134,10 @@ PyAPI_FUNC(PyObject *) PyModule_Create2(PyModuleDef*, int apiver);
 
 #ifdef Py_LIMITED_API
 #define PyModule_Create(module) \
-        PyModule_Create2((module), PYTHON_ABI_VERSION)
+        PyModule_Create2((module), MYFRPY_ABI_VERSION)
 #else
 #define PyModule_Create(module) \
-        PyModule_Create2((module), PYTHON_API_VERSION)
+        PyModule_Create2((module), MYFRPY_API_VERSION)
 #endif
 
 #if !defined(Py_LIMITED_API) || Py_LIMITED_API+0 >= 0x03050000
@@ -148,18 +148,18 @@ PyAPI_FUNC(PyObject *) PyModule_FromDefAndSpec2(PyModuleDef *def,
 
 #ifdef Py_LIMITED_API
 #define PyModule_FromDefAndSpec(module, spec) \
-    PyModule_FromDefAndSpec2((module), (spec), PYTHON_ABI_VERSION)
+    PyModule_FromDefAndSpec2((module), (spec), MYFRPY_ABI_VERSION)
 #else
 #define PyModule_FromDefAndSpec(module, spec) \
-    PyModule_FromDefAndSpec2((module), (spec), PYTHON_API_VERSION)
+    PyModule_FromDefAndSpec2((module), (spec), MYFRPY_API_VERSION)
 #endif /* Py_LIMITED_API */
 
 #endif /* New in 3.5 */
 
 #ifndef Py_LIMITED_API
-#  define Py_CPYTHON_MODSUPPORT_H
-#  include "cpython/modsupport.h"
-#  undef Py_CPYTHON_MODSUPPORT_H
+#  define Py_CMYFRPY_MODSUPPORT_H
+#  include "cmyFRpy/modsupport.h"
+#  undef Py_CMYFRPY_MODSUPPORT_H
 #endif
 
 #ifdef __cplusplus

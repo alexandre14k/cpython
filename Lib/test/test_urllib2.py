@@ -1158,16 +1158,16 @@ class HandlerTests(unittest.TestCase):
         h = urllib.request.AbstractHTTPHandler()
         h.parent = MockOpener()
 
-        weird_url = 'http://www.python.org?getspam'
+        weird_url = 'http://www.myFRpy.org?getspam'
         req = Request(weird_url)
         newreq = h.do_request_(req)
-        self.assertEqual(newreq.host, 'www.python.org')
+        self.assertEqual(newreq.host, 'www.myFRpy.org')
         self.assertEqual(newreq.selector, '/?getspam')
 
-        url_without_path = 'http://www.python.org'
+        url_without_path = 'http://www.myFRpy.org'
         req = Request(url_without_path)
         newreq = h.do_request_(req)
-        self.assertEqual(newreq.host, 'www.python.org')
+        self.assertEqual(newreq.host, 'www.myFRpy.org')
         self.assertEqual(newreq.selector, '')
 
     def test_errors(self):
@@ -1362,8 +1362,8 @@ class HandlerTests(unittest.TestCase):
             # Change response for subsequent connection
             conn.__class__.fakedata = b"HTTP/1.1 200 OK\r\n\r\nHello!"
         http.client.HTTPConnection.request = request
-        fp = urllib.request.urlopen("http://python.org/path")
-        self.assertEqual(fp.geturl(), "http://python.org/path?query")
+        fp = urllib.request.urlopen("http://myFRpy.org/path")
+        self.assertEqual(fp.geturl(), "http://myFRpy.org/path?query")
 
     def test_redirect_encoding(self):
         # Some characters in the redirect target may need special handling,
@@ -1419,7 +1419,7 @@ class HandlerTests(unittest.TestCase):
                              [tup[0:2] for tup in o.calls])
 
     def test_proxy_no_proxy(self):
-        os.environ['no_proxy'] = 'python.org'
+        os.environ['no_proxy'] = 'myFRpy.org'
         o = OpenerDirector()
         ph = urllib.request.ProxyHandler(dict(http="proxy.example.com"))
         o.add_handler(ph)
@@ -1427,10 +1427,10 @@ class HandlerTests(unittest.TestCase):
         self.assertEqual(req.host, "www.perl.org")
         o.open(req)
         self.assertEqual(req.host, "proxy.example.com")
-        req = Request("http://www.python.org")
-        self.assertEqual(req.host, "www.python.org")
+        req = Request("http://www.myFRpy.org")
+        self.assertEqual(req.host, "www.myFRpy.org")
         o.open(req)
-        self.assertEqual(req.host, "www.python.org")
+        self.assertEqual(req.host, "www.myFRpy.org")
         del os.environ['no_proxy']
 
     def test_proxy_no_proxy_all(self):
@@ -1438,10 +1438,10 @@ class HandlerTests(unittest.TestCase):
         o = OpenerDirector()
         ph = urllib.request.ProxyHandler(dict(http="proxy.example.com"))
         o.add_handler(ph)
-        req = Request("http://www.python.org")
-        self.assertEqual(req.host, "www.python.org")
+        req = Request("http://www.myFRpy.org")
+        self.assertEqual(req.host, "www.myFRpy.org")
         o.open(req)
-        self.assertEqual(req.host, "www.python.org")
+        self.assertEqual(req.host, "www.myFRpy.org")
         del os.environ['no_proxy']
 
     def test_proxy_https(self):
@@ -1620,11 +1620,11 @@ class HandlerTests(unittest.TestCase):
 
     def test_basic_and_digest_auth_handlers(self):
         # HTTPDigestAuthHandler raised an exception if it couldn't handle a 40*
-        # response (https://bugs.python.org/issue1479302), where it should instead
+        # response (https://bugs.myFRpy.org/issue1479302), where it should instead
         # return None to allow another handler (especially
         # HTTPBasicAuthHandler) to handle the response.
 
-        # Also (https://bugs.python.org/issue14797027, RFC 2617 section 1.2), we must
+        # Also (https://bugs.myFRpy.org/issue14797027, RFC 2617 section 1.2), we must
         # try digest first (since it's the strongest auth scheme), so we record
         # order of calls here to check digest comes first:
         class RecordingOpenerDirector(OpenerDirector):
@@ -1953,13 +1953,13 @@ class RequestTests(unittest.TestCase):
         method = 'PUT'
 
     def setUp(self):
-        self.get = Request("http://www.python.org/~jeremy/")
-        self.post = Request("http://www.python.org/~jeremy/",
+        self.get = Request("http://www.myFRpy.org/~jeremy/")
+        self.post = Request("http://www.myFRpy.org/~jeremy/",
                             "data",
                             headers={"X-Test": "test"})
-        self.head = Request("http://www.python.org/~jeremy/", method='HEAD')
-        self.put = self.PutRequest("http://www.python.org/~jeremy/")
-        self.force_post = self.PutRequest("http://www.python.org/~jeremy/",
+        self.head = Request("http://www.myFRpy.org/~jeremy/", method='HEAD')
+        self.put = self.PutRequest("http://www.myFRpy.org/~jeremy/")
+        self.force_post = self.PutRequest("http://www.myFRpy.org/~jeremy/",
             method="POST")
 
     def test_method(self):
@@ -1996,50 +1996,50 @@ class RequestTests(unittest.TestCase):
         self.assertNotIn("Content-length", self.get.unredirected_hdrs)
 
     def test_get_full_url(self):
-        self.assertEqual("http://www.python.org/~jeremy/",
+        self.assertEqual("http://www.myFRpy.org/~jeremy/",
                          self.get.get_full_url())
 
     def test_selector(self):
         self.assertEqual("/~jeremy/", self.get.selector)
-        req = Request("http://www.python.org/")
+        req = Request("http://www.myFRpy.org/")
         self.assertEqual("/", req.selector)
 
     def test_get_type(self):
         self.assertEqual("http", self.get.type)
 
     def test_get_host(self):
-        self.assertEqual("www.python.org", self.get.host)
+        self.assertEqual("www.myFRpy.org", self.get.host)
 
     def test_get_host_unquote(self):
         req = Request("http://www.%70ython.org/")
-        self.assertEqual("www.python.org", req.host)
+        self.assertEqual("www.myFRpy.org", req.host)
 
     def test_proxy(self):
         self.assertFalse(self.get.has_proxy())
         self.get.set_proxy("www.perl.org", "http")
         self.assertTrue(self.get.has_proxy())
-        self.assertEqual("www.python.org", self.get.origin_req_host)
+        self.assertEqual("www.myFRpy.org", self.get.origin_req_host)
         self.assertEqual("www.perl.org", self.get.host)
 
     def test_wrapped_url(self):
-        req = Request("<URL:http://www.python.org>")
-        self.assertEqual("www.python.org", req.host)
+        req = Request("<URL:http://www.myFRpy.org>")
+        self.assertEqual("www.myFRpy.org", req.host)
 
     def test_url_fragment(self):
-        req = Request("http://www.python.org/?qs=query#fragment=true")
+        req = Request("http://www.myFRpy.org/?qs=query#fragment=true")
         self.assertEqual("/?qs=query", req.selector)
-        req = Request("http://www.python.org/#fun=true")
+        req = Request("http://www.myFRpy.org/#fun=true")
         self.assertEqual("/", req.selector)
 
         # Issue 11703: geturl() omits fragment in the original URL.
-        url = 'http://docs.python.org/library/urllib2.html#OK'
+        url = 'http://docs.myFRpy.org/library/urllib2.html#OK'
         req = Request(url)
         self.assertEqual(req.get_full_url(), url)
 
     def test_url_fullurl_get_full_url(self):
-        urls = ['http://docs.python.org',
-                'http://docs.python.org/library/urllib2.html#OK',
-                'http://www.python.org/?qs=query#fragment=true']
+        urls = ['http://docs.myFRpy.org',
+                'http://docs.myFRpy.org/library/urllib2.html#OK',
+                'http://www.myFRpy.org/?qs=query#fragment=true']
         for url in urls:
             req = Request(url)
             self.assertEqual(req.get_full_url(), req.full_url)

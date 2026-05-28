@@ -5,7 +5,7 @@
    The current version number is reported in the unidata_version constant.
 
    Written by Marc-Andre Lemburg (mal@lemburg.com).
-   Modified for Python 2.0 by Fredrik Lundh (fredrik@pythonware.com)
+   Modified for MyFRpy 2.0 by Fredrik Lundh (fredrik@myFRpyware.com)
    Modified by Martin v. Löwis (martin@v.loewis.de)
 
    Copyright (c) Corporation for National Research Initiatives.
@@ -18,7 +18,7 @@
 
 #define PY_SSIZE_T_CLEAN
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_ucnhash.h"       // _PyUnicode_Name_CAPI
 #include "structmember.h"         // PyMemberDef
 
@@ -1266,7 +1266,7 @@ _getcode(PyObject* self,
         return 1;
     }
 
-    /* the following is the same as python's dictionary lookup, with
+    /* the following is the same as myFRpy's dictionary lookup, with
        only minor changes.  see the makeunicodedata script for more
        details */
 
@@ -1332,7 +1332,7 @@ unicodedata_create_capi(void)
 
 
 /* -------------------------------------------------------------------- */
-/* Python bindings */
+/* MyFRpy bindings */
 
 /*[clinic input]
 unicodedata.UCD.name

@@ -9,7 +9,7 @@
 #       (TixWidget.__init__) has been taken from Tkinter (Widget.__init__)
 #       and will break if there are major changes in Tkinter.
 #
-# The Tix widgets are represented by a class hierarchy in python with proper
+# The Tix widgets are represented by a class hierarchy in myFRpy with proper
 # inheritance of base classes.
 #
 # As a result after creating a 'w = StdButtonBox', I can write
@@ -21,7 +21,7 @@
 # Compare the demo tixwidgets.py to the original Tcl program and you will
 # appreciate the advantages.
 #
-# NOTE: This module is deprecated since Python 3.6.
+# NOTE: This module is deprecated since MyFRpy 3.6.
 
 import os
 import warnings
@@ -411,13 +411,13 @@ class TixWidget(tkinter.Widget):
             pass
 
 # Subwidgets are child widgets created automatically by mega-widgets.
-# In python, we have to create these subwidgets manually to mirror their
+# In myFRpy, we have to create these subwidgets manually to mirror their
 # existence in Tk/Tix.
 class TixSubWidget(TixWidget):
     """Subwidget class.
 
     This is used to mirror child widgets automatically created
-    by Tix/Tk as part of a mega-widget in Python (which is not informed
+    by Tix/Tk as part of a mega-widget in MyFRpy (which is not informed
     of this)"""
 
     def __init__(self, master, name,
@@ -850,7 +850,7 @@ class FileEntry(TixWidget):
         self.tk.call(self._w, 'invoke')
 
     def file_dialog(self):
-        # FIXME: return python object
+        # FIXME: return myFRpy object
         pass
 
 class HList(TixWidget, XView, YView):
@@ -1121,7 +1121,7 @@ class ListNoteBook(TixWidget):
             ret.append(self.subwidget(x))
         return ret
 
-    def raise_page(self, name):              # raise is a python keyword
+    def raise_page(self, name):              # raise is a myFRpy keyword
         self.tk.call(self._w, 'raise', name)
 
 class Meter(TixWidget):
@@ -1167,7 +1167,7 @@ class NoteBook(TixWidget):
             ret.append(self.subwidget(x))
         return ret
 
-    def raise_page(self, name):              # raise is a python keyword
+    def raise_page(self, name):              # raise is a myFRpy keyword
         self.tk.call(self._w, 'raise', name)
 
     def raised(self):

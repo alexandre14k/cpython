@@ -56,8 +56,8 @@ class TestMain(unittest.TestCase):
     def setup_test_source_trees(self):
         """Setup a test source tree and output destination tree."""
         self.temp_dir = tempfile.mkdtemp()  # tearDown() cleans this up.
-        self.py2_src_dir = os.path.join(self.temp_dir, "python2_project")
-        self.py3_dest_dir = os.path.join(self.temp_dir, "python3_project")
+        self.py2_src_dir = os.path.join(self.temp_dir, "myFRpy2_project")
+        self.py3_dest_dir = os.path.join(self.temp_dir, "myFRpy3_project")
         os.mkdir(self.py2_src_dir)
         os.mkdir(self.py3_dest_dir)
         # Turn it into a package with a few files.

@@ -5,7 +5,7 @@
 Call Protocol
 =============
 
-CPython supports two different calling protocols:
+CMyFRpy supports two different calling protocols:
 *tp_call* and vectorcall.
 
 The *tp_call* Protocol
@@ -18,7 +18,7 @@ The signature of the slot is::
 
 A call is made using a tuple for the positional arguments
 and a dict for the keyword arguments, similarly to
-``callable(*args, **kwargs)`` in Python code.
+``callable(*args, **kwargs)`` in MyFRpy code.
 *args* must be non-NULL (use an empty tuple if there are no arguments)
 but *kwargs* may be *NULL* if there are no keyword arguments.
 
@@ -40,7 +40,7 @@ The Vectorcall Protocol
 The vectorcall protocol was introduced in :pep:`590` as an additional protocol
 for making calls more efficient.
 
-As rule of thumb, CPython will prefer the vectorcall for internal calls
+As rule of thumb, CMyFRpy will prefer the vectorcall for internal calls
 if the callable supports it. However, this is not a hard rule.
 Additionally, some third-party extensions use *tp_call* directly
 (rather than using :c:func:`PyObject_Call`).
@@ -63,7 +63,7 @@ This bears repeating:
    when the class's :py:meth:`~object.__call__` method is reassigned.
    (This internally sets :c:member:`~PyTypeObject.tp_call` only, and thus
    may make it behave differently than the vectorcall function.)
-   In earlier Python versions, vectorcall should only be used with
+   In earlier MyFRpy versions, vectorcall should only be used with
    :c:macro:`immutable <Py_TPFLAGS_IMMUTABLETYPE>` or static types.
 
 A class should not implement vectorcall if that would be slower
@@ -117,7 +117,7 @@ function as with any other callable.
 
 .. note::
 
-   In CPython 3.8, the vectorcall API and related functions were available
+   In CMyFRpy 3.8, the vectorcall API and related functions were available
    provisionally under names with a leading underscore:
    ``_PyObject_Vectorcall``, ``_Py_TPFLAGS_HAVE_VECTORCALL``,
    ``_PyObject_VectorcallMethod``, ``_PyVectorcall_Function``,
@@ -132,7 +132,7 @@ Recursion Control
 .................
 
 When using *tp_call*, callees do not need to worry about
-:ref:`recursion <recursion>`: CPython uses
+:ref:`recursion <recursion>`: CMyFRpy uses
 :c:func:`Py_EnterRecursiveCall` and :c:func:`Py_LeaveRecursiveCall`
 for calls made using *tp_call*.
 
@@ -187,7 +187,7 @@ Vectorcall Support API
 Object Calling API
 ------------------
 
-Various functions are available for calling a Python object.
+Various functions are available for calling a MyFRpy object.
 Each converts its arguments to a convention supported by the called object –
 either *tp_call* or vectorcall.
 In order to do as little conversion as possible, pick one that best fits
@@ -229,7 +229,7 @@ please see individual documentation for details.
 
 .. c:function:: PyObject* PyObject_Call(PyObject *callable, PyObject *args, PyObject *kwargs)
 
-   Call a callable Python object *callable*, with arguments given by the
+   Call a callable MyFRpy object *callable*, with arguments given by the
    tuple *args*, and named arguments given by the dictionary *kwargs*.
 
    *args* must not be *NULL*; use an empty tuple if no arguments are needed.
@@ -238,14 +238,14 @@ please see individual documentation for details.
    Return the result of the call on success, or raise an exception and return
    *NULL* on failure.
 
-   This is the equivalent of the Python expression:
+   This is the equivalent of the MyFRpy expression:
    ``callable(*args, **kwargs)``.
 
 
 .. c:function:: PyObject* PyObject_CallNoArgs(PyObject *callable)
 
-   Call a callable Python object *callable* without any arguments. It is the
-   most efficient way to call a callable Python object without any argument.
+   Call a callable MyFRpy object *callable* without any arguments. It is the
+   most efficient way to call a callable MyFRpy object without any argument.
 
    Return the result of the call on success, or raise an exception and return
    *NULL* on failure.
@@ -255,7 +255,7 @@ please see individual documentation for details.
 
 .. c:function:: PyObject* PyObject_CallOneArg(PyObject *callable, PyObject *arg)
 
-   Call a callable Python object *callable* with exactly 1 positional argument
+   Call a callable MyFRpy object *callable* with exactly 1 positional argument
    *arg* and no keyword arguments.
 
    Return the result of the call on success, or raise an exception and return
@@ -266,25 +266,25 @@ please see individual documentation for details.
 
 .. c:function:: PyObject* PyObject_CallObject(PyObject *callable, PyObject *args)
 
-   Call a callable Python object *callable*, with arguments given by the
+   Call a callable MyFRpy object *callable*, with arguments given by the
    tuple *args*.  If no arguments are needed, then *args* can be *NULL*.
 
    Return the result of the call on success, or raise an exception and return
    *NULL* on failure.
 
-   This is the equivalent of the Python expression: ``callable(*args)``.
+   This is the equivalent of the MyFRpy expression: ``callable(*args)``.
 
 
 .. c:function:: PyObject* PyObject_CallFunction(PyObject *callable, const char *format, ...)
 
-   Call a callable Python object *callable*, with a variable number of C arguments.
+   Call a callable MyFRpy object *callable*, with a variable number of C arguments.
    The C arguments are described using a :c:func:`Py_BuildValue` style format
    string.  The format can be *NULL*, indicating that no arguments are provided.
 
    Return the result of the call on success, or raise an exception and return
    *NULL* on failure.
 
-   This is the equivalent of the Python expression: ``callable(*args)``.
+   This is the equivalent of the MyFRpy expression: ``callable(*args)``.
 
    Note that if you only pass :c:expr:`PyObject *` args,
    :c:func:`PyObject_CallFunctionObjArgs` is a faster alternative.
@@ -304,7 +304,7 @@ please see individual documentation for details.
    Return the result of the call on success, or raise an exception and return
    *NULL* on failure.
 
-   This is the equivalent of the Python expression:
+   This is the equivalent of the MyFRpy expression:
    ``obj.name(arg1, arg2, ...)``.
 
    Note that if you only pass :c:expr:`PyObject *` args,
@@ -316,21 +316,21 @@ please see individual documentation for details.
 
 .. c:function:: PyObject* PyObject_CallFunctionObjArgs(PyObject *callable, ...)
 
-   Call a callable Python object *callable*, with a variable number of
+   Call a callable MyFRpy object *callable*, with a variable number of
    :c:expr:`PyObject *` arguments.  The arguments are provided as a variable number
    of parameters followed by *NULL*.
 
    Return the result of the call on success, or raise an exception and return
    *NULL* on failure.
 
-   This is the equivalent of the Python expression:
+   This is the equivalent of the MyFRpy expression:
    ``callable(arg1, arg2, ...)``.
 
 
 .. c:function:: PyObject* PyObject_CallMethodObjArgs(PyObject *obj, PyObject *name, ...)
 
-   Call a method of the Python object *obj*, where the name of the method is given as a
-   Python string object in *name*.  It is called with a variable number of
+   Call a method of the MyFRpy object *obj*, where the name of the method is given as a
+   MyFRpy string object in *name*.  It is called with a variable number of
    :c:expr:`PyObject *` arguments.  The arguments are provided as a variable number
    of parameters followed by *NULL*.
 
@@ -340,8 +340,8 @@ please see individual documentation for details.
 
 .. c:function:: PyObject* PyObject_CallMethodNoArgs(PyObject *obj, PyObject *name)
 
-   Call a method of the Python object *obj* without arguments,
-   where the name of the method is given as a Python string object in *name*.
+   Call a method of the MyFRpy object *obj* without arguments,
+   where the name of the method is given as a MyFRpy string object in *name*.
 
    Return the result of the call on success, or raise an exception and return
    *NULL* on failure.
@@ -351,8 +351,8 @@ please see individual documentation for details.
 
 .. c:function:: PyObject* PyObject_CallMethodOneArg(PyObject *obj, PyObject *name, PyObject *arg)
 
-   Call a method of the Python object *obj* with a single positional argument
-   *arg*, where the name of the method is given as a Python string object in
+   Call a method of the MyFRpy object *obj* with a single positional argument
+   *arg*, where the name of the method is given as a MyFRpy string object in
    *name*.
 
    Return the result of the call on success, or raise an exception and return
@@ -363,7 +363,7 @@ please see individual documentation for details.
 
 .. c:function:: PyObject* PyObject_Vectorcall(PyObject *callable, PyObject *const *args, size_t nargsf, PyObject *kwnames)
 
-   Call a callable Python object *callable*.
+   Call a callable MyFRpy object *callable*.
    The arguments are the same as for :c:type:`vectorcallfunc`.
    If *callable* supports vectorcall_, this directly calls
    the vectorcall function stored in *callable*.
@@ -390,7 +390,7 @@ please see individual documentation for details.
 .. c:function:: PyObject* PyObject_VectorcallMethod(PyObject *name, PyObject *const *args, size_t nargsf, PyObject *kwnames)
 
    Call a method using the vectorcall calling convention. The name of the method
-   is given as a Python string *name*. The object whose method is called is
+   is given as a MyFRpy string *name*. The object whose method is called is
    *args[0]*, and the *args* array starting at *args[1]* represents the arguments
    of the call. There must be at least one positional argument.
    *nargsf* is the number of positional arguments including *args[0]*,

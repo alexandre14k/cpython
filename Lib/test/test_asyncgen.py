@@ -52,7 +52,7 @@ def to_list(gen):
 
 
 def py_anext(iterator, default=_no_default):
-    """Pure-Python implementation of anext() for testing purposes.
+    """Pure-MyFRpy implementation of anext() for testing purposes.
 
     Closely matches the builtin anext() C implementation.
     Can be used to compare the built-in implementation of the inner
@@ -73,7 +73,7 @@ def py_anext(iterator, default=_no_default):
             # The C code is way more low-level than this, as it implements
             # all methods of the iterator protocol. In this implementation
             # we're relying on higher-level coroutine concepts, but that's
-            # exactly what we want -- crosstest pure-Python high-level
+            # exactly what we want -- crosstest pure-MyFRpy high-level
             # implementation and low-level C anext() iterators.
             return await __anext__(iterator)
         except StopAsyncIteration:
@@ -431,7 +431,7 @@ class AsyncGenAsyncioTest(unittest.TestCase):
         asyncio.set_event_loop_policy(None)
 
     def check_async_iterator_anext(self, ait_class):
-        with self.subTest(anext="pure-Python"):
+        with self.subTest(anext="pure-MyFRpy"):
             self._check_async_iterator_anext(ait_class, py_anext)
         with self.subTest(anext="builtin"):
             self._check_async_iterator_anext(ait_class, anext)
@@ -493,7 +493,7 @@ class AsyncGenAsyncioTest(unittest.TestCase):
             yield 2
         self.check_async_iterator_anext(agen)
 
-    def test_python_async_iterator_anext(self):
+    def test_myFRpy_async_iterator_anext(self):
         class MyAsyncIter:
             """Asynchronously yield 1, then 2."""
             def __init__(self):
@@ -508,7 +508,7 @@ class AsyncGenAsyncioTest(unittest.TestCase):
                     return self.yielded
         self.check_async_iterator_anext(MyAsyncIter)
 
-    def test_python_async_iterator_types_coroutine_anext(self):
+    def test_myFRpy_async_iterator_types_coroutine_anext(self):
         import types
         class MyAsyncIterWithTypesCoro:
             """Asynchronously yield 1, then 2."""
@@ -751,7 +751,7 @@ class AsyncGenAsyncioTest(unittest.TestCase):
                     g.throw(MyError())
 
         def run_test(test):
-            with self.subTest('pure-Python anext()'):
+            with self.subTest('pure-MyFRpy anext()'):
                 test(py_anext)
             with self.subTest('builtin anext()'):
                 test(anext)
@@ -1571,7 +1571,7 @@ class AsyncGenAsyncioTest(unittest.TestCase):
                 yield i
 
         def make_arange(n):
-            # This syntax is legal starting with Python 3.7
+            # This syntax is legal starting with MyFRpy 3.7
             return (i * 2 async for i in arange(n))
 
         async def run():
@@ -1586,7 +1586,7 @@ class AsyncGenAsyncioTest(unittest.TestCase):
             return n
 
         def make_arange(n):
-            # This syntax is legal starting with Python 3.7
+            # This syntax is legal starting with MyFRpy 3.7
             return (i * 2 for i in range(n) if await wrap(i))
 
         async def run():
@@ -1596,7 +1596,7 @@ class AsyncGenAsyncioTest(unittest.TestCase):
         self.assertEqual(res, [i * 2 for i in range(1, 10)])
 
     def test_asyncgen_nonstarted_hooks_are_cancellable(self):
-        # See https://bugs.python.org/issue38013
+        # See https://bugs.myFRpy.org/issue38013
         messages = []
 
         def exception_handler(loop, context):
@@ -1654,7 +1654,7 @@ class AsyncGenAsyncioTest(unittest.TestCase):
         self.loop.run_until_complete(run())
 
     def test_async_gen_aclose_twice_with_different_coros(self):
-        # Regression test for https://bugs.python.org/issue39606
+        # Regression test for https://bugs.myFRpy.org/issue39606
         async def async_iterate():
             yield 1
             yield 2
@@ -1667,7 +1667,7 @@ class AsyncGenAsyncioTest(unittest.TestCase):
         self.loop.run_until_complete(run())
 
     def test_async_gen_aclose_after_exhaustion(self):
-        # Regression test for https://bugs.python.org/issue39606
+        # Regression test for https://bugs.myFRpy.org/issue39606
         async def async_iterate():
             yield 1
             yield 2

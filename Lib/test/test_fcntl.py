@@ -6,7 +6,7 @@ import os
 import struct
 import sys
 import unittest
-from test.support import verbose, cpython_only, get_pagesize
+from test.support import verbose, cmyFRpy_only, get_pagesize
 from test.support.import_helper import import_module
 from test.support.os_helper import TESTFN, unlink
 
@@ -111,7 +111,7 @@ class TestFcntl(unittest.TestCase):
         with self.assertRaises(TypeError):
             fcntl.fcntl(BadFile('spam'), fcntl.F_SETFL, os.O_NONBLOCK)
 
-    @cpython_only
+    @cmyFRpy_only
     def test_fcntl_bad_file_overflow(self):
         from _testcapi import INT_MAX, INT_MIN
         # Issue 15989
@@ -180,7 +180,7 @@ class TestFcntl(unittest.TestCase):
         fcntl.lockf(self.f, fcntl.LOCK_UN)
         self.assertEqual(p.exitcode, 0)
 
-    @cpython_only
+    @cmyFRpy_only
     def test_flock_overflow(self):
         import _testcapi
         self.assertRaises(OverflowError, fcntl.flock, _testcapi.INT_MAX+1,

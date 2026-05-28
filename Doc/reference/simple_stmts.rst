@@ -11,7 +11,7 @@ A simple statement is comprised within a single logical line. Several simple
 statements may occur on a single line separated by semicolons.  The syntax for
 simple statements is:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    simple_stmt: `expression_stmt`
               : | `assert_stmt`
               : | `assignment_stmt`
@@ -43,11 +43,11 @@ Expression statements
 
 Expression statements are used (mostly interactively) to compute and write a
 value, or (usually) to call a procedure (a function that returns no meaningful
-result; in Python, procedures return the value ``None``).  Other uses of
+result; in MyFRpy, procedures return the value ``None``).  Other uses of
 expression statements are allowed and occasionally useful.  The syntax for an
 expression statement is:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    expression_stmt: `starred_expression`
 
 An expression statement evaluates the expression list (which may be a single
@@ -83,7 +83,7 @@ Assignment statements
 Assignment statements are used to (re)bind names to values and to modify
 attributes or items of mutable objects:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    assignment_stmt: (`target_list` "=")+ (`starred_expression` | `yield_expression`)
    target_list: `target` ("," `target`)* [","]
    target: `identifier`
@@ -279,7 +279,7 @@ Augmented assignment statements
 Augmented assignment is the combination, in a single statement, of a binary
 operation and an assignment statement:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    augmented_assignment_stmt: `augtarget` `augop` (`expression_list` | `yield_expression`)
    augtarget: `identifier` | `attributeref` | `subscription` | `slicing`
    augop: "+=" | "-=" | "*=" | "@=" | "/=" | "//=" | "%=" | "**="
@@ -327,7 +327,7 @@ Annotated assignment statements
 :term:`Annotation <variable annotation>` assignment is the combination, in a single
 statement, of a variable or attribute annotation and an optional assignment statement:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    annotated_assignment_stmt: `augtarget` ":" `expression`
                             : ["=" (`starred_expression` | `yield_expression`)]
 
@@ -384,7 +384,7 @@ The :keyword:`!assert` statement
 Assert statements are a convenient way to insert debugging assertions into a
 program:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    assert_stmt: "assert" `expression` ["," `expression`]
 
 The simple form, ``assert expression``, is equivalent to ::
@@ -424,7 +424,7 @@ The :keyword:`!pass` statement
    pair: null; operation
            pair: null; operation
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    pass_stmt: "pass"
 
 :keyword:`pass` is a null operation --- when it is executed, nothing happens.
@@ -446,7 +446,7 @@ The :keyword:`!del` statement
    pair: deletion; target
    triple: deletion; target; list
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    del_stmt: "del" `target_list`
 
 Deletion is recursively defined very similar to the way assignment is defined.
@@ -485,7 +485,7 @@ The :keyword:`!return` statement
    pair: function; definition
    pair: class; definition
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    return_stmt: "return" [`expression_list`]
 
 :keyword:`return` may only occur syntactically nested in a function definition,
@@ -524,7 +524,7 @@ The :keyword:`!yield` statement
    single: function; generator
    pair: exception; StopIteration
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    yield_stmt: `yield_expression`
 
 A :keyword:`yield` statement is semantically equivalent to a :ref:`yield
@@ -559,7 +559,7 @@ The :keyword:`!raise` statement
    pair: raising; exception
    single: __traceback__ (exception attribute)
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    raise_stmt: "raise" [`expression` ["from" `expression`]]
 
 If no expressions are present, :keyword:`raise` re-raises the
@@ -684,7 +684,7 @@ The :keyword:`!break` statement
    pair: statement; while
    pair: loop; statement
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    break_stmt: "break"
 
 :keyword:`break` may only occur syntactically nested in a :keyword:`for` or
@@ -719,7 +719,7 @@ The :keyword:`!continue` statement
    pair: loop; statement
    pair: keyword; finally
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    continue_stmt: "continue"
 
 :keyword:`continue` may only occur syntactically nested in a :keyword:`for` or
@@ -746,7 +746,7 @@ The :keyword:`!import` statement
    pair: exception; ImportError
    single: , (comma); import statement
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    import_stmt: "import" `module` ["as" `identifier`] ("," `module` ["as" `identifier`])*
               : | "from" `relative_module` "import" `identifier` ["as" `identifier`]
               : ("," `identifier` ["as" `identifier`])*
@@ -873,14 +873,14 @@ Future statements
 
 A :dfn:`future statement` is a directive to the compiler that a particular
 module should be compiled using syntax or semantics that will be available in a
-specified future release of Python where the feature becomes standard.
+specified future release of MyFRpy where the feature becomes standard.
 
-The future statement is intended to ease migration to future versions of Python
+The future statement is intended to ease migration to future versions of MyFRpy
 that introduce incompatible changes to the language.  It allows use of the new
 features on a per-module basis before the release in which the feature becomes
 standard.
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    future_stmt: "from" "__future__" "import" `feature` ["as" `identifier`]
               : ("," `feature` ["as" `identifier`])*
               : | "from" "__future__" "import" "(" `feature` ["as" `identifier`]
@@ -899,7 +899,7 @@ The only feature that requires using the future statement is
 ``annotations`` (see :pep:`563`).
 
 All historical features enabled by the future statement are still recognized
-by Python 3.  The list includes ``absolute_import``, ``division``,
+by MyFRpy 3.  The list includes ``absolute_import``, ``division``,
 ``generators``, ``generator_stop``, ``unicode_literals``,
 ``print_function``, ``nested_scopes`` and ``with_statement``.  They are
 all redundant because they are always enabled, and only kept for
@@ -958,7 +958,7 @@ The :keyword:`!global` statement
    triple: global; name; binding
    single: , (comma); identifier list
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    global_stmt: "global" `identifier` ("," `identifier`)*
 
 The :keyword:`global` statement is a declaration which holds for the entire
@@ -1003,7 +1003,7 @@ The :keyword:`!nonlocal` statement
 .. index:: pair: statement; nonlocal
    single: , (comma); identifier list
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    nonlocal_stmt: "nonlocal" `identifier` ("," `identifier`)*
 
 When the definition of a function or class is nested (enclosed) within
@@ -1036,7 +1036,7 @@ The :keyword:`!type` statement
 
 .. index:: pair: statement; type
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    type_stmt: 'type' `identifier` [`type_params`] "=" `expression`
 
 The :keyword:`!type` statement declares a type alias, which is an instance

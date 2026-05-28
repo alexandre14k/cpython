@@ -1,4 +1,4 @@
-"""A pure Python implementation of import."""
+"""A pure MyFRpy implementation of import."""
 __all__ = ['__import__', 'import_module', 'invalidate_caches', 'reload']
 
 # Bootstrap help #####################################################
@@ -9,7 +9,7 @@ __all__ = ['__import__', 'import_module', 'invalidate_caches', 'reload']
 # modules would get an uninitialised copy of the source version, instead
 # of a fully initialised version (either the frozen one or the one
 # initialised below if the frozen one is not available).
-import _imp  # Just the builtin component, NOT the full Python module
+import _imp  # Just the builtin component, NOT the full MyFRpy module
 import sys
 
 try:

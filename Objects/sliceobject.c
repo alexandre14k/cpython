@@ -13,7 +13,7 @@ the Py_NoneStruct in that there is no way to create other objects of
 this type and there is exactly one in existence.
 */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_abstract.h"      // _PyIndex_Check()
 #include "pycore_long.h"          // _PyLong_GetZero()
 #include "pycore_object.h"        // _PyObject_GC_TRACK()
@@ -116,7 +116,7 @@ void _PySlice_Fini(PyInterpreterState *interp)
     }
 }
 
-/* start, stop, and step are python objects with None indicating no
+/* start, stop, and step are myFRpy objects with None indicating no
    index is present.
 */
 

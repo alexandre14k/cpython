@@ -3,10 +3,10 @@
  *  upon normal program termination.
  *
  *   Translated from atexit.py by Collin Winter.
- +   Copyright 2007 Python Software Foundation.
+ +   Copyright 2007 MyFRpy Software Foundation.
  */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_atexit.h"
 #include "pycore_initconfig.h"    // _PyStatus_NO_MEMORY
 #include "pycore_interp.h"        // PyInterpreterState.atexit

@@ -1,7 +1,7 @@
 """Tests for scripts in the Tools/scripts directory.
 
 This file contains extremely basic regression tests for the scripts found in
-the Tools directory of a Python checkout or tarball which don't have separate
+the Tools directory of a MyFRpy checkout or tarball which don't have separate
 tests of their own.
 """
 

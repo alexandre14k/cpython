@@ -1,17 +1,17 @@
 #
-# Makefile for Python documentation
+# Makefile for MyFRpy documentation
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 
 # You can set these variables from the command line.
-PYTHON       = python3
+MYFRPY       = myFRpy3
 VENVDIR      = ./venv
 SPHINXBUILD  = PATH=$(VENVDIR)/bin:$$PATH sphinx-build
 BLURB        = PATH=$(VENVDIR)/bin:$$PATH blurb
 JOBS         = auto
 PAPER        =
 SOURCES      =
-DISTVERSION  = $(shell $(PYTHON) tools/extensions/patchlevel.py)
+DISTVERSION  = $(shell $(MYFRPY) tools/extensions/patchlevel.py)
 REQUIREMENTS = requirements.txt
 SPHINXERRORHANDLING = -W
 
@@ -100,7 +100,7 @@ text: build
 .PHONY: texinfo
 texinfo: BUILDER = texinfo
 texinfo: build
-	@echo "Build finished; the python.texi file is in build/texinfo."
+	@echo "Build finished; the myFRpy.texi file is in build/texinfo."
 	@echo "Run \`make info' in that directory to run it through makeinfo."
 
 .PHONY: epub
@@ -124,7 +124,7 @@ linkcheck:
 .PHONY: coverage
 coverage: BUILDER = coverage
 coverage: build
-	@echo "Coverage finished; see c.txt and python.txt in build/coverage"
+	@echo "Coverage finished; see c.txt and myFRpy.txt in build/coverage"
 
 .PHONY: doctest
 doctest: BUILDER = doctest
@@ -142,7 +142,7 @@ pydoc-topics: build
 
 .PHONY: htmlview
 htmlview: html
-	$(PYTHON) -c "import os, webbrowser; webbrowser.open('file://' + os.path.realpath('build/html/index.html'))"
+	$(MYFRPY) -c "import os, webbrowser; webbrowser.open('file://' + os.path.realpath('build/html/index.html'))"
 
 .PHONY: htmllive
 htmllive: SPHINXBUILD = $(VENVDIR)/bin/sphinx-autobuild
@@ -164,9 +164,9 @@ venv:
 		echo "To recreate it, remove it first with \`make clean-venv'."; \
 	else \
 		echo "Creating venv in $(VENVDIR)"; \
-		$(PYTHON) -m venv $(VENVDIR); \
-		$(VENVDIR)/bin/python3 -m pip install --upgrade pip; \
-		$(VENVDIR)/bin/python3 -m pip install -r $(REQUIREMENTS); \
+		$(MYFRPY) -m venv $(VENVDIR); \
+		$(VENVDIR)/bin/myFRpy3 -m pip install --upgrade pip; \
+		$(VENVDIR)/bin/myFRpy3 -m pip install -r $(REQUIREMENTS); \
 		echo "The venv has been created in the $(VENVDIR) directory"; \
 	fi
 
@@ -177,58 +177,58 @@ dist:
 
 	# archive the HTML
 	make html
-	cp -pPR build/html dist/python-$(DISTVERSION)-docs-html
-	tar -C dist -cf dist/python-$(DISTVERSION)-docs-html.tar python-$(DISTVERSION)-docs-html
-	bzip2 -9 -k dist/python-$(DISTVERSION)-docs-html.tar
-	(cd dist; zip -q -r -9 python-$(DISTVERSION)-docs-html.zip python-$(DISTVERSION)-docs-html)
-	rm -r dist/python-$(DISTVERSION)-docs-html
-	rm dist/python-$(DISTVERSION)-docs-html.tar
+	cp -pPR build/html dist/myFRpy-$(DISTVERSION)-docs-html
+	tar -C dist -cf dist/myFRpy-$(DISTVERSION)-docs-html.tar myFRpy-$(DISTVERSION)-docs-html
+	bzip2 -9 -k dist/myFRpy-$(DISTVERSION)-docs-html.tar
+	(cd dist; zip -q -r -9 myFRpy-$(DISTVERSION)-docs-html.zip myFRpy-$(DISTVERSION)-docs-html)
+	rm -r dist/myFRpy-$(DISTVERSION)-docs-html
+	rm dist/myFRpy-$(DISTVERSION)-docs-html.tar
 
 	# archive the text build
 	make text
-	cp -pPR build/text dist/python-$(DISTVERSION)-docs-text
-	tar -C dist -cf dist/python-$(DISTVERSION)-docs-text.tar python-$(DISTVERSION)-docs-text
-	bzip2 -9 -k dist/python-$(DISTVERSION)-docs-text.tar
-	(cd dist; zip -q -r -9 python-$(DISTVERSION)-docs-text.zip python-$(DISTVERSION)-docs-text)
-	rm -r dist/python-$(DISTVERSION)-docs-text
-	rm dist/python-$(DISTVERSION)-docs-text.tar
+	cp -pPR build/text dist/myFRpy-$(DISTVERSION)-docs-text
+	tar -C dist -cf dist/myFRpy-$(DISTVERSION)-docs-text.tar myFRpy-$(DISTVERSION)-docs-text
+	bzip2 -9 -k dist/myFRpy-$(DISTVERSION)-docs-text.tar
+	(cd dist; zip -q -r -9 myFRpy-$(DISTVERSION)-docs-text.zip myFRpy-$(DISTVERSION)-docs-text)
+	rm -r dist/myFRpy-$(DISTVERSION)-docs-text
+	rm dist/myFRpy-$(DISTVERSION)-docs-text.tar
 
 	# archive the A4 latex
 	rm -rf build/latex
 	make latex PAPER=a4
 	-sed -i 's/makeindex/makeindex -q/' build/latex/Makefile
 	(cd build/latex; make clean && make all-pdf && make FMT=pdf zip bz2)
-	cp build/latex/docs-pdf.zip dist/python-$(DISTVERSION)-docs-pdf-a4.zip
-	cp build/latex/docs-pdf.tar.bz2 dist/python-$(DISTVERSION)-docs-pdf-a4.tar.bz2
+	cp build/latex/docs-pdf.zip dist/myFRpy-$(DISTVERSION)-docs-pdf-a4.zip
+	cp build/latex/docs-pdf.tar.bz2 dist/myFRpy-$(DISTVERSION)-docs-pdf-a4.tar.bz2
 
 	# archive the letter latex
 	rm -rf build/latex
 	make latex PAPER=letter
 	-sed -i 's/makeindex/makeindex -q/' build/latex/Makefile
 	(cd build/latex; make clean && make all-pdf && make FMT=pdf zip bz2)
-	cp build/latex/docs-pdf.zip dist/python-$(DISTVERSION)-docs-pdf-letter.zip
-	cp build/latex/docs-pdf.tar.bz2 dist/python-$(DISTVERSION)-docs-pdf-letter.tar.bz2
+	cp build/latex/docs-pdf.zip dist/myFRpy-$(DISTVERSION)-docs-pdf-letter.zip
+	cp build/latex/docs-pdf.tar.bz2 dist/myFRpy-$(DISTVERSION)-docs-pdf-letter.tar.bz2
 
 	# copy the epub build
 	rm -rf build/epub
 	make epub
-	cp -pPR build/epub/Python.epub dist/python-$(DISTVERSION)-docs.epub
+	cp -pPR build/epub/MyFRpy.epub dist/myFRpy-$(DISTVERSION)-docs.epub
 
 	# archive the texinfo build
 	rm -rf build/texinfo
 	make texinfo
 	make info --directory=build/texinfo
-	cp -pPR build/texinfo dist/python-$(DISTVERSION)-docs-texinfo
-	tar -C dist -cf dist/python-$(DISTVERSION)-docs-texinfo.tar python-$(DISTVERSION)-docs-texinfo
-	bzip2 -9 -k dist/python-$(DISTVERSION)-docs-texinfo.tar
-	(cd dist; zip -q -r -9 python-$(DISTVERSION)-docs-texinfo.zip python-$(DISTVERSION)-docs-texinfo)
-	rm -r dist/python-$(DISTVERSION)-docs-texinfo
-	rm dist/python-$(DISTVERSION)-docs-texinfo.tar
+	cp -pPR build/texinfo dist/myFRpy-$(DISTVERSION)-docs-texinfo
+	tar -C dist -cf dist/myFRpy-$(DISTVERSION)-docs-texinfo.tar myFRpy-$(DISTVERSION)-docs-texinfo
+	bzip2 -9 -k dist/myFRpy-$(DISTVERSION)-docs-texinfo.tar
+	(cd dist; zip -q -r -9 myFRpy-$(DISTVERSION)-docs-texinfo.zip myFRpy-$(DISTVERSION)-docs-texinfo)
+	rm -r dist/myFRpy-$(DISTVERSION)-docs-texinfo
+	rm dist/myFRpy-$(DISTVERSION)-docs-texinfo.tar
 
 .PHONY: check
 check: venv
-	$(VENVDIR)/bin/python3 -m pre_commit --version > /dev/null || $(VENVDIR)/bin/python3 -m pip install pre-commit
-	$(VENVDIR)/bin/python3 -m pre_commit run --all-files
+	$(VENVDIR)/bin/myFRpy3 -m pre_commit --version > /dev/null || $(VENVDIR)/bin/myFRpy3 -m pip install pre-commit
+	$(VENVDIR)/bin/myFRpy3 -m pre_commit run --all-files
 
 .PHONY: serve
 serve:

@@ -2,7 +2,7 @@
 #  define Py_BUILD_CORE_MODULE 1
 #endif
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_pyerrors.h"      // _PyErr_ClearExcState()
 #include "pycore_pystate.h"       // _PyThreadState_GET()
 #include "pycore_runtime_init.h"  // _Py_ID()
@@ -218,7 +218,7 @@ is_coroutine(asyncio_state *state, PyObject *coro)
 
        asyncio.iscoroutine() has its own type caching mechanism.
        This cache allows us to avoid the cost of even calling
-       a pure-Python function in 99.9% cases.
+       a pure-MyFRpy function in 99.9% cases.
     */
     int has_it = PySet_Contains(
         state->iscoroutine_typecache, (PyObject*) Py_TYPE(coro));
@@ -443,7 +443,7 @@ future_schedule_callbacks(asyncio_state *state, FutureObj *fut)
         Py_CLEAR(fut->fut_callback0);
         Py_CLEAR(fut->fut_context0);
         if (ret) {
-            /* If an error occurs in pure-Python implementation,
+            /* If an error occurs in pure-MyFRpy implementation,
                all callbacks are cleared. */
             Py_CLEAR(fut->fut_callbacks);
             return ret;
@@ -471,7 +471,7 @@ future_schedule_callbacks(asyncio_state *state, FutureObj *fut)
         PyObject *ctx = PyTuple_GET_ITEM(cb_tup, 1);
 
         if (call_soon(state, fut->fut_loop, cb, (PyObject *)fut, ctx)) {
-            /* If an error occurs in pure-Python implementation,
+            /* If an error occurs in pure-MyFRpy implementation,
                all callbacks are cleared. */
             Py_CLEAR(fut->fut_callbacks);
             return -1;
@@ -2314,7 +2314,7 @@ _asyncio_Task_cancel_impl(TaskObj *self, PyObject *msg)
     self->task_num_cancels_requested += 1;
 
     // These three lines are controversial.  See discussion starting at
-    // https://github.com/python/cpython/pull/31394#issuecomment-1053545331
+    // https://github.com/myFRpy/cmyFRpy/pull/31394#issuecomment-1053545331
     // and corresponding code in tasks.py.
     // if (self->task_num_cancels_requested > 1) {
     //     Py_RETURN_FALSE;

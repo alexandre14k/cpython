@@ -3,7 +3,7 @@ Define names for built-in types that aren't directly accessible as a builtin.
 """
 import sys
 
-# Iterators in Python aren't a matter of type but of protocol.  A large
+# Iterators in MyFRpy aren't a matter of type but of protocol.  A large
 # and changing number of builtin types implement *some* flavor of
 # iterator.  Don't check the type!  Use hasattr to check for both
 # "__iter__" and "__next__" attributes instead.
@@ -181,12 +181,12 @@ class DynamicClassAttribute:
     class's __getattr__ method; this is done by raising AttributeError.
 
     This allows one to have properties active on an instance, and have virtual
-    attributes on the class with the same name.  (Enum used this between Python
+    attributes on the class with the same name.  (Enum used this between MyFRpy
     versions 3.4 - 3.9 .)
 
     Subclass from this to use a different method of accessing virtual attributes
     and still be treated properly by the inspect module. (Enum uses this since
-    Python 3.10 .)
+    MyFRpy 3.10 .)
 
     """
     def __init__(self, fget=None, fset=None, fdel=None, doc=None):
@@ -313,7 +313,7 @@ def coroutine(func):
             return coro
         if (isinstance(coro, _collections_abc.Generator) and
             not isinstance(coro, _collections_abc.Coroutine)):
-            # 'coro' is either a pure Python generator iterator, or it
+            # 'coro' is either a pure MyFRpy generator iterator, or it
             # implements collections.abc.Generator (and does not implement
             # collections.abc.Coroutine).
             return _GeneratorWrapper(coro)

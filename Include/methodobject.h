@@ -8,7 +8,7 @@ extern "C" {
 #endif
 
 /* This is about the type 'builtin_function_or_method',
-   not Python methods in user-defined classes.  See classobject.h
+   not MyFRpy methods in user-defined classes.  See classobject.h
    for the latter. */
 
 PyAPI_DATA(PyTypeObject) PyCFunction_Type;
@@ -40,7 +40,7 @@ typedef PyObject *(*PyCMethod)(PyObject *, PyTypeObject *, PyObject *const *,
 // If a function is declared with the METH_NOARGS calling convention, it must
 // have 2 parameters. Since the second parameter is unused, Py_UNUSED() can be
 // used to prevent a compiler warning. If the function has a single parameter,
-// it triggers an undefined behavior when Python calls it with 2 parameters
+// it triggers an undefined behavior when MyFRpy calls it with 2 parameters
 // (bpo-33012).
 #define _PyCFunction_CAST(func) \
     _Py_CAST(PyCFunction, _Py_CAST(void(*)(void), (func)))
@@ -101,7 +101,7 @@ PyAPI_FUNC(PyObject *) PyCMethod_New(PyMethodDef *, PyObject *,
 #  define METH_FASTCALL  0x0080
 #endif
 
-/* This bit is preserved for Stackless Python */
+/* This bit is preserved for Stackless MyFRpy */
 #ifdef STACKLESS
 #  define METH_STACKLESS 0x0100
 #else
@@ -121,9 +121,9 @@ PyAPI_FUNC(PyObject *) PyCMethod_New(PyMethodDef *, PyObject *,
 
 
 #ifndef Py_LIMITED_API
-#  define Py_CPYTHON_METHODOBJECT_H
-#  include "cpython/methodobject.h"
-#  undef Py_CPYTHON_METHODOBJECT_H
+#  define Py_CMYFRPY_METHODOBJECT_H
+#  include "cmyFRpy/methodobject.h"
+#  undef Py_CMYFRPY_METHODOBJECT_H
 #endif
 
 #ifdef __cplusplus

@@ -6,7 +6,7 @@
 #  define Py_BUILD_CORE_MODULE 1
 #endif
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_pymath.h"        // _PY_SHORT_FLOAT_REPR
 /* we need DBL_MAX, DBL_MIN, DBL_EPSILON, DBL_MANT_DIG and FLT_RADIX from
    float.h.  We assume that FLT_RADIX is either 2 or 16. */
@@ -21,7 +21,7 @@ module cmath
 [clinic start generated code]*/
 /*[clinic end generated code: output=da39a3ee5e6b4b0d input=308d6839f4a46333]*/
 
-/*[python input]
+/*[myFRpy input]
 class Py_complex_protected_converter(Py_complex_converter):
     def modify(self):
         return 'errno = 0;'
@@ -45,8 +45,8 @@ else {
     return_value = PyComplex_FromCComplex(_return_value);
 }
 """.strip())
-[python start generated code]*/
-/*[python end generated code: output=da39a3ee5e6b4b0d input=8b27adb674c08321]*/
+[myFRpy start generated code]*/
+/*[myFRpy end generated code: output=da39a3ee5e6b4b0d input=8b27adb674c08321]*/
 
 #if (FLT_RADIX != 2 && FLT_RADIX != 16)
 #error "Modules/cmathmodule.c expects FLT_RADIX to be 2 or 16"
@@ -934,7 +934,7 @@ cmath_log_impl(PyObject *module, Py_complex x, PyObject *y_obj)
 }
 
 
-/* And now the glue to make them available from Python: */
+/* And now the glue to make them available from MyFRpy: */
 
 static PyObject *
 math_error(void)
@@ -1057,7 +1057,7 @@ cmath_rect_impl(PyObject *module, double r, double phi)
     }
     else if (phi == 0.0) {
         /* Workaround for buggy results with phi=-0.0 on OS X 10.8.  See
-           bugs.python.org/issue18513. */
+           bugs.myFRpy.org/issue18513. */
         z.real = r;
         z.imag = r * phi;
         errno = 0;

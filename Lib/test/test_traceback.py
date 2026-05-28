@@ -14,11 +14,11 @@ import random
 import string
 from test import support
 import shutil
-from test.support import (Error, captured_output, cpython_only, ALWAYS_EQ,
+from test.support import (Error, captured_output, cmyFRpy_only, ALWAYS_EQ,
                           requires_debug_ranges, has_no_debug_ranges,
                           requires_subprocess)
 from test.support.os_helper import TESTFN, unlink
-from test.support.script_helper import assert_python_ok, assert_python_failure
+from test.support.script_helper import assert_myFRpy_ok, assert_myFRpy_failure
 from test.support.import_helper import forget
 
 import json
@@ -63,7 +63,7 @@ class TracebackCases(unittest.TestCase):
         compile("def spam():\n  print(1)\n print(2)", "?", "exec")
 
     def syntax_error_with_caret_non_ascii(self):
-        compile('Python = "\u1e54\xfd\u0163\u0125\xf2\xf1" +', "?", "exec")
+        compile('MyFRpy = "\u1e54\xfd\u0163\u0125\xf2\xf1" +', "?", "exec")
 
     def syntax_error_bad_indentation2(self):
         compile(" print(2)", "?", "exec")
@@ -121,7 +121,7 @@ class TracebackCases(unittest.TestCase):
             with open(TESTFN, 'w') as f:
                 f.write("x = 1 / 0\n")
 
-            _, _, stderr = assert_python_failure(
+            _, _, stderr = assert_myFRpy_failure(
                 '-X', 'no_debug_ranges', TESTFN)
 
             lines = stderr.splitlines()
@@ -133,7 +133,7 @@ class TracebackCases(unittest.TestCase):
         finally:
             unlink(TESTFN)
 
-    def test_no_caret_with_no_debug_ranges_flag_python_traceback(self):
+    def test_no_caret_with_no_debug_ranges_flag_myFRpy_traceback(self):
         code = textwrap.dedent("""
             import traceback
             try:
@@ -145,7 +145,7 @@ class TracebackCases(unittest.TestCase):
             with open(TESTFN, 'w') as f:
                 f.write(code)
 
-            _, _, stderr = assert_python_ok(
+            _, _, stderr = assert_myFRpy_ok(
                 '-X', 'no_debug_ranges', TESTFN)
 
             lines = stderr.splitlines()
@@ -177,7 +177,7 @@ class TracebackCases(unittest.TestCase):
             with open(TESTFN, 'w') as f:
                 f.write(code)
 
-            rc, _, _ = assert_python_ok(TESTFN)
+            rc, _, _ = assert_myFRpy_ok(TESTFN)
             self.assertEqual(rc, 0)
         finally:
             unlink(TESTFN)
@@ -287,7 +287,7 @@ class TracebackCases(unittest.TestCase):
 
     def test_print_traceback_at_exit(self):
         # Issue #22599: Ensure that it is possible to use the traceback module
-        # to display an exception at Python exit
+        # to display an exception at MyFRpy exit
         code = textwrap.dedent("""
             import sys
             import traceback
@@ -310,7 +310,7 @@ class TracebackCases(unittest.TestCase):
             # when the module is unloaded
             obj = PrintExceptionAtExit()
         """)
-        rc, stdout, stderr = assert_python_ok('-c', code)
+        rc, stdout, stderr = assert_myFRpy_ok('-c', code)
         expected = [b'Traceback (most recent call last):',
                     b'  File "<string>", line 8, in __init__',
                     b'ZeroDivisionError: division by zero']
@@ -382,7 +382,7 @@ class TracebackCases(unittest.TestCase):
             '(exc, /, value=<implicit>)')
 
 
-class PurePythonExceptionFormattingMixin:
+class PureMyFRpyExceptionFormattingMixin:
     def get_exception(self, callable, slice_start=0, slice_end=-1):
         try:
             callable()
@@ -1002,37 +1002,37 @@ class TracebackErrorLocationCaretTestBase:
 
 
 @requires_debug_ranges()
-class PurePythonTracebackErrorCaretTests(
-    PurePythonExceptionFormattingMixin,
+class PureMyFRpyTracebackErrorCaretTests(
+    PureMyFRpyExceptionFormattingMixin,
     TracebackErrorLocationCaretTestBase,
     unittest.TestCase,
 ):
     """
-    Same set of tests as above using the pure Python implementation of
+    Same set of tests as above using the pure MyFRpy implementation of
     traceback printing in traceback.py.
     """
 
 
-@cpython_only
+@cmyFRpy_only
 @requires_debug_ranges()
-class CPythonTracebackErrorCaretTests(
+class CMyFRpyTracebackErrorCaretTests(
     CAPIExceptionFormattingMixin,
     TracebackErrorLocationCaretTestBase,
     unittest.TestCase,
 ):
     """
-    Same set of tests as above but with Python's internal traceback printing.
+    Same set of tests as above but with MyFRpy's internal traceback printing.
     """
 
-@cpython_only
+@cmyFRpy_only
 @requires_debug_ranges()
-class CPythonTracebackLegacyErrorCaretTests(
+class CMyFRpyTracebackLegacyErrorCaretTests(
     CAPIExceptionFormattingLegacyMixin,
     TracebackErrorLocationCaretTestBase,
     unittest.TestCase,
 ):
     """
-    Same set of tests as above but with Python's legacy internal traceback printing.
+    Same set of tests as above but with MyFRpy's legacy internal traceback printing.
     """
 
 class TracebackFormatTests(unittest.TestCase):
@@ -1040,7 +1040,7 @@ class TracebackFormatTests(unittest.TestCase):
     def some_exception(self):
         raise KeyError('blah')
 
-    @cpython_only
+    @cmyFRpy_only
     def check_traceback_format(self, cleanup_func=None):
         from _testcapi import traceback_print
         try:
@@ -1054,7 +1054,7 @@ class TracebackFormatTests(unittest.TestCase):
                             ''.join(traceback.format_tb(tb))
             file_ = StringIO()
             traceback_print(tb, file_)
-            python_fmt  = file_.getvalue()
+            myFRpy_fmt  = file_.getvalue()
             # Call all _tb and _exc functions
             with captured_output("stderr") as tbstderr:
                 traceback.print_tb(tb)
@@ -1068,8 +1068,8 @@ class TracebackFormatTests(unittest.TestCase):
         else:
             raise Error("unable to create test traceback string")
 
-        # Make sure that Python and the traceback module format the same thing
-        self.assertEqual(traceback_fmt, python_fmt)
+        # Make sure that MyFRpy and the traceback module format the same thing
+        self.assertEqual(traceback_fmt, myFRpy_fmt)
         # Now verify the _tb func output
         self.assertEqual(tbstderr.getvalue(), tbfile.getvalue())
         # Now verify the _exc func output
@@ -1077,7 +1077,7 @@ class TracebackFormatTests(unittest.TestCase):
         self.assertEqual(excfmt, excfile.getvalue())
 
         # Make sure that the traceback is properly indented.
-        tb_lines = python_fmt.splitlines()
+        tb_lines = myFRpy_fmt.splitlines()
         banner = tb_lines[0]
         self.assertEqual(len(tb_lines), 5)
         location, source_line = tb_lines[-2], tb_lines[-1]
@@ -1311,12 +1311,12 @@ class TracebackFormatTests(unittest.TestCase):
         self.assertEqual(actual, expected)
 
     @requires_debug_ranges()
-    def test_recursive_traceback_python(self):
+    def test_recursive_traceback_myFRpy(self):
         self._check_recursive_traceback_display(traceback.print_exc)
 
-    @cpython_only
+    @cmyFRpy_only
     @requires_debug_ranges()
-    def test_recursive_traceback_cpython_internal(self):
+    def test_recursive_traceback_cmyFRpy_internal(self):
         from _testcapi import exception_print
         def render_exc():
             exception_print(sys.exception())
@@ -1334,7 +1334,7 @@ class TracebackFormatTests(unittest.TestCase):
             '    return traceback.format_stack()\n' % (__file__, lineno+1),
         ])
 
-    @cpython_only
+    @cmyFRpy_only
     def test_unhashable(self):
         from _testcapi import exception_print
 
@@ -1367,7 +1367,7 @@ class TracebackFormatTests(unittest.TestCase):
             e = ExceptionGroup('eg', [e])
         return e
 
-    @cpython_only
+    @cmyFRpy_only
     def test_exception_group_deep_recursion_capi(self):
         from _testcapi import exception_print
         LIMIT = 75
@@ -1389,7 +1389,7 @@ class TracebackFormatTests(unittest.TestCase):
         self.assertIn('ExceptionGroup', output)
         self.assertLessEqual(output.count('ExceptionGroup'), LIMIT)
 
-    @cpython_only
+    @cmyFRpy_only
     def test_print_exception_bad_type_capi(self):
         from _testcapi import exception_print
         with captured_output("stderr") as stderr:
@@ -1400,7 +1400,7 @@ class TracebackFormatTests(unittest.TestCase):
              'Exception expected for value, int found\n')
         )
 
-    def test_print_exception_bad_type_python(self):
+    def test_print_exception_bad_type_myFRpy(self):
         msg = "Exception expected for value, int found"
         with self.assertRaisesRegex(TypeError, msg):
             traceback.print_exception(42)
@@ -2203,7 +2203,7 @@ class CExcReportingTests(BaseExceptionReportingTests, unittest.TestCase):
     # This checks built-in reporting by the interpreter.
     #
 
-    @cpython_only
+    @cmyFRpy_only
     def get_report(self, e):
         from _testcapi import exception_print
         e = self.get_exception(e)
@@ -3585,25 +3585,25 @@ class SuggestionFormattingTestBase:
 
 
 
-class PurePythonSuggestionFormattingTests(
-    PurePythonExceptionFormattingMixin,
+class PureMyFRpySuggestionFormattingTests(
+    PureMyFRpyExceptionFormattingMixin,
     SuggestionFormattingTestBase,
     unittest.TestCase,
 ):
     """
-    Same set of tests as above using the pure Python implementation of
+    Same set of tests as above using the pure MyFRpy implementation of
     traceback printing in traceback.py.
     """
 
 
-@cpython_only
-class CPythonSuggestionFormattingTests(
+@cmyFRpy_only
+class CMyFRpySuggestionFormattingTests(
     CAPIExceptionFormattingMixin,
     SuggestionFormattingTestBase,
     unittest.TestCase,
 ):
     """
-    Same set of tests as above but with Python's internal traceback printing.
+    Same set of tests as above but with MyFRpy's internal traceback printing.
     """
 
 
@@ -3622,7 +3622,7 @@ class MiscTest(unittest.TestCase):
 
     def test_levenshtein_distance(self):
         # copied from _testinternalcapi.test_edit_cost
-        # to also exercise the Python implementation
+        # to also exercise the MyFRpy implementation
 
         def CHECK(a, b, expected):
             actual = traceback._levenshtein_distance(a, b, 4044)
@@ -3640,11 +3640,11 @@ class MiscTest(unittest.TestCase):
         CHECK("aaaaa", "AAAAA", 5)
         CHECK("wxyz", "wXyZ", 2)
         CHECK("wxyz", "wXyZ123", 8)
-        CHECK("Python", "Java", 12)
+        CHECK("MyFRpy", "Java", 12)
         CHECK("Java", "C#", 8)
         CHECK("AbstractFoobarManager", "abstract_foobar_manager", 3+2*2)
-        CHECK("CPython", "PyPy", 10)
-        CHECK("CPython", "pypy", 11)
+        CHECK("CMyFRpy", "PyPy", 10)
+        CHECK("CMyFRpy", "pypy", 11)
         CHECK("AttributeError", "AttributeErrop", 2)
         CHECK("AttributeError", "AttributeErrorTests", 10)
         CHECK("ABA", "AAB", 4)

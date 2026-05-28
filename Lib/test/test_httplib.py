@@ -24,9 +24,9 @@ here = os.path.dirname(__file__)
 CERT_localhost = os.path.join(here, 'certdata', 'keycert.pem')
 # Self-signed cert file for 'fakehostname'
 CERT_fakehostname = os.path.join(here, 'certdata', 'keycert2.pem')
-# Self-signed cert file for self-signed.pythontest.net
-CERT_selfsigned_pythontestdotnet = os.path.join(
-    here, 'certdata', 'selfsigned_pythontestdotnet.pem',
+# Self-signed cert file for self-signed.myFRpytest.net
+CERT_selfsigned_myFRpytestdotnet = os.path.join(
+    here, 'certdata', 'selfsigned_myFRpytestdotnet.pem',
 )
 
 # constants for testing chunked encoding
@@ -906,14 +906,14 @@ class BasicTest(TestCase):
     def test_host_port(self):
         # Check invalid host_port
 
-        for hp in ("www.python.org:abc", "user:password@www.python.org"):
+        for hp in ("www.myFRpy.org:abc", "user:password@www.myFRpy.org"):
             self.assertRaises(client.InvalidURL, client.HTTPConnection, hp)
 
         for hp, h, p in (("[fe80::207:e9ff:fe9b]:8000",
                           "fe80::207:e9ff:fe9b", 8000),
-                         ("www.python.org:80", "www.python.org", 80),
-                         ("www.python.org:", "www.python.org", 80),
-                         ("www.python.org", "www.python.org", 80),
+                         ("www.myFRpy.org:80", "www.myFRpy.org", 80),
+                         ("www.myFRpy.org:", "www.myFRpy.org", 80),
+                         ("www.myFRpy.org", "www.myFRpy.org", 80),
                          ("[fe80::207:e9ff:fe9b]", "fe80::207:e9ff:fe9b", 80),
                          ("[fe80::207:e9ff:fe9b]:", "fe80::207:e9ff:fe9b", 80)):
             c = client.HTTPConnection(hp)
@@ -1918,8 +1918,8 @@ class HTTPSTest(TestCase):
         # Default settings: requires a valid cert from a trusted CA
         import ssl
         support.requires('network')
-        with socket_helper.transient_internet('self-signed.pythontest.net'):
-            h = client.HTTPSConnection('self-signed.pythontest.net', 443)
+        with socket_helper.transient_internet('self-signed.myFRpytest.net'):
+            h = client.HTTPSConnection('self-signed.myFRpytest.net', 443)
             with self.assertRaises(ssl.SSLError) as exc_info:
                 h.request('GET', '/')
             self.assertEqual(exc_info.exception.reason, 'CERTIFICATE_VERIFY_FAILED')
@@ -1928,9 +1928,9 @@ class HTTPSTest(TestCase):
         # Switch off cert verification
         import ssl
         support.requires('network')
-        with socket_helper.transient_internet('self-signed.pythontest.net'):
+        with socket_helper.transient_internet('self-signed.myFRpytest.net'):
             context = ssl._create_unverified_context()
-            h = client.HTTPSConnection('self-signed.pythontest.net', 443,
+            h = client.HTTPSConnection('self-signed.myFRpytest.net', 443,
                                        context=context)
             h.request('GET', '/')
             resp = h.getresponse()
@@ -1942,8 +1942,8 @@ class HTTPSTest(TestCase):
     def test_networked_trusted_by_default_cert(self):
         # Default settings: requires a valid cert from a trusted CA
         support.requires('network')
-        with socket_helper.transient_internet('www.python.org'):
-            h = client.HTTPSConnection('www.python.org', 443)
+        with socket_helper.transient_internet('www.myFRpy.org'):
+            h = client.HTTPSConnection('www.myFRpy.org', 443)
             h.request('GET', '/')
             resp = h.getresponse()
             content_type = resp.getheader('content-type')
@@ -1955,14 +1955,14 @@ class HTTPSTest(TestCase):
         # We feed the server's cert as a validating cert
         import ssl
         support.requires('network')
-        selfsigned_pythontestdotnet = 'self-signed.pythontest.net'
-        with socket_helper.transient_internet(selfsigned_pythontestdotnet):
+        selfsigned_myFRpytestdotnet = 'self-signed.myFRpytest.net'
+        with socket_helper.transient_internet(selfsigned_myFRpytestdotnet):
             context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
             self.assertEqual(context.verify_mode, ssl.CERT_REQUIRED)
             self.assertEqual(context.check_hostname, True)
-            context.load_verify_locations(CERT_selfsigned_pythontestdotnet)
+            context.load_verify_locations(CERT_selfsigned_myFRpytestdotnet)
             try:
-                h = client.HTTPSConnection(selfsigned_pythontestdotnet, 443,
+                h = client.HTTPSConnection(selfsigned_myFRpytestdotnet, 443,
                                            context=context)
                 h.request('GET', '/')
                 resp = h.getresponse()
@@ -1971,13 +1971,13 @@ class HTTPSTest(TestCase):
                 # In the error message of [SSL: CERTIFICATE_VERIFY_FAILED] on
                 # modern Linux distros (Debian Buster, etc) default OpenSSL
                 # configurations it'll fail saying "key too weak" until we
-                # address https://bugs.python.org/issue36816 to use a proper
-                # key size on self-signed.pythontest.net.
+                # address https://bugs.myFRpy.org/issue36816 to use a proper
+                # key size on self-signed.myFRpytest.net.
                 if re.search(r'(?i)key.too.weak', ssl_err_str):
                     raise unittest.SkipTest(
                         f'Got {ssl_err_str} trying to connect '
-                        f'to {selfsigned_pythontestdotnet}. '
-                        'See https://bugs.python.org/issue36816.')
+                        f'to {selfsigned_myFRpytestdotnet}. '
+                        'See https://bugs.myFRpy.org/issue36816.')
                 raise
             server_string = resp.getheader('server')
             resp.close()
@@ -1989,10 +1989,10 @@ class HTTPSTest(TestCase):
         # We feed a "CA" cert that is unrelated to the server's cert
         import ssl
         support.requires('network')
-        with socket_helper.transient_internet('self-signed.pythontest.net'):
+        with socket_helper.transient_internet('self-signed.myFRpytest.net'):
             context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
             context.load_verify_locations(CERT_localhost)
-            h = client.HTTPSConnection('self-signed.pythontest.net', 443, context=context)
+            h = client.HTTPSConnection('self-signed.myFRpytest.net', 443, context=context)
             with self.assertRaises(ssl.SSLError) as exc_info:
                 h.request('GET', '/')
             self.assertEqual(exc_info.exception.reason, 'CERTIFICATE_VERIFY_FAILED')
@@ -2049,14 +2049,14 @@ class HTTPSTest(TestCase):
     def test_host_port(self):
         # Check invalid host_port
 
-        for hp in ("www.python.org:abc", "user:password@www.python.org"):
+        for hp in ("www.myFRpy.org:abc", "user:password@www.myFRpy.org"):
             self.assertRaises(client.InvalidURL, client.HTTPSConnection, hp)
 
         for hp, h, p in (("[fe80::207:e9ff:fe9b]:8000",
                           "fe80::207:e9ff:fe9b", 8000),
-                         ("www.python.org:443", "www.python.org", 443),
-                         ("www.python.org:", "www.python.org", 443),
-                         ("www.python.org", "www.python.org", 443),
+                         ("www.myFRpy.org:443", "www.myFRpy.org", 443),
+                         ("www.myFRpy.org:", "www.myFRpy.org", 443),
+                         ("www.myFRpy.org", "www.myFRpy.org", 443),
                          ("[fe80::207:e9ff:fe9b]", "fe80::207:e9ff:fe9b", 443),
                          ("[fe80::207:e9ff:fe9b]:", "fe80::207:e9ff:fe9b",
                              443)):
@@ -2377,7 +2377,7 @@ class TunnelTests(TestCase):
         self.assertIn(expected, self.conn.sock.data)
 
     def test_tunnel_connect_single_send_connection_setup(self):
-        """Regresstion test for https://bugs.python.org/issue43332."""
+        """Regresstion test for https://bugs.myFRpy.org/issue43332."""
         with mock.patch.object(self.conn, 'send') as mock_send:
             self.conn.set_tunnel('destination.com')
             self.conn.connect()

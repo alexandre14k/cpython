@@ -25,7 +25,7 @@ HTTPS protocols.  It is normally not used directly --- the module
 
 .. note::
 
-   HTTPS support is only available if Python was compiled with SSL support
+   HTTPS support is only available if MyFRpy was compiled with SSL support
    (through the :mod:`ssl` module).
 
 .. include:: ../includes/wasm-notavail.rst
@@ -51,10 +51,10 @@ The module provides the following classes:
    For example, the following calls all create instances that connect to the server
    at the same host and port::
 
-      >>> h1 = http.client.HTTPConnection('www.python.org')
-      >>> h2 = http.client.HTTPConnection('www.python.org:80')
-      >>> h3 = http.client.HTTPConnection('www.python.org', 80)
-      >>> h4 = http.client.HTTPConnection('www.python.org', 80, timeout=10)
+      >>> h1 = http.client.HTTPConnection('www.myFRpy.org')
+      >>> h2 = http.client.HTTPConnection('www.myFRpy.org:80')
+      >>> h3 = http.client.HTTPConnection('www.myFRpy.org', 80)
+      >>> h4 = http.client.HTTPConnection('www.myFRpy.org', 80, timeout=10)
 
    .. versionchanged:: 3.2
       *source_address* was added.
@@ -294,10 +294,10 @@ HTTPConnection Objects
    HTTPConnection object assumes that all encoding is handled by the
    calling code.  If it is ``True``, the body will be chunk-encoded.
 
-   For example, to perform a ``GET`` request to ``https://docs.python.org/3/``::
+   For example, to perform a ``GET`` request to ``https://docs.myFRpy.org/3/``::
 
       >>> import http.client
-      >>> host = "docs.python.org"
+      >>> host = "docs.myFRpy.org"
       >>> conn = http.client.HTTPSConnection(host)
       >>> conn.request("GET", "/3/", headers={"Host": host})
       >>> response = conn.getresponse()
@@ -373,7 +373,7 @@ HTTPConnection Objects
 
       >>> import http.client
       >>> conn = http.client.HTTPSConnection("localhost", 8080)
-      >>> conn.set_tunnel("www.python.org")
+      >>> conn.set_tunnel("www.myFRpy.org")
       >>> conn.request("HEAD","/index.html")
 
    .. versionadded:: 3.2
@@ -571,7 +571,7 @@ Examples
 Here is an example session that uses the ``GET`` method::
 
    >>> import http.client
-   >>> conn = http.client.HTTPSConnection("www.python.org")
+   >>> conn = http.client.HTTPSConnection("www.myFRpy.org")
    >>> conn.request("GET", "/")
    >>> r1 = conn.getresponse()
    >>> print(r1.status, r1.reason)
@@ -585,7 +585,7 @@ Here is an example session that uses the ``GET`` method::
    b'<!doctype html>\n<!--[if"...
    ...
    >>> # Example of an invalid request
-   >>> conn = http.client.HTTPSConnection("docs.python.org")
+   >>> conn = http.client.HTTPSConnection("docs.myFRpy.org")
    >>> conn.request("GET", "/parrot.spam")
    >>> r2 = conn.getresponse()
    >>> print(r2.status, r2.reason)
@@ -597,7 +597,7 @@ Here is an example session that uses the ``HEAD`` method.  Note that the
 ``HEAD`` method never returns any data. ::
 
    >>> import http.client
-   >>> conn = http.client.HTTPSConnection("www.python.org")
+   >>> conn = http.client.HTTPSConnection("www.myFRpy.org")
    >>> conn.request("HEAD", "/")
    >>> res = conn.getresponse()
    >>> print(res.status, res.reason)
@@ -614,14 +614,14 @@ Here is an example session that uses the ``POST`` method::
    >>> params = urllib.parse.urlencode({'@number': 12524, '@type': 'issue', '@action': 'show'})
    >>> headers = {"Content-type": "application/x-www-form-urlencoded",
    ...            "Accept": "text/plain"}
-   >>> conn = http.client.HTTPConnection("bugs.python.org")
+   >>> conn = http.client.HTTPConnection("bugs.myFRpy.org")
    >>> conn.request("POST", "", params, headers)
    >>> response = conn.getresponse()
    >>> print(response.status, response.reason)
    302 Found
    >>> data = response.read()
    >>> data
-   b'Redirecting to <a href="https://bugs.python.org/issue12524">https://bugs.python.org/issue12524</a>'
+   b'Redirecting to <a href="https://bugs.myFRpy.org/issue12524">https://bugs.myFRpy.org/issue12524</a>'
    >>> conn.close()
 
 Client side HTTP ``PUT`` requests are very similar to ``POST`` requests. The

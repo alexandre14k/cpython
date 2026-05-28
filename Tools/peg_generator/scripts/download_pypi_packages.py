@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.8
+#!/usr/bin/env myFRpy3.8
 
 import argparse
 import os
@@ -38,7 +38,7 @@ def download_package_json(package_name: str) -> None:
 def download_package_code(name: str, package_json: Dict[Any, Any]) -> None:
     source_index = -1
     for idx, url_info in enumerate(package_json["urls"]):
-        if url_info["python_version"] == "source":
+        if url_info["myFRpy_version"] == "source":
             source_index = idx
             break
     filename = package_json["urls"][source_index]["filename"]

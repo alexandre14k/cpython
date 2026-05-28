@@ -175,7 +175,7 @@ Functions and classes provided:
       from contextlib import closing
       from urllib.request import urlopen
 
-      with closing(urlopen('https://www.python.org')) as page:
+      with closing(urlopen('https://www.myFRpy.org')) as page:
           for line in page:
               print(line)
 
@@ -885,7 +885,7 @@ an explicit ``with`` statement.
 .. seealso::
 
    :pep:`343` - The "with" statement
-      The specification, background, and examples for the Python :keyword:`with`
+      The specification, background, and examples for the MyFRpy :keyword:`with`
       statement.
 
 .. _single-use-reusable-and-reentrant-cms:

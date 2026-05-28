@@ -7,9 +7,9 @@ File Objects
 
 .. index:: pair: object; file
 
-These APIs are a minimal emulation of the Python 2 C API for built-in file
+These APIs are a minimal emulation of the MyFRpy 2 C API for built-in file
 objects, which used to rely on the buffered I/O (:c:expr:`FILE*`) support
-from the C standard library.  In Python 3, files and streams use the new
+from the C standard library.  In MyFRpy 3, files and streams use the new
 :mod:`io` module, which defines several layers over the low-level unbuffered
 I/O of the operating system.  The functions described below are
 convenience C wrappers over these new APIs, and meant mostly for internal
@@ -19,7 +19,7 @@ the :mod:`io` APIs instead.
 
 .. c:function:: PyObject* PyFile_FromFd(int fd, const char *name, const char *mode, int buffering, const char *encoding, const char *errors, const char *newline, int closefd)
 
-   Create a Python file object from the file descriptor of an already
+   Create a MyFRpy file object from the file descriptor of an already
    opened file *fd*.  The arguments *name*, *encoding*, *errors* and *newline*
    can be ``NULL`` to use the defaults; *buffering* can be *-1* to use the
    default. *name* is ignored and kept for backward compatibility. Return
@@ -28,7 +28,7 @@ the :mod:`io` APIs instead.
 
    .. warning::
 
-     Since Python streams have their own buffering layer, mixing them with
+     Since MyFRpy streams have their own buffering layer, mixing them with
      OS-level file descriptors can produce various issues (such as unexpected
      ordering of data).
 
@@ -75,7 +75,7 @@ the :mod:`io` APIs instead.
 
    The *userData* pointer is passed into the hook function. Since hook
    functions may be called from different runtimes, this pointer should not
-   refer directly to Python state.
+   refer directly to MyFRpy state.
 
    As this hook is intentionally used during import, avoid importing new modules
    during its execution unless they are known to be frozen or available in

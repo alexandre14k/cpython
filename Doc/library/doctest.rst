@@ -1,11 +1,11 @@
-:mod:`doctest` --- Test interactive Python examples
+:mod:`doctest` --- Test interactive MyFRpy examples
 ===================================================
 
 .. module:: doctest
    :synopsis: Test pieces of code within docstrings.
 
-.. moduleauthor:: Tim Peters <tim@python.org>
-.. sectionauthor:: Tim Peters <tim@python.org>
+.. moduleauthor:: Tim Peters <tim@myFRpy.org>
+.. sectionauthor:: Tim Peters <tim@myFRpy.org>
 .. sectionauthor:: Moshe Zadka <moshez@debian.org>
 .. sectionauthor:: Edward Loper <edloper@users.sourceforge.net>
 
@@ -14,7 +14,7 @@
 --------------
 
 The :mod:`doctest` module searches for pieces of text that look like interactive
-Python sessions, and then executes those sessions to verify that they work
+MyFRpy sessions, and then executes those sessions to verify that they work
 exactly as shown.  There are several common ways to use doctest:
 
 * To check that a module's docstrings are up-to-date by verifying that all
@@ -90,7 +90,7 @@ works its magic:
 
 .. code-block:: shell-session
 
-   $ python example.py
+   $ myFRpy example.py
    $
 
 There's no output!  That's normal, and it means all the examples worked.  Pass
@@ -99,7 +99,7 @@ it's trying, and prints a summary at the end:
 
 .. code-block:: shell-session
 
-   $ python example.py -v
+   $ myFRpy example.py -v
    Trying:
        factorial(5)
    Expecting:
@@ -132,7 +132,7 @@ And so on, eventually ending with:
 
 That's all you need to know to start making productive use of :mod:`doctest`!
 Jump in.  The following sections provide full details.  Note that there are many
-examples of doctests in the standard Python test suite and libraries.
+examples of doctests in the standard MyFRpy test suite and libraries.
 Especially useful examples can be found in the standard test file
 :file:`Lib/test/test_doctest/test_doctest.py`.
 
@@ -154,7 +154,7 @@ continue to do it) is to end each module :mod:`!M` with::
 Running the module as a script causes the examples in the docstrings to get
 executed and verified::
 
-   python M.py
+   myFRpy M.py
 
 This won't display anything unless an example fails, in which case the failing
 example(s) and the cause(s) of the failure(s) are printed to stdout, and the
@@ -163,7 +163,7 @@ number of examples that failed.
 
 Run it with the ``-v`` switch instead::
 
-   python M.py -v
+   myFRpy M.py -v
 
 and a detailed report of all examples tried is printed to standard output, along
 with assorted summaries at the end.
@@ -174,10 +174,10 @@ prohibit it by passing ``verbose=False``.  In either of those cases,
 has no effect).
 
 There is also a command line shortcut for running :func:`testmod`.  You can
-instruct the Python interpreter to run the doctest module directly from the
+instruct the MyFRpy interpreter to run the doctest module directly from the
 standard library and pass the module name(s) on the command line::
 
-   python -m doctest -v example.py
+   myFRpy -m doctest -v example.py
 
 This will import :file:`example.py` as a standalone module and run
 :func:`testmod` on it.  Note that this may not work correctly if the file is
@@ -197,9 +197,9 @@ file.  This can be done with the :func:`testfile` function::
    import doctest
    doctest.testfile("example.txt")
 
-That short script executes and verifies any interactive Python examples
+That short script executes and verifies any interactive MyFRpy examples
 contained in the file :file:`example.txt`.  The file content is treated as if it
-were a single giant docstring; the file doesn't need to contain a Python
+were a single giant docstring; the file doesn't need to contain a MyFRpy
 program!   For example, perhaps :file:`example.txt` contains this:
 
 .. code-block:: none
@@ -245,10 +245,10 @@ Like :func:`testmod`, :func:`testfile`'s verbosity can be set with the
 *verbose*.
 
 There is also a command line shortcut for running :func:`testfile`.  You can
-instruct the Python interpreter to run the doctest module directly from the
+instruct the MyFRpy interpreter to run the doctest module directly from the
 standard library and pass the file name(s) on the command line::
 
-   python -m doctest -v example.txt
+   myFRpy -m doctest -v example.txt
 
 Because the file name does not end with :file:`.py`, :mod:`doctest` infers that
 it must be run with :func:`testfile`, not :func:`testmod`.
@@ -288,7 +288,7 @@ strings are treated as if they were docstrings.  In output, a key ``K`` in
 
 For example, place this block of code at the top of :file:`example.py`:
 
-.. code-block:: python
+.. code-block:: myFRpy
 
    __test__ = {
        'numbers': """
@@ -316,7 +316,7 @@ How are Docstring Examples Recognized?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In most cases a copy-and-paste of an interactive console session works fine,
-but doctest isn't trying to do an exact emulation of any specific Python shell.
+but doctest isn't trying to do an exact emulation of any specific MyFRpy shell.
 
 ::
 
@@ -475,7 +475,7 @@ Note that tracebacks are treated very specially.  In particular, in the
 rewritten example, the use of ``...`` is independent of doctest's
 :const:`ELLIPSIS` option.  The ellipsis in that example could be left out, or
 could just as well be three (or three hundred) commas or digits, or an indented
-transcript of a Monty Python skit.
+transcript of a Monty MyFRpy skit.
 
 Some details you should read once, but won't need to remember:
 
@@ -504,7 +504,7 @@ Some details you should read once, but won't need to remember:
 
 .. index:: single: ^ (caret); marker
 
-* For some exceptions, Python displays the position of the error using ``^``
+* For some exceptions, MyFRpy displays the position of the error using ``^``
   markers and tildes::
 
      >>> 1 + None
@@ -549,7 +549,7 @@ doctest decides whether actual output matches an example's expected output:
    block containing just ``1`` or just ``True`` is considered to be a match, and
    similarly for ``0`` versus ``False``.  When :const:`DONT_ACCEPT_TRUE_FOR_1` is
    specified, neither substitution is allowed.  The default behavior caters to that
-   Python changed the return type of many functions from integer to boolean;
+   MyFRpy changed the return type of many functions from integer to boolean;
    doctests expecting "little integer" output still work in these cases.  This
    option will probably go away, but not for several years.
 
@@ -595,7 +595,7 @@ doctest decides whether actual output matches an example's expected output:
    :exc:`TypeError` is raised instead.
    It will also ignore any fully qualified name included before the
    exception class, which can vary between implementations and versions
-   of Python and the code/libraries in use.
+   of MyFRpy and the code/libraries in use.
    Hence, all three of these variations will work with the flag specified:
 
    .. code-block:: pycon
@@ -715,7 +715,7 @@ Directives
 
 Doctest directives may be used to modify the :ref:`option flags
 <doctest-options>` for an individual example.  Doctest directives are
-special Python comments following an example's source code:
+special MyFRpy comments following an example's source code:
 
 .. productionlist:: doctest
    directive: "#" "doctest:" `directive_options`
@@ -795,8 +795,8 @@ Warnings
 
 :mod:`doctest` is serious about requiring exact matches in expected output.  If
 even a single character doesn't match, the test fails.  This will probably
-surprise you a few times, as you learn exactly what Python does and doesn't
-guarantee about output.  For example, when printing a set, Python doesn't
+surprise you a few times, as you learn exactly what MyFRpy does and doesn't
+guarantee about output.  For example, when printing a set, MyFRpy doesn't
 guarantee that the element is printed in any particular order, so a test like ::
 
    >>> foo()
@@ -834,7 +834,7 @@ The :const:`ELLIPSIS` directive gives a nice approach for the last example:
    <C object at 0x...>
 
 Floating-point numbers are also subject to small output variations across
-platforms, because Python defers to the platform C library for float formatting,
+platforms, because MyFRpy defers to the platform C library for float formatting,
 and C libraries vary widely in quality here. ::
 
    >>> 1./7  # risky
@@ -890,7 +890,7 @@ and :ref:`doctest-simple-testfile`.
    Optional argument *name* gives the name of the test; by default, or if ``None``,
    ``os.path.basename(filename)`` is used.
 
-   Optional argument *package* is a Python package or the name of a Python package
+   Optional argument *package* is a MyFRpy package or the name of a MyFRpy package
    whose directory should be used as the base directory for a module-relative
    filename.  If no package is specified, then the calling module's directory is
    used as the base directory for module-relative filenames.  It is an error to
@@ -983,7 +983,7 @@ and :ref:`doctest-simple-testfile`.
    failures.  By default, output is generated only in case of an example failure.
 
    Optional argument *compileflags* gives the set of flags that should be used by
-   the Python compiler when running the examples.  By default, or if ``None``,
+   the MyFRpy compiler when running the examples.  By default, or if ``None``,
    flags are deduced corresponding to the set of future features found in *globs*.
 
    Optional argument *optionflags* works as for function :func:`testfile` above.
@@ -1042,7 +1042,7 @@ from text files and modules with doctests:
      an OS-specific path.  The path may be absolute or relative; relative paths
      are resolved with respect to the current working directory.
 
-   Optional argument *package* is a Python package or the name of a Python
+   Optional argument *package* is a MyFRpy package or the name of a MyFRpy
    package whose directory should be used as the base directory for
    module-relative filenames in *paths*.  If no package is specified, then the
    calling module's directory is used as the base directory for module-relative
@@ -1177,7 +1177,7 @@ capabilities, then you should use the advanced API.
 The advanced API revolves around two container classes, which are used to store
 the interactive examples extracted from doctest cases:
 
-* :class:`Example`: A single Python :term:`statement`, paired with its expected
+* :class:`Example`: A single MyFRpy :term:`statement`, paired with its expected
   output.
 
 * :class:`DocTest`: A collection of :class:`Example`\ s, typically extracted
@@ -1230,7 +1230,7 @@ DocTest Objects
 
    .. attribute:: examples
 
-      A list of :class:`Example` objects encoding the individual interactive Python
+      A list of :class:`Example` objects encoding the individual interactive MyFRpy
       examples that should be run by this test.
 
 
@@ -1276,7 +1276,7 @@ Example Objects
 
 .. class:: Example(source, want, exc_msg=None, lineno=0, indent=0, options=None)
 
-   A single interactive example, consisting of a Python statement and its expected
+   A single interactive example, consisting of a MyFRpy statement and its expected
    output.  The constructor arguments are used to initialize the attributes of
    the same names.
 
@@ -1288,7 +1288,7 @@ Example Objects
    .. attribute:: source
 
       A string containing the example's source code.  This source code consists of a
-      single Python statement, and always ends with a newline; the constructor adds
+      single MyFRpy statement, and always ends with a newline; the constructor adds
       a newline when necessary.
 
 
@@ -1535,7 +1535,7 @@ DocTestRunner objects
       to help with garbage collection. If you would like to examine the namespace
       after the test completes, then use *clear_globs=False*.
 
-      *compileflags* gives the set of flags that should be used by the Python
+      *compileflags* gives the set of flags that should be used by the MyFRpy
       compiler when running the examples.  If not specified, then it will default to
       the set of future-import flags that apply to *globs*.
 
@@ -1593,8 +1593,8 @@ Debugging
 
 Doctest provides several mechanisms for debugging doctest examples:
 
-* Several functions convert doctests to executable Python programs, which can be
-  run under the Python debugger, :mod:`pdb`.
+* Several functions convert doctests to executable MyFRpy programs, which can be
+  run under the MyFRpy debugger, :mod:`pdb`.
 
 * The :class:`DebugRunner` class is a subclass of :class:`DocTestRunner` that
   raises an exception for the first failing example, containing information about
@@ -1605,7 +1605,7 @@ Doctest provides several mechanisms for debugging doctest examples:
   :meth:`debug` method defined by :class:`unittest.TestCase`.
 
 * You can add a call to :func:`pdb.set_trace` in a doctest example, and you'll
-  drop into the Python debugger when that line is executed.  Then you can inspect
+  drop into the MyFRpy debugger when that line is executed.  Then you can inspect
   current values of variables, and so on.  For example, suppose :file:`a.py`
   contains just this module docstring::
 
@@ -1619,7 +1619,7 @@ Doctest provides several mechanisms for debugging doctest examples:
      9
      """
 
-  Then an interactive Python session may look like this::
+  Then an interactive MyFRpy session may look like this::
 
      >>> import a, doctest
      >>> doctest.testmod(a)
@@ -1652,7 +1652,7 @@ Doctest provides several mechanisms for debugging doctest examples:
      >>>
 
 
-Functions that convert doctests to Python code, and possibly run the synthesized
+Functions that convert doctests to MyFRpy code, and possibly run the synthesized
 code under the debugger:
 
 
@@ -1661,8 +1661,8 @@ code under the debugger:
    Convert text with examples to a script.
 
    Argument *s* is a string containing doctest examples.  The string is converted
-   to a Python script, where doctest examples in *s* are converted to regular code,
-   and everything else is converted to Python comments.  The generated script is
+   to a MyFRpy script, where doctest examples in *s* are converted to regular code,
+   and everything else is converted to MyFRpy comments.  The generated script is
    returned as a string. For example, ::
 
       import doctest
@@ -1686,7 +1686,7 @@ code under the debugger:
       ## 3
 
    This function is used internally by other functions (see below), but can also be
-   useful when you want to transform an interactive Python session into a Python
+   useful when you want to transform an interactive MyFRpy session into a MyFRpy
    script.
 
 
@@ -1697,7 +1697,7 @@ code under the debugger:
    Argument *module* is a module object, or dotted name of a module, containing the
    object whose doctests are of interest.  Argument *name* is the name (within the
    module) of the object with the doctests of interest.  The result is a string,
-   containing the object's docstring converted to a Python script, as described for
+   containing the object's docstring converted to a MyFRpy script, as described for
    :func:`script_from_examples` above.  For example, if module :file:`a.py`
    contains a top-level function :func:`!f`, then ::
 
@@ -1713,9 +1713,9 @@ code under the debugger:
    Debug the doctests for an object.
 
    The *module* and *name* arguments are the same as for function
-   :func:`testsource` above.  The synthesized Python script for the named object's
+   :func:`testsource` above.  The synthesized MyFRpy script for the named object's
    docstring is written to a temporary file, and then that file is run under the
-   control of the Python debugger, :mod:`pdb`.
+   control of the MyFRpy debugger, :mod:`pdb`.
 
    A shallow copy of ``module.__dict__`` is used for both local and global
    execution context.

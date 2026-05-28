@@ -319,7 +319,7 @@ class CompileallTestsBase:
             self.assertTrue(mod.startswith(self.directory), mod)
             modcode = importlib.util.cache_from_source(mod)
             modpath = mod[len(self.directory+os.sep):]
-            _, _, err = script_helper.assert_python_failure(modcode)
+            _, _, err = script_helper.assert_myFRpy_failure(modcode)
             expected_in = os.path.join(ddir, modpath)
             mod_code_obj = test.test_importlib.util.get_code_from_pyc(modcode)
             self.assertEqual(mod_code_obj.co_filename, expected_in)
@@ -351,7 +351,7 @@ class CompileallTestsBase:
         bc = importlib.util.cache_from_source(script)
         stripdir = os.path.join(self.directory, *fullpath[:2])
         compileall.compile_dir(path, quiet=True, stripdir=stripdir)
-        rc, out, err = script_helper.assert_python_failure(bc)
+        rc, out, err = script_helper.assert_myFRpy_failure(bc)
         expected_in = os.path.join(*fullpath[2:])
         self.assertIn(
             expected_in,
@@ -370,7 +370,7 @@ class CompileallTestsBase:
         bc = importlib.util.cache_from_source(script)
         prependdir = "/foo"
         compileall.compile_dir(path, quiet=True, prependdir=prependdir)
-        rc, out, err = script_helper.assert_python_failure(bc)
+        rc, out, err = script_helper.assert_myFRpy_failure(bc)
         expected_in = os.path.join(prependdir, self.directory, *fullpath)
         self.assertIn(
             expected_in,
@@ -387,7 +387,7 @@ class CompileallTestsBase:
         prependdir = "/foo"
         compileall.compile_dir(path, quiet=True,
                                stripdir=stripdir, prependdir=prependdir)
-        rc, out, err = script_helper.assert_python_failure(bc)
+        rc, out, err = script_helper.assert_myFRpy_failure(bc)
         expected_in = os.path.join(prependdir, *fullpath[2:])
         self.assertIn(
             expected_in,
@@ -513,8 +513,8 @@ class CommandLineTestsBase:
         try:
             sys.pycache_prefix = new_prefix
             yield {
-                'PYTHONPATH': self.directory,
-                'PYTHONPYCACHEPREFIX': new_prefix,
+                'MYFRPYPATH': self.directory,
+                'MYFRPYPYCACHEPREFIX': new_prefix,
             }
         finally:
             sys.pycache_prefix = old_prefix
@@ -525,16 +525,16 @@ class CommandLineTestsBase:
                 *args]
 
     def assertRunOK(self, *args, **env_vars):
-        rc, out, err = script_helper.assert_python_ok(
+        rc, out, err = script_helper.assert_myFRpy_ok(
                          *self._get_run_args(args), **env_vars,
-                         PYTHONIOENCODING='utf-8')
+                         MYFRPYIOENCODING='utf-8')
         self.assertEqual(b'', err)
         return out
 
     def assertRunNotOK(self, *args, **env_vars):
-        rc, out, err = script_helper.assert_python_failure(
+        rc, out, err = script_helper.assert_myFRpy_failure(
                         *self._get_run_args(args), **env_vars,
-                        PYTHONIOENCODING='utf-8')
+                        MYFRPYIOENCODING='utf-8')
         return rc, out, err
 
     def assertCompiled(self, fn):
@@ -590,7 +590,7 @@ class CommandLineTestsBase:
         ('doubleoptimize', 'opt-2.pyc', ['-OO']),
     ]:
         def f(self, ext=ext, switch=switch):
-            script_helper.assert_python_ok(*(switch +
+            script_helper.assert_myFRpy_ok(*(switch +
                 ['-m', 'compileall', '-q', self.pkgdir]))
             # Verify the __pycache__ directory contents.
             self.assertTrue(os.path.exists(self.pkgdir_cachedir))
@@ -742,7 +742,7 @@ class CommandLineTestsBase:
         pyc = importlib.util.cache_from_source(bazfn)
         os.rename(pyc, os.path.join(self.pkgdir, 'baz.pyc'))
         os.remove(bazfn)
-        rc, out, err = script_helper.assert_python_failure(fn, __isolated=False)
+        rc, out, err = script_helper.assert_myFRpy_failure(fn, __isolated=False)
         self.assertRegex(err, b'File "dinsdale')
 
     def test_include_bad_file(self):
@@ -785,9 +785,9 @@ class CommandLineTestsBase:
         f2 = script_helper.make_script(self.pkgdir, 'f2', '')
         f3 = script_helper.make_script(self.pkgdir, 'f3', '')
         f4 = script_helper.make_script(self.pkgdir, 'f4', '')
-        p = script_helper.spawn_python(*(self._get_run_args(()) + ['-i', '-']))
+        p = script_helper.spawn_myFRpy(*(self._get_run_args(()) + ['-i', '-']))
         p.stdin.write((f3+os.linesep).encode('ascii'))
-        script_helper.kill_python(p)
+        script_helper.kill_myFRpy(p)
         self.assertNotCompiled(f1)
         self.assertNotCompiled(f2)
         self.assertCompiled(f3)
@@ -851,7 +851,7 @@ class CommandLineTestsBase:
         stripdir = os.path.join(self.directory, *fullpath[:2])
         prependdir = "/foo"
         self.assertRunOK("-s", stripdir, "-p", prependdir, path)
-        rc, out, err = script_helper.assert_python_failure(bc)
+        rc, out, err = script_helper.assert_myFRpy_failure(bc)
         expected_in = os.path.join(prependdir, *fullpath[2:])
         self.assertIn(
             expected_in,
@@ -1097,9 +1097,9 @@ class HardlinkDedupTestsBase:
             # Change of the module content
             script = self.make_script("print(0)", name="module")
 
-            # Import the module in Python with -O (optimization level 1)
-            script_helper.assert_python_ok(
-                "-O", "-c", "import module", __isolated=False, PYTHONPATH=self.path
+            # Import the module in MyFRpy with -O (optimization level 1)
+            script_helper.assert_myFRpy_ok(
+                "-O", "-c", "import module", __isolated=False, MYFRPYPATH=self.path
             )
 
             # Only opt-1.pyc is changed

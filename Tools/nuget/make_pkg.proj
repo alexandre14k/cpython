@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <ProjectGuid>{10487945-15D1-4092-A214-338395C4116B}</ProjectGuid>
-        <OutputName>python</OutputName>
+        <OutputName>myFRpy</OutputName>
         <OutputName Condition="$(Platform) == 'x86'">$(OutputName)x86</OutputName>
         <OutputName Condition="$(Platform) == 'ARM'">$(OutputName)arm32</OutputName>
         <OutputName Condition="$(BuildForDaily) == 'true'">$(OutputName)daily</OutputName>
@@ -25,24 +25,24 @@
         
         <CleanCommand>rmdir /q/s "$(IntermediateOutputPath.TrimEnd(`\`))"</CleanCommand>
         
-        <PythonArguments>"$(PythonExe)" "$(PySourcePath)PC\layout"</PythonArguments>
-        <PythonArguments>$(PythonArguments) -b "$(BuildPath.TrimEnd(`\`))" -s "$(PySourcePath.TrimEnd(`\`))"</PythonArguments>
-        <PythonArguments>$(PythonArguments) -t "$(IntermediateOutputPath)obj"</PythonArguments>
-        <PythonArguments>$(PythonArguments) --copy "$(IntermediateOutputPath)pkg"</PythonArguments>
-        <PythonArguments>$(PythonArguments) --preset-nuget</PythonArguments>
+        <MyFRpyArguments>"$(MyFRpyExe)" "$(PySourcePath)PC\layout"</MyFRpyArguments>
+        <MyFRpyArguments>$(MyFRpyArguments) -b "$(BuildPath.TrimEnd(`\`))" -s "$(PySourcePath.TrimEnd(`\`))"</MyFRpyArguments>
+        <MyFRpyArguments>$(MyFRpyArguments) -t "$(IntermediateOutputPath)obj"</MyFRpyArguments>
+        <MyFRpyArguments>$(MyFRpyArguments) --copy "$(IntermediateOutputPath)pkg"</MyFRpyArguments>
+        <MyFRpyArguments>$(MyFRpyArguments) --preset-nuget</MyFRpyArguments>
         
         <PackageArguments Condition="$(Packages) != ''">"$(IntermediateOutputPath)pkg\pip.exe" -B -m pip install -U $(Packages)</PackageArguments>
         
-        <NugetPackCommand>"$(Nuget)" pack "$(IntermediateOutputPath)pkg\python.nuspec" -BasePath "$(IntermediateOutputPath)pkg"</NugetPackCommand>
+        <NugetPackCommand>"$(Nuget)" pack "$(IntermediateOutputPath)pkg\myFRpy.nuspec" -BasePath "$(IntermediateOutputPath)pkg"</NugetPackCommand>
         <NugetPackSymbolsCommand Condition="Exists('$(MSBuildThisFileDirectory)\$(OutputName).symbols.nuspec')">"$(Nuget)" pack "$(MSBuildThisFileDirectory)\$(OutputName).symbols.nuspec" -BasePath "$(BuildPath.TrimEnd(`\`))"</NugetPackSymbolsCommand>
         <NugetArguments>$(NugetArguments) -OutputDirectory "$(OutputPath.Trim(`\`))"</NugetArguments>
         <NugetArguments>$(NugetArguments) -Version "$(NuspecVersion)"</NugetArguments>
         <NugetArguments>$(NugetArguments) -NoPackageAnalysis -NonInteractive</NugetArguments>
         
-        <Environment>$(Environment)%0D%0Aset PYTHONPATH=$(PySourcePath)Lib</Environment>
-        <Environment>$(Environment)%0D%0Aset PYTHON_NUSPEC_VERSION=$(NuspecVersion)</Environment>
-        <Environment Condition="$(Platform) != 'x86'">$(Environment)%0D%0Aset PYTHON_PROPS_PLATFORM=$(Platform)</Environment>
-        <Environment Condition="$(Platform) == 'x86'">$(Environment)%0D%0Aset PYTHON_PROPS_PLATFORM=Win32</Environment>
+        <Environment>$(Environment)%0D%0Aset MYFRPYPATH=$(PySourcePath)Lib</Environment>
+        <Environment>$(Environment)%0D%0Aset MYFRPY_NUSPEC_VERSION=$(NuspecVersion)</Environment>
+        <Environment Condition="$(Platform) != 'x86'">$(Environment)%0D%0Aset MYFRPY_PROPS_PLATFORM=$(Platform)</Environment>
+        <Environment Condition="$(Platform) == 'x86'">$(Environment)%0D%0Aset MYFRPY_PROPS_PLATFORM=Win32</Environment>
         <Environment>$(Environment)%0D%0Amkdir "$(OutputPath.Trim(`\`))" &gt;nul 2&gt;nul</Environment>
     </PropertyGroup>
 
@@ -52,7 +52,7 @@
 
     <Target Name="_Build">
         <Exec Command="$(CleanCommand)" />
-        <Exec Command="setlocal%0D%0A$(Environment)%0D%0A$(PythonArguments)%0D%0A$(PackageArguments)" />
+        <Exec Command="setlocal%0D%0A$(Environment)%0D%0A$(MyFRpyArguments)%0D%0A$(PackageArguments)" />
 
         <Exec Command="$(NugetPackCommand) $(NugetArguments)" />
         <Exec Command="$(NugetPackSymbolsCommand) $(NugetArguments)" Condition="$(NugetPackSymbolsCommand) != ''" />

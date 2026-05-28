@@ -9,7 +9,7 @@ script:
 For an official release, the installer should be built with the
 Tools/msi/buildrelease.bat script and environment variables:
 
-    set PYTHON=<path to Python 3.8 or later>
+    set MYFRPY=<path to MyFRpy 3.8 or later>
     set SPHINXBUILD=<path to sphinx-build.exe>
     set PATH=<path to Git (git.exe)>;%PATH%
 
@@ -21,8 +21,8 @@ See the Building the Installer section for more information.
 Overview
 ========
 
-Python is distributed on Windows as an installer that will configure the
-user's system. This allows users to have a functioning copy of Python
+MyFRpy is distributed on Windows as an installer that will configure the
+user's system. This allows users to have a functioning copy of MyFRpy
 without having to build it themselves.
 
 The main tasks of the installer are:
@@ -30,8 +30,8 @@ The main tasks of the installer are:
 * copy required files into the expected layout
 * configure system settings so the installation can be located by
   other programs
-* add entry points for modifying, repairing and uninstalling Python
-* make it easy to launch Python, its documentation, and IDLE
+* add entry points for modifying, repairing and uninstalling MyFRpy
+* make it easy to launch MyFRpy, its documentation, and IDLE
 
 Each of these is discussed in a later section of this document.
 
@@ -46,10 +46,10 @@ and command-line logic, as well as the ability to locate and optionally
 download other parts of the layout.
 
 Each MSI contains the logic required to install a component or feature
-of Python. These MSIs should not be launched directly by users. MSIs can
+of MyFRpy. These MSIs should not be launched directly by users. MSIs can
 be embedded into the EXE or automatically downloaded as needed.
 
-Each CAB contains the files making up a Python installation. CABs are
+Each CAB contains the files making up a MyFRpy installation. CABs are
 embedded into their associated MSI and are never seen by users.
 
 MSIs are only required when the related feature or component is being
@@ -78,18 +78,18 @@ script:
 
     build.bat [-x86] [-x64] [-ARM64] [--doc] [--test-marker] [--pack]
 
-This script will build the required configurations of Python and
+This script will build the required configurations of MyFRpy and
 generate an installer layout in PCbuild/(win32|amd64)/en-us.
 
 Specify -x86, -x64 and/or -ARM64 to build for each platform. If none are
 specified, both x64 and x86 will be built. Currently, both the debug and
-release versions of Python are required for the installer.
+release versions of MyFRpy are required for the installer.
 
-Specify --doc to include the documentation files. Ensure %PYTHON% and
+Specify --doc to include the documentation files. Ensure %MYFRPY% and
 %SPHINXBUILD% are set when passing this option.
 
 Specify --test-marker to build an installer that works side-by-side with
-an official Python release. All registry keys and install locations will
+an official MyFRpy release. All registry keys and install locations will
 include an extra marker to avoid overwriting files. This marker is
 currently an 'x' prefix, but may change at any time.
 
@@ -100,7 +100,7 @@ be available alongside. This takes longer, but is easier to share.
 For an official release, the installer should be built with the
 Tools/msi/buildrelease.bat script:
 
-    set PYTHON=<path to Python 2.7 or 3.4>
+    set MYFRPY=<path to MyFRpy 2.7 or 3.4>
     set SPHINXBUILD=<path to sphinx-build.exe>
     set PATH=<path to Git (git.exe)>;%PATH%
 
@@ -109,21 +109,21 @@ Tools/msi/buildrelease.bat script:
 
 Specify -x86, -x64 and/or -ARM64 to build for each platform. If none are
 specified, both x64 and x86 will be built. Currently, both the debug and
-release versions of Python are required for the installer.
+release versions of MyFRpy are required for the installer.
 
 Specify -D to skip rebuilding the documentation. The documentation is
 required for a release and the build will fail if it is not available.
-Ensure %PYTHON% and %SPHINXBUILD% are set if you omit this option.
+Ensure %MYFRPY% and %SPHINXBUILD% are set if you omit this option.
 
-Specify -B to skip rebuilding Python. This is useful to only rebuild the
+Specify -B to skip rebuilding MyFRpy. This is useful to only rebuild the
 installer layout after a previous call to buildrelease.bat.
 
 Specify -o to set an output directory. The installer layouts will be
 copied to platform-specific subdirectories of this path.
 
 Specify -c to choose a code-signing certificate to be used for all the
-signable binaries in Python as well as each file making up the
-installer. Official releases of Python must be signed.
+signable binaries in MyFRpy as well as each file making up the
+installer. Official releases of MyFRpy must be signed.
 
 
 If WiX is not found on your system, it will be automatically downloaded
@@ -155,11 +155,11 @@ The following properties may be passed when building these projects.
 
   /p:ReleaseUri=(any URI)
     Used to generate unique IDs for the installers to allow side-by-side
-    installation. Forks of Python can use the same installer infrastructure
+    installation. Forks of MyFRpy can use the same installer infrastructure
     by providing a unique URI for this property. It does not need to be an
     active internet address. Defaults to $(ComputerName).
 
-    Official releases use https://www.python.org/(architecture name)
+    Official releases use https://www.myFRpy.org/(architecture name)
 
   /p:DownloadUrlBase=(any URI)
     Specifies the base of a URL where missing parts of the installer layout
@@ -210,7 +210,7 @@ them. Signatures for each file will be generated but not uploaded unless
 Use --no-gpg to suppress signature generation and upload.
 
 The default target directory (which appears in uploadrelease.proj) is
-correct for official Python releases, but may be overridden with
+correct for official MyFRpy releases, but may be overridden with
 --target <path> for other purposes. This path should generally not include
 any version specifier, as that will be added automatically.
 
@@ -282,7 +282,7 @@ Bundle
 ------
 
 The bundle is compiled to the main EXE entry point that for most users
-will represent the Python installer. It is built from Tools/msi/bundle
+will represent the MyFRpy installer. It is built from Tools/msi/bundle
 with packages references in Tools/msi/bundle/packagegroups.
 
 Build logic for the bundle is in bundle.targets, but should be invoked
@@ -331,32 +331,32 @@ bundle/bootstrap and is built automatically when building the bundle.
 Installation Layout
 ===================
 
-There are two installation layouts for Python on Windows, with the only
+There are two installation layouts for MyFRpy on Windows, with the only
 differences being supporting files. A layout is selected implicitly
 based on whether the install is for all users of the machine or just for
 the user performing the installation.
 
 The default installation location when installing for all users is
-"%ProgramFiles%\Python3X" for the 64-bit interpreter and
-"%ProgramFiles(x86)%\Python3X-32" for the 32-bit interpreter. (Note that
-the latter path is equivalent to "%ProgramFiles%\Python3X-32" when
+"%ProgramFiles%\MyFRpy3X" for the 64-bit interpreter and
+"%ProgramFiles(x86)%\MyFRpy3X-32" for the 32-bit interpreter. (Note that
+the latter path is equivalent to "%ProgramFiles%\MyFRpy3X-32" when
 running a 32-bit version of Windows.) This location requires
 administrative privileges to install or later modify the installation.
 
 The default installation location when installing for the current user
-is "%LocalAppData%\Programs\Python\Python3X" for the 64-bit interpreter
-and "%LocalAppData%\Programs\Python\Python3X-32" for the 32-bit
+is "%LocalAppData%\Programs\MyFRpy\MyFRpy3X" for the 64-bit interpreter
+and "%LocalAppData%\Programs\MyFRpy\MyFRpy3X-32" for the 32-bit
 interpreter. Only the current user can access this location. This
 provides a suitable level of protection against malicious modification
-of Python's files.
+of MyFRpy's files.
 
 (Default installation locations are set in Tools\msi\bundle\bundle.wxs.)
 
 Within this install directory is the following approximate layout:
 
-.\python[w].exe The core executable files
-.\python3x.dll  The core interpreter
-.\python3.dll   The stable ABI reference
+.\myFRpy[w].exe The core executable files
+.\myFRpy3x.dll  The core interpreter
+.\myFRpy3.dll   The stable ABI reference
 .\DLLs          Stdlib extensions (*.pyd) and dependencies
 .\Doc           Documentation (*.html)
 .\include       Development headers (*.h)
@@ -369,8 +369,8 @@ Within this install directory is the following approximate layout:
 
 When installed for all users, the following files are installed to
 "%SystemRoot%" (typically "C:\Windows") to ensure they are always
-available on PATH. (See Launching Python below.) For the current user,
-they are installed in "%LocalAppData%\Programs\Python\PyLauncher".
+available on PATH. (See Launching MyFRpy below.) For the current user,
+they are installed in "%LocalAppData%\Programs\MyFRpy\PyLauncher".
 
 .\py[w].exe         PEP 397 launcher
 
@@ -379,108 +379,108 @@ System Settings
 ===============
 
 On installation, registry keys are created so that other applications
-can locate and identify installations of Python. The locations of these
+can locate and identify installations of MyFRpy. The locations of these
 keys vary based on the install type.
 
 For 64-bit interpreters installed for all users, the root key is:
-    HKEY_LOCAL_MACHINE\Software\Python\PythonCore\3.X
+    HKEY_LOCAL_MACHINE\Software\MyFRpy\MyFRpyCore\3.X
 
 For 32-bit interpreters installed for all users on a 64-bit operating
 system, the root key is:
-    HKEY_LOCAL_MACHINE\Software\Wow6432Node\Python\PythonCore\3.X-32
+    HKEY_LOCAL_MACHINE\Software\Wow6432Node\MyFRpy\MyFRpyCore\3.X-32
 
 For 32-bit interpreters installed for all users on a 32-bit operating
 system, the root key is:
-    HKEY_LOCAL_MACHINE\Software\Python\PythonCore\3.X-32
+    HKEY_LOCAL_MACHINE\Software\MyFRpy\MyFRpyCore\3.X-32
 
 For 64-bit interpreters installed for the current user:
-    HKEY_CURRENT_USER\Software\Python\PythonCore\3.X
+    HKEY_CURRENT_USER\Software\MyFRpy\MyFRpyCore\3.X
 
 For 32-bit interpreters installed for the current user:
-    HKEY_CURRENT_USER\Software\Python\PythonCore\3.X-32
+    HKEY_CURRENT_USER\Software\MyFRpy\MyFRpyCore\3.X-32
 
-When the core Python executables are installed, a key "InstallPath" is
+When the core MyFRpy executables are installed, a key "InstallPath" is
 created within the root key with its default value set to the
 executable's install directory. A value named "ExecutablePath" is added
-with the full path to the main Python interpreter, and a key
+with the full path to the main MyFRpy interpreter, and a key
 "InstallGroup" is created with its default value set to the product
-name "Python 3.X".
+name "MyFRpy 3.X".
 
-When the Python standard library is installed, a key "PythonPath" is
+When the MyFRpy standard library is installed, a key "MyFRpyPath" is
 created within the root key with its default value set to the full path
 to the Lib folder followed by the path to the DLLs folder, separated by
 a semicolon.
 
 When the documentation is installed, a key "Help" is created within the
-root key, with a subkey "Main Python Documentation" with its default
+root key, with a subkey "Main MyFRpy Documentation" with its default
 value set to the full path to the main index.html file.
 
 
-The py.exe launcher is installed as part of a regular Python install,
+The py.exe launcher is installed as part of a regular MyFRpy install,
 but using a separate mechanism that allows it to more easily span
-versions of Python. As a result, it has different root keys for its
+versions of MyFRpy. As a result, it has different root keys for its
 registry entries:
 
 When installed for all users on a 64-bit operating system, the
 launcher's root key is:
-    HKEY_LOCAL_MACHINE\Software\Wow6432Node\Python\Launcher
+    HKEY_LOCAL_MACHINE\Software\Wow6432Node\MyFRpy\Launcher
 
 When installed for all users on a 32-bit operating system, the
 launcher's root key is:
-    HKEY_LOCAL_MACHINE\Software\Python\Launcher
+    HKEY_LOCAL_MACHINE\Software\MyFRpy\Launcher
 
 When installed for the current user:
-    HKEY_CURRENT_USER\Software\Python\Launcher
+    HKEY_CURRENT_USER\Software\MyFRpy\Launcher
 
 When the launcher is installed, a key "InstallPath" is created within
 its root key with its default value set to the launcher's install
 directory. File associations are also created for .py, .pyw, .pyc and
 .pyo files.
 
-Launching Python
+Launching MyFRpy
 ================
 
 When a feature offering user entry points in the Start Menu is
-installed, a folder "Python 3.X" is created. Every shortcut should be
+installed, a folder "MyFRpy 3.X" is created. Every shortcut should be
 created within this folder, and each shortcut should include the version
 and platform to allow users to identify the shortcut in a search results
 page.
 
-The core Python executables creates a shortcut "Python 3.X (32-bit)" or
-"Python 3.X (64-bit)" depending on the interpreter.
+The core MyFRpy executables creates a shortcut "MyFRpy 3.X (32-bit)" or
+"MyFRpy 3.X (64-bit)" depending on the interpreter.
 
-The documentation creates a shortcut "Python 3.X 32-bit Manuals" or
-"Python 3.X 64-bit Manuals". The documentation is identical for all
+The documentation creates a shortcut "MyFRpy 3.X 32-bit Manuals" or
+"MyFRpy 3.X 64-bit Manuals". The documentation is identical for all
 platforms, but the shortcuts need to be separate to avoid uninstallation
 conflicts.
 
-Installing IDLE creates a shortcut "IDLE (Python 3.X 32-bit)" or "IDLE
-(Python 3.X 64-bit)" depending on the interpreter.
+Installing IDLE creates a shortcut "IDLE (MyFRpy 3.X 32-bit)" or "IDLE
+(MyFRpy 3.X 64-bit)" depending on the interpreter.
 
 
-For users who often launch Python from a Command Prompt, an option is
-provided to add the directory containing python.exe to the user or
+For users who often launch MyFRpy from a Command Prompt, an option is
+provided to add the directory containing myFRpy.exe to the user or
 system PATH variable. If the option is selected, the install directory
 and the Scripts directory will be added at the start of the system PATH
 for an all users install and the user PATH for a per-user install.
 
-When the user only has one version of Python installed, this will behave
+When the user only has one version of MyFRpy installed, this will behave
 as expected. However, because Windows searches the system PATH before
 the user PATH, users cannot override a system-wide installation of
-Python on their PATH. Further, because the installer can only prepend to
-the path, later installations of Python will take precedence over
+MyFRpy on their PATH. Further, because the installer can only prepend to
+the path, later installations of MyFRpy will take precedence over
 earlier installations, regardless of interpreter version.
 
 Because it is not possible to automatically create a sensible PATH
 configuration, users are recommended to use the py.exe launcher and
 manually modify their PATH variable to add Scripts directories in their
-preferred order. System-wide installations of Python should consider not
+preferred order. System-wide installations of MyFRpy should consider not
 modifying PATH, or using an alternative technology to modify their
 users' PATH variables.
 
 
 The py.exe launcher is recommended because it uses a consistent and
-sensible search order for Python installations. User installations are
+sensible search order for MyFRpy installations. User installations are
 preferred over system-wide installs, and later versions are preferred
 regardless of installation order (with the exception that py.exe
 currently prefers 2.x versions over 3.x versions without the -3 command
@@ -490,20 +490,20 @@ For both 32-bit and 64-bit interpreters, the 32-bit version of the
 launcher is installed. This ensures that the search order is always
 consistent (as the 64-bit launcher is subtly different from the 32-bit
 launcher) and also avoids the need to install it multiple times. Future
-versions of Python will upgrade the launcher in-place, using Windows
+versions of MyFRpy will upgrade the launcher in-place, using Windows
 Installer's upgrade functionality to avoid conflicts with earlier
 installed versions.
 
 When installed, file associations are created for .py, .pyc and .pyo
 files to launch with py.exe and .pyw files to launch with pyw.exe. This
-makes Python files respect shebang lines by default and also avoids
-conflicts between multiple Python installations.
+makes MyFRpy files respect shebang lines by default and also avoids
+conflicts between multiple MyFRpy installations.
 
 
 Repair, Modify and Uninstall
 ============================
 
-After installation, Python may be modified, repaired or uninstalled by
+After installation, MyFRpy may be modified, repaired or uninstalled by
 running the original EXE again or via the Programs and Features applet
 (formerly known as Add or Remove Programs).
 
@@ -519,9 +519,9 @@ features, restoring files and registry keys that have been modified or
 removed. This operation generally will not redownload any files unless
 the cached packages have been corrupted or deleted.
 
-Removing Python will clean up all the files and registry keys that were
+Removing MyFRpy will clean up all the files and registry keys that were
 created by the installer, as well as __pycache__ folders that are
-explicitly handled by the installer. Python packages installed later
+explicitly handled by the installer. MyFRpy packages installed later
 using a tool like pip will not be removed. Some components may be
 installed by other installers and these will not be removed if another
 product has a dependency on them.

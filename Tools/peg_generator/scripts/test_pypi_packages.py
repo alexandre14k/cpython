@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.8
+#!/usr/bin/env myFRpy3.8
 
 import argparse
 import os
@@ -79,7 +79,7 @@ def main() -> None:
             print(e)
             continue
 
-        print(f"Trying to parse all python files ... ")
+        print(f"Trying to parse all myFRpy files ... ")
         dirname = find_dirname(package)
         status = run_tests(dirname, tree)
         if status == 0:

@@ -1,6 +1,6 @@
 /* Descriptors -- a new, flexible way to describe attributes */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_ceval.h"         // _Py_EnterRecursiveCallTstate()
 #include "pycore_object.h"        // _PyObject_GC_UNTRACK()
 #include "pycore_pystate.h"       // _PyThreadState_GET()
@@ -303,7 +303,7 @@ typedef void (*funcptr)(void);
 static inline funcptr
 method_enter_call(PyThreadState *tstate, PyObject *func)
 {
-    if (_Py_EnterRecursiveCallTstate(tstate, " while calling a Python object")) {
+    if (_Py_EnterRecursiveCallTstate(tstate, " while calling a MyFRpy object")) {
         return NULL;
     }
     return (funcptr)((PyMethodDescrObject *)func)->d_method->ml_meth;
@@ -486,7 +486,7 @@ method_vectorcall_O(
 
 
 /* Instances of classmethod_descriptor are unlikely to be called directly.
-   For one, the analogous class "classmethod" (for Python classes) is not
+   For one, the analogous class "classmethod" (for MyFRpy classes) is not
    callable. Second, users are not likely to access a classmethod_descriptor
    directly, since it means pulling it from the class __dict__.
 
@@ -746,7 +746,7 @@ PyTypeObject PyMethodDescr_Type = {
     0,                                          /* tp_descr_set */
 };
 
-/* This is for METH_CLASS in C, not for "f = classmethod(f)" in Python! */
+/* This is for METH_CLASS in C, not for "f = classmethod(f)" in MyFRpy! */
 PyTypeObject PyClassMethodDescr_Type = {
     PyVarObject_HEAD_INIT(&PyType_Type, 0)
     "classmethod_descriptor",
@@ -1833,8 +1833,8 @@ property_init_impl(propertyobject *self, PyObject *fget, PyObject *fset,
             assert(PyErr_Occurred());
             if (PyErr_ExceptionMatches(PyExc_AttributeError)) {
                 PyErr_Clear();
-                // https://github.com/python/cpython/issues/98963#issuecomment-1574413319
-                // Python silently dropped this doc assignment through 3.11.
+                // https://github.com/myFRpy/cmyFRpy/issues/98963#issuecomment-1574413319
+                // MyFRpy silently dropped this doc assignment through 3.11.
                 // We preserve that behavior for backwards compatibility.
                 //
                 // If we ever want to deprecate this behavior, only raise a

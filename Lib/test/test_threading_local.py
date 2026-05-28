@@ -74,7 +74,7 @@ class BaseLocalTest:
             pass
 
     def test_derived_cycle_dealloc(self):
-        # http://bugs.python.org/issue6990
+        # http://bugs.myFRpy.org/issue6990
         class Local(self._local):
             pass
         locals = None
@@ -198,7 +198,7 @@ class BaseLocalTest:
 
 
     def test_threading_local_clear_race(self):
-        # See https://github.com/python/cpython/issues/100892
+        # See https://github.com/myFRpy/cmyFRpy/issues/100892
 
         _testcapi = import_module('_testcapi')
         _testcapi.call_in_temporary_c_thread(lambda: None, False)

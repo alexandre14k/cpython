@@ -29,16 +29,16 @@ exit /b %ERRORLEVEL%
 :Arm32Ssh
 set dashU=-unetwork -udecimal -usubprocess -uurlfetch -utzdata
 if "%SSH_SERVER%"=="" goto :Arm32SshHelp
-if "%PYTHON_SOURCE%"=="" (set PYTHON_SOURCE=%here%..\..\)
-if "%REMOTE_PYTHON_DIR%"=="" (set REMOTE_PYTHON_DIR=C:\python\)
-if NOT "%REMOTE_PYTHON_DIR:~-1,1%"=="\" (set REMOTE_PYTHON_DIR=%REMOTE_PYTHON_DIR%\)
+if "%MYFRPY_SOURCE%"=="" (set MYFRPY_SOURCE=%here%..\..\)
+if "%REMOTE_MYFRPY_DIR%"=="" (set REMOTE_MYFRPY_DIR=C:\myFRpy\)
+if NOT "%REMOTE_MYFRPY_DIR:~-1,1%"=="\" (set REMOTE_MYFRPY_DIR=%REMOTE_MYFRPY_DIR%\)
 
-set TEMP_ARGS=--temp %REMOTE_PYTHON_DIR%temp
+set TEMP_ARGS=--temp %REMOTE_MYFRPY_DIR%temp
 
 set rt_args=%rt_opts% %dashU% -rwW --slowest --timeout=1200 --fail-env-changed %regrtest_args% %TEMP_ARGS%
-ssh %SSH_SERVER% "set TEMP=%REMOTE_PYTHON_DIR%temp& cd %REMOTE_PYTHON_DIR% & %REMOTE_PYTHON_DIR%PCbuild\rt.bat" %rt_args%
+ssh %SSH_SERVER% "set TEMP=%REMOTE_MYFRPY_DIR%temp& cd %REMOTE_MYFRPY_DIR% & %REMOTE_MYFRPY_DIR%PCbuild\rt.bat" %rt_args%
 set ERR=%ERRORLEVEL%
-scp %SSH_SERVER%:"%REMOTE_PYTHON_DIR%test-results.xml" "%PYTHON_SOURCE%\test-results.xml"
+scp %SSH_SERVER%:"%REMOTE_MYFRPY_DIR%test-results.xml" "%MYFRPY_SOURCE%\test-results.xml"
 exit /b %ERR%
 
 :Arm32SshHelp

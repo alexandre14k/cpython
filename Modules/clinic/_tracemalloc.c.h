@@ -12,7 +12,7 @@ PyDoc_STRVAR(_tracemalloc_is_tracing__doc__,
 "is_tracing($module, /)\n"
 "--\n"
 "\n"
-"Return True if the tracemalloc module is tracing Python memory allocations.");
+"Return True if the tracemalloc module is tracing MyFRpy memory allocations.");
 
 #define _TRACEMALLOC_IS_TRACING_METHODDEF    \
     {"is_tracing", (PyCFunction)_tracemalloc_is_tracing, METH_NOARGS, _tracemalloc_is_tracing__doc__},
@@ -30,7 +30,7 @@ PyDoc_STRVAR(_tracemalloc_clear_traces__doc__,
 "clear_traces($module, /)\n"
 "--\n"
 "\n"
-"Clear traces of memory blocks allocated by Python.");
+"Clear traces of memory blocks allocated by MyFRpy.");
 
 #define _TRACEMALLOC_CLEAR_TRACES_METHODDEF    \
     {"clear_traces", (PyCFunction)_tracemalloc_clear_traces, METH_NOARGS, _tracemalloc_clear_traces__doc__},
@@ -48,7 +48,7 @@ PyDoc_STRVAR(_tracemalloc__get_traces__doc__,
 "_get_traces($module, /)\n"
 "--\n"
 "\n"
-"Get traces of all memory blocks allocated by Python.\n"
+"Get traces of all memory blocks allocated by MyFRpy.\n"
 "\n"
 "Return a list of (size: int, traceback: tuple) tuples.\n"
 "traceback is a tuple of (filename: str, lineno: int) tuples.\n"
@@ -71,7 +71,7 @@ PyDoc_STRVAR(_tracemalloc__get_object_traceback__doc__,
 "_get_object_traceback($module, obj, /)\n"
 "--\n"
 "\n"
-"Get the traceback where the Python object obj was allocated.\n"
+"Get the traceback where the MyFRpy object obj was allocated.\n"
 "\n"
 "Return a tuple of (filename: str, lineno: int) tuples.\n"
 "Return None if the tracemalloc module is disabled or did not\n"
@@ -84,7 +84,7 @@ PyDoc_STRVAR(_tracemalloc_start__doc__,
 "start($module, nframe=1, /)\n"
 "--\n"
 "\n"
-"Start tracing Python memory allocations.\n"
+"Start tracing MyFRpy memory allocations.\n"
 "\n"
 "Also set the maximum number of frames stored in the traceback of a\n"
 "trace to nframe.");
@@ -122,9 +122,9 @@ PyDoc_STRVAR(_tracemalloc_stop__doc__,
 "stop($module, /)\n"
 "--\n"
 "\n"
-"Stop tracing Python memory allocations.\n"
+"Stop tracing MyFRpy memory allocations.\n"
 "\n"
-"Also clear traces of memory blocks allocated by Python.");
+"Also clear traces of memory blocks allocated by MyFRpy.");
 
 #define _TRACEMALLOC_STOP_METHODDEF    \
     {"stop", (PyCFunction)_tracemalloc_stop, METH_NOARGS, _tracemalloc_stop__doc__},

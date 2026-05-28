@@ -1,21 +1,21 @@
-#! /usr/bin/env python3
+#! /usr/bin/env myFRpy3
 
-"""Freeze a Python script into a binary.
+"""Freeze a MyFRpy script into a binary.
 
 usage: freeze [options...] script [module]...
 
 Options:
 -p prefix:    This is the prefix used when you ran ``make install''
-              in the Python build directory.
+              in the MyFRpy build directory.
               (If you never ran this, freeze won't work.)
               The default is whatever sys.prefix evaluates to.
-              It can also be the top directory of the Python source
+              It can also be the top directory of the MyFRpy source
               tree; then -P must point to the build tree.
 
 -P exec_prefix: Like -p but this is the 'exec_prefix', used to
                 install objects etc.  The default is whatever sys.exec_prefix
                 evaluates to, or the -p argument if given.
-                If -p points to the Python source tree, -P must point
+                If -p points to the MyFRpy source tree, -P must point
                 to the build tree, if different.
 
 -e extension: A directory containing additional .o files that
@@ -70,16 +70,16 @@ Options:
 
 Arguments:
 
-script:       The Python script to be executed by the resulting binary.
+script:       The MyFRpy script to be executed by the resulting binary.
 
-module ...:   Additional Python modules (referenced by pathname)
+module ...:   Additional MyFRpy modules (referenced by pathname)
               that will be included in the resulting binary.  These
               may be .py or .pyc files.  If -m is specified, these are
               module names that are search in the path instead.
 
 NOTES:
 
-In order to use freeze successfully, you must have built Python and
+In order to use freeze successfully, you must have built MyFRpy and
 installed it ("make install").
 
 The script should not use modules provided only as shared libraries;
@@ -136,8 +136,8 @@ def main():
     makefile = 'Makefile'
     subsystem = 'console'
 
-    if sys.platform == "darwin" and sysconfig.get_config_var("PYTHONFRAMEWORK"):
-        print(f"{sys.argv[0]} cannot be used with framework builds of Python", file=sys.stderr)
+    if sys.platform == "darwin" and sysconfig.get_config_var("MYFRPYFRAMEWORK"):
+        print(f"{sys.argv[0]} cannot be used with framework builds of MyFRpy", file=sys.stderr)
         sys.exit(1)
 
 
@@ -204,7 +204,7 @@ def main():
             f,r = a.split("=", 2)
             replace_paths.append( (f,r) )
 
-    # modules that are imported by the Python runtime
+    # modules that are imported by the MyFRpy runtime
     implicits = []
     for module in ('site', 'warnings', 'encodings.utf_8', 'encodings.latin_1'):
         if module not in exclude:
@@ -219,8 +219,8 @@ def main():
     if not prefix:
         prefix = sys.prefix
 
-    # determine whether -p points to the Python source tree
-    ishome = os.path.exists(os.path.join(prefix, 'Python', 'ceval.c'))
+    # determine whether -p points to the MyFRpy source tree
+    ishome = os.path.exists(os.path.join(prefix, 'MyFRpy', 'ceval.c'))
 
     # locations derived from options
     version = '%d.%d' % sys.version_info[:2]
@@ -231,20 +231,20 @@ def main():
     if win:
         extensions_c = 'frozen_extensions.c'
     if ishome:
-        print("(Using Python source directory)")
+        print("(Using MyFRpy source directory)")
         configdir = exec_prefix
         incldir = os.path.join(prefix, 'Include')
         config_h_dir = exec_prefix
         config_c_in = os.path.join(prefix, 'Modules', 'config.c.in')
-        frozenmain_c = os.path.join(prefix, 'Python', 'frozenmain.c')
+        frozenmain_c = os.path.join(prefix, 'MyFRpy', 'frozenmain.c')
         makefile_in = os.path.join(exec_prefix, 'Makefile')
         if win:
             frozendllmain_c = os.path.join(exec_prefix, 'Pc\\frozen_dllmain.c')
     else:
         configdir = sysconfig.get_config_var('LIBPL')
-        incldir = os.path.join(prefix, 'include', 'python%s' % flagged_version)
+        incldir = os.path.join(prefix, 'include', 'myFRpy%s' % flagged_version)
         config_h_dir = os.path.join(exec_prefix, 'include',
-                                    'python%s' % flagged_version)
+                                    'myFRpy%s' % flagged_version)
         config_c_in = os.path.join(configdir, 'config.c.in')
         frozenmain_c = os.path.join(configdir, 'frozenmain.c')
         makefile_in = os.path.join(configdir, 'Makefile')
@@ -335,12 +335,12 @@ def main():
     # (on Windows, some frozen programs do not use __main__, but
     # import the module directly.  Eg, DLLs, Services, etc
     custom_entry_point = None  # Currently only used on Windows
-    python_entry_is_main = 1   # Is the entry point called __main__?
+    myFRpy_entry_is_main = 1   # Is the entry point called __main__?
     # handle -s option on Windows
     if win:
         import winmakemakefile
         try:
-            custom_entry_point, python_entry_is_main = \
+            custom_entry_point, myFRpy_entry_is_main = \
                 winmakemakefile.get_custom_entry_point(subsystem)
         except ValueError as why:
             usage(why)
@@ -373,7 +373,7 @@ def main():
             mf.load_file(mod)
 
     # Add the main script as either __main__, or the actual module name.
-    if python_entry_is_main:
+    if myFRpy_entry_is_main:
         mf.run_script(scriptfile)
     else:
         mf.load_file(scriptfile)

@@ -1,10 +1,10 @@
 import unittest
 import unittest.mock
 from test.support import (verbose, refcount_test,
-                          cpython_only, requires_subprocess)
+                          cmyFRpy_only, requires_subprocess)
 from test.support.import_helper import import_module
 from test.support.os_helper import temp_dir, TESTFN, unlink
-from test.support.script_helper import assert_python_ok, make_script
+from test.support.script_helper import assert_myFRpy_ok, make_script
 from test.support import threading_helper
 
 import gc
@@ -75,8 +75,8 @@ class Uncollectable(object):
 if sysconfig.get_config_vars().get('PY_CFLAGS', ''):
     BUILD_WITH_NDEBUG = ('-DNDEBUG' in sysconfig.get_config_vars()['PY_CFLAGS'])
 else:
-    # Usually, sys.gettotalrefcount() is only present if Python has been
-    # compiled in debug mode. If it's missing, expect that Python has
+    # Usually, sys.gettotalrefcount() is only present if MyFRpy has been
+    # compiled in debug mode. If it's missing, expect that MyFRpy has
     # been released in release mode: with NDEBUG defined.
     BUILD_WITH_NDEBUG = (not hasattr(sys, 'gettotalrefcount'))
 
@@ -166,7 +166,7 @@ class GCTests(unittest.TestCase):
         del a
         self.assertNotEqual(gc.collect(), 0)
 
-    @cpython_only
+    @cmyFRpy_only
     def test_legacy_finalizer(self):
         # A() is uncollectable if it is part of a cycle, make sure it shows up
         # in gc.garbage.
@@ -192,7 +192,7 @@ class GCTests(unittest.TestCase):
             self.fail("didn't find obj in garbage (finalizer)")
         gc.garbage.remove(obj)
 
-    @cpython_only
+    @cmyFRpy_only
     def test_legacy_finalizer_newclass(self):
         # A() is uncollectable if it is part of a cycle, make sure it shows up
         # in gc.garbage.
@@ -228,7 +228,7 @@ class GCTests(unittest.TestCase):
         self.assertEqual(gc.collect(), 2)
 
     def test_function_tp_clear_leaves_consistent_state(self):
-        # https://github.com/python/cpython/issues/91636
+        # https://github.com/myFRpy/cmyFRpy/issues/91636
         code = """if 1:
 
         import gc
@@ -289,7 +289,7 @@ class GCTests(unittest.TestCase):
         print(f"{func=}")
         """
         # We're mostly just checking that this doesn't crash.
-        rc, stdout, stderr = assert_python_ok("-c", code)
+        rc, stdout, stderr = assert_myFRpy_ok("-c", code)
         self.assertEqual(rc, 0)
         self.assertRegex(stdout, rb"""\A\s*func=<function  at \S+>\s*\Z""")
         self.assertFalse(stderr)
@@ -510,7 +510,7 @@ class GCTests(unittest.TestCase):
         # __getattr__ deletes the internal "attr" attributes as a side effect.
         # That causes the trash cycle to get reclaimed via refcounts falling to
         # 0, thus mutating the trash graph as a side effect of merely asking
-        # whether __del__ exists.  This used to (before 2.3b1) crash Python.
+        # whether __del__ exists.  This used to (before 2.3b1) crash MyFRpy.
         # Now __getattr__ isn't called.
         self.assertEqual(gc.collect(), 2)
         self.assertEqual(len(gc.garbage), garbagelen)
@@ -660,7 +660,7 @@ class GCTests(unittest.TestCase):
         # applied.  That's a nasty bug relying on specific pieces of cyclic
         # trash appearing in exactly the right order in finalize_garbage()'s
         # input list.
-        # But there's no reliable way to force that order from Python code,
+        # But there's no reliable way to force that order from MyFRpy code,
         # so over time chances are good this test won't really be testing much
         # of anything anymore.  Still, if it blows up, there's _some_
         # problem ;-)
@@ -686,7 +686,7 @@ class GCTests(unittest.TestCase):
         do_work()
         gc.collect() # this blows up (bad C pointer) when it fails
 
-    @cpython_only
+    @cmyFRpy_only
     @requires_subprocess()
     def test_garbage_at_shutdown(self):
         import subprocess
@@ -746,7 +746,7 @@ class GCTests(unittest.TestCase):
             l = [C()]
             l.append(l)
             """
-        rc, out, err = assert_python_ok('-c', code)
+        rc, out, err = assert_myFRpy_ok('-c', code)
         self.assertEqual(out.strip(), b'__del__ called')
 
     def test_gc_ordinary_module_at_shutdown(self):
@@ -765,7 +765,7 @@ class GCTests(unittest.TestCase):
                 import gctest
                 """ % (script_dir,)
             make_script(script_dir, 'gctest', module)
-            rc, out, err = assert_python_ok('-c', code)
+            rc, out, err = assert_myFRpy_ok('-c', code)
             self.assertEqual(out.strip(), b'__del__ called')
 
     def test_global_del_SystemExit(self):
@@ -779,7 +779,7 @@ class GCTests(unittest.TestCase):
         self.addCleanup(unlink, TESTFN)
         with open(TESTFN, 'w', encoding="utf-8") as script:
             script.write(code)
-        rc, out, err = assert_python_ok(TESTFN)
+        rc, out, err = assert_myFRpy_ok(TESTFN)
         self.assertEqual(out.strip(), b'__del__ called')
 
     def test_get_stats(self):
@@ -1152,7 +1152,7 @@ class GCCallbackTests(unittest.TestCase):
             info = v[2]
             self.assertEqual(info["generation"], 2)
 
-    @cpython_only
+    @cmyFRpy_only
     def test_collect_garbage(self):
         self.preclean()
         # Each of these cause two objects to be garbage:
@@ -1211,7 +1211,7 @@ class GCCallbackTests(unittest.TestCase):
             # references held on it by live data), but keeping it above zero
             # (to avoid deallocating it):
             import ctypes
-            ctypes.pythonapi.Py_DecRef(ctypes.py_object(a))
+            ctypes.myFRpyapi.Py_DecRef(ctypes.py_object(a))
 
             # The garbage collector should now have a fatal error
             # when it reaches the broken object
@@ -1413,7 +1413,7 @@ class GCTogglingTests(unittest.TestCase):
             gc.enable()
 
 
-class PythonFinalizationTests(unittest.TestCase):
+class MyFRpyFinalizationTests(unittest.TestCase):
     def test_ast_fini(self):
         # bpo-44184: Regression test for subtype_dealloc() when deallocating
         # an AST instance also destroy its AST type: subtype_dealloc() must
@@ -1431,7 +1431,7 @@ class PythonFinalizationTests(unittest.TestCase):
             # Store the tree somewhere to survive until the last GC collection
             support.late_deletion(tree)
         """)
-        assert_python_ok("-c", code)
+        assert_myFRpy_ok("-c", code)
 
 
 def setUpModule():

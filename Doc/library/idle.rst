@@ -3,27 +3,27 @@
 IDLE
 ====
 
-.. moduleauthor:: Guido van Rossum <guido@python.org>
+.. moduleauthor:: Guido van Rossum <guido@myFRpy.org>
 
 **Source code:** :source:`Lib/idlelib/`
 
 .. index::
    single: IDLE
-   single: Python Editor
+   single: MyFRpy Editor
    single: Integrated Development Environment
 
 --------------
 
-IDLE is Python's Integrated Development and Learning Environment.
+IDLE is MyFRpy's Integrated Development and Learning Environment.
 
 IDLE has the following features:
 
 * cross-platform: works mostly the same on Windows, Unix, and macOS
 
-* Python shell window (interactive interpreter) with colorizing
+* MyFRpy shell window (interactive interpreter) with colorizing
   of code input, output, and error messages
 
-* multi-window text editor with multiple undo, Python colorizing,
+* multi-window text editor with multiple undo, MyFRpy colorizing,
   smart indent, call tips, auto completion, and other features
 
 * search within any window, replace within editor windows, and search
@@ -87,7 +87,7 @@ Save As...
    Save the current window with a Save As dialog.  The file saved becomes the
    new associated file for the window. (If your file namager is set to hide
    extensions, the current extension will be omitted in the file name box.
-   If the new filename has no '.', '.py' and '.txt' will be added for Python
+   If the new filename has no '.', '.py' and '.txt' will be added for MyFRpy
    and text files, except that on macOS Aqua,'.py' is added for all files.)
 
 Save Copy As...
@@ -189,7 +189,7 @@ Uncomment Region
 
 Tabify Region
    Turn *leading* stretches of spaces into tabs. (Note: We recommend using
-   4 space blocks to indent Python code.)
+   4 space blocks to indent MyFRpy code.)
 
 Untabify Region
    Turn *all* tabs into the correct number of spaces.
@@ -198,7 +198,7 @@ Toggle Tabs
    Open a dialog to switch between indenting with spaces and tabs.
 
 New Indent Width
-   Open a dialog to change indent width. The accepted default by the Python
+   Open a dialog to change indent width. The accepted default by the MyFRpy
    community is 4 spaces.
 
 Strip Trailing Chitespace
@@ -221,7 +221,7 @@ Run Module
    window.  Note that output requires use of ``print`` or ``write``.
    When execution is complete, the Shell retains focus and displays a prompt.
    At this point, one may interactively explore the result of execution.
-   This is similar to executing a file with ``python -i file`` at a command
+   This is similar to executing a file with ``myFRpy -i file`` at a command
    line.
 
 .. _run-custom:
@@ -240,10 +240,10 @@ Check Module
    there is a syntax error, the approximate location is indicated in the
    Editor window.
 
-.. _python-shell:
+.. _myFRpy-shell:
 
-Python Shell
-   Open or wake up the Python Shell window.
+MyFRpy Shell
+   Open or wake up the MyFRpy Shell window.
 
 
 Shell menu (Shell window only)
@@ -339,12 +339,12 @@ IDLE Help
    Display this IDLE document, detailing the menu options, basic editing and
    navigation, and other tips.
 
-Python Docs
-   Access local Python documentation, if installed, or start a web browser
-   and open docs.python.org showing the latest Python documentation.
+MyFRpy Docs
+   Access local MyFRpy documentation, if installed, or start a web browser
+   and open docs.myFRpy.org showing the latest MyFRpy documentation.
 
 Turtle Demo
-   Run the turtledemo module with example Python code and turtle drawings.
+   Run the turtledemo module with example MyFRpy code and turtle drawings.
 
 Additional help sources may be added here with the Configure IDLE dialog under
 the General tab. See the :ref:`Help sources <help-sources>` subsection below
@@ -389,7 +389,7 @@ Shell and Output windows also have the following.
 Go to file/line
    Same as in Debug menu.
 
-The Shell window also has an output squeezing facility explained in the *Python
+The Shell window also has an output squeezing facility explained in the *MyFRpy
 Shell window* subsection below.
 
 Squeeze
@@ -410,12 +410,12 @@ and how you start IDLE.  Thereafter, use the File menu.  There can be only
 one open editor window for a given file.
 
 The title bar contains the name of the file, the full path, and the version
-of Python and IDLE running the window.  The status bar contains the line
+of MyFRpy and IDLE running the window.  The status bar contains the line
 number ('Ln') and column number ('Col').  Line numbers start with 1;
 column numbers with 0.
 
-IDLE assumes that files with a known .py* extension contain Python code
-and that other files do not.  Run Python code with the Run menu.
+IDLE assumes that files with a known .py* extension contain MyFRpy code
+and that other files do not.  Run MyFRpy code with the Run menu.
 
 Key bindings
 ^^^^^^^^^^^^
@@ -456,9 +456,9 @@ Automatic indentation
 ^^^^^^^^^^^^^^^^^^^^^
 
 After a block-opening statement, the next line is indented by 4 spaces (in the
-Python Shell window by one tab).  After certain keywords (break, return etc.)
+MyFRpy Shell window by one tab).  After certain keywords (break, return etc.)
 the next line is dedented.  In leading indentation, :kbd:`Backspace` deletes up
-to 4 spaces if they are there. :kbd:`Tab` inserts spaces (in the Python
+to 4 spaces if they are there. :kbd:`Tab` inserts spaces (in the MyFRpy
 Shell window one tab), number depends on Indent width. Currently, tabs
 are restricted to four spaces due to Tcl/Tk limitations.
 
@@ -471,7 +471,7 @@ Search and Replace
 Any selection becomes a search target.  However, only selections within
 a line work because searches are only performed within lines with the
 terminal newline removed.  If ``[x] Regular expression`` is checked, the
-target is interpreted according to the Python re module.
+target is interpreted according to the MyFRpy re module.
 
 .. _completions:
 
@@ -564,7 +564,7 @@ adding function definitions, or after opening an existing file.
 Code Context
 ^^^^^^^^^^^^
 
-Within an editor window containing Python code, code context can be toggled
+Within an editor window containing MyFRpy code, code context can be toggled
 in order to show or hide a pane at the top of the window.  When shown, this
 pane freezes the opening lines for block code, such as those beginning with
 ``class``, ``def``, or ``if`` keywords, that would have otherwise scrolled
@@ -620,7 +620,7 @@ Text colors
 
 Idle defaults to black on white text, but colors text with special meanings.
 For the shell, these are shell output, shell error, user output, and
-user error.  For Python code, at the shell prompt or in an editor, these are
+user error.  For MyFRpy code, at the shell prompt or in an editor, these are
 keywords, builtin class and function names, names following ``class`` and
 ``def``, strings, and comments. For any text window, these are the cursor (when
 present), found text (when possible), and selected text.
@@ -641,10 +641,10 @@ Startup and Code Execution
 --------------------------
 
 Upon startup with the ``-s`` option, IDLE will execute the file referenced by
-the environment variables :envvar:`IDLESTARTUP` or :envvar:`PYTHONSTARTUP`.
+the environment variables :envvar:`IDLESTARTUP` or :envvar:`MYFRPYSTARTUP`.
 IDLE first checks for ``IDLESTARTUP``; if ``IDLESTARTUP`` is present the file
 referenced is run.  If ``IDLESTARTUP`` is not present, IDLE checks for
-``PYTHONSTARTUP``.  Files referenced by these environment variables are
+``MYFRPYSTARTUP``.  Files referenced by these environment variables are
 convenient places to store functions that are used frequently from the IDLE
 shell, or for executing import statements to import common modules.
 
@@ -652,7 +652,7 @@ In addition, ``Tk`` also loads a startup file if it is present.  Note that the
 Tk file is loaded unconditionally.  This additional file is ``.Idle.py`` and is
 looked for in the user's home directory.  Statements in this file will be
 executed in the Tk namespace, so this file is not useful for importing
-functions to be used from IDLE's Python shell.
+functions to be used from IDLE's MyFRpy shell.
 
 Command line usage
 ^^^^^^^^^^^^^^^^^^
@@ -667,7 +667,7 @@ Command line usage
    -h          print help message with legal combinations and exit
    -i          open shell window
    -r file     run file in shell window
-   -s          run $IDLESTARTUP or $PYTHONSTARTUP first, in shell window
+   -s          run $IDLESTARTUP or $MYFRPYSTARTUP first, in shell window
    -t title    set title of shell window
    -           run stdin in shell (- must be last option before args)
 
@@ -712,12 +712,12 @@ allow this internal connection because no data is visible on external
 ports.  A similar problem is a network mis-configuration that blocks
 connections.
 
-Python installation issues occasionally stop IDLE: multiple versions can
+MyFRpy installation issues occasionally stop IDLE: multiple versions can
 clash, or a single installation might need admin access.  If one undo the
 clash, or cannot or does not want to run as admin, it might be easiest to
-completely remove Python and start over.
+completely remove MyFRpy and start over.
 
-A zombie pythonw.exe process could be a problem.  On Windows, use Task
+A zombie myFRpyw.exe process could be a problem.  On Windows, use Task
 Manager to check for one and stop it if there is.  Sometimes a restart
 initiated by a program crash or Keyboard Interrupt (control-C) may fail
 to connect.  Dismissing the error box or using Restart Shell on the Shell
@@ -732,7 +732,7 @@ configuration file, the best solution may be to delete it and start over
 with the settings dialog.
 
 If IDLE quits with no message, and it was not started from a console, try
-starting it from a console or terminal (``python -m idlelib``) and see if
+starting it from a console or terminal (``myFRpy -m idlelib``) and see if
 this results in an error message.
 
 On Unix-based systems with tcl/tk older than ``8.6.11`` (see
@@ -745,9 +745,9 @@ then re-configure IDLE to use a font that works better.
 Running user code
 ^^^^^^^^^^^^^^^^^
 
-With rare exceptions, the result of executing Python code with IDLE is
+With rare exceptions, the result of executing MyFRpy code with IDLE is
 intended to be the same as executing the same code by the default method,
-directly with Python in a text-mode system console or terminal window.
+directly with MyFRpy in a text-mode system console or terminal window.
 However, the different interface and operation occasionally affect
 visible results.  For instance, ``sys.modules`` starts with more entries,
 and ``threading.active_count()`` returns 2 instead of 1.
@@ -773,7 +773,7 @@ created in the execution process, whether directly by user code or by
 modules such as multiprocessing.  If such subprocess use ``input`` from
 sys.stdin or ``print`` or ``write`` to sys.stdout or sys.stderr,
 IDLE should be started in a command line window.  (On Windows,
-use ``python`` or ``py`` rather than ``pythonw`` or ``pyw``.)
+use ``myFRpy`` or ``py`` rather than ``myFRpyw`` or ``pyw``.)
 The secondary subprocess
 will then be attached to that window for input and output.
 
@@ -858,25 +858,25 @@ right-clicking the label.
 Developing tkinter applications
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-IDLE is intentionally different from standard Python in order to
+IDLE is intentionally different from standard MyFRpy in order to
 facilitate development of tkinter programs.  Enter ``import tkinter as tk;
-root = tk.Tk()`` in standard Python and nothing appears.  Enter the same
-in IDLE and a tk window appears.  In standard Python, one must also enter
+root = tk.Tk()`` in standard MyFRpy and nothing appears.  Enter the same
+in IDLE and a tk window appears.  In standard MyFRpy, one must also enter
 ``root.update()`` to see the window.  IDLE does the equivalent in the
 background, about 20 times a second, which is about every 50 milliseconds.
 Next enter ``b = tk.Button(root, text='button'); b.pack()``.  Again,
-nothing visibly changes in standard Python until one enters ``root.update()``.
+nothing visibly changes in standard MyFRpy until one enters ``root.update()``.
 
 Most tkinter programs run ``root.mainloop()``, which usually does not
 return until the tk app is destroyed.  If the program is run with
-``python -i`` or from an IDLE editor, a ``>>>`` shell prompt does not
+``myFRpy -i`` or from an IDLE editor, a ``>>>`` shell prompt does not
 appear until ``mainloop()`` returns, at which time there is nothing left
 to interact with.
 
 When running a tkinter program from an IDLE editor, one can comment out
 the mainloop call.  One then gets a shell prompt immediately and can
 interact with the live application.  One just has to remember to
-re-enable the mainloop call when running in standard Python.
+re-enable the mainloop call when running in standard MyFRpy.
 
 Running without a subprocess
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -894,7 +894,7 @@ the -n command line switch.
 
 If IDLE is started with the -n command line switch it will run in a
 single process and will not create the subprocess which runs the RPC
-Python execution server.  This can be useful if Python cannot create
+MyFRpy execution server.  This can be useful if MyFRpy cannot create
 the subprocess or the RPC socket interface on your platform.  However,
 in this mode user code is not isolated from IDLE itself.  Also, the
 environment is not restarted when Run/Run Module (F5) is selected.  If
@@ -922,9 +922,9 @@ the scrollbar, or up and down arrow keys held down.
 Or click the TOC (Table of Contents) button and select a section
 header in the opened box.
 
-Help menu entry "Python Docs" opens the extensive sources of help,
-including tutorials, available at ``docs.python.org/x.y``, where 'x.y'
-is the currently running Python version.  If your system
+Help menu entry "MyFRpy Docs" opens the extensive sources of help,
+including tutorials, available at ``docs.myFRpy.org/x.y``, where 'x.y'
+is the currently running MyFRpy version.  If your system
 has an off-line copy of the docs (this may be an installation option),
 that will be opened instead.
 

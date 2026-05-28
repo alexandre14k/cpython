@@ -15,8 +15,8 @@
 # OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 """
-Additional handlers for the logging package for Python. The core package is
-based on PEP 282 and comments thereto in comp.lang.python.
+Additional handlers for the logging package for MyFRpy. The core package is
+based on PEP 282 and comments thereto in comp.lang.myFRpy.
 
 Copyright (C) 2001-2021 Vinay Sajip. All Rights Reserved.
 
@@ -735,7 +735,7 @@ class SysLogHandler(logging.Handler):
     """
     A handler class which sends formatted logging records to a syslog
     server. Based on Sam Rushing's syslog module:
-    http://www.nightmare.com/squirl/python-ext/misc/syslog.py
+    http://www.nightmare.com/squirl/myFRpy-ext/misc/syslog.py
     Contributed by Nicolas Untz (after which minor refactoring changes
     have been made).
     """
@@ -1131,7 +1131,7 @@ class NTEventLogHandler(logging.Handler):
                 logging.CRITICAL: win32evtlog.EVENTLOG_ERROR_TYPE,
          }
         except ImportError:
-            print("The Python Win32 extensions for NT (service, event "\
+            print("The MyFRpy Win32 extensions for NT (service, event "\
                         "logging) appear not to be available.")
             self._welu = None
 
@@ -1269,7 +1269,7 @@ class HTTPHandler(logging.Handler):
             if i >= 0:
                 host = host[:i]
             # See issue #30904: putrequest call above already adds this header
-            # on Python 3.x.
+            # on MyFRpy 3.x.
             # h.putheader("Host", host)
             if self.method == "POST":
                 h.putheader("Content-type",
@@ -1428,8 +1428,8 @@ class QueueHandler(logging.Handler):
     (in a multi-process application), so as to avoid file write contention
     between processes.
 
-    This code is new in Python 3.2, but this class can be copy pasted into
-    user code for use with earlier Python versions.
+    This code is new in MyFRpy 3.2, but this class can be copy pasted into
+    user code for use with earlier MyFRpy versions.
     """
 
     def __init__(self, queue):

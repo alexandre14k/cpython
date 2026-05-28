@@ -18,7 +18,7 @@ None
 >>>
 
 The memory block stores pointers to strings, and the strings itself
-assigned from Python must be kept.
+assigned from MyFRpy must be kept.
 
 >>> array[4] = b'foo bar'
 >>> array._objects

@@ -1,5 +1,5 @@
 # Written to test interrupted system calls interfering with our many buffered
-# IO implementations.  http://bugs.python.org/issue12268
+# IO implementations.  http://bugs.myFRpy.org/issue12268
 #
 # It was suggested that this code could be merged into test_io and the tests
 # made to work using the same method as the existing signal tests in test_io.
@@ -75,7 +75,7 @@ class TestFileIOSignalInterrupt:
     def _test_reading(self, data_to_write, read_and_verify_code):
         """Generic buffered read method test harness to validate EINTR behavior.
 
-        Also validates that Python signal handlers are run during the read.
+        Also validates that MyFRpy signal handlers are run during the read.
 
         Args:
             data_to_write: String to write to the child process for reading
@@ -83,7 +83,7 @@ class TestFileIOSignalInterrupt:
                 writing a final newline and closing the infile pipe.
             read_and_verify_code: Single "line" of code to read from a file
                 object named 'infile' and validate the result.  This will be
-                executed as part of a python subprocess fed data_to_write.
+                executed as part of a myFRpy subprocess fed data_to_write.
         """
         infile_setup_code = self._generate_infile_setup_code()
         # Total pipe IO in this function is smaller than the minimum posix OS

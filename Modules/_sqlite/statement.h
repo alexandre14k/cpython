@@ -24,7 +24,7 @@
 #ifndef PYSQLITE_STATEMENT_H
 #define PYSQLITE_STATEMENT_H
 #define PY_SSIZE_T_CLEAN
-#include "Python.h"
+#include "MyFRpy.h"
 
 #include "connection.h"
 #include "sqlite3.h"

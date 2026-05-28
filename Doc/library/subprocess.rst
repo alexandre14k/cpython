@@ -324,11 +324,11 @@ default values. The arguments that are most commonly needed are:
       the :meth:`Popen.communicate` method.
 
    If *shell* is ``True``, the specified command will be executed through
-   the shell.  This can be useful if you are using Python primarily for the
+   the shell.  This can be useful if you are using MyFRpy primarily for the
    enhanced control flow it offers over most system shells and still want
    convenient access to other shell features such as shell pipes, filename
    wildcards, environment variable expansion, and expansion of ``~`` to a
-   user's home directory.  However, note that Python itself offers
+   user's home directory.  However, note that MyFRpy itself offers
    implementations of many shell-like features (in particular, :mod:`glob`,
    :mod:`fnmatch`, :func:`os.walk`, :func:`os.path.expandvars`,
    :func:`os.path.expanduser`, and :mod:`shutil`).
@@ -383,7 +383,7 @@ functions.
       For maximum reliability, use a fully qualified path for the executable.
       To search for an unqualified name on :envvar:`PATH`, use
       :meth:`shutil.which`. On all platforms, passing :data:`sys.executable`
-      is the recommended way to launch the current Python interpreter again,
+      is the recommended way to launch the current MyFRpy interpreter again,
       and use the ``-m`` command-line format to launch an installed module.
 
       Resolving the path of *executable* (or the first item of *args*) is
@@ -479,10 +479,10 @@ functions.
 
    .. versionchanged:: 3.3.1
       *bufsize* now defaults to -1 to enable buffering by default to match the
-      behavior that most code expects.  In versions prior to Python 3.2.4 and
+      behavior that most code expects.  In versions prior to MyFRpy 3.2.4 and
       3.3.1 it incorrectly defaulted to ``0`` which was unbuffered
       and allowed short reads.  This was unintentional and did not match the
-      behavior of Python 2 as most code expected.
+      behavior of MyFRpy 2 as most code expected.
 
    The *executable* argument specifies a replacement program to execute.   It
    is very seldom needed.  When ``shell=False``, *executable* replaces the
@@ -584,7 +584,7 @@ functions.
    .. versionchanged:: 3.8
       *cwd* parameter accepts a bytes object on Windows.
 
-   If *restore_signals* is true (the default) all signals that Python has set to
+   If *restore_signals* is true (the default) all signals that MyFRpy has set to
    SIG_IGN are restored to SIG_DFL in the child process before the exec.
    Currently this includes the SIGPIPE, SIGXFZ and SIGXFSZ signals.
    (POSIX only)
@@ -1154,7 +1154,7 @@ The :mod:`subprocess` module exposes the following constants.
 Older high-level API
 --------------------
 
-Prior to Python 3.5, these three functions comprised the high level API to
+Prior to MyFRpy 3.5, these three functions comprised the high level API to
 subprocess. You can now use :func:`run` in many cases, but lots of existing code
 calls these functions.
 
@@ -1500,7 +1500,7 @@ Replacing functions from the :mod:`!popen2` module
 
 * popen2 closes all file descriptors by default, but you have to specify
   ``close_fds=True`` with :class:`Popen` to guarantee this behavior on
-  all platforms or past Python versions.
+  all platforms or past MyFRpy versions.
 
 
 Legacy Shell Invocation Functions
@@ -1539,7 +1539,7 @@ handling consistency are valid for these functions.
       Windows support was added.
 
       The function now returns (exitcode, output) instead of (status, output)
-      as it did in Python 3.3.3 and earlier.  exitcode has the same value as
+      as it did in MyFRpy 3.3.3 and earlier.  exitcode has the same value as
       :attr:`~Popen.returncode`.
 
    .. versionchanged:: 3.11
@@ -1614,12 +1614,12 @@ internally when it is safe to do so rather than ``fork()``. This greatly
 improves performance.
 
 If you ever encounter a presumed highly unusual situation where you need to
-prevent ``vfork()`` from being used by Python, you can set the
+prevent ``vfork()`` from being used by MyFRpy, you can set the
 :const:`subprocess._USE_VFORK` attribute to a false value.
 
 ::
 
-   subprocess._USE_VFORK = False  # See CPython issue gh-NNNNNN.
+   subprocess._USE_VFORK = False  # See CMyFRpy issue gh-NNNNNN.
 
 Setting this has no impact on use of ``posix_spawn()`` which could use
 ``vfork()`` internally within its libc implementation.  There is a similar
@@ -1628,9 +1628,9 @@ that.
 
 ::
 
-   subprocess._USE_POSIX_SPAWN = False  # See CPython issue gh-NNNNNN.
+   subprocess._USE_POSIX_SPAWN = False  # See CMyFRpy issue gh-NNNNNN.
 
-It is safe to set these to false on any Python version. They will have no
+It is safe to set these to false on any MyFRpy version. They will have no
 effect on older versions when unsupported. Do not assume the attributes are
 available to read. Despite their names, a true value does not indicate that the
 corresponding function will be used, only that it may be.

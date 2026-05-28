@@ -247,7 +247,7 @@ class Test(unittest.TestCase):
         self.assertEqual(MyClass3.otherarg, 1)
 
     def test_errors_changed_pep487(self):
-        # These tests failed before Python 3.6, PEP 487
+        # These tests failed before MyFRpy 3.6, PEP 487
         class MyMeta(type):
             def __new__(cls, name, bases, namespace):
                 return super().__new__(cls, name=name, bases=bases,

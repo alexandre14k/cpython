@@ -3,16 +3,16 @@
 
 .. module:: readline
    :platform: Unix
-   :synopsis: GNU readline support for Python.
+   :synopsis: GNU readline support for MyFRpy.
 
 .. sectionauthor:: Skip Montanaro <skip.montanaro@gmail.com>
 
 --------------
 
 The :mod:`readline` module defines a number of functions to facilitate
-completion and reading/writing of history files from the Python interpreter.
+completion and reading/writing of history files from the MyFRpy interpreter.
 This module can be used directly, or via the :mod:`rlcompleter` module, which
-supports completion of Python identifiers at the interactive prompt.  Settings
+supports completion of MyFRpy identifiers at the interactive prompt.  Settings
 made using  this module affect the behaviour of both the interpreter's
 interactive prompt  and the prompts offered by the built-in :func:`input`
 function.
@@ -41,8 +41,8 @@ Readline library in general.
   ``.editrc``. For example, the following content in ``~/.editrc`` will
   turn ON *vi* keybindings and TAB completion::
 
-    python:bind -v
-    python:bind ^I rl_complete
+    myFRpy:bind -v
+    myFRpy:bind ^I rl_complete
 
 
 Init file
@@ -113,7 +113,7 @@ The following functions operate on a history file:
    Append the last *nelements* items of history to a file.  The default filename is
    :file:`~/.history`.  The file must already exist.  This calls
    :c:func:`append_history` in the underlying library.  This function
-   only exists if Python was compiled for a version of the library
+   only exists if MyFRpy was compiled for a version of the library
    that supports it.
 
    .. versionadded:: 3.5
@@ -138,7 +138,7 @@ The following functions operate on a global history list:
 .. function:: clear_history()
 
    Clear the current history.  This calls :c:func:`clear_history` in the
-   underlying library.  The Python function only exists if Python was
+   underlying library.  The MyFRpy function only exists if MyFRpy was
    compiled for a version of the library that supports it.
 
 
@@ -210,7 +210,7 @@ Startup hooks
    function already installed is removed.  The hook is called
    with no arguments after the first prompt has been printed and just before
    readline starts reading input characters.  This function only exists
-   if Python was compiled for a version of the library that supports it.
+   if MyFRpy was compiled for a version of the library that supports it.
 
 
 .. _readline-completion:
@@ -221,7 +221,7 @@ Completion
 The following functions relate to implementing a custom word completion
 function.  This is typically operated by the Tab key, and can suggest and
 automatically complete a word being typed.  By default, Readline is set up
-to be used by :mod:`rlcompleter` to complete Python identifiers for
+to be used by :mod:`rlcompleter` to complete MyFRpy identifiers for
 the interactive interpreter.  If the :mod:`readline` module is to be used
 with a custom completer, a different set of word delimiters should be set.
 
@@ -293,15 +293,15 @@ Example
 
 The following example demonstrates how to use the :mod:`readline` module's
 history reading and writing functions to automatically load and save a history
-file named :file:`.python_history` from the user's home directory.  The code
+file named :file:`.myFRpy_history` from the user's home directory.  The code
 below would normally be executed automatically during interactive sessions
-from the user's :envvar:`PYTHONSTARTUP` file. ::
+from the user's :envvar:`MYFRPYSTARTUP` file. ::
 
    import atexit
    import os
    import readline
 
-   histfile = os.path.join(os.path.expanduser("~"), ".python_history")
+   histfile = os.path.join(os.path.expanduser("~"), ".myFRpy_history")
    try:
        readline.read_history_file(histfile)
        # default history len is -1 (infinite), which may grow unruly
@@ -311,7 +311,7 @@ from the user's :envvar:`PYTHONSTARTUP` file. ::
 
    atexit.register(readline.write_history_file, histfile)
 
-This code is actually automatically run when Python is run in
+This code is actually automatically run when MyFRpy is run in
 :ref:`interactive mode <tut-interactive>` (see :ref:`rlcompleter-config`).
 
 The following example achieves the same goal but supports concurrent interactive
@@ -320,7 +320,7 @@ sessions, by only appending the new history. ::
    import atexit
    import os
    import readline
-   histfile = os.path.join(os.path.expanduser("~"), ".python_history")
+   histfile = os.path.join(os.path.expanduser("~"), ".myFRpy_history")
 
    try:
        readline.read_history_file(histfile)

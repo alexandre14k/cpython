@@ -36,7 +36,7 @@ PyDoc_STRVAR(_codecs_lookup__doc__,
 "lookup($module, encoding, /)\n"
 "--\n"
 "\n"
-"Looks up a codec tuple in the Python codec registry and returns a CodecInfo object.");
+"Looks up a codec tuple in the MyFRpy codec registry and returns a CodecInfo object.");
 
 #define _CODECS_LOOKUP_METHODDEF    \
     {"lookup", (PyCFunction)_codecs_lookup, METH_O, _codecs_lookup__doc__},

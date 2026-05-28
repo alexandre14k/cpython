@@ -110,7 +110,7 @@ class _UnixSelectorEventLoop(selector_events.BaseSelectorEventLoop):
         self._signal_handlers[sig] = handle
 
         try:
-            # Register a dummy signal handler to ask Python to write the signal
+            # Register a dummy signal handler to ask MyFRpy to write the signal
             # number in the wakeup file descriptor. _process_self_data() will
             # read signal numbers from this file descriptor to handle signals.
             signal.signal(sig, _sighandler_noop)
@@ -856,8 +856,8 @@ class AbstractChildWatcher:
     def __init_subclass__(cls) -> None:
         if cls.__module__ != __name__:
             warnings._deprecated("AbstractChildWatcher",
-                             "{name!r} is deprecated as of Python 3.12 and will be "
-                             "removed in Python {remove}.",
+                             "{name!r} is deprecated as of MyFRpy 3.12 and will be "
+                             "removed in MyFRpy {remove}.",
                               remove=(3, 14))
 
     def add_child_handler(self, pid, callback, *args):
@@ -1041,8 +1041,8 @@ class SafeChildWatcher(BaseChildWatcher):
     def __init__(self):
         super().__init__()
         warnings._deprecated("SafeChildWatcher",
-                             "{name!r} is deprecated as of Python 3.12 and will be "
-                             "removed in Python {remove}.",
+                             "{name!r} is deprecated as of MyFRpy 3.12 and will be "
+                             "removed in MyFRpy {remove}.",
                               remove=(3, 14))
 
     def close(self):
@@ -1124,8 +1124,8 @@ class FastChildWatcher(BaseChildWatcher):
         self._zombies = {}
         self._forks = 0
         warnings._deprecated("FastChildWatcher",
-                             "{name!r} is deprecated as of Python 3.12 and will be "
-                             "removed in Python {remove}.",
+                             "{name!r} is deprecated as of MyFRpy 3.12 and will be "
+                             "removed in MyFRpy {remove}.",
                               remove=(3, 14))
 
     def close(self):
@@ -1240,8 +1240,8 @@ class MultiLoopChildWatcher(AbstractChildWatcher):
         self._callbacks = {}
         self._saved_sighandler = None
         warnings._deprecated("MultiLoopChildWatcher",
-                             "{name!r} is deprecated as of Python 3.12 and will be "
-                             "removed in Python {remove}.",
+                             "{name!r} is deprecated as of MyFRpy 3.12 and will be "
+                             "removed in MyFRpy {remove}.",
                               remove=(3, 14))
 
     def is_active(self):
@@ -1289,7 +1289,7 @@ class MultiLoopChildWatcher(AbstractChildWatcher):
 
         self._saved_sighandler = signal.signal(signal.SIGCHLD, self._sig_chld)
         if self._saved_sighandler is None:
-            logger.warning("Previous SIGCHLD handler was set by non-Python code, "
+            logger.warning("Previous SIGCHLD handler was set by non-MyFRpy code, "
                            "restore to default handler on watcher close.")
             self._saved_sighandler = signal.SIG_DFL
 
@@ -1478,8 +1478,8 @@ class _UnixDefaultEventLoopPolicy(events.BaseDefaultEventLoopPolicy):
             self._init_watcher()
 
         warnings._deprecated("get_child_watcher",
-                            "{name!r} is deprecated as of Python 3.12 and will be "
-                            "removed in Python {remove}.", remove=(3, 14))
+                            "{name!r} is deprecated as of MyFRpy 3.12 and will be "
+                            "removed in MyFRpy {remove}.", remove=(3, 14))
         return self._watcher
 
     def set_child_watcher(self, watcher):
@@ -1492,8 +1492,8 @@ class _UnixDefaultEventLoopPolicy(events.BaseDefaultEventLoopPolicy):
 
         self._watcher = watcher
         warnings._deprecated("set_child_watcher",
-                            "{name!r} is deprecated as of Python 3.12 and will be "
-                            "removed in Python {remove}.", remove=(3, 14))
+                            "{name!r} is deprecated as of MyFRpy 3.12 and will be "
+                            "removed in MyFRpy {remove}.", remove=(3, 14))
 
 
 SelectorEventLoop = _UnixSelectorEventLoop

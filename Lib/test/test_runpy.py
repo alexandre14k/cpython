@@ -783,7 +783,7 @@ class TestExit(unittest.TestCase):
 
     @requires_subprocess()
     def assertSigInt(self, cmd, *args, **kwargs):
-        # Use -E to ignore PYTHONSAFEPATH
+        # Use -E to ignore MYFRPYSAFEPATH
         cmd = [sys.executable, '-E', *cmd]
         proc = subprocess.run(cmd, *args, **kwargs, text=True, stderr=subprocess.PIPE)
         self.assertTrue(proc.stderr.endswith("\nKeyboardInterrupt\n"), proc.stderr)

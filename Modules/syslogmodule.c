@@ -49,7 +49,7 @@ Revision history:
 
 /* syslog module */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "osdefs.h"               // SEP
 
 #include <syslog.h>

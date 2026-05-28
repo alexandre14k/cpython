@@ -6,29 +6,29 @@ Common Object Structures
 ========================
 
 There are a large number of structures which are used in the definition of
-object types for Python.  This section describes these structures and how they
+object types for MyFRpy.  This section describes these structures and how they
 are used.
 
 
 Base object types and macros
 ----------------------------
 
-All Python objects ultimately share a small number of fields at the beginning
+All MyFRpy objects ultimately share a small number of fields at the beginning
 of the object's representation in memory.  These are represented by the
 :c:type:`PyObject` and :c:type:`PyVarObject` types, which are defined, in turn,
 by the expansions of some macros also used, whether directly or indirectly, in
-the definition of all other Python objects.  Additional macros can be found
+the definition of all other MyFRpy objects.  Additional macros can be found
 under :ref:`reference counting <countingrefs>`.
 
 
 .. c:type:: PyObject
 
    All object types are extensions of this type.  This is a type which
-   contains the information Python needs to treat a pointer to an object as an
+   contains the information MyFRpy needs to treat a pointer to an object as an
    object.  In a normal "release" build, it contains only the object's
    reference count and a pointer to the corresponding type object.
    Nothing is actually declared to be a :c:type:`PyObject`, but every pointer
-   to a Python object can be cast to a :c:expr:`PyObject*`.  Access to the
+   to a MyFRpy object can be cast to a :c:expr:`PyObject*`.  Access to the
    members must be done by using the macros :c:macro:`Py_REFCNT` and
    :c:macro:`Py_TYPE`.
 
@@ -37,7 +37,7 @@ under :ref:`reference counting <countingrefs>`.
 
    This is an extension of :c:type:`PyObject` that adds the :c:member:`~PyVarObject.ob_size`
    field.  This is only used for objects that have some notion of *length*.
-   This type does not often appear in the Python/C API.
+   This type does not often appear in the MyFRpy/C API.
    Access to the members must be done by using the macros
    :c:macro:`Py_REFCNT`, :c:macro:`Py_TYPE`, and :c:macro:`Py_SIZE`.
 
@@ -65,7 +65,7 @@ under :ref:`reference counting <countingrefs>`.
 
 .. c:function:: int Py_Is(PyObject *x, PyObject *y)
 
-   Test if the *x* object is the *y* object, the same as ``x is y`` in Python.
+   Test if the *x* object is the *y* object, the same as ``x is y`` in MyFRpy.
 
    .. versionadded:: 3.10
 
@@ -73,7 +73,7 @@ under :ref:`reference counting <countingrefs>`.
 .. c:function:: int Py_IsNone(PyObject *x)
 
    Test if an object is the ``None`` singleton,
-   the same as ``x is None`` in Python.
+   the same as ``x is None`` in MyFRpy.
 
    .. versionadded:: 3.10
 
@@ -81,7 +81,7 @@ under :ref:`reference counting <countingrefs>`.
 .. c:function:: int Py_IsTrue(PyObject *x)
 
    Test if an object is the ``True`` singleton,
-   the same as ``x is True`` in Python.
+   the same as ``x is True`` in MyFRpy.
 
    .. versionadded:: 3.10
 
@@ -89,14 +89,14 @@ under :ref:`reference counting <countingrefs>`.
 .. c:function:: int Py_IsFalse(PyObject *x)
 
    Test if an object is the ``False`` singleton,
-   the same as ``x is False`` in Python.
+   the same as ``x is False`` in MyFRpy.
 
    .. versionadded:: 3.10
 
 
 .. c:function:: PyTypeObject* Py_TYPE(PyObject *o)
 
-   Get the type of the Python object *o*.
+   Get the type of the MyFRpy object *o*.
 
    Return a :term:`borrowed reference`.
 
@@ -124,7 +124,7 @@ under :ref:`reference counting <countingrefs>`.
 
 .. c:function:: Py_ssize_t Py_SIZE(PyVarObject *o)
 
-   Get the size of the Python object *o*.
+   Get the size of the MyFRpy object *o*.
 
    Use the :c:func:`Py_SET_SIZE` function to set an object size.
 
@@ -164,11 +164,11 @@ Implementing functions and methods
 
 .. c:type:: PyCFunction
 
-   Type of the functions used to implement most Python callables in C.
+   Type of the functions used to implement most MyFRpy callables in C.
    Functions of this type take two :c:expr:`PyObject*` parameters and return
    one such value.  If the return value is ``NULL``, an exception shall have
    been set.  If not ``NULL``, the return value is interpreted as the return
-   value of the function as exposed in Python.  The function must return a new
+   value of the function as exposed in MyFRpy.  The function must return a new
    reference.
 
    The function signature is::
@@ -178,7 +178,7 @@ Implementing functions and methods
 
 .. c:type:: PyCFunctionWithKeywords
 
-   Type of the functions used to implement Python callables in C
+   Type of the functions used to implement MyFRpy callables in C
    with signature :ref:`METH_VARARGS | METH_KEYWORDS <METH_VARARGS-METH_KEYWORDS>`.
    The function signature is::
 
@@ -189,7 +189,7 @@ Implementing functions and methods
 
 .. c:type:: _PyCFunctionFast
 
-   Type of the functions used to implement Python callables in C
+   Type of the functions used to implement MyFRpy callables in C
    with signature :c:macro:`METH_FASTCALL`.
    The function signature is::
 
@@ -199,7 +199,7 @@ Implementing functions and methods
 
 .. c:type:: _PyCFunctionFastWithKeywords
 
-   Type of the functions used to implement Python callables in C
+   Type of the functions used to implement MyFRpy callables in C
    with signature :ref:`METH_FASTCALL | METH_KEYWORDS <METH_FASTCALL-METH_KEYWORDS>`.
    The function signature is::
 
@@ -210,7 +210,7 @@ Implementing functions and methods
 
 .. c:type:: PyCMethod
 
-   Type of the functions used to implement Python callables in C
+   Type of the functions used to implement MyFRpy callables in C
    with signature :ref:`METH_METHOD | METH_FASTCALL | METH_KEYWORDS <METH_METHOD-METH_FASTCALL-METH_KEYWORDS>`.
    The function signature is::
 
@@ -401,7 +401,7 @@ definition with the same method name.
 
 .. c:function:: PyObject * PyCMethod_New(PyMethodDef *ml, PyObject *self, PyObject *module, PyTypeObject *cls)
 
-   Turn *ml* into a Python :term:`callable` object.
+   Turn *ml* into a MyFRpy :term:`callable` object.
    The caller must ensure that *ml* outlives the :term:`callable`.
    Typically, *ml* is defined as a static variable.
 
@@ -411,7 +411,7 @@ definition with the same method name.
 
    The :term:`callable` object's ``__module__`` attribute
    can be set from the given *module* argument.
-   *module* should be a Python string,
+   *module* should be a MyFRpy string,
    which will be used as name of the module the function is defined in.
    If unavailable, it can be set to :const:`None` or ``NULL``.
 
@@ -557,7 +557,7 @@ The following flags can be used with :c:member:`PyMemberDef.flags`:
 
    This flag is only used in :c:type:`PyType_Slot`.
    When setting :c:member:`~PyTypeObject.tp_members` during
-   class creation, Python clears it and sets
+   class creation, MyFRpy clears it and sets
    :c:member:`PyMemberDef.offset` to the offset from the ``PyObject`` struct.
 
 .. index::
@@ -591,9 +591,9 @@ Member types
 
 :c:member:`PyMemberDef.type` can be one of the following macros corresponding
 to various C types.
-When the member is accessed in Python, it will be converted to the
-equivalent Python type.
-When it is set from Python, it will be converted back to the C type.
+When the member is accessed in MyFRpy, it will be converted to the
+equivalent MyFRpy type.
+When it is set from MyFRpy, it will be converted back to the C type.
 If that is not possible, an exception such as :exc:`TypeError` or
 :exc:`ValueError` is raised.
 
@@ -601,7 +601,7 @@ Unless marked (D), attributes defined this way cannot be deleted
 using e.g. :keyword:`del` or :py:func:`delattr`.
 
 ================================ ============================= ======================
-Macro name                       C type                        Python type
+Macro name                       C type                        MyFRpy type
 ================================ ============================= ======================
 .. c:macro:: Py_T_BYTE           :c:expr:`char`                :py:class:`int`
 .. c:macro:: Py_T_SHORT          :c:expr:`short`               :py:class:`int`
@@ -668,7 +668,7 @@ Macro name                       C type                        Python type
    .. c:macro:: T_OBJECT
 
       Like ``Py_T_OBJECT_EX``, but ``NULL`` is converted to ``None``.
-      This results in surprising behavior in Python: deleting the attribute
+      This results in surprising behavior in MyFRpy: deleting the attribute
       effectively sets it to ``None``.
 
    .. c:macro:: T_NONE

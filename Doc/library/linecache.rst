@@ -10,7 +10,7 @@
 
 --------------
 
-The :mod:`linecache` module allows one to get any line from a Python source file, while
+The :mod:`linecache` module allows one to get any line from a MyFRpy source file, while
 attempting to optimize internally, using a cache, the common case where many
 lines are read from a single file.  This is used by the :mod:`traceback` module
 to retrieve source lines for inclusion in  the formatted traceback.

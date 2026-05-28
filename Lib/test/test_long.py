@@ -35,7 +35,7 @@ DBL_MANT_DIG = sys.float_info.mant_dig
 DBL_MIN_OVERFLOW = 2**DBL_MAX_EXP - 2**(DBL_MAX_EXP - DBL_MANT_DIG - 1)
 
 
-# Pure Python version of correctly-rounded integer-to-float conversion.
+# Pure MyFRpy version of correctly-rounded integer-to-float conversion.
 def int_to_float(n):
     """
     Correctly-rounded integer-to-float conversion.
@@ -81,7 +81,7 @@ def int_to_float(n):
     return math.ldexp(float(q), shift)
 
 
-# pure Python version of correctly-rounded true division
+# pure MyFRpy version of correctly-rounded true division
 def truediv(a, b):
     """Correctly-rounded true division for integers."""
     negative = a^b < 0
@@ -397,7 +397,7 @@ class LongTest(unittest.TestCase):
 
     def check_float_conversion(self, n):
         # Check that int -> float conversion behaviour matches
-        # that of the pure Python version above.
+        # that of the pure MyFRpy version above.
         try:
             actual = float(n)
         except OverflowError:
@@ -466,7 +466,7 @@ class LongTest(unittest.TestCase):
             y = 2**p * 2**53
             self.assertEqual(int(float(x)), y)
 
-        # Compare builtin float conversion with pure Python int_to_float
+        # Compare builtin float conversion with pure MyFRpy int_to_float
         # function above.
         test_values = [
             int_dbl_max-1, int_dbl_max, int_dbl_max+1,
@@ -538,7 +538,7 @@ class LongTest(unittest.TestCase):
         # right stuff, even when ints are too large to fit in a float.
         # The safest way to check the results is to use an entirely different
         # method, which we do here via a skeletal rational class (which
-        # represents all Python ints and floats exactly).
+        # represents all MyFRpy ints and floats exactly).
         class Rat:
             def __init__(self, value):
                 if isinstance(value, int):
@@ -794,7 +794,7 @@ class LongTest(unittest.TestCase):
 
     def check_truediv(self, a, b, skip_small=True):
         """Verify that the result of a/b is correctly rounded, by
-        comparing it with a pure Python implementation of correctly
+        comparing it with a pure MyFRpy implementation of correctly
         rounded division.  b should be nonzero."""
 
         # skip check for small a and b: in this case, the current
@@ -826,7 +826,7 @@ class LongTest(unittest.TestCase):
     def test_correctly_rounded_true_division(self):
         # more stringent tests than those above, checking that the
         # result of true division of ints is always correctly rounded.
-        # This test should probably be considered CPython-specific.
+        # This test should probably be considered CMyFRpy-specific.
 
         # Exercise all the code paths not involving Gb-sized ints.
         # ... divisions involving zero
@@ -933,7 +933,7 @@ class LongTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             0 << -(1 << 1000)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_huge_lshift_of_zero(self):
         # Shouldn't try to allocate memory for a huge shift. See issue #27870.
         # Other implementations may have a different boundary for overflow,
@@ -941,7 +941,7 @@ class LongTest(unittest.TestCase):
         self.assertEqual(0 << sys.maxsize, 0)
         self.assertEqual(0 << (sys.maxsize + 1), 0)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     @support.bigmemtest(sys.maxsize + 1000, memuse=2/15 * 2, dry_run=False)
     def test_huge_lshift(self, size):
         self.assertEqual(1 << (sys.maxsize + 1000), 1 << 1000 << sys.maxsize)
@@ -955,7 +955,7 @@ class LongTest(unittest.TestCase):
         self.assertEqual(2**128 >> huge_shift, 0)
         self.assertEqual(-2**128 >> huge_shift, -1)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     @support.bigmemtest(sys.maxsize + 500, memuse=2/15, dry_run=False)
     def test_huge_rshift_of_huge(self, size):
         huge = ((1 << 500) + 11) << sys.maxsize
@@ -1020,7 +1020,7 @@ class LongTest(unittest.TestCase):
         self.assertEqual(2**128 << 32, 2**160)
         self.assertEqual(-2**128 << 32, -2**160)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_small_ints_in_huge_calculation(self):
         a = 2 ** 100
         b = -a + 1
@@ -1028,7 +1028,7 @@ class LongTest(unittest.TestCase):
         self.assertIs(a + b, 1)
         self.assertIs(c - a, 1)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_pow_uses_cached_small_ints(self):
         self.assertIs(pow(10, 3, 998), 2)
         self.assertIs(10 ** 3 % 998, 2)
@@ -1045,7 +1045,7 @@ class LongTest(unittest.TestCase):
         a, p, m = 2, 100, 2**100 - 3
         self.assertIs(a ** p % m, 3)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_divmod_uses_cached_small_ints(self):
         big = 10 ** 100
 
@@ -1092,7 +1092,7 @@ class LongTest(unittest.TestCase):
         tiny = 1e-10
         for x in range(-65000, 65000):
             k = x.bit_length()
-            # Check equivalence with Python version
+            # Check equivalence with MyFRpy version
             self.assertEqual(k, len(bin(x).lstrip('-0b')))
             # Behaviour as specified in the docs
             if x != 0:
@@ -1209,7 +1209,7 @@ class LongTest(unittest.TestCase):
 
     def test_to_bytes(self):
         def check(tests, byteorder, signed=False):
-            def equivalent_python(n, length, byteorder, signed=False):
+            def equivalent_myFRpy(n, length, byteorder, signed=False):
                 if byteorder == 'little':
                     order = range(length)
                 elif byteorder == 'big':
@@ -1237,7 +1237,7 @@ class LongTest(unittest.TestCase):
 
                 try:
                     self.assertEqual(
-                        equivalent_python(
+                        equivalent_myFRpy(
                             test, len(expected), byteorder, signed=signed),
                         expected
                     )
@@ -1342,7 +1342,7 @@ class LongTest(unittest.TestCase):
 
     def test_from_bytes(self):
         def check(tests, byteorder, signed=False):
-            def equivalent_python(byte_array, byteorder, signed=False):
+            def equivalent_myFRpy(byte_array, byteorder, signed=False):
                 if byteorder == 'little':
                     little_ordered = list(byte_array)
                 elif byteorder == 'big':
@@ -1377,7 +1377,7 @@ class LongTest(unittest.TestCase):
 
                 try:
                     self.assertEqual(
-                        equivalent_python(test, byteorder, signed=signed),
+                        equivalent_myFRpy(test, byteorder, signed=signed),
                         expected
                     )
                 except Exception as err:
@@ -1546,7 +1546,7 @@ class LongTest(unittest.TestCase):
         self.assertEqual(int.from_bytes(b'', SubStr('big')), 0)
         self.assertEqual(int.from_bytes(b'\x00', SubStr('little')), 0)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_from_bytes_small(self):
         # bpo-46361
         for i in range(-5, 257):
@@ -1559,7 +1559,7 @@ class LongTest(unittest.TestCase):
         self.assertTrue((1).is_integer())
 
     def test_access_to_nonexistent_digit_0(self):
-        # http://bugs.python.org/issue14630: A bug in _PyLong_Copy meant that
+        # http://bugs.myFRpy.org/issue14630: A bug in _PyLong_Copy meant that
         # ob_digit[0] was being incorrectly accessed for instances of a
         # subclass of int, with value 0.
         class Integer(int):

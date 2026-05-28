@@ -7,8 +7,8 @@ Complex Number Objects
 
 .. index:: pair: object; complex number
 
-Python's complex number objects are implemented as two distinct types when
-viewed from the C API:  one is the Python object exposed to Python programs, and
+MyFRpy's complex number objects are implemented as two distinct types when
+viewed from the C API:  one is the MyFRpy object exposed to MyFRpy programs, and
 the other is a C structure which represents the actual complex number value.
 The API provides functions for working with both.
 
@@ -23,7 +23,7 @@ pointers.  This is consistent throughout the API.
 
 .. c:type:: Py_complex
 
-   The C structure which corresponds to the value portion of a Python complex
+   The C structure which corresponds to the value portion of a MyFRpy complex
    number object.  Most of the functions for dealing with complex number objects
    use structures of this type as input or output values, as appropriate.  It is
    defined as::
@@ -76,19 +76,19 @@ pointers.  This is consistent throughout the API.
    this method returns zero and sets :c:data:`errno` to :c:macro:`!EDOM`.
 
 
-Complex Numbers as Python Objects
+Complex Numbers as MyFRpy Objects
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 .. c:type:: PyComplexObject
 
-   This subtype of :c:type:`PyObject` represents a Python complex number object.
+   This subtype of :c:type:`PyObject` represents a MyFRpy complex number object.
 
 
 .. c:var:: PyTypeObject PyComplex_Type
 
-   This instance of :c:type:`PyTypeObject` represents the Python complex number
-   type. It is the same object as :class:`complex` in the Python layer.
+   This instance of :c:type:`PyTypeObject` represents the MyFRpy complex number
+   type. It is the same object as :class:`complex` in the MyFRpy layer.
 
 
 .. c:function:: int PyComplex_Check(PyObject *p)
@@ -105,7 +105,7 @@ Complex Numbers as Python Objects
 
 .. c:function:: PyObject* PyComplex_FromCComplex(Py_complex v)
 
-   Create a new Python complex number object from a C :c:type:`Py_complex` value.
+   Create a new MyFRpy complex number object from a C :c:type:`Py_complex` value.
 
 
 .. c:function:: PyObject* PyComplex_FromDoubles(double real, double imag)
@@ -127,8 +127,8 @@ Complex Numbers as Python Objects
 
    Return the :c:type:`Py_complex` value of the complex number *op*.
 
-   If *op* is not a Python complex number object but has a :meth:`~object.__complex__`
-   method, this method will first be called to convert *op* to a Python complex
+   If *op* is not a MyFRpy complex number object but has a :meth:`~object.__complex__`
+   method, this method will first be called to convert *op* to a MyFRpy complex
    number object.  If :meth:`!__complex__` is not defined then it falls back to
    :meth:`~object.__float__`.  If :meth:`!__float__` is not defined then it falls back
    to :meth:`~object.__index__`.  Upon failure, this method returns ``-1.0`` as a real

@@ -59,16 +59,16 @@ _modifier_names = {name: number
 # In 3.4, if no shell window is ever open, the underlying Tk widget is
 # destroyed before .__del__ methods here are called.  The following
 # is used to selectively ignore shutdown exceptions to avoid
-# 'Exception ignored' messages.  See http://bugs.python.org/issue20167
+# 'Exception ignored' messages.  See http://bugs.myFRpy.org/issue20167
 APPLICATION_GONE = "application has been destroyed"
 
 # A binder is a class which binds functions to one type of event. It has two
 # methods: bind and unbind, which get a function and a parsed sequence, as
 # returned by _parse_sequence(). There are two types of binders:
 # _SimpleBinder handles event types with no modifiers and no detail.
-# No Python functions are called when no events are binded.
+# No MyFRpy functions are called when no events are binded.
 # _ComplexBinder handles event types with modifiers and a detail.
-# A Python function is called each time an event is generated.
+# A MyFRpy function is called each time an event is generated.
 
 class _SimpleBinder:
     def __init__(self, type, widget, widgetinst):

@@ -13,7 +13,7 @@ This module provides an interface to the optional garbage collector.  It
 provides the ability to disable the collector, tune the collection frequency,
 and set debugging options.  It also provides access to unreachable objects that
 the collector found but cannot free.  Since the collector supplements the
-reference counting already used in Python, you can disable the collector if you
+reference counting already used in MyFRpy, you can disable the collector if you
 are sure your program does not create reference cycles.  Automatic collection
 can be disabled by calling ``gc.disable()``.  To debug a leaking program call
 ``gc.set_debug(gc.DEBUG_LEAK)``. Notice that this includes
@@ -113,7 +113,7 @@ The :mod:`gc` module provides the following functions:
    been examined more than *threshold1* times since generation ``1`` has been
    examined, then generation ``1`` is examined as well.
    With the third generation, things are a bit more complicated,
-   see `Collecting the oldest generation <https://devguide.python.org/garbage_collector/#collecting-the-oldest-generation>`_ for more information.
+   see `Collecting the oldest generation <https://devguide.myFRpy.org/garbage_collector/#collecting-the-oldest-generation>`_ for more information.
 
 
 .. function:: get_count()
@@ -245,7 +245,7 @@ values but should not rebind them):
 .. data:: garbage
 
    A list of objects which the collector found to be unreachable but could
-   not be freed (uncollectable objects).  Starting with Python 3.4, this
+   not be freed (uncollectable objects).  Starting with MyFRpy 3.4, this
    list should be empty most of the time, except when using instances of
    C extension types with a non-``NULL`` ``tp_del`` slot.
 

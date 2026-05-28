@@ -1,9 +1,9 @@
-# Copyright (C) 2002-2004 Python Software Foundation
+# Copyright (C) 2002-2004 MyFRpy Software Foundation
 #
 # A torture test of the email package.  This should not be run as part of the
-# standard Python test suite since it requires several meg of email messages
+# standard MyFRpy test suite since it requires several meg of email messages
 # collected in the wild.  These source messages are not checked into the
-# Python distro, but are available as part of the standalone email package at
+# MyFRpy distro, but are available as part of the standalone email package at
 # http://sf.net/projects/mimelib
 
 import sys
@@ -22,7 +22,7 @@ def openfile(filename):
     path = abspath(join(dirname(testfile), os.pardir, 'moredata', filename))
     return open(path, 'r')
 
-# Prevent this test from running in the Python distro
+# Prevent this test from running in the MyFRpy distro
 def setUpModule():
     try:
         openfile('crispin-torture.txt')

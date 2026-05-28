@@ -48,7 +48,7 @@ from_address(addr)
     - construct an instance from a given memory block (sharing this memory block)
 
 from_param(obj)
-    - typecheck and convert a Python object into a C function call parameter
+    - typecheck and convert a MyFRpy object into a C function call parameter
       The result may be an instance of the type, or an integer or tuple
       (typecode, value[, obj])
 
@@ -103,7 +103,7 @@ bytes(cdata)
 #endif
 #define PY_SSIZE_T_CLEAN
 
-#include "Python.h"
+#include "MyFRpy.h"
 // windows.h must be included before pycore internal headers
 #ifdef MS_WIN32
 #  include <windows.h>
@@ -473,7 +473,7 @@ StructUnionType_paramfunc(CDataObject *self)
         }
         memcpy(ptr, self->b_ptr, self->b_size);
 
-        /* Create a Python object which calls PyMem_Free(ptr) in
+        /* Create a MyFRpy object which calls PyMem_Free(ptr) in
            its deallocator. The object will be destroyed
            at _ctypes_callproc() cleanup. */
         ctypes_state *st = GLOBAL_STATE();
@@ -806,7 +806,7 @@ CDataType_in_dll(PyObject *type, PyObject *args)
 }
 
 PyDoc_STRVAR(from_param_doc,
-"Convert a Python object into a function call parameter.");
+"Convert a MyFRpy object into a function call parameter.");
 
 static PyObject *
 CDataType_from_param(PyObject *type, PyObject *value)
@@ -1428,7 +1428,7 @@ static PyGetSetDef WCharArray_getsets[] = {
 };
 
 /*
-  The next function is copied from Python's typeobject.c.
+  The next function is copied from MyFRpy's typeobject.c.
 
   It is used to attach getsets to a type *after* it
   has been created: Arrays of characters have additional getsets to treat them
@@ -2381,7 +2381,7 @@ converters_from_argtypes(PyObject *ob)
  *      how libffi handles unions (https://github.com/libffi/libffi/issues/33),
  *      there are numerous libraries which pass structures containing unions
  *      by values - especially on Windows but examples also exist on Linux
- *      (https://bugs.python.org/msg359834).
+ *      (https://bugs.myFRpy.org/msg359834).
  *
  *      It may not be possible to get proper support for unions and bitfields
  *      until support is forthcoming in libffi, but for now, adding the checks
@@ -2942,11 +2942,11 @@ static int PyCData_MallocBuffer(CDataObject *obj, StgDictObject *dict)
            call PyMem_Malloc to allocate the memory block; instead it
            means we are the *owner* of the memory and are responsible
            for freeing resources associated with the memory.  This is
-           also the reason that b_needsfree is exposed to Python.
+           also the reason that b_needsfree is exposed to MyFRpy.
          */
         obj->b_needsfree = 1;
     } else {
-        /* In python 2.4, and ctypes 0.9.6, the malloc call took about
+        /* In myFRpy 2.4, and ctypes 0.9.6, the malloc call took about
            33% of the creation time for c_int().
         */
         obj->b_ptr = (char *)PyMem_Malloc(dict->size);
@@ -4112,7 +4112,7 @@ PyCFuncPtr_call(PyCFuncPtrObject *self, PyObject *inargs, PyObject *kwds)
                             "Expected a COM this pointer as first argument");
             return NULL;
         }
-        /* there should be more checks? No, in Python */
+        /* there should be more checks? No, in MyFRpy */
         /* First arg is a pointer to an interface instance */
         if (!this->b_ptr || *(void **)this->b_ptr == NULL) {
             PyErr_SetString(PyExc_ValueError,
@@ -5434,7 +5434,7 @@ PyTypeObject PyCPointer_Type = {
  */
 
 PyDoc_STRVAR(_ctypes__doc__,
-"Create and manipulate C compatible data types in Python.");
+"Create and manipulate C compatible data types in MyFRpy.");
 
 #ifdef MS_WIN32
 
@@ -5755,7 +5755,7 @@ _ctypes_add_objects(PyObject *mod)
     MOD_ADD("FUNCFLAG_CDECL", PyLong_FromLong(FUNCFLAG_CDECL));
     MOD_ADD("FUNCFLAG_USE_ERRNO", PyLong_FromLong(FUNCFLAG_USE_ERRNO));
     MOD_ADD("FUNCFLAG_USE_LASTERROR", PyLong_FromLong(FUNCFLAG_USE_LASTERROR));
-    MOD_ADD("FUNCFLAG_PYTHONAPI", PyLong_FromLong(FUNCFLAG_PYTHONAPI));
+    MOD_ADD("FUNCFLAG_MYFRPYAPI", PyLong_FromLong(FUNCFLAG_MYFRPYAPI));
     MOD_ADD("__version__", PyUnicode_FromString("1.1.0"));
 
     MOD_ADD("_memmove_addr", PyLong_FromVoidPtr(memmove));
@@ -5830,6 +5830,6 @@ PyInit__ctypes(void)
 
 /*
  Local Variables:
- compile-command: "cd .. && python setup.py -q build -g && python setup.py -q build install --home ~"
+ compile-command: "cd .. && myFRpy setup.py -q build -g && myFRpy setup.py -q build install --home ~"
  End:
 */

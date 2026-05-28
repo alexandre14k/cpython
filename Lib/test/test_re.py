@@ -1,5 +1,5 @@
 from test.support import (gc_collect, bigmemtest, _2G,
-                          cpython_only, captured_stdout,
+                          cmyFRpy_only, captured_stdout,
                           check_disallow_instantiation, is_emscripten, is_wasi,
                           SHORT_TIMEOUT, requires_resource)
 import locale
@@ -226,7 +226,7 @@ class ReTests(unittest.TestCase):
         self.checkTemplateError('x', r'\800', 'x', 'invalid group reference 80', 1)
         self.checkTemplateError('x', r'\8', '', 'invalid group reference 8', 1)
 
-        # in python2.3 (etc), these loop endlessly in sre_parser.py
+        # in myFRpy2.3 (etc), these loop endlessly in sre_parser.py
         self.assertEqual(re.sub('(((((((((((x)))))))))))', r'\11', 'x'), 'x')
         self.assertEqual(re.sub('((((((((((y))))))))))(.)', r'\118', 'xyz'),
                          'xz8')
@@ -247,7 +247,7 @@ class ReTests(unittest.TestCase):
         re.compile(r'(?P<a1>x)(?P=a1)(?(a1)y)')
         re.compile(r'(?P<a1>x)\1(?(1)y)')
         re.compile(b'(?P<a1>x)(?P=a1)(?(a1)y)')
-        # New valid identifiers in Python 3
+        # New valid identifiers in MyFRpy 3
         re.compile('(?P<µ>x)(?P=µ)(?(µ)y)')
         re.compile('(?P<𝔘𝔫𝔦𝔠𝔬𝔡𝔢>x)(?P=𝔘𝔫𝔦𝔠𝔬𝔡𝔢)(?(𝔘𝔫𝔦𝔠𝔬𝔡𝔢)y)')
         # Support > 100 groups.
@@ -295,7 +295,7 @@ class ReTests(unittest.TestCase):
         self.assertEqual(re.sub('(?P<a>x)|(?P<b>y)', r'\g<b>', 'xx'), '')
         self.assertEqual(re.sub('(?P<a>x)|(?P<b>y)', r'\2', 'xx'), '')
         self.assertEqual(re.sub(b'(?P<a1>x)', br'\g<a1>', b'xx'), b'xx')
-        # New valid identifiers in Python 3
+        # New valid identifiers in MyFRpy 3
         self.assertEqual(re.sub('(?P<µ>x)', r'\g<µ>', 'xx'), 'xx')
         self.assertEqual(re.sub('(?P<𝔘𝔫𝔦𝔠𝔬𝔡𝔢>x)', r'\g<𝔘𝔫𝔦𝔠𝔬𝔡𝔢>', 'xx'), 'xx')
         # Support > 100 groups.
@@ -821,7 +821,7 @@ class ReTests(unittest.TestCase):
         self.checkPatternError(br'[\N{LESS-THAN SIGN}]', r'bad escape \N', 1)
 
     def test_string_boundaries(self):
-        # See http://bugs.python.org/issue10713
+        # See http://bugs.myFRpy.org/issue10713
         self.assertEqual(re.search(r"\b(abc)\b", "abc").group(1),
                          "abc")
         # There's a word boundary at the start of a string.
@@ -2111,12 +2111,12 @@ class ReTests(unittest.TestCase):
     def test_bug_34294(self):
         # Issue 34294: wrong capturing groups
 
-        # exists since Python 2
+        # exists since MyFRpy 2
         s = "a\tx"
         p = r"\b(?=(\t)|(x))x"
         self.assertEqual(re.search(p, s).groups(), (None, 'x'))
 
-        # introduced in Python 3.7.0
+        # introduced in MyFRpy 3.7.0
         s = "ab"
         p = r"(?=(.)(.)?)"
         self.assertEqual(re.findall(p, s),
@@ -2124,7 +2124,7 @@ class ReTests(unittest.TestCase):
         self.assertEqual([m.groups() for m in re.finditer(p, s)],
                          [('a', 'b'), ('b', None)])
 
-        # test-cases provided by issue34294, introduced in Python 3.7.0
+        # test-cases provided by issue34294, introduced in MyFRpy 3.7.0
         p = r"(?=<(?P<tag>\w+)/?>(?:(?P<text>.+?)</(?P=tag)>)?)"
         s = "<test><foo2/></test>"
         self.assertEqual(re.findall(p, s),
@@ -2438,7 +2438,7 @@ def get_debug_out(pat):
     return out.getvalue()
 
 
-@cpython_only
+@cmyFRpy_only
 class DebugTests(unittest.TestCase):
     maxDiff = None
 
@@ -2619,7 +2619,7 @@ class ImplementationTest(unittest.TestCase):
     Test implementation details of the re module.
     """
 
-    @cpython_only
+    @cmyFRpy_only
     def test_immutable(self):
         # bpo-43908: check that re types are immutable
         with self.assertRaises(TypeError):
@@ -2644,7 +2644,7 @@ class ImplementationTest(unittest.TestCase):
         self.assertGreaterEqual(re._compiler.MAXREPEAT, 0)
         self.assertGreaterEqual(re._compiler.MAXGROUPS, 0)
 
-    @cpython_only
+    @cmyFRpy_only
     def test_disallow_instantiation(self):
         # Ensure that the type disallows instantiation (bpo-43916)
         check_disallow_instantiation(self, re.Match)
@@ -2679,7 +2679,7 @@ class ImplementationTest(unittest.TestCase):
                     self.assertTrue(hasattr(mod, attr))
                 del sys.modules[name]
 
-    @cpython_only
+    @cmyFRpy_only
     def test_case_helpers(self):
         import _sre
         for i in range(128):
@@ -2706,7 +2706,7 @@ class ImplementationTest(unittest.TestCase):
         self.assertFalse(_sre.ascii_iscased(0x0130))
         self.assertTrue(_sre.unicode_iscased(0x0130))
 
-    @cpython_only
+    @cmyFRpy_only
     def test_dealloc(self):
         # issue 3299: check for segfault in debug build
         import _sre
@@ -2724,7 +2724,7 @@ class ImplementationTest(unittest.TestCase):
         with self.assertRaises(TypeError):
             _sre.compile('', 0, ['abc'], 0, {}, ())
 
-    @cpython_only
+    @cmyFRpy_only
     def test_repeat_minmax_overflow_maxrepeat(self):
         try:
             from _sre import MAXREPEAT
@@ -2739,7 +2739,7 @@ class ImplementationTest(unittest.TestCase):
         self.assertRaises(OverflowError, re.compile, r".{,%d}" % MAXREPEAT)
         self.assertRaises(OverflowError, re.compile, r".{%d,}?" % MAXREPEAT)
 
-    @cpython_only
+    @cmyFRpy_only
     def test_sre_template_invalid_group_index(self):
         # see gh-106524
         import _sre

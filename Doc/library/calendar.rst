@@ -510,7 +510,7 @@ to interactively print a calendar.
 
 .. code-block:: shell
 
-   python -m calendar [-h] [-L LOCALE] [-e ENCODING] [-t {text,html}]
+   myFRpy -m calendar [-h] [-L LOCALE] [-e ENCODING] [-t {text,html}]
                       [-w WIDTH] [-l LINES] [-s SPACING] [-m MONTHS] [-c CSS]
                       [year] [month]
 
@@ -519,7 +519,7 @@ For example, to print a calendar for the year 2000:
 
 .. code-block:: console
 
-   $ python -m calendar 2000
+   $ myFRpy -m calendar 2000
                                      2000
 
          January                   February                   March

@@ -33,7 +33,7 @@ class AuditTest(unittest.TestCase):
                 self.fail("".join(p.stderr))
 
     @support.requires_subprocess()
-    def run_python(self, *args):
+    def run_myFRpy(self, *args):
         events = []
         with subprocess.Popen(
             [sys.executable, "-X utf8", AUDIT_TESTS_PY, *args],
@@ -81,7 +81,7 @@ class AuditTest(unittest.TestCase):
         self.do_test("test_mmap")
 
     def test_excepthook(self):
-        returncode, events, stderr = self.run_python("test_excepthook")
+        returncode, events, stderr = self.run_myFRpy("test_excepthook")
         if not returncode:
             self.fail(f"Expected fatal exception\n{stderr}")
 
@@ -90,7 +90,7 @@ class AuditTest(unittest.TestCase):
         )
 
     def test_unraisablehook(self):
-        returncode, events, stderr = self.run_python("test_unraisablehook")
+        returncode, events, stderr = self.run_myFRpy("test_unraisablehook")
         if returncode:
             self.fail(stderr)
 
@@ -102,7 +102,7 @@ class AuditTest(unittest.TestCase):
 
     def test_winreg(self):
         import_helper.import_module("winreg")
-        returncode, events, stderr = self.run_python("test_winreg")
+        returncode, events, stderr = self.run_myFRpy("test_winreg")
         if returncode:
             self.fail(stderr)
 
@@ -116,7 +116,7 @@ class AuditTest(unittest.TestCase):
 
     def test_socket(self):
         import_helper.import_module("socket")
-        returncode, events, stderr = self.run_python("test_socket")
+        returncode, events, stderr = self.run_myFRpy("test_socket")
         if returncode:
             self.fail(stderr)
 
@@ -128,7 +128,7 @@ class AuditTest(unittest.TestCase):
         self.assertTrue(events[2][2].endswith("('127.0.0.1', 8080)"))
 
     def test_gc(self):
-        returncode, events, stderr = self.run_python("test_gc")
+        returncode, events, stderr = self.run_myFRpy("test_gc")
         if returncode:
             self.fail(stderr)
 
@@ -142,14 +142,14 @@ class AuditTest(unittest.TestCase):
 
     def test_http(self):
         import_helper.import_module("http.client")
-        returncode, events, stderr = self.run_python("test_http_client")
+        returncode, events, stderr = self.run_myFRpy("test_http_client")
         if returncode:
             self.fail(stderr)
 
         if support.verbose:
             print(*events, sep='\n')
         self.assertEqual(events[0][0], "http.client.connect")
-        self.assertEqual(events[0][2], "www.python.org 80")
+        self.assertEqual(events[0][2], "www.myFRpy.org 80")
         self.assertEqual(events[1][0], "http.client.send")
         if events[1][2] != '[cannot send]':
             self.assertIn('HTTP', events[1][2])
@@ -157,7 +157,7 @@ class AuditTest(unittest.TestCase):
 
     def test_sqlite3(self):
         sqlite3 = import_helper.import_module("sqlite3")
-        returncode, events, stderr = self.run_python("test_sqlite3")
+        returncode, events, stderr = self.run_myFRpy("test_sqlite3")
         if returncode:
             self.fail(stderr)
 
@@ -175,7 +175,7 @@ class AuditTest(unittest.TestCase):
 
 
     def test_sys_getframe(self):
-        returncode, events, stderr = self.run_python("test_sys_getframe")
+        returncode, events, stderr = self.run_myFRpy("test_sys_getframe")
         if returncode:
             self.fail(stderr)
 
@@ -187,7 +187,7 @@ class AuditTest(unittest.TestCase):
         self.assertEqual(actual, expected)
 
     def test_sys_getframemodulename(self):
-        returncode, events, stderr = self.run_python("test_sys_getframemodulename")
+        returncode, events, stderr = self.run_myFRpy("test_sys_getframemodulename")
         if returncode:
             self.fail(stderr)
 
@@ -200,7 +200,7 @@ class AuditTest(unittest.TestCase):
 
 
     def test_threading(self):
-        returncode, events, stderr = self.run_python("test_threading")
+        returncode, events, stderr = self.run_myFRpy("test_threading")
         if returncode:
             self.fail(stderr)
 
@@ -217,7 +217,7 @@ class AuditTest(unittest.TestCase):
 
     def test_wmi_exec_query(self):
         import_helper.import_module("_wmi")
-        returncode, events, stderr = self.run_python("test_wmi_exec_query")
+        returncode, events, stderr = self.run_myFRpy("test_wmi_exec_query")
         if returncode:
             self.fail(stderr)
 
@@ -231,7 +231,7 @@ class AuditTest(unittest.TestCase):
     def test_syslog(self):
         syslog = import_helper.import_module("syslog")
 
-        returncode, events, stderr = self.run_python("test_syslog")
+        returncode, events, stderr = self.run_myFRpy("test_syslog")
         if returncode:
             self.fail(stderr)
 
@@ -240,7 +240,7 @@ class AuditTest(unittest.TestCase):
 
         self.assertSequenceEqual(
             events,
-            [('syslog.openlog', ' ', f'python 0 {syslog.LOG_USER}'),
+            [('syslog.openlog', ' ', f'myFRpy 0 {syslog.LOG_USER}'),
             ('syslog.syslog', ' ', f'{syslog.LOG_INFO} test'),
             ('syslog.setlogmask', ' ', f'{syslog.LOG_DEBUG}'),
             ('syslog.closelog', '', ''),
@@ -252,13 +252,13 @@ class AuditTest(unittest.TestCase):
         )
 
     def test_not_in_gc(self):
-        returncode, _, stderr = self.run_python("test_not_in_gc")
+        returncode, _, stderr = self.run_myFRpy("test_not_in_gc")
         if returncode:
             self.fail(stderr)
 
 
     def test_sys_monitoring_register_callback(self):
-        returncode, events, stderr = self.run_python("test_sys_monitoring_register_callback")
+        returncode, events, stderr = self.run_myFRpy("test_sys_monitoring_register_callback")
         if returncode:
             self.fail(stderr)
 

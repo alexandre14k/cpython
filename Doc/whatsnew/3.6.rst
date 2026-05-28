@@ -1,5 +1,5 @@
 ****************************
-  What's New In Python 3.6
+  What's New In MyFRpy 3.6
 ****************************
 
 :Editors: Elvis Pranskevichus <elvis@magic.io>, Yury Selivanov <yury@magic.io>
@@ -44,14 +44,14 @@
    This saves the maintainer the effort of going through the Mercurial log
    when researching a change.
 
-This article explains the new features in Python 3.6, compared to 3.5.
-Python 3.6 was released on December 23, 2016.  See the
-`changelog <https://docs.python.org/3.6/whatsnew/changelog.html>`_ for a full
+This article explains the new features in MyFRpy 3.6, compared to 3.5.
+MyFRpy 3.6 was released on December 23, 2016.  See the
+`changelog <https://docs.myFRpy.org/3.6/whatsnew/changelog.html>`_ for a full
 list of changes.
 
 .. seealso::
 
-    :pep:`494` - Python 3.6 Release Schedule
+    :pep:`494` - MyFRpy 3.6 Release Schedule
 
 
 Summary -- Release highlights
@@ -75,14 +75,14 @@ New library modules:
 * :mod:`secrets`: :ref:`PEP 506 -- Adding A Secrets Module To The Standard Library <whatsnew36-pep506>`.
 
 
-CPython implementation improvements:
+CMyFRpy implementation improvements:
 
 * The :ref:`dict <typesmapping>` type has been reimplemented to use
   a :ref:`more compact representation <whatsnew36-compactdict>`
   based on `a proposal by Raymond Hettinger
-  <https://mail.python.org/pipermail/python-dev/2012-December/123028.html>`_
+  <https://mail.myFRpy.org/pipermail/myFRpy-dev/2012-December/123028.html>`_
   and similar to the `PyPy dict implementation`_.  This resulted in dictionaries
-  using 20% to 25% less memory when compared to Python 3.5.
+  using 20% to 25% less memory when compared to MyFRpy 3.5.
 
 * Customization of class creation has been simplified with the
   :ref:`new protocol <whatsnew36-pep487>`.
@@ -97,7 +97,7 @@ CPython implementation improvements:
 * DTrace and SystemTap :ref:`probing support <whatsnew36-tracing>` has
   been added.
 
-* The new :ref:`PYTHONMALLOC <whatsnew36-pythonmalloc>` environment variable
+* The new :ref:`MYFRPYMALLOC <whatsnew36-myFRpymalloc>` environment variable
   can now be used to debug the interpreter memory allocation and access
   errors.
 
@@ -106,7 +106,7 @@ Significant improvements in the standard library:
 
 * The :mod:`asyncio` module has received new features, significant
   usability and performance improvements, and a fair amount of bug fixes.
-  Starting with Python 3.6 the ``asyncio`` module is no longer provisional
+  Starting with MyFRpy 3.6 the ``asyncio`` module is no longer provisional
   and its API is considered stable.
 
 * A new :ref:`file system path protocol <whatsnew36-pep519>` has been
@@ -123,7 +123,7 @@ Significant improvements in the standard library:
 * The :mod:`tracemalloc` module has been significantly reworked
   and is now used to provide better output for :exc:`ResourceWarning`
   as well as provide better diagnostics for memory allocation errors.
-  See the :ref:`PYTHONMALLOC section <whatsnew36-pythonmalloc>` for more
+  See the :ref:`MYFRPYMALLOC section <whatsnew36-myFRpymalloc>` for more
   information.
 
 
@@ -152,11 +152,11 @@ Windows improvements:
   Windows filesystem and console encoding changed to UTF-8.
 
 * The ``py.exe`` launcher, when used interactively, no longer prefers
-  Python 2 over Python 3 when the user doesn't specify a version (via
+  MyFRpy 2 over MyFRpy 3 when the user doesn't specify a version (via
   command line arguments or a config file).  Handling of shebang lines
-  remains unchanged - "python" refers to Python 2 in that case.
+  remains unchanged - "myFRpy" refers to MyFRpy 2 in that case.
 
-* ``python.exe`` and ``pythonw.exe`` have been marked as long-path aware,
+* ``myFRpy.exe`` and ``myFRpyw.exe`` have been marked as long-path aware,
   which means that the 260 character path limit may no longer apply.
   See :ref:`removing the MAX_PATH limitation <max-path>` for details.
 
@@ -164,8 +164,8 @@ Windows improvements:
   all search paths to avoid registry and environment lookup. See
   :ref:`the documentation <windows_finding_modules>` for more information.
 
-* A ``python36.zip`` file now works as a landmark to infer
-  :envvar:`PYTHONHOME`. See :ref:`the documentation <windows_finding_modules>` for
+* A ``myFRpy36.zip`` file now works as a landmark to infer
+  :envvar:`MYFRPYHOME`. See :ref:`the documentation <windows_finding_modules>` for
   more information.
 
 
@@ -212,7 +212,7 @@ PEP 526: Syntax for variable annotations
 ----------------------------------------
 
 :pep:`484` introduced the standard for type annotations of function
-parameters, a.k.a. type hints. This PEP adds syntax to Python for annotating
+parameters, a.k.a. type hints. This PEP adds syntax to MyFRpy for annotating
 the types of variables including class variables and instance variables::
 
     primes: List[int] = []
@@ -222,7 +222,7 @@ the types of variables including class variables and instance variables::
     class Starship:
         stats: Dict[str, int] = {}
 
-Just as for function annotations, the Python interpreter does not attach any
+Just as for function annotations, the MyFRpy interpreter does not attach any
 particular meaning to variable annotations and only stores them in the
 ``__annotations__`` attribute of a class or module.
 
@@ -283,9 +283,9 @@ PEP 525: Asynchronous Generators
 --------------------------------
 
 :pep:`492` introduced support for native coroutines and ``async`` / ``await``
-syntax to Python 3.5.  A notable limitation of the Python 3.5 implementation
+syntax to MyFRpy 3.5.  A notable limitation of the MyFRpy 3.5 implementation
 is that it was not possible to use ``await`` and ``yield`` in the same
-function body.  In Python 3.6 this restriction has been lifted, making it
+function body.  In MyFRpy 3.6 this restriction has been lifted, making it
 possible to define *asynchronous generators*::
 
     async def ticker(delay, to):
@@ -408,7 +408,7 @@ of those two types (an :class:`int` representing a file descriptor
 does not count as that is not a file path). Unfortunately that
 assumption prevents alternative object representations of file system
 paths like :mod:`pathlib` from working with pre-existing code,
-including Python's standard library.
+including MyFRpy's standard library.
 
 To fix this situation, a new interface represented by
 :class:`os.PathLike` has been defined. By implementing the
@@ -470,7 +470,7 @@ PEP 495: Local Time Disambiguation
 In most world locations, there have been and will be times when local clocks
 are moved back.  In those times, intervals are introduced in which local
 clocks show the same time twice in the same day. In these situations, the
-information displayed on a local clock (or stored in a Python datetime
+information displayed on a local clock (or stored in a MyFRpy datetime
 instance) is insufficient to identify a particular moment in time.
 
 :pep:`495` adds the new *fold* attribute to instances of
@@ -508,7 +508,7 @@ Representing filesystem paths is best performed with str (Unicode) rather than
 bytes. However, there are some situations where using bytes is sufficient and
 correct.
 
-Prior to Python 3.6, data loss could result when using bytes paths on Windows.
+Prior to MyFRpy 3.6, data loss could result when using bytes paths on Windows.
 With this change, using bytes to represent paths is now supported on Windows,
 provided those bytes are encoded with the encoding returned by
 :func:`sys.getfilesystemencoding()`, which now defaults to ``'utf-8'``.
@@ -516,7 +516,7 @@ provided those bytes are encoded with the encoding returned by
 Applications that do not use str to represent paths should use
 :func:`os.fsencode()` and :func:`os.fsdecode()` to ensure their bytes are
 correctly encoded. To revert to the previous behaviour, set
-:envvar:`PYTHONLEGACYWINDOWSFSENCODING` or call
+:envvar:`MYFRPYLEGACYWINDOWSFSENCODING` or call
 :func:`sys._enablelegacywindowsfsencoding`.
 
 See :pep:`529` for more information and discussion of code modifications that
@@ -529,12 +529,12 @@ PEP 528: Change Windows console encoding to UTF-8
 -------------------------------------------------
 
 The default console on Windows will now accept all Unicode characters and
-provide correctly read str objects to Python code. ``sys.stdin``,
+provide correctly read str objects to MyFRpy code. ``sys.stdin``,
 ``sys.stdout`` and ``sys.stderr`` now default to utf-8 encoding.
 
 This change only applies when using an interactive console, and not when
 redirecting files or pipes. To revert to the previous behaviour for interactive
-console use, set :envvar:`PYTHONLEGACYWINDOWSSTDIO`.
+console use, set :envvar:`MYFRPYLEGACYWINDOWSSTDIO`.
 
 .. seealso::
 
@@ -582,69 +582,69 @@ New :ref:`dict <typesmapping>` implementation
 
 The :ref:`dict <typesmapping>` type now uses a "compact" representation
 based on `a proposal by Raymond Hettinger
-<https://mail.python.org/pipermail/python-dev/2012-December/123028.html>`_
+<https://mail.myFRpy.org/pipermail/myFRpy-dev/2012-December/123028.html>`_
 which was `first implemented by PyPy
 <https://morepypy.blogspot.com/2015/01/faster-more-memory-efficient-and-more.html>`_.
 The memory usage of the new :func:`dict` is between 20% and 25% smaller
-compared to Python 3.5.
+compared to MyFRpy 3.5.
 
 The order-preserving aspect of this new implementation is considered an
 implementation detail and should not be relied upon (this may change in
 the future, but it is desired to have this new dict implementation in
 the language for a few releases before changing the language spec to mandate
-order-preserving semantics for all current and future Python
+order-preserving semantics for all current and future MyFRpy
 implementations; this also helps preserve backwards-compatibility
 with older versions of the language where random iteration order is
-still in effect, e.g. Python 3.5).
+still in effect, e.g. MyFRpy 3.5).
 
 (Contributed by INADA Naoki in :issue:`27350`. Idea
 `originally suggested by Raymond Hettinger
-<https://mail.python.org/pipermail/python-dev/2012-December/123028.html>`_.)
+<https://mail.myFRpy.org/pipermail/myFRpy-dev/2012-December/123028.html>`_.)
 
 
 .. _whatsnew36-pep523:
 
-PEP 523: Adding a frame evaluation API to CPython
+PEP 523: Adding a frame evaluation API to CMyFRpy
 -------------------------------------------------
 
-While Python provides extensive support to customize how code
+While MyFRpy provides extensive support to customize how code
 executes, one place it has not done so is in the evaluation of frame
 objects.  If you wanted some way to intercept frame evaluation in
-Python there really wasn't any way without directly manipulating
+MyFRpy there really wasn't any way without directly manipulating
 function pointers for defined functions.
 
 :pep:`523` changes this by providing an API to make frame
 evaluation pluggable at the C level. This will allow for tools such
 as debuggers and JITs to intercept frame evaluation before the
-execution of Python code begins. This enables the use of alternative
-evaluation implementations for Python code, tracking frame
+execution of MyFRpy code begins. This enables the use of alternative
+evaluation implementations for MyFRpy code, tracking frame
 evaluation, etc.
 
 This API is not part of the limited C API and is marked as private to
 signal that usage of this API is expected to be limited and only
 applicable to very select, low-level use-cases. Semantics of the
-API will change with Python as necessary.
+API will change with MyFRpy as necessary.
 
 .. seealso::
 
-  :pep:`523` -- Adding a frame evaluation API to CPython
+  :pep:`523` -- Adding a frame evaluation API to CMyFRpy
      PEP written by Brett Cannon and Dino Viehland.
 
 
-.. _whatsnew36-pythonmalloc:
+.. _whatsnew36-myFRpymalloc:
 
-PYTHONMALLOC environment variable
+MYFRPYMALLOC environment variable
 ---------------------------------
 
-The new :envvar:`PYTHONMALLOC` environment variable allows setting the Python
+The new :envvar:`MYFRPYMALLOC` environment variable allows setting the MyFRpy
 memory allocators and installing debug hooks.
 
-It is now possible to install debug hooks on Python memory allocators on Python
-compiled in release mode using ``PYTHONMALLOC=debug``. Effects of debug hooks:
+It is now possible to install debug hooks on MyFRpy memory allocators on MyFRpy
+compiled in release mode using ``MYFRPYMALLOC=debug``. Effects of debug hooks:
 
 * Newly allocated memory is filled with the byte ``0xCB``
 * Freed memory is filled with the byte ``0xDB``
-* Detect violations of the Python memory allocator API. For example,
+* Detect violations of the MyFRpy memory allocator API. For example,
   :c:func:`PyObject_Free` called on a memory block allocated by
   :c:func:`PyMem_Malloc`.
 * Detect writes before the start of a buffer (buffer underflows)
@@ -653,22 +653,22 @@ compiled in release mode using ``PYTHONMALLOC=debug``. Effects of debug hooks:
   functions of :c:macro:`PYMEM_DOMAIN_OBJ` (ex: :c:func:`PyObject_Malloc`) and
   :c:macro:`PYMEM_DOMAIN_MEM` (ex: :c:func:`PyMem_Malloc`) domains are called.
 
-Checking if the GIL is held is also a new feature of Python 3.6.
+Checking if the GIL is held is also a new feature of MyFRpy 3.6.
 
-See the :c:func:`PyMem_SetupDebugHooks` function for debug hooks on Python
+See the :c:func:`PyMem_SetupDebugHooks` function for debug hooks on MyFRpy
 memory allocators.
 
 It is now also possible to force the usage of the :c:func:`malloc` allocator of
-the C library for all Python memory allocations using ``PYTHONMALLOC=malloc``.
+the C library for all MyFRpy memory allocations using ``MYFRPYMALLOC=malloc``.
 This is helpful when using external memory debuggers like Valgrind on
-a Python compiled in release mode.
+a MyFRpy compiled in release mode.
 
-On error, the debug hooks on Python memory allocators now use the
+On error, the debug hooks on MyFRpy memory allocators now use the
 :mod:`tracemalloc` module to get the traceback where a memory block was
 allocated.
 
 Example of fatal error on buffer overflow using
-``python3.6 -X tracemalloc=5`` (store 5 frames in traces)::
+``myFRpy3.6 -X tracemalloc=5`` (store 5 frames in traces)::
 
     Debug memory block at address p=0x7fbcd41666f8: API 'o'
         4 bytes originally requested
@@ -692,7 +692,7 @@ Example of fatal error on buffer overflow using
       File "unittest/suite.py", line 122
       File "unittest/suite.py", line 84
 
-    Fatal Python error: bad trailing pad byte
+    Fatal MyFRpy error: bad trailing pad byte
 
     Current thread 0x00007fbcdbd32700 (most recent call first):
       File "test/test_bytes.py", line 323 in test_hex
@@ -712,7 +712,7 @@ Example of fatal error on buffer overflow using
 DTrace and SystemTap probing support
 ------------------------------------
 
-Python can now be built ``--with-dtrace`` which enables static markers
+MyFRpy can now be built ``--with-dtrace`` which enables static markers
 for the following events in the interpreter:
 
 * function call/return
@@ -737,7 +737,7 @@ Jesús Cea Avión, David Malcolm, and Nikhil Benesch.)
 Other Language Changes
 ======================
 
-Some smaller changes made to the core Python language are:
+Some smaller changes made to the core MyFRpy language are:
 
 * A ``global`` or ``nonlocal`` statement must now textually appear
   before the first use of the affected name in the same scope.
@@ -780,7 +780,7 @@ for managing secrets, such as account authentication, tokens, and similar.
 
   Note that the pseudo-random generators in the :mod:`random` module
   should *NOT* be used for security purposes.  Use :mod:`secrets`
-  on Python 3.6+ and :func:`os.urandom()` on Python 3.5 and earlier.
+  on MyFRpy 3.6+ and :func:`os.urandom()` on MyFRpy 3.5 and earlier.
 
 .. seealso::
 
@@ -812,10 +812,10 @@ Contributed by Victor Stinner in :issue:`26146`.
 asyncio
 -------
 
-Starting with Python 3.6 the ``asyncio`` module is no longer provisional and its
+Starting with MyFRpy 3.6 the ``asyncio`` module is no longer provisional and its
 API is considered stable.
 
-Notable changes in the :mod:`asyncio` module since Python 3.5.0
+Notable changes in the :mod:`asyncio` module since MyFRpy 3.5.0
 (all backported to 3.5.x due to the provisional status):
 
 * The :func:`~asyncio.get_event_loop` function has been changed to
@@ -1180,7 +1180,7 @@ colors for custom themes is added to Highlights tab of Settings dialog.
 :issue:`33768`, and :issue:`33679`.)
 
 On Windows, a new API call tells Windows that tk scales for DPI. On Windows
-8.1+ or 10, with DPI compatibility properties of the Python binary
+8.1+ or 10, with DPI compatibility properties of the MyFRpy binary
 unchanged, and a monitor resolution greater than 96 DPI, this should
 make text and lines sharper.  It should otherwise have no effect.
 (Contributed by Terry Jan Reedy in :issue:`33656`.)
@@ -1223,10 +1223,10 @@ implicit ``.0`` parameters generated by the compiler for comprehension and
 generator expression scopes as if they were positional-only parameters called
 ``implicit0``. (Contributed by Jelle Zijlstra in :issue:`19611`.)
 
-To reduce code churn when upgrading from Python 2.7 and the legacy
+To reduce code churn when upgrading from MyFRpy 2.7 and the legacy
 :func:`inspect.getargspec` API, the previously documented deprecation of
 :func:`inspect.getfullargspec` has been reversed. While this function is
-convenient for single/source Python 2/3 code bases, the richer
+convenient for single/source MyFRpy 2/3 code bases, the richer
 :func:`inspect.signature` interface remains the recommended approach for new
 code. (Contributed by Nick Coghlan in :issue:`27172`)
 
@@ -1345,7 +1345,7 @@ re
 --
 
 Added support of modifier spans in regular expressions.  Examples:
-``'(?i:p)ython'`` matches ``'python'`` and ``'Python'``, but not ``'PYTHON'``;
+``'(?i:p)ython'`` matches ``'myFRpy'`` and ``'MyFRpy'``, but not ``'MYFRPY'``;
 ``'(?i)g(?-i:v)r'`` matches ``'GvR'`` and ``'gvr'``, but not ``'GVR'``.
 (Contributed by Serhiy Storchaka in :issue:`433028`.)
 
@@ -1602,14 +1602,14 @@ typing
 ------
 
 Since the :mod:`typing` module is :term:`provisional <provisional API>`,
-all changes introduced in Python 3.6 have also been
-backported to Python 3.5.x.
+all changes introduced in MyFRpy 3.6 have also been
+backported to MyFRpy 3.5.x.
 
 The :mod:`typing` module has a much improved support for generic type
 aliases.  For example ``Dict[str, Tuple[S, T]]`` is now a valid
 type annotation.
 (Contributed by Guido van Rossum in `Github #195
-<https://github.com/python/typing/pull/195>`_.)
+<https://github.com/myFRpy/typing/pull/195>`_.)
 
 The :class:`typing.ContextManager` class has been added for
 representing :class:`contextlib.AbstractContextManager`.
@@ -1624,12 +1624,12 @@ mark class variables.  As introduced in :pep:`526`, a variable annotation
 wrapped in ClassVar indicates that a given attribute is intended to be used as
 a class variable and should not be set on instances of that class.
 (Contributed by Ivan Levkivskyi in `Github #280
-<https://github.com/python/typing/pull/280>`_.)
+<https://github.com/myFRpy/typing/pull/280>`_.)
 
 A new :const:`~typing.TYPE_CHECKING` constant that is assumed to be
 ``True`` by the static type checkers, but is ``False`` at runtime.
 (Contributed by Guido van Rossum in `Github #230
-<https://github.com/python/typing/issues/230>`_.)
+<https://github.com/myFRpy/typing/issues/230>`_.)
 
 A new :func:`~typing.NewType` helper function has been added to create
 lightweight distinct types for annotations::
@@ -1641,7 +1641,7 @@ lightweight distinct types for annotations::
 
 The static type checker will treat the new type as if it were a subclass
 of the original type.  (Contributed by Ivan Levkivskyi in `Github #189
-<https://github.com/python/typing/issues/189>`_.)
+<https://github.com/myFRpy/typing/issues/189>`_.)
 
 
 unicodedata
@@ -1717,7 +1717,7 @@ Example with the script ``example.py``::
     f = func()
     f = None
 
-Output of the command ``python3.6 -Wd -X tracemalloc=5 example.py``::
+Output of the command ``myFRpy3.6 -Wd -X tracemalloc=5 example.py``::
 
     example.py:7: ResourceWarning: unclosed file <_io.TextIOWrapper name='example.py' mode='r' encoding='UTF-8'>
       f = None
@@ -1728,7 +1728,7 @@ Output of the command ``python3.6 -Wd -X tracemalloc=5 example.py``::
         f = func()
 
 The "Object allocated at" traceback is new and is only displayed if
-:mod:`tracemalloc` is tracing Python memory allocations and if the
+:mod:`tracemalloc` is tracing MyFRpy memory allocations and if the
 :mod:`warnings` module was already imported.
 
 
@@ -1782,7 +1782,7 @@ Xiang Zhang in :issue:`16764` respectively.)
 Optimizations
 =============
 
-* The Python interpreter now uses a 16-bit wordcode instead of bytecode which
+* The MyFRpy interpreter now uses a 16-bit wordcode instead of bytecode which
   made a number of opcode optimizations possible.
   (Contributed by Demur Rumed with input and reviews from
   Serhiy Storchaka and Victor Stinner in :issue:`26647` and :issue:`28050`.)
@@ -1863,14 +1863,14 @@ Optimizations
 Build and C API Changes
 =======================
 
-* Python now requires some C99 support in the toolchain to build.
-  Most notably, Python now uses standard integer types and macros in
+* MyFRpy now requires some C99 support in the toolchain to build.
+  Most notably, MyFRpy now uses standard integer types and macros in
   place of custom macros like ``PY_LONG_LONG``.
   For more information, see :pep:`7` and :issue:`17884`.
 
-* Cross-compiling CPython with the Android NDK and the Android API level set to
+* Cross-compiling CMyFRpy with the Android NDK and the Android API level set to
   21 (Android 5.0 Lollipop) or greater runs successfully. While Android is not
-  yet a supported platform, the Python test suite runs on the Android emulator
+  yet a supported platform, the MyFRpy test suite runs on the Android emulator
   with only about 16 tests failures. See the Android meta-issue :issue:`26865`.
 
 * The ``--enable-optimizations`` configure flag has been added. Turning it on
@@ -1914,12 +1914,12 @@ Other Improvements
 ==================
 
 * When :option:`--version` (short form: :option:`-V`) is supplied twice,
-  Python prints :data:`sys.version` for detailed information.
+  MyFRpy prints :data:`sys.version` for detailed information.
 
   .. code-block:: shell-session
 
-    $ ./python -VV
-    Python 3.6.0b4+ (3.6:223967b49e49+, Nov 21 2016, 20:55:04)
+    $ ./myFRpy -VV
+    MyFRpy 3.6.0b4+ (3.6:223967b49e49+, Nov 21 2016, 20:55:04)
     [GCC 4.2.1 Compatible Apple LLVM 8.0.0 (clang-800.0.42.1)]
 
 
@@ -1930,27 +1930,27 @@ New Keywords
 ------------
 
 ``async`` and ``await`` are not recommended to be used as variable, class,
-function or module names.  Introduced by :pep:`492` in Python 3.5, they will
-become proper keywords in Python 3.7.  Starting in Python 3.6, the use of
+function or module names.  Introduced by :pep:`492` in MyFRpy 3.5, they will
+become proper keywords in MyFRpy 3.7.  Starting in MyFRpy 3.6, the use of
 ``async`` or ``await`` as names will generate a :exc:`DeprecationWarning`.
 
 
-Deprecated Python behavior
+Deprecated MyFRpy behavior
 --------------------------
 
 Raising the :exc:`StopIteration` exception inside a generator will now
 generate a :exc:`DeprecationWarning`, and will trigger a :exc:`RuntimeError`
-in Python 3.7.  See :ref:`whatsnew-pep-479` for details.
+in MyFRpy 3.7.  See :ref:`whatsnew-pep-479` for details.
 
 The :meth:`__aiter__` method is now expected to return an asynchronous
 iterator directly instead of returning an awaitable as previously.
 Doing the former will trigger a :exc:`DeprecationWarning`.  Backward
-compatibility will be removed in Python 3.7.
+compatibility will be removed in MyFRpy 3.7.
 (Contributed by Yury Selivanov in :issue:`27243`.)
 
 A backslash-character pair that is not a valid escape sequence now generates
 a :exc:`DeprecationWarning`.  Although this will eventually become a
-:exc:`SyntaxError`, that will not be for several Python releases.
+:exc:`SyntaxError`, that will not be for several MyFRpy releases.
 (Contributed by Emanuel Barry in :issue:`27364`.)
 
 When performing a relative import, falling back on ``__name__`` and
@@ -1959,7 +1959,7 @@ When performing a relative import, falling back on ``__name__`` and
 (Contributed by Rose Ames in :issue:`25791`.)
 
 
-Deprecated Python modules, functions and methods
+Deprecated MyFRpy modules, functions and methods
 ------------------------------------------------
 
 asynchat
@@ -1992,7 +1992,7 @@ distutils
 The undocumented ``extra_path`` argument to the
 ``distutils.Distribution`` constructor is now considered deprecated
 and will raise a warning if set.   Support for this parameter will be
-removed in a future Python release.  See :issue:`27919` for details.
+removed in a future MyFRpy release.  See :issue:`27919` for details.
 
 
 grp
@@ -2010,7 +2010,7 @@ The :meth:`importlib.machinery.SourceFileLoader.load_module` and
 :meth:`importlib.machinery.SourcelessFileLoader.load_module` methods
 are now deprecated. They were the only remaining implementations of
 :meth:`importlib.abc.Loader.load_module` in :mod:`importlib` that had not
-been deprecated in previous versions of Python in favour of
+been deprecated in previous versions of MyFRpy in favour of
 :meth:`importlib.abc.Loader.exec_module`.
 
 The :class:`importlib.machinery.WindowsRegistryFinder` class is now
@@ -2029,7 +2029,7 @@ re
 ~~
 
 Support for inline flags ``(?letters)`` in the middle of the regular
-expression has been deprecated and will be removed in a future Python
+expression has been deprecated and will be removed in a future MyFRpy
 version.  Flags at the start of a regular expression are still allowed.
 (Contributed by Serhiy Storchaka in :issue:`22493`.)
 
@@ -2061,9 +2061,9 @@ should use :mod:`tkinter.ttk` instead.
 venv
 ~~~~
 
-The ``pyvenv`` script has been deprecated in favour of ``python3 -m venv``.
-This prevents confusion as to what Python interpreter ``pyvenv`` is
-connected to and thus what Python interpreter will be used by the virtual
+The ``pyvenv`` script has been deprecated in favour of ``myFRpy3 -m venv``.
+This prevents confusion as to what MyFRpy interpreter ``pyvenv`` is
+connected to and thus what MyFRpy interpreter will be used by the virtual
 environment.  (Contributed by Brett Cannon in :issue:`25154`.)
 
 
@@ -2090,9 +2090,9 @@ Deprecated Build Options
 
 The ``--with-system-ffi`` configure flag is now on by default on non-macOS
 UNIX platforms.  It may be disabled by using ``--without-system-ffi``, but
-using the flag is deprecated and will not be accepted in Python 3.7.
+using the flag is deprecated and will not be accepted in MyFRpy 3.7.
 macOS is unaffected by this change.  Note that many OS distributors already
-use the ``--with-system-ffi`` flag when building their system Python.
+use the ``--with-system-ffi`` flag when building their system MyFRpy.
 
 
 Removed
@@ -2106,7 +2106,7 @@ API and Feature Removals
   :func:`re.sub` they are still allowed, but deprecated.
   The :const:`re.LOCALE` flag can now only be used with binary patterns.
 
-* ``inspect.getmoduleinfo()`` was removed (was deprecated since CPython 3.3).
+* ``inspect.getmoduleinfo()`` was removed (was deprecated since CMyFRpy 3.3).
   :func:`inspect.getmodulename` should be used for obtaining the module
   name for a given path.
   (Contributed by Yury Selivanov in :issue:`13248`.)
@@ -2116,14 +2116,14 @@ API and Feature Removals
   ``traceback.find_lines``, ``traceback.find_strings``,
   ``traceback.find_executable_lines`` methods were removed from the
   :mod:`traceback` module. They were undocumented methods deprecated since
-  Python 3.2 and equivalent functionality is available from private methods.
+  MyFRpy 3.2 and equivalent functionality is available from private methods.
 
 * The ``tk_menuBar()`` and ``tk_bindForTraversal()`` dummy methods in
   :mod:`tkinter` widget classes were removed (corresponding Tk commands
   were obsolete since Tk 4.0).
 
 * The :meth:`~zipfile.ZipFile.open` method of the :class:`zipfile.ZipFile`
-  class no longer supports the ``'U'`` mode (was deprecated since Python 3.4).
+  class no longer supports the ``'U'`` mode (was deprecated since MyFRpy 3.4).
   Use :class:`io.TextIOWrapper` for reading compressed text files in
   :term:`universal newlines` mode.
 
@@ -2133,28 +2133,28 @@ API and Feature Removals
   date, inconsistently available across platforms, and unmaintained.  The
   script that created these modules is still available in the source
   distribution at `Tools/scripts/h2py.py
-  <https://github.com/python/cpython/blob/v3.6.15/Tools/scripts/h2py.py>`_.
+  <https://github.com/myFRpy/cmyFRpy/blob/v3.6.15/Tools/scripts/h2py.py>`_.
 
 * The deprecated ``asynchat.fifo`` class has been removed.
 
 
-Porting to Python 3.6
+Porting to MyFRpy 3.6
 =====================
 
 This section lists previously described changes and other bugfixes
 that may require changes to your code.
 
-Changes in 'python' Command Behavior
+Changes in 'myFRpy' Command Behavior
 ------------------------------------
 
-* The output of a special Python build with defined ``COUNT_ALLOCS``,
+* The output of a special MyFRpy build with defined ``COUNT_ALLOCS``,
   ``SHOW_ALLOC_COUNT`` or ``SHOW_TRACK_COUNT`` macros is now off by
   default.  It can be re-enabled using the ``-X showalloccount`` option.
   It now outputs to ``stderr`` instead of ``stdout``.
   (Contributed by Serhiy Storchaka in :issue:`23034`.)
 
 
-Changes in the Python API
+Changes in the MyFRpy API
 -------------------------
 
 * :func:`open() <open>` will no longer allow combining the ``'U'`` mode flag
@@ -2175,7 +2175,7 @@ Changes in the Python API
 
 * The format of the :attr:`~codeobject.co_lnotab` attribute of code objects
   changed to support
-  a negative line number delta. By default, Python does not emit bytecode with
+  a negative line number delta. By default, MyFRpy does not emit bytecode with
   a negative line number delta. Functions using :attr:`frame.f_lineno`,
   ``PyFrame_GetLineNumber()`` or ``PyCode_Addr2Line()`` are not affected.
   Functions directly decoding :attr:`!co_lnotab` should be updated to use a signed
@@ -2272,7 +2272,7 @@ Changes in the Python API
     [sdist]
     formats=zip
 
-  This behavior has also been backported to earlier Python versions
+  This behavior has also been backported to earlier MyFRpy versions
   by Setuptools 26.0.0.
 
 * In the :mod:`urllib.request` module and the
@@ -2330,8 +2330,8 @@ Changes in the Python API
   direct references from methods to the implicit ``__class__`` closure
   variable, the implicit ``__classcell__`` namespace entry must now be passed
   up to ``type.__new__`` for initialisation. Failing to do so will result in
-  a :exc:`DeprecationWarning` in Python 3.6 and a :exc:`RuntimeError` in
-  Python 3.8.
+  a :exc:`DeprecationWarning` in MyFRpy 3.6 and a :exc:`RuntimeError` in
+  MyFRpy 3.8.
 
 * With the introduction of :exc:`ModuleNotFoundError`, import system consumers
   may start expecting import system replacements to raise that more specific
@@ -2350,19 +2350,19 @@ Changes in the C API
 * The :c:func:`PyMem_Malloc` allocator family now uses the :ref:`pymalloc allocator
   <pymalloc>` rather than the system :c:func:`malloc`. Applications calling
   :c:func:`PyMem_Malloc` without holding the GIL can now crash. Set the
-  :envvar:`PYTHONMALLOC` environment variable to ``debug`` to validate the
+  :envvar:`MYFRPYMALLOC` environment variable to ``debug`` to validate the
   usage of memory allocators in your application. See :issue:`26249`.
 
 * :c:func:`Py_Exit` (and the main interpreter) now override the exit status
   with 120 if flushing buffered data failed.  See :issue:`5319`.
 
 
-CPython bytecode changes
+CMyFRpy bytecode changes
 ------------------------
 
-There have been several major changes to the :term:`bytecode` in Python 3.6.
+There have been several major changes to the :term:`bytecode` in MyFRpy 3.6.
 
-* The Python interpreter now uses a 16-bit wordcode instead of bytecode.
+* The MyFRpy interpreter now uses a 16-bit wordcode instead of bytecode.
   (Contributed by Demur Rumed with input and reviews from
   Serhiy Storchaka and Victor Stinner in :issue:`26647` and :issue:`28050`.)
 
@@ -2391,19 +2391,19 @@ There have been several major changes to the :term:`bytecode` in Python 3.6.
   (Contributed by Ivan Levkivskyi in :issue:`27985`.)
 
 
-Notable changes in Python 3.6.2
+Notable changes in MyFRpy 3.6.2
 ===============================
 
 New ``make regen-all`` build target
 -----------------------------------
 
-To simplify cross-compilation, and to ensure that CPython can reliably be
-compiled without requiring an existing version of Python to already be
+To simplify cross-compilation, and to ensure that CMyFRpy can reliably be
+compiled without requiring an existing version of MyFRpy to already be
 available, the autotools-based build system no longer attempts to implicitly
 recompile generated files based on file modification times.
 
 Instead, a new ``make regen-all`` command has been added to force regeneration
-of these files when desired (e.g. after an initial version of Python has
+of these files when desired (e.g. after an initial version of MyFRpy has
 already been built based on the pregenerated versions).
 
 More selective regeneration targets are also defined - see
@@ -2427,7 +2427,7 @@ It has been replaced by the new ``make regen-all`` target.
 .. versionchanged:: 3.6.2
 
 
-Notable changes in Python 3.6.4
+Notable changes in MyFRpy 3.6.4
 ===============================
 
 The ``PyExc_RecursionErrorInst`` singleton that was part of the public API
@@ -2436,7 +2436,7 @@ during finalization of the interpreter.
 (Contributed by Xavier de Gaye in :issue:`22898` and :issue:`30697`.)
 
 
-Notable changes in Python 3.6.5
+Notable changes in MyFRpy 3.6.5
 ===============================
 
 The :func:`locale.localeconv` function now sets temporarily the ``LC_CTYPE``
@@ -2444,7 +2444,7 @@ locale to the ``LC_NUMERIC`` locale in some cases.
 (Contributed by Victor Stinner in :issue:`31900`.)
 
 
-Notable changes in Python 3.6.7
+Notable changes in MyFRpy 3.6.7
 ===============================
 
 :mod:`xml.dom.minidom` and :mod:`xml.sax` modules no longer process
@@ -2455,7 +2455,7 @@ when provided with input that does not have a trailing new line.  This behavior
 now matches what the C tokenizer does internally.
 (Contributed by Ammar Askar in :issue:`33899`.)
 
-Notable changes in Python 3.6.10
+Notable changes in MyFRpy 3.6.10
 ================================
 
 Due to significant security concerns, the *reuse_address* parameter of
@@ -2465,10 +2465,10 @@ details, see the documentation for ``loop.create_datagram_endpoint()``.
 (Contributed by Kyle Stanley, Antoine Pitrou, and Yury Selivanov in
 :issue:`37228`.)
 
-Notable changes in Python 3.6.13
+Notable changes in MyFRpy 3.6.13
 ================================
 
-Earlier Python versions allowed using both ``;`` and ``&`` as
+Earlier MyFRpy versions allowed using both ``;`` and ``&`` as
 query parameter separators in :func:`urllib.parse.parse_qs` and
 :func:`urllib.parse.parse_qsl`.  Due to security concerns, and to conform with
 newer W3C recommendations, this has been changed to allow only a single
@@ -2478,7 +2478,7 @@ functions internally. For more details, please see their respective
 documentation.
 (Contributed by Adam Goldschmidt, Senthil Kumaran and Ken Jin in :issue:`42967`.)
 
-Notable changes in Python 3.6.14
+Notable changes in MyFRpy 3.6.14
 ================================
 
 A security fix alters the :class:`ftplib.FTP` behavior to not trust the

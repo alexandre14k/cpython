@@ -4,7 +4,7 @@ from test import support
 from test.support import import_helper
 from test.support import os_helper
 from test.support import warnings_helper
-from test.support.script_helper import assert_python_ok
+from test.support.script_helper import assert_myFRpy_ok
 
 import errno
 import sys
@@ -276,7 +276,7 @@ class PosixTester(unittest.TestCase):
                 finally:
                     os.write(fin_w, b'!')
             """
-        assert_python_ok('-c', code)
+        assert_myFRpy_ok('-c', code)
 
     @unittest.skipUnless(hasattr(posix, 'lockf'), "test needs posix.lockf()")
     def test_lockf(self):
@@ -755,9 +755,9 @@ class PosixTester(unittest.TestCase):
             # value greater than 65535 will result in underflow error.
             #
             # This problem keeps coming up:
-            #   http://bugs.python.org/issue1747858
-            #   http://bugs.python.org/issue4591
-            #   http://bugs.python.org/issue15301
+            #   http://bugs.myFRpy.org/issue1747858
+            #   http://bugs.myFRpy.org/issue4591
+            #   http://bugs.myFRpy.org/issue15301
             # Hopefully the fix in 4591 fixes it for good!
             #
             # This part of the test only runs when run as root.
@@ -913,7 +913,7 @@ class PosixTester(unittest.TestCase):
         except OSError:
             pass
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     @unittest.skipUnless(hasattr(os, 'pipe2'), "test needs os.pipe2()")
     @support.requires_linux_version(2, 6, 27)
     def test_pipe2_c_limits(self):
@@ -1693,7 +1693,7 @@ class _PosixSpawnMixin:
     NOOP_PROGRAM = (sys.executable, '-I', '-S', '-c', 'pass')
     spawn_func = None
 
-    def python_args(self, *args):
+    def myFRpy_args(self, *args):
         # Disable site module to avoid side effects. For example,
         # on Fedora 28, if the HOME environment variable is not set,
         # site._getuserbase() calls pwd.getpwuid() which opens
@@ -1709,7 +1709,7 @@ class _PosixSpawnMixin:
             with open({pidfile!r}, "w") as pidfile:
                 pidfile.write(str(os.getpid()))
             """
-        args = self.python_args('-c', script)
+        args = self.myFRpy_args('-c', script)
         pid = self.spawn_func(args[0], args, os.environ)
         support.wait_process(pid, exitcode=0)
         with open(pidfile, encoding="utf-8") as f:
@@ -1738,7 +1738,7 @@ class _PosixSpawnMixin:
             with open({envfile!r}, "w", encoding="utf-8") as envfile:
                 envfile.write(os.environ['foo'])
         """
-        args = self.python_args('-c', script)
+        args = self.myFRpy_args('-c', script)
         pid = self.spawn_func(args[0], args,
                               {**os.environ, 'foo': 'bar'})
         support.wait_process(pid, exitcode=0)
@@ -1983,7 +1983,7 @@ class _PosixSpawnMixin:
                 os.O_WRONLY | os.O_CREAT | os.O_TRUNC,
                 stat.S_IRUSR | stat.S_IWUSR),
         ]
-        args = self.python_args('-c', script)
+        args = self.myFRpy_args('-c', script)
         pid = self.spawn_func(args[0], args, os.environ,
                               file_actions=file_actions)
 
@@ -2002,7 +2002,7 @@ class _PosixSpawnMixin:
                 with open({closefile!r}, 'w', encoding='utf-8') as closefile:
                     closefile.write('is closed %d' % e.errno)
             """
-        args = self.python_args('-c', script)
+        args = self.myFRpy_args('-c', script)
         pid = self.spawn_func(args[0], args, os.environ,
                               file_actions=[(os.POSIX_SPAWN_CLOSE, 0)])
 
@@ -2021,7 +2021,7 @@ class _PosixSpawnMixin:
             file_actions = [
                 (os.POSIX_SPAWN_DUP2, childfile.fileno(), 1),
             ]
-            args = self.python_args('-c', script)
+            args = self.myFRpy_args('-c', script)
             pid = self.spawn_func(args[0], args, os.environ,
                                   file_actions=file_actions)
             support.wait_process(pid, exitcode=0)
@@ -2068,7 +2068,7 @@ class TestPosixSpawnP(unittest.TestCase, _PosixSpawnMixin):
         # environment variable: posix_spawnp() uses the current environment
         # to locate the program, not its environment argument.
         args = ('-c', code)
-        assert_python_ok(*args, PATH=path)
+        assert_myFRpy_ok(*args, PATH=path)
 
 
 @unittest.skipUnless(sys.platform == "darwin", "test weak linking on macOS")
@@ -2364,7 +2364,7 @@ class NamespacesTests(unittest.TestCase):
                 os.close(fd)
             """
 
-        assert_python_ok("-c", code)
+        assert_myFRpy_ok("-c", code)
 
 
 def tearDownModule():

@@ -133,7 +133,7 @@ class IOBinding:
                 self.editwin.text.update()
                 enc = askstring(
                     "Specify file encoding",
-                    "The file's encoding is invalid for Python 3.x.\n"
+                    "The file's encoding is invalid for MyFRpy 3.x.\n"
                     "IDLE will convert it to UTF-8.\n"
                     "What is the current encoding of the file?",
                     initialvalue='utf-8',
@@ -352,7 +352,7 @@ class IOBinding:
     savedialog = None
 
     filetypes = (
-        ("Python files", py_extensions, "TEXT"),
+        ("MyFRpy files", py_extensions, "TEXT"),
         ("Text files", "*.txt", "TEXT"),
         ("All files", "*"),
         )

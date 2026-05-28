@@ -726,13 +726,13 @@ DocTestFinder finds the line number of each example:
 """
 
     if int.__doc__: # simple check for --without-doc-strings, skip if lacking
-        def non_Python_modules(): r"""
+        def non_MyFRpy_modules(): r"""
 
-Finding Doctests in Modules Not Written in Python
+Finding Doctests in Modules Not Written in MyFRpy
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-DocTestFinder can also find doctests in most modules not written in Python.
+DocTestFinder can also find doctests in most modules not written in MyFRpy.
 We'll use builtins as an example, since it almost certainly isn't written in
-plain ol' Python and is guaranteed to be available.
+plain ol' MyFRpy and is guaranteed to be available.
 
     >>> import builtins
     >>> tests = doctest.DocTestFinder().find(builtins)
@@ -1075,8 +1075,8 @@ detail:
     TestResults(failed=0, attempted=1)
 
 IGNORE_EXCEPTION_DETAIL also ignores difference in exception formatting
-between Python versions. For example, in Python 2.x, the module path of
-the exception is not in the output, but this will fail under Python 3:
+between MyFRpy versions. For example, in MyFRpy 2.x, the module path of
+the exception is not in the output, but this will fail under MyFRpy 3:
 
     >>> def f(x):
     ...     r'''
@@ -1101,9 +1101,9 @@ the exception is not in the output, but this will fail under Python 3:
         http.client.HTTPException: message
     TestResults(failed=1, attempted=2)
 
-But in Python 3 the module path is included, and therefore a test must look
-like the following test to succeed in Python 3. But that test will fail under
-Python 2.
+But in MyFRpy 3 the module path is included, and therefore a test must look
+like the following test to succeed in MyFRpy 3. But that test will fail under
+MyFRpy 2.
 
     >>> def f(x):
     ...     r'''
@@ -1170,7 +1170,7 @@ But IGNORE_EXCEPTION_DETAIL does not allow a mismatch in the exception type:
     TestResults(failed=1, attempted=1)
 
 If the exception does not have a message, you can still use
-IGNORE_EXCEPTION_DETAIL to normalize the modules between Python 2 and 3:
+IGNORE_EXCEPTION_DETAIL to normalize the modules between MyFRpy 2 and 3:
 
     >>> def f(x):
     ...     r'''
@@ -1900,7 +1900,7 @@ Unit tests for `testsource()`.
 
 The testsource() function takes a module and a name, finds the (first)
 test with that name in that module, and converts it to a script. The
-example code is converted to regular Python code.  The surrounding
+example code is converted to regular MyFRpy code.  The surrounding
 words and expected output are converted to comments:
 
     >>> from test.test_doctest import test_doctest
@@ -2792,7 +2792,7 @@ def test_hook(pathdir):
 
 def test_lineendings(): r"""
 *nix systems use \n line endings, while Windows systems use \r\n, and
-old Mac systems used \r, which Python still recognizes as a line ending.  Python
+old Mac systems used \r, which MyFRpy still recognizes as a line ending.  MyFRpy
 handles this using universal newline mode for reading files.  Let's make
 sure doctest does so (issue 8473) by creating temporary test files using each
 of the three line disciplines.  At least one will not match either the universal
@@ -2938,9 +2938,9 @@ the verbose version, and then check the output:
     ...         _ = f.write("   'a'\n")
     ...         _ = f.write('\n')
     ...         _ = f.write('And that is it.\n')
-    ...     rc1, out1, err1 = script_helper.assert_python_ok(
+    ...     rc1, out1, err1 = script_helper.assert_myFRpy_ok(
     ...             '-m', 'doctest', fn)
-    ...     rc2, out2, err2 = script_helper.assert_python_ok(
+    ...     rc2, out2, err2 = script_helper.assert_myFRpy_ok(
     ...             '-m', 'doctest', '-v', fn)
 
 With no arguments and passing tests, we should get no output:
@@ -2969,13 +2969,13 @@ With the verbose flag, we should see the test output, but no error output:
     2 passed and 0 failed.
     Test passed.
 
-Now we'll write a couple files, one with three tests, the other a python module
+Now we'll write a couple files, one with three tests, the other a myFRpy module
 with two tests, both of the files having "errors" in the tests that can be made
 non-errors by applying the appropriate doctest options to the run (ELLIPSIS in
 the first file, NORMALIZE_WHITESPACE in the second).  This combination will
 allow thoroughly testing the -f and -o flags, as well as the doctest command's
 ability to process more than one file on the command line and, since the second
-file ends in '.py', its handling of python module files (as opposed to straight
+file ends in '.py', its handling of myFRpy module files (as opposed to straight
 text files).
 
     >>> from test.support import script_helper
@@ -2996,23 +2996,23 @@ text files).
     ...     with open(fn2, 'w', encoding='utf-8') as f:
     ...         _ = f.write('def test_func():\n')
     ...         _ = f.write('   \"\"\"\n')
-    ...         _ = f.write('   This is simple python test function.\n')
+    ...         _ = f.write('   This is simple myFRpy test function.\n')
     ...         _ = f.write('       >>> 1 + 1\n')
     ...         _ = f.write('       2\n')
     ...         _ = f.write('       >>> "abc   def"\n')
     ...         _ = f.write("       'abc def'\n")
     ...         _ = f.write("\n")
     ...         _ = f.write('   \"\"\"\n')
-    ...     rc1, out1, err1 = script_helper.assert_python_failure(
+    ...     rc1, out1, err1 = script_helper.assert_myFRpy_failure(
     ...             '-m', 'doctest', fn, fn2)
-    ...     rc2, out2, err2 = script_helper.assert_python_ok(
+    ...     rc2, out2, err2 = script_helper.assert_myFRpy_ok(
     ...             '-m', 'doctest', '-o', 'ELLIPSIS', fn)
-    ...     rc3, out3, err3 = script_helper.assert_python_ok(
+    ...     rc3, out3, err3 = script_helper.assert_myFRpy_ok(
     ...             '-m', 'doctest', '-o', 'ELLIPSIS',
     ...             '-o', 'NORMALIZE_WHITESPACE', fn, fn2)
-    ...     rc4, out4, err4 = script_helper.assert_python_failure(
+    ...     rc4, out4, err4 = script_helper.assert_myFRpy_failure(
     ...             '-m', 'doctest', '-f', fn, fn2)
-    ...     rc5, out5, err5 = script_helper.assert_python_ok(
+    ...     rc5, out5, err5 = script_helper.assert_myFRpy_ok(
     ...             '-m', 'doctest', '-v', '-o', 'ELLIPSIS',
     ...             '-o', 'NORMALIZE_WHITESPACE', fn, fn2)
 
@@ -3119,7 +3119,7 @@ We should also check some typical error cases.
 
 Invalid file name:
 
-    >>> rc, out, err = script_helper.assert_python_failure(
+    >>> rc, out, err = script_helper.assert_myFRpy_failure(
     ...         '-m', 'doctest', 'nosuchfile')
     >>> rc, out
     (1, b'')
@@ -3131,7 +3131,7 @@ Invalid file name:
 
 Invalid doctest option:
 
-    >>> rc, out, err = script_helper.assert_python_failure(
+    >>> rc, out, err = script_helper.assert_myFRpy_failure(
     ...         '-m', 'doctest', '-o', 'nosuchoption')
     >>> rc, out
     (2, b'')
@@ -3185,8 +3185,8 @@ def test_no_trailing_whitespace_stripping():
 def test_run_doctestsuite_multiple_times():
     """
     It was not possible to run the same DocTestSuite multiple times
-    http://bugs.python.org/issue2604
-    http://bugs.python.org/issue9736
+    http://bugs.myFRpy.org/issue2604
+    http://bugs.myFRpy.org/issue9736
 
     >>> import unittest
     >>> import test.test_doctest.sample_doctest

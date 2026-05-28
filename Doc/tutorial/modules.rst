@@ -4,7 +4,7 @@
 Modules
 *******
 
-If you quit from the Python interpreter and enter it again, the definitions you
+If you quit from the MyFRpy interpreter and enter it again, the definitions you
 have made (functions and variables) are lost. Therefore, if you want to write a
 somewhat longer program, you are better off using a text editor to prepare the
 input for the interpreter and running it with that file as input instead.  This
@@ -13,13 +13,13 @@ split it into several files for easier maintenance.  You may also want to use a
 handy function that you've written in several programs without copying its
 definition into each program.
 
-To support this, Python has a way to put definitions in a file and use them in a
+To support this, MyFRpy has a way to put definitions in a file and use them in a
 script or in an interactive instance of the interpreter. Such a file is called a
 *module*; definitions from a module can be *imported* into other modules or into
 the *main* module (the collection of variables that you have access to in a
 script executed at the top level and in calculator mode).
 
-A module is a file containing Python definitions and statements.  The file name
+A module is a file containing MyFRpy definitions and statements.  The file name
 is the module name with the suffix :file:`.py` appended.  Within a module, the
 module's name (as a string) is available as the value of the global variable
 ``__name__``.  For instance, use your favorite text editor to create a file
@@ -42,7 +42,7 @@ called :file:`fibo.py` in the current directory with the following contents::
            a, b = b, a+b
        return result
 
-Now enter the Python interpreter and import this module with the following
+Now enter the MyFRpy interpreter and import this module with the following
 command::
 
    >>> import fibo
@@ -105,7 +105,7 @@ There is even a variant to import all names that a module defines::
    0 1 1 2 3 5 8 13 21 34 55 89 144 233 377
 
 This imports all names except those beginning with an underscore (``_``).
-In most cases Python programmers do not use this facility since it introduces
+In most cases MyFRpy programmers do not use this facility since it introduces
 an unknown set of names into the interpreter, possibly hiding some things
 you have already defined.
 
@@ -146,9 +146,9 @@ It can also be used when utilising :keyword:`from` with similar effects::
 Executing modules as scripts
 ----------------------------
 
-When you run a Python module with ::
+When you run a MyFRpy module with ::
 
-   python fibo.py <arguments>
+   myFRpy fibo.py <arguments>
 
 the code in the module will be executed, just as if you imported it, but with
 the ``__name__`` set to ``"__main__"``.  That means that by adding this code at
@@ -164,7 +164,7 @@ executed as the "main" file:
 
 .. code-block:: shell-session
 
-   $ python fibo.py 50
+   $ myFRpy fibo.py 50
    0 1 1 2 3 5 8 13 21 34
 
 If the module is imported, the code is not run::
@@ -191,7 +191,7 @@ named :file:`spam.py` in a list of directories given by the variable
 
 * The directory containing the input script (or the current directory when no
   file is specified).
-* :envvar:`PYTHONPATH` (a list of directory names, with the same syntax as the
+* :envvar:`MYFRPYPATH` (a list of directory names, with the same syntax as the
   shell variable :envvar:`PATH`).
 * The installation-dependent default (by convention including a
   ``site-packages`` directory, handled by the :mod:`site` module).
@@ -203,7 +203,7 @@ More details are at :ref:`sys-path-init`.
    script is calculated after the symlink is followed. In other words the
    directory containing the symlink is **not** added to the module search path.
 
-After initialization, Python programs can modify :data:`sys.path`.  The
+After initialization, MyFRpy programs can modify :data:`sys.path`.  The
 directory containing the script being run is placed at the beginning of the
 search path, ahead of the standard library path. This means that scripts in that
 directory will be loaded instead of modules of the same name in the library
@@ -215,23 +215,23 @@ directory. This is an error unless the replacement is intended.  See section
 
 .. _tut-pycache:
 
-"Compiled" Python files
+"Compiled" MyFRpy files
 -----------------------
 
-To speed up loading modules, Python caches the compiled version of each module
+To speed up loading modules, MyFRpy caches the compiled version of each module
 in the ``__pycache__`` directory under the name :file:`module.{version}.pyc`,
 where the version encodes the format of the compiled file; it generally contains
-the Python version number.  For example, in CPython release 3.3 the compiled
-version of spam.py would be cached as ``__pycache__/spam.cpython-33.pyc``.  This
+the MyFRpy version number.  For example, in CMyFRpy release 3.3 the compiled
+version of spam.py would be cached as ``__pycache__/spam.cmyFRpy-33.pyc``.  This
 naming convention allows compiled modules from different releases and different
-versions of Python to coexist.
+versions of MyFRpy to coexist.
 
-Python checks the modification date of the source against the compiled version
+MyFRpy checks the modification date of the source against the compiled version
 to see if it's out of date and needs to be recompiled.  This is a completely
 automatic process.  Also, the compiled modules are platform-independent, so the
 same library can be shared among systems with different architectures.
 
-Python does not check the cache in two circumstances.  First, it always
+MyFRpy does not check the cache in two circumstances.  First, it always
 recompiles and does not store the result for the module that's loaded directly
 from the command line.  Second, it does not check the cache if there is no
 source module.  To support a non-source (compiled only) distribution, the
@@ -240,7 +240,7 @@ module.
 
 Some tips for experts:
 
-* You can use the :option:`-O` or :option:`-OO` switches on the Python command
+* You can use the :option:`-O` or :option:`-OO` switches on the MyFRpy command
   to reduce the size of a compiled module.  The ``-O`` switch removes assert
   statements, the ``-OO`` switch removes both assert statements and __doc__
   strings.  Since some programs may rely on having these available, you should
@@ -266,15 +266,15 @@ Standard Modules
 
 .. index:: pair: module; sys
 
-Python comes with a library of standard modules, described in a separate
-document, the Python Library Reference ("Library Reference" hereafter).  Some
+MyFRpy comes with a library of standard modules, described in a separate
+document, the MyFRpy Library Reference ("Library Reference" hereafter).  Some
 modules are built into the interpreter; these provide access to operations that
 are not part of the core of the language but are nevertheless built in, either
 for efficiency or to provide access to operating system primitives such as
 system calls.  The set of such modules is a configuration option which also
 depends on the underlying platform.  For example, the :mod:`winreg` module is only
 provided on Windows systems. One particular module deserves some attention:
-:mod:`sys`, which is built into every Python interpreter.  The variables
+:mod:`sys`, which is built into every MyFRpy interpreter.  The variables
 ``sys.ps1`` and ``sys.ps2`` define the strings used as primary and secondary
 prompts::
 
@@ -293,12 +293,12 @@ These two variables are only defined if the interpreter is in interactive mode.
 
 The variable ``sys.path`` is a list of strings that determines the interpreter's
 search path for modules. It is initialized to a default path taken from the
-environment variable :envvar:`PYTHONPATH`, or from a built-in default if
-:envvar:`PYTHONPATH` is not set.  You can modify it using standard list
+environment variable :envvar:`MYFRPYPATH`, or from a built-in default if
+:envvar:`MYFRPYPATH` is not set.  You can modify it using standard list
 operations::
 
    >>> import sys
-   >>> sys.path.append('/ufs/guido/lib/python')
+   >>> sys.path.append('/ufs/guido/lib/myFRpy')
 
 
 .. _tut-dir:
@@ -388,7 +388,7 @@ want a list of those, they are defined in the standard module
 Packages
 ========
 
-Packages are a way of structuring Python's module namespace by using "dotted
+Packages are a way of structuring MyFRpy's module namespace by using "dotted
 module names".  For example, the module name :mod:`!A.B` designates a submodule
 named ``B`` in a package named ``A``.  Just like the use of modules saves the
 authors of different modules from having to worry about each other's global
@@ -433,10 +433,10 @@ your package (expressed in terms of a hierarchical filesystem):
                  karaoke.py
                  ...
 
-When importing the package, Python searches through the directories on
+When importing the package, MyFRpy searches through the directories on
 ``sys.path`` looking for the package subdirectory.
 
-The :file:`__init__.py` files are required to make Python treat directories
+The :file:`__init__.py` files are required to make MyFRpy treat directories
 containing the file as packages (unless using a :term:`namespace package`, a
 relatively advanced feature). This prevents directories with a common name,
 such as ``string``, from unintentionally hiding valid modules that occur later
@@ -579,7 +579,7 @@ module for example, you might use::
 
 Note that relative imports are based on the name of the current module.  Since
 the name of the main module is always ``"__main__"``, modules intended for use
-as the main module of a Python application must always use absolute imports.
+as the main module of a MyFRpy application must always use absolute imports.
 
 
 Packages in Multiple Directories

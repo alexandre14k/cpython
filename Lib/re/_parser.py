@@ -719,7 +719,7 @@ def _parse(source, state, verbose, nested, first=False):
                 if char is None:
                     raise source.error("unexpected end of pattern")
                 if char == "P":
-                    # python extensions
+                    # myFRpy extensions
                     if sourcematch("<"):
                         # named group: skip forward to end of name
                         name = source.getuntil(">", "group name")

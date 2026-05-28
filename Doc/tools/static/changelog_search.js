@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
     } catch (e) {
       return; // not a valid regex (yet)
     }
-    // find headers for the versions (What's new in Python X.Y.Z?)
+    // find headers for the versions (What's new in MyFRpy X.Y.Z?)
     const h2s = document.querySelectorAll("#changelog h2");
     for (const h2 of h2s) {
       let sections_found = 0;

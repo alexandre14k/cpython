@@ -9,7 +9,7 @@ extern "C" {
 #if !defined(Py_LIMITED_API) || Py_LIMITED_API+0 >= 0x030b0000
 
 /* === New Buffer API ============================================
- * Limited API and stable ABI since Python 3.11
+ * Limited API and stable ABI since MyFRpy 3.11
  *
  * Py_buffer struct layout and size is now part of the stable abi3. The
  * struct layout and size must not be changed in any way, as it would

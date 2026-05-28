@@ -1,6 +1,6 @@
 /* Implements the getpath API for compiling with no functionality */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_pathconfig.h"
 
 PyStatus

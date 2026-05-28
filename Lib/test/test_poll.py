@@ -8,7 +8,7 @@ import threading
 import time
 import unittest
 from test.support import (
-    cpython_only, requires_subprocess, requires_working_socket, requires_resource
+    cmyFRpy_only, requires_subprocess, requires_working_socket, requires_resource
 )
 from test.support import threading_helper
 from test.support.os_helper import TESTFN
@@ -170,7 +170,7 @@ class PollTests(unittest.TestCase):
         self.assertRaises(ValueError, pollster.modify, 1, -1)
         self.assertRaises(OverflowError, pollster.modify, 1, 1 << 64)
 
-    @cpython_only
+    @cmyFRpy_only
     def test_poll_c_limits(self):
         from _testcapi import USHRT_MAX, INT_MAX, UINT_MAX
         pollster = select.poll()

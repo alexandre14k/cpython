@@ -1,6 +1,6 @@
 /* Return the initial module search path. */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "marshal.h"              // PyMarshal_ReadObjectFromString
 #include "osdefs.h"               // DELIM
 #include "pycore_initconfig.h"
@@ -19,7 +19,7 @@
 #endif
 
 /* Reference the precompiled getpath.py */
-#include "../Python/frozen_modules/getpath.h"
+#include "../MyFRpy/frozen_modules/getpath.h"
 
 #if (!defined(PREFIX) || !defined(EXEC_PREFIX) \
         || !defined(VERSION) || !defined(VPATH) \
@@ -27,8 +27,8 @@
 #error "PREFIX, EXEC_PREFIX, VERSION, VPATH and PLATLIBDIR macros must be defined"
 #endif
 
-#if !defined(PYTHONPATH)
-#define PYTHONPATH NULL
+#if !defined(MYFRPYPATH)
+#define MYFRPYPATH NULL
 #endif
 
 #if !defined(PYDEBUGEXT)
@@ -766,16 +766,16 @@ library_to_dict(PyObject *dict, const char *key)
         modPathInitialized = 0;
 
         /* On Mac OS X we have a special case if we're running from a framework.
-           This is because the python home should be set relative to the library,
+           This is because the myFRpy home should be set relative to the library,
            which is in the framework, not relative to the executable, which may
            be outside of the framework. Except when we're in the build
            directory... */
         NSSymbol symbol = NSLookupAndBindSymbol("_Py_Initialize");
         if (symbol != NULL) {
-            NSModule pythonModule = NSModuleForSymbol(symbol);
-            if (pythonModule != NULL) {
+            NSModule myFRpyModule = NSModuleForSymbol(symbol);
+            if (myFRpyModule != NULL) {
                 /* Use dylib functions to find out where the framework was loaded from */
-                const char *path = NSLibraryNameForModule(pythonModule);
+                const char *path = NSLibraryNameForModule(myFRpyModule);
                 if (path) {
                     strncpy(modPath, path, MAXPATHLEN);
                     modPathInitialized = 1;
@@ -888,7 +888,7 @@ _PyConfig_InitPathConfig(PyConfig *config, int compute_path_config)
 #endif
         !decode_to_dict(dict, "PREFIX", PREFIX) ||
         !decode_to_dict(dict, "EXEC_PREFIX", EXEC_PREFIX) ||
-        !decode_to_dict(dict, "PYTHONPATH", PYTHONPATH) ||
+        !decode_to_dict(dict, "MYFRPYPATH", MYFRPYPATH) ||
         !decode_to_dict(dict, "VPATH", VPATH) ||
         !decode_to_dict(dict, "PLATLIBDIR", PLATLIBDIR) ||
         !decode_to_dict(dict, "PYDEBUGEXT", PYDEBUGEXT) ||
@@ -897,8 +897,8 @@ _PyConfig_InitPathConfig(PyConfig *config, int compute_path_config)
         !decode_to_dict(dict, "PYWINVER", PYWINVER) ||
         !wchar_to_dict(dict, "EXE_SUFFIX", EXE_SUFFIX) ||
         !env_to_dict(dict, "ENV_PATH", 0) ||
-        !env_to_dict(dict, "ENV_PYTHONHOME", 0) ||
-        !env_to_dict(dict, "ENV_PYTHONEXECUTABLE", 0) ||
+        !env_to_dict(dict, "ENV_MYFRPYHOME", 0) ||
+        !env_to_dict(dict, "ENV_MYFRPYEXECUTABLE", 0) ||
         !env_to_dict(dict, "ENV___PYVENV_LAUNCHER__", 1) ||
         !progname_to_dict(dict, "real_executable") ||
         !library_to_dict(dict, "library") ||

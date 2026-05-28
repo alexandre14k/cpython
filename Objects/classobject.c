@@ -1,6 +1,6 @@
 /* Class object implementation (dead now except for methods) */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_call.h"          // _PyObject_VectorcallTstate()
 #include "pycore_object.h"
 #include "pycore_pyerrors.h"

@@ -1,7 +1,7 @@
 """ Unicode Mapping Parser and Codec Generator.
 
 This script parses Unicode mapping files as available from the Unicode
-site (ftp://ftp.unicode.org/Public/MAPPINGS/) and creates Python codec
+site (ftp://ftp.unicode.org/Public/MAPPINGS/) and creates MyFRpy codec
 modules from them. The codecs use the standard character mapping codec
 to actually apply the mapping.
 
@@ -135,7 +135,7 @@ def hexrepr(t, precision=4):
         print('* failed to convert %r: %s' % (t, why))
         raise
 
-def python_mapdef_code(varname, map, comments=1, precisions=(2, 4)):
+def myFRpy_mapdef_code(varname, map, comments=1, precisions=(2, 4)):
 
     l = []
     append = l.append
@@ -176,7 +176,7 @@ def python_mapdef_code(varname, map, comments=1, precisions=(2, 4)):
             append('    %s: %s,' % (key, value))
         i += 1
         if i == 4096:
-            # Split the definition into parts to that the Python
+            # Split the definition into parts to that the MyFRpy
             # parser doesn't dump core
             if splits == 0:
                 append('}')
@@ -192,7 +192,7 @@ def python_mapdef_code(varname, map, comments=1, precisions=(2, 4)):
 
     return l
 
-def python_tabledef_code(varname, map, comments=1, key_precision=2):
+def myFRpy_tabledef_code(varname, map, comments=1, key_precision=2):
 
     l = []
     append = l.append
@@ -252,21 +252,21 @@ def python_tabledef_code(varname, map, comments=1, key_precision=2):
 
 def codegen(name, map, encodingname, comments=1):
 
-    """ Returns Python source for the given map.
+    """ Returns MyFRpy source for the given map.
 
         Comments are included in the source, if comments is true (default).
 
     """
     # Generate code
-    decoding_map_code = python_mapdef_code(
+    decoding_map_code = myFRpy_mapdef_code(
         'decoding_map',
         map,
         comments=comments)
-    decoding_table_code = python_tabledef_code(
+    decoding_table_code = myFRpy_tabledef_code(
         'decoding_table',
         map,
         comments=comments)
-    encoding_map_code = python_mapdef_code(
+    encoding_map_code = myFRpy_mapdef_code(
         'encoding_map',
         codecs.make_encoding_map(map),
         comments=comments,
@@ -279,7 +279,7 @@ def codegen(name, map, encodingname, comments=1):
 
     l = [
         '''\
-""" Python Character Mapping Codec %s generated from '%s' with gencodec.py.
+""" MyFRpy Character Mapping Codec %s generated from '%s' with gencodec.py.
 
 """#"
 
@@ -397,7 +397,7 @@ def convertdir(dir, dirprefix='', nameprefix='', comments=1):
             print('* conversion failed: %s' % why)
             raise
 
-def rewritepythondir(dir, dirprefix='', comments=1):
+def rewritemyFRpydir(dir, dirprefix='', comments=1):
 
     mapnames = os.listdir(dir)
     for mapname in mapnames:
@@ -423,4 +423,4 @@ if __name__ == '__main__':
     if 1:
         convertdir(*sys.argv[1:])
     else:
-        rewritepythondir(*sys.argv[1:])
+        rewritemyFRpydir(*sys.argv[1:])

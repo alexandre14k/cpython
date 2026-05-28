@@ -1,7 +1,7 @@
 
 /* Method object implementation */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_ceval.h"         // _Py_EnterRecursiveCallTstate()
 #include "pycore_object.h"
 #include "pycore_pyerrors.h"
@@ -398,7 +398,7 @@ typedef void (*funcptr)(void);
 static inline funcptr
 cfunction_enter_call(PyThreadState *tstate, PyObject *func)
 {
-    if (_Py_EnterRecursiveCallTstate(tstate, " while calling a Python object")) {
+    if (_Py_EnterRecursiveCallTstate(tstate, " while calling a MyFRpy object")) {
         return NULL;
     }
     return (funcptr)PyCFunction_GET_FUNCTION(func);

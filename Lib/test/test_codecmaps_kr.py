@@ -9,13 +9,13 @@ import unittest
 class TestCP949Map(multibytecodec_support.TestBase_Mapping,
                    unittest.TestCase):
     encoding = 'cp949'
-    mapfileurl = 'http://www.pythontest.net/unicode/CP949.TXT'
+    mapfileurl = 'http://www.myFRpytest.net/unicode/CP949.TXT'
 
 
 class TestEUCKRMap(multibytecodec_support.TestBase_Mapping,
                    unittest.TestCase):
     encoding = 'euc_kr'
-    mapfileurl = 'http://www.pythontest.net/unicode/EUC-KR.TXT'
+    mapfileurl = 'http://www.myFRpytest.net/unicode/EUC-KR.TXT'
 
     # A4D4 HANGUL FILLER indicates the begin of 8-bytes make-up sequence.
     pass_enctest = [(b'\xa4\xd4', '\u3164')]
@@ -25,7 +25,7 @@ class TestEUCKRMap(multibytecodec_support.TestBase_Mapping,
 class TestJOHABMap(multibytecodec_support.TestBase_Mapping,
                    unittest.TestCase):
     encoding = 'johab'
-    mapfileurl = 'http://www.pythontest.net/unicode/JOHAB.TXT'
+    mapfileurl = 'http://www.myFRpytest.net/unicode/JOHAB.TXT'
     # KS X 1001 standard assigned 0x5c as WON SIGN.
     # But the early 90s is the only era that used johab widely,
     # most software implements it as REVERSE SOLIDUS.

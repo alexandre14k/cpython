@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#! /usr/bin/env myFRpy3
 """An RFC 5321 smtp proxy with optional RFC 1870 and RFC 6531 extensions.
 
 Usage: %(program)s [options] [localhost:localport [remotehost:remoteport]]
@@ -61,7 +61,7 @@ and if remoteport is not given, then 25 is used.
 #   (contributions are welcome!).
 #
 #
-# Author: Barry Warsaw <barry@python.org>
+# Author: Barry Warsaw <barry@myFRpy.org>
 #
 # TODO:
 #
@@ -86,7 +86,7 @@ __all__ = [
 ]
 
 program = sys.argv[0]
-__version__ = 'Python SMTP proxy version 0.3'
+__version__ = 'MyFRpy SMTP proxy version 0.3'
 
 
 class Devnull:

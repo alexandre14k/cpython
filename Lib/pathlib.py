@@ -671,7 +671,7 @@ class PurePath(object):
         if _deprecated:
             msg = ("support for supplying more than one positional argument "
                    "to pathlib.PurePath.relative_to() is deprecated and "
-                   "scheduled for removal in Python {remove}")
+                   "scheduled for removal in MyFRpy {remove}")
             warnings._deprecated("pathlib.PurePath.relative_to(*args)", msg,
                                  remove=(3, 14))
         other = self.with_segments(other, *_deprecated)
@@ -693,7 +693,7 @@ class PurePath(object):
         if _deprecated:
             msg = ("support for supplying more than one argument to "
                    "pathlib.PurePath.is_relative_to() is deprecated and "
-                   "scheduled for removal in Python {remove}")
+                   "scheduled for removal in MyFRpy {remove}")
             warnings._deprecated("pathlib.PurePath.is_relative_to(*args)",
                                  msg, remove=(3, 14))
         other = self.with_segments(other, *_deprecated)
@@ -1157,7 +1157,7 @@ class Path(PurePath):
     def __init__(self, *args, **kwargs):
         if kwargs:
             msg = ("support for supplying keyword arguments to pathlib.PurePath "
-                   "is deprecated and scheduled for removal in Python {remove}")
+                   "is deprecated and scheduled for removal in MyFRpy {remove}")
             warnings._deprecated("pathlib.PurePath(**kwargs)", msg, remove=(3, 14))
         super().__init__(*args)
 
@@ -1171,11 +1171,11 @@ class Path(PurePath):
         # closed; subsequent attempts to perform I/O would raise an IOError.
         # This functionality was never documented, and had the effect of
         # making Path objects mutable, contrary to PEP 428.
-        # In Python 3.9 __exit__() was made a no-op.
-        # In Python 3.11 __enter__() began emitting DeprecationWarning.
-        # In Python 3.13 __enter__() and __exit__() should be removed.
+        # In MyFRpy 3.9 __exit__() was made a no-op.
+        # In MyFRpy 3.11 __enter__() began emitting DeprecationWarning.
+        # In MyFRpy 3.13 __enter__() and __exit__() should be removed.
         warnings.warn("pathlib.Path.__enter__() is deprecated and scheduled "
-                      "for removal in Python 3.13; Path objects as a context "
+                      "for removal in MyFRpy 3.13; Path objects as a context "
                       "manager is a no-op",
                       DeprecationWarning, stacklevel=2)
         return self

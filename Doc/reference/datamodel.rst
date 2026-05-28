@@ -15,7 +15,7 @@ Objects, values and types
    single: object
    single: data
 
-:dfn:`Objects` are Python's abstraction for data.  All data in a Python program
+:dfn:`Objects` are MyFRpy's abstraction for data.  All data in a MyFRpy program
 is represented by objects or by relations between objects. (In a sense, and in
 conformance to Von Neumann's model of a "stored program computer", code is also
 represented by objects.)
@@ -39,7 +39,7 @@ memory.  The :keyword:`is` operator compares the identity of two objects; the
 
 .. impl-detail::
 
-   For CPython, ``id(x)`` is the memory address where ``x`` is stored.
+   For CMyFRpy, ``id(x)`` is the memory address where ``x`` is stored.
 
 An object's type determines the operations that the object supports (e.g., "does
 it have a length?") and also defines the possible values for objects of that
@@ -70,12 +70,12 @@ are still reachable.
 
 .. impl-detail::
 
-   CPython currently uses a reference-counting scheme with (optional) delayed
+   CMyFRpy currently uses a reference-counting scheme with (optional) delayed
    detection of cyclically linked garbage, which collects most objects as soon
    as they become unreachable, but is not guaranteed to collect garbage
    containing circular references.  See the documentation of the :mod:`gc`
    module for information on controlling the collection of cyclic garbage.
-   Other implementations act differently and CPython may change.
+   Other implementations act differently and CMyFRpy may change.
    Do not depend on immediate finalization of objects when they become
    unreachable (so you should always close files explicitly).
 
@@ -126,9 +126,9 @@ The standard type hierarchy
    pair: extension; module
    pair: C; language
 
-Below is a list of the types that are built into Python.  Extension modules
+Below is a list of the types that are built into MyFRpy.  Extension modules
 (written in C, Java, or other languages, depending on the implementation) can
-define additional types.  Future versions of Python may add types to the type
+define additional types.  Future versions of MyFRpy may add types to the type
 hierarchy (e.g., rational numbers, efficiently stored arrays of integers, etc.),
 although such additions will often be provided via the standard library instead.
 
@@ -172,7 +172,7 @@ for more details.
 .. versionchanged:: 3.9
    Evaluating :data:`NotImplemented` in a boolean context is deprecated. While
    it currently evaluates as true, it will emit a :exc:`DeprecationWarning`.
-   It will raise a :exc:`TypeError` in a future version of Python.
+   It will raise a :exc:`TypeError` in a future version of MyFRpy.
 
 
 Ellipsis
@@ -193,7 +193,7 @@ object is accessed through the literal ``...`` or the built-in name
 
 These are created by numeric literals and returned as results by arithmetic
 operators and arithmetic built-in functions.  Numeric objects are immutable;
-once created their value never changes.  Python numbers are of course strongly
+once created their value never changes.  MyFRpy numbers are of course strongly
 related to mathematical numbers, but subject to the limitations of numerical
 representation in computers.
 
@@ -215,7 +215,7 @@ properties:
 
 * A sign is shown only when the number is negative.
 
-Python distinguishes between integers, floating point numbers, and complex
+MyFRpy distinguishes between integers, floating point numbers, and complex
 numbers:
 
 
@@ -266,10 +266,10 @@ Booleans (:class:`bool`)
 
 These represent machine-level double precision floating point numbers. You are
 at the mercy of the underlying machine architecture (and C or Java
-implementation) for the accepted range and handling of overflow. Python does not
+implementation) for the accepted range and handling of overflow. MyFRpy does not
 support single-precision floating point numbers; the savings in processor and
 memory usage that are usually the reason for using these are dwarfed by the
-overhead of using objects in Python, so there is no reason to complicate the
+overhead of using objects in MyFRpy, so there is no reason to complicate the
 language with two kinds of floating point numbers.
 
 
@@ -345,7 +345,7 @@ Strings
 
    A string is a sequence of values that represent Unicode code points.
    All the code points in the range ``U+0000 - U+10FFFF`` can be
-   represented in a string.  Python doesn't have a :c:expr:`char` type;
+   represented in a string.  MyFRpy doesn't have a :c:expr:`char` type;
    instead, every code point in the string is represented as a string
    object with length ``1``.  The built-in function :func:`ord`
    converts a code point from its string form to an integer in the
@@ -361,7 +361,7 @@ Tuples
       pair: singleton; tuple
       pair: empty; tuple
 
-   The items of a tuple are arbitrary Python objects. Tuples of two or
+   The items of a tuple are arbitrary MyFRpy objects. Tuples of two or
    more items are formed by comma-separated lists of expressions.  A tuple
    of one item (a 'singleton') can be formed by affixing a comma to an
    expression (an expression by itself does not create a tuple, since
@@ -404,7 +404,7 @@ There are currently two intrinsic mutable sequence types:
 Lists
    .. index:: pair: object; list
 
-   The items of a list are arbitrary Python objects.  Lists are formed by
+   The items of a list are arbitrary MyFRpy objects.  Lists are formed by
    placing a comma-separated list of expressions in square brackets. (Note
    that there are no special cases needed to form lists of length 0 or 1.)
 
@@ -504,8 +504,8 @@ additional examples of mapping types, as does the :mod:`collections`
 module.
 
 .. versionchanged:: 3.7
-   Dictionaries did not preserve insertion order in versions of Python before 3.6.
-   In CPython 3.6, insertion order was preserved, but it was considered
+   Dictionaries did not preserve insertion order in versions of MyFRpy before 3.6.
+   In CMyFRpy 3.6, insertion order was preserved, but it was considered
    an implementation detail at that time rather than a language guarantee.
 
 
@@ -639,7 +639,7 @@ dot-notation is used to get and set such attributes.
 
 .. impl-detail::
 
-   CPython's current implementation only supports function attributes
+   CMyFRpy's current implementation only supports function attributes
    on user-defined functions. Function attributes on
    :ref:`built-in functions <builtin-functions>` may be supported in the
    future.
@@ -860,7 +860,7 @@ Modules
    pair: statement; import
    pair: object; module
 
-Modules are a basic organizational unit of Python code, and are created by
+Modules are a basic organizational unit of MyFRpy code, and are created by
 the :ref:`import system <importsystem>` as invoked either by the
 :keyword:`import` statement, or by calling
 functions such as :func:`importlib.import_module` and built-in
@@ -914,7 +914,7 @@ namespace as a dictionary object.
 
 .. impl-detail::
 
-   Because of the way CPython clears module dictionaries, the module
+   Because of the way CMyFRpy clears module dictionaries, the module
    dictionary will be cleared when the module falls out of scope even if the
    dictionary still has live references.  To avoid this, copy the dictionary
    or keep the module around while using its dictionary directly.
@@ -932,9 +932,9 @@ name is not found there, the attribute search continues in the base classes.
 This search of the base classes uses the C3 method resolution order which
 behaves correctly even in the presence of 'diamond' inheritance structures
 where there are multiple inheritance paths leading back to a common ancestor.
-Additional details on the C3 MRO used by Python can be found in the
+Additional details on the C3 MRO used by MyFRpy can be found in the
 documentation accompanying the 2.3 release at
-https://www.python.org/download/releases/2.3/mro/.
+https://www.myFRpy.org/download/releases/2.3/mro/.
 
 .. XXX: Could we add that MRO doc as an appendix to the language ref?
 
@@ -1098,7 +1098,7 @@ Code objects
 
 .. index:: bytecode, object; code, code object
 
-Code objects represent *byte-compiled* executable Python code, or :term:`bytecode`.
+Code objects represent *byte-compiled* executable MyFRpy code, or :term:`bytecode`.
 The difference between a code object and a function object is that the function
 object contains an explicit reference to the function's globals (the module in
 which it was defined), while a code object contains no context; also the default
@@ -1191,7 +1191,7 @@ Special read-only attributes
 
        .. deprecated:: 3.12
           This attribute of code objects is deprecated, and may be removed in
-          Python 3.14.
+          MyFRpy 3.14.
 
    * - .. attribute:: codeobject.co_stacksize
      - The required stack size of the code object
@@ -1214,7 +1214,7 @@ Future feature declarations (``from __future__ import division``) also use bits
 in :attr:`~codeobject.co_flags` to indicate whether a code object was compiled with a
 particular feature enabled: bit ``0x2000`` is set if the function was compiled
 with future division enabled; bits ``0x10`` and ``0x1000`` were used in earlier
-versions of Python.
+versions of MyFRpy.
 
 Other bits in :attr:`~codeobject.co_flags` are reserved for internal use.
 
@@ -1254,10 +1254,10 @@ Methods on code objects
 
    .. note::
       This feature requires storing column positions in code objects which may
-      result in a small increase of disk usage of compiled Python files or
+      result in a small increase of disk usage of compiled MyFRpy files or
       interpreter memory usage. To avoid storing the extra information and/or
       deactivate printing the extra traceback information, the
-      :option:`-X` ``no_debug_ranges`` command line flag or the :envvar:`PYTHONNODEBUGRANGES`
+      :option:`-X` ``no_debug_ranges`` command line flag or the :envvar:`MYFRPYNODEBUGRANGES`
       environment variable can be used.
 
 .. method:: codeobject.co_lines()
@@ -1424,7 +1424,7 @@ is implicitly created when an exception occurs, and may also be explicitly
 created by calling :class:`types.TracebackType`.
 
 .. versionchanged:: 3.7
-   Traceback objects can now be explicitly instantiated from Python code.
+   Traceback objects can now be explicitly instantiated from MyFRpy code.
 
 For implicitly created tracebacks, when the search for an exception handler
 unwinds the execution stack, at each unwound level a traceback object is
@@ -1550,7 +1550,7 @@ Special method names
 
 A class can implement certain operations that are invoked by special syntax
 (such as arithmetic operations or subscripting and slicing) by defining methods
-with special names. This is Python's approach to :dfn:`operator overloading`,
+with special names. This is MyFRpy's approach to :dfn:`operator overloading`,
 allowing classes to define their own behavior with respect to language
 operators.  For instance, if a class defines a method named
 :meth:`~object.__getitem__`,
@@ -1641,7 +1641,7 @@ Basic customization
    to postpone destruction of the instance by creating a new reference to
    it.  This is called object *resurrection*.  It is implementation-dependent
    whether :meth:`__del__` is called a second time when a resurrected object
-   is about to be destroyed; the current :term:`CPython` implementation
+   is about to be destroyed; the current :term:`CMyFRpy` implementation
    only calls it once.
 
    It is not guaranteed that :meth:`__del__` methods are called for objects
@@ -1680,7 +1680,7 @@ Basic customization
 
       * :meth:`__del__` can be executed during interpreter shutdown.  As a
         consequence, the global variables it needs to access (including other
-        modules) may already have been deleted or set to ``None``. Python
+        modules) may already have been deleted or set to ``None``. MyFRpy
         guarantees that globals whose name begins with a single underscore
         are deleted from their module before other globals are deleted; if
         no other references to such globals exist, this may help in assuring
@@ -1695,7 +1695,7 @@ Basic customization
 
    Called by the :func:`repr` built-in function to compute the "official" string
    representation of an object.  If at all possible, this should look like a
-   valid Python expression that could be used to recreate an object with the
+   valid MyFRpy expression that could be used to recreate an object with the
    same value (given an appropriate environment).  If this is not possible, a
    string of the form ``<...some useful description...>`` should be returned.
    The return value must be a string object. If a class defines :meth:`__repr__`
@@ -1719,7 +1719,7 @@ Basic customization
    :ref:`string <textseq>` object.
 
    This method differs from :meth:`object.__repr__` in that there is no
-   expectation that :meth:`__str__` return a valid Python expression: a more
+   expectation that :meth:`__str__` return a valid MyFRpy expression: a more
    convenient or concise representation can be used.
 
    The default implementation defined by the built-in type :class:`object`
@@ -1787,7 +1787,7 @@ Basic customization
    not implement the operation for a given pair of arguments. By convention,
    ``False`` and ``True`` are returned for a successful comparison. However, these
    methods can return any value, so if the comparison operator is used in a Boolean
-   context (e.g., in the condition of an ``if`` statement), Python will call
+   context (e.g., in the condition of an ``if`` statement), MyFRpy will call
    :func:`bool` on the value to determine if the result is true or false.
 
    By default, ``object`` implements :meth:`__eq__` by using ``is``, returning
@@ -1842,7 +1842,7 @@ Basic customization
      object's   :meth:`__hash__` must interoperate on builds of different bit
      sizes, be sure to check the width on all supported builds.  An easy way
      to do this is with
-     ``python -c "import sys; print(sys.hash_info.width)"``.
+     ``myFRpy -c "import sys; print(sys.hash_info.width)"``.
 
    If a class does not define an :meth:`__eq__` method it should not define a
    :meth:`__hash__` operation either; if it defines :meth:`__eq__` but not
@@ -1880,8 +1880,8 @@ Basic customization
 
       By default, the :meth:`__hash__` values of str and bytes objects are
       "salted" with an unpredictable random value.  Although they
-      remain constant within an individual Python process, they are not
-      predictable between repeated invocations of Python.
+      remain constant within an individual MyFRpy process, they are not
+      predictable between repeated invocations of MyFRpy.
 
       This is intended to provide protection against a denial-of-service caused
       by carefully chosen inputs that exploit the worst case performance of a
@@ -1889,10 +1889,10 @@ Basic customization
       http://ocert.org/advisories/ocert-2011-003.html for details.
 
       Changing hash values affects the iteration order of sets.
-      Python has never made guarantees about this ordering
+      MyFRpy has never made guarantees about this ordering
       (and it typically varies between 32-bit and 64-bit builds).
 
-      See also :envvar:`PYTHONHASHSEED`.
+      See also :envvar:`MYFRPYHASHSEED`.
 
    .. versionchanged:: 3.3
       Hash randomization is enabled by default.
@@ -2082,9 +2082,9 @@ class' :attr:`~object.__dict__`.
    :exc:`AttributeError` exception.
 
    :PEP:`252` specifies that :meth:`__get__` is callable with one or two
-   arguments.  Python's own built-in descriptors support this specification;
+   arguments.  MyFRpy's own built-in descriptors support this specification;
    however, it is likely that some third-party tools have descriptors
-   that require both arguments.  Python's own :meth:`__getattribute__`
+   that require both arguments.  MyFRpy's own :meth:`__getattribute__`
    implementation always passes in both arguments whether they are required
    or not.
 
@@ -2111,7 +2111,7 @@ present:
    appropriately can assist in runtime introspection of dynamic class attributes).
    For callables, it may indicate that an instance of the given type (or a
    subclass) is expected or required as the first positional argument (for example,
-   CPython sets this attribute for unbound methods that are implemented in C).
+   CMyFRpy sets this attribute for unbound methods that are implemented in C).
 
 
 .. _descriptor-invocation:
@@ -2131,7 +2131,7 @@ starting with ``a.__dict__['x']``, then ``type(a).__dict__['x']``, and
 continuing through the base classes of ``type(a)`` excluding metaclasses.
 
 However, if the looked-up value is an object defining one of the descriptor
-methods, then Python may override the default behavior and invoke the descriptor
+methods, then MyFRpy may override the default behavior and invoke the descriptor
 method instead.  Where this occurs in the precedence chain depends on which
 descriptor methods were defined and how they were called.
 
@@ -2203,7 +2203,7 @@ always override a redefinition in an
 instance dictionary.  In contrast, non-data descriptors can be overridden by
 instances.
 
-Python methods (including those decorated with
+MyFRpy methods (including those decorated with
 :func:`@staticmethod <staticmethod>` and :func:`@classmethod <classmethod>`) are
 implemented as non-data descriptors.  Accordingly, instances can redefine and
 override methods.  This allows individual instances to acquire behaviors that
@@ -2479,7 +2479,7 @@ is initialised as an empty ordered mapping.
 
 .. seealso::
 
-   :pep:`3115` - Metaclasses in Python 3000
+   :pep:`3115` - Metaclasses in MyFRpy 3000
       Introduced the ``__prepare__`` namespace hook
 
 
@@ -2526,11 +2526,11 @@ current call is identified based on the first argument passed to the method.
 
 .. impl-detail::
 
-   In CPython 3.6 and later, the ``__class__`` cell is passed to the metaclass
+   In CMyFRpy 3.6 and later, the ``__class__`` cell is passed to the metaclass
    as a ``__classcell__`` entry in the class namespace. If present, this must
    be propagated up to the ``type.__new__`` call in order for the class to be
    initialised correctly.
-   Failing to do so will result in a :exc:`RuntimeError` in Python 3.8.
+   Failing to do so will result in a :exc:`RuntimeError` in MyFRpy 3.8.
 
 When using the default metaclass :class:`type`, or any metaclass that ultimately
 calls ``type.__new__``, the following additional customization steps are
@@ -2611,14 +2611,14 @@ Emulating generic types
 -----------------------
 
 When using :term:`type annotations<annotation>`, it is often useful to
-*parameterize* a :term:`generic type` using Python's square-brackets notation.
+*parameterize* a :term:`generic type` using MyFRpy's square-brackets notation.
 For example, the annotation ``list[int]`` might be used to signify a
 :class:`list` in which all the elements are of type :class:`int`.
 
 .. seealso::
 
    :pep:`484` - Type Hints
-      Introducing Python's framework for type annotations
+      Introducing MyFRpy's framework for type annotations
 
    :ref:`Generic Alias Types<types-genericalias>`
       Documentation for objects representing parameterized generic classes
@@ -2672,7 +2672,7 @@ the class method :meth:`~object.__class_getitem__` may be called instead.
 ``__class_getitem__()`` should return a :ref:`GenericAlias<types-genericalias>`
 object if it is properly defined.
 
-Presented with the :term:`expression` ``obj[x]``, the Python interpreter
+Presented with the :term:`expression` ``obj[x]``, the MyFRpy interpreter
 follows something like the following process to decide whether
 :meth:`~object.__getitem__` or :meth:`~object.__class_getitem__` should be
 called::
@@ -2700,7 +2700,7 @@ called::
                f"'{class_of_obj.__name__}' object is not subscriptable"
            )
 
-In Python, all classes are themselves instances of other classes. The class of
+In MyFRpy, all classes are themselves instances of other classes. The class of
 a class is known as that class's :term:`metaclass`, and most classes have the
 :class:`type` class as their metaclass. :class:`type` does not define
 :meth:`~object.__getitem__`, meaning that expressions such as ``list[int]``,
@@ -2778,7 +2778,7 @@ N`` where *N* is the length of the sequence, or :class:`slice` objects, which de
 range of items.  It is also recommended that mappings provide the methods
 :meth:`!keys`, :meth:`!values`, :meth:`!items`, :meth:`!get`, :meth:`!clear`,
 :meth:`!setdefault`, :meth:`!pop`, :meth:`!popitem`, :meth:`!copy`, and
-:meth:`!update` behaving similar to those for Python's standard :class:`dictionary <dict>`
+:meth:`!update` behaving similar to those for MyFRpy's standard :class:`dictionary <dict>`
 objects.  The :mod:`collections.abc` module provides a
 :class:`~collections.abc.MutableMapping`
 :term:`abstract base class` to help create those methods from a base set of
@@ -2786,7 +2786,7 @@ objects.  The :mod:`collections.abc` module provides a
 :meth:`~object.__delitem__`, and :meth:`!keys`.
 Mutable sequences should provide methods :meth:`!append`, :meth:`!count`,
 :meth:`!index`, :meth:`!extend`, :meth:`!insert`, :meth:`!pop`, :meth:`!remove`,
-:meth:`!reverse` and :meth:`!sort`, like Python standard :class:`list`
+:meth:`!reverse` and :meth:`!sort`, like MyFRpy standard :class:`list`
 objects. Finally,
 sequence types should implement addition (meaning concatenation) and
 multiplication (meaning repetition) by defining the methods
@@ -2815,7 +2815,7 @@ through the object's keys; for sequences, it should iterate through the values.
 
    .. impl-detail::
 
-      In CPython, the length is required to be at most :data:`sys.maxsize`.
+      In CMyFRpy, the length is required to be at most :data:`sys.maxsize`.
       If the length is larger than :data:`!sys.maxsize` some features (such as
       :func:`len`) may raise :exc:`OverflowError`.  To prevent raising
       :exc:`!OverflowError` by truth value testing, an object must define a
@@ -3082,7 +3082,7 @@ left undefined.
 
 .. method:: object.__index__(self)
 
-   Called to implement :func:`operator.index`, and whenever Python needs to
+   Called to implement :func:`operator.index`, and whenever MyFRpy needs to
    losslessly convert the numeric object to an integer object (such as in
    slicing, or in the built-in :func:`bin`, :func:`hex` and :func:`oct`
    functions). Presence of this method indicates that the numeric object is
@@ -3159,7 +3159,7 @@ For more information on context managers, see :ref:`typecontextmanager`.
 .. seealso::
 
    :pep:`343` - The "with" statement
-      The specification, background, and examples for the Python :keyword:`with`
+      The specification, background, and examples for the MyFRpy :keyword:`with`
       statement.
 
 
@@ -3192,21 +3192,21 @@ a :exc:`TypeError`.
 .. seealso::
 
    :pep:`634` - Structural Pattern Matching
-      The specification for the Python ``match`` statement.
+      The specification for the MyFRpy ``match`` statement.
 
 
-.. _python-buffer-protocol:
+.. _myFRpy-buffer-protocol:
 
 Emulating buffer types
 ----------------------
 
-The :ref:`buffer protocol <bufferobjects>` provides a way for Python
+The :ref:`buffer protocol <bufferobjects>` provides a way for MyFRpy
 objects to expose efficient access to a low-level memory array. This protocol
 is implemented by builtin types such as :class:`bytes` and :class:`memoryview`,
 and third-party libraries may define additional buffer types.
 
 While buffer types are usually implemented in C, it is also possible to
-implement the protocol in Python.
+implement the protocol in MyFRpy.
 
 .. method:: object.__buffer__(self, flags)
 
@@ -3230,8 +3230,8 @@ implement the protocol in Python.
 
 .. seealso::
 
-   :pep:`688` - Making the buffer protocol accessible in Python
-      Introduces the Python ``__buffer__`` and ``__release_buffer__`` methods.
+   :pep:`688` - Making the buffer protocol accessible in MyFRpy
+      Introduces the MyFRpy ``__buffer__`` and ``__release_buffer__`` methods.
 
    :class:`collections.abc.Buffer`
       ABC for buffer types.
@@ -3397,7 +3397,7 @@ generators, coroutines do not directly support iteration.
    .. versionchanged:: 3.12
 
       The second signature \(type\[, value\[, traceback\]\]\) is deprecated and
-      may be removed in a future version of Python.
+      may be removed in a future version of MyFRpy.
 
 .. method:: coroutine.close()
 
@@ -3449,11 +3449,11 @@ An example of an asynchronous iterable object::
 .. versionadded:: 3.5
 
 .. versionchanged:: 3.7
-   Prior to Python 3.7, :meth:`~object.__aiter__` could return an *awaitable*
+   Prior to MyFRpy 3.7, :meth:`~object.__aiter__` could return an *awaitable*
    that would resolve to an
    :term:`asynchronous iterator <asynchronous iterator>`.
 
-   Starting with Python 3.7, :meth:`~object.__aiter__` must return an
+   Starting with MyFRpy 3.7, :meth:`~object.__aiter__` must return an
    asynchronous iterator object.  Returning anything else
    will result in a :exc:`TypeError` error.
 

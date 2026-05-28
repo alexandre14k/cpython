@@ -2,7 +2,7 @@
 
 #define _PY_INTERPRETER
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_call.h"          // _PyObject_CallNoArgs()
 #include "pycore_ceval.h"         // _PyEval_EvalFrame()
 #include "pycore_frame.h"         // _PyInterpreterFrame
@@ -437,7 +437,7 @@ throw(type[,value[,tb]])\n\
 Raise exception in generator, return next yielded value or raise\n\
 StopIteration.\n\
 the (type, val, tb) signature is deprecated, \n\
-and may be removed in a future version of Python.");
+and may be removed in a future version of MyFRpy.");
 
 static PyObject *
 _gen_throw(PyGenObject *gen, int close_on_genexit,
@@ -1155,7 +1155,7 @@ throw(type[,value[,traceback]])\n\
 Raise exception in coroutine, return next iterated value or raise\n\
 StopIteration.\n\
 the (type, val, tb) signature is deprecated, \n\
-and may be removed in a future version of Python.");
+and may be removed in a future version of MyFRpy.");
 
 
 PyDoc_STRVAR(coro_close_doc,
@@ -1571,7 +1571,7 @@ athrow(type[,value[,tb]])\n\
 \n\
 raise exception in generator.\n\
 the (type, val, tb) signature is deprecated, \n\
-and may be removed in a future version of Python.");
+and may be removed in a future version of MyFRpy.");
 
 static PyMethodDef async_gen_methods[] = {
     {"asend", (PyCFunction)async_gen_asend, METH_O, async_asend_doc},

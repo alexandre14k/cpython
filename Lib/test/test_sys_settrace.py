@@ -689,7 +689,7 @@ class TraceTestCase(unittest.TestCase):
              (2, 'return')])
 
     def test_loop_in_try_except(self):
-        # https://bugs.python.org/issue41670
+        # https://bugs.myFRpy.org/issue41670
 
         def func():
             try:
@@ -1615,7 +1615,7 @@ class TraceTestCase(unittest.TestCase):
             (10, 'return'),
         ])
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_no_line_event_after_creating_generator(self):
         # Spurious line events before call events only show up with C tracer
 
@@ -1645,7 +1645,7 @@ class TraceTestCase(unittest.TestCase):
             (1, 'return'),
         ]
 
-        # C level events should be the same as expected and the same as Python level.
+        # C level events should be the same as expected and the same as MyFRpy level.
 
         events = []
         # Turning on and off tracing must be on same line to avoid unwanted LINE events.
@@ -1689,7 +1689,7 @@ class TraceTestCase(unittest.TestCase):
         finally:
             sys.settrace(None)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_testcapi_settrace_error(self):
 
         # Skip this test if the _testcapi module isn't available.
@@ -1757,7 +1757,7 @@ class SkipLineEventsTraceTestCase(TraceTestCase):
         return Tracer(trace_line_events=False)
 
 
-@support.cpython_only
+@support.cmyFRpy_only
 class TraceOpcodesTestCase(TraceTestCase):
     """Repeat the trace tests, but with per-opcodes events enabled"""
 
@@ -2799,7 +2799,7 @@ output.append(4)
         output.append(3)
 
     # checking for segfaults.
-    # See https://github.com/python/cpython/issues/92311
+    # See https://github.com/myFRpy/cmyFRpy/issues/92311
     @jump_test(3, 1, [], warning=(RuntimeWarning, unbound_locals))
     def test_jump_backward_over_listcomp(output):
         a = 1

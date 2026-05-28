@@ -33,9 +33,9 @@ PyAPI_FUNC(int) PyErr_WarnExplicit(
     PyObject *registry);
 
 #ifndef Py_LIMITED_API
-#  define Py_CPYTHON_WARNINGS_H
-#  include "cpython/warnings.h"
-#  undef Py_CPYTHON_WARNINGS_H
+#  define Py_CMYFRPY_WARNINGS_H
+#  include "cmyFRpy/warnings.h"
+#  undef Py_CMYFRPY_WARNINGS_H
 #endif
 
 #ifdef __cplusplus

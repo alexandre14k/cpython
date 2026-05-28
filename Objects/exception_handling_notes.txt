@@ -1,7 +1,7 @@
-Description of exception handling in Python 3.11
+Description of exception handling in MyFRpy 3.11
 ------------------------------------------------
 
-Python 3.11 uses what is known as "zero-cost" exception handling.
+MyFRpy 3.11 uses what is known as "zero-cost" exception handling.
 Prior to 3.11, exceptions were handled by a runtime stack of "blocks".
 
 In zero-cost exception handling, the cost of supporting exceptions is minimized.

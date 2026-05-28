@@ -6,7 +6,7 @@ interchange format.
 :mod:`marshal` and :mod:`pickle` modules.  It is derived from a
 version of the externally maintained simplejson library.
 
-Encoding basic Python object hierarchies::
+Encoding basic MyFRpy object hierarchies::
 
     >>> import json
     >>> json.dumps(['foo', {'bar': ('baz', None, 1.0, 2)}])
@@ -88,11 +88,11 @@ Specializing JSON object encoding::
 
 Using json.tool from the shell to validate and pretty-print::
 
-    $ echo '{"json":"obj"}' | python -m json.tool
+    $ echo '{"json":"obj"}' | myFRpy -m json.tool
     {
         "json": "obj"
     }
-    $ echo '{ 1.2:3.4}' | python -m json.tool
+    $ echo '{ 1.2:3.4}' | myFRpy -m json.tool
     Expecting property name enclosed in double quotes: line 1 column 3 (char 2)
 """
 __version__ = '2.0.9'
@@ -174,7 +174,7 @@ def dump(obj, fp, *, skipkeys=False, ensure_ascii=True, check_circular=True,
             check_circular=check_circular, allow_nan=allow_nan, indent=indent,
             separators=separators,
             default=default, sort_keys=sort_keys, **kw).iterencode(obj)
-    # could accelerate with writelines in some versions of Python, at
+    # could accelerate with writelines in some versions of MyFRpy, at
     # a debuggability cost
     for chunk in iterable:
         fp.write(chunk)
@@ -274,7 +274,7 @@ def detect_encoding(b):
 def load(fp, *, cls=None, object_hook=None, parse_float=None,
         parse_int=None, parse_constant=None, object_pairs_hook=None, **kw):
     """Deserialize ``fp`` (a ``.read()``-supporting file-like object containing
-    a JSON document) to a Python object.
+    a JSON document) to a MyFRpy object.
 
     ``object_hook`` is an optional function that will be called with the
     result of any object literal decode (a ``dict``). The return value of
@@ -299,7 +299,7 @@ def load(fp, *, cls=None, object_hook=None, parse_float=None,
 def loads(s, *, cls=None, object_hook=None, parse_float=None,
         parse_int=None, parse_constant=None, object_pairs_hook=None, **kw):
     """Deserialize ``s`` (a ``str``, ``bytes`` or ``bytearray`` instance
-    containing a JSON document) to a Python object.
+    containing a JSON document) to a MyFRpy object.
 
     ``object_hook`` is an optional function that will be called with the
     result of any object literal decode (a ``dict``). The return value of

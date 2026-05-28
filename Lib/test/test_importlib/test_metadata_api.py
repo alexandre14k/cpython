@@ -210,7 +210,7 @@ class APITests(
     def test_requires_egg_info(self):
         deps = requires('egginfo-pkg')
         assert len(deps) == 2
-        assert any(dep == 'wheel >= 1.0; python_version >= "2.7"' for dep in deps)
+        assert any(dep == 'wheel >= 1.0; myFRpy_version >= "2.7"' for dep in deps)
 
     def test_requires_egg_info_empty(self):
         fixtures.build_files(
@@ -235,14 +235,14 @@ class APITests(
             dep1
             dep2
 
-            [:python_version < "3"]
+            [:myFRpy_version < "3"]
             dep3
 
             [extra1]
             dep4
-            dep6@ git+https://example.com/python/dep.git@v1.0.0
+            dep6@ git+https://example.com/myFRpy/dep.git@v1.0.0
 
-            [extra2:python_version < "3"]
+            [extra2:myFRpy_version < "3"]
             dep5
             """
         )
@@ -250,10 +250,10 @@ class APITests(
         expected = [
             'dep1',
             'dep2',
-            'dep3; python_version < "3"',
+            'dep3; myFRpy_version < "3"',
             'dep4; extra == "extra1"',
-            'dep5; (python_version < "3") and extra == "extra2"',
-            'dep6@ git+https://example.com/python/dep.git@v1.0.0 ; extra == "extra1"',
+            'dep5; (myFRpy_version < "3") and extra == "extra2"',
+            'dep6@ git+https://example.com/myFRpy/dep.git@v1.0.0 ; extra == "extra1"',
         ]
         # It's important that the environment marker expression be
         # wrapped in parentheses to avoid the following 'and' binding more

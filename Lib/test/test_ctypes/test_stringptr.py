@@ -22,7 +22,7 @@ class StringPtrTestCase(unittest.TestCase):
         x.str = b
         self.assertEqual(grc(b), 3)
 
-        # POINTER(c_char) and Python string is NOT compatible
+        # POINTER(c_char) and MyFRpy string is NOT compatible
         # POINTER(c_char) and c_buffer() is compatible
         for i in range(len(b)):
             self.assertEqual(b[i], x.str[i])
@@ -34,7 +34,7 @@ class StringPtrTestCase(unittest.TestCase):
             _fields_ = [("str", c_char_p)]
         x = X()
 
-        # c_char_p and Python string is compatible
+        # c_char_p and MyFRpy string is compatible
         # c_char_p and c_buffer is NOT compatible
         self.assertEqual(x.str, None)
         x.str = b"Hello, World"
@@ -47,13 +47,13 @@ class StringPtrTestCase(unittest.TestCase):
         strchr = lib.my_strchr
         strchr.restype = c_char_p
 
-        # c_char_p and Python string is compatible
+        # c_char_p and MyFRpy string is compatible
         # c_char_p and c_buffer are now compatible
         strchr.argtypes = c_char_p, c_char
         self.assertEqual(strchr(b"abcdef", b"c"), b"cdef")
         self.assertEqual(strchr(c_buffer(b"abcdef"), b"c"), b"cdef")
 
-        # POINTER(c_char) and Python string is NOT compatible
+        # POINTER(c_char) and MyFRpy string is NOT compatible
         # POINTER(c_char) and c_buffer() is compatible
         strchr.argtypes = POINTER(c_char), c_char
         buf = c_buffer(b"abcdef")

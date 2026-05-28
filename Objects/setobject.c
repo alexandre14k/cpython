@@ -1,7 +1,7 @@
 
 /* set object implementation
 
-   Written and maintained by Raymond D. Hettinger <python@rcn.com>
+   Written and maintained by Raymond D. Hettinger <myFRpy@rcn.com>
    Derived from Lib/sets.py and Objects/dictobject.c.
 
    The basic lookup function used by all operations.
@@ -31,7 +31,7 @@
    the found and not-found case.
 */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_object.h"        // _PyObject_GC_UNTRACK()
 #include <stddef.h>               // offsetof()
 

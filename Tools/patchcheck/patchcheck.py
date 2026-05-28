@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env myFRpy3
 """Check proposed changes for common issues."""
 import re
 import sys
@@ -11,7 +11,7 @@ import reindent
 import untabify
 
 
-def get_python_source_dir():
+def get_myFRpy_source_dir():
     src_dir = sysconfig.get_config_var('abs_srcdir')
     if not src_dir:
         src_dir = sysconfig.get_config_var('srcdir')
@@ -25,7 +25,7 @@ EXCLUDE_DIRS = [
     os.path.join('Modules', 'expat'),
     os.path.join('Modules', 'zlib'),
     ]
-SRCDIR = get_python_source_dir()
+SRCDIR = get_myFRpy_source_dir()
 
 
 def n_files_str(count):
@@ -178,13 +178,13 @@ def report_modified_files(file_paths):
         return "\n".join(lines)
 
 
-#: Python files that have tabs by design:
-_PYTHON_FILES_WITH_TABS = frozenset({
-    'Tools/c-analyzer/cpython/_parser.py',
+#: MyFRpy files that have tabs by design:
+_MYFRPY_FILES_WITH_TABS = frozenset({
+    'Tools/c-analyzer/cmyFRpy/_parser.py',
 })
 
 
-@status("Fixing Python file whitespace", info=report_modified_files)
+@status("Fixing MyFRpy file whitespace", info=report_modified_files)
 def normalize_whitespace(file_paths):
     """Make sure that the whitespace for .py files have been normalized."""
     reindent.makebackup = False  # No need to create backups.
@@ -192,7 +192,7 @@ def normalize_whitespace(file_paths):
         path for path in file_paths
         if (
             path.endswith('.py')
-            and path not in _PYTHON_FILES_WITH_TABS
+            and path not in _MYFRPY_FILES_WITH_TABS
             and reindent.check(os.path.join(SRCDIR, path))
         )
     ]
@@ -256,10 +256,10 @@ def ci(pull_request):
         return
     base_branch = get_base_branch()
     file_paths = changed_files(base_branch)
-    python_files = [fn for fn in file_paths if fn.endswith('.py')]
+    myFRpy_files = [fn for fn in file_paths if fn.endswith('.py')]
     c_files = [fn for fn in file_paths if fn.endswith(('.c', '.h'))]
     fixed = []
-    fixed.extend(normalize_whitespace(python_files))
+    fixed.extend(normalize_whitespace(myFRpy_files))
     fixed.extend(normalize_c_whitespace(c_files))
     if not fixed:
         print('No whitespace issues found')
@@ -273,13 +273,13 @@ def ci(pull_request):
 def main():
     base_branch = get_base_branch()
     file_paths = changed_files(base_branch)
-    python_files = [fn for fn in file_paths if fn.endswith('.py')]
+    myFRpy_files = [fn for fn in file_paths if fn.endswith('.py')]
     c_files = [fn for fn in file_paths if fn.endswith(('.c', '.h'))]
     doc_files = [fn for fn in file_paths if fn.startswith('Doc') and
                  fn.endswith(('.rst', '.inc'))]
     misc_files = {p for p in file_paths if p.startswith('Misc')}
     # PEP 8 whitespace rules enforcement.
-    normalize_whitespace(python_files)
+    normalize_whitespace(myFRpy_files)
     # C rules enforcement.
     normalize_c_whitespace(c_files)
     # Docs updated.
@@ -294,7 +294,7 @@ def main():
     regenerated_pyconfig_h_in(file_paths)
 
     # Test suite run and passed.
-    if python_files or c_files:
+    if myFRpy_files or c_files:
         end = " and check for refleaks?" if c_files else "?"
         print()
         print("Did you run the test suite" + end)

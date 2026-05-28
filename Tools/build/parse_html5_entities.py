@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env myFRpy3
 """
 Utility for parsing HTML5 entity definitions available from:
 
@@ -111,5 +111,5 @@ if __name__ == '__main__':
             print('The current dictionary is updated.')
         else:
             compare_dicts(html5, new_html5)
-            print('Run "./python {0} --patch" to update Lib/html/entities.html '
-                  'or "./python {0} --create" to see the generated ' 'dictionary.'.format(__file__))
+            print('Run "./myFRpy {0} --patch" to update Lib/html/entities.html '
+                  'or "./myFRpy {0} --create" to see the generated ' 'dictionary.'.format(__file__))

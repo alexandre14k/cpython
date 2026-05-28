@@ -1,6 +1,6 @@
 """ Standard "encodings" Package
 
-    Standard Python encoding modules are stored in this package
+    Standard MyFRpy encoding modules are stored in this package
     directory.
 
     Codec modules must have names corresponding to normalized encoding
@@ -12,7 +12,7 @@
     * getregentry() -> codecs.CodecInfo object
     The getregentry() API must return a CodecInfo object with encoder, decoder,
     incrementalencoder, incrementaldecoder, streamwriter and streamreader
-    attributes which adhere to the Python Codec Interface Standard.
+    attributes which adhere to the MyFRpy Codec Interface Standard.
 
     In addition, a module may optionally also define the following
     APIs which are then used by the package's codec search function:
@@ -45,7 +45,7 @@ def normalize_encoding(encoding):
     """ Normalize an encoding name.
 
         Normalization works as follows: all non-alphanumeric
-        characters except the dot used for Python package names are
+        characters except the dot used for MyFRpy package names are
         collapsed and replaced with a single underscore, e.g. '  -;#'
         becomes '_'. Leading and trailing underscores are removed.
 
@@ -152,14 +152,14 @@ def search_function(encoding):
     # Return the registry entry
     return entry
 
-# Register the search_function in the Python codec registry
+# Register the search_function in the MyFRpy codec registry
 codecs.register(search_function)
 
 if sys.platform == 'win32':
-    # bpo-671666, bpo-46668: If Python does not implement a codec for current
+    # bpo-671666, bpo-46668: If MyFRpy does not implement a codec for current
     # Windows ANSI code page, use the "mbcs" codec instead:
     # WideCharToMultiByte() and MultiByteToWideChar() functions with CP_ACP.
-    # Python does not support custom code pages.
+    # MyFRpy does not support custom code pages.
     def _alias_mbcs(encoding):
         try:
             import _winapi

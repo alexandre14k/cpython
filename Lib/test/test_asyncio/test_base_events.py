@@ -15,7 +15,7 @@ from asyncio import base_events
 from asyncio import constants
 from test.test_asyncio import utils as test_utils
 from test import support
-from test.support.script_helper import assert_python_ok
+from test.support.script_helper import assert_myFRpy_ok
 from test.support import os_helper
 from test.support import socket_helper
 import warnings
@@ -763,26 +763,26 @@ class BaseEventLoopTests(test_utils.TestCase):
             'print(loop.get_debug())'))
 
         # Test with -E to not fail if the unit test was run with
-        # PYTHONASYNCIODEBUG set to a non-empty string
-        sts, stdout, stderr = assert_python_ok('-E', '-c', code)
+        # MYFRPYASYNCIODEBUG set to a non-empty string
+        sts, stdout, stderr = assert_myFRpy_ok('-E', '-c', code)
         self.assertEqual(stdout.rstrip(), b'False')
 
-        sts, stdout, stderr = assert_python_ok('-c', code,
-                                               PYTHONASYNCIODEBUG='',
-                                               PYTHONDEVMODE='')
+        sts, stdout, stderr = assert_myFRpy_ok('-c', code,
+                                               MYFRPYASYNCIODEBUG='',
+                                               MYFRPYDEVMODE='')
         self.assertEqual(stdout.rstrip(), b'False')
 
-        sts, stdout, stderr = assert_python_ok('-c', code,
-                                               PYTHONASYNCIODEBUG='1',
-                                               PYTHONDEVMODE='')
+        sts, stdout, stderr = assert_myFRpy_ok('-c', code,
+                                               MYFRPYASYNCIODEBUG='1',
+                                               MYFRPYDEVMODE='')
         self.assertEqual(stdout.rstrip(), b'True')
 
-        sts, stdout, stderr = assert_python_ok('-E', '-c', code,
-                                               PYTHONASYNCIODEBUG='1')
+        sts, stdout, stderr = assert_myFRpy_ok('-E', '-c', code,
+                                               MYFRPYASYNCIODEBUG='1')
         self.assertEqual(stdout.rstrip(), b'False')
 
         # -X dev
-        sts, stdout, stderr = assert_python_ok('-E', '-X', 'dev',
+        sts, stdout, stderr = assert_myFRpy_ok('-E', '-X', 'dev',
                                                '-c', code)
         self.assertEqual(stdout.rstrip(), b'True')
 
@@ -848,7 +848,7 @@ class BaseEventLoopTests(test_utils.TestCase):
             loop.close()
 
     def test_run_forever_keyboard_interrupt(self):
-        # Python issue #22601: ensure that the temporary task created by
+        # MyFRpy issue #22601: ensure that the temporary task created by
         # run_forever() consumes the KeyboardInterrupt and so don't log
         # a warning
         async def raise_keyboard_interrupt():
@@ -867,7 +867,7 @@ class BaseEventLoopTests(test_utils.TestCase):
         self.assertFalse(self.loop.call_exception_handler.called)
 
     def test_run_until_complete_baseexception(self):
-        # Python issue #22429: run_until_complete() must not schedule a pending
+        # MyFRpy issue #22429: run_until_complete() must not schedule a pending
         # call to stop() if the future raised a BaseException
         async def raise_keyboard_interrupt():
             raise KeyboardInterrupt
@@ -886,7 +886,7 @@ class BaseEventLoopTests(test_utils.TestCase):
         self.assertTrue(func.called)
 
     def test_single_selecter_event_callback_after_stopping(self):
-        # Python issue #25593: A stopped event loop may cause event callbacks
+        # MyFRpy issue #25593: A stopped event loop may cause event callbacks
         # to run more than once.
         event_sentinel = object()
         callcount = 0
@@ -988,7 +988,7 @@ class BaseEventLoopTests(test_utils.TestCase):
             self.assertTrue(status['finalized'])
 
     def test_asyncgen_finalization_by_gc_in_other_thread(self):
-        # Python issue 34769: If garbage collector runs in another
+        # MyFRpy issue 34769: If garbage collector runs in another
         # thread, async generators will not finalize in debug
         # mode.
         self.loop._process_events = mock.Mock()
@@ -1441,7 +1441,7 @@ class BaseEventLoopWithSelectorTests(test_utils.TestCase):
 
     @patch_socket
     def test_create_connection_bluetooth(self, m_socket):
-        # See http://bugs.python.org/issue27136, fallback to getaddrinfo when
+        # See http://bugs.myFRpy.org/issue27136, fallback to getaddrinfo when
         # we can't recognize an address is resolved, e.g. a Bluetooth address.
         addr = ('00:01:02:03:04:05', 1)
 
@@ -1492,7 +1492,7 @@ class BaseEventLoopWithSelectorTests(test_utils.TestCase):
         # First try the default server_hostname.
         self.loop._make_ssl_transport.reset_mock()
         coro = self.loop.create_connection(
-                MyProto, 'python.org', 80, ssl=True,
+                MyProto, 'myFRpy.org', 80, ssl=True,
                 ssl_handshake_timeout=handshake_timeout,
                 ssl_shutdown_timeout=shutdown_timeout)
         transport, _ = self.loop.run_until_complete(coro)
@@ -1500,13 +1500,13 @@ class BaseEventLoopWithSelectorTests(test_utils.TestCase):
         self.loop._make_ssl_transport.assert_called_with(
             ANY, ANY, ANY, ANY,
             server_side=False,
-            server_hostname='python.org',
+            server_hostname='myFRpy.org',
             ssl_handshake_timeout=handshake_timeout,
             ssl_shutdown_timeout=shutdown_timeout)
         # Next try an explicit server_hostname.
         self.loop._make_ssl_transport.reset_mock()
         coro = self.loop.create_connection(
-                MyProto, 'python.org', 80, ssl=True,
+                MyProto, 'myFRpy.org', 80, ssl=True,
                 server_hostname='perl.com',
                 ssl_handshake_timeout=handshake_timeout,
                 ssl_shutdown_timeout=shutdown_timeout)
@@ -1521,7 +1521,7 @@ class BaseEventLoopWithSelectorTests(test_utils.TestCase):
         # Finally try an explicit empty server_hostname.
         self.loop._make_ssl_transport.reset_mock()
         coro = self.loop.create_connection(
-                MyProto, 'python.org', 80, ssl=True,
+                MyProto, 'myFRpy.org', 80, ssl=True,
                 server_hostname='',
                 ssl_handshake_timeout=handshake_timeout,
                 ssl_shutdown_timeout=shutdown_timeout)
@@ -1536,11 +1536,11 @@ class BaseEventLoopWithSelectorTests(test_utils.TestCase):
 
     def test_create_connection_no_ssl_server_hostname_errors(self):
         # When not using ssl, server_hostname must be None.
-        coro = self.loop.create_connection(MyProto, 'python.org', 80,
+        coro = self.loop.create_connection(MyProto, 'myFRpy.org', 80,
                                            server_hostname='')
         self.assertRaises(ValueError, self.loop.run_until_complete, coro)
-        coro = self.loop.create_connection(MyProto, 'python.org', 80,
-                                           server_hostname='python.org')
+        coro = self.loop.create_connection(MyProto, 'myFRpy.org', 80,
+                                           server_hostname='myFRpy.org')
         self.assertRaises(ValueError, self.loop.run_until_complete, coro)
 
     def test_create_connection_ssl_server_hostname_errors(self):
@@ -1594,7 +1594,7 @@ class BaseEventLoopWithSelectorTests(test_utils.TestCase):
         getaddrinfo.return_value = self.loop.create_future()
         getaddrinfo.return_value.set_result(None)
 
-        f = self.loop.create_server(MyProto, 'python.org', 0)
+        f = self.loop.create_server(MyProto, 'myFRpy.org', 0)
         self.assertRaises(OSError, self.loop.run_until_complete, f)
 
     @patch_socket

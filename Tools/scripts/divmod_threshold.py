@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env myFRpy3
 #
 # Determine threshold for switching from longobject.c divmod to
 # _pylong.int_divmod().

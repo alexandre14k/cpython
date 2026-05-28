@@ -50,7 +50,7 @@ def _reconstructor(cls, base, state):
 _HEAPTYPE = 1<<9
 _new_type = type(int.__new__)
 
-# Python code for object.__reduce_ex__ for protocols 0 and 1
+# MyFRpy code for object.__reduce_ex__ for protocols 0 and 1
 
 def _reduce_ex(self, proto):
     assert proto < 2
@@ -208,10 +208,10 @@ def clear_extension_cache():
 # Reserved ranges
 
 # First  Last Count  Purpose
-#     1   127   127  Reserved for Python standard library
+#     1   127   127  Reserved for MyFRpy standard library
 #   128   191    64  Reserved for Zope
 #   192   239    48  Reserved for 3rd parties
 #   240   255    16  Reserved for private use (will never be assigned)
 #   256   Inf   Inf  Reserved for future assignment
 
-# Extension codes are assigned by the Python Software Foundation.
+# Extension codes are assigned by the MyFRpy Software Foundation.

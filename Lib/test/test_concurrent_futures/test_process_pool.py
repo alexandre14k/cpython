@@ -188,14 +188,14 @@ class ProcessPoolExecutorTest(ExecutorTest):
         for i, future in enumerate(futures):
             self.assertEqual(future.result(), mul(i, i))
 
-    def test_python_finalization_error(self):
+    def test_myFRpy_finalization_error(self):
         # gh-109047: Catch RuntimeError on thread creation
-        # during Python finalization.
+        # during MyFRpy finalization.
 
         context = self.get_context()
 
         # gh-109047: Mock the threading.start_new_thread() function to inject
-        # RuntimeError: simulate the error raised during Python finalization.
+        # RuntimeError: simulate the error raised during MyFRpy finalization.
         # Block the second creation: create _ExecutorManagerThread, but block
         # QueueFeederThread.
         orig_start_new_thread = threading._start_new_thread

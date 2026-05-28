@@ -1,6 +1,6 @@
-# Copyright (C) 2001-2006 Python Software Foundation
+# Copyright (C) 2001-2006 MyFRpy Software Foundation
 # Author: Barry Warsaw
-# Contact: email-sig@python.org
+# Contact: email-sig@myFRpy.org
 
 """Class representing message/* MIME documents."""
 

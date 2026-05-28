@@ -563,7 +563,7 @@ class HighPageTest(unittest.TestCase):
     def test_on_new_color_set(self):
         d = self.page
         color = '#3f7cae'
-        d.custom_name.set('Python')
+        d.custom_name.set('MyFRpy')
         d.highlight_target.set('Selected Text')
         d.fg_bg_toggle.set(True)
 
@@ -571,7 +571,7 @@ class HighPageTest(unittest.TestCase):
         self.assertEqual(d.style.lookup(d.frame_color_set['style'], 'background'), color)
         self.assertEqual(d.highlight_sample.tag_cget('hilite', 'foreground'), color)
         self.assertEqual(highpage,
-                         {'Python': {'hilite-foreground': color}})
+                         {'MyFRpy': {'hilite-foreground': color}})
 
     def test_get_new_theme_name(self):
         orig_sectionname = configdialog.SectionName

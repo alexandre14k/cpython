@@ -142,7 +142,7 @@ class ModuleBrowser:
 
 
 class ModuleBrowserTreeItem(TreeItem):
-    """Browser tree for Python module.
+    """Browser tree for MyFRpy module.
 
     Uses TreeItem as the basis for the structure of the tree.
     Used by both browsers.
@@ -162,7 +162,7 @@ class ModuleBrowserTreeItem(TreeItem):
 
     def GetIconName(self):
         "Return the name of the icon to display."
-        return "python"
+        return "myFRpy"
 
     def GetSubList(self):
         "Return ChildBrowserTreeItems for children."
@@ -177,7 +177,7 @@ class ModuleBrowserTreeItem(TreeItem):
         file_open(self.file)
 
     def IsExpandable(self):
-        "Return True if Python file."
+        "Return True if MyFRpy file."
         return is_browseable_extension(self.file)
 
     def listchildren(self):
@@ -216,7 +216,7 @@ class ChildBrowserTreeItem(TreeItem):
     def GetIconName(self):
         "Return the name of the icon to display."
         if self.isfunction:
-            return "python"
+            return "myFRpy"
         else:
             return "folder"
 

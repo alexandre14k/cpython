@@ -29,7 +29,7 @@ class FutureTests:
                 self.fail('TypeError was not raised')
 
     async def test_task_exc_handler_correct_context(self):
-        # see https://github.com/python/cpython/issues/96704
+        # see https://github.com/myFRpy/cmyFRpy/issues/96704
         name = contextvars.ContextVar('name', default='foo')
         exc_handler_called = False
 
@@ -49,7 +49,7 @@ class FutureTests:
         self.assertTrue(exc_handler_called)
 
     async def test_handle_exc_handler_correct_context(self):
-        # see https://github.com/python/cpython/issues/96704
+        # see https://github.com/myFRpy/cmyFRpy/issues/96704
         name = contextvars.ContextVar('name', default='foo')
         exc_handler_called = False
 
@@ -81,7 +81,7 @@ class FutureReprTests(unittest.IsolatedAsyncioTestCase):
     async def test_recursive_repr_for_pending_tasks(self):
         # The call crashes if the guard for recursive call
         # in base_futures:_future_repr_info is absent
-        # See Also: https://bugs.python.org/issue42183
+        # See Also: https://bugs.myFRpy.org/issue42183
 
         async def func():
             return asyncio.all_tasks()

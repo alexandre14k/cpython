@@ -1,6 +1,6 @@
 import sys
 
-from cpython.__main__ import main, configure_logger
+from cmyFRpy.__main__ import main, configure_logger
 
 
 def parse_args(argv=sys.argv[1:]):
@@ -10,7 +10,7 @@ def parse_args(argv=sys.argv[1:]):
         add_traceback_cli,
         process_args_by_key,
     )
-    from cpython.__main__ import _cli_check
+    from cmyFRpy.__main__ import _cli_check
     parser = argparse.ArgumentParser()
     processors = [
         add_verbosity_cli(parser),

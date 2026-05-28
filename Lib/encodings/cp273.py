@@ -1,4 +1,4 @@
-""" Python Character Mapping Codec cp273 generated from 'python-mappings/CP273.TXT' with gencodec.py.
+""" MyFRpy Character Mapping Codec cp273 generated from 'myFRpy-mappings/CP273.TXT' with gencodec.py.
 
 """#"
 

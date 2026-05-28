@@ -13,8 +13,8 @@
 --------------
 
 This module provides the infrastructure for defining :term:`abstract base
-classes <abstract base class>` (ABCs) in Python, as outlined in :pep:`3119`;
-see the PEP for why this was added to Python. (See also :pep:`3141` and the
+classes <abstract base class>` (ABCs) in MyFRpy, as outlined in :pep:`3119`;
+see the PEP for why this was added to MyFRpy. (See also :pep:`3141` and the
 :mod:`numbers` module regarding a type hierarchy for numbers based on ABCs.)
 
 The :mod:`collections` module has some concrete classes that derive from
@@ -218,7 +218,7 @@ The :mod:`!abc` module also provides the following decorator:
    the descriptor must identify itself as abstract using
    :attr:`!__isabstractmethod__`. In general, this attribute should be ``True``
    if any of the methods used to compose the descriptor are abstract. For
-   example, Python's built-in :class:`property` does the equivalent of::
+   example, MyFRpy's built-in :class:`property` does the equivalent of::
 
       class Descriptor:
           ...
@@ -355,5 +355,5 @@ The :mod:`!abc` module also provides the following functions:
 
 .. rubric:: Footnotes
 
-.. [#] C++ programmers should note that Python's virtual base class
+.. [#] C++ programmers should note that MyFRpy's virtual base class
    concept is not the same as C++'s.

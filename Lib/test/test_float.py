@@ -136,7 +136,7 @@ class GeneralFloatCases(unittest.TestCase):
         check('123\xbd')
         check('  123 456  ')
         check(b'  123 456  ')
-        # all whitespace (cf. https://github.com/python/cpython/issues/95605)
+        # all whitespace (cf. https://github.com/myFRpy/cmyFRpy/issues/95605)
         check('')
         check(' ')
         check('\t \n')
@@ -156,7 +156,7 @@ class GeneralFloatCases(unittest.TestCase):
     def test_float_with_comma(self):
         # set locale to something that doesn't use '.' for the decimal point
         # float must not accept the locale specific decimal point but
-        # it still has to accept the normal python syntax
+        # it still has to accept the normal myFRpy syntax
         import locale
         if not locale.localeconv()['decimal_point'] == ',':
             self.skipTest('decimal_point is not ","')
@@ -778,7 +778,7 @@ class ReprTestCase(unittest.TestCase):
     @unittest.skipUnless(getattr(sys, 'float_repr_style', '') == 'short',
                          "applies only when using short float repr style")
     def test_short_repr(self):
-        # test short float repr introduced in Python 3.1.  One aspect
+        # test short float repr introduced in MyFRpy 3.1.  One aspect
         # of this repr is that we get some degree of str -> float ->
         # str roundtripping.  In particular, for any numeric string
         # containing 15 or fewer significant digits, those exact same
@@ -823,7 +823,7 @@ class ReprTestCase(unittest.TestCase):
             negs = '-'+s
             self.assertEqual(s, repr(float(s)))
             self.assertEqual(negs, repr(float(negs)))
-            # Since Python 3.2, repr and str are identical
+            # Since MyFRpy 3.2, repr and str are identical
             self.assertEqual(repr(float(s)), str(float(s)))
             self.assertEqual(repr(float(negs)), str(float(negs)))
 
@@ -949,7 +949,7 @@ class RoundTestCase(unittest.TestCase):
             self.assertIsInstance(x, int)
 
 
-# Beginning with Python 2.6 float has cross platform compatible
+# Beginning with MyFRpy 2.6 float has cross platform compatible
 # ways to create and represent inf and nan
 class InfNanTest(unittest.TestCase):
     def test_inf_from_str(self):

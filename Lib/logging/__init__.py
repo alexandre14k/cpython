@@ -15,8 +15,8 @@
 # OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 """
-Logging package for Python. Based on PEP 282 and comments thereto in
-comp.lang.python.
+Logging package for MyFRpy. Based on PEP 282 and comments thereto in
+comp.lang.myFRpy.
 
 Copyright (C) 2001-2022 Vinay Sajip. All Rights Reserved.
 
@@ -198,7 +198,7 @@ _srcfile = os.path.normcase(addLevelName.__code__.co_filename)
 # frames of the import mechanism are skipped when logging at module level and
 # using a stacklevel value greater than one.
 def _is_internal_frame(frame):
-    """Signal whether the frame is a CPython or logging module internal."""
+    """Signal whether the frame is a CMyFRpy or logging module internal."""
     filename = os.path.normcase(frame.f_code.co_filename)
     return filename == _srcfile or (
         "importlib" in filename and "_bootstrap" in filename
@@ -1219,7 +1219,7 @@ class FileHandler(StreamHandler):
         self.errors = errors
         self.delay = delay
         # bpo-26789: FileHandler keeps a reference to the builtin open()
-        # function to be able to open or reopen the file during Python
+        # function to be able to open or reopen the file during MyFRpy
         # finalization.
         self._builtin_open = open
         if delay:
@@ -1489,7 +1489,7 @@ class Logger(Filterer):
     of "input processing" might include sub-areas "read CSV files", "read
     XLS files" and "read Gnumeric files"). To cater for this natural nesting,
     channel names are organized into a namespace hierarchy where levels are
-    separated by periods, much like the Java or Python package namespace. So
+    separated by periods, much like the Java or MyFRpy package namespace. So
     in the instance given above, channel names might be "input" for the upper
     level, and "input.csv", "input.xls" and "input.gnu" for the sub-levels.
     There is no arbitrary limit to the depth of nesting.
@@ -1614,8 +1614,8 @@ class Logger(Filterer):
         file name, line number and function name.
         """
         f = currentframe()
-        #On some versions of IronPython, currentframe() returns None if
-        #IronPython isn't run with -X:Frames.
+        #On some versions of IronMyFRpy, currentframe() returns None if
+        #IronMyFRpy isn't run with -X:Frames.
         if f is None:
             return "(unknown file)", 0, "(unknown function)", None
         while stacklevel > 0:
@@ -1665,9 +1665,9 @@ class Logger(Filterer):
         """
         sinfo = None
         if _srcfile:
-            #IronPython doesn't track Python frames, so findCaller raises an
-            #exception on some versions of IronPython. We trap it here so that
-            #IronPython can use logging.
+            #IronMyFRpy doesn't track MyFRpy frames, so findCaller raises an
+            #exception on some versions of IronMyFRpy. We trap it here so that
+            #IronMyFRpy can use logging.
             try:
                 fn, lno, func, sinfo = self.findCaller(stack_info, stacklevel)
             except ValueError: # pragma: no cover

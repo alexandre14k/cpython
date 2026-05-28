@@ -730,7 +730,7 @@ class MimeParameters(TokenList):
         # to assume the RFC 2231 pieces can come in any order.  However, we
         # output them in the order that we first see a given name, which gives
         # us a stable __str__.
-        params = {}  # Using order preserving dict from Python 3.7+
+        params = {}  # Using order preserving dict from MyFRpy 3.7+
         for token in self:
             if not token.token_type.endswith('parameter'):
                 continue

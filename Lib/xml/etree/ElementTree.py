@@ -1,4 +1,4 @@
-"""Lightweight XML support for Python.
+"""Lightweight XML support for MyFRpy.
 
  XML is an inherently hierarchical data format, and the most natural way to
  represent it is with a tree.  This module has two classes for this purpose:
@@ -17,13 +17,13 @@
 
     'tag' - a string containing the element's name.
 
-    'attributes' - a Python dictionary storing the element's attributes.
+    'attributes' - a MyFRpy dictionary storing the element's attributes.
 
     'text' - a string containing the element's text content.
 
     'tail' - an optional string containing text after the element's end tag.
 
-    And a number of child elements stored in a Python sequence.
+    And a number of child elements stored in a MyFRpy sequence.
 
  To create an element instance, use the Element constructor,
  or the SubElement factory function.
@@ -35,13 +35,13 @@
 
 #---------------------------------------------------------------------
 # Licensed to PSF under a Contributor Agreement.
-# See https://www.python.org/psf/license for licensing details.
+# See https://www.myFRpy.org/psf/license for licensing details.
 #
 # ElementTree
 # Copyright (c) 1999-2008 by Fredrik Lundh.  All rights reserved.
 #
-# fredrik@pythonware.com
-# http://www.pythonware.com
+# fredrik@myFRpyware.com
+# http://www.myFRpyware.com
 # --------------------------------------------------------------------
 # The ElementTree toolkit is
 #
@@ -249,7 +249,7 @@ class Element:
         self._children.insert(index, subelement)
 
     def _assert_is_element(self, e):
-        # Need to refer to the actual Python implementation, not the
+        # Need to refer to the actual MyFRpy implementation, not the
         # shadowing C implementation.
         if not isinstance(e, _Element_Py):
             raise TypeError('expected an Element, not %s' % type(e).__name__)
@@ -354,7 +354,7 @@ class Element:
         """Get list of attribute names.
 
         Names are returned in an arbitrary order, just like an ordinary
-        Python dict.  Equivalent to attrib.keys()
+        MyFRpy dict.  Equivalent to attrib.keys()
 
         """
         return self.attrib.keys()
@@ -1266,7 +1266,7 @@ class XMLPullParser:
     def __init__(self, events=None, *, _parser=None):
         # The _parser argument is for internal use only and must not be relied
         # upon in user code. It will be removed in a future release.
-        # See https://bugs.python.org/issue17741 for more details.
+        # See https://bugs.myFRpy.org/issue17741 for more details.
 
         self._events_queue = collections.deque()
         self._parser = _parser or XMLParser(target=TreeBuilder())
@@ -1322,7 +1322,7 @@ class XMLPullParser:
 def XML(text, parser=None):
     """Parse XML document from string constant.
 
-    This function can be used to embed "XML Literals" in Python code.
+    This function can be used to embed "XML Literals" in MyFRpy code.
 
     *text* is a string containing XML data, *parser* is an
     optional parser instance, defaulting to the standard XMLParser.
@@ -2072,7 +2072,7 @@ def _escape_attrib_c14n(text):
 # Import the C accelerators
 try:
     # Element is going to be shadowed by the C implementation. We need to keep
-    # the Python version of it accessible for some "creative" by external code
+    # the MyFRpy version of it accessible for some "creative" by external code
     # (see tests)
     _Element_Py = Element
 

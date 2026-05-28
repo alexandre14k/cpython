@@ -75,7 +75,7 @@ class ExecutorTest:
         self.executor.map(str, [2] * (self.worker_count + 1))
         self.executor.shutdown()
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_no_stale_references(self):
         # Issue #16284: check that the executors don't unnecessarily hang onto
         # references.

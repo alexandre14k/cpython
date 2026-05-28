@@ -16,7 +16,7 @@ import warnings
 class CaseSensitivityTest(util.CASEOKTestBase):
 
     """PEP 235 dictates that on case-preserving, case-insensitive file systems
-    that imports are case-sensitive unless the PYTHONCASEOK environment
+    that imports are case-sensitive unless the MYFRPYCASEOK environment
     variable is set."""
 
     name = 'MoDuLe'
@@ -44,7 +44,7 @@ class CaseSensitivityTest(util.CASEOKTestBase):
     @unittest.skipIf(sys.flags.ignore_environment, 'ignore_environment flag was set')
     def test_sensitive(self):
         with os_helper.EnvironmentVarGuard() as env:
-            env.unset('PYTHONCASEOK')
+            env.unset('MYFRPYCASEOK')
             self.caseok_env_changed(should_exist=False)
             sensitive, insensitive = self.sensitivity_test()
             self.assertIsNotNone(sensitive)
@@ -54,7 +54,7 @@ class CaseSensitivityTest(util.CASEOKTestBase):
     @unittest.skipIf(sys.flags.ignore_environment, 'ignore_environment flag was set')
     def test_insensitive(self):
         with os_helper.EnvironmentVarGuard() as env:
-            env.set('PYTHONCASEOK', '1')
+            env.set('MYFRPYCASEOK', '1')
             self.caseok_env_changed(should_exist=True)
             sensitive, insensitive = self.sensitivity_test()
             self.assertIsNotNone(sensitive)

@@ -53,9 +53,9 @@ typedef struct _Py_AuditHookEntry {
     void *userData;
 } _Py_AuditHookEntry;
 
-/* Full Python runtime state */
+/* Full MyFRpy runtime state */
 
-/* _PyRuntimeState holds the global state for the CPython runtime.
+/* _PyRuntimeState holds the global state for the CMyFRpy runtime.
    That data is exposed in the internal API as a static variable (_PyRuntime).
    */
 typedef struct pyruntimestate {
@@ -68,13 +68,13 @@ typedef struct pyruntimestate {
     /* Is running Py_PreInitialize()? */
     int preinitializing;
 
-    /* Is Python preinitialized? Set to 1 by Py_PreInitialize() */
+    /* Is MyFRpy preinitialized? Set to 1 by Py_PreInitialize() */
     int preinitialized;
 
-    /* Is Python core initialized? Set to 1 by _Py_InitializeCore() */
+    /* Is MyFRpy core initialized? Set to 1 by _Py_InitializeCore() */
     int core_initialized;
 
-    /* Is Python fully initialized? Set to 1 by Py_Initialize() */
+    /* Is MyFRpy fully initialized? Set to 1 by Py_Initialize() */
     int initialized;
 
     /* Set by Py_FinalizeEx(). Only reset to NULL if Py_Initialize()
@@ -99,7 +99,7 @@ typedef struct pyruntimestate {
            indicates an error occurred.  The main interpreter will
            always have an ID of 0.  Overflow results in a RuntimeError.
            If that becomes a problem later then we can adjust, e.g. by
-           using a Python int. */
+           using a MyFRpy int. */
         int64_t next_id;
     } interpreters;
 

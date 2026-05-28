@@ -8,7 +8,7 @@
 #  define Py_BUILD_CORE_MODULE 1
 #endif
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_ceval.h"         // _Py_EnterRecursiveCall()
 #include "pycore_moduleobject.h"  // _PyModule_GetState()
 #include "pycore_runtime.h"       // _Py_ID()
@@ -18,7 +18,7 @@
 #include <stdlib.h>               // strtol()
 
 PyDoc_STRVAR(pickle_module_doc,
-"Optimized C implementation for the Python pickle module.");
+"Optimized C implementation for the MyFRpy pickle module.");
 
 /*[clinic input]
 module _pickle
@@ -30,7 +30,7 @@ class _pickle.UnpicklerMemoProxy "UnpicklerMemoProxyObject *" ""
 /*[clinic end generated code: output=da39a3ee5e6b4b0d input=b6d7191ab6466cda]*/
 
 /* Bump HIGHEST_PROTOCOL when new opcodes are added to the pickle protocol.
-   Bump DEFAULT_PROTOCOL only when the oldest still supported version of Python
+   Bump DEFAULT_PROTOCOL only when the oldest still supported version of MyFRpy
    already includes it. */
 enum {
     HIGHEST_PROTOCOL = 5,
@@ -109,7 +109,7 @@ enum opcode {
     LONG1       = '\x8a',
     LONG4       = '\x8b',
 
-    /* Protocol 3 (Python 3.x) */
+    /* Protocol 3 (MyFRpy 3.x) */
     BINBYTES       = 'B',
     SHORT_BINBYTES = 'C',
 
@@ -174,7 +174,7 @@ typedef struct {
     /* copyreg._inverted_registry, {code: (module_name, function_name)} */
     PyObject *inverted_registry;
 
-    /* Import mappings for compatibility with Python 2.x */
+    /* Import mappings for compatibility with MyFRpy 2.x */
 
     /* _compat_pickle.NAME_MAPPING,
        {(oldmodule, oldname): (newmodule, newname)} */
@@ -413,7 +413,7 @@ init_method_ref(PyObject *self, PyObject *name,
     }
 
     if (PyMethod_Check(func) && PyMethod_GET_SELF(func) == self) {
-        /* Deconstruct a bound Python method */
+        /* Deconstruct a bound MyFRpy method */
         *method_self = self; /* borrowed */
         func2 = PyMethod_GET_FUNCTION(func);
         Py_XSETREF(*method_func, Py_NewRef(func2));
@@ -692,7 +692,7 @@ typedef struct PicklerObject {
                                    objects. */
     int fast_nesting;
     int fix_imports;            /* Indicate whether Pickler should fix
-                                   the name of globals for Python 2.x. */
+                                   the name of globals for MyFRpy 2.x. */
     PyObject *fast_memo;
     PyObject *buffer_callback;  /* Callback for out-of-band buffers, or NULL */
 } PicklerObject;
@@ -725,7 +725,7 @@ typedef struct UnpicklerObject {
     PyObject *buffers;          /* iterable of out-of-band buffers, or NULL */
 
     char *encoding;             /* Name of the encoding to be used for
-                                   decoding strings pickled using Python
+                                   decoding strings pickled using MyFRpy
                                    2.x. The default value is "ASCII" */
     char *errors;               /* Name of errors handling scheme to used when
                                    decoding strings. The default value is
@@ -736,7 +736,7 @@ typedef struct UnpicklerObject {
     Py_ssize_t marks_size;      /* Current allocated size of the mark stack. */
     int proto;                  /* Protocol of the pickle loaded. */
     int fix_imports;            /* Indicate whether Unpickler should fix
-                                   the name of globals pickled by Python 2.x. */
+                                   the name of globals pickled by MyFRpy 2.x. */
 } UnpicklerObject;
 
 typedef struct {
@@ -756,7 +756,7 @@ static int save_reduce(PickleState *, PicklerObject *, PyObject *, PyObject *);
 #include "clinic/_pickle.c.h"
 
 /*************************************************************************
- A custom hashtable mapping void* to Python ints. This is used by the pickler
+ A custom hashtable mapping void* to MyFRpy ints. This is used by the pickler
  for memoization. Using a custom hashtable rather than PyDict allows us to skip
  a bunch of unnecessary object creation. This makes a huge performance
  difference. */
@@ -2260,7 +2260,7 @@ save_long(PicklerObject *self, PyObject *obj)
 
         /* proto < 2: write the repr and newline.  This is quadratic-time (in
            the number of digits), in both directions.  We add a trailing 'L'
-           to the repr, for compatibility with Python 2.x. */
+           to the repr, for compatibility with MyFRpy 2.x. */
 
         repr = PyObject_Repr(obj);
         if (repr == NULL)
@@ -2456,12 +2456,12 @@ save_bytes(PickleState *st, PicklerObject *self, PyObject *obj)
            objects. Therefore, we need to fake the copy protocol (i.e.,
            the __reduce__ method) to permit bytes object unpickling.
 
-           Here we use a hack to be compatible with Python 2. Since in Python
+           Here we use a hack to be compatible with MyFRpy 2. Since in MyFRpy
            2 'bytes' is just an alias for 'str' (which has different
            parameters than the actual bytes object), we use codecs.encode
            to create the appropriate 'str' object when unpickled using
-           Python 2 *and* the appropriate 'bytes' object when unpickled
-           using Python 3. Again this is a hack and we don't need to do this
+           MyFRpy 2 *and* the appropriate 'bytes' object when unpickled
+           using MyFRpy 3. Again this is a hack and we don't need to do this
            with newer protocols. */
         PyObject *reduce_value;
         int status;
@@ -3716,7 +3716,7 @@ save_global(PickleState *st, PicklerObject *self, PyObject *obj,
          * so generate an EXT opcode.
          */
         PyObject *extension_key;
-        PyObject *code_obj;      /* extension code as Python object */
+        PyObject *code_obj;      /* extension code as MyFRpy object */
         long code;               /* extension code as C value */
         char pdata[5];
         Py_ssize_t n;
@@ -3824,11 +3824,11 @@ save_global(PickleState *st, PicklerObject *self, PyObject *obj,
                 }
             }
 
-            /* Since Python 3.0 now supports non-ASCII identifiers, we encode
+            /* Since MyFRpy 3.0 now supports non-ASCII identifiers, we encode
                both the module name and the global name using UTF-8. We do so
                only when we are using the pickle protocol newer than version
                3. This is to ensure compatibility with older Unpickler running
-               on Python 2.x. */
+               on MyFRpy 2.x. */
             if (self->proto == 3) {
                 unicode_encoder = PyUnicode_AsUTF8String;
             }
@@ -4737,12 +4737,12 @@ This takes a binary file for writing a pickle data stream.
 
 The optional *protocol* argument tells the pickler to use the given
 protocol; supported protocols are 0, 1, 2, 3, 4 and 5.  The default
-protocol is 4. It was introduced in Python 3.4, and is incompatible
+protocol is 4. It was introduced in MyFRpy 3.4, and is incompatible
 with previous versions.
 
 Specifying a negative protocol version selects the highest protocol
 version supported.  The higher the protocol used, the more recent the
-version of Python needed to read the pickle produced.
+version of MyFRpy needed to read the pickle produced.
 
 The *file* argument must have a write() method that accepts a single
 bytes argument. It can thus be a file object opened for binary
@@ -4750,8 +4750,8 @@ writing, an io.BytesIO instance, or any other custom object that meets
 this interface.
 
 If *fix_imports* is True and protocol is less than 3, pickle will try
-to map the new Python 3 names to the old module names used in Python
-2, so that the pickle data stream is readable with Python 2.
+to map the new MyFRpy 3 names to the old module names used in MyFRpy
+2, so that the pickle data stream is readable with MyFRpy 2.
 
 If *buffer_callback* is None (the default), buffer views are
 serialized into *file* as part of the pickle stream.
@@ -5127,7 +5127,7 @@ static PyType_Spec pickler_type_spec = {
 
 /* Temporary helper for calling self.find_class().
 
-   XXX: It would be nice to able to avoid Python function call overhead, by
+   XXX: It would be nice to able to avoid MyFRpy function call overhead, by
    using directly the C version of find_class(), when find_class() is not
    overridden by a subclass. Although, this could become rather hackish. A
    simpler optimization would be to call the C function when self is not a
@@ -5181,7 +5181,7 @@ load_int(PickleState *state, UnpicklerObject *self)
 
     if (errno || (*endptr != '\n' && *endptr != '\0')) {
         /* Hm, maybe we've got something long.  Let's try reading
-         * it as a Python int object. */
+         * it as a MyFRpy int object. */
         errno = 0;
         /* XXX: Same thing about the base here. */
         value = PyLong_FromString(s, NULL, 0);
@@ -5330,7 +5330,7 @@ load_long(PickleState *state, UnpicklerObject *self)
 
     /* s[len-2] will usually be 'L' (and s[len-1] is '\n'); we need to remove
        the 'L' before calling PyLong_FromString.  In order to maintain
-       compatibility with Python 3.0.0, we don't actually *require*
+       compatibility with MyFRpy 3.0.0, we don't actually *require*
        the 'L' to be present. */
     if (s[len-2] == 'L')
         s[len-2] = '\0';
@@ -5460,7 +5460,7 @@ load_string(PickleState *st, UnpicklerObject *self)
     if (bytes == NULL)
         return -1;
 
-    /* Leave the Python 2.x strings as bytes if the *encoding* given to the
+    /* Leave the MyFRpy 2.x strings as bytes if the *encoding* given to the
        Unpickler was 'bytes'. Otherwise, convert them to unicode. */
     if (strcmp(self->encoding, "bytes") == 0) {
         obj = bytes;
@@ -5498,7 +5498,7 @@ load_counted_binstring(PickleState *st, UnpicklerObject *self, int nbytes)
     if (_Unpickler_Read(self, st, &s, size) < 0)
         return -1;
 
-    /* Convert Python 2.x strings to bytes if the *encoding* given to the
+    /* Convert MyFRpy 2.x strings to bytes if the *encoding* given to the
        Unpickler was 'bytes'. Otherwise, convert them to unicode. */
     if (strcmp(self->encoding, "bytes") == 0) {
         obj = PyBytes_FromStringAndSize(s, size);
@@ -5873,8 +5873,8 @@ load_inst(PickleState *state, UnpicklerObject *self)
         return bad_readline(state);
 
     /* Here it is safe to use PyUnicode_DecodeASCII(), even though non-ASCII
-       identifiers are permitted in Python 3.0, since the INST opcode is only
-       supported by older protocols on Python 2.x. */
+       identifiers are permitted in MyFRpy 3.0, since the INST opcode is only
+       supported by older protocols on MyFRpy 2.x. */
     module_name = PyUnicode_DecodeASCII(s, len - 1, "strict");
     if (module_name == NULL)
         return -1;
@@ -6268,7 +6268,7 @@ load_extension(PickleState *st, UnpicklerObject *self, int nbytes)
 {
     char *codebytes;            /* the nbytes bytes after the opcode */
     long code;                  /* calc_binint returns long */
-    PyObject *py_code;          /* code as a Python int */
+    PyObject *py_code;          /* code as a MyFRpy int */
     PyObject *obj;              /* the object to push */
     PyObject *pair;             /* (module_name, class_name) */
     PyObject *module_name, *class_name;
@@ -6309,7 +6309,7 @@ load_extension(PickleState *st, UnpicklerObject *self, int nbytes)
         }
         return -1;
     }
-    /* Since the extension registry is manipulable via Python code,
+    /* Since the extension registry is manipulable via MyFRpy code,
      * confirm that pair is really a 2-tuple of strings.
      */
     if (!PyTuple_Check(pair) || PyTuple_Size(pair) != 2) {
@@ -7040,8 +7040,8 @@ _pickle_Unpickler_find_class_impl(UnpicklerObject *self, PyTypeObject *cls,
         return NULL;
     }
 
-    /* Try to map the old names used in Python 2.x to the new ones used in
-       Python 3.x.  We do this only with old pickle protocols and when the
+    /* Try to map the old names used in MyFRpy 2.x to the new ones used in
+       MyFRpy 3.x.  We do this only with old pickle protocols and when the
        user has not disabled the feature. */
     if (self->proto < 3 && self->fix_imports) {
         PyObject *key;
@@ -7224,10 +7224,10 @@ other custom object that meets this interface.
 
 Optional keyword arguments are *fix_imports*, *encoding* and *errors*,
 which are used to control compatibility support for pickle stream
-generated by Python 2.  If *fix_imports* is True, pickle will try to
-map the old Python 2 names to the new names used in Python 3.  The
+generated by MyFRpy 2.  If *fix_imports* is True, pickle will try to
+map the old MyFRpy 2 names to the new names used in MyFRpy 3.  The
 *encoding* and *errors* tell pickle how to decode 8-bit string
-instances pickled by Python 2; these default to 'ASCII' and 'strict',
+instances pickled by MyFRpy 2; these default to 'ASCII' and 'strict',
 respectively.  The *encoding* can be 'bytes' to read these 8-bit
 string instances as bytes objects.
 [clinic start generated code]*/
@@ -7605,12 +7605,12 @@ be more efficient.
 
 The optional *protocol* argument tells the pickler to use the given
 protocol; supported protocols are 0, 1, 2, 3, 4 and 5.  The default
-protocol is 4. It was introduced in Python 3.4, and is incompatible
+protocol is 4. It was introduced in MyFRpy 3.4, and is incompatible
 with previous versions.
 
 Specifying a negative protocol version selects the highest protocol
 version supported.  The higher the protocol used, the more recent the
-version of Python needed to read the pickle produced.
+version of MyFRpy needed to read the pickle produced.
 
 The *file* argument must have a write() method that accepts a single
 bytes argument.  It can thus be a file object opened for binary
@@ -7618,8 +7618,8 @@ writing, an io.BytesIO instance, or any other custom object that meets
 this interface.
 
 If *fix_imports* is True and protocol is less than 3, pickle will try
-to map the new Python 3 names to the old module names used in Python
-2, so that the pickle data stream is readable with Python 2.
+to map the new MyFRpy 3 names to the old module names used in MyFRpy
+2, so that the pickle data stream is readable with MyFRpy 2.
 
 If *buffer_callback* is None (the default), buffer views are serialized
 into *file* as part of the pickle stream.  It is an error if
@@ -7676,16 +7676,16 @@ Return the pickled representation of the object as a bytes object.
 
 The optional *protocol* argument tells the pickler to use the given
 protocol; supported protocols are 0, 1, 2, 3, 4 and 5.  The default
-protocol is 4. It was introduced in Python 3.4, and is incompatible
+protocol is 4. It was introduced in MyFRpy 3.4, and is incompatible
 with previous versions.
 
 Specifying a negative protocol version selects the highest protocol
 version supported.  The higher the protocol used, the more recent the
-version of Python needed to read the pickle produced.
+version of MyFRpy needed to read the pickle produced.
 
 If *fix_imports* is True and *protocol* is less than 3, pickle will
-try to map the new Python 3 names to the old module names used in
-Python 2, so that the pickle data stream is readable with Python 2.
+try to map the new MyFRpy 3 names to the old module names used in
+MyFRpy 2, so that the pickle data stream is readable with MyFRpy 2.
 
 If *buffer_callback* is None (the default), buffer views are serialized
 into *file* as part of the pickle stream.  It is an error if
@@ -7751,10 +7751,10 @@ other custom object that meets this interface.
 
 Optional keyword arguments are *fix_imports*, *encoding* and *errors*,
 which are used to control compatibility support for pickle stream
-generated by Python 2.  If *fix_imports* is True, pickle will try to
-map the old Python 2 names to the new names used in Python 3.  The
+generated by MyFRpy 2.  If *fix_imports* is True, pickle will try to
+map the old MyFRpy 2 names to the new names used in MyFRpy 3.  The
 *encoding* and *errors* tell pickle how to decode 8-bit string
-instances pickled by Python 2; these default to 'ASCII' and 'strict',
+instances pickled by MyFRpy 2; these default to 'ASCII' and 'strict',
 respectively.  The *encoding* can be 'bytes' to read these 8-bit
 string instances as bytes objects.
 [clinic start generated code]*/
@@ -7812,10 +7812,10 @@ representation are ignored.
 
 Optional keyword arguments are *fix_imports*, *encoding* and *errors*,
 which are used to control compatibility support for pickle stream
-generated by Python 2.  If *fix_imports* is True, pickle will try to
-map the old Python 2 names to the new names used in Python 3.  The
+generated by MyFRpy 2.  If *fix_imports* is True, pickle will try to
+map the old MyFRpy 2 names to the new names used in MyFRpy 3.  The
 *encoding* and *errors* tell pickle how to decode 8-bit string
-instances pickled by Python 2; these default to 'ASCII' and 'strict',
+instances pickled by MyFRpy 2; these default to 'ASCII' and 'strict',
 respectively.  The *encoding* can be 'bytes' to read these 8-bit
 string instances as bytes objects.
 [clinic start generated code]*/

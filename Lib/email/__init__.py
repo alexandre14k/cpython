@@ -1,6 +1,6 @@
-# Copyright (C) 2001-2007 Python Software Foundation
+# Copyright (C) 2001-2007 MyFRpy Software Foundation
 # Author: Barry Warsaw
-# Contact: email-sig@python.org
+# Contact: email-sig@myFRpy.org
 
 """A package for parsing, handling, and generating email messages."""
 

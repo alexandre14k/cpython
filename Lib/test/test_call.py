@@ -1,5 +1,5 @@
 import unittest
-from test.support import cpython_only, requires_limited_api, skip_on_s390x, is_wasi, Py_DEBUG
+from test.support import cmyFRpy_only, requires_limited_api, skip_on_s390x, is_wasi, Py_DEBUG
 try:
     import _testcapi
 except ImportError:
@@ -49,7 +49,7 @@ class FunctionCalls(unittest.TestCase):
         # BOOM!
 
 
-@cpython_only
+@cmyFRpy_only
 class CFunctionCallsErrorMessages(unittest.TestCase):
 
     def test_varargs0(self):
@@ -237,7 +237,7 @@ class CFunctionCallsErrorMessages(unittest.TestCase):
 
 
 class TestCallingConventions(unittest.TestCase):
-    """Test calling using various C calling conventions (METH_*) from Python
+    """Test calling using various C calling conventions (METH_*) from MyFRpy
 
     Subclasses test several kinds of functions (module-level, methods,
     class methods static methods) using these attributes:
@@ -413,7 +413,7 @@ def pyfunc_noarg():
     return "noarg"
 
 
-class PythonClass:
+class MyFRpyClass:
     def method(self, arg1, arg2):
         return [arg1, arg2]
 
@@ -429,7 +429,7 @@ class PythonClass:
         return "staticmethod"
 
 
-PYTHON_INSTANCE = PythonClass()
+MYFRPY_INSTANCE = MyFRpyClass()
 
 NULL_OR_EMPTY = object()
 
@@ -441,21 +441,21 @@ class FastCallTests(unittest.TestCase):
     CALLS_POSARGS = [
         # (func, args: tuple, result)
 
-        # Python function with 2 arguments
+        # MyFRpy function with 2 arguments
         (pyfunc, (1, 2), [1, 2]),
 
-        # Python function without argument
+        # MyFRpy function without argument
         (pyfunc_noarg, (), "noarg"),
 
-        # Python class methods
-        (PythonClass.class_method, (), "classmethod"),
-        (PythonClass.static_method, (), "staticmethod"),
+        # MyFRpy class methods
+        (MyFRpyClass.class_method, (), "classmethod"),
+        (MyFRpyClass.static_method, (), "staticmethod"),
 
-        # Python instance methods
-        (PYTHON_INSTANCE.method, (1, 2), [1, 2]),
-        (PYTHON_INSTANCE.method_noarg, (), "noarg"),
-        (PYTHON_INSTANCE.class_method, (), "classmethod"),
-        (PYTHON_INSTANCE.static_method, (), "staticmethod"),
+        # MyFRpy instance methods
+        (MYFRPY_INSTANCE.method, (1, 2), [1, 2]),
+        (MYFRPY_INSTANCE.method_noarg, (), "noarg"),
+        (MYFRPY_INSTANCE.class_method, (), "classmethod"),
+        (MYFRPY_INSTANCE.static_method, (), "staticmethod"),
 
         # C callables are added later
     ]
@@ -464,13 +464,13 @@ class FastCallTests(unittest.TestCase):
     CALLS_KWARGS = [
         # (func, args: tuple, kwargs: dict, result)
 
-        # Python function with 2 arguments
+        # MyFRpy function with 2 arguments
         (pyfunc, (1,), {'arg2': 2}, [1, 2]),
         (pyfunc, (), {'arg1': 1, 'arg2': 2}, [1, 2]),
 
-        # Python instance methods
-        (PYTHON_INSTANCE.method, (1,), {'arg2': 2}, [1, 2]),
-        (PYTHON_INSTANCE.method, (), {'arg1': 1, 'arg2': 2}, [1, 2]),
+        # MyFRpy instance methods
+        (MYFRPY_INSTANCE.method, (1,), {'arg2': 2}, [1, 2]),
+        (MYFRPY_INSTANCE.method, (), {'arg1': 1, 'arg2': 2}, [1, 2]),
 
         # C callables are added later
     ]
@@ -894,7 +894,7 @@ class A:
     def positional_only(arg, /):
         pass
 
-@cpython_only
+@cmyFRpy_only
 class TestErrorMessagesUseQualifiedName(unittest.TestCase):
 
     @contextlib.contextmanager
@@ -928,7 +928,7 @@ class TestErrorMessagesUseQualifiedName(unittest.TestCase):
         with self.check_raises_type_error(msg):
             A().method_two_args("x", "y", x="oops")
 
-@cpython_only
+@cmyFRpy_only
 class TestRecursion(unittest.TestCase):
 
     @skip_on_s390x

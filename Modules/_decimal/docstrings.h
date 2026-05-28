@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2001-2012 Python Software Foundation. All Rights Reserved.
+ * Copyright (c) 2001-2012 MyFRpy Software Foundation. All Rights Reserved.
  * Modified and extended by Stefan Krah.
  */
 
@@ -742,7 +742,7 @@ Compare the values numerically with their sign ignored.\n\
 
 PyDoc_STRVAR(doc_ctx_minus,
 "minus($self, x, /)\n--\n\n\
-Minus corresponds to the unary prefix minus operator in Python, but applies\n\
+Minus corresponds to the unary prefix minus operator in MyFRpy, but applies\n\
 the context to the result.\n\
 \n");
 
@@ -778,7 +778,7 @@ Return an indication of the class of x.\n\
 
 PyDoc_STRVAR(doc_ctx_plus,
 "plus($self, x, /)\n--\n\n\
-Plus corresponds to the unary prefix plus operator in Python, but applies\n\
+Plus corresponds to the unary prefix plus operator in MyFRpy, but applies\n\
 the context to the result.\n\
 \n");
 
@@ -786,7 +786,7 @@ PyDoc_STRVAR(doc_ctx_power,
 "power($self, /, a, b, modulo=None)\n--\n\n\
 Compute a**b. If 'a' is negative, then 'b' must be integral. The result\n\
 will be inexact unless 'a' is integral and the result is finite and can\n\
-be expressed exactly in 'precision' digits.  In the Python version the\n\
+be expressed exactly in 'precision' digits.  In the MyFRpy version the\n\
 result is always correctly rounded, in the C version the result is almost\n\
 always correctly rounded.\n\
 \n\

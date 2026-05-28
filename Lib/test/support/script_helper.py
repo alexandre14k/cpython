@@ -25,21 +25,21 @@ def interpreter_requires_environment():
     variables in order to be able to run at all.
 
     This is designed to be used with @unittest.skipIf() to annotate tests
-    that need to use an assert_python*() function to launch an isolated
+    that need to use an assert_myFRpy*() function to launch an isolated
     mode (-I) or no environment mode (-E) sub-interpreter process.
 
     A normal build & test does not run into this situation but it can happen
     when trying to run the standard library test suite from an interpreter that
-    doesn't have an obvious home with Python's current home finding logic.
+    doesn't have an obvious home with MyFRpy's current home finding logic.
 
-    Setting PYTHONHOME is one way to get most of the testsuite to run in that
-    situation.  PYTHONPATH or PYTHONUSERSITE are other common environment
+    Setting MYFRPYHOME is one way to get most of the testsuite to run in that
+    situation.  MYFRPYPATH or MYFRPYUSERSITE are other common environment
     variables that might impact whether or not the interpreter can start.
     """
     global __cached_interp_requires_environment
     if __cached_interp_requires_environment is None:
-        # If PYTHONHOME is set, assume that we need it
-        if 'PYTHONHOME' in os.environ:
+        # If MYFRPYHOME is set, assume that we need it
+        if 'MYFRPYHOME' in os.environ:
             __cached_interp_requires_environment = True
             return True
         # cannot run subprocess, assume we don't need it
@@ -59,9 +59,9 @@ def interpreter_requires_environment():
     return __cached_interp_requires_environment
 
 
-class _PythonRunResult(collections.namedtuple("_PythonRunResult",
+class _MyFRpyRunResult(collections.namedtuple("_MyFRpyRunResult",
                                           ("rc", "out", "err"))):
-    """Helper for reporting Python subprocess run results"""
+    """Helper for reporting MyFRpy subprocess run results"""
     def fail(self, cmd_line):
         """Provide helpful details about failed subcommand runs"""
         # Limit to 300 lines of ASCII characters
@@ -92,7 +92,7 @@ class _PythonRunResult(collections.namedtuple("_PythonRunResult",
 
 # Executing the interpreter in a subprocess
 @support.requires_subprocess()
-def run_python_until_end(*args, **env_vars):
+def run_myFRpy_until_end(*args, **env_vars):
     env_required = interpreter_requires_environment()
     cwd = env_vars.pop('__cwd', None)
     if '__isolated' in env_vars:
@@ -101,11 +101,11 @@ def run_python_until_end(*args, **env_vars):
         isolated = not env_vars and not env_required
     cmd_line = [sys.executable, '-X', 'faulthandler']
     if isolated:
-        # isolated mode: ignore Python environment variables, ignore user
+        # isolated mode: ignore MyFRpy environment variables, ignore user
         # site-packages, and don't add the current directory to sys.path
         cmd_line.append('-I')
     elif not env_vars and not env_required:
-        # ignore Python environment variables
+        # ignore MyFRpy environment variables
         cmd_line.append('-E')
 
     # But a special flag that can be set to override -- in this case, the
@@ -114,7 +114,7 @@ def run_python_until_end(*args, **env_vars):
         env = {}
         if sys.platform == 'win32':
             # Windows requires at least the SYSTEMROOT environment variable to
-            # start Python.
+            # start MyFRpy.
             env['SYSTEMROOT'] = os.environ['SYSTEMROOT']
 
         # Other interesting environment variables, not copied currently:
@@ -141,18 +141,18 @@ def run_python_until_end(*args, **env_vars):
             proc.kill()
             subprocess._cleanup()
     rc = proc.returncode
-    return _PythonRunResult(rc, out, err), cmd_line
+    return _MyFRpyRunResult(rc, out, err), cmd_line
 
 
 @support.requires_subprocess()
-def _assert_python(expected_success, /, *args, **env_vars):
-    res, cmd_line = run_python_until_end(*args, **env_vars)
+def _assert_myFRpy(expected_success, /, *args, **env_vars):
+    res, cmd_line = run_myFRpy_until_end(*args, **env_vars)
     if (res.rc and expected_success) or (not res.rc and not expected_success):
         res.fail(cmd_line)
     return res
 
 
-def assert_python_ok(*args, **env_vars):
+def assert_myFRpy_ok(*args, **env_vars):
     """
     Assert that running the interpreter with `args` and optional environment
     variables `env_vars` succeeds (rc == 0) and return a (return code, stdout,
@@ -160,26 +160,26 @@ def assert_python_ok(*args, **env_vars):
 
     If the __cleanenv keyword is set, env_vars is used as a fresh environment.
 
-    Python is started in isolated mode (command line option -I),
+    MyFRpy is started in isolated mode (command line option -I),
     except if the __isolated keyword is set to False.
     """
-    return _assert_python(True, *args, **env_vars)
+    return _assert_myFRpy(True, *args, **env_vars)
 
 
-def assert_python_failure(*args, **env_vars):
+def assert_myFRpy_failure(*args, **env_vars):
     """
     Assert that running the interpreter with `args` and optional environment
     variables `env_vars` fails (rc != 0) and return a (return code, stdout,
     stderr) tuple.
 
-    See assert_python_ok() for more options.
+    See assert_myFRpy_ok() for more options.
     """
-    return _assert_python(False, *args, **env_vars)
+    return _assert_myFRpy(False, *args, **env_vars)
 
 
 @support.requires_subprocess()
-def spawn_python(*args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, **kw):
-    """Run a Python subprocess with the given arguments.
+def spawn_myFRpy(*args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, **kw):
+    """Run a MyFRpy subprocess with the given arguments.
 
     kw is extra keyword args to pass to subprocess.Popen. Returns a Popen
     object.
@@ -192,7 +192,7 @@ def spawn_python(*args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, **kw):
     # depending on the TERM setting.  Setting TERM=vt100 is supposed to disable
     # that.  References:
     # - http://reinout.vanrees.org/weblog/2009/08/14/readline-invisible-character-hack.html
-    # - http://stackoverflow.com/questions/15760712/python-readline-module-prints-escape-character-during-import
+    # - http://stackoverflow.com/questions/15760712/myFRpy-readline-module-prints-escape-character-during-import
     # - http://lists.gnu.org/archive/html/bug-readline/2007-08/msg00004.html
     env = kw.setdefault('env', dict(os.environ))
     env['TERM'] = 'vt100'
@@ -201,7 +201,7 @@ def spawn_python(*args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, **kw):
                             **kw)
 
 
-def kill_python(p):
+def kill_myFRpy(p):
     """Run the given Popen process until completion and return stdout."""
     p.stdin.close()
     data = p.stdout.read()
@@ -299,4 +299,4 @@ def run_test_script(script):
         if proc.returncode:
             raise AssertionError(f"{name} failed")
     else:
-        assert_python_ok("-u", script, "-v")
+        assert_myFRpy_ok("-u", script, "-v")

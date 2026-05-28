@@ -4,7 +4,7 @@
 
     You can choose between two licenses when using this package:
     1) GNU GPLv2
-    2) PSF license for Python 2.2
+    2) PSF license for MyFRpy 2.2
 
     The robots.txt Exclusion Protocol is implemented as specified in
     http://www.robotstxt.org/norobots-rfc.txt

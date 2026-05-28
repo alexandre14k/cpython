@@ -5,7 +5,7 @@
 .. module:: unittest.mock
    :synopsis: Mock object library.
 
-.. moduleauthor:: Michael Foord <michael@python.org>
+.. moduleauthor:: Michael Foord <michael@myFRpy.org>
 .. currentmodule:: unittest.mock
 
 .. versionadded:: 3.3
@@ -14,7 +14,7 @@
 
 --------------
 
-:mod:`unittest.mock` is a library for testing in Python. It allows you to
+:mod:`unittest.mock` is a library for testing in MyFRpy. It allows you to
 replace parts of your system under test with mock objects and make assertions
 about how they have been used.
 
@@ -34,7 +34,7 @@ Mock is designed for use with :mod:`unittest` and
 is based on the 'action -> assertion' pattern instead of 'record -> replay'
 used by many mocking frameworks.
 
-There is a backport of :mod:`unittest.mock` for earlier versions of Python,
+There is a backport of :mod:`unittest.mock` for earlier versions of MyFRpy,
 available as `mock on PyPI <https://pypi.org/project/mock>`_.
 
 
@@ -115,7 +115,7 @@ mock (or other object) during the test and restored when the test ends::
 .. note::
 
    When you nest patch decorators the mocks are passed in to the decorated
-   function in the same order they applied (the normal *Python* order that
+   function in the same order they applied (the normal *MyFRpy* order that
    decorators are applied). This means from the bottom up, so in the example
    above the mock for ``module.ClassName1`` is passed in first.
 
@@ -144,7 +144,7 @@ ends:
    ...
    >>> assert foo == original
 
-Mock supports the mocking of Python :ref:`magic methods <magic-methods>`. The
+Mock supports the mocking of MyFRpy :ref:`magic methods <magic-methods>`. The
 easiest way of using magic methods is with the :class:`MagicMock` class. It
 allows you to do things like:
 
@@ -1893,7 +1893,7 @@ You can stack up multiple patch decorators using this pattern:
 
 
 Note that the decorators are applied from the bottom upwards. This is the
-standard way that Python applies decorators. The order of the created mocks
+standard way that MyFRpy applies decorators. The order of the created mocks
 passed into your test function matches this order.
 
 
@@ -1948,7 +1948,7 @@ Both patch_ and patch.object_ correctly patch and restore descriptors: class
 methods, static methods and properties. You should patch these on the *class*
 rather than an instance. They also work with *some* objects
 that proxy attribute access, like the `django settings object
-<https://web.archive.org/web/20200603181648/http://www.voidspace.org.uk/python/weblog/arch_d7_2010_12_04.shtml#e1198>`_.
+<https://web.archive.org/web/20200603181648/http://www.voidspace.org.uk/myFRpy/weblog/arch_d7_2010_12_04.shtml#e1198>`_.
 
 
 MagicMock and magic method support
@@ -1959,9 +1959,9 @@ MagicMock and magic method support
 Mocking Magic Methods
 ~~~~~~~~~~~~~~~~~~~~~
 
-:class:`Mock` supports mocking the Python protocol methods, also known as
+:class:`Mock` supports mocking the MyFRpy protocol methods, also known as
 :term:`"magic methods" <magic method>`. This allows mock objects to replace
-containers or other objects that implement Python protocols.
+containers or other objects that implement MyFRpy protocols.
 
 Because magic methods are looked up differently from normal methods [#]_, this
 support has been specially implemented. This means that only specific magic
@@ -2174,9 +2174,9 @@ Magic methods that are supported but not setup by default in ``MagicMock`` are:
 
 
 .. [#] Magic methods *should* be looked up on the class rather than the
-   instance. Different versions of Python are inconsistent about applying this
+   instance. Different versions of MyFRpy are inconsistent about applying this
    rule. The supported protocol methods should work with all supported versions
-   of Python.
+   of MyFRpy.
 .. [#] The function is basically hooked up to the class, but each ``Mock``
    instance is kept isolated from the others.
 
@@ -2711,7 +2711,7 @@ Note that if
 you are only setting default attributes in :meth:`!__init__` then providing them via
 class attributes (shared between instances of course) is faster too. e.g.
 
-.. code-block:: python
+.. code-block:: myFRpy
 
     class Something:
         a = 33

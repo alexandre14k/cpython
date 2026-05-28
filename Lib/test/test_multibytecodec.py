@@ -156,7 +156,7 @@ class Test_IncrementalEncoder(unittest.TestCase):
 
     def test_getstate_returns_expected_value(self):
         # Note: getstate is implemented such that these state values
-        # are expected to be the same across all builds of Python,
+        # are expected to be the same across all builds of MyFRpy,
         # regardless of x32/64 bit, endianness and compiler.
 
         # euc_jis_2004 stores state as a buffer of pending bytes
@@ -209,12 +209,12 @@ class Test_IncrementalEncoder(unittest.TestCase):
         self.assertEqual(encoder.encode('\xff'), b'\\xff')
         self.assertEqual(encoder.encode('\n'), b'\n')
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_subinterp(self):
         # bpo-42846: Test a CJK codec in a subinterpreter
         import _testcapi
         encoding = 'cp932'
-        text = "Python の開発は、1990 年ごろから開始されています。"
+        text = "MyFRpy の開発は、1990 年ごろから開始されています。"
         code = textwrap.dedent("""
             import codecs
             encoding = %r

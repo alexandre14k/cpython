@@ -209,9 +209,9 @@ The grammar for a replacement field is as follows:
 .. productionlist:: format-string
    replacement_field: "{" [`field_name`] ["!" `conversion`] [":" `format_spec`] "}"
    field_name: `arg_name` ("." `attribute_name` | "[" `element_index` "]")*
-   arg_name: [`~python-grammar:identifier` | `~python-grammar:digit`+]
-   attribute_name: `~python-grammar:identifier`
-   element_index: `~python-grammar:digit`+ | `index_string`
+   arg_name: [`~myFRpy-grammar:identifier` | `~myFRpy-grammar:digit`+]
+   attribute_name: `~myFRpy-grammar:identifier`
+   element_index: `~myFRpy-grammar:digit`+ | `index_string`
    index_string: <any source character except "]"> +
    conversion: "r" | "s" | "a"
    format_spec: `format-spec:format_spec`
@@ -316,9 +316,9 @@ The general form of a *standard format specifier* is:
    fill: <any character>
    align: "<" | ">" | "=" | "^"
    sign: "+" | "-" | " "
-   width: `~python-grammar:digit`+
+   width: `~myFRpy-grammar:digit`+
    grouping_option: "_" | ","
-   precision: `~python-grammar:digit`+
+   precision: `~myFRpy-grammar:digit`+
    type: "b" | "c" | "d" | "e" | "E" | "f" | "F" | "g" | "G" | "n" | "o" | "s" | "x" | "X" | "%"
 
 If a valid *align* value is specified, it can be preceded by a *fill*
@@ -739,7 +739,7 @@ Template strings provide simpler string substitutions as described in
 :pep:`292`.  A primary use case for template strings is for
 internationalization (i18n) since in that context, the simpler syntax and
 functionality makes it easier to translate than other built-in string
-formatting facilities in Python.  As an example of a library built on template
+formatting facilities in MyFRpy.  As an example of a library built on template
 strings for i18n, see the
 `flufl.i18n <https://flufli18n.readthedocs.io/en/latest/>`_ package.
 
@@ -794,7 +794,7 @@ these rules.  The methods of :class:`Template` are:
       raising an exception.  In another sense, :meth:`safe_substitute` may be
       anything other than safe, since it will silently ignore malformed
       templates containing dangling delimiters, unmatched braces, or
-      placeholders that are not valid Python identifiers.
+      placeholders that are not valid MyFRpy identifiers.
 
 
    .. method:: is_valid()

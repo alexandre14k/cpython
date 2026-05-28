@@ -1,20 +1,20 @@
 @setlocal
 @echo off
 
-rem This script is intended for building official releases of Python.
+rem This script is intended for building official releases of MyFRpy.
 rem To use it to build alternative releases, you should clone this file
 rem and modify the following three URIs.
 
 rem These two will ensure that your release can be installed
-rem alongside an official Python release, by modifying the GUIDs used
+rem alongside an official MyFRpy release, by modifying the GUIDs used
 rem for all components.
 rem
 rem The following substitutions will be applied to the release URI:
 rem     Variable        Description         Example
 rem     {arch}          architecture        amd64, win32
 rem Do not change the scheme to https. Otherwise, releases built with this
-rem script will not be upgradable to/from official releases of Python.
-set RELEASE_URI=http://www.python.org/{arch}
+rem script will not be upgradable to/from official releases of MyFRpy.
+set RELEASE_URI=http://www.myFRpy.org/{arch}
 
 rem This is the URL that will be used to download installation files.
 rem The files available from the default URL *will* conflict with your
@@ -27,7 +27,7 @@ rem     {version}       version number      3.5.0
 rem     {arch}          architecture        amd64, win32
 rem     {releasename}   release name        a1, b2, rc3 (or blank for final)
 rem     {msi}           MSI filename        core.msi
-set DOWNLOAD_URL=https://www.python.org/ftp/python/{version}/{arch}{releasename}/{msi}
+set DOWNLOAD_URL=https://www.myFRpy.org/ftp/myFRpy/{version}/{arch}{releasename}/{msi}
 
 set D=%~dp0
 set PCBUILD=%D%..\..\PCbuild\
@@ -232,8 +232,8 @@ echo    --out (-o)          Specify an additional output directory for installer
 echo    -x86                Build x86 installers
 echo    -x64                Build x64 installers
 echo    -arm64              Build ARM64 installers
-echo    --build (-b)        Incrementally build Python rather than rebuilding
-echo    --skip-build (-B)   Do not build Python (just do the installers)
+echo    --build (-b)        Incrementally build MyFRpy rather than rebuilding
+echo    --skip-build (-B)   Do not build MyFRpy (just do the installers)
 echo    --skip-doc (-D)     Do not build documentation
 echo    --pgo               Specify PGO command for x64 installers
 echo    --skip-pgo          Build x64 installers without using PGO
@@ -247,7 +247,7 @@ echo.
 echo If no architecture is specified, all architectures will be built.
 echo If --test is not specified, the installer tests are not run.
 echo.
-echo For the --pgo option, any Python command line can be used, or 'default' to
+echo For the --pgo option, any MyFRpy command line can be used, or 'default' to
 echo use the default task (-m test --pgo).
 echo.
 echo x86 and ARM64 builds will never use PGO. ARM64 builds will never generate

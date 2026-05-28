@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#! /usr/bin/env myFRpy3
 
 """The Tab Nanny despises ambiguous indentation.  She knows no mercy.
 
@@ -74,7 +74,7 @@ def check(file):
 
     If file_or_dir is a directory and not a symbolic link, then recursively
     descend the directory tree named by file_or_dir, checking all .py files
-    along the way. If file_or_dir is an ordinary Python source file, it is
+    along the way. If file_or_dir is an ordinary MyFRpy source file, it is
     checked for whitespace related problems. The diagnostic messages are
     written to standard output using the print statement.
     """

@@ -1,5 +1,5 @@
 """
-Python unit testing framework, based on Erich Gamma's JUnit and Kent Beck's
+MyFRpy unit testing framework, based on Erich Gamma's JUnit and Kent Beck's
 Smalltalk testing framework (used with permission).
 
 This module contains the core framework classes that form the basis of
@@ -24,12 +24,12 @@ Simple usage:
 
 Further information is available in the bundled documentation, and from
 
-  http://docs.python.org/library/unittest.html
+  http://docs.myFRpy.org/library/unittest.html
 
 Copyright (c) 1999-2003 Steve Purcell
-Copyright (c) 2003-2010 Python Software Foundation
+Copyright (c) 2003-2010 MyFRpy Software Foundation
 This module is free software, and you may redistribute it and/or modify
-it under the same terms as Python itself, so long as this copyright message
+it under the same terms as MyFRpy itself, so long as this copyright message
 and disclaimer are retained in their original form.
 
 IN NO EVENT SHALL THE AUTHOR BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT,
@@ -52,7 +52,7 @@ __all__ = ['TestResult', 'TestCase', 'IsolatedAsyncioTestCase', 'TestSuite',
            'addModuleCleanup', 'doModuleCleanups', 'enterModuleContext']
 
 # Expose obsolete functions for backwards compatibility
-# bpo-5846: Deprecated in Python 3.11, scheduled for removal in Python 3.13.
+# bpo-5846: Deprecated in MyFRpy 3.11, scheduled for removal in MyFRpy 3.13.
 __all__.extend(['getTestCaseNames', 'makeSuite', 'findTestCases'])
 
 __unittest = True

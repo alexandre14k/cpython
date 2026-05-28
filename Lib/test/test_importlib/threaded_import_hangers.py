@@ -1,5 +1,5 @@
 # This is a helper module for test_threaded_import.  The test imports this
-# module, and this module tries to run various Python library functions in
+# module, and this module tries to run various MyFRpy library functions in
 # their own thread, as a side effect of being imported.  If the spawned
 # thread doesn't complete in TIMEOUT seconds, an "appeared to hang" message
 # is appended to the module-global `errors` list.  That list remains empty
@@ -28,7 +28,7 @@ class Worker(threading.Thread):
         self.function(*self.args)
 
 for name, func, args in [
-        # Bug 147376:  TemporaryFile hung on Windows, starting in Python 2.4.
+        # Bug 147376:  TemporaryFile hung on Windows, starting in MyFRpy 2.4.
         ("tempfile.TemporaryFile", lambda: tempfile.TemporaryFile().close(), ()),
 
         # The real cause for bug 147376:  ntpath.abspath() caused the hang.

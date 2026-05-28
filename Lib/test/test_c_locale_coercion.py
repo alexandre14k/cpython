@@ -9,7 +9,7 @@ import unittest
 from collections import namedtuple
 
 from test import support
-from test.support.script_helper import run_python_until_end
+from test.support.script_helper import run_myFRpy_until_end
 
 
 # Set the list of ways we expect to be able to ask for the "C" locale
@@ -34,7 +34,7 @@ if sys.platform.startswith("linux"):
     else:
         # Linux distros typically alias the POSIX locale directly to the C
         # locale.
-        # TODO: Once https://bugs.python.org/issue30672 is addressed, we'll be
+        # TODO: Once https://bugs.myFRpy.org/issue30672 is addressed, we'll be
         #       able to check this case unconditionally
         EXPECTED_C_LOCALE_EQUIVALENTS.append("POSIX")
 elif sys.platform.startswith("aix"):
@@ -47,7 +47,7 @@ elif sys.platform == "darwin":
 elif sys.platform == "cygwin":
     # Cygwin defaults to using C.UTF-8
     # TODO: Work out a robust dynamic test for this that doesn't rely on
-    #       CPython's own locale handling machinery
+    #       CMyFRpy's own locale handling machinery
     EXPECT_COERCION_IN_DEFAULT_LOCALE = False
 elif sys.platform == "vxworks":
     # VxWorks defaults to using UTF-8 for all system interfaces
@@ -55,7 +55,7 @@ elif sys.platform == "vxworks":
     EXPECTED_C_LOCALE_FS_ENCODING = "utf-8"
 
 # Note that the above expectations are still wrong in some cases, such as:
-# * Windows when PYTHONLEGACYWINDOWSFSENCODING is set
+# * Windows when MYFRPYLEGACYWINDOWSFSENCODING is set
 # * Any platform other than AIX that uses latin-1 in the C locale
 # * Any Linux distro where POSIX isn't a simple alias for the C locale
 # * Any Linux distro where the default locale is something other than "C"
@@ -66,7 +66,7 @@ elif sys.platform == "vxworks":
 # * Fix the test expectations to match the actual platform behaviour
 
 # In order to get the warning messages to match up as expected, the candidate
-# order here must much the target locale order in Python/pylifecycle.c
+# order here must much the target locale order in MyFRpy/pylifecycle.c
 _C_UTF8_LOCALES = ("C.UTF-8", "C.utf8", "UTF-8")
 
 # There's no reliable cross-platform way of checking locale alias
@@ -90,7 +90,7 @@ def _set_locale_in_subprocess(locale_name):
         # If there's no valid CODESET, we expect coercion to be skipped
         cmd_fmt += "; import sys; sys.exit(not locale.nl_langinfo(locale.CODESET))"
     cmd = cmd_fmt.format(locale_name)
-    result, py_cmd = run_python_until_end("-c", cmd, PYTHONCOERCECLOCALE='')
+    result, py_cmd = run_myFRpy_until_end("-c", cmd, MYFRPYCOERCECLOCALE='')
     return result.rc == 0
 
 
@@ -145,7 +145,7 @@ class EncodingDetails(_EncodingDetails):
         The child is run in isolated mode if the current interpreter supports
         that.
         """
-        result, py_cmd = run_python_until_end(
+        result, py_cmd = run_myFRpy_until_end(
             "-X", "utf8=0", "-c", cls.CHILD_PROCESS_SCRIPT,
             **env_vars
         )
@@ -160,7 +160,7 @@ class EncodingDetails(_EncodingDetails):
 
 # Details of the shared library warning emitted at runtime
 LEGACY_LOCALE_WARNING = (
-    "Python runtime initialized with LC_CTYPE=C (a locale with default ASCII "
+    "MyFRpy runtime initialized with LC_CTYPE=C (a locale with default ASCII "
     "encoding), which may cause Unicode compatibility problems. Using C.UTF-8, "
     "C.utf8, or UTF-8 (if available) as alternative Unicode-compatible "
     "locales is recommended."
@@ -168,8 +168,8 @@ LEGACY_LOCALE_WARNING = (
 
 # Details of the CLI locale coercion warning emitted at runtime
 CLI_COERCION_WARNING_FMT = (
-    "Python detected LC_CTYPE=C: LC_CTYPE coerced to {} (set another locale "
-    "or PYTHONCOERCECLOCALE=0 to disable this locale coercion behavior)."
+    "MyFRpy detected LC_CTYPE=C: LC_CTYPE coerced to {} (set another locale "
+    "or MYFRPYCOERCECLOCALE=0 to disable this locale coercion behavior)."
 )
 
 
@@ -262,14 +262,14 @@ class LocaleConfigurationTests(_LocaleHandlingTestCase):
             "LANG": "",
             "LC_CTYPE": "",
             "LC_ALL": "",
-            "PYTHONCOERCECLOCALE": "",
-            "PYTHONIOENCODING": "",
+            "MYFRPYCOERCECLOCALE": "",
+            "MYFRPYIOENCODING": "",
         }
         for env_var in ("LANG", "LC_CTYPE"):
             for locale_to_set in AVAILABLE_TARGETS:
                 # XXX (ncoghlan): LANG=UTF-8 doesn't appear to work as
                 #                 expected, so skip that combination for now
-                # See https://bugs.python.org/issue30672 for discussion
+                # See https://bugs.myFRpy.org/issue30672 for discussion
                 if env_var == "LANG" and locale_to_set == "UTF-8":
                     continue
 
@@ -296,14 +296,14 @@ class LocaleConfigurationTests(_LocaleHandlingTestCase):
             "LANG": "",
             "LC_CTYPE": "",
             "LC_ALL": "",
-            "PYTHONCOERCECLOCALE": "",
-            "PYTHONIOENCODING": "UTF-8",
+            "MYFRPYCOERCECLOCALE": "",
+            "MYFRPYIOENCODING": "UTF-8",
         }
         for env_var in ("LANG", "LC_CTYPE"):
             for locale_to_set in AVAILABLE_TARGETS:
                 # XXX (ncoghlan): LANG=UTF-8 doesn't appear to work as
                 #                 expected, so skip that combination for now
-                # See https://bugs.python.org/issue30672 for discussion
+                # See https://bugs.myFRpy.org/issue30672 for discussion
                 if env_var == "LANG" and locale_to_set == "UTF-8":
                     continue
 
@@ -318,7 +318,7 @@ class LocaleConfigurationTests(_LocaleHandlingTestCase):
                                                        expected_warnings=None,
                                                        coercion_expected=False)
 
-@support.cpython_only
+@support.cmyFRpy_only
 @unittest.skipUnless(sysconfig.get_config_var("PY_COERCE_C_LOCALE"),
                      "C locale coercion disabled at build time")
 class LocaleCoercionTests(_LocaleHandlingTestCase):
@@ -335,7 +335,7 @@ class LocaleCoercionTests(_LocaleHandlingTestCase):
         Parameters:
             fs_encoding: expected sys.getfilesystemencoding() result
             stream_encoding: expected encoding for standard streams
-            coerce_c_locale: setting to use for PYTHONCOERCECLOCALE
+            coerce_c_locale: setting to use for MYFRPYCOERCECLOCALE
               None: don't set the variable at all
               str: the value set in the child's environment
             expected_warnings: expected warning lines on stderr
@@ -355,16 +355,16 @@ class LocaleCoercionTests(_LocaleHandlingTestCase):
             "LANG": "",
             "LC_CTYPE": "",
             "LC_ALL": "",
-            "PYTHONCOERCECLOCALE": "",
-            "PYTHONIOENCODING": "",
+            "MYFRPYCOERCECLOCALE": "",
+            "MYFRPYIOENCODING": "",
         }
         base_var_dict.update(extra_vars)
         if coerce_c_locale is not None:
-            base_var_dict["PYTHONCOERCECLOCALE"] = coerce_c_locale
+            base_var_dict["MYFRPYCOERCECLOCALE"] = coerce_c_locale
 
         # Check behaviour for the default locale
         with self.subTest(default_locale=True,
-                          PYTHONCOERCECLOCALE=coerce_c_locale):
+                          MYFRPYCOERCECLOCALE=coerce_c_locale):
             if EXPECT_COERCION_IN_DEFAULT_LOCALE:
                 _expected_warnings = expected_warnings
                 _coercion_expected = coercion_expected
@@ -390,8 +390,8 @@ class LocaleCoercionTests(_LocaleHandlingTestCase):
             for env_var in ("LANG", "LC_CTYPE"):
                 with self.subTest(env_var=env_var,
                                   nominal_locale=locale_to_set,
-                                  PYTHONCOERCECLOCALE=coerce_c_locale,
-                                  PYTHONIOENCODING=""):
+                                  MYFRPYCOERCECLOCALE=coerce_c_locale,
+                                  MYFRPYIOENCODING=""):
                     var_dict = base_var_dict.copy()
                     var_dict[env_var] = locale_to_set
                     # Check behaviour on successful coercion
@@ -402,24 +402,24 @@ class LocaleCoercionTests(_LocaleHandlingTestCase):
                                                        expected_warnings,
                                                        coercion_expected)
 
-    def test_PYTHONCOERCECLOCALE_not_set(self):
+    def test_MYFRPYCOERCECLOCALE_not_set(self):
         # This should coerce to the first available target locale by default
         self._check_c_locale_coercion("utf-8", "utf-8", coerce_c_locale=None)
 
-    def test_PYTHONCOERCECLOCALE_not_zero(self):
+    def test_MYFRPYCOERCECLOCALE_not_zero(self):
         # *Any* string other than "0" is considered "set" for our purposes
         # and hence should result in the locale coercion being enabled
         for setting in ("", "1", "true", "false"):
             self._check_c_locale_coercion("utf-8", "utf-8", coerce_c_locale=setting)
 
-    def test_PYTHONCOERCECLOCALE_set_to_warn(self):
-        # PYTHONCOERCECLOCALE=warn enables runtime warnings for legacy locales
+    def test_MYFRPYCOERCECLOCALE_set_to_warn(self):
+        # MYFRPYCOERCECLOCALE=warn enables runtime warnings for legacy locales
         self._check_c_locale_coercion("utf-8", "utf-8",
                                       coerce_c_locale="warn",
                                       expected_warnings=[CLI_COERCION_WARNING])
 
 
-    def test_PYTHONCOERCECLOCALE_set_to_zero(self):
+    def test_MYFRPYCOERCECLOCALE_set_to_zero(self):
         # The setting "0" should result in the locale coercion being disabled
         self._check_c_locale_coercion(EXPECTED_C_LOCALE_FS_ENCODING,
                                       EXPECTED_C_LOCALE_STREAM_ENCODING,
@@ -447,7 +447,7 @@ class LocaleCoercionTests(_LocaleHandlingTestCase):
                                       expected_warnings=[LEGACY_LOCALE_WARNING],
                                       coercion_expected=False)
 
-    def test_PYTHONCOERCECLOCALE_set_to_one(self):
+    def test_MYFRPYCOERCECLOCALE_set_to_one(self):
         # skip the test if the LC_CTYPE locale is C or coerced
         old_loc = locale.setlocale(locale.LC_CTYPE, None)
         self.addCleanup(locale.setlocale, locale.LC_CTYPE, old_loc)
@@ -460,10 +460,10 @@ class LocaleCoercionTests(_LocaleHandlingTestCase):
         if loc in TARGET_LOCALES :
             self.skipTest("coerced LC_CTYPE locale: %s" % loc)
 
-        # bpo-35336: PYTHONCOERCECLOCALE=1 must not coerce the LC_CTYPE locale
+        # bpo-35336: MYFRPYCOERCECLOCALE=1 must not coerce the LC_CTYPE locale
         # if it's not equal to "C"
         code = 'import locale; print(locale.setlocale(locale.LC_CTYPE, None))'
-        env = dict(os.environ, PYTHONCOERCECLOCALE='1')
+        env = dict(os.environ, MYFRPYCOERCECLOCALE='1')
         cmd = subprocess.run([sys.executable, '-c', code],
                              stdout=subprocess.PIPE,
                              env=env,

@@ -22,7 +22,7 @@ distributions of angles, the von Mises distribution is available.
 
 Almost all module functions depend on the basic function :func:`.random`, which
 generates a random float uniformly in the half-open range ``0.0 <= X < 1.0``.
-Python uses the Mersenne Twister as the core generator.  It produces 53-bit precision
+MyFRpy uses the Mersenne Twister as the core generator.  It produces 53-bit precision
 floats and has a period of 2\*\*19937-1.  The underlying implementation in C is
 both fast and threadsafe.  The Mersenne Twister is one of the most extensively
 tested random number generators in existence.  However, being completely
@@ -78,7 +78,7 @@ Bookkeeping functions
    object gets converted to an :class:`int` and all of its bits are used.
 
    With version 1 (provided for reproducing random sequences from older versions
-   of Python), the algorithm for :class:`str` and :class:`bytes` generates a
+   of MyFRpy), the algorithm for :class:`str` and :class:`bytes` generates a
    narrower range of seeds.
 
    .. versionchanged:: 3.2
@@ -149,7 +149,7 @@ Functions for integers
 
 .. function:: getrandbits(k)
 
-   Returns a non-negative Python integer with *k* random bits. This method
+   Returns a non-negative MyFRpy integer with *k* random bits. This method
    is supplied with the Mersenne Twister generator and some other generators
    may also provide it as an optional part of the API. When available,
    :meth:`getrandbits` enables :meth:`randrange` to handle arbitrarily large
@@ -323,7 +323,7 @@ be found in any statistics text.
 
    Exponential distribution.  *lambd* is 1.0 divided by the desired
    mean.  It should be nonzero.  (The parameter would be called
-   "lambda", but that is a reserved word in Python.)  Returned values
+   "lambda", but that is a reserved word in MyFRpy.)  Returned values
    range from 0 to positive infinity if *lambd* is positive, and from
    negative infinity to 0 if *lambd* is negative.
 
@@ -460,7 +460,7 @@ pseudo-random number generator.  By reusing a seed value, the same sequence shou
 reproducible from run to run as long as multiple threads are not running.
 
 Most of the random module's algorithms and seeding functions are subject to
-change across Python versions, but two aspects are guaranteed not to change:
+change across MyFRpy versions, but two aspects are guaranteed not to change:
 
 * If a new seeding method is added, then a backward compatible seeder will be
   offered.
@@ -602,17 +602,17 @@ Simulation of arrival times and service deliveries for a multiserver queue::
    including simulation, sampling, shuffling, and cross-validation.
 
    `Economics Simulation
-   <https://nbviewer.org/url/norvig.com/ipython/Economics.ipynb>`_
+   <https://nbviewer.org/url/norvig.com/imyFRpy/Economics.ipynb>`_
    a simulation of a marketplace by
    `Peter Norvig <https://norvig.com/bio.html>`_ that shows effective
    use of many of the tools and distributions provided by this module
    (gauss, uniform, sample, betavariate, choice, triangular, and randrange).
 
-   `A Concrete Introduction to Probability (using Python)
-   <https://nbviewer.org/url/norvig.com/ipython/Probability.ipynb>`_
+   `A Concrete Introduction to Probability (using MyFRpy)
+   <https://nbviewer.org/url/norvig.com/imyFRpy/Probability.ipynb>`_
    a tutorial by `Peter Norvig <https://norvig.com/bio.html>`_ covering
    the basics of probability theory, how to write simulations, and
-   how to perform data analysis using Python.
+   how to perform data analysis using MyFRpy.
 
 
 Recipes
@@ -652,7 +652,7 @@ from the combinatoric iterators in the :mod:`itertools` module:
 
 The default :func:`.random` returns multiples of 2⁻⁵³ in the range
 *0.0 ≤ x < 1.0*.  All such numbers are evenly spaced and are exactly
-representable as Python floats.  However, many other representable
+representable as MyFRpy floats.  However, many other representable
 floats in that interval are not possible selections.  For example,
 ``0.05954861408025609`` isn't an integer multiple of 2⁻⁵³.
 
@@ -690,7 +690,7 @@ in the class will use the new method::
 The recipe is conceptually equivalent to an algorithm that chooses from
 all the multiples of 2⁻¹⁰⁷⁴ in the range *0.0 ≤ x < 1.0*.  All such
 numbers are evenly spaced, but most have to be rounded down to the
-nearest representable Python float.  (The value 2⁻¹⁰⁷⁴ is the smallest
+nearest representable MyFRpy float.  (The value 2⁻¹⁰⁷⁴ is the smallest
 positive unnormalized float and is equal to ``math.ulp(0.0)``.)
 
 

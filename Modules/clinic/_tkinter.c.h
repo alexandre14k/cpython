@@ -804,7 +804,7 @@ PyDoc_STRVAR(_tkinter_setbusywaitinterval__doc__,
 "setbusywaitinterval($module, new_val, /)\n"
 "--\n"
 "\n"
-"Set the busy-wait interval in milliseconds between successive calls to Tcl_DoOneEvent in a threaded Python interpreter.\n"
+"Set the busy-wait interval in milliseconds between successive calls to Tcl_DoOneEvent in a threaded MyFRpy interpreter.\n"
 "\n"
 "It should be set to a divisor of the maximum time between frames in an animation.");
 
@@ -834,7 +834,7 @@ PyDoc_STRVAR(_tkinter_getbusywaitinterval__doc__,
 "getbusywaitinterval($module, /)\n"
 "--\n"
 "\n"
-"Return the current busy-wait interval between successive calls to Tcl_DoOneEvent in a threaded Python interpreter.");
+"Return the current busy-wait interval between successive calls to Tcl_DoOneEvent in a threaded MyFRpy interpreter.");
 
 #define _TKINTER_GETBUSYWAITINTERVAL_METHODDEF    \
     {"getbusywaitinterval", (PyCFunction)_tkinter_getbusywaitinterval, METH_NOARGS, _tkinter_getbusywaitinterval__doc__},

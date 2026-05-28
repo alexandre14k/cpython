@@ -308,7 +308,7 @@ The module defines the following user-callable items:
    defines the default value for the *dir* argument to all functions
    in this module.
 
-   Python searches a standard list of directories to find one which
+   MyFRpy searches a standard list of directories to find one which
    the calling user can create files in.  The list is:
 
    #. The directory named by the :envvar:`TMPDIR` environment variable.

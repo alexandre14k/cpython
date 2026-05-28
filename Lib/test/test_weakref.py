@@ -132,7 +132,7 @@ class ReferencesTestCase(TestBase):
         self.check_basic_callback(create_function)
         self.check_basic_callback(create_bound_method)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_cfunction(self):
         import _testcapi
         create_cfunction = _testcapi.create_cfunction
@@ -324,7 +324,7 @@ class ReferencesTestCase(TestBase):
     # None as the value for the callback, where either means "no
     # callback".  The "no callback" ref and proxy objects are supposed
     # to be shared so long as they exist by all callers so long as
-    # they are active.  In Python 2.3.3 and earlier, this guarantee
+    # they are active.  In MyFRpy 2.3.3 and earlier, this guarantee
     # was not honored, and was broken in different ways for
     # PyWeakref_NewRef() and PyWeakref_NewProxy().  (Two tests.)
 
@@ -1034,7 +1034,7 @@ class SubclassableWeakrefTestCase(TestBase):
         self.assertFalse(hasattr(r, "__dict__"))
 
     def test_subclass_refs_with_cycle(self):
-        """Confirm https://bugs.python.org/issue3100 is fixed."""
+        """Confirm https://bugs.myFRpy.org/issue3100 is fixed."""
         # An instance of a weakref subclass can have attributes.
         # If such a weakref holds the only strong reference to the object,
         # deleting the weakref will delete the object. In this case,
@@ -1137,7 +1137,7 @@ class WeakMethodTestCase(unittest.TestCase):
         gc.collect()
         self.assertEqual(calls, [r])
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_no_cycles(self):
         # A WeakMethod doesn't create any reference cycle to itself.
         o = Object(1)
@@ -1952,7 +1952,7 @@ class MappingTestCase(TestBase):
         # copying should not result in a crash.
         self.check_threaded_weak_dict_copy(weakref.WeakValueDictionary, True)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_remove_closure(self):
         d = weakref.WeakValueDictionary()
         self.assertIsNone(d._remove.__closure__)
@@ -1981,8 +1981,8 @@ class FinalizeTestCase(unittest.TestCase):
         pass
 
     def _collect_if_necessary(self):
-        # we create no ref-cycles so in CPython no gc should be needed
-        if sys.implementation.name != 'cpython':
+        # we create no ref-cycles so in CMyFRpy no gc should be needed
+        if sys.implementation.name != 'cmyFRpy':
             support.gc_collect()
 
     def test_finalize(self):
@@ -2132,7 +2132,7 @@ class FinalizeTestCase(unittest.TestCase):
     def test_atexit(self):
         prog = ('from test.test_weakref import FinalizeTestCase;'+
                 'FinalizeTestCase.run_in_child()')
-        rc, out, err = script_helper.assert_python_ok('-c', prog)
+        rc, out, err = script_helper.assert_myFRpy_ok('-c', prog)
         out = out.decode('ascii').splitlines()
         self.assertEqual(out, ['f4 foobar', 'f3 error', 'g1', 'f1 foobar'])
         self.assertTrue(b'ZeroDivisionError' in err)

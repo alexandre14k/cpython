@@ -25,7 +25,7 @@ def call_once(f):
 
 @call_once
 def get_modules():
-    """Retrieve two copies of zoneinfo: pure Python and C accelerated.
+    """Retrieve two copies of zoneinfo: pure MyFRpy and C accelerated.
 
     Because this function manipulates the import system in a way that might
     be fragile or do unexpected things if it is run many times, it uses a

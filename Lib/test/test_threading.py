@@ -4,9 +4,9 @@ Tests for the threading module.
 
 import test.support
 from test.support import threading_helper, requires_subprocess
-from test.support import verbose, cpython_only, os_helper
+from test.support import verbose, cmyFRpy_only, os_helper
 from test.support.import_helper import import_module
-from test.support.script_helper import assert_python_ok, assert_python_failure
+from test.support.script_helper import assert_myFRpy_ok, assert_myFRpy_failure
 
 import random
 import sys
@@ -119,7 +119,7 @@ class BaseTestCase(unittest.TestCase):
 class ThreadTests(BaseTestCase):
     maxDiff = 9999
 
-    @cpython_only
+    @cmyFRpy_only
     def test_name(self):
         def func(): pass
 
@@ -173,7 +173,7 @@ class ThreadTests(BaseTestCase):
                 t.start()
                 t.join()
 
-    @cpython_only
+    @cmyFRpy_only
     def test_disallow_instantiation(self):
         # Ensure that the type disallows instantiation (bpo-43916)
         lock = threading.Lock()
@@ -277,12 +277,12 @@ class ThreadTests(BaseTestCase):
         self.assertRegex(repr(threading._active[tid]), '_DummyThread')
         del threading._active[tid]
 
-    # PyThreadState_SetAsyncExc() is a CPython-only gimmick, not (currently)
-    # exposed at the Python level.  This test relies on ctypes to get at it.
+    # PyThreadState_SetAsyncExc() is a CMyFRpy-only gimmick, not (currently)
+    # exposed at the MyFRpy level.  This test relies on ctypes to get at it.
     def test_PyThreadState_SetAsyncExc(self):
         ctypes = import_module("ctypes")
 
-        set_async_exc = ctypes.pythonapi.PyThreadState_SetAsyncExc
+        set_async_exc = ctypes.myFRpyapi.PyThreadState_SetAsyncExc
         set_async_exc.argtypes = (ctypes.c_ulong, ctypes.py_object)
 
         class AsyncExc(Exception):
@@ -334,7 +334,7 @@ class ThreadTests(BaseTestCase):
                     worker_saw_exception.set()
 
         t = Worker()
-        t.daemon = True # so if this fails, we don't hang Python at shutdown
+        t.daemon = True # so if this fails, we don't hang MyFRpy at shutdown
         t.start()
         if verbose:
             print("    started worker thread")
@@ -384,7 +384,7 @@ class ThreadTests(BaseTestCase):
 
     def test_finalize_running_thread(self):
         # Issue 1402: the PyGILState_Ensure / _Release functions may be called
-        # very late on python exit: on deallocation of a running thread for
+        # very late on myFRpy exit: on deallocation of a running thread for
         # example.
         if support.check_sanitizer(thread=True):
             # the thread running `time.sleep(100)` below will still be alive
@@ -392,7 +392,7 @@ class ThreadTests(BaseTestCase):
             self.skipTest("TSAN would report thread leak")
         import_module("ctypes")
 
-        rc, out, err = assert_python_failure("-c", """if 1:
+        rc, out, err = assert_myFRpy_failure("-c", """if 1:
             import ctypes, sys, time, _thread
 
             # This lock is used as a simple event variable.
@@ -402,8 +402,8 @@ class ThreadTests(BaseTestCase):
             # Module globals are cleared before __del__ is run
             # So we save the functions in class dict
             class C:
-                ensure = ctypes.pythonapi.PyGILState_Ensure
-                release = ctypes.pythonapi.PyGILState_Release
+                ensure = ctypes.myFRpyapi.PyGILState_Ensure
+                release = ctypes.myFRpyapi.PyGILState_Release
                 def __del__(self):
                     state = self.ensure()
                     self.release(state)
@@ -427,7 +427,7 @@ class ThreadTests(BaseTestCase):
             # at process exit
             self.skipTest("TSAN would report thread leak")
 
-        assert_python_ok("-c", """if 1:
+        assert_myFRpy_ok("-c", """if 1:
             import sys, threading
 
             # A deadlock-killer, to prevent the
@@ -452,7 +452,7 @@ class ThreadTests(BaseTestCase):
     def test_join_nondaemon_on_shutdown(self):
         # Issue 1722344
         # Raising SystemExit skipped threading._shutdown
-        rc, out, err = assert_python_ok("-c", """if 1:
+        rc, out, err = assert_myFRpy_ok("-c", """if 1:
                 import threading
                 from time import sleep
 
@@ -592,7 +592,7 @@ class ThreadTests(BaseTestCase):
                     assert 'fork' in str(ws[0].message), ws[0]
                     os.wait()
         """
-        _, out, err = assert_python_ok("-c", code)
+        _, out, err = assert_myFRpy_ok("-c", code)
         self.assertEqual(out, b'')
         self.assertEqual(err, b'')
 
@@ -650,7 +650,7 @@ class ThreadTests(BaseTestCase):
             else:
                 support.wait_process(pid, exitcode=0)
         """
-        _, out, err = assert_python_ok("-c", code)
+        _, out, err = assert_myFRpy_ok("-c", code)
         data = out.decode().replace('\r', '')
         self.assertEqual(err, b"")
         self.assertEqual(data,
@@ -690,7 +690,7 @@ class ThreadTests(BaseTestCase):
             th.start()
             th.join()
         """
-        _, out, err = assert_python_ok("-c", code)
+        _, out, err = assert_myFRpy_ok("-c", code)
         data = out.decode().replace('\r', '')
         self.assertEqual(err.decode('utf-8'), "")
         self.assertEqual(data,
@@ -753,7 +753,7 @@ class ThreadTests(BaseTestCase):
         """ % create_dummy
         # "DeprecationWarning: This process is multi-threaded, use of fork()
         # may lead to deadlocks in the child"
-        _, out, err = assert_python_ok("-W", "ignore::DeprecationWarning", "-c", code)
+        _, out, err = assert_myFRpy_ok("-W", "ignore::DeprecationWarning", "-c", code)
         data = out.decode().replace('\r', '')
         self.assertEqual(err.decode(), "")
         self.assertEqual(data,
@@ -791,7 +791,7 @@ class ThreadTests(BaseTestCase):
             gc.collect()  # sanity check
             x = RefCycle()
         """
-        _, out, err = assert_python_ok("-c", code)
+        _, out, err = assert_myFRpy_ok("-c", code)
         data = out.decode()
         self.assertEqual(err, b"")
         self.assertEqual(data.splitlines(),
@@ -799,7 +799,7 @@ class ThreadTests(BaseTestCase):
 
     def test_finalization_shutdown(self):
         # bpo-36402: Py_Finalize() calls threading._shutdown() which must wait
-        # until Python thread states of all non-daemon threads get deleted.
+        # until MyFRpy thread states of all non-daemon threads get deleted.
         #
         # Test similar to SubinterpThreadingTests.test_threads_join_2(), but
         # test the finalization of the main interpreter.
@@ -829,7 +829,7 @@ class ThreadTests(BaseTestCase):
             threading.Thread(target=f).start()
             random_sleep()
         """
-        rc, out, err = assert_python_ok("-c", code)
+        rc, out, err = assert_myFRpy_ok("-c", code)
         self.assertEqual(err, b"")
 
     def test_tstate_lock(self):
@@ -912,12 +912,12 @@ class ThreadTests(BaseTestCase):
                 t.join()
             self.assertRaises(ValueError, bs.release)
 
-    @cpython_only
+    @cmyFRpy_only
     def test_frame_tstate_tracing(self):
         # Issue #14432: Crash when a generator is created in a C thread that is
         # destroyed while the generator is still used. The issue was that a
         # generator contains a frame, and the frame kept a reference to the
-        # Python state of the destroyed C thread. The crash occurs when a trace
+        # MyFRpy state of the destroyed C thread. The crash occurs when a trace
         # function is setup.
 
         def noop_trace(frame, event, arg):
@@ -944,7 +944,7 @@ class ThreadTests(BaseTestCase):
             import _testcapi
             _testcapi.call_in_temporary_c_thread(callback)
 
-            # Call the generator in a different Python thread, check that the
+            # Call the generator in a different MyFRpy thread, check that the
             # generator didn't keep a reference to the destroyed thread state
             for test in range(3):
                 # The trace function is still called here
@@ -1032,7 +1032,7 @@ class ThreadTests(BaseTestCase):
         self.assertEqual(threading.getprofile(), old_profile)
         self.assertEqual(sys.getprofile(), old_profile)
 
-    @cpython_only
+    @cmyFRpy_only
     def test_shutdown_locks(self):
         for daemon in (False, True):
             with self.subTest(daemon=daemon):
@@ -1059,7 +1059,7 @@ class ThreadTests(BaseTestCase):
     def test_locals_at_exit(self):
         # bpo-19466: thread locals must not be deleted before destructors
         # are called
-        rc, out, err = assert_python_ok("-c", """if 1:
+        rc, out, err = assert_myFRpy_ok("-c", """if 1:
             import threading
 
             class Atexit:
@@ -1103,7 +1103,7 @@ class ThreadTests(BaseTestCase):
     def test_import_from_another_thread(self):
         # bpo-1596321: If the threading module is first import from a thread
         # different than the main thread, threading._shutdown() must handle
-        # this case without logging an error at Python exit.
+        # this case without logging an error at MyFRpy exit.
         code = textwrap.dedent('''
             import _thread
             import sys
@@ -1129,7 +1129,7 @@ class ThreadTests(BaseTestCase):
 
             # don't wait until the thread completes
         ''')
-        rc, out, err = assert_python_ok("-c", code)
+        rc, out, err = assert_myFRpy_ok("-c", code)
         self.assertEqual(out, b'')
         self.assertEqual(err, b'')
 
@@ -1146,7 +1146,7 @@ class ThreadTests(BaseTestCase):
                     _thread.start_new_thread(f, ())
             at_finalization = AtFinalization()
         """
-        _, out, err = assert_python_ok("-c", code)
+        _, out, err = assert_myFRpy_ok("-c", code)
         self.assertEqual(out.strip(), b"OK")
         self.assertIn(b"can't create new thread at interpreter shutdown", err)
 
@@ -1165,7 +1165,7 @@ class ThreadJoinOnShutdown(BaseTestCase):
                 sys.stdout.flush()
         \n""" + script
 
-        rc, out, err = assert_python_ok("-c", script)
+        rc, out, err = assert_myFRpy_ok("-c", script)
         data = out.decode().replace('\r', '')
         self.assertEqual(data, "end of main\nend of thread\n")
 
@@ -1273,7 +1273,7 @@ class ThreadJoinOnShutdown(BaseTestCase):
 
             main()
             """
-        rc, out, err = assert_python_ok('-c', script)
+        rc, out, err = assert_myFRpy_ok('-c', script)
         self.assertFalse(err)
 
     def test_thread_from_thread(self):
@@ -1295,7 +1295,7 @@ class ThreadJoinOnShutdown(BaseTestCase):
             # do not join() -- the interpreter waits for non-daemon threads to
             # finish.
             """
-        rc, out, err = assert_python_ok('-c', script)
+        rc, out, err = assert_myFRpy_ok('-c', script)
         self.assertEqual(err, b"")
         self.assertEqual(out.strip(), b"OK")
         self.assertEqual(rc, 0)
@@ -1394,7 +1394,7 @@ class SubinterpThreadingTests(BaseTestCase):
 
     def test_threads_join_2(self):
         # Same as above, but a delay gets introduced after the thread's
-        # Python code returned but before the thread state is deleted.
+        # MyFRpy code returned but before the thread state is deleted.
         # To achieve this, we register a thread-local object which sleeps
         # a bit when deallocated.
         r, w = self.pipe()
@@ -1467,7 +1467,7 @@ class SubinterpThreadingTests(BaseTestCase):
         self.assertEqual(os.read(r_interp, 1), FINI)
         self.assertEqual(os.read(r_interp, 1), DONE)
 
-    @cpython_only
+    @cmyFRpy_only
     def test_daemon_threads_fatal_error(self):
         subinterp_code = f"""if 1:
             import os
@@ -1486,8 +1486,8 @@ class SubinterpThreadingTests(BaseTestCase):
             _testcapi.run_in_subinterp(%r)
             """ % (subinterp_code,)
         with test.support.SuppressCrashReport():
-            rc, out, err = assert_python_failure("-c", script)
-        self.assertIn("Fatal Python error: Py_EndInterpreter: "
+            rc, out, err = assert_myFRpy_failure("-c", script)
+        self.assertIn("Fatal MyFRpy error: Py_EndInterpreter: "
                       "not the last thread", err.decode())
 
     def _check_allowed(self, before_start='', *,
@@ -1518,10 +1518,10 @@ class SubinterpThreadingTests(BaseTestCase):
             )
             """)
         with test.support.SuppressCrashReport():
-            _, _, err = assert_python_ok("-c", script)
+            _, _, err = assert_myFRpy_ok("-c", script)
         return err.decode()
 
-    @cpython_only
+    @cmyFRpy_only
     def test_threads_not_allowed(self):
         err = self._check_allowed(
             allowed=False,
@@ -1530,7 +1530,7 @@ class SubinterpThreadingTests(BaseTestCase):
         )
         self.assertIn('RuntimeError', err)
 
-    @cpython_only
+    @cmyFRpy_only
     def test_daemon_threads_not_allowed(self):
         with self.subTest('via Thread()'):
             err = self._check_allowed(
@@ -1628,7 +1628,7 @@ class ThreadingExceptionTests(BaseTestCase):
             running = False
             t.join()
             """
-        rc, out, err = assert_python_ok("-c", script)
+        rc, out, err = assert_myFRpy_ok("-c", script)
         self.assertEqual(out, b'')
         err = err.decode()
         self.assertIn("Exception in thread", err)
@@ -1657,7 +1657,7 @@ class ThreadingExceptionTests(BaseTestCase):
             running = False
             t.join()
             """
-        rc, out, err = assert_python_ok("-c", script)
+        rc, out, err = assert_myFRpy_ok("-c", script)
         self.assertEqual(out, b'')
         err = err.decode()
         self.assertIn("Exception in thread", err)
@@ -1686,7 +1686,7 @@ class ThreadingExceptionTests(BaseTestCase):
             running = False
             t.join()
             """
-        rc, out, err = assert_python_ok("-c", script)
+        rc, out, err = assert_myFRpy_ok("-c", script)
         self.assertEqual(out, b'')
         self.assertNotIn("Unhandled exception", err.decode())
 
@@ -1719,7 +1719,7 @@ class ThreadingExceptionTests(BaseTestCase):
             t.join()
             """
 
-        assert_python_failure("-c", script)
+        assert_myFRpy_failure("-c", script)
 
     def test_bare_raise_in_brand_new_thread(self):
         def bare_raise():
@@ -1781,7 +1781,7 @@ class ExceptHookTests(BaseTestCase):
         self.assertIn('  raise ValueError("run failed")', stderr)
         self.assertIn('ValueError: run failed', stderr)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_excepthook_thread_None(self):
         # threading.excepthook called with thread=None: log the thread
         # identifier in this case.
@@ -1963,7 +1963,7 @@ class MiscTestCase(unittest.TestCase):
                     """)
 
             expected_output = b'success!'
-            _, out, err = assert_python_ok("-c", f"""if True:
+            _, out, err = assert_myFRpy_ok("-c", f"""if True:
                 import sys
                 sys.path.insert(0, {tempdir!r})
                 import {modname}
@@ -2061,7 +2061,7 @@ class InterruptMainTests(unittest.TestCase):
 class AtexitTests(unittest.TestCase):
 
     def test_atexit_output(self):
-        rc, out, err = assert_python_ok("-c", """if True:
+        rc, out, err = assert_myFRpy_ok("-c", """if True:
             import threading
 
             def run_last():
@@ -2074,7 +2074,7 @@ class AtexitTests(unittest.TestCase):
         self.assertEqual(out.strip(), b'parrot')
 
     def test_atexit_called_once(self):
-        rc, out, err = assert_python_ok("-c", """if True:
+        rc, out, err = assert_myFRpy_ok("-c", """if True:
             import threading
             from unittest.mock import Mock
 
@@ -2091,7 +2091,7 @@ class AtexitTests(unittest.TestCase):
     def test_atexit_after_shutdown(self):
         # The only way to do this is by registering an atexit within
         # an atexit, which is intended to raise an exception.
-        rc, out, err = assert_python_ok("-c", """if True:
+        rc, out, err = assert_myFRpy_ok("-c", """if True:
             import threading
 
             def func():

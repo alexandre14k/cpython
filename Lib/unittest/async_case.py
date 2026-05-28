@@ -28,7 +28,7 @@ class IsolatedAsyncioTestCase(TestCase):
     # yet.
     # asyncio.get_event_loop_policy() creates a default policy on demand but never
     # returns None
-    # I believe this is not an issue in user level tests but python itself for testing
+    # I believe this is not an issue in user level tests but myFRpy itself for testing
     # should reset a policy in every test module
     # by calling asyncio.set_event_loop_policy(None) in tearDownModule()
 

@@ -1,4 +1,4 @@
-"""This script generates a Python codec module from a Windows Code Page.
+"""This script generates a MyFRpy codec module from a Windows Code Page.
 
 It uses the function MultiByteToWideChar to generate a decoding table.
 """
@@ -47,9 +47,9 @@ def genwincodec(codepage):
     code = codegen("", map, encodingname)
     # Replace first lines with our own docstring
     code = '''\
-"""Python Character Mapping Codec %s generated on Windows:
+"""MyFRpy Character Mapping Codec %s generated on Windows:
 %s with the command:
-  python Tools/unicode/genwincodec.py %s
+  myFRpy Tools/unicode/genwincodec.py %s
 """#"
 ''' % (encodingname, ' '.join(platform.win32_ver()), codepage
       ) + code.split('"""#"', 1)[1]

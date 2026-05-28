@@ -1,4 +1,4 @@
-""" Python 'ascii' Codec
+""" MyFRpy 'ascii' Codec
 
 
 Written by Marc-Andre Lemburg (mal@lemburg.com).

@@ -206,7 +206,7 @@ class TestSupport(unittest.TestCase):
         """Test that a forked child process does not remove the directory."""
         # See bpo-30028 for details.
         # Run the test as an external script, because it uses fork.
-        script_helper.assert_python_ok("-c", textwrap.dedent("""
+        script_helper.assert_myFRpy_ok("-c", textwrap.dedent("""
             import os
             from test import support
             from test.support import os_helper
@@ -355,8 +355,8 @@ class TestSupport(unittest.TestCase):
     def test_gc_collect(self):
         support.gc_collect()
 
-    def test_python_is_optimized(self):
-        self.assertIsInstance(support.python_is_optimized(), bool)
+    def test_myFRpy_is_optimized(self):
+        self.assertIsInstance(support.myFRpy_is_optimized(), bool)
 
     def test_swap_attr(self):
         class Obj:
@@ -490,7 +490,7 @@ class TestSupport(unittest.TestCase):
         code = f'from test.support import {func}; print(repr({func}()))'
         cmd = [sys.executable, *args, '-c', code]
         env = {key: value for key, value in os.environ.items()
-               if not key.startswith('PYTHON')}
+               if not key.startswith('MYFRPY')}
         proc = subprocess.run(cmd,
                               stdout=subprocess.PIPE,
                               stderr=subprocess.DEVNULL,
@@ -555,7 +555,7 @@ class TestSupport(unittest.TestCase):
     def test_fd_count(self):
         # We cannot test the absolute value of fd_count(): on old Linux
         # kernel or glibc versions, os.urandom() keeps a FD open on
-        # /dev/urandom device and Python has 4 FD opens instead of 3.
+        # /dev/urandom device and MyFRpy has 4 FD opens instead of 3.
         # Test is unstable on Emscripten. The platform starts and stops
         # background threads that use pipes and epoll fds.
         start = os_helper.fd_count()
@@ -625,7 +625,7 @@ class TestSupport(unittest.TestCase):
                 print(f"test with sys.getrecursionlimit()={limit}")
                 test_recursive(2, limit)
         """)
-        script_helper.assert_python_ok("-c", code)
+        script_helper.assert_myFRpy_ok("-c", code)
 
     def test_recursion(self):
         # Test infinite_recursion() and get_recursion_available() functions.
@@ -699,7 +699,7 @@ class TestSupport(unittest.TestCase):
             support.max_memuse = old_max_memuse
             support.real_max_memuse = old_real_max_memuse
 
-    def test_copy_python_src_ignore(self):
+    def test_copy_myFRpy_src_ignore(self):
         # Get source directory
         src_dir = sysconfig.get_config_var('abs_srcdir')
         if not src_dir:
@@ -708,31 +708,31 @@ class TestSupport(unittest.TestCase):
 
         # Check that the source code is available
         if not os.path.exists(src_dir):
-            self.skipTest(f"cannot access Python source code directory:"
+            self.skipTest(f"cannot access MyFRpy source code directory:"
                           f" {src_dir!r}")
-        # Check that the landmark copy_python_src_ignore() expects is available
+        # Check that the landmark copy_myFRpy_src_ignore() expects is available
         # (Previously we looked for 'Lib\os.py', which is always present on Windows.)
         landmark = os.path.join(src_dir, 'Modules')
         if not os.path.exists(landmark):
-            self.skipTest(f"cannot access Python source code directory:"
+            self.skipTest(f"cannot access MyFRpy source code directory:"
                           f" {landmark!r} landmark is missing")
 
-        # Test support.copy_python_src_ignore()
+        # Test support.copy_myFRpy_src_ignore()
 
         # Source code directory
         ignored = {'.git', '__pycache__'}
         names = os.listdir(src_dir)
-        self.assertEqual(support.copy_python_src_ignore(src_dir, names),
+        self.assertEqual(support.copy_myFRpy_src_ignore(src_dir, names),
                          ignored | {'build'})
 
         # Doc/ directory
         path = os.path.join(src_dir, 'Doc')
-        self.assertEqual(support.copy_python_src_ignore(path, os.listdir(path)),
+        self.assertEqual(support.copy_myFRpy_src_ignore(path, os.listdir(path)),
                          ignored | {'build', 'venv'})
 
         # Another directory
         path = os.path.join(src_dir, 'Objects')
-        self.assertEqual(support.copy_python_src_ignore(path, os.listdir(path)),
+        self.assertEqual(support.copy_myFRpy_src_ignore(path, os.listdir(path)),
                          ignored)
 
     # XXX -follows a list of untested API

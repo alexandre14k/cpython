@@ -504,12 +504,12 @@ class HighPage(Frame):
         background.
 
         DynOptionMenu targetlist contains a readable description of the
-        tags applied to Python source within IDLE.  Selecting one of the
+        tags applied to MyFRpy source within IDLE.  Selecting one of the
         tags from this list populates highlight_target, which has a callback
         function set_highlight_target().
 
         Text widget highlight_sample displays a block of text (which is
-        mock Python code) in which is embedded the defined tags and reflects
+        mock MyFRpy code) in which is embedded the defined tags and reflects
         the color attributes of the current theme and changes for those tags.
         Mouse button 1 allows for selection of a tag and updates
         highlight_target with that tag value.
@@ -579,11 +579,11 @@ class HighPage(Frame):
             # Display-name: internal-config-tag-name.
             'Normal Code or Text': 'normal',
             'Code Context': 'context',
-            'Python Keywords': 'keyword',
-            'Python Definitions': 'definition',
-            'Python Builtins': 'builtin',
-            'Python Comments': 'comment',
-            'Python Strings': 'string',
+            'MyFRpy Keywords': 'keyword',
+            'MyFRpy Definitions': 'definition',
+            'MyFRpy Builtins': 'builtin',
+            'MyFRpy Comments': 'comment',
+            'MyFRpy Strings': 'string',
             'Selected Text': 'hilite',
             'Found Text': 'hit',
             'Cursor': 'cursor',

@@ -35,7 +35,7 @@ import enum
 import sys
 import types
 
-import _tkinter # If this fails your Python may not be configured for Tk
+import _tkinter # If this fails your MyFRpy may not be configured for Tk
 TclError = _tkinter.TclError
 from tkinter.constants import *
 import re
@@ -1587,7 +1587,7 @@ class Misc:
 
     def _register(self, func, subst=None, needcleanup=1):
         """Return a newly created Tcl function. If this
-        function is called, the Python function FUNC will
+        function is called, the MyFRpy function FUNC will
         be executed. An optional function SUBST can
         be given which will be executed before FUNC."""
         f = CallWrapper(func, subst, self).__call__

@@ -29,9 +29,9 @@ Allocating Objects on the Heap
 
 .. c:macro:: PyObject_New(TYPE, typeobj)
 
-   Allocate a new Python object using the C structure type *TYPE*
-   and the Python type object *typeobj* (``PyTypeObject*``).
-   Fields not defined by the Python object header are not initialized.
+   Allocate a new MyFRpy object using the C structure type *TYPE*
+   and the MyFRpy type object *typeobj* (``PyTypeObject*``).
+   Fields not defined by the MyFRpy object header are not initialized.
    The caller will own the only reference to the object
    (i.e. its reference count will be one).
    The size of the memory allocation is determined from the
@@ -40,9 +40,9 @@ Allocating Objects on the Heap
 
 .. c:macro:: PyObject_NewVar(TYPE, typeobj, size)
 
-   Allocate a new Python object using the C structure type *TYPE* and the
-   Python type object *typeobj* (``PyTypeObject*``).
-   Fields not defined by the Python object header
+   Allocate a new MyFRpy object using the C structure type *TYPE* and the
+   MyFRpy type object *typeobj* (``PyTypeObject*``).
+   Fields not defined by the MyFRpy object header
    are not initialized.  The allocated memory allows for the *TYPE* structure
    plus *size* (``Py_ssize_t``) fields of the size
    given by the :c:member:`~PyTypeObject.tp_itemsize` field of
@@ -58,12 +58,12 @@ Allocating Objects on the Heap
    :c:macro:`PyObject_NewVar`.  This is normally called from the
    :c:member:`~PyTypeObject.tp_dealloc` handler specified in the object's type.  The fields of
    the object should not be accessed after this call as the memory is no
-   longer a valid Python object.
+   longer a valid MyFRpy object.
 
 
 .. c:var:: PyObject _Py_NoneStruct
 
-   Object which is visible in Python as ``None``.  This should only be accessed
+   Object which is visible in MyFRpy as ``None``.  This should only be accessed
    using the :c:macro:`Py_None` macro, which evaluates to a pointer to this
    object.
 

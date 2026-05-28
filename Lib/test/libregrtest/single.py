@@ -125,7 +125,7 @@ def _load_run_test(result: TestResult, runtests: RunTests) -> None:
     test_mod = importlib.import_module(module_name)
 
     if hasattr(test_mod, "test_main"):
-        # https://github.com/python/cpython/issues/89392
+        # https://github.com/myFRpy/cmyFRpy/issues/89392
         raise Exception(f"Module {test_name} defines test_main() which "
                         f"is no longer supported by regrtest")
     def test_func():

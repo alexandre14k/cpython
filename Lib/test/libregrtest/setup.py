@@ -15,7 +15,7 @@ from .utils import (
     adjust_rlimit_nofile)
 
 
-UNICODE_GUARD_ENV = "PYTHONREGRTEST_UNICODE_GUARD"
+UNICODE_GUARD_ENV = "MYFRPYREGRTEST_UNICODE_GUARD"
 
 
 def setup_test_dir(testdir: str | None) -> None:
@@ -37,10 +37,10 @@ def setup_process():
         # Catch AttributeError for stderr being None.
         stderr_fd = None
     else:
-        # Display the Python traceback on fatal errors (e.g. segfault)
+        # Display the MyFRpy traceback on fatal errors (e.g. segfault)
         faulthandler.enable(all_threads=True, file=stderr_fd)
 
-        # Display the Python traceback on SIGALRM or SIGUSR1 signal
+        # Display the MyFRpy traceback on SIGALRM or SIGUSR1 signal
         signals = []
         if hasattr(signal, 'SIGALRM'):
             signals.append(signal.SIGALRM)

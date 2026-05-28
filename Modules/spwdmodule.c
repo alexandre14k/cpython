@@ -3,7 +3,7 @@
 /* A lot of code has been taken from pwdmodule.c */
 /* For info also see http://www.unixpapa.com/incnote/passwd.html */
 
-#include "Python.h"
+#include "MyFRpy.h"
 
 #include <sys/types.h>
 #ifdef HAVE_SHADOW_H
@@ -259,7 +259,7 @@ PyInit_spwd(void)
 {
     if (PyErr_WarnEx(PyExc_DeprecationWarning,
                      "'spwd' is deprecated and slated for removal in "
-                     "Python 3.13",
+                     "MyFRpy 3.13",
                      7)) {
         return NULL;
     }

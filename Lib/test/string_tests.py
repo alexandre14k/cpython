@@ -791,7 +791,7 @@ class BaseTest:
     def test_removeprefix(self):
         self.checkequal('am', 'spam', 'removeprefix', 'sp')
         self.checkequal('spamspam', 'spamspamspam', 'removeprefix', 'spam')
-        self.checkequal('spam', 'spam', 'removeprefix', 'python')
+        self.checkequal('spam', 'spam', 'removeprefix', 'myFRpy')
         self.checkequal('spam', 'spam', 'removeprefix', 'spider')
         self.checkequal('spam', 'spam', 'removeprefix', 'spam and eggs')
 
@@ -809,7 +809,7 @@ class BaseTest:
     def test_removesuffix(self):
         self.checkequal('sp', 'spam', 'removesuffix', 'am')
         self.checkequal('spamspam', 'spamspamspam', 'removesuffix', 'spam')
-        self.checkequal('spam', 'spam', 'removesuffix', 'python')
+        self.checkequal('spam', 'spam', 'removesuffix', 'myFRpy')
         self.checkequal('spam', 'spam', 'removesuffix', 'blam')
         self.checkequal('spam', 'spam', 'removesuffix', 'eggs and spam')
 
@@ -1391,7 +1391,7 @@ class MixinStrUnicodeUserStringTest:
         class X(object): pass
         self.checkraises(TypeError, 'abc', '__mod__', X())
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_formatting_c_limits(self):
         _testcapi = import_helper.import_module('_testcapi')
         SIZE_MAX = (1 << (_testcapi.PY_SSIZE_T_MAX.bit_length() + 1)) - 1
@@ -1439,11 +1439,11 @@ class MixinStrUnicodeUserStringTest:
             'this is the partition method', 'partition', 'ti')
 
         # from raymond's original specification
-        S = 'http://www.python.org'
-        self.checkequal(('http', '://', 'www.python.org'), S, 'partition', '://')
-        self.checkequal(('http://www.python.org', '', ''), S, 'partition', '?')
-        self.checkequal(('', 'http://', 'www.python.org'), S, 'partition', 'http://')
-        self.checkequal(('http://www.python.', 'org', ''), S, 'partition', 'org')
+        S = 'http://www.myFRpy.org'
+        self.checkequal(('http', '://', 'www.myFRpy.org'), S, 'partition', '://')
+        self.checkequal(('http://www.myFRpy.org', '', ''), S, 'partition', '?')
+        self.checkequal(('', 'http://', 'www.myFRpy.org'), S, 'partition', 'http://')
+        self.checkequal(('http://www.myFRpy.', 'org', ''), S, 'partition', 'org')
 
         self.checkraises(ValueError, S, 'partition', '')
         self.checkraises(TypeError, S, 'partition', None)
@@ -1454,11 +1454,11 @@ class MixinStrUnicodeUserStringTest:
             'this is the rpartition method', 'rpartition', 'ti')
 
         # from raymond's original specification
-        S = 'http://www.python.org'
-        self.checkequal(('http', '://', 'www.python.org'), S, 'rpartition', '://')
-        self.checkequal(('', '', 'http://www.python.org'), S, 'rpartition', '?')
-        self.checkequal(('', 'http://', 'www.python.org'), S, 'rpartition', 'http://')
-        self.checkequal(('http://www.python.', 'org', ''), S, 'rpartition', 'org')
+        S = 'http://www.myFRpy.org'
+        self.checkequal(('http', '://', 'www.myFRpy.org'), S, 'rpartition', '://')
+        self.checkequal(('', '', 'http://www.myFRpy.org'), S, 'rpartition', '?')
+        self.checkequal(('', 'http://', 'www.myFRpy.org'), S, 'rpartition', 'http://')
+        self.checkequal(('http://www.myFRpy.', 'org', ''), S, 'rpartition', 'org')
 
         self.checkraises(ValueError, S, 'rpartition', '')
         self.checkraises(TypeError, S, 'rpartition', None)

@@ -2,12 +2,12 @@
 
 ## Common header
 
-Each Python object starts with two fields:
+Each MyFRpy object starts with two fields:
 
 * ob_refcnt
 * ob_type
 
-which form the header common to all Python objects, for all versions,
+which form the header common to all MyFRpy objects, for all versions,
 and hold the reference count and class of the object, respectively.
 
 ## Pre-header
@@ -53,7 +53,7 @@ the values pointer, to enable the (legacy) C-API function
 `_PyObject_GetDictPtr(PyObject *obj)` to work.
 
 
-## Layout of a "normal" Python object in 3.12:
+## Layout of a "normal" MyFRpy object in 3.12:
 
 * weakreflist
 * dict_or_values
@@ -62,7 +62,7 @@ the values pointer, to enable the (legacy) C-API function
 * ob_refcnt
 * ob_type
 
-For a "normal" Python object, one that doesn't inherit from a builtin
+For a "normal" MyFRpy object, one that doesn't inherit from a builtin
 class or have slots, the header and pre-header form the entire object.
 
 ![Layout of "normal" object in 3.12](./object_layout_312.png)

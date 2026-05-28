@@ -9,7 +9,7 @@
 
 #include "multiprocessing.h"
 
-/*[python input]
+/*[myFRpy input]
 class HANDLE_converter(CConverter):
     type = "HANDLE"
     format_unit = '"F_HANDLE"'
@@ -22,8 +22,8 @@ class HANDLE_converter(CConverter):
             }}}}
             """.format(argname=argname, paramname=self.parser_name)
 
-[python start generated code]*/
-/*[python end generated code: output=da39a3ee5e6b4b0d input=3e537d244034affb]*/
+[myFRpy start generated code]*/
+/*[myFRpy end generated code: output=da39a3ee5e6b4b0d input=3e537d244034affb]*/
 
 /*[clinic input]
 module _multiprocessing

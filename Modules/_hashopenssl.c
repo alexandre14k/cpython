@@ -24,7 +24,7 @@
 
 #define PY_SSIZE_T_CLEAN
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_hashtable.h"
 #include "hashlib.h"
 #include "pycore_strhex.h"        // _Py_strhex()
@@ -39,7 +39,7 @@
 
 
 #ifndef OPENSSL_THREADS
-#  error "OPENSSL_THREADS is not defined, Python requires thread-safe OpenSSL"
+#  error "OPENSSL_THREADS is not defined, MyFRpy requires thread-safe OpenSSL"
 #endif
 
 #define MUNCH_SIZE INT_MAX
@@ -63,7 +63,7 @@
 
 /* hash alias map and fast lookup
  *
- * Map between Python's preferred names and OpenSSL internal names. Maintain
+ * Map between MyFRpy's preferred names and OpenSSL internal names. Maintain
  * cache of fetched EVP MD objects. The EVP_get_digestbyname() and
  * EVP_MD_fetch() API calls have a performance impact.
  *
@@ -1866,7 +1866,7 @@ _openssl_hash_name_mapper(const EVP_MD *md, const char *from,
 }
 
 
-/* Ask OpenSSL for a list of supported ciphers, filling in a Python set. */
+/* Ask OpenSSL for a list of supported ciphers, filling in a MyFRpy set. */
 static int
 hashlib_md_meth_names(PyObject *module)
 {

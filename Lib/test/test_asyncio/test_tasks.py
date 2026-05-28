@@ -18,7 +18,7 @@ from asyncio import futures
 from asyncio import tasks
 from test.test_asyncio import utils as test_utils
 from test import support
-from test.support.script_helper import assert_python_ok
+from test.support.script_helper import assert_myFRpy_ok
 
 
 def tearDownModule():
@@ -482,7 +482,7 @@ class BaseTaskTests:
 
     def test_exception_chaining_after_await_with_context_cycle(self):
         # Check trying to create an exception context cycle:
-        # https://bugs.python.org/issue40696
+        # https://bugs.myFRpy.org/issue40696
         has_cycle = None
         loop = asyncio.new_event_loop()
         self.set_event_loop(loop)
@@ -2152,7 +2152,7 @@ class BaseTaskTests:
         # At this point the task should complete.
         loop.run_until_complete(gather_task)
 
-        # Python issue #26923: asyncio.gather drops cancellation
+        # MyFRpy issue #26923: asyncio.gather drops cancellation
         self.assertEqual(cancel_result, False)
         self.assertFalse(gather_task.cancelled())
         self.assertEqual(gather_task.result(), [42])
@@ -2201,7 +2201,7 @@ class BaseTaskTests:
                     )
 
     def test_exception_traceback(self):
-        # See http://bugs.python.org/issue28843
+        # See http://bugs.myFRpy.org/issue28843
 
         async def foo():
             1 / 0
@@ -2901,7 +2901,7 @@ class GenericTaskTests(test_utils.TestCase):
     def test_future_subclass(self):
         self.assertTrue(issubclass(asyncio.Task, asyncio.Future))
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_asyncio_module_compiled(self):
         # Because of circular imports it's easy to make _asyncio
         # module non-importable.  This is a simple test that will
@@ -2997,27 +2997,27 @@ class GatherTestsBase:
             'print(asyncio.coroutines._is_debug_mode())'))
 
         # Test with -E to not fail if the unit test was run with
-        # PYTHONASYNCIODEBUG set to a non-empty string
-        sts, stdout, stderr = assert_python_ok('-E', '-c', code)
+        # MYFRPYASYNCIODEBUG set to a non-empty string
+        sts, stdout, stderr = assert_myFRpy_ok('-E', '-c', code)
         self.assertEqual(stdout.rstrip(), b'False')
 
-        sts, stdout, stderr = assert_python_ok('-c', code,
-                                               PYTHONASYNCIODEBUG='',
-                                               PYTHONDEVMODE='')
+        sts, stdout, stderr = assert_myFRpy_ok('-c', code,
+                                               MYFRPYASYNCIODEBUG='',
+                                               MYFRPYDEVMODE='')
         self.assertEqual(stdout.rstrip(), b'False')
 
-        sts, stdout, stderr = assert_python_ok('-c', code,
-                                               PYTHONASYNCIODEBUG='1',
-                                               PYTHONDEVMODE='')
+        sts, stdout, stderr = assert_myFRpy_ok('-c', code,
+                                               MYFRPYASYNCIODEBUG='1',
+                                               MYFRPYDEVMODE='')
         self.assertEqual(stdout.rstrip(), b'True')
 
-        sts, stdout, stderr = assert_python_ok('-E', '-c', code,
-                                               PYTHONASYNCIODEBUG='1',
-                                               PYTHONDEVMODE='')
+        sts, stdout, stderr = assert_myFRpy_ok('-E', '-c', code,
+                                               MYFRPYASYNCIODEBUG='1',
+                                               MYFRPYDEVMODE='')
         self.assertEqual(stdout.rstrip(), b'False')
 
         # -X dev
-        sts, stdout, stderr = assert_python_ok('-E', '-X', 'dev',
+        sts, stdout, stderr = assert_myFRpy_ok('-E', '-X', 'dev',
                                                '-c', code)
         self.assertEqual(stdout.rstrip(), b'True')
 

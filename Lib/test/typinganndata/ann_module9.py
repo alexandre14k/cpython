@@ -1,5 +1,5 @@
 # Test ``inspect.formatannotation``
-# https://github.com/python/cpython/issues/96073
+# https://github.com/myFRpy/cmyFRpy/issues/96073
 
 from typing import Union, List
 

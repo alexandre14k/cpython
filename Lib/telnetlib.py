@@ -6,7 +6,7 @@ J. Reynolds
 Example:
 
 >>> from telnetlib import Telnet
->>> tn = Telnet('www.python.org', 79)   # connect to finger port
+>>> tn = Telnet('www.myFRpy.org', 79)   # connect to finger port
 >>> tn.write(b'guido\r\n')
 >>> print(tn.read_all())
 Login       Name               TTY         Idle    When    Where
@@ -651,7 +651,7 @@ class Telnet:
 def test():
     """Test program for telnetlib.
 
-    Usage: python telnetlib.py [-d] ... [host [port]]
+    Usage: myFRpy telnetlib.py [-d] ... [host [port]]
 
     Default host is localhost; default port is 23.
 

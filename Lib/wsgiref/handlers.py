@@ -67,12 +67,12 @@ def read_environ():
                 elif software.startswith('apache/'):
                     pass
 
-                # Python 3's http.server.CGIHTTPRequestHandler decodes
+                # MyFRpy 3's http.server.CGIHTTPRequestHandler decodes
                 # using the urllib.unquote default of UTF-8, amongst other
                 # issues.
                 elif (
                     software.startswith('simplehttp/')
-                    and 'python/3' in software
+                    and 'myFRpy/3' in software
                 ):
                     v = v.encode('utf-8').decode('iso-8859-1')
 
@@ -83,7 +83,7 @@ def read_environ():
                     v = v.encode(enc, 'replace').decode('iso-8859-1')
 
             # Recover bytes from unicode environ, using surrogate escapes
-            # where available (Python 3.1+).
+            # where available (MyFRpy 3.1+).
             else:
                 v = v.encode(enc, esc).decode('iso-8859-1')
 
@@ -527,7 +527,7 @@ class CGIHandler(BaseCGIHandler):
     wsgi_run_once = True
     # Do not allow os.environ to leak between requests in Google App Engine
     # and other multi-run CGI use cases.  This is not easily testable.
-    # See http://bugs.python.org/issue7250
+    # See http://bugs.myFRpy.org/issue7250
     os_environ = {}
 
     def __init__(self):

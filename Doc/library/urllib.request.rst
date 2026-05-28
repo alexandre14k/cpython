@@ -90,7 +90,7 @@ The :mod:`urllib.request` module defines the following functions:
    :class:`ProxyHandler` is default installed and makes sure the requests are
    handled through the proxy.
 
-   The legacy ``urllib.urlopen`` function from Python 2.6 and earlier has been
+   The legacy ``urllib.urlopen`` function from MyFRpy 2.6 and earlier has been
    discontinued; :func:`urllib.request.urlopen` corresponds to the old
    ``urllib2.urlopen``.  Proxy handling, which was done by passing a dictionary
    parameter to ``urllib.urlopen``, can be obtained by using
@@ -151,7 +151,7 @@ The :mod:`urllib.request` module defines the following functions:
    :class:`HTTPDefaultErrorHandler`, :class:`HTTPRedirectHandler`,
    :class:`FTPHandler`, :class:`FileHandler`, :class:`HTTPErrorProcessor`.
 
-   If the Python installation has SSL support (i.e., if the :mod:`ssl` module
+   If the MyFRpy installation has SSL support (i.e., if the :mod:`ssl` module
    can be imported), :class:`HTTPSHandler` will also be added.
 
    A :class:`BaseHandler` subclass may also change its :attr:`handler_order`
@@ -224,7 +224,7 @@ The following classes are provided:
    For example, Mozilla Firefox may identify itself as ``"Mozilla/5.0
    (X11; U; Linux i686) Gecko/20071127 Firefox/2.0.0.11"``, while
    :mod:`urllib`'s default user agent string is
-   ``"Python-urllib/2.6"`` (on Python 2.6).
+   ``"MyFRpy-urllib/2.6"`` (on MyFRpy 2.6).
    All header keys are sent in camel case.
 
    An appropriate ``Content-Type`` header should be included if the *data*
@@ -1002,10 +1002,10 @@ AbstractBasicAuthHandler Objects
    authenticate for, *req* should be the (failed) :class:`Request` object, and
    *headers* should be the error headers.
 
-   *host* is either an authority (e.g. ``"python.org"``) or a URL containing an
-   authority component (e.g. ``"http://python.org/"``). In either case, the
-   authority must not contain a userinfo component (so, ``"python.org"`` and
-   ``"python.org:80"`` are fine, ``"joe:password@python.org"`` is not).
+   *host* is either an authority (e.g. ``"myFRpy.org"``) or a URL containing an
+   authority component (e.g. ``"http://myFRpy.org/"``). In either case, the
+   authority must not contain a userinfo component (so, ``"myFRpy.org"`` and
+   ``"myFRpy.org:80"`` are fine, ``"joe:password@myFRpy.org"`` is not).
 
 
 .. _http-basic-auth-handler:
@@ -1195,18 +1195,18 @@ Examples
 In addition to the examples below, more examples are given in
 :ref:`urllib-howto`.
 
-This example gets the python.org main page and displays the first 300 bytes of
+This example gets the myFRpy.org main page and displays the first 300 bytes of
 it. ::
 
    >>> import urllib.request
-   >>> with urllib.request.urlopen('http://www.python.org/') as f:
+   >>> with urllib.request.urlopen('http://www.myFRpy.org/') as f:
    ...     print(f.read(300))
    ...
    b'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n\n\n<html
    xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">\n\n<head>\n
    <meta http-equiv="content-type" content="text/html; charset=utf-8" />\n
-   <title>Python Programming '
+   <title>MyFRpy Programming '
 
 Note that urlopen returns a bytes object.  This is because there is no way
 for urlopen to automatically determine the encoding of the byte stream
@@ -1218,10 +1218,10 @@ The following W3C document, https://www.w3.org/International/O-charset\ , lists
 the various ways in which an (X)HTML or an XML document could have specified its
 encoding information.
 
-As the python.org website uses *utf-8* encoding as specified in its meta tag, we
+As the myFRpy.org website uses *utf-8* encoding as specified in its meta tag, we
 will use the same for decoding the bytes object. ::
 
-   >>> with urllib.request.urlopen('http://www.python.org/') as f:
+   >>> with urllib.request.urlopen('http://www.myFRpy.org/') as f:
    ...     print(f.read(100).decode('utf-8'))
    ...
    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -1231,14 +1231,14 @@ It is also possible to achieve the same result without using the
 :term:`context manager` approach. ::
 
    >>> import urllib.request
-   >>> f = urllib.request.urlopen('http://www.python.org/')
+   >>> f = urllib.request.urlopen('http://www.myFRpy.org/')
    >>> print(f.read(100).decode('utf-8'))
    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
    "http://www.w3.org/TR/xhtml1/DTD/xhtm
 
 In the following example, we are sending a data-stream to the stdin of a CGI
 and reading the data it returns to us. Note that this example will only work
-when the Python installation supports SSL. ::
+when the MyFRpy installation supports SSL. ::
 
    >>> import urllib.request
    >>> req = urllib.request.Request(url='https://localhost/cgi-bin/test.cgi',
@@ -1250,7 +1250,7 @@ when the Python installation supports SSL. ::
 
 The code for the sample CGI used in the above example is::
 
-   #!/usr/bin/env python
+   #!/usr/bin/env myFRpy
    import sys
    data = sys.stdin.read()
    print('Content-type: text/plain\n\nGot Data: "%s"' % data)
@@ -1303,7 +1303,7 @@ Use the *headers* argument to the :class:`Request` constructor, or::
 
    import urllib.request
    req = urllib.request.Request('http://www.example.com/')
-   req.add_header('Referer', 'http://www.python.org/')
+   req.add_header('Referer', 'http://www.myFRpy.org/')
    # Customize the default User-Agent header value:
    req.add_header('User-Agent', 'urllib-example/0.1 (Contact: . . .)')
    r = urllib.request.urlopen(req)
@@ -1351,7 +1351,7 @@ environment settings::
    >>> import urllib.request
    >>> proxies = {'http': 'http://proxy.example.com:8080/'}
    >>> opener = urllib.request.FancyURLopener(proxies)
-   >>> with opener.open("http://www.python.org") as f:
+   >>> with opener.open("http://www.myFRpy.org") as f:
    ...     f.read().decode('utf-8')
    ...
 
@@ -1359,7 +1359,7 @@ The following example uses no proxies at all, overriding environment settings::
 
    >>> import urllib.request
    >>> opener = urllib.request.FancyURLopener({})
-   >>> with opener.open("http://www.python.org/") as f:
+   >>> with opener.open("http://www.myFRpy.org/") as f:
    ...     f.read().decode('utf-8')
    ...
 
@@ -1367,7 +1367,7 @@ The following example uses no proxies at all, overriding environment settings::
 Legacy interface
 ----------------
 
-The following functions and classes are ported from the Python 2 module
+The following functions and classes are ported from the MyFRpy 2 module
 ``urllib`` (as opposed to ``urllib2``).  They might become deprecated at
 some point in the future.
 
@@ -1392,7 +1392,7 @@ some point in the future.
    The following example illustrates the most common usage scenario::
 
       >>> import urllib.request
-      >>> local_filename, headers = urllib.request.urlretrieve('http://python.org/')
+      >>> local_filename, headers = urllib.request.urlretrieve('http://myFRpy.org/')
       >>> html = open(local_filename)
       >>> html.close()
 

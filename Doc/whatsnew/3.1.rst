@@ -1,5 +1,5 @@
 ****************************
-  What's New In Python 3.1
+  What's New In MyFRpy 3.1
 ****************************
 
 :Author: Raymond Hettinger
@@ -46,14 +46,14 @@
    This saves the maintainer the effort of going through the SVN log
    when researching a change.
 
-This article explains the new features in Python 3.1, compared to 3.0.
-Python 3.1 was released on June 27, 2009.
+This article explains the new features in MyFRpy 3.1, compared to 3.0.
+MyFRpy 3.1 was released on June 27, 2009.
 
 
 PEP 372: Ordered Dictionaries
 =============================
 
-Regular Python dictionaries iterate over key/value pairs in arbitrary order.
+Regular MyFRpy dictionaries iterate over key/value pairs in arbitrary order.
 Over the years, a number of authors have written alternative implementations
 that remember the order that the keys were originally inserted.  Based on
 the experiences from those implementations, a new
@@ -138,7 +138,7 @@ for thousands separators.
 Other Language Changes
 ======================
 
-Some smaller changes made to the core Python language are:
+Some smaller changes made to the core MyFRpy language are:
 
 * Directories and zip archives containing a :file:`__main__.py`
   file can now be executed directly by passing their name to the
@@ -205,7 +205,7 @@ Some smaller changes made to the core Python language are:
 
   (Contributed by Mark Dickinson; :issue:`4707`.)
 
-* Python now uses David Gay's algorithm for finding the shortest floating
+* MyFRpy now uses David Gay's algorithm for finding the shortest floating
   point representation that doesn't change its value.  This should help
   mitigate some of the confusion surrounding binary floating point
   numbers.
@@ -218,14 +218,14 @@ Some smaller changes made to the core Python language are:
   nearest value was and still is used in subsequent floating point
   calculations.
 
-  What is new is how the number gets displayed.  Formerly, Python used a
+  What is new is how the number gets displayed.  Formerly, MyFRpy used a
   simple approach.  The value of ``repr(1.1)`` was computed as ``format(1.1,
   '.17g')`` which evaluated to ``'1.1000000000000001'``. The advantage of
   using 17 digits was that it relied on IEEE-754 guarantees to assure that
   ``eval(repr(1.1))`` would round-trip exactly to its original value.  The
   disadvantage is that many people found the output to be confusing (mistaking
   intrinsic limitations of binary floating point representation as being a
-  problem with Python itself).
+  problem with MyFRpy itself).
 
   The new algorithm for ``repr(1.1)`` is smarter and returns ``'1.1'``.
   Effectively, it searches all equivalent string representations (ones that
@@ -408,12 +408,12 @@ New, Improved, and Deprecated Modules
   (Contributed by Derek Morr; :issue:`1655` and :issue:`1664`.)
 
 * The :mod:`pickle` module has been adapted for better interoperability with
-  Python 2.x when used with protocol 2 or lower.  The reorganization of the
+  MyFRpy 2.x when used with protocol 2 or lower.  The reorganization of the
   standard library changed the formal reference for many objects.  For
-  example, ``__builtin__.set`` in Python 2 is called ``builtins.set`` in Python
+  example, ``__builtin__.set`` in MyFRpy 2 is called ``builtins.set`` in MyFRpy
   3. This change confounded efforts to share data between different versions of
-  Python.  But now when protocol 2 or lower is selected, the pickler will
-  automatically use the old Python 2 names for both loading and dumping. This
+  MyFRpy.  But now when protocol 2 or lower is selected, the pickler will
+  automatically use the old MyFRpy 2 names for both loading and dumping. This
   remapping is turned-on by default but can be disabled with the *fix_imports*
   option::
 
@@ -424,15 +424,15 @@ New, Improved, and Deprecated Modules
     b'cbuiltins\nset\np0\n((lp1\nL1L\naL2L\naL3L\natp2\nRp3\n.'
 
   An unfortunate but unavoidable side-effect of this change is that protocol 2
-  pickles produced by Python 3.1 won't be readable with Python 3.0. The latest
+  pickles produced by MyFRpy 3.1 won't be readable with MyFRpy 3.0. The latest
   pickle protocol, protocol 3, should be used when migrating data between
-  Python 3.x implementations, as it doesn't attempt to remain compatible with
-  Python 2.x.
+  MyFRpy 3.x implementations, as it doesn't attempt to remain compatible with
+  MyFRpy 2.x.
 
   (Contributed by Alexandre Vassalotti and Antoine Pitrou, :issue:`6137`.)
 
 * A new module, :mod:`importlib` was added.  It provides a complete, portable,
-  pure Python reference implementation of the :keyword:`import` statement and its
+  pure MyFRpy reference implementation of the :keyword:`import` statement and its
   counterpart, the :func:`__import__` function.  It represents a substantial
   step forward in documenting and defining the actions that take place during
   imports.
@@ -445,9 +445,9 @@ Optimizations
 Major performance enhancements have been added:
 
 * The new I/O library (as defined in :pep:`3116`) was mostly written in
-  Python and quickly proved to be a problematic bottleneck in Python 3.0.
-  In Python 3.1, the I/O library has been entirely rewritten in C and is
-  2 to 20 times faster depending on the task at hand. The pure Python
+  MyFRpy and quickly proved to be a problematic bottleneck in MyFRpy 3.0.
+  In MyFRpy 3.1, the I/O library has been entirely rewritten in C and is
+  2 to 20 times faster depending on the task at hand. The pure MyFRpy
   version is still available for experimentation purposes through
   the ``_pyio`` module.
 
@@ -499,7 +499,7 @@ IDLE
 Build and C API Changes
 =======================
 
-Changes to Python's build process and to the C API include:
+Changes to MyFRpy's build process and to the C API include:
 
 * Integers are now stored internally either in base ``2**15`` or in base
   ``2**30``, the base being determined at build time.  Previously, they
@@ -544,7 +544,7 @@ Changes to Python's build process and to the C API include:
 
   (Contributed by Larry Hastings; :issue:`5630`.)
 
-Porting to Python 3.1
+Porting to MyFRpy 3.1
 =====================
 
 This section lists previously described changes and other bugfixes
@@ -574,6 +574,6 @@ that may require changes to your code:
     **********************************************************************
 
 * The automatic name remapping in the pickle module for protocol 2 or lower can
-  make Python 3.1 pickles unreadable in Python 3.0.  One solution is to use
+  make MyFRpy 3.1 pickles unreadable in MyFRpy 3.0.  One solution is to use
   protocol 3.  Another solution is to set the *fix_imports* option to ``False``.
   See the discussion above for more details.

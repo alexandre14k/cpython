@@ -1,4 +1,4 @@
-"""Get useful information from live Python objects.
+"""Get useful information from live MyFRpy objects.
 
 This module encapsulates the interface provided by the internal special
 attributes (co_*, im_*, tb_*, etc.) in a friendlier fashion.
@@ -17,7 +17,7 @@ Here are some of the useful functions provided by this module:
     getclasstree() - arrange classes so as to represent their hierarchy
 
     getargvalues(), getcallargs() - get info about function arguments
-    getfullargspec() - same, with support for Python 3 features
+    getfullargspec() - same, with support for MyFRpy 3 features
     formatargvalues() - format an argument spec
     getouterframes(), getinnerframes() - get info about frames
     currentframe() - get the current stack frame
@@ -305,7 +305,7 @@ def ismethoddescriptor(object):
 
     But not if ismethod() or isclass() or isfunction() are true.
 
-    This is new in Python 2.2, and, for example, is true of int.__add__.
+    This is new in MyFRpy 2.2, and, for example, is true of int.__add__.
     An object passing this test has a __get__ attribute but not a __set__
     attribute, but beyond that the set of attributes varies.  __name__ is
     usually sensible, and __doc__ often is.
@@ -324,7 +324,7 @@ def isdatadescriptor(object):
     """Return true if the object is a data descriptor.
 
     Data descriptors have a __set__ or a __delete__ attribute.  Examples are
-    properties (defined in Python) and getsets and members (defined in C).
+    properties (defined in MyFRpy) and getsets and members (defined in C).
     Typically, data descriptors will also have __name__ and __doc__ attributes
     (properties, getsets, and members have both of these attributes), but this
     is not guaranteed."""
@@ -335,7 +335,7 @@ def isdatadescriptor(object):
     return hasattr(tp, "__set__") or hasattr(tp, "__delete__")
 
 if hasattr(types, 'MemberDescriptorType'):
-    # CPython and equivalent
+    # CMyFRpy and equivalent
     def ismemberdescriptor(object):
         """Return true if the object is a member descriptor.
 
@@ -352,7 +352,7 @@ else:
         return False
 
 if hasattr(types, 'GetSetDescriptorType'):
-    # CPython and equivalent
+    # CMyFRpy and equivalent
     def isgetsetdescriptor(object):
         """Return true if the object is a getset descriptor.
 
@@ -471,7 +471,7 @@ def istraceback(object):
     Traceback objects provide these attributes:
         tb_frame        frame object at this level
         tb_lasti        index of last attempted instruction in bytecode
-        tb_lineno       current line number in Python source code
+        tb_lineno       current line number in MyFRpy source code
         tb_next         next inner traceback object (called by this level)"""
     return isinstance(object, types.TracebackType)
 
@@ -484,7 +484,7 @@ def isframe(object):
         f_code          code object being executed in this frame
         f_globals       global namespace seen by this frame
         f_lasti         index of last attempted instruction in bytecode
-        f_lineno        current line number in Python source code
+        f_lineno        current line number in MyFRpy source code
         f_locals        local namespace seen by this frame
         f_trace         tracing function for this frame, or None"""
     return isinstance(object, types.FrameType)
@@ -499,7 +499,7 @@ def iscode(object):
         co_cellvars         tuple of names of cell variables
         co_consts           tuple of constants used in the bytecode
         co_filename         name of file in which this code object was created
-        co_firstlineno      number of first line in Python source code
+        co_firstlineno      number of first line in MyFRpy source code
         co_flags            bitmap: 1=optimized | 2=newlocals | 4=*arg | 8=**arg
                             | 16=nested | 32=generator | 64=nofree | 128=coroutine
                             | 256=iterable_coroutine | 512=async_generator
@@ -1609,7 +1609,7 @@ def getclosurevars(func):
         func = func.__func__
 
     if not isfunction(func):
-        raise TypeError("{!r} is not a Python function".format(func))
+        raise TypeError("{!r} is not a MyFRpy function".format(func))
 
     code = func.__code__
     # Nonlocal references are named in co_freevars and resolved
@@ -1671,7 +1671,7 @@ def _get_code_position(code, instruction_index):
     if instruction_index < 0:
         return (None, None, None, None)
     positions_gen = code.co_positions()
-    # The nth entry in code.co_positions() corresponds to instruction (2*n)th since Python 3.10+
+    # The nth entry in code.co_positions() corresponds to instruction (2*n)th since MyFRpy 3.10+
     return next(itertools.islice(positions_gen, instruction_index // 2, None))
 
 def getframeinfo(frame, context=1):
@@ -1896,7 +1896,7 @@ def getgeneratorlocals(generator):
     bound values."""
 
     if not isgenerator(generator):
-        raise TypeError("{!r} is not a Python generator".format(generator))
+        raise TypeError("{!r} is not a MyFRpy generator".format(generator))
 
     frame = getattr(generator, "gi_frame", None)
     if frame is not None:
@@ -1978,7 +1978,7 @@ def getasyncgenlocals(agen):
     bound values."""
 
     if not isasyncgen(agen):
-        raise TypeError(f"{agen!r} is not a Python async generator")
+        raise TypeError(f"{agen!r} is not a MyFRpy async generator")
 
     frame = getattr(agen, "ag_frame", None)
     if frame is not None:
@@ -2001,7 +2001,7 @@ _NonUserDefinedCallables = (types.WrapperDescriptorType,
 def _signature_get_user_defined_method(cls, method_name):
     """Private helper. Checks if ``cls`` has an attribute
     named ``method_name`` and returns it only if it is a
-    pure python function.
+    pure myFRpy function.
     """
     if method_name == '__new__':
         meth = getattr(cls, method_name, None)
@@ -2126,14 +2126,14 @@ def _signature_is_builtin(obj):
             ismethoddescriptor(obj) or
             isinstance(obj, _NonUserDefinedCallables) or
             # Can't test 'isinstance(type)' here, as it would
-            # also be True for regular python classes
+            # also be True for regular myFRpy classes
             obj in (type, object))
 
 
 def _signature_is_functionlike(obj):
     """Private helper to test if `obj` is a duck type of FunctionType.
     A good example of such objects are functions compiled with
-    Cython, which have all attributes that a pure Python function
+    Cython, which have all attributes that a pure MyFRpy function
     would have, but have their code statically compiled.
     """
 
@@ -2155,13 +2155,13 @@ def _signature_is_functionlike(obj):
             (isinstance(annotations, (dict)) or annotations is None) )
 
 
-def _signature_strip_non_python_syntax(signature):
+def _signature_strip_non_myFRpy_syntax(signature):
     """
     Private helper function. Takes a signature in Argument Clinic's
     extended signature format.
 
     Returns a tuple of two things:
-      * that signature re-rendered in standard Python syntax, and
+      * that signature re-rendered in standard MyFRpy syntax, and
       * the index of the "self" parameter (generally 0), or None if
         the function does not have a "self" parameter.
     """
@@ -2211,7 +2211,7 @@ def _signature_fromstr(cls, obj, s, skip_bound_arg=True):
     """
     Parameter = cls._parameter_cls
 
-    clean_signature, self_parameter = _signature_strip_non_python_syntax(s)
+    clean_signature, self_parameter = _signature_strip_non_myFRpy_syntax(s)
 
     program = "def foo" + clean_signature + ": pass"
 
@@ -2353,7 +2353,7 @@ def _signature_from_builtin(cls, func, skip_bound_arg=True):
     """
 
     if not _signature_is_builtin(func):
-        raise TypeError("{!r} is not a Python builtin "
+        raise TypeError("{!r} is not a MyFRpy builtin "
                         "function".format(func))
 
     s = getattr(func, "__text_signature__", None)
@@ -2365,16 +2365,16 @@ def _signature_from_builtin(cls, func, skip_bound_arg=True):
 
 def _signature_from_function(cls, func, skip_bound_arg=True,
                              globals=None, locals=None, eval_str=False):
-    """Private helper: constructs Signature for the given python function."""
+    """Private helper: constructs Signature for the given myFRpy function."""
 
     is_duck_function = False
     if not isfunction(func):
         if _signature_is_functionlike(func):
             is_duck_function = True
         else:
-            # If it's not a pure Python function, and not a duck type
+            # If it's not a pure MyFRpy function, and not a duck type
             # of pure function:
-            raise TypeError('{!r} is not a Python function'.format(func))
+            raise TypeError('{!r} is not a MyFRpy function'.format(func))
 
     s = getattr(func, "__text_signature__", None)
     if s:
@@ -2451,7 +2451,7 @@ def _signature_from_function(cls, func, skip_bound_arg=True,
         parameters.append(Parameter(name, annotation=annotation,
                                     kind=_VAR_KEYWORD))
 
-    # Is 'func' is a pure Python function - don't validate the
+    # Is 'func' is a pure MyFRpy function - don't validate the
     # parameters list (for correct order and defaults), it should be OK.
     return cls(parameters,
                return_annotation=annotations.get('return', _empty),
@@ -2561,8 +2561,8 @@ def _signature_from_callable(obj, *,
                 return sig.replace(parameters=new_params)
 
     if isfunction(obj) or _signature_is_functionlike(obj):
-        # If it's a pure Python function, or an object that is duck type
-        # of a Python function (Cython functions, for instance), then:
+        # If it's a pure MyFRpy function, or an object that is duck type
+        # of a MyFRpy function (Cython functions, for instance), then:
         return _signature_from_function(sigcls, obj,
                                         skip_bound_arg=skip_bound_arg,
                                         globals=globals, locals=locals, eval_str=eval_str)
@@ -2588,7 +2588,7 @@ def _signature_from_callable(obj, *,
         init = _signature_get_user_defined_method(obj, '__init__')
 
         # Go through the MRO and see if any class has user-defined
-        # pure Python __new__ or __init__ method
+        # pure MyFRpy __new__ or __init__ method
         for base in obj.__mro__:
             # Now we check if the 'obj' class has an own '__new__' method
             if new is not None and '__new__' in base.__dict__:

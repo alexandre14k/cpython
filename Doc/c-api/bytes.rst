@@ -13,13 +13,13 @@ called with a non-bytes parameter.
 
 .. c:type:: PyBytesObject
 
-   This subtype of :c:type:`PyObject` represents a Python bytes object.
+   This subtype of :c:type:`PyObject` represents a MyFRpy bytes object.
 
 
 .. c:var:: PyTypeObject PyBytes_Type
 
-   This instance of :c:type:`PyTypeObject` represents the Python bytes type; it
-   is the same object as :class:`bytes` in the Python layer.
+   This instance of :c:type:`PyTypeObject` represents the MyFRpy bytes type; it
+   is the same object as :class:`bytes` in the MyFRpy layer.
 
 
 .. c:function:: int PyBytes_Check(PyObject *o)
@@ -51,7 +51,7 @@ called with a non-bytes parameter.
 .. c:function:: PyObject* PyBytes_FromFormat(const char *format, ...)
 
    Take a C :c:func:`printf`\ -style *format* string and a variable number of
-   arguments, calculate the size of the resulting Python bytes object and return
+   arguments, calculate the size of the resulting MyFRpy bytes object and return
    a bytes object with the values formatted into it.  The variable arguments
    must be C types and must correspond exactly to the format characters in the
    *format* string.  The following format characters are allowed:

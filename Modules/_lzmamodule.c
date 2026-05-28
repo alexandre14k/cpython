@@ -1,4 +1,4 @@
-/* _lzma - Low-level Python interface to liblzma.
+/* _lzma - Low-level MyFRpy interface to liblzma.
 
    Initial implementation by Per Øyvind Karlsen.
    Rewritten by Nadeem Vawda.
@@ -7,7 +7,7 @@
 
 #define PY_SSIZE_T_CLEAN
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "structmember.h"         // PyMemberDef
 
 #include <stdlib.h>               // free()
@@ -226,7 +226,7 @@ INT_TYPE_CONVERTER_FUNC(lzma_match_finder, lzma_mf_converter)
 
 /* Filter specifier parsing.
 
-   This code handles converting filter specifiers (Python dicts) into
+   This code handles converting filter specifiers (MyFRpy dicts) into
    the C lzma_filter structs expected by liblzma. */
 
 static void *
@@ -427,7 +427,7 @@ parse_filter_chain_spec(_lzma_state *state, lzma_filter filters[], PyObject *fil
 /* Filter specifier construction.
 
    This code handles converting C lzma_filter structs into
-   Python-level filter specifiers (represented as dicts). */
+   MyFRpy-level filter specifiers (represented as dicts). */
 
 static int
 spec_add_field(PyObject *spec, const char *key, unsigned long long value)
@@ -523,7 +523,7 @@ class _lzma.LZMADecompressor "Decompressor *" "&Decompressor_type"
 
 #include "clinic/_lzmamodule.c.h"
 
-/*[python input]
+/*[myFRpy input]
 
 class lzma_vli_converter(CConverter):
     type = 'lzma_vli'
@@ -539,8 +539,8 @@ class lzma_filter_converter(CConverter):
         return ('if (%(name)s.id != LZMA_VLI_UNKNOWN)\n'
                 '   PyMem_Free(%(name)s.options);\n') % {'name': name}
 
-[python start generated code]*/
-/*[python end generated code: output=da39a3ee5e6b4b0d input=74fe7631ce377a94]*/
+[myFRpy start generated code]*/
+/*[myFRpy end generated code: output=da39a3ee5e6b4b0d input=74fe7631ce377a94]*/
 
 
 /* LZMACompressor class. */

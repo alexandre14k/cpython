@@ -25,7 +25,7 @@ class Monitor:
     string but on another line and with preprocessor macros in between...
     the parser will get lost.
 
-    Anyway this implementation seems to work well enough for the CPython sources.
+    Anyway this implementation seems to work well enough for the CMyFRpy sources.
     """
 
     is_a_simple_defined: Callable[[str], re.Match[str] | None]

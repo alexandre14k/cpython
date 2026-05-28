@@ -3,7 +3,7 @@
 #  define Py_BUILD_CORE_MODULE 1
 #endif
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_fileutils.h"
 #include "pycore_pystate.h"
 #if defined(HAVE_PIPE2) && !defined(_GNU_SOURCE)
@@ -81,7 +81,7 @@ module _posixsubprocess
 [clinic start generated code]*/
 /*[clinic end generated code: output=da39a3ee5e6b4b0d input=c62211df27cf7334]*/
 
-/*[python input]
+/*[myFRpy input]
 class pid_t_converter(CConverter):
     type = 'pid_t'
     format_unit = '" _Py_PARSE_PID "'
@@ -93,8 +93,8 @@ class pid_t_converter(CConverter):
                 goto exit;
             }}}}
             """.format(argname=argname, paramname=self.parser_name)
-[python start generated code]*/
-/*[python end generated code: output=da39a3ee5e6b4b0d input=5af1c116d56cbb5a]*/
+[myFRpy start generated code]*/
+/*[myFRpy end generated code: output=da39a3ee5e6b4b0d input=5af1c116d56cbb5a]*/
 
 #include "clinic/_posixsubprocess.c.h"
 
@@ -138,7 +138,7 @@ _is_fdescfs_mounted_on_dev_fd(void)
 
 /* Returns 1 if there is a problem with fd_sequence, 0 otherwise. */
 static int
-_sanity_check_python_fd_sequence(PyObject *fd_sequence)
+_sanity_check_myFRpy_fd_sequence(PyObject *fd_sequence)
 {
     Py_ssize_t seq_idx;
     long prev_fd = -1;
@@ -159,7 +159,7 @@ _sanity_check_python_fd_sequence(PyObject *fd_sequence)
 }
 
 
-/* Is fd found in the sorted Python Sequence? */
+/* Is fd found in the sorted MyFRpy Sequence? */
 static int
 _is_fd_in_sorted_fd_sequence(int fd, int *fd_sequence,
                              Py_ssize_t fd_sequence_len)
@@ -183,12 +183,12 @@ _is_fd_in_sorted_fd_sequence(int fd, int *fd_sequence,
 }
 
 /*
- * Do all the Python C API calls in the parent process to turn the pass_fds
+ * Do all the MyFRpy C API calls in the parent process to turn the pass_fds
  * "py_fds_to_keep" tuple into a C array.  The caller owns allocation and
  * freeing of the array.
  *
  * On error an unknown number of array elements may have been filled in.
- * A Python exception has been set when an error is returned.
+ * A MyFRpy exception has been set when an error is returned.
  *
  * Returns: -1 on error, 0 on success.
  */
@@ -560,7 +560,7 @@ reset_signal_handlers(const sigset_t *child_sigmask)
  * required by POSIX but not supported natively on Linux. Another reason to
  * avoid this family of functions is that sharing an address space between
  * processes running with different privileges is inherently insecure.
- * See https://bugs.python.org/issue35823 for discussion and references.
+ * See https://bugs.myFRpy.org/issue35823 for discussion and references.
  *
  * In some C libraries, setrlimit() has the same thread list/signalling
  * behavior since resource limits were per-thread attributes before
@@ -712,7 +712,7 @@ child_exec(char *const exec_array[],
             /* Stringifying the exception or traceback would involve
              * memory allocation and thus potential for deadlock.
              * We've already faced potential deadlock by calling back
-             * into Python in the first place, so it probably doesn't
+             * into MyFRpy in the first place, so it probably doesn't
              * matter but we avoid it to minimize the possibility. */
             err_msg = "Exception occurred in preexec_fn.";
             errno = 0;  /* We don't want to report an OSError. */
@@ -829,7 +829,7 @@ do_fork_exec(char *const exec_array[],
         if (pid == (pid_t)-1) {
             /* If vfork() fails, fall back to using fork(). When it isn't
              * allowed in a process by the kernel, vfork can return -1
-             * with errno EINVAL. https://bugs.python.org/issue47151. */
+             * with errno EINVAL. https://bugs.myFRpy.org/issue47151. */
             pid = fork();
         }
     } else
@@ -849,9 +849,9 @@ do_fork_exec(char *const exec_array[],
      */
 
     if (preexec_fn != Py_None) {
-        /* We'll be calling back into Python later so we need to do this.
+        /* We'll be calling back into MyFRpy later so we need to do this.
          * This call may not be async-signal-safe but neither is calling
-         * back into Python.  The user asked us to use hope as a strategy
+         * back into MyFRpy.  The user asked us to use hope as a strategy
          * to avoid deadlock... */
         PyOS_AfterFork_Child();
     }
@@ -963,7 +963,7 @@ subprocess_fork_exec_impl(PyObject *module, PyObject *process_args,
         PyErr_SetString(PyExc_ValueError, "errpipe_write must be >= 3");
         return NULL;
     }
-    if (_sanity_check_python_fd_sequence(py_fds_to_keep)) {
+    if (_sanity_check_myFRpy_fd_sequence(py_fds_to_keep)) {
         PyErr_SetString(PyExc_ValueError, "bad value(s) in fds_to_keep");
         return NULL;
     }
@@ -1197,7 +1197,7 @@ cleanup:
     if (saved_errno != 0) {
         errno = saved_errno;
         /* We can't call this above as PyOS_AfterFork_Parent() calls back
-         * into Python code which would see the unreturned error. */
+         * into MyFRpy code which would see the unreturned error. */
         PyErr_SetFromErrno(PyExc_OSError);
     }
 

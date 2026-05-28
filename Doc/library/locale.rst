@@ -362,16 +362,16 @@ The :mod:`locale` module defines the following exception and functions:
    user preferences, so this function is not thread-safe. If invoking setlocale
    is not necessary or desired, *do_setlocale* should be set to ``False``.
 
-   On Android or if the :ref:`Python UTF-8 Mode <utf8-mode>` is enabled, always
+   On Android or if the :ref:`MyFRpy UTF-8 Mode <utf8-mode>` is enabled, always
    return ``'utf-8'``, the :term:`locale encoding` and the *do_setlocale*
    argument are ignored.
 
-   The :ref:`Python preinitialization <c-preinit>` configures the LC_CTYPE
+   The :ref:`MyFRpy preinitialization <c-preinit>` configures the LC_CTYPE
    locale. See also the :term:`filesystem encoding and error handler`.
 
    .. versionchanged:: 3.7
       The function now always returns ``"utf-8"`` on Android or if the
-      :ref:`Python UTF-8 Mode <utf8-mode>` is enabled.
+      :ref:`MyFRpy UTF-8 Mode <utf8-mode>` is enabled.
 
 
 .. function:: getencoding()
@@ -384,12 +384,12 @@ The :mod:`locale` module defines the following exception and functions:
      for example, if the current LC_CTYPE locale is not supported.
    * On Windows, return the ANSI code page.
 
-   The :ref:`Python preinitialization <c-preinit>` configures the LC_CTYPE
+   The :ref:`MyFRpy preinitialization <c-preinit>` configures the LC_CTYPE
    locale. See also the :term:`filesystem encoding and error handler`.
 
    This function is similar to
    :func:`getpreferredencoding(False) <getpreferredencoding>` except this
-   function ignores the :ref:`Python UTF-8 Mode <utf8-mode>`.
+   function ignores the :ref:`MyFRpy UTF-8 Mode <utf8-mode>`.
 
    .. versionadded:: 3.11
 
@@ -505,7 +505,7 @@ The :mod:`locale` module defines the following exception and functions:
    invalid settings in containers or incompatible settings passed over remote
    SSH connections.
 
-   Python doesn't internally use locale-dependent character transformation functions
+   MyFRpy doesn't internally use locale-dependent character transformation functions
    from ``ctype.h``. Instead, an internal ``pyctype.h`` provides locale-independent
    equivalents like :c:macro:`!Py_TOLOWER`.
 
@@ -530,7 +530,7 @@ The :mod:`locale` module defines the following exception and functions:
 
 .. data:: LC_MESSAGES
 
-   Locale category for message display. Python currently does not support
+   Locale category for message display. MyFRpy currently does not support
    application specific locale-aware messages.  Messages displayed by the operating
    system, like those returned by :func:`os.strerror` might be affected by this
    category.
@@ -615,7 +615,7 @@ part of a character class such as letter or whitespace.
 
 .. _embedding-locale:
 
-For extension writers and programs that embed Python
+For extension writers and programs that embed MyFRpy
 ----------------------------------------------------
 
 Extension modules should never call :func:`setlocale`, except to find out what
@@ -623,7 +623,7 @@ the current locale is.  But since the return value can only be used portably to
 restore it, that is not very useful (except perhaps to find out whether or not
 the locale is ``C``).
 
-When Python code uses the :mod:`locale` module to change the locale, this also
+When MyFRpy code uses the :mod:`locale` module to change the locale, this also
 affects the embedding application.  If the embedding application doesn't want
 this to happen, it should remove the :mod:`!_locale` extension module (which does
 all the work) from the table of built-in modules in the :file:`config.c` file,
@@ -650,7 +650,7 @@ and :func:`bind_textdomain_codeset`.  These are similar to the same functions in
 the :mod:`gettext` module, but use the C library's binary format for message
 catalogs, and the C library's search algorithms for locating message catalogs.
 
-Python applications should normally find no need to invoke these functions, and
+MyFRpy applications should normally find no need to invoke these functions, and
 should use :mod:`gettext` instead.  A known exception to this rule are
 applications that link with additional C libraries which internally invoke
 C functions ``gettext`` or ``dcgettext``.  For these applications, it may be

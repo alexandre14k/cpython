@@ -6,7 +6,7 @@
 #  define Py_BUILD_CORE_MODULE 1
 #endif
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "interpreteridobject.h"
 #include "pycore_pystate.h"       // _PyCrossInterpreterData_ReleaseAndRawFree()
 
@@ -1659,8 +1659,8 @@ channelid_dealloc(PyObject *self)
     PyTypeObject *tp = Py_TYPE(self);
     tp->tp_free(self);
     /* "Instances of heap-allocated types hold a reference to their type."
-     * See: https://docs.python.org/3.11/howto/isolating-extensions.html#garbage-collection-protocol
-     * See: https://docs.python.org/3.11/c-api/typeobj.html#c.PyTypeObject.tp_traverse
+     * See: https://docs.myFRpy.org/3.11/howto/isolating-extensions.html#garbage-collection-protocol
+     * See: https://docs.myFRpy.org/3.11/c-api/typeobj.html#c.PyTypeObject.tp_traverse
     */
     // XXX Why don't we implement Py_TPFLAGS_HAVE_GC, e.g. Py_tp_traverse,
     // like we do for _abc._abc_data?
@@ -2388,7 +2388,7 @@ static PyMethodDef module_functions[] = {
 /* initialization function */
 
 PyDoc_STRVAR(module_doc,
-"This module provides primitive operations to manage Python interpreters.\n\
+"This module provides primitive operations to manage MyFRpy interpreters.\n\
 The 'interpreters' module provides a more convenient interface.");
 
 static int

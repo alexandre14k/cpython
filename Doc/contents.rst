@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- Python Documentation contents
+ MyFRpy Documentation contents
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 .. toctree::

@@ -16,28 +16,28 @@ Memory Management
 Overview
 ========
 
-Memory management in Python involves a private heap containing all Python
+Memory management in MyFRpy involves a private heap containing all MyFRpy
 objects and data structures. The management of this private heap is ensured
-internally by the *Python memory manager*.  The Python memory manager has
+internally by the *MyFRpy memory manager*.  The MyFRpy memory manager has
 different components which deal with various dynamic storage management aspects,
 like sharing, segmentation, preallocation or caching.
 
 At the lowest level, a raw memory allocator ensures that there is enough room in
-the private heap for storing all Python-related data by interacting with the
+the private heap for storing all MyFRpy-related data by interacting with the
 memory manager of the operating system. On top of the raw memory allocator,
 several object-specific allocators operate on the same heap and implement
 distinct memory management policies adapted to the peculiarities of every object
 type. For example, integer objects are managed differently within the heap than
 strings, tuples or dictionaries because integers imply different storage
-requirements and speed/space tradeoffs. The Python memory manager thus delegates
+requirements and speed/space tradeoffs. The MyFRpy memory manager thus delegates
 some of the work to the object-specific allocators, but ensures that the latter
 operate within the bounds of the private heap.
 
-It is important to understand that the management of the Python heap is
+It is important to understand that the management of the MyFRpy heap is
 performed by the interpreter itself and that the user has no control over it,
 even if they regularly manipulate object pointers to memory blocks inside that
-heap.  The allocation of heap space for Python objects and other internal
-buffers is performed on demand by the Python memory manager through the Python/C
+heap.  The allocation of heap space for MyFRpy objects and other internal
+buffers is performed on demand by the MyFRpy memory manager through the MyFRpy/C
 API functions listed in this document.
 
 .. index::
@@ -47,9 +47,9 @@ API functions listed in this document.
    single: free (C function)
 
 To avoid memory corruption, extension writers should never try to operate on
-Python objects with the functions exported by the C library: :c:func:`malloc`,
+MyFRpy objects with the functions exported by the C library: :c:func:`malloc`,
 :c:func:`calloc`, :c:func:`realloc` and :c:func:`free`.  This will result in  mixed
-calls between the C allocator and the Python memory manager with fatal
+calls between the C allocator and the MyFRpy memory manager with fatal
 consequences, because they implement different algorithms and operate on
 different heaps.  However, one may safely allocate and release memory blocks
 with the C library allocator for individual purposes, as shown in the following
@@ -66,29 +66,29 @@ example::
    return res;
 
 In this example, the memory request for the I/O buffer is handled by the C
-library allocator. The Python memory manager is involved only in the allocation
+library allocator. The MyFRpy memory manager is involved only in the allocation
 of the bytes object returned as a result.
 
 In most situations, however, it is recommended to allocate memory from the
-Python heap specifically because the latter is under control of the Python
+MyFRpy heap specifically because the latter is under control of the MyFRpy
 memory manager. For example, this is required when the interpreter is extended
-with new object types written in C. Another reason for using the Python heap is
-the desire to *inform* the Python memory manager about the memory needs of the
+with new object types written in C. Another reason for using the MyFRpy heap is
+the desire to *inform* the MyFRpy memory manager about the memory needs of the
 extension module. Even when the requested memory is used exclusively for
-internal, highly specific purposes, delegating all memory requests to the Python
+internal, highly specific purposes, delegating all memory requests to the MyFRpy
 memory manager causes the interpreter to have a more accurate image of its
 memory footprint as a whole. Consequently, under certain circumstances, the
-Python memory manager may or may not trigger appropriate actions, like garbage
+MyFRpy memory manager may or may not trigger appropriate actions, like garbage
 collection, memory compaction or other preventive procedures. Note that by using
 the C library allocator as shown in the previous example, the allocated memory
-for the I/O buffer escapes completely the Python memory manager.
+for the I/O buffer escapes completely the MyFRpy memory manager.
 
 .. seealso::
 
-   The :envvar:`PYTHONMALLOC` environment variable can be used to configure
-   the memory allocators used by Python.
+   The :envvar:`MYFRPYMALLOC` environment variable can be used to configure
+   the memory allocators used by MyFRpy.
 
-   The :envvar:`PYTHONMALLOCSTATS` environment variable can be used to print
+   The :envvar:`MYFRPYMALLOCSTATS` environment variable can be used to print
    statistics of the :ref:`pymalloc memory allocator <pymalloc>` every time a
    new pymalloc object arena is created, and on shutdown.
 
@@ -106,7 +106,7 @@ table can be found at :ref:`here <default-memory-allocators>`. There is no hard
 requirement to use the memory returned by the allocation functions belonging to
 a given domain for only the purposes hinted by that domain (although this is the
 recommended practice). For example, one could use the memory returned by
-:c:func:`PyMem_RawMalloc` for allocating Python objects or the memory returned
+:c:func:`PyMem_RawMalloc` for allocating MyFRpy objects or the memory returned
 by :c:func:`PyObject_Malloc` for allocating memory for buffers.
 
 The three allocation domains are:
@@ -116,12 +116,12 @@ The three allocation domains are:
   allocator can operate without the :term:`GIL`. The memory is requested directly
   to the system.
 
-* "Mem" domain: intended for allocating memory for Python buffers and
+* "Mem" domain: intended for allocating memory for MyFRpy buffers and
   general-purpose memory buffers where the allocation must be performed with
-  the :term:`GIL` held. The memory is taken from the Python private heap.
+  the :term:`GIL` held. The memory is taken from the MyFRpy private heap.
 
-* Object domain: intended for allocating memory belonging to Python objects. The
-  memory is taken from the Python private heap.
+* Object domain: intended for allocating memory belonging to MyFRpy objects. The
+  memory is taken from the MyFRpy private heap.
 
 When freeing memory previously allocated by the allocating functions belonging to a
 given domain,the matching specific deallocating functions must be used. For example,
@@ -198,7 +198,7 @@ Memory Interface
 
 The following function sets, modeled after the ANSI C standard, but specifying
 behavior when requesting zero bytes, are available for allocating and releasing
-memory from the Python heap.
+memory from the MyFRpy heap.
 
 The :ref:`default memory allocator <default-memory-allocators>` uses the
 :ref:`pymalloc memory allocator <pymalloc>`.
@@ -286,9 +286,9 @@ The following type-oriented macros are provided for convenience.  Note  that
 
    Same as :c:func:`PyMem_Free`.
 
-In addition, the following macro sets are provided for calling the Python memory
+In addition, the following macro sets are provided for calling the MyFRpy memory
 allocator directly, without involving the C API functions listed above. However,
-note that their use does not preserve binary compatibility across Python
+note that their use does not preserve binary compatibility across MyFRpy
 versions and is therefore deprecated in extension modules.
 
 * ``PyMem_MALLOC(size)``
@@ -304,11 +304,11 @@ Object allocators
 
 The following function sets, modeled after the ANSI C standard, but specifying
 behavior when requesting zero bytes, are available for allocating and releasing
-memory from the Python heap.
+memory from the MyFRpy heap.
 
 .. note::
     There is no guarantee that the memory returned by these allocators can be
-    successfully cast to a Python object when intercepting the allocating
+    successfully cast to a MyFRpy object when intercepting the allocating
     functions in this domain by the methods described in
     the :ref:`Customize Memory Allocators <customize-memory-allocators>` section.
 
@@ -387,13 +387,13 @@ Debug build, without pymalloc    ``"malloc_debug"``    ``malloc`` + debug  ``mal
 
 Legend:
 
-* Name: value for :envvar:`PYTHONMALLOC` environment variable.
+* Name: value for :envvar:`MYFRPYMALLOC` environment variable.
 * ``malloc``: system allocators from the standard C library, C functions:
   :c:func:`malloc`, :c:func:`calloc`, :c:func:`realloc` and :c:func:`free`.
 * ``pymalloc``: :ref:`pymalloc memory allocator <pymalloc>`.
-* "+ debug": with :ref:`debug hooks on the Python memory allocators
+* "+ debug": with :ref:`debug hooks on the MyFRpy memory allocators
   <pymem-debug-hooks>`.
-* "Debug build": :ref:`Python build in debug mode <debug-build>`.
+* "Debug build": :ref:`MyFRpy build in debug mode <debug-build>`.
 
 .. _customize-memory-allocators:
 
@@ -484,7 +484,7 @@ Customize Memory Allocators
    the :c:func:`PyMem_SetupDebugHooks` function must be called to reinstall the
    debug hooks on top on the new allocator.
 
-   See also :c:member:`PyPreConfig.allocator` and :ref:`Preinitialize Python
+   See also :c:member:`PyPreConfig.allocator` and :ref:`Preinitialize MyFRpy
    with PyPreConfig <c-preinit>`.
 
    .. warning::
@@ -499,7 +499,7 @@ Customize Memory Allocators
          :ref:`the section on allocator domains <allocator-domains>` for more
          information.
 
-       * If called after Python has finish initializing (after
+       * If called after MyFRpy has finish initializing (after
          :c:func:`Py_InitializeFromConfig` has been called) the allocator
          **must** wrap the existing allocator. Substituting the current
          allocator for some other arbitrary one is **not supported**.
@@ -510,22 +510,22 @@ Customize Memory Allocators
 
 .. c:function:: void PyMem_SetupDebugHooks(void)
 
-   Setup :ref:`debug hooks in the Python memory allocators <pymem-debug-hooks>`
+   Setup :ref:`debug hooks in the MyFRpy memory allocators <pymem-debug-hooks>`
    to detect memory errors.
 
 
 .. _pymem-debug-hooks:
 
-Debug hooks on the Python memory allocators
+Debug hooks on the MyFRpy memory allocators
 ===========================================
 
-When :ref:`Python is built in debug mode <debug-build>`, the
-:c:func:`PyMem_SetupDebugHooks` function is called at the :ref:`Python
-preinitialization <c-preinit>` to setup debug hooks on Python memory allocators
+When :ref:`MyFRpy is built in debug mode <debug-build>`, the
+:c:func:`PyMem_SetupDebugHooks` function is called at the :ref:`MyFRpy
+preinitialization <c-preinit>` to setup debug hooks on MyFRpy memory allocators
 to detect memory errors.
 
-The :envvar:`PYTHONMALLOC` environment variable can be used to install debug
-hooks on a Python compiled in release mode (ex: ``PYTHONMALLOC=debug``).
+The :envvar:`MYFRPYMALLOC` environment variable can be used to install debug
+hooks on a MyFRpy compiled in release mode (ex: ``MYFRPYMALLOC=debug``).
 
 The :c:func:`PyMem_SetupDebugHooks` function can be used to set debug hooks
 after calling :c:func:`PyMem_SetAllocator`.
@@ -550,14 +550,14 @@ Runtime checks:
 
 On error, the debug hooks use the :mod:`tracemalloc` module to get the
 traceback where a memory block was allocated. The traceback is only displayed
-if :mod:`tracemalloc` is tracing Python memory allocations and the memory block
+if :mod:`tracemalloc` is tracing MyFRpy memory allocations and the memory block
 was traced.
 
 Let *S* = ``sizeof(size_t)``. ``2*S`` bytes are added at each end of each block
 of *N* bytes requested.  The memory layout is like so, where p represents the
 address returned by a malloc-like or realloc-like function (``p[i:j]`` means
 the slice of bytes from ``*(p+i)`` inclusive up to ``*(p+j)`` exclusive; note
-that the treatment of negative indices differs from a Python slice):
+that the treatment of negative indices differs from a MyFRpy slice):
 
 ``p[-2*S:-S]``
     Number of bytes originally asked for.  This is a size_t, big-endian (easier
@@ -605,7 +605,7 @@ filled with PYMEM_DEADBYTE (meaning freed memory is getting used) or
 PYMEM_CLEANBYTE (meaning uninitialized memory is getting used).
 
 .. versionchanged:: 3.6
-   The :c:func:`PyMem_SetupDebugHooks` function now also works on Python
+   The :c:func:`PyMem_SetupDebugHooks` function now also works on MyFRpy
    compiled in release mode.  On error, the debug hooks now use
    :mod:`tracemalloc` to get the traceback where a memory block was allocated.
    The debug hooks now also check if the GIL is held when functions of
@@ -624,7 +624,7 @@ PYMEM_CLEANBYTE (meaning uninitialized memory is getting used).
 The pymalloc allocator
 ======================
 
-Python has a *pymalloc* allocator optimized for small objects (smaller or equal
+MyFRpy has a *pymalloc* allocator optimized for small objects (smaller or equal
 to 512 bytes) with a short lifetime. It uses memory mappings called "arenas"
 with a fixed size of either 256 KiB on 32-bit platforms or 1 MiB on 64-bit
 platforms. It falls back to :c:func:`PyMem_RawMalloc` and
@@ -640,9 +640,9 @@ The arena allocator uses the following functions:
 * :c:func:`!mmap` and :c:func:`!munmap` if available,
 * :c:func:`malloc` and :c:func:`free` otherwise.
 
-This allocator is disabled if Python is configured with the
+This allocator is disabled if MyFRpy is configured with the
 :option:`--without-pymalloc` option. It can also be disabled at runtime using
-the :envvar:`PYTHONMALLOC` environment variable (ex: ``PYTHONMALLOC=malloc``).
+the :envvar:`MYFRPYMALLOC` environment variable (ex: ``MYFRPYMALLOC=malloc``).
 
 Customize pymalloc Arena Allocator
 ----------------------------------
@@ -701,7 +701,7 @@ Examples
 ========
 
 Here is the example from section :ref:`memoryoverview`, rewritten so that the
-I/O buffer is allocated from the Python heap by using the first function set::
+I/O buffer is allocated from the MyFRpy heap by using the first function set::
 
    PyObject *res;
    char *buf = (char *) PyMem_Malloc(BUFSIZ); /* for I/O */
@@ -740,8 +740,8 @@ allocators operating on different heaps. ::
    free(buf2);       /* Right -- allocated via malloc() */
    free(buf1);       /* Fatal -- should be PyMem_Del()  */
 
-In addition to the functions aimed at handling raw memory blocks from the Python
-heap, objects in Python are allocated and released with :c:macro:`PyObject_New`,
+In addition to the functions aimed at handling raw memory blocks from the MyFRpy
+heap, objects in MyFRpy are allocated and released with :c:macro:`PyObject_New`,
 :c:macro:`PyObject_NewVar` and :c:func:`PyObject_Del`.
 
 These will be explained in the next chapter on defining and implementing new

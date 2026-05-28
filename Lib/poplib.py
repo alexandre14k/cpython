@@ -85,7 +85,7 @@ class POP3:
             mailbox.
 
             POP is a line-based protocol, which means large mail
-            messages consume lots of python cycles reading them
+            messages consume lots of myFRpy cycles reading them
             line-by-line.
 
             If it's available on your mail server, use IMAP4

@@ -10,7 +10,7 @@ set BUILDARM32=
 set REBUILD=
 set OUTPUT=
 set PACKAGES=
-set PYTHON_EXE=
+set MYFRPY_EXE=
 
 :CheckOpts
 if "%~1" EQU "-h" goto Help
@@ -21,7 +21,7 @@ if "%~1" EQU "-r" (set REBUILD=-r) && shift && goto CheckOpts
 if "%~1" EQU "-o" (set OUTPUT="/p:OutputPath=%~2") && shift && shift && goto CheckOpts
 if "%~1" EQU "--out" (set OUTPUT="/p:OutputPath=%~2") && shift && shift && goto CheckOpts
 if "%~1" EQU "-p" (set PACKAGES=%PACKAGES% %~2) && shift && shift && goto CheckOpts
-if "%~1" EQU "--python-exe" (set PYTHON_EXE="/p:PythonExe=%~2") && shift && shift && goto CheckOpts
+if "%~1" EQU "--myFRpy-exe" (set MYFRPY_EXE="/p:MyFRpyExe=%~2") && shift && shift && goto CheckOpts
 
 if not defined BUILDX86 if not defined BUILDX64 if not defined BUILDARM32 (set BUILDX86=1) && (set BUILDX64=1) && (set BUILDARM32=1)
 
@@ -33,28 +33,28 @@ if defined PACKAGES set PACKAGES="/p:Packages=%PACKAGES%"
 
 if defined BUILDX86 (
     if defined REBUILD ( call "%PCBUILD%build.bat" -e -r
-    ) else if not exist "%Py_OutDir%win32\python.exe" call "%PCBUILD%build.bat" -e
+    ) else if not exist "%Py_OutDir%win32\myFRpy.exe" call "%PCBUILD%build.bat" -e
     if errorlevel 1 goto :eof
 
-    %MSBUILD% "%D%make_pkg.proj" /p:Configuration=Release /p:Platform=x86 %OUTPUT% %PACKAGES% %PYTHON_EXE%
+    %MSBUILD% "%D%make_pkg.proj" /p:Configuration=Release /p:Platform=x86 %OUTPUT% %PACKAGES% %MYFRPY_EXE%
     if errorlevel 1 goto :eof
 )
 
 if defined BUILDX64 (
     if defined REBUILD ( call "%PCBUILD%build.bat" -p x64 -e -r
-    ) else if not exist "%Py_OutDir%amd64\python.exe" call "%PCBUILD%build.bat" -p x64 -e
+    ) else if not exist "%Py_OutDir%amd64\myFRpy.exe" call "%PCBUILD%build.bat" -p x64 -e
     if errorlevel 1 goto :eof
 
-    %MSBUILD% "%D%make_pkg.proj" /p:Configuration=Release /p:Platform=x64 %OUTPUT% %PACKAGES% %PYTHON_EXE%
+    %MSBUILD% "%D%make_pkg.proj" /p:Configuration=Release /p:Platform=x64 %OUTPUT% %PACKAGES% %MYFRPY_EXE%
     if errorlevel 1 goto :eof
 )
 
 if defined BUILDARM32 (
     if defined REBUILD ( call "%PCBUILD%build.bat" -p ARM -e -r --no-tkinter
-    ) else if not exist "%Py_OutDir%arm32\python.exe" call "%PCBUILD%build.bat" -p ARM -e --no-tkinter
+    ) else if not exist "%Py_OutDir%arm32\myFRpy.exe" call "%PCBUILD%build.bat" -p ARM -e --no-tkinter
     if errorlevel 1 goto :eof
 
-    %MSBUILD% "%D%make_pkg.proj" /p:Configuration=Release /p:Platform=ARM %OUTPUT% %PACKAGES% %PYTHON_EXE%
+    %MSBUILD% "%D%make_pkg.proj" /p:Configuration=Release /p:Platform=ARM %OUTPUT% %PACKAGES% %MYFRPY_EXE%
     if errorlevel 1 goto :eof
 )
 

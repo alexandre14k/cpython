@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/myFRpy
 # Usage: typeslots.py < Include/typeslots.h typeslots.inc
 
 import sys, re

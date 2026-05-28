@@ -49,11 +49,11 @@ class TraceBackend:
     COMMAND = None
     COMMAND_ARGS = []
 
-    def run_case(self, name, optimize_python=None):
-        actual_output = normalize_trace_output(self.trace_python(
+    def run_case(self, name, optimize_myFRpy=None):
+        actual_output = normalize_trace_output(self.trace_myFRpy(
             script_file=abspath(name + self.EXTENSION),
-            python_file=abspath(name + ".py"),
-            optimize_python=optimize_python))
+            myFRpy_file=abspath(name + ".py"),
+            optimize_myFRpy=optimize_myFRpy))
 
         with open(abspath(name + self.EXTENSION + ".expected")) as f:
             expected_output = f.read().rstrip()
@@ -74,11 +74,11 @@ class TraceBackend:
                                      universal_newlines=True).communicate()
         return stdout
 
-    def trace_python(self, script_file, python_file, optimize_python=None):
-        python_flags = []
-        if optimize_python:
-            python_flags.extend(["-O"] * optimize_python)
-        subcommand = " ".join([sys.executable] + python_flags + [python_file])
+    def trace_myFRpy(self, script_file, myFRpy_file, optimize_myFRpy=None):
+        myFRpy_flags = []
+        if optimize_myFRpy:
+            myFRpy_flags.extend(["-O"] * optimize_myFRpy)
+        subcommand = " ".join([sys.executable] + myFRpy_flags + [myFRpy_file])
         return self.trace(script_file, subcommand)
 
     def assert_usable(self):
@@ -109,7 +109,7 @@ class TraceTests:
 
     # TraceTests options
     backend = None
-    optimize_python = 0
+    optimize_myFRpy = 0
 
     @classmethod
     def setUpClass(self):
@@ -117,7 +117,7 @@ class TraceTests:
 
     def run_case(self, name):
         actual_output, expected_output = self.backend.run_case(
-            name, optimize_python=self.optimize_python)
+            name, optimize_myFRpy=self.optimize_myFRpy)
         self.assertEqual(actual_output, expected_output)
 
     def test_function_entry_return(self):
@@ -136,7 +136,7 @@ class TraceTests:
             code = compile(source=code_string,
                            filename="<string>",
                            mode="exec",
-                           optimize=self.optimize_python)
+                           optimize=self.optimize_myFRpy)
 
             for c in code.co_consts:
                 if isinstance(c, types.CodeType) and c.co_name == funcname:
@@ -157,22 +157,22 @@ class TraceTests:
 
 class DTraceNormalTests(TraceTests, unittest.TestCase):
     backend = DTraceBackend()
-    optimize_python = 0
+    optimize_myFRpy = 0
 
 
 class DTraceOptimizedTests(TraceTests, unittest.TestCase):
     backend = DTraceBackend()
-    optimize_python = 2
+    optimize_myFRpy = 2
 
 
 class SystemTapNormalTests(TraceTests, unittest.TestCase):
     backend = SystemTapBackend()
-    optimize_python = 0
+    optimize_myFRpy = 0
 
 
 class SystemTapOptimizedTests(TraceTests, unittest.TestCase):
     backend = SystemTapBackend()
-    optimize_python = 2
+    optimize_myFRpy = 2
 
 class CheckDtraceProbes(unittest.TestCase):
     @classmethod
@@ -182,7 +182,7 @@ class CheckDtraceProbes(unittest.TestCase):
             if support.verbose:
                 print(f"readelf version: {readelf_major_version}.{readelf_minor_version}")
         else:
-            raise unittest.SkipTest("CPython must be configured with the --with-dtrace option.")
+            raise unittest.SkipTest("CMyFRpy must be configured with the --with-dtrace option.")
 
 
     @staticmethod

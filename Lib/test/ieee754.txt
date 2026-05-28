@@ -1,5 +1,5 @@
 ======================================
-Python IEEE 754 floating point support
+MyFRpy IEEE 754 floating point support
 ======================================
 
 >>> from sys import float_info as FI
@@ -19,7 +19,7 @@ is small than epsilon.
 NaNs and INFs
 =============
 
-In Python 2.6 and newer NaNs (not a number) and infinity can be constructed
+In MyFRpy 2.6 and newer NaNs (not a number) and infinity can be constructed
 from the strings 'inf' and 'nan'.
 
 >>> INF = float('inf')

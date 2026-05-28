@@ -496,7 +496,7 @@ class TestOptionalsAlternatePrefixChars(ParserTestCase):
 class TestOptionalsAlternatePrefixCharsAddedHelp(ParserTestCase):
     """When ``-`` not in prefix_chars, default operators created for help
        should use the prefix_chars in use rather than - or --
-       http://bugs.python.org/issue9444"""
+       http://bugs.myFRpy.org/issue9444"""
 
     parser_signature = Sig(prefix_chars='+:/', add_help=True)
     argument_signatures = [

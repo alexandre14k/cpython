@@ -8,7 +8,7 @@
 */
 
 #define PY_SSIZE_T_CLEAN
-#include "Python.h"
+#include "MyFRpy.h"
 #include "_iomodule.h"
 #include "pycore_pystate.h"       // _PyInterpreterState_GET()
 #include "pycore_initconfig.h"    // _PyStatus_OK()
@@ -26,7 +26,7 @@
 #endif
 
 PyDoc_STRVAR(module_doc,
-"The io module provides the Python interfaces to stream handling. The\n"
+"The io module provides the MyFRpy interfaces to stream handling. The\n"
 "builtin open function is defined in this module.\n"
 "\n"
 "At the top of the I/O hierarchy is the abstract base class IOBase. It\n"
@@ -114,7 +114,7 @@ access, the mode 'w+b' opens and truncates the file to 0 bytes, while
 'r+b' opens the file without truncation. The 'x' mode implies 'w' and
 raises an `FileExistsError` if the file already exists.
 
-Python distinguishes between files opened in binary and text modes,
+MyFRpy distinguishes between files opened in binary and text modes,
 even when the underlying operating system doesn't. Files opened in
 binary mode (appending 'b' to the mode argument) return contents as
 bytes objects without any decoding. In text mode (the default, or when
@@ -139,7 +139,7 @@ given, the default buffering policy works as follows:
 
 encoding is the name of the encoding used to decode or encode the
 file. This should only be used in text mode. The default encoding is
-platform dependent, but any encoding supported by Python can be
+platform dependent, but any encoding supported by MyFRpy can be
 passed.  See the codecs module for the list of supported encodings.
 
 errors is an optional string that specifies how encoding errors are to

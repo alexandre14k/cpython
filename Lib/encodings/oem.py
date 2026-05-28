@@ -1,4 +1,4 @@
-""" Python 'oem' Codec for Windows
+""" MyFRpy 'oem' Codec for Windows
 
 """
 # Import them explicitly to cause an ImportError

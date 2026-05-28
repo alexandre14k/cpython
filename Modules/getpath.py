@@ -32,7 +32,7 @@
 # os_name           -- [in] one of 'nt', 'posix', 'darwin'
 # PREFIX            -- [in] sysconfig.get_config_var(...)
 # EXEC_PREFIX       -- [in] sysconfig.get_config_var(...)
-# PYTHONPATH        -- [in] sysconfig.get_config_var(...)
+# MYFRPYPATH        -- [in] sysconfig.get_config_var(...)
 # WITH_NEXT_FRAMEWORK   -- [in] sysconfig.get_config_var(...)
 # VPATH             -- [in] sysconfig.get_config_var(...)
 # PLATLIBDIR        -- [in] sysconfig.get_config_var(...)
@@ -45,11 +45,11 @@
 # ** Values read from the environment **
 #   There is no need to check the use_environment flag before reading
 #   these, as the flag will be tested in this script.
-#   Also note that ENV_PYTHONPATH is read from config['pythonpath_env']
+#   Also note that ENV_MYFRPYPATH is read from config['myFRpypath_env']
 #   to allow for embedders who choose to specify it via that struct.
 # ENV_PATH                -- [in] getenv(...)
-# ENV_PYTHONHOME          -- [in] getenv(...)
-# ENV_PYTHONEXECUTABLE    -- [in] getenv(...)
+# ENV_MYFRPYHOME          -- [in] getenv(...)
+# ENV_MYFRPYEXECUTABLE    -- [in] getenv(...)
 # ENV___PYVENV_LAUNCHER__ -- [in] getenv(...)
 
 # ** Values calculated at runtime **
@@ -74,7 +74,7 @@
 # getpath.c to help capture the intent, but should not be considered
 # a specification.
 
-# Search in some common locations for the associated Python libraries.
+# Search in some common locations for the associated MyFRpy libraries.
 
 # Two directories must be found, the platform independent directory
 # (prefix), containing the common .py and .pyc files, and the platform
@@ -86,7 +86,7 @@
 # Each search tries a number of different locations until a ``landmark''
 # file or directory is found.  If no prefix or exec_prefix is found, a
 # warning message is issued and the preprocessor defined PREFIX and
-# EXEC_PREFIX are used (even though they will not work); python carries on
+# EXEC_PREFIX are used (even though they will not work); myFRpy carries on
 # as best as is possible, but most imports will fail.
 
 # Before any searches are done, the location of the executable is
@@ -102,8 +102,8 @@
 
 # At this point, provided Py_SetPath was not used, the
 # __PYVENV_LAUNCHER__ variable may override the executable (on macOS,
-# the PYTHON_EXECUTABLE variable may also override). This allows
-# certain launchers that run Python as a subprocess to properly
+# the MYFRPY_EXECUTABLE variable may also override). This allows
+# certain launchers that run MyFRpy as a subprocess to properly
 # specify the executable path. They are not intended for users.
 
 # Next, the executable location is examined to see if it is a symbolic
@@ -124,7 +124,7 @@
 # specified by Py_SetHome(), the directory containing the ._pth file is
 # set as 'home'.
 
-# Step 3. Are we running python out of the build directory?  This is
+# Step 3. Are we running myFRpy out of the build directory?  This is
 # checked by looking for the BUILDDIR_TXT file, which contains the
 # relative path to the platlib dir. The executable_dir value is
 # derived from joining the VPATH preprocessor variable to the
@@ -133,9 +133,9 @@
 # prefix is then found by searching up for a file that should only
 # exist in the source tree, and the stdlib dir is set to prefix/Lib.
 
-# Step 4. If 'home' is set, either by Py_SetHome(), ENV_PYTHONHOME,
+# Step 4. If 'home' is set, either by Py_SetHome(), ENV_MYFRPYHOME,
 # a pyvenv.cfg file, ._pth file, or by detecting a build directory, it
-# is assumed to point to prefix and exec_prefix. $PYTHONHOME can be a
+# is assumed to point to prefix and exec_prefix. $MYFRPYHOME can be a
 # single directory, which is used for both, or the prefix and exec_prefix
 # directories separated by DELIM (colon on POSIX; semicolon on Windows).
 
@@ -152,16 +152,16 @@
 # That's it!
 
 # Well, almost.  Once we have determined prefix and exec_prefix, the
-# preprocessor variable PYTHONPATH is used to construct a path.  Each
-# relative path on PYTHONPATH is prefixed with prefix.  Then the directory
+# preprocessor variable MYFRPYPATH is used to construct a path.  Each
+# relative path on MYFRPYPATH is prefixed with prefix.  Then the directory
 # containing the shared library modules is appended.  The environment
-# variable $PYTHONPATH is inserted in front of it all. On POSIX, if we are
+# variable $MYFRPYPATH is inserted in front of it all. On POSIX, if we are
 # in a build directory, both prefix and exec_prefix are reset to the
 # corresponding preprocessor variables (so sys.prefix will reflect the
 # installation location, even though sys.path points into the build
 # directory).  This seems to make more sense given that currently the only
 # known use of sys.prefix and sys.exec_prefix is for the ILU installation
-# process to find the installed Python tree.
+# process to find the installed MyFRpy tree.
 
 # An embedding application can use Py_SetPath() to override all of
 # these automatic path computations.
@@ -176,27 +176,27 @@ platlibdir = config.get('platlibdir') or PLATLIBDIR
 if os_name == 'posix' or os_name == 'darwin':
     BUILDDIR_TXT = 'pybuilddir.txt'
     BUILD_LANDMARK = 'Modules/Setup.local'
-    DEFAULT_PROGRAM_NAME = f'python{VERSION_MAJOR}'
-    STDLIB_SUBDIR = f'{platlibdir}/python{VERSION_MAJOR}.{VERSION_MINOR}'
+    DEFAULT_PROGRAM_NAME = f'myFRpy{VERSION_MAJOR}'
+    STDLIB_SUBDIR = f'{platlibdir}/myFRpy{VERSION_MAJOR}.{VERSION_MINOR}'
     STDLIB_LANDMARKS = [f'{STDLIB_SUBDIR}/os.py', f'{STDLIB_SUBDIR}/os.pyc']
-    PLATSTDLIB_LANDMARK = f'{platlibdir}/python{VERSION_MAJOR}.{VERSION_MINOR}/lib-dynload'
+    PLATSTDLIB_LANDMARK = f'{platlibdir}/myFRpy{VERSION_MAJOR}.{VERSION_MINOR}/lib-dynload'
     BUILDSTDLIB_LANDMARKS = ['Lib/os.py']
     VENV_LANDMARK = 'pyvenv.cfg'
-    ZIP_LANDMARK = f'{platlibdir}/python{VERSION_MAJOR}{VERSION_MINOR}.zip'
+    ZIP_LANDMARK = f'{platlibdir}/myFRpy{VERSION_MAJOR}{VERSION_MINOR}.zip'
     DELIM = ':'
     SEP = '/'
 
 elif os_name == 'nt':
     BUILDDIR_TXT = 'pybuilddir.txt'
     BUILD_LANDMARK = f'{VPATH}\\Modules\\Setup.local'
-    DEFAULT_PROGRAM_NAME = f'python'
+    DEFAULT_PROGRAM_NAME = f'myFRpy'
     STDLIB_SUBDIR = 'Lib'
     STDLIB_LANDMARKS = [f'{STDLIB_SUBDIR}\\os.py', f'{STDLIB_SUBDIR}\\os.pyc']
     PLATSTDLIB_LANDMARK = f'{platlibdir}'
     BUILDSTDLIB_LANDMARKS = ['Lib\\os.py']
     VENV_LANDMARK = 'pyvenv.cfg'
-    ZIP_LANDMARK = f'python{VERSION_MAJOR}{VERSION_MINOR}{PYDEBUGEXT or ""}.zip'
-    WINREG_KEY = f'SOFTWARE\\Python\\PythonCore\\{PYWINVER}\\PythonPath'
+    ZIP_LANDMARK = f'myFRpy{VERSION_MAJOR}{VERSION_MINOR}{PYDEBUGEXT or ""}.zip'
+    WINREG_KEY = f'SOFTWARE\\MyFRpy\\MyFRpyCore\\{PYWINVER}\\MyFRpyPath'
     DELIM = ';'
     SEP = '\\'
 
@@ -224,11 +224,11 @@ prefix = config.get('prefix')
 exec_prefix = config.get('exec_prefix')
 base_prefix = config.get('base_prefix')
 base_exec_prefix = config.get('base_exec_prefix')
-ENV_PYTHONPATH = config['pythonpath_env']
+ENV_MYFRPYPATH = config['myFRpypath_env']
 use_environment = config.get('use_environment', 1)
 
-pythonpath = config.get('module_search_paths')
-pythonpath_was_set = config.get('module_search_paths_set')
+myFRpypath = config.get('module_search_paths')
+myFRpypath_was_set = config.get('module_search_paths_set')
 
 real_executable_dir = None
 stdlib_dir = None
@@ -282,7 +282,7 @@ elif os_name == 'darwin':
 if not executable and program_name and ENV_PATH:
     # Resolve names against PATH.
     # NOTE: The use_environment value is ignored for this lookup.
-    # To properly isolate, launch Python with a full path.
+    # To properly isolate, launch MyFRpy with a full path.
     for p in ENV_PATH.split(DELIM):
         p = joinpath(p, program_name)
         if isxfile(p):
@@ -299,7 +299,7 @@ if not executable:
     # build directory with an invalid argv0 (i.e. test_sys.test_executable)
     real_executable_dir = executable_dir
 
-if ENV_PYTHONEXECUTABLE or ENV___PYVENV_LAUNCHER__:
+if ENV_MYFRPYEXECUTABLE or ENV___PYVENV_LAUNCHER__:
     # If set, these variables imply that we should be using them as
     # sys.executable and when searching for venvs. However, we should
     # use the argv0 path for prefix calculation
@@ -309,14 +309,14 @@ if ENV_PYTHONEXECUTABLE or ENV___PYVENV_LAUNCHER__:
         # a stub executable that execs the real interpreter in an
         # embedded app bundle. That bundle is an implementation detail
         # and should not affect base_executable.
-        base_executable = f"{dirname(library)}/bin/python{VERSION_MAJOR}.{VERSION_MINOR}"
+        base_executable = f"{dirname(library)}/bin/myFRpy{VERSION_MAJOR}.{VERSION_MINOR}"
     else:
         base_executable = executable
 
     if not real_executable:
         real_executable = base_executable
         #real_executable_dir = dirname(real_executable)
-    executable = ENV_PYTHONEXECUTABLE or ENV___PYVENV_LAUNCHER__
+    executable = ENV_MYFRPYEXECUTABLE or ENV___PYVENV_LAUNCHER__
     executable_dir = dirname(executable)
 
 
@@ -324,14 +324,14 @@ if ENV_PYTHONEXECUTABLE or ENV___PYVENV_LAUNCHER__:
 # CALCULATE (default) home
 # ******************************************************************************
 
-# Used later to distinguish between Py_SetPythonHome and other
+# Used later to distinguish between Py_SetMyFRpyHome and other
 # ways that it may have been set
 home_was_set = False
 
 if home:
     home_was_set = True
-elif use_environment and ENV_PYTHONHOME and not py_setpath:
-    home = ENV_PYTHONHOME
+elif use_environment and ENV_MYFRPYHOME and not py_setpath:
+    home = ENV_MYFRPYHOME
 
 
 # ******************************************************************************
@@ -340,8 +340,8 @@ elif use_environment and ENV_PYTHONHOME and not py_setpath:
 
 venv_prefix = None
 
-# Calling Py_SetPythonHome(), Py_SetPath() or
-# setting $PYTHONHOME will override venv detection.
+# Calling Py_SetMyFRpyHome(), Py_SetPath() or
+# setting $MYFRPYHOME will override venv detection.
 if not home and not py_setpath:
     try:
         # prefix2 is just to avoid calculating dirname again later,
@@ -375,14 +375,14 @@ if not home and not py_setpath:
                     pass
                 if not base_executable:
                     base_executable = joinpath(executable_dir, basename(executable))
-                    # It's possible "python" is executed from within a posix venv but that
-                    # "python" is not available in the "home" directory as the standard
+                    # It's possible "myFRpy" is executed from within a posix venv but that
+                    # "myFRpy" is not available in the "home" directory as the standard
                     # `make install` does not create it and distros often do not provide it.
                     #
                     # In this case, try to fall back to known alternatives
                     if os_name != 'nt' and not isfile(base_executable):
                         base_exe = basename(executable)
-                        for candidate in (DEFAULT_PROGRAM_NAME, f'python{VERSION_MAJOR}.{VERSION_MINOR}'):
+                        for candidate in (DEFAULT_PROGRAM_NAME, f'myFRpy{VERSION_MAJOR}.{VERSION_MINOR}'):
                             candidate += EXE_SUFFIX if EXE_SUFFIX else ''
                             if base_exe == candidate:
                                 continue
@@ -446,7 +446,7 @@ if not real_executable_dir:
 pth = None
 pth_dir = None
 
-# Calling Py_SetPythonHome() or Py_SetPath() will override ._pth search,
+# Calling Py_SetMyFRpyHome() or Py_SetPath() will override ._pth search,
 # but environment variables and command-line options cannot.
 if not py_setpath and not home_was_set:
     # 1. Check adjacent to the main DLL/dylib/so (if set)
@@ -471,7 +471,7 @@ if not py_setpath and not home_was_set:
     if pth_dir:
         use_environment = 0
         home = pth_dir
-        pythonpath = []
+        myFRpypath = []
 
 
 # ******************************************************************************
@@ -481,7 +481,7 @@ if not py_setpath and not home_was_set:
 build_prefix = None
 
 if ((not home_was_set and real_executable_dir and not py_setpath)
-        or config.get('_is_python_build', 0) > 0):
+        or config.get('_is_myFRpy_build', 0) > 0):
     # Detect a build marker and use it to infer prefix, exec_prefix,
     # stdlib_dir and the platstdlib_dir directories.
     try:
@@ -525,7 +525,7 @@ if ((not home_was_set and real_executable_dir and not py_setpath)
         # Do not warn, because 'exec_prefix' never equals 'build_prefix' on POSIX
         #elif not venv_prefix and exec_prefix != build_prefix:
         #    warn('Detected development environment but exec_prefix is already set')
-        config['_is_python_build'] = 1
+        config['_is_myFRpy_build'] = 1
 
 
 # ******************************************************************************
@@ -628,7 +628,7 @@ else:
 
 
     if not prefix or not exec_prefix:
-        warn('Consider setting $PYTHONHOME to <prefix>[:<exec_prefix>]')
+        warn('Consider setting $MYFRPYHOME to <prefix>[:<exec_prefix>]')
 
 
 # For a venv, update the main prefix/exec_prefix but leave the base ones unchanged
@@ -640,7 +640,7 @@ else:
 
 
 # ******************************************************************************
-# UPDATE pythonpath (sys.path)
+# UPDATE myFRpypath (sys.path)
 # ******************************************************************************
 
 if py_setpath:
@@ -648,16 +648,16 @@ if py_setpath:
     config['module_search_paths'] = py_setpath.split(DELIM)
     config['module_search_paths_set'] = 1
 
-elif not pythonpath_was_set:
-    # If pythonpath was already explicitly set or calculated, we leave it alone.
+elif not myFRpypath_was_set:
+    # If myFRpypath was already explicitly set or calculated, we leave it alone.
     # This won't matter in normal use, but if an embedded host is trying to
     # recalculate paths while running then we do not want to change it.
-    pythonpath = []
+    myFRpypath = []
 
     # First add entries from the process environment
-    if use_environment and ENV_PYTHONPATH:
-        for p in ENV_PYTHONPATH.split(DELIM):
-            pythonpath.append(abspath(p))
+    if use_environment and ENV_MYFRPYPATH:
+        for p in ENV_MYFRPYPATH.split(DELIM):
+            myFRpypath.append(abspath(p))
 
     # Then add the default zip file
     if os_name == 'nt':
@@ -666,17 +666,17 @@ elif not pythonpath_was_set:
             library_dir = dirname(library)
         else:
             library_dir = executable_dir
-        pythonpath.append(joinpath(library_dir, ZIP_LANDMARK))
+        myFRpypath.append(joinpath(library_dir, ZIP_LANDMARK))
     elif build_prefix:
         # QUIRK: POSIX uses the default prefix when in the build directory
-        pythonpath.append(joinpath(PREFIX, ZIP_LANDMARK))
+        myFRpypath.append(joinpath(PREFIX, ZIP_LANDMARK))
     else:
-        pythonpath.append(joinpath(prefix, ZIP_LANDMARK))
+        myFRpypath.append(joinpath(prefix, ZIP_LANDMARK))
 
     if os_name == 'nt' and use_environment and winreg:
         # QUIRK: Windows also lists paths in the registry. Paths are stored
         # as the default value of each subkey of
-        # {HKCU,HKLM}\Software\Python\PythonCore\{winver}\PythonPath
+        # {HKCU,HKLM}\Software\MyFRpy\MyFRpyCore\{winver}\MyFRpyPath
         # where winver is sys.winver (typically '3.x' or '3.x-32')
         for hk in (winreg.HKEY_CURRENT_USER, winreg.HKEY_LOCAL_MACHINE):
             try:
@@ -689,7 +689,7 @@ elif not pythonpath_was_set:
                         except OSError:
                             break
                         if isinstance(v, str):
-                            pythonpath.extend(v.split(DELIM))
+                            myFRpypath.extend(v.split(DELIM))
                         i += 1
                     # Paths from the core key get appended last, but only
                     # when home was not set and we haven't found our stdlib
@@ -697,16 +697,16 @@ elif not pythonpath_was_set:
                     if not home and not stdlib_dir:
                         v = winreg.QueryValue(key, None)
                         if isinstance(v, str):
-                            pythonpath.extend(v.split(DELIM))
+                            myFRpypath.extend(v.split(DELIM))
                 finally:
                     winreg.CloseKey(key)
             except OSError:
                 pass
 
-    # Then add any entries compiled into the PYTHONPATH macro.
-    if PYTHONPATH:
-        for p in PYTHONPATH.split(DELIM):
-            pythonpath.append(joinpath(prefix, p))
+    # Then add any entries compiled into the MYFRPYPATH macro.
+    if MYFRPYPATH:
+        for p in MYFRPYPATH.split(DELIM):
+            myFRpypath.append(joinpath(prefix, p))
 
     # Then add stdlib_dir and platstdlib_dir
     if not stdlib_dir and prefix:
@@ -717,22 +717,22 @@ elif not pythonpath_was_set:
     if os_name == 'nt':
         # QUIRK: Windows generates paths differently
         if platstdlib_dir:
-            pythonpath.append(platstdlib_dir)
+            myFRpypath.append(platstdlib_dir)
         if stdlib_dir:
-            pythonpath.append(stdlib_dir)
-        if executable_dir and executable_dir not in pythonpath:
+            myFRpypath.append(stdlib_dir)
+        if executable_dir and executable_dir not in myFRpypath:
             # QUIRK: the executable directory is on sys.path
             # We keep it low priority, so that properly installed modules are
             # found first. It may be earlier in the order if we found some
             # reason to put it there.
-            pythonpath.append(executable_dir)
+            myFRpypath.append(executable_dir)
     else:
         if stdlib_dir:
-            pythonpath.append(stdlib_dir)
+            myFRpypath.append(stdlib_dir)
         if platstdlib_dir:
-            pythonpath.append(platstdlib_dir)
+            myFRpypath.append(platstdlib_dir)
 
-    config['module_search_paths'] = pythonpath
+    config['module_search_paths'] = myFRpypath
     config['module_search_paths_set'] = 1
 
 
@@ -741,14 +741,14 @@ elif not pythonpath_was_set:
 # ******************************************************************************
 
 # QUIRK: Non-Windows replaces prefix/exec_prefix with defaults when running
-# in build directory. This happens after pythonpath calculation.
+# in build directory. This happens after myFRpypath calculation.
 if os_name != 'nt' and build_prefix:
     prefix = config.get('prefix') or PREFIX
     exec_prefix = config.get('exec_prefix') or EXEC_PREFIX or prefix
 
 
 # ******************************************************************************
-# SET pythonpath FROM _PTH FILE
+# SET myFRpypath FROM _PTH FILE
 # ******************************************************************************
 
 if pth:
@@ -756,7 +756,7 @@ if pth:
     config['use_environment'] = 0
     config['site_import'] = 0
     config['safe_path'] = 1
-    pythonpath = []
+    myFRpypath = []
     for line in pth:
         line = line.partition('#')[0].strip()
         if not line:
@@ -766,8 +766,8 @@ if pth:
         elif line.startswith('import '):
             warn("unsupported 'import' line in ._pth file")
         else:
-            pythonpath.append(joinpath(pth_dir, line))
-    config['module_search_paths'] = pythonpath
+            myFRpypath.append(joinpath(pth_dir, line))
+    config['module_search_paths'] = myFRpypath
     config['module_search_paths_set'] = 1
 
 # ******************************************************************************

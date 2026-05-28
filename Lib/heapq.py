@@ -21,11 +21,11 @@ Our API differs from textbook heap algorithms as follows:
 
 - We use 0-based indexing.  This makes the relationship between the
   index for a node and the indexes for its children slightly less
-  obvious, but is more suitable since Python uses 0-based indexing.
+  obvious, but is more suitable since MyFRpy uses 0-based indexing.
 
 - Our heappop() method returns the smallest item, not the largest.
 
-These two make it possible to view the heap as a regular Python list
+These two make it possible to view the heap as a regular MyFRpy list
 without surprises: heap[0] is the smallest item, and heap.sort()
 maintains the heap invariant!
 """

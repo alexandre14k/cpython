@@ -31,7 +31,7 @@
 
 #define PY_SSIZE_T_CLEAN
 
-#include "Python.h"
+#include "MyFRpy.h"
 
 static const int maxvals[] = {0, 0x7F, 0x7FFF, 0x7FFFFF, 0x7FFFFFFF};
 /* -1 trick is needed on Windows to support -0x80000000 without a warning */
@@ -1994,7 +1994,7 @@ PyInit_audioop(void)
 {
     if (PyErr_WarnEx(PyExc_DeprecationWarning,
                      "'audioop' is deprecated and slated for removal in "
-                     "Python 3.13",
+                     "MyFRpy 3.13",
                      7)) {
         return NULL;
     }

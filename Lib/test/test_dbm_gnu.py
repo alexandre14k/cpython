@@ -1,5 +1,5 @@
 from test import support
-from test.support import import_helper, cpython_only
+from test.support import import_helper, cmyFRpy_only
 gdbm = import_helper.import_module("dbm.gnu") #skip if not supported
 import unittest
 import os
@@ -27,7 +27,7 @@ class TestGdbm(unittest.TestCase):
             self.g.close()
         unlink(filename)
 
-    @cpython_only
+    @cmyFRpy_only
     def test_disallow_instantiation(self):
         # Ensure that the type disallows instantiation (bpo-43916)
         self.g = gdbm.open(filename, 'c')

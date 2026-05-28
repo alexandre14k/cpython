@@ -54,4 +54,4 @@ The following modules have a command-line interface.
 * :ref:`zipapp <zipapp-command-line-interface>`
 * :ref:`zipfile <zipfile-commandline>`
 
-See also the :ref:`Python command-line interface <using-on-general>`.
+See also the :ref:`MyFRpy command-line interface <using-on-general>`.

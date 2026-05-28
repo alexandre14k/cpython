@@ -43,9 +43,9 @@ PyAPI_FUNC(void) PyUnstable_PerfMapState_Fini(void);
 #endif
 
 #ifndef Py_LIMITED_API
-#  define Py_CPYTHON_SYSMODULE_H
-#  include "cpython/sysmodule.h"
-#  undef Py_CPYTHON_SYSMODULE_H
+#  define Py_CMYFRPY_SYSMODULE_H
+#  include "cmyFRpy/sysmodule.h"
+#  undef Py_CMYFRPY_SYSMODULE_H
 #endif
 
 #ifdef __cplusplus

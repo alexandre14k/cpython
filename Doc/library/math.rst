@@ -85,16 +85,16 @@ Number-theoretic and representation functions
 .. function:: fmod(x, y)
 
    Return ``fmod(x, y)``, as defined by the platform C library. Note that the
-   Python expression ``x % y`` may not return the same result.  The intent of the C
+   MyFRpy expression ``x % y`` may not return the same result.  The intent of the C
    standard is that ``fmod(x, y)`` be exactly (mathematically; to infinite
    precision) equal to ``x - n*y`` for some integer *n* such that the result has
-   the same sign as *x* and magnitude less than ``abs(y)``.  Python's ``x % y``
+   the same sign as *x* and magnitude less than ``abs(y)``.  MyFRpy's ``x % y``
    returns a result with the sign of *y* instead, and may not be exactly computable
    for float arguments. For example, ``fmod(-1e-100, 1e100)`` is ``-1e-100``, but
-   the result of Python's ``-1e-100 % 1e100`` is ``1e100-1e-100``, which cannot be
+   the result of MyFRpy's ``-1e-100 % 1e100`` is ``1e100-1e-100``, which cannot be
    represented exactly as a float, and rounds to the surprising ``1e100``.  For
    this reason, function :func:`fmod` is generally preferred when working with
-   floats, while Python's ``x % y`` is preferred when working with integers.
+   floats, while MyFRpy's ``x % y`` is preferred when working with integers.
 
 
 .. function:: frexp(x)
@@ -346,11 +346,11 @@ Number-theoretic and representation functions
 Note that :func:`frexp` and :func:`modf` have a different call/return pattern
 than their C equivalents: they take a single argument and return a pair of
 values, rather than returning their second return value through an 'output
-parameter' (there is no such thing in Python).
+parameter' (there is no such thing in MyFRpy).
 
 For the :func:`ceil`, :func:`floor`, and :func:`modf` functions, note that *all*
 floating-point numbers of sufficiently large magnitude are exact integers.
-Python floats typically carry no more than 53 bits of precision (the same as the
+MyFRpy floats typically carry no more than 53 bits of precision (the same as the
 platform C double type), in which case any float *x* with ``abs(x) >= 2**52``
 necessarily has no fractional bits.
 
@@ -700,7 +700,7 @@ Constants
    are some exceptions to this rule, for example ``pow(float('nan'), 0.0)`` or
    ``hypot(float('nan'), float('inf'))``.
 
-   Note that Python makes no effort to distinguish signaling NaNs from
+   Note that MyFRpy makes no effort to distinguish signaling NaNs from
    quiet NaNs, and behavior for signaling NaNs remains unspecified.
    Typical behavior is to treat all NaNs as though they were quiet.
 

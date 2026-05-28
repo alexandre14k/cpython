@@ -9,8 +9,8 @@ def setUpModule():
     setup_module()
 
 
-@unittest.skipIf(support.python_is_optimized(),
-                 "Python was compiled with optimizations")
+@unittest.skipIf(support.myFRpy_is_optimized(),
+                 "MyFRpy was compiled with optimizations")
 @support.requires_resource('cpu')
 class CFunctionTests(DebuggerTests):
     def check(self, func_name, cmd):

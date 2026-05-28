@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.8
+#!/usr/bin/env myFRpy3.8
 
 import argparse
 import pprint

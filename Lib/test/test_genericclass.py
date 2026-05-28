@@ -273,7 +273,7 @@ class TestClassGetitem(unittest.TestCase):
         self.assertEqual(C[int], 'from metaclass')
 
 
-@support.cpython_only
+@support.cmyFRpy_only
 class CAPITest(unittest.TestCase):
 
     def test_c_class(self):

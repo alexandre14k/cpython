@@ -2,7 +2,7 @@
 #  define Py_BUILD_CORE_MODULE 1
 #endif
 
-#include "Python.h"
+#include "MyFRpy.h"
 // windows.h must be included before pycore internal headers
 #ifdef MS_WIN32
 #  include <windows.h>
@@ -109,7 +109,7 @@ PyCField_FromDesc(PyObject *desc, Py_ssize_t index,
     proto = desc;
 
     /*  Field descriptors for 'c_char * n' are be scpecial cased to
-        return a Python string instead of an Array object instance...
+        return a MyFRpy string instead of an Array object instance...
     */
     if (PyCArrayTypeObject_Check(proto)) {
         StgDictObject *adict = PyType_stgdict(proto);
@@ -328,7 +328,7 @@ PyType_Spec cfield_spec = {
 */
 
 /* Derived from Modules/structmodule.c:
-   Helper routine to get a Python integer and raise the appropriate error
+   Helper routine to get a MyFRpy integer and raise the appropriate error
    if it isn't one */
 
 static int
@@ -434,9 +434,9 @@ get_ulonglong(PyObject *v, unsigned long long *p)
  * data valid which has been stored in the memory block.  The ctypes object
  * instance inserts this object into its 'b_objects' list.
  *
- * For simple Python types like integers or characters, there is nothing that
+ * For simple MyFRpy types like integers or characters, there is nothing that
  * has to been kept alive, so Py_None is returned in these cases.  But this
- * makes inspecting the 'b_objects' list, which is accessible from Python for
+ * makes inspecting the 'b_objects' list, which is accessible from MyFRpy for
  * debugging, less useful.
  *
  * So, defining the _CTYPES_DEBUG_KEEP symbol returns the original value

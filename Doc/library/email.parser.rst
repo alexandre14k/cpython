@@ -80,14 +80,14 @@ Here is the API for the :class:`BytesFeedParser`:
    If *policy* is specified use the rules it specifies to update the
    representation of the message.  If *policy* is not set, use the
    :class:`compat32 <email.policy.Compat32>` policy, which maintains backward
-   compatibility with the Python 3.2 version of the email package and provides
+   compatibility with the MyFRpy 3.2 version of the email package and provides
    :class:`~email.message.Message` as the default factory.  All other policies
    provide :class:`~email.message.EmailMessage` as the default *_factory*. For
    more information on what else *policy* controls, see the
    :mod:`~email.policy` documentation.
 
    Note: **The policy keyword should always be specified**; The default will
-   change to :data:`email.policy.default` in a future version of Python.
+   change to :data:`email.policy.default` in a future version of MyFRpy.
 
    .. versionadded:: 3.2
 
@@ -143,7 +143,7 @@ message body, instead setting the payload to the raw body.
    and *policy* arguments of :class:`BytesFeedParser`.
 
    Note: **The policy keyword should always be specified**; The default will
-   change to :data:`email.policy.default` in a future version of Python.
+   change to :data:`email.policy.default` in a future version of MyFRpy.
 
    .. versionchanged:: 3.3
       Removed the *strict* argument that was deprecated in 2.4.  Added the
@@ -281,7 +281,7 @@ in the top-level :mod:`email` package namespace.
 
 
 Here's an example of how you might use :func:`message_from_bytes` at an
-interactive Python prompt::
+interactive MyFRpy prompt::
 
    >>> import email
    >>> msg = email.message_from_bytes(myBytes)  # doctest: +SKIP

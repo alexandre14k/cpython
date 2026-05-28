@@ -6,12 +6,12 @@ Unicode Objects and Codecs
 --------------------------
 
 .. sectionauthor:: Marc-André Lemburg <mal@lemburg.com>
-.. sectionauthor:: Georg Brandl <georg@python.org>
+.. sectionauthor:: Georg Brandl <georg@myFRpy.org>
 
 Unicode Objects
 ^^^^^^^^^^^^^^^
 
-Since the implementation of :pep:`393` in Python 3.3, Unicode objects internally
+Since the implementation of :pep:`393` in MyFRpy 3.3, Unicode objects internally
 use a variety of representations, in order to allow handling the complete range
 of Unicode characters while staying memory efficient.  There are special cases
 for strings where all code points are below 128, 256, or 65536; otherwise, code
@@ -20,7 +20,7 @@ points must be below 1114112 (which is the full Unicode range).
 UTF-8 representation is created on demand and cached in the Unicode object.
 
 .. note::
-   The :c:type:`Py_UNICODE` representation has been removed since Python 3.12
+   The :c:type:`Py_UNICODE` representation has been removed since MyFRpy 3.12
    with deprecated APIs.
    See :pep:`623` for more information.
 
@@ -29,7 +29,7 @@ Unicode Type
 """"""""""""
 
 These are the basic Unicode object types used for the Unicode implementation in
-Python:
+MyFRpy:
 
 .. c:type:: Py_UCS4
             Py_UCS2
@@ -49,7 +49,7 @@ Python:
 
    .. versionchanged:: 3.3
       In previous versions, this was a 16-bit type or a 32-bit type depending on
-      whether you selected a "narrow" or "wide" Unicode version of Python at
+      whether you selected a "narrow" or "wide" Unicode version of MyFRpy at
       build time.
 
 
@@ -57,7 +57,7 @@ Python:
             PyCompactUnicodeObject
             PyUnicodeObject
 
-   These subtypes of :c:type:`PyObject` represent a Python Unicode object.  In
+   These subtypes of :c:type:`PyObject` represent a MyFRpy Unicode object.  In
    almost all cases, they shouldn't be used directly, since all API functions
    that deal with Unicode objects take and return :c:type:`PyObject` pointers.
 
@@ -66,8 +66,8 @@ Python:
 
 .. c:var:: PyTypeObject PyUnicode_Type
 
-   This instance of :c:type:`PyTypeObject` represents the Python Unicode type.  It
-   is exposed to Python code as ``str``.
+   This instance of :c:type:`PyTypeObject` represents the MyFRpy Unicode type.  It
+   is exposed to MyFRpy code as ``str``.
 
 
 The following APIs are C macros and static inlined functions for fast checks and
@@ -92,7 +92,7 @@ access to internal read-only data of Unicode objects:
    .. versionadded:: 3.3
 
    .. deprecated:: 3.10
-      This API does nothing since Python 3.12.
+      This API does nothing since MyFRpy 3.12.
 
 
 .. c:function:: Py_ssize_t PyUnicode_GET_LENGTH(PyObject *unicode)
@@ -199,7 +199,7 @@ Unicode Character Properties
 
 Unicode provides many different character properties. The most often needed ones
 are available through these macros which are mapped to C functions depending on
-the Python configuration.
+the MyFRpy configuration.
 
 
 .. c:function:: int Py_UNICODE_ISSPACE(Py_UCS4 ch)
@@ -391,7 +391,7 @@ APIs:
 .. c:function:: PyObject* PyUnicode_FromFormat(const char *format, ...)
 
    Take a C :c:func:`printf`\ -style *format* string and a variable number of
-   arguments, calculate the size of the resulting Python Unicode string and return
+   arguments, calculate the size of the resulting MyFRpy Unicode string and return
    a string with the values formatted into it.  The variable arguments must be C
    types and must correspond exactly to the format characters in the *format*
    ASCII-encoded string.
@@ -703,7 +703,7 @@ system.
    Use :c:func:`PyUnicode_DecodeFSDefaultAndSize` to decode a string from
    the :term:`filesystem encoding and error handler`.
 
-   This function ignores the :ref:`Python UTF-8 Mode <utf8-mode>`.
+   This function ignores the :ref:`MyFRpy UTF-8 Mode <utf8-mode>`.
 
    .. seealso::
 
@@ -738,7 +738,7 @@ system.
    Use :c:func:`PyUnicode_EncodeFSDefault` to encode a string to the
    :term:`filesystem encoding and error handler`.
 
-   This function ignores the :ref:`Python UTF-8 Mode <utf8-mode>`.
+   This function ignores the :ref:`MyFRpy UTF-8 Mode <utf8-mode>`.
 
    .. seealso::
 
@@ -901,7 +901,7 @@ wchar_t Support
 Built-in Codecs
 ^^^^^^^^^^^^^^^
 
-Python provides a set of built-in codecs which are written in C for speed. All of
+MyFRpy provides a set of built-in codecs which are written in C for speed. All of
 these codecs are directly usable via the following functions.
 
 Many of the following APIs take two arguments encoding and errors, and they
@@ -933,17 +933,17 @@ These are the generic codec APIs:
    Create a Unicode object by decoding *size* bytes of the encoded string *str*.
    *encoding* and *errors* have the same meaning as the parameters of the same name
    in the :func:`str` built-in function.  The codec to be used is looked up
-   using the Python codec registry.  Return ``NULL`` if an exception was raised by
+   using the MyFRpy codec registry.  Return ``NULL`` if an exception was raised by
    the codec.
 
 
 .. c:function:: PyObject* PyUnicode_AsEncodedString(PyObject *unicode, \
                               const char *encoding, const char *errors)
 
-   Encode a Unicode object and return the result as Python bytes object.
+   Encode a Unicode object and return the result as MyFRpy bytes object.
    *encoding* and *errors* have the same meaning as the parameters of the same
    name in the Unicode :meth:`~str.encode` method. The codec to be used is looked up
-   using the Python codec registry. Return ``NULL`` if an exception was raised by
+   using the MyFRpy codec registry. Return ``NULL`` if an exception was raised by
    the codec.
 
 
@@ -970,7 +970,7 @@ These are the UTF-8 codec APIs:
 
 .. c:function:: PyObject* PyUnicode_AsUTF8String(PyObject *unicode)
 
-   Encode a Unicode object using UTF-8 and return the result as Python bytes
+   Encode a Unicode object using UTF-8 and return the result as MyFRpy bytes
    object.  Error handling is "strict".  Return ``NULL`` if an exception was
    raised by the codec.
 
@@ -1055,7 +1055,7 @@ These are the UTF-32 codec APIs:
 
 .. c:function:: PyObject* PyUnicode_AsUTF32String(PyObject *unicode)
 
-   Return a Python byte string using the UTF-32 encoding in native byte
+   Return a MyFRpy byte string using the UTF-32 encoding in native byte
    order. The string always starts with a BOM mark.  Error handling is "strict".
    Return ``NULL`` if an exception was raised by the codec.
 
@@ -1106,7 +1106,7 @@ These are the UTF-16 codec APIs:
 
 .. c:function:: PyObject* PyUnicode_AsUTF16String(PyObject *unicode)
 
-   Return a Python byte string using the UTF-16 encoding in native byte
+   Return a MyFRpy byte string using the UTF-16 encoding in native byte
    order. The string always starts with a BOM mark.  Error handling is "strict".
    Return ``NULL`` if an exception was raised by the codec.
 
@@ -1187,7 +1187,7 @@ ordinals and only these are accepted by the codecs during encoding.
 
 .. c:function:: PyObject* PyUnicode_AsLatin1String(PyObject *unicode)
 
-   Encode a Unicode object using Latin-1 and return the result as Python bytes
+   Encode a Unicode object using Latin-1 and return the result as MyFRpy bytes
    object.  Error handling is "strict".  Return ``NULL`` if an exception was
    raised by the codec.
 
@@ -1207,7 +1207,7 @@ codes generate errors.
 
 .. c:function:: PyObject* PyUnicode_AsASCIIString(PyObject *unicode)
 
-   Encode a Unicode object using ASCII and return the result as Python bytes
+   Encode a Unicode object using ASCII and return the result as MyFRpy bytes
    object.  Error handling is "strict".  Return ``NULL`` if an exception was
    raised by the codec.
 
@@ -1295,14 +1295,14 @@ the user settings on the machine running the codec.
 
 .. c:function:: PyObject* PyUnicode_AsMBCSString(PyObject *unicode)
 
-   Encode a Unicode object using MBCS and return the result as Python bytes
+   Encode a Unicode object using MBCS and return the result as MyFRpy bytes
    object.  Error handling is "strict".  Return ``NULL`` if an exception was
    raised by the codec.
 
 
 .. c:function:: PyObject* PyUnicode_EncodeCodePage(int code_page, PyObject *unicode, const char *errors)
 
-   Encode the Unicode object using the specified code page and return a Python
+   Encode the Unicode object using the specified code page and return a MyFRpy
    bytes object.  Return ``NULL`` if an exception was raised by the codec. Use
    :c:macro:`!CP_ACP` code page to get the MBCS encoder.
 
@@ -1448,7 +1448,7 @@ They all return ``NULL`` or ``-1`` if an exception occurs.
 .. c:function:: void PyUnicode_InternInPlace(PyObject **p_unicode)
 
    Intern the argument :c:expr:`*p_unicode` in place.  The argument must be the address of a
-   pointer variable pointing to a Python Unicode string object.  If there is an
+   pointer variable pointing to a MyFRpy Unicode string object.  If there is an
    existing interned string that is the same as :c:expr:`*p_unicode`, it sets :c:expr:`*p_unicode` to
    it (releasing the reference to the old string object and creating a new
    :term:`strong reference` to the interned string object), otherwise it leaves

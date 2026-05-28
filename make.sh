@@ -1,7 +1,28 @@
-#!/bin/bash
-
+#!/usr/bin/env bash
 APP=$(basename "$PWD")
-DIR="build|Makefile|config.status|config.log|pybuilddir.txt"
+OUT="output"
+DIR="$OUT|build|Makefile|config.status|config.log|pybuilddir.txt"
+
+
+ln -s $(which python3) /var/tmp/myFRpy3
+export PATH="/var/tmp:$PATH"
+
+do_rename() {
+    ROOT="$(realpath "${1:-.}")"
+    S=(-e 's/PYTHON/MYFRPY/g' -e 's/Python/MyFRpy/g' -e 's/python/myFRpy/g')
+
+    find "$ROOT" -type f -not -path '*/.git/*' -not -name 'make.sh' -print0 \
+      | xargs -0 grep -liI 'python' -- 2>/dev/null \
+      | tr '\n' '\0' \
+      | xargs -0 --no-run-if-empty sed -i "${S[@]}"
+
+    find "$ROOT" -depth -not -path '*/.git' -not -path '*/.git/*' -not -name 'make.sh' -print0 \
+      | while IFS= read -r -d '' p; do
+          d=$(dirname "$p"); b=$(basename "$p")
+          n=$(printf '%s' "$b" | sed "${S[@]}")
+          [[ "$b" != "$n" ]] && mv -- "$p" "$d/$n"
+        done
+}
 
 do_run() {
     # run if exists
@@ -19,11 +40,16 @@ do_build() {
     make -j8
 }
 
+do_install() {
+    # build to output folder
+    make install
+}
+
 do_erase() {
     # remove all build artifacts
     items=(
         Makefile config.status config.log pybuilddir.txt
-        Python/frozen_modules build
+        MyFRpy/frozen_modules build output
         $APP
     )
     for item in "${items[@]}"; do
@@ -36,7 +62,7 @@ do_clean() {
 
     # configure
     # use 2>&1 >/dev/null to hide checks
-    ./configure --enable-optimizations
+    ./configure --prefix="$(pwd)/$OUT" --enable-optimizations
 
     # clean (now that Makefile exists)
     make clean
@@ -59,13 +85,15 @@ do_menu() {
     echo ""
     echo "   project <$APP>"
     echo ""
-    echo "   d -- tree  | arborescence"
-    echo "   p -- regen | configurer"
-    echo "   b -- build | construire"
-    echo "   r -- run   | exécuter"
-    echo "   c -- clean | nettoyer"
-    echo "   e -- erase | effacer"
-    echo "   x -- exit  | quitter"
+    echo "   t -- rename  | renommer"
+    echo "   d -- tree    | arborescence"
+    echo "   p -- regen   | configurer"
+    echo "   b -- build   | construire"
+    echo "   i -- install | installer"
+    echo "   r -- run     | exécuter"
+    echo "   c -- clean   | nettoyer"
+    echo "   e -- erase   | effacer"
+    echo "   x -- exit    | quitter"
     echo ""
 }
 
@@ -80,9 +108,11 @@ main() {
         value=$(do_input)
 
         case "$value" in
+            t) do_rename;;
             d) do_dir_project;;
             p) do_regen;;
             b) do_build;;
+            i) do_install;;
             r) do_run;;
             c) do_clean;;
             e) do_erase;;

@@ -1,7 +1,7 @@
 
 /* UNIX group file access module */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "posixmodule.h"
 
 #include <grp.h>

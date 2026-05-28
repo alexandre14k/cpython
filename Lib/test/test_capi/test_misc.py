@@ -1,4 +1,4 @@
-# Run the _testcapi module tests (tests for the Python/C API):  by defn,
+# Run the _testcapi module tests (tests for the MyFRpy/C API):  by defn,
 # these are all functions _testcapi exports whose name begins with 'test_'.
 
 import _thread
@@ -27,7 +27,7 @@ from test.support import import_helper
 from test.support import threading_helper
 from test.support import warnings_helper
 from test.support import requires_limited_api
-from test.support.script_helper import assert_python_failure, assert_python_ok, run_python_until_end
+from test.support.script_helper import assert_myFRpy_failure, assert_myFRpy_ok, run_myFRpy_until_end
 try:
     import _posixsubprocess
 except ImportError:
@@ -95,15 +95,15 @@ class CAPITest(unittest.TestCase):
                 _testcapi.crash_no_current_thread()
         """)
 
-        run_result, _cmd_line = run_python_until_end('-c', code)
+        run_result, _cmd_line = run_myFRpy_until_end('-c', code)
         _rc, out, err = run_result
         self.assertEqual(out, b'')
         # This used to cause an infinite loop.
-        msg = ("Fatal Python error: PyThreadState_Get: "
+        msg = ("Fatal MyFRpy error: PyThreadState_Get: "
                "the function must be called with the GIL held, "
-               "after Python initialization and before Python finalization, "
+               "after MyFRpy initialization and before MyFRpy finalization, "
                "but the GIL is released "
-               "(the current Python thread state is NULL)").encode()
+               "(the current MyFRpy thread state is NULL)").encode()
         self.assertTrue(err.rstrip().startswith(msg),
                         err)
 
@@ -216,12 +216,12 @@ class CAPITest(unittest.TestCase):
                 with support.SuppressCrashReport():
                     _testcapi.return_null_without_error()
             """)
-            rc, out, err = assert_python_failure('-c', code)
+            rc, out, err = assert_myFRpy_failure('-c', code)
             err = decode_stderr(err)
             self.assertRegex(err,
-                r'Fatal Python error: _Py_CheckFunctionResult: '
+                r'Fatal MyFRpy error: _Py_CheckFunctionResult: '
                     r'a function returned NULL without setting an exception\n'
-                r'Python runtime state: initialized\n'
+                r'MyFRpy runtime state: initialized\n'
                 r'SystemError: <built-in function return_null_without_error> '
                     r'returned NULL without setting an exception\n'
                 r'\n'
@@ -244,12 +244,12 @@ class CAPITest(unittest.TestCase):
                 with support.SuppressCrashReport():
                     _testcapi.return_result_with_error()
             """)
-            rc, out, err = assert_python_failure('-c', code)
+            rc, out, err = assert_myFRpy_failure('-c', code)
             err = decode_stderr(err)
             self.assertRegex(err,
-                    r'Fatal Python error: _Py_CheckFunctionResult: '
+                    r'Fatal MyFRpy error: _Py_CheckFunctionResult: '
                         r'a function returned a result with an exception set\n'
-                    r'Python runtime state: initialized\n'
+                    r'MyFRpy runtime state: initialized\n'
                     r'ValueError\n'
                     r'\n'
                     r'The above exception was the direct cause '
@@ -279,14 +279,14 @@ class CAPITest(unittest.TestCase):
             with support.SuppressCrashReport():
                 _testcapi.getitem_with_error({1: 2}, 1)
         """)
-        rc, out, err = assert_python_failure('-c', code)
+        rc, out, err = assert_myFRpy_failure('-c', code)
         err = decode_stderr(err)
         if 'SystemError: ' not in err:
             self.assertRegex(err,
-                    r'Fatal Python error: _Py_CheckSlotResult: '
+                    r'Fatal MyFRpy error: _Py_CheckSlotResult: '
                         r'Slot __getitem__ of type dict succeeded '
                         r'with an exception set\n'
-                    r'Python runtime state: initialized\n'
+                    r'MyFRpy runtime state: initialized\n'
                     r'ValueError: bug\n'
                     r'\n'
                     r'Current thread .* \(most recent call first\):\n'
@@ -294,7 +294,7 @@ class CAPITest(unittest.TestCase):
                     r'\n'
                     r'Extension modules: _testcapi \(total: 1\)\n')
         else:
-            # Python built with NDEBUG macro defined:
+            # MyFRpy built with NDEBUG macro defined:
             # test _Py_CheckFunctionResult() instead.
             self.assertIn('returned a result with an exception set', err)
 
@@ -383,9 +383,9 @@ class CAPITest(unittest.TestCase):
 
     def check_negative_refcount(self, code):
         # bpo-35059: Check that Py_DECREF() reports the correct filename
-        # when calling _Py_NegativeRefcount() to abort Python.
+        # when calling _Py_NegativeRefcount() to abort MyFRpy.
         code = textwrap.dedent(code)
-        rc, out, err = assert_python_failure('-c', code)
+        rc, out, err = assert_myFRpy_failure('-c', code)
         self.assertRegex(err,
                          br'_testcapimodule\.c:[0-9]+: '
                          br'_Py_NegativeRefcount: Assertion failed: '
@@ -426,16 +426,16 @@ class CAPITest(unittest.TestCase):
             L = MyList((L,))
 
     @support.requires_resource('cpu')
-    def test_trashcan_python_class1(self):
-        self.do_test_trashcan_python_class(list)
+    def test_trashcan_myFRpy_class1(self):
+        self.do_test_trashcan_myFRpy_class(list)
 
     @support.requires_resource('cpu')
-    def test_trashcan_python_class2(self):
+    def test_trashcan_myFRpy_class2(self):
         from _testcapi import MyList
-        self.do_test_trashcan_python_class(MyList)
+        self.do_test_trashcan_myFRpy_class(MyList)
 
-    def do_test_trashcan_python_class(self, base):
-        # Check that the trashcan mechanism works properly for a Python
+    def do_test_trashcan_myFRpy_class(self, base):
+        # Check that the trashcan mechanism works properly for a MyFRpy
         # subclass of a class using the trashcan (this specific test assumes
         # that the base class "base" behaves like list)
         class PyList(base):
@@ -671,7 +671,7 @@ class CAPITest(unittest.TestCase):
         self.assertEqual(t.__name__, "HeapCTypeViaMetaclass")
         self.assertIs(type(t), metaclass)
 
-        # Class creation from Python
+        # Class creation from MyFRpy
         t = metaclass("PyClassViaMetaclass", (), {})
         self.assertIsInstance(t, type)
         self.assertEqual(t.__name__, "PyClassViaMetaclass")
@@ -687,7 +687,7 @@ class CAPITest(unittest.TestCase):
         self.assertEqual(t.__name__, "HeapCTypeViaMetaclass")
         self.assertIs(type(t), metaclass)
 
-        # Class creation from Python
+        # Class creation from MyFRpy
         with self.assertRaisesRegex(TypeError, "cannot create .* instances"):
             metaclass("PyClassViaMetaclass", (), {})
 
@@ -711,7 +711,7 @@ class CAPITest(unittest.TestCase):
 
         # Class creation from C
         with warnings_helper.check_warnings(
-                ('.* _testcapi.Subclass .* custom tp_new.*in Python 3.14.*', DeprecationWarning),
+                ('.* _testcapi.Subclass .* custom tp_new.*in MyFRpy 3.14.*', DeprecationWarning),
                 ):
             sub = _testcapi.make_type_with_base(Base)
         self.assertTrue(issubclass(sub, Base))
@@ -844,8 +844,8 @@ class CAPITest(unittest.TestCase):
 
     def test_export_symbols(self):
         # bpo-44133: Ensure that the "Py_FrozenMain" and
-        # "PyThread_get_thread_native_id" symbols are exported by the Python
-        # (directly by the binary, or via by the Python dynamic library).
+        # "PyThread_get_thread_native_id" symbols are exported by the MyFRpy
+        # (directly by the binary, or via by the MyFRpy dynamic library).
         ctypes = import_helper.import_module('ctypes')
         names = []
 
@@ -853,7 +853,7 @@ class CAPITest(unittest.TestCase):
         if hasattr(_thread, 'get_native_id'):
             names.append('PyThread_get_thread_native_id')
 
-        # Python/frozenmain.c fails to build on Windows when the symbols are
+        # MyFRpy/frozenmain.c fails to build on Windows when the symbols are
         # missing:
         # - PyWinFreeze_ExeInit
         # - PyWinFreeze_ExeTerm
@@ -863,7 +863,7 @@ class CAPITest(unittest.TestCase):
 
         for name in names:
             with self.subTest(name=name):
-                self.assertTrue(hasattr(ctypes.pythonapi, name))
+                self.assertTrue(hasattr(ctypes.myFRpyapi, name))
 
     def test_clear_managed_dict(self):
 
@@ -2020,7 +2020,7 @@ class BuiltinStaticTypesTests(unittest.TestCase):
 
     def test_tp_bases_is_set(self):
         # PyTypeObject.tp_bases is documented as public API.
-        # See https://github.com/python/cpython/issues/105020.
+        # See https://github.com/myFRpy/cmyFRpy/issues/105020.
         for typeobj in self.TYPES:
             with self.subTest(typeobj):
                 bases = _testcapi.type_get_tp_bases(typeobj)
@@ -2028,7 +2028,7 @@ class BuiltinStaticTypesTests(unittest.TestCase):
 
     def test_tp_mro_is_set(self):
         # PyTypeObject.tp_bases is documented as public API.
-        # See https://github.com/python/cpython/issues/105020.
+        # See https://github.com/myFRpy/cmyFRpy/issues/105020.
         for typeobj in self.TYPES:
             with self.subTest(typeobj):
                 mro = _testcapi.type_get_tp_mro(typeobj)
@@ -2054,7 +2054,7 @@ class TestStaticTypes(unittest.TestCase):
 
     def test_pytype_ready_always_sets_tp_type(self):
         # The point of this test is to prevent something like
-        # https://github.com/python/cpython/issues/104614
+        # https://github.com/myFRpy/cmyFRpy/issues/104614
         # from happening again.
 
         # First check when tp_base/tp_bases is *not* set before PyType_Ready().
@@ -2097,7 +2097,7 @@ class TestThreadState(unittest.TestCase):
     @threading_helper.reap_threads
     @threading_helper.requires_working_threading()
     def test_gilstate_ensure_no_deadlock(self):
-        # See https://github.com/python/cpython/issues/96071
+        # See https://github.com/myFRpy/cmyFRpy/issues/96071
         code = textwrap.dedent("""
             import _testcapi
 
@@ -2106,7 +2106,7 @@ class TestThreadState(unittest.TestCase):
 
             _testcapi._test_thread_state(callback)
             """)
-        ret = assert_python_ok('-X', 'tracemalloc', '-c', code)
+        ret = assert_myFRpy_ok('-X', 'tracemalloc', '-c', code)
         self.assertIn(b'callback called', ret.out)
 
     def test_gilstate_matches_current(self):

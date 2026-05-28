@@ -1,6 +1,6 @@
 README.txt: an index to idlelib files and the IDLE menu.
 
-IDLE is Python's Integrated Development and Learning
+IDLE is MyFRpy's Integrated Development and Learning
 Environment.  The user documentation is part of the Library Reference and
 is available in IDLE by selecting Help => IDLE Help.  This README documents
 idlelib for IDLE developers and curious users.
@@ -101,7 +101,7 @@ Text
 CREDITS.txt  # not maintained, displayed by About IDLE
 HISTORY.txt  # NEWS up to July 2001
 NEWS.txt     # commits, displayed by About IDLE
-NEWS2.txt    # commits to Python2
+NEWS2.txt    # commits to MyFRpy2
 README.txt   # this file, displayed by About IDLE
 TODO.txt     # needs review
 extend.txt   # about writing extensions
@@ -179,7 +179,7 @@ Run (Editor only)
   Run Module         # runscript.ScriptBinding.run_module_event
   Run... Customized  # runscript.ScriptBinding.run_custom_event
   Check Module       # runscript.ScriptBinding.check_module_event
-  Python Shell       # pyshell.Pyshell, pyshell.ModifiedInterpreter
+  MyFRpy Shell       # pyshell.Pyshell, pyshell.ModifiedInterpreter
 
 Shell  # pyshell
   View Last Restart    # pyshell.PyShell.view_restart_mark
@@ -216,7 +216,7 @@ Help
   About IDLE       # eEW.about_dialog, help_about.AboutDialog
   ---
   IDLE Help        # eEW.help_dialog, help.show_idlehelp
-  Python Docs      # eEW.python_docs
+  MyFRpy Docs      # eEW.myFRpy_docs
   Turtle Demo      # eEW.open_turtle_demo
   ---
   <other help sources>
@@ -264,16 +264,16 @@ What's New entries
 ------------------
 
 Repository directory Doc/whatsnew/ has a file 3.n.rst for each 3.n
-Python version.  For the first entry in each file, add subsection
+MyFRpy version.  For the first entry in each file, add subsection
 'IDLE and idlelib', in alphabetical position, to the 'Improved Modules'
-section.  For the rest of cpython, entries to 3.(n+1).rst begin with
+section.  For the rest of cmyFRpy, entries to 3.(n+1).rst begin with
 the release of 3.n.0b1.  For IDLE, entries for features backported from
 'main' to '3.n' during its beta period do not got in 3.(n+1).rst.  The
 latter usually gets its first entry during the 3.n.0 candidate period
 or after the 3.n.0 release.
 
 When, as per PEP 434, feature changes are backported, entries are placed
-in the 3.n.rst file *in the main branch* for each Python version n that
+in the 3.n.rst file *in the main branch* for each MyFRpy version n that
 gets the backport. (Note: the format of entries have varied between
 versions.)  Add a line "New in 3.n maintenance releases." before the
 first back-ported feature after 3.n.0 is released. Since each older
@@ -284,7 +284,7 @@ needed.
 Github repository and issues
 ----------------------------
 
-The CPython repository is https://github.com/python/cpython.  The
-IDLE Issues listing is https://github.com/orgs/python/projects/31.
+The CMyFRpy repository is https://github.com/myFRpy/cmyFRpy.  The
+IDLE Issues listing is https://github.com/orgs/myFRpy/projects/31.
 The main classification is by Topic, based on the IDLE menu.  View the
 topics list by clicking the [<]] button in the upper right.

@@ -6,10 +6,10 @@
 Building C and C++ Extensions
 *****************************
 
-A C extension for CPython is a shared library (e.g. a ``.so`` file on Linux,
+A C extension for CMyFRpy is a shared library (e.g. a ``.so`` file on Linux,
 ``.pyd`` on Windows), which exports an *initialization function*.
 
-To be importable, the shared library must be available on :envvar:`PYTHONPATH`,
+To be importable, the shared library must be available on :envvar:`MYFRPYPATH`,
 and must be named after the module name, with an appropriate extension.
 When using setuptools, the correct filename is generated automatically.
 
@@ -20,14 +20,14 @@ The initialization function has the signature:
 It returns either a fully initialized module, or a :c:type:`PyModuleDef`
 instance. See :ref:`initializing-modules` for details.
 
-.. highlight:: python
+.. highlight:: myFRpy
 
 For modules with ASCII-only names, the function must be named
 ``PyInit_<modulename>``, with ``<modulename>`` replaced by the name of the
 module. When using :ref:`multi-phase-initialization`, non-ASCII module names
 are allowed. In this case, the initialization function name is
-``PyInitU_<modulename>``, with ``<modulename>`` encoded using Python's
-*punycode* encoding with hyphens replaced by underscores. In Python::
+``PyInitU_<modulename>``, with ``<modulename>`` encoded using MyFRpy's
+*punycode* encoding with hyphens replaced by underscores. In MyFRpy::
 
     def initfunc_name(name):
         try:
@@ -51,7 +51,7 @@ See the *"Multiple modules in one library"* section in :pep:`489` for details.
 Building C and C++ Extensions with setuptools
 =============================================
 
-Python 3.12 and newer no longer come with distutils. Please refer to the
+MyFRpy 3.12 and newer no longer come with distutils. Please refer to the
 ``setuptools`` documentation at
 https://setuptools.readthedocs.io/en/latest/setuptools.html
 to learn more about how build and distribute C/C++ extensions with setuptools.

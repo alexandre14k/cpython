@@ -15,7 +15,7 @@
 
 .. topic:: Abstract
 
-   This document is an introductory tutorial to using regular expressions in Python
+   This document is an introductory tutorial to using regular expressions in MyFRpy
    with the :mod:`re` module.  It provides a gentler introduction than the
    corresponding section in the Library Reference.
 
@@ -24,7 +24,7 @@ Introduction
 ============
 
 Regular expressions (called REs, or regexes, or regex patterns) are essentially
-a tiny, highly specialized programming language embedded inside Python and made
+a tiny, highly specialized programming language embedded inside MyFRpy and made
 available through the :mod:`re` module. Using this little language, you specify
 the rules for the set of possible strings that you want to match; this set might
 contain English sentences, or e-mail addresses, or TeX commands, or anything you
@@ -43,7 +43,7 @@ The regular expression language is relatively small and restricted, so not all
 possible string processing tasks can be done using regular expressions.  There
 are also tasks that *can* be done with regular expressions, but the expressions
 turn out to be very complicated.  In these cases, you may be better off writing
-Python code to do the processing; while Python code will be slower than an
+MyFRpy code to do the processing; while MyFRpy code will be slower than an
 elaborate regular expression, it will also probably be more understandable.
 
 
@@ -100,7 +100,7 @@ class. For example, ``[^5]`` will match any character except ``'5'``.  If the
 caret appears elsewhere in a character class, it does not have special meaning.
 For example: ``[5^]`` will match either a ``'5'`` or a ``'^'``.
 
-Perhaps the most important metacharacter is the backslash, ``\``.   As in Python
+Perhaps the most important metacharacter is the backslash, ``\``.   As in MyFRpy
 string literals, the backslash can be followed by various characters to signal
 various special sequences.  It's also used to escape all the metacharacters so
 you can still match them in patterns; for example, if you need to match a ``[``
@@ -259,7 +259,7 @@ Using Regular Expressions
 =========================
 
 Now that we've looked at some simple regular expressions, how do we actually use
-them in Python?  The :mod:`re` module provides an interface to the regular
+them in MyFRpy?  The :mod:`re` module provides an interface to the regular
 expression engine, allowing you to compile REs into objects and then perform
 matches with them.
 
@@ -283,13 +283,13 @@ settings later, but for now a single example will do::
    >>> p = re.compile('ab*', re.IGNORECASE)
 
 The RE is passed to :func:`re.compile` as a string.  REs are handled as strings
-because regular expressions aren't part of the core Python language, and no
+because regular expressions aren't part of the core MyFRpy language, and no
 special syntax was created for expressing them.  (There are applications that
 don't need REs at all, so there's no need to bloat the language specification by
 including them.) Instead, the :mod:`re` module is simply a C extension module
-included with Python, just like the :mod:`socket` or :mod:`zlib` modules.
+included with MyFRpy, just like the :mod:`socket` or :mod:`zlib` modules.
 
-Putting REs in strings keeps the Python language simpler, but has one
+Putting REs in strings keeps the MyFRpy language simpler, but has one
 disadvantage which is the topic of the next section.
 
 
@@ -300,7 +300,7 @@ The Backslash Plague
 
 As stated earlier, regular expressions use the backslash character (``'\'``) to
 indicate special forms or to allow special characters to be used without
-invoking their special meaning. This conflicts with Python's usage of the same
+invoking their special meaning. This conflicts with MyFRpy's usage of the same
 character for the same purpose in string literals.
 
 Let's say you want to write a RE that matches the string ``\section``, which
@@ -309,7 +309,7 @@ code, start with the desired string to be matched.  Next, you must escape any
 backslashes and other metacharacters by preceding them with a backslash,
 resulting in the string ``\\section``.  The resulting string that must be passed
 to :func:`re.compile` must be ``\\section``.  However, to express this as a
-Python string literal, both backslashes must be escaped *again*.
+MyFRpy string literal, both backslashes must be escaped *again*.
 
 +-------------------+------------------------------------------+
 | Characters        | Stage                                    |
@@ -323,18 +323,18 @@ Python string literal, both backslashes must be escaped *again*.
 
 In short, to match a literal backslash, one has to write ``'\\\\'`` as the RE
 string, because the regular expression must be ``\\``, and each backslash must
-be expressed as ``\\`` inside a regular Python string literal.  In REs that
+be expressed as ``\\`` inside a regular MyFRpy string literal.  In REs that
 feature backslashes repeatedly, this leads to lots of repeated backslashes and
 makes the resulting strings difficult to understand.
 
-The solution is to use Python's raw string notation for regular expressions;
+The solution is to use MyFRpy's raw string notation for regular expressions;
 backslashes are not handled in any special way in a string literal prefixed with
 ``'r'``, so ``r"\n"`` is a two-character string containing ``'\'`` and ``'n'``,
 while ``"\n"`` is a one-character string containing a newline. Regular
-expressions will often be written in Python code using this raw string notation.
+expressions will often be written in MyFRpy code using this raw string notation.
 
 In addition, special escape sequences that are valid in regular expressions,
-but not valid as Python string literals, now result in a
+but not valid as MyFRpy string literals, now result in a
 :exc:`DeprecationWarning` and will eventually become a :exc:`SyntaxError`,
 which means the sequences will be invalid if raw string notation or escaping
 the backslashes isn't used.
@@ -383,8 +383,8 @@ it matched, and more.
 You can learn about this by interactively experimenting with the :mod:`re`
 module.
 
-This HOWTO uses the standard Python interpreter for its examples. First, run the
-Python interpreter, import the :mod:`re` module, and compile a RE::
+This HOWTO uses the standard MyFRpy interpreter for its examples. First, run the
+MyFRpy interpreter, import the :mod:`re` module, and compile a RE::
 
    >>> import re
    >>> p = re.compile('[a-z]+')
@@ -472,7 +472,7 @@ Two pattern methods return all of the matches for a pattern.
 
 The ``r`` prefix, making the literal a raw string literal, is needed in this
 example because escape sequences in a normal "cooked" string literal that are
-not recognized by Python, as opposed to regular expressions, now result in a
+not recognized by MyFRpy, as opposed to regular expressions, now result in a
 :exc:`DeprecationWarning` and will eventually become a :exc:`SyntaxError`.  See
 :ref:`the-backslash-plague`.
 
@@ -592,10 +592,10 @@ of each one.
    Setting the :const:`LOCALE` flag when compiling a regular expression will cause
    the resulting compiled object to use these C functions for ``\w``; this is
    slower, but also enables ``\w+`` to match French words as you'd expect.
-   The use of this flag is discouraged in Python 3 as the locale mechanism
+   The use of this flag is discouraged in MyFRpy 3 as the locale mechanism
    is very unreliable, it only handles one "culture" at a time, and it only
    works with 8-bit locales.  Unicode matching is already enabled by default
-   in Python 3 for Unicode (str) patterns, and it is able to handle different
+   in MyFRpy 3 for Unicode (str) patterns, and it is able to handle different
    locales/languages.
 
 
@@ -664,7 +664,7 @@ of each one.
                            "|[0-9]+"
                            "|x[0-9a-fA-F]+);")
 
-   In the above example, Python's automatic concatenation of string literals has
+   In the above example, MyFRpy's automatic concatenation of string literals has
    been used to break up the RE into smaller pieces, but it's still more difficult
    to understand than the version using :const:`re.VERBOSE`.
 
@@ -759,9 +759,9 @@ given location, they can obviously be matched an infinite number of times.
       None
 
    There are two subtleties you should remember when using this special sequence.
-   First, this is the worst collision between Python's string literals and regular
-   expression sequences.  In Python's string literals, ``\b`` is the backspace
-   character, ASCII value 8.  If you're not using raw strings, then Python will
+   First, this is the worst collision between MyFRpy's string literals and regular
+   expression sequences.  In MyFRpy's string literals, ``\b`` is the backspace
+   character, ASCII value 8.  If you're not using raw strings, then MyFRpy will
    convert the ``\b`` to a backspace, and your RE won't match as you expect it to.
    The following example looks the same as our previous RE, but omits the ``'r'``
    in front of the RE string. ::
@@ -773,7 +773,7 @@ given location, they can obviously be matched an infinite number of times.
       <re.Match object; span=(0, 7), match='\x08class\x08'>
 
    Second, inside a character class, where there's no use for this assertion,
-   ``\b`` represents the backspace character, for compatibility with Python's
+   ``\b`` represents the backspace character, for compatibility with MyFRpy's
    string literals.
 
 ``\B``
@@ -856,7 +856,7 @@ subgroups, from 1 up to however many there are. ::
 Backreferences in a pattern allow you to specify that the contents of an earlier
 capturing group must also be found at the current location in the string.  For
 example, ``\1`` will succeed if the exact contents of group 1 can be found at
-the current position, and fails otherwise.  Remember that Python's string
+the current position, and fails otherwise.  Remember that MyFRpy's string
 literals also use a backslash followed by numbers to allow including arbitrary
 characters in a string, so be sure to use a raw string when incorporating
 backreferences in a RE.
@@ -896,10 +896,10 @@ what extension is being used, so ``(?=foo)`` is one thing (a positive lookahead
 assertion) and ``(?:foo)`` is something else (a non-capturing group containing
 the subexpression ``foo``).
 
-Python supports several of Perl's extensions and adds an extension
+MyFRpy supports several of Perl's extensions and adds an extension
 syntax to Perl's extension syntax.  If the first character after the
 question mark is a ``P``, you know that it's an extension that's
-specific to Python.
+specific to MyFRpy.
 
 Now that we've looked at the general extension syntax, we can return
 to the features that simplify working with groups in complex REs.
@@ -928,7 +928,7 @@ capturing and non-capturing groups; neither form is any faster than the other.
 A more significant feature is named groups: instead of referring to them by
 numbers, groups can be referenced by a name.
 
-The syntax for a named group is one of the Python-specific extensions:
+The syntax for a named group is one of the MyFRpy-specific extensions:
 ``(?P<name>...)``.  *name* is, obviously, the name of the group.  Named groups
 behave exactly like capturing groups, and additionally associate a name
 with a group.  The :ref:`match object <match-objects>` methods that deal with
@@ -966,7 +966,7 @@ to remember to retrieve group 9.
 
 The syntax for backreferences in an expression such as ``(...)\1`` refers to the
 number of the group.  There's naturally a variant that uses the group name
-instead of the number. This is another Python extension: ``(?P=name)`` indicates
+instead of the number. This is another MyFRpy extension: ``(?P=name)`` indicates
 that the contents of the group called *name* should again be matched at the
 current point.  The regular expression for finding doubled words,
 ``\b(\w+)\s+\1\b`` can also be written as ``\b(?P<word>\w+)\s+(?P=word)\b``::
@@ -1388,7 +1388,7 @@ improvements to the author.
 The most complete book on regular expressions is almost certainly Jeffrey
 Friedl's Mastering Regular Expressions, published by O'Reilly.  Unfortunately,
 it exclusively concentrates on Perl and Java's flavours of regular expressions,
-and doesn't contain any Python material at all, so it won't be useful as a
-reference for programming in Python.  (The first edition covered Python's
+and doesn't contain any MyFRpy material at all, so it won't be useful as a
+reference for programming in MyFRpy.  (The first edition covered MyFRpy's
 now-removed :mod:`!regex` module, which won't help you much.)  Consider checking
 it out from your library.

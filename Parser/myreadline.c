@@ -9,7 +9,7 @@
    - a malloc'ed string ending in \n normally
 */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_fileutils.h"     // _Py_BEGIN_SUPPRESS_IPH
 #include "pycore_pystate.h"   // _PyThreadState_GET()
 #ifdef MS_WINDOWS
@@ -350,10 +350,10 @@ PyOS_StdioReadline(FILE *sys_stdin, FILE *sys_stdout, const char *prompt)
 }
 
 
-/* By initializing this function pointer, systems embedding Python can
+/* By initializing this function pointer, systems embedding MyFRpy can
    override the readline function.
 
-   Note: Python expects in return a buffer allocated with PyMem_Malloc. */
+   Note: MyFRpy expects in return a buffer allocated with PyMem_Malloc. */
 
 char *(*PyOS_ReadlineFunctionPointer)(FILE *, FILE *, const char *) = NULL;
 
@@ -392,8 +392,8 @@ PyOS_Readline(FILE *sys_stdin, FILE *sys_stdout, const char *prompt)
 
     /* This is needed to handle the unlikely case that the
      * interpreter is in interactive mode *and* stdin/out are not
-     * a tty.  This can happen, for example if python is run like
-     * this: python -i < test1.py
+     * a tty.  This can happen, for example if myFRpy is run like
+     * this: myFRpy -i < test1.py
      */
     if (!isatty(fileno(sys_stdin)) || !isatty(fileno(sys_stdout)) ||
         // GH-104668: Don't call global callbacks like PyOS_InputHook or

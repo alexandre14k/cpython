@@ -96,7 +96,7 @@ Basic Widgets
    widget to which a Balloon widget has been bound, a small pop-up window with a
    descriptive message will be shown on the screen.
 
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{Balloon}{https://tix.sourceforge.net/dist/current/demos/samples/Balloon.tcl}
 
 
@@ -106,7 +106,7 @@ Basic Widgets
    <https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixButtonBox.htm>`_
    widget creates a box of buttons, such as is commonly used for ``Ok Cancel``.
 
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{ButtonBox}{https://tix.sourceforge.net/dist/current/demos/samples/BtnBox.tcl}
 
 
@@ -118,7 +118,7 @@ Basic Widgets
    choice by either typing in the entry subwidget or selecting from the listbox
    subwidget.
 
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{ComboBox}{https://tix.sourceforge.net/dist/current/demos/samples/ComboBox.tcl}
 
 
@@ -131,7 +131,7 @@ Basic Widgets
    the entry. The new value will be checked against the user-defined upper and
    lower limits.
 
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{Control}{https://tix.sourceforge.net/dist/current/demos/samples/Control.tcl}
 
 
@@ -142,7 +142,7 @@ Basic Widgets
    widget packages an entry widget and a label into one mega widget. It can
    be used to simplify the creation of "entry-form" type of interface.
 
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{LabelEntry}{https://tix.sourceforge.net/dist/current/demos/samples/LabEntry.tcl}
 
 
@@ -154,7 +154,7 @@ Basic Widgets
    widgets inside a LabelFrame widget, one creates the new widgets relative to the
    :attr:`frame` subwidget and manage them inside the :attr:`frame` subwidget.
 
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{LabelFrame}{https://tix.sourceforge.net/dist/current/demos/samples/LabFrame.tcl}
 
 
@@ -165,7 +165,7 @@ Basic Widgets
    can be used to show the progress of a background job which may take a long time
    to execute.
 
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{Meter}{https://tix.sourceforge.net/dist/current/demos/samples/Meter.tcl}
 
 
@@ -175,7 +175,7 @@ Basic Widgets
    <https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixOptionMenu.htm>`_
    creates a menu button of options.
 
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{OptionMenu}{https://tix.sourceforge.net/dist/current/demos/samples/OptMenu.tcl}
 
 
@@ -187,7 +187,7 @@ Basic Widgets
    of the :mod:`Tix` :class:`PopupMenu` widget is it requires less application code
    to manipulate.
 
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{PopupMenu}{https://tix.sourceforge.net/dist/current/demos/samples/PopMenu.tcl}
 
 
@@ -198,7 +198,7 @@ Basic Widgets
    is a container of button subwidgets. It can be used to provide radio-box or
    check-box style of selection options for the user.
 
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{Select}{https://tix.sourceforge.net/dist/current/demos/samples/Select.tcl}
 
 
@@ -208,7 +208,7 @@ Basic Widgets
    <https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixStdButtonBox.htm>`_
    widget is a group of standard buttons for Motif-like dialog boxes.
 
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{StdButtonBox}{https://tix.sourceforge.net/dist/current/demos/samples/StdBBox.tcl}
 
 
@@ -224,7 +224,7 @@ File Selectors
    sub-directories. The user can choose one of the directories displayed in the
    list or change to another directory.
 
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{DirList}{https://tix.sourceforge.net/dist/current/demos/samples/DirList.tcl}
 
 
@@ -236,7 +236,7 @@ File Selectors
    sub-directories. The user can choose one of the directories displayed in the
    list or change to another directory.
 
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{DirTree}{https://tix.sourceforge.net/dist/current/demos/samples/DirTree.tcl}
 
 
@@ -248,7 +248,7 @@ File Selectors
    can use this dialog window to navigate through the file system to select the
    desired directory.
 
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{DirSelectDialog}{https://tix.sourceforge.net/dist/current/demos/samples/DirDlg.tcl}
 
 
@@ -269,7 +269,7 @@ File Selectors
    :class:`ExFileSelectBox` widget is very similar to the standard file dialog on
    MS Windows 3.1.
 
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{ExFileSelectDialog}{https://tix.sourceforge.net/dist/current/demos/samples/EFileDlg.tcl}
 
 
@@ -282,7 +282,7 @@ File Selectors
    selected into a :class:`ComboBox` widget so that they can be quickly selected
    again.
 
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{FileSelectDialog}{https://tix.sourceforge.net/dist/current/demos/samples/FileDlg.tcl}
 
 
@@ -294,7 +294,7 @@ File Selectors
    manually. Alternatively, the user can press the button widget that sits next to
    the entry, which will bring up a file selection dialog.
 
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{FileEntry}{https://tix.sourceforge.net/dist/current/demos/samples/FileEnt.tcl}
 
 
@@ -310,7 +310,7 @@ Hierarchical ListBox
    file system directory trees. The list entries are indented and connected by
    branch lines according to their places in the hierarchy.
 
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{HList}{https://tix.sourceforge.net/dist/current/demos/samples/HList1.tcl}
 
 
@@ -322,11 +322,11 @@ Hierarchical ListBox
    similarly to the Tk checkbutton or radiobutton widgets, except it is capable of
    handling many more items than checkbuttons or radiobuttons.
 
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{ CheckList}{https://tix.sourceforge.net/dist/current/demos/samples/ChkList.tcl}
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{ScrolledHList (1)}{https://tix.sourceforge.net/dist/current/demos/samples/SHList.tcl}
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{ScrolledHList (2)}{https://tix.sourceforge.net/dist/current/demos/samples/SHList2.tcl}
 
 
@@ -337,9 +337,9 @@ Hierarchical ListBox
    can be used to display hierarchical data in a tree form. The user can adjust the
    view of the tree by opening or closing parts of the tree.
 
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{Tree}{https://tix.sourceforge.net/dist/current/demos/samples/Tree.tcl}
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{Tree (Dynamic)}{https://tix.sourceforge.net/dist/current/demos/samples/DynTree.tcl}
 
 
@@ -357,17 +357,17 @@ Tabular ListBox
    in a two dimensional format and (2) you can use graphical images as well as
    multiple colors and fonts for the list entries.
 
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{ScrolledTList (1)}{https://tix.sourceforge.net/dist/current/demos/samples/STList1.tcl}
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{ScrolledTList (2)}{https://tix.sourceforge.net/dist/current/demos/samples/STList2.tcl}
-.. Grid has yet to be added to Python
+.. Grid has yet to be added to MyFRpy
 .. \subsubsection{Grid Widget}
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{Simple Grid}{https://tix.sourceforge.net/dist/current/demos/samples/SGrid0.tcl}
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{ScrolledGrid}{https://tix.sourceforge.net/dist/current/demos/samples/SGrid1.tcl}
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{Editable Grid}{https://tix.sourceforge.net/dist/current/demos/samples/EditGrid.tcl}
 
 
@@ -383,7 +383,7 @@ Manager Widgets
    The panes can be arranged either vertically or horizontally.  The user changes
    the sizes of the panes by dragging the resize handle between two panes.
 
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{PanedWindow}{https://tix.sourceforge.net/dist/current/demos/samples/PanedWin.tcl}
 
 
@@ -397,7 +397,7 @@ Manager Widgets
    can be shown. The user can navigate through these pages by choosing the name of
    the desired page in the :attr:`hlist` subwidget.
 
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{ListNoteBook}{https://tix.sourceforge.net/dist/current/demos/samples/ListNBK.tcl}
 
 
@@ -410,17 +410,17 @@ Manager Widgets
    these pages can be shown. The user can navigate through these pages by choosing
    the visual "tabs" at the top of the NoteBook widget.
 
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{NoteBook}{https://tix.sourceforge.net/dist/current/demos/samples/NoteBook.tcl}
 
 .. \subsubsection{Scrolled Widgets}
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{ScrolledListBox}{https://tix.sourceforge.net/dist/current/demos/samples/SListBox.tcl}
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{ScrolledText}{https://tix.sourceforge.net/dist/current/demos/samples/SText.tcl}
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{ScrolledWindow}{https://tix.sourceforge.net/dist/current/demos/samples/SWindow.tcl}
-.. Python Demo of:
+.. MyFRpy Demo of:
 .. \ulink{Canvas Object View}{https://tix.sourceforge.net/dist/current/demos/samples/CObjView.tcl}
 
 
@@ -433,9 +433,9 @@ The :mod:`tkinter.tix` module adds:
   capabilities to all :mod:`tkinter.tix` and :mod:`tkinter` widgets to create
   color images from XPM files.
 
-  .. Python Demo of:
+  .. MyFRpy Demo of:
   .. \ulink{XPM Image In Button}{https://tix.sourceforge.net/dist/current/demos/samples/Xpm.tcl}
-  .. Python Demo of:
+  .. MyFRpy Demo of:
   .. \ulink{XPM Image In Menu}{https://tix.sourceforge.net/dist/current/demos/samples/Xpm1.tcl}
 
 * `Compound
@@ -446,13 +446,13 @@ The :mod:`tkinter.tix` module adds:
   display a bitmap and a text string simultaneously in a Tk :class:`Button`
   widget.
 
-  .. Python Demo of:
+  .. MyFRpy Demo of:
   .. \ulink{Compound Image In Buttons}{https://tix.sourceforge.net/dist/current/demos/samples/CmpImg.tcl}
-  .. Python Demo of:
+  .. MyFRpy Demo of:
   .. \ulink{Compound Image In NoteBook}{https://tix.sourceforge.net/dist/current/demos/samples/CmpImg2.tcl}
-  .. Python Demo of:
+  .. MyFRpy Demo of:
   .. \ulink{Compound Image Notebook Color Tabs}{https://tix.sourceforge.net/dist/current/demos/samples/CmpImg4.tcl}
-  .. Python Demo of:
+  .. MyFRpy Demo of:
   .. \ulink{Compound Image Icons}{https://tix.sourceforge.net/dist/current/demos/samples/CmpImg3.tcl}
 
 

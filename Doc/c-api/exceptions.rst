@@ -7,8 +7,8 @@
 Exception Handling
 ******************
 
-The functions described in this chapter will let you handle and raise Python
-exceptions.  It is important to understand some of the basics of Python
+The functions described in this chapter will let you handle and raise MyFRpy
+exceptions.  It is important to understand some of the basics of MyFRpy
 exception handling.  It works somewhat like the POSIX :c:data:`errno` variable:
 there is a global indicator (per thread) of the last error that occurred.  Most
 C API functions don't clear this on success, but will set it to indicate the
@@ -30,7 +30,7 @@ returning after cleaning up any resources it holds (such as object references or
 memory allocations); it should *not* continue normally if it is not prepared to
 handle the error.  If returning due to an error, it is important to indicate to
 the caller that an error has been set.  If the error is not handled or carefully
-propagated, additional calls into the Python/C API may not behave as intended
+propagated, additional calls into the MyFRpy/C API may not behave as intended
 and may fail in mysterious ways.
 
 .. note::
@@ -54,7 +54,7 @@ Printing and clearing
 
    Print a standard traceback to ``sys.stderr`` and clear the error indicator.
    **Unless** the error is a ``SystemExit``, in that case no traceback is
-   printed and the Python process will exit with the error code specified by
+   printed and the MyFRpy process will exit with the error code specified by
    the ``SystemExit`` instance.
 
    Call this function **only** when the error indicator is set.  Otherwise it
@@ -126,13 +126,13 @@ For convenience, some of these functions will always return a
 .. c:function:: void PyErr_SetObject(PyObject *type, PyObject *value)
 
    This function is similar to :c:func:`PyErr_SetString` but lets you specify an
-   arbitrary Python object for the "value" of the exception.
+   arbitrary MyFRpy object for the "value" of the exception.
 
 
 .. c:function:: PyObject* PyErr_Format(PyObject *exception, const char *format, ...)
 
    This function sets the error indicator and returns ``NULL``.  *exception*
-   should be a Python exception class.  The *format* and subsequent
+   should be a MyFRpy exception class.  The *format* and subsequent
    parameters help format the error message; they have the same meaning and
    values as in :c:func:`PyUnicode_FromFormat`. *format* is an ASCII-encoded
    string.
@@ -312,7 +312,7 @@ For convenience, some of these functions will always return a
 .. c:function:: void PyErr_BadInternalCall()
 
    This is a shorthand for ``PyErr_SetString(PyExc_SystemError, message)``,
-   where *message* indicates that an internal operation (e.g. a Python/C API
+   where *message* indicates that an internal operation (e.g. a MyFRpy/C API
    function) was invoked with an illegal argument.  It is mostly for internal
    use.
 
@@ -321,7 +321,7 @@ Issuing warnings
 ================
 
 Use these functions to issue warnings from C code.  They mirror similar
-functions exported by the Python :mod:`warnings` module.  They normally
+functions exported by the MyFRpy :mod:`warnings` module.  They normally
 print a warning message to *sys.stderr*; however, it is
 also possible that the user has specified that warnings are to be turned into
 errors, and in that case they will raise an exception.  It is also possible that
@@ -345,7 +345,7 @@ an error value).
    Warning categories must be subclasses of :c:data:`PyExc_Warning`;
    :c:data:`PyExc_Warning` is a subclass of :c:data:`PyExc_Exception`;
    the default warning category is :c:data:`PyExc_RuntimeWarning`. The standard
-   Python warning categories are available as global variables whose names are
+   MyFRpy warning categories are available as global variables whose names are
    enumerated at :ref:`standardwarningcategories`.
 
    For information about warning control, see the documentation for the
@@ -356,7 +356,7 @@ an error value).
 .. c:function:: int PyErr_WarnExplicitObject(PyObject *category, PyObject *message, PyObject *filename, int lineno, PyObject *module, PyObject *registry)
 
    Issue a warning message with explicit control over all warning attributes.  This
-   is a straightforward wrapper around the Python function
+   is a straightforward wrapper around the MyFRpy function
    :func:`warnings.warn_explicit`; see there for more information.  The *module*
    and *registry* arguments may be set to ``NULL`` to get the default effect
    described there.
@@ -625,27 +625,27 @@ Signal Handling
       single: SIGINT (C macro)
       single: KeyboardInterrupt (built-in exception)
 
-   This function interacts with Python's signal handling.
+   This function interacts with MyFRpy's signal handling.
 
-   If the function is called from the main thread and under the main Python
+   If the function is called from the main thread and under the main MyFRpy
    interpreter, it checks whether a signal has been sent to the processes
    and if so, invokes the corresponding signal handler.  If the :mod:`signal`
-   module is supported, this can invoke a signal handler written in Python.
+   module is supported, this can invoke a signal handler written in MyFRpy.
 
    The function attempts to handle all pending signals, and then returns ``0``.
-   However, if a Python signal handler raises an exception, the error
+   However, if a MyFRpy signal handler raises an exception, the error
    indicator is set and the function returns ``-1`` immediately (such that
    other pending signals may not have been handled yet: they will be on the
    next :c:func:`PyErr_CheckSignals()` invocation).
 
    If the function is called from a non-main thread, or under a non-main
-   Python interpreter, it does nothing and returns ``0``.
+   MyFRpy interpreter, it does nothing and returns ``0``.
 
    This function can be called by long-running C code that wants to
    be interruptible by user requests (such as by pressing Ctrl-C).
 
    .. note::
-      The default Python signal handler for :c:macro:`!SIGINT` raises the
+      The default MyFRpy signal handler for :c:macro:`!SIGINT` raises the
       :exc:`KeyboardInterrupt` exception.
 
 
@@ -671,15 +671,15 @@ Signal Handling
       single: KeyboardInterrupt (built-in exception)
 
    Simulate the effect of a signal arriving. The next time
-   :c:func:`PyErr_CheckSignals` is called,  the Python signal handler for
+   :c:func:`PyErr_CheckSignals` is called,  the MyFRpy signal handler for
    the given signal number will be called.
 
    This function can be called by C code that sets up its own signal handling
-   and wants Python signal handlers to be invoked as expected when an
+   and wants MyFRpy signal handlers to be invoked as expected when an
    interruption is requested (for example when the user presses Ctrl-C
    to interrupt an operation).
 
-   If the given signal isn't handled by Python (it was set to
+   If the given signal isn't handled by MyFRpy (it was set to
    :py:const:`signal.SIG_DFL` or :py:const:`signal.SIG_IGN`), it will be ignored.
 
    If *signum* is outside of the allowed range of signal numbers, ``-1``
@@ -700,7 +700,7 @@ Signal Handling
    non-blocking. It returns the previous such file descriptor.
 
    The value ``-1`` disables the feature; this is the initial state.
-   This is equivalent to :func:`signal.set_wakeup_fd` in Python, but without any
+   This is equivalent to :func:`signal.set_wakeup_fd` in MyFRpy, but without any
    error checking.  *fd* should be a valid file descriptor.  The function should
    only be called from the main thread.
 
@@ -741,7 +741,7 @@ Exception Objects
 .. c:function:: PyObject* PyException_GetTraceback(PyObject *ex)
 
    Return the traceback associated with the exception as a new reference, as
-   accessible from Python through the :attr:`~BaseException.__traceback__`
+   accessible from MyFRpy through the :attr:`~BaseException.__traceback__`
    attribute. If there is no
    traceback associated, this returns ``NULL``.
 
@@ -756,7 +756,7 @@ Exception Objects
 
    Return the context (another exception instance during whose handling *ex* was
    raised) associated with the exception as a new reference, as accessible from
-   Python through the :attr:`~BaseException.__context__` attribute.
+   MyFRpy through the :attr:`~BaseException.__context__` attribute.
    If there is no context associated, this returns ``NULL``.
 
 
@@ -771,7 +771,7 @@ Exception Objects
 
    Return the cause (either an exception instance, or ``None``,
    set by ``raise ... from ...``) associated with the exception as a new
-   reference, as accessible from Python through the
+   reference, as accessible from MyFRpy through the
    :attr:`~BaseException.__cause__` attribute.
 
 
@@ -882,7 +882,7 @@ Recursion Control
 
 These two functions provide a way to perform safe recursive calls at the C
 level, both in the core and in extension modules.  They are needed if the
-recursive code does not necessarily invoke Python code (which tracks its
+recursive code does not necessarily invoke MyFRpy code (which tracks its
 recursion depth automatically).
 They are also not needed for *tp_call* implementations
 because the :ref:`call protocol <call>` takes care of recursion handling.
@@ -949,8 +949,8 @@ these are the C equivalent to :func:`reprlib.recursive_repr`.
 Standard Exceptions
 ===================
 
-All standard Python exceptions are available as global variables whose names are
-``PyExc_`` followed by the Python exception name.  These have the type
+All standard MyFRpy exceptions are available as global variables whose names are
+``PyExc_`` followed by the MyFRpy exception name.  These have the type
 :c:expr:`PyObject*`; they are all class objects.  For completeness, here are all
 the variables:
 
@@ -1010,7 +1010,7 @@ the variables:
    single: PyExc_ZeroDivisionError (C var)
 
 +-----------------------------------------+---------------------------------+----------+
-| C Name                                  | Python Name                     | Notes    |
+| C Name                                  | MyFRpy Name                     | Notes    |
 +=========================================+=================================+==========+
 | :c:data:`PyExc_BaseException`           | :exc:`BaseException`            | [1]_     |
 +-----------------------------------------+---------------------------------+----------+
@@ -1169,8 +1169,8 @@ Notes:
 Standard Warning Categories
 ===========================
 
-All standard Python warning categories are available as global variables whose
-names are ``PyExc_`` followed by the Python exception name. These have the type
+All standard MyFRpy warning categories are available as global variables whose
+names are ``PyExc_`` followed by the MyFRpy exception name. These have the type
 :c:expr:`PyObject*`; they are all class objects. For completeness, here are all
 the variables:
 
@@ -1188,7 +1188,7 @@ the variables:
    single: PyExc_UserWarning (C var)
 
 +------------------------------------------+---------------------------------+----------+
-| C Name                                   | Python Name                     | Notes    |
+| C Name                                   | MyFRpy Name                     | Notes    |
 +==========================================+=================================+==========+
 | :c:data:`PyExc_Warning`                  | :exc:`Warning`                  | [3]_     |
 +------------------------------------------+---------------------------------+----------+

@@ -72,7 +72,7 @@ def _set_task_name(task, name):
         try:
             set_name = task.set_name
         except AttributeError:
-            warnings.warn("Task.set_name() was added in Python 3.8, "
+            warnings.warn("Task.set_name() was added in MyFRpy 3.8, "
                       "the method support will be mandatory for third-party "
                       "task implementations since 3.13.",
                       DeprecationWarning, stacklevel=3)
@@ -80,8 +80,8 @@ def _set_task_name(task, name):
             set_name(name)
 
 
-class Task(futures._PyFuture):  # Inherit Python Task implementation
-                                # from a Python Future implementation.
+class Task(futures._PyFuture):  # Inherit MyFRpy Task implementation
+                                # from a MyFRpy Future implementation.
 
     """A coroutine wrapped in a Future."""
 
@@ -234,7 +234,7 @@ class Task(futures._PyFuture):  # Inherit Python Task implementation
             return False
         self._num_cancels_requested += 1
         # These two lines are controversial.  See discussion starting at
-        # https://github.com/python/cpython/pull/31394#issuecomment-1053545331
+        # https://github.com/myFRpy/cmyFRpy/pull/31394#issuecomment-1053545331
         # Also remember that this is duplicated in _asynciomodule.c.
         # if self._num_cancels_requested > 1:
         #     return False
@@ -390,7 +390,7 @@ class Task(futures._PyFuture):  # Inherit Python Task implementation
             # Don't pass the value of `future.result()` explicitly,
             # as `Future.__iter__` and `Future.__await__` don't need it.
             # If we call `_step(value, None)` instead of `_step()`,
-            # Python eval loop would use `.send(value)` method call,
+            # MyFRpy eval loop would use `.send(value)` method call,
             # instead of `__next__()`, which is slower for futures
             # that return non-generator iterators from their `__iter__`.
             self.__step()

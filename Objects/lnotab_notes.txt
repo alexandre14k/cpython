@@ -85,7 +85,7 @@ The historical co_lnotab format
 -------------------------------
 
 prior to 3.10 code objects stored a field named co_lnotab.
-This was an array of unsigned bytes disguised as a Python bytes object.
+This was an array of unsigned bytes disguised as a MyFRpy bytes object.
 
 The old co_lnotab did not account for the presence of bytecodes without a line number,
 nor was it well suited to tracing as a number of workarounds were required.

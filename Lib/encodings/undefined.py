@@ -1,4 +1,4 @@
-""" Python 'undefined' Codec
+""" MyFRpy 'undefined' Codec
 
     This codec will always raise a ValueError exception when being
     used. It is intended for use by the site.py file to switch off

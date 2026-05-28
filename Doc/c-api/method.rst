@@ -14,8 +14,8 @@ to bind a :c:type:`PyCFunction` to a class object. It replaces the former call
 
 .. c:var:: PyTypeObject PyInstanceMethod_Type
 
-   This instance of :c:type:`PyTypeObject` represents the Python instance
-   method type. It is not exposed to Python programs.
+   This instance of :c:type:`PyTypeObject` represents the MyFRpy instance
+   method type. It is not exposed to MyFRpy programs.
 
 
 .. c:function:: int PyInstanceMethod_Check(PyObject *o)
@@ -58,8 +58,8 @@ no longer available.
 
    .. index:: single: MethodType (in module types)
 
-   This instance of :c:type:`PyTypeObject` represents the Python method type.  This
-   is exposed to Python programs as ``types.MethodType``.
+   This instance of :c:type:`PyTypeObject` represents the MyFRpy method type.  This
+   is exposed to MyFRpy programs as ``types.MethodType``.
 
 
 .. c:function:: int PyMethod_Check(PyObject *o)

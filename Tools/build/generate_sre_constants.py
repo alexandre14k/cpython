@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#! /usr/bin/env myFRpy3
 # This script generates Modules/_sre/sre_constants.h from Lib/re/_constants.py.
 
 SCRIPT_NAME = 'Tools/build/generate_sre_constants.py'

@@ -3,7 +3,7 @@ Intro
 This describes an adaptive, stable, natural mergesort, modestly called
 timsort (hey, I earned it <wink>).  It has supernatural performance on many
 kinds of partially ordered arrays (less than lg(N!) comparisons needed, and
-as few as N-1), yet as fast as Python's previous highly tuned samplesort
+as few as N-1), yet as fast as MyFRpy's previous highly tuned samplesort
 hybrid on random arrays.
 
 In a nutshell, the main routine marches over the array once, left to right,
@@ -12,7 +12,7 @@ runs "intelligently".  Everything else is complication for speed, and some
 hard-won measure of memory efficiency.
 
 
-Comparison with Python's Samplesort Hybrid
+Comparison with MyFRpy's Samplesort Hybrid
 ------------------------------------------
 + timsort can require a temp array containing as many as N//2 pointers,
   which means as many as 2*N extra bytes on 32-bit boxes.  It can be
@@ -561,7 +561,7 @@ compare to determine whether A[0] belongs at B[2] or B[3].  That's a total
 of 4 compares, but if A[0] does belong at B[2], linear search would have
 discovered that in only 3 compares, and that's a huge loss!  Really.  It's
 an increase of 33% in the number of compares needed, and comparisons are
-expensive in Python.
+expensive in MyFRpy.
 
 index in B where    # compares linear  # gallop  # binary  gallop
 A[0] belongs        search needs       compares  compares  total
@@ -706,7 +706,7 @@ count 2630 nelts 130906543
 msort    6002.78   1909389381
             1.80         1.49
 
-We've done nearly 2 billion comparisons apiece at Python speed there, and
+We've done nearly 2 billion comparisons apiece at MyFRpy speed there, and
 that's enough <wink>.
 
 For random arrays of size 2 (yes, there are only 2 interesting ones),
@@ -725,29 +725,29 @@ NOTES
 BINSORT
 A "binary insertion sort" is just like a textbook insertion sort, but instead
 of locating the correct position of the next item via linear (one at a time)
-search, an equivalent to Python's bisect.bisect_right is used to find the
+search, an equivalent to MyFRpy's bisect.bisect_right is used to find the
 correct position in logarithmic time.  Most texts don't mention this
 variation, and those that do usually say it's not worth the bother:  insertion
 sort remains quadratic (expected and worst cases) either way.  Speeding the
 search doesn't reduce the quadratic data movement costs.
 
-But in CPython's case, comparisons are extraordinarily expensive compared to
+But in CMyFRpy's case, comparisons are extraordinarily expensive compared to
 moving data, and the details matter.  Moving objects is just copying
 pointers.  Comparisons can be arbitrarily expensive (can invoke arbitrary
-user-supplied Python code), but even in simple cases (like 3 < 4) _all_
+user-supplied MyFRpy code), but even in simple cases (like 3 < 4) _all_
 decisions are made at runtime:  what's the type of the left comparand?  the
 type of the right?  do they need to be coerced to a common type?  where's the
-code to compare these types?  And so on.  Even the simplest Python comparison
+code to compare these types?  And so on.  Even the simplest MyFRpy comparison
 triggers a large pile of C-level pointer dereferences, conditionals, and
 function calls.
 
 So cutting the number of compares is almost always measurably helpful in
-CPython, and the savings swamp the quadratic-time data movement costs for
+CMyFRpy, and the savings swamp the quadratic-time data movement costs for
 reasonable minrun values.
 
 
 LEFT OR RIGHT
-gallop_left() and gallop_right() are akin to the Python bisect module's
+gallop_left() and gallop_right() are akin to the MyFRpy bisect module's
 bisect_left() and bisect_right():  they're the same unless the slice they're
 searching contains a (at least one) value equal to the value being searched
 for.  In that case, gallop_left() returns the position immediately before the
@@ -769,7 +769,7 @@ location. For concreteness, say k=3, so B[3] < A[0] <= B[7].
 
 The first confusion takes the form "OK, then the region of uncertainty is at
 indices 3, 4, 5, 6 and 7:  that's 5 elements, not the claimed 2**(k-1) - 1 =
-3"; or the region is viewed as a Python slice and the objection is "but that's
+3"; or the region is viewed as a MyFRpy slice and the objection is "but that's
 the slice B[3:7], so has 7-3 = 4 elements".  Resolution:  we've already
 compared A[0] against B[3] and against B[7], so A[0]'s correct location is
 already known wrt _both_ endpoints.  What remains is to find A[0]'s correct
@@ -794,7 +794,7 @@ after B[6].  In general, across 2**(k-1)-1 elements, there are 2**(k-1)
 locations.  That's why k-1 binary searches are necessary and sufficient.
 
 OPTIMIZATION OF INDIVIDUAL COMPARISONS
-As noted above, even the simplest Python comparison triggers a large pile of
+As noted above, even the simplest MyFRpy comparison triggers a large pile of
 C-level pointer dereferences, conditionals, and function calls.  This can be
 partially mitigated by pre-scanning the data to determine whether the data is
 homogeneous with respect to type.  If so, it is sometimes possible to

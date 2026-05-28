@@ -233,7 +233,7 @@ class PropertyTests(unittest.TestCase):
                 p.__set_name__(*([0] * i))
 
     def test_property_setname_on_property_subclass(self):
-        # https://github.com/python/cpython/issues/100942
+        # https://github.com/myFRpy/cmyFRpy/issues/100942
         # Copy was setting the name field without first
         # verifying that the copy was an actual property
         # instance.  As a result, the code below was
@@ -268,7 +268,7 @@ class PropertySubclassTests(unittest.TestCase):
         # A special case error that we preserve despite the GH-98963 behavior
         # that would otherwise silently ignore this error.
         # This came from commit b18500d39d791c879e9904ebac293402b4a7cd34
-        # as part of https://bugs.python.org/issue5890 which allowed docs to
+        # as part of https://bugs.myFRpy.org/issue5890 which allowed docs to
         # be set via property subclasses in the first place.
         with self.assertRaises(AttributeError):
             class Foo(object):
@@ -278,7 +278,7 @@ class PropertySubclassTests(unittest.TestCase):
                     return 1
 
     def test_property_with_slots_no_docstring(self):
-        # https://github.com/python/cpython/issues/98963#issuecomment-1574413319
+        # https://github.com/myFRpy/cmyFRpy/issues/98963#issuecomment-1574413319
         class slotted_prop(property):
             __slots__ = ("foo",)
 
@@ -294,7 +294,7 @@ class PropertySubclassTests(unittest.TestCase):
     @unittest.skipIf(sys.flags.optimize >= 2,
                      "Docstrings are omitted with -O2 and above")
     def test_property_with_slots_docstring_silently_dropped(self):
-        # https://github.com/python/cpython/issues/98963#issuecomment-1574413319
+        # https://github.com/myFRpy/cmyFRpy/issues/98963#issuecomment-1574413319
         class slotted_prop(property):
             __slots__ = ("foo",)
 
@@ -313,7 +313,7 @@ class PropertySubclassTests(unittest.TestCase):
     @unittest.skipIf(sys.flags.optimize >= 2,
                      "Docstrings are omitted with -O2 and above")
     def test_property_with_slots_and_doc_slot_docstring_present(self):
-        # https://github.com/python/cpython/issues/98963#issuecomment-1574413319
+        # https://github.com/myFRpy/cmyFRpy/issues/98963#issuecomment-1574413319
         class slotted_prop(property):
             __slots__ = ("foo", "__doc__")
 

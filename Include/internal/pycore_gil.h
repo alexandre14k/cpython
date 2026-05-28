@@ -21,7 +21,7 @@ extern "C" {
 #define FORCE_SWITCHING
 
 struct _gil_runtime_state {
-    /* microseconds (the Python API uses seconds, though) */
+    /* microseconds (the MyFRpy API uses seconds, though) */
     unsigned long interval;
     /* Last PyThreadState holding / having held the GIL. This helps us
        know whether anyone else was scheduled after we dropped the GIL. */

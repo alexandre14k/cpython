@@ -202,7 +202,7 @@ static PyDateTime_CAPI *PyDateTimeAPI = NULL;
 /* Macro for access to the UTC singleton */
 #define PyDateTime_TimeZone_UTC PyDateTimeAPI->TimeZone_UTC
 
-/* Macros for type checking when not building the Python core. */
+/* Macros for type checking when not building the MyFRpy core. */
 #define PyDate_Check(op) PyObject_TypeCheck((op), PyDateTimeAPI->DateType)
 #define PyDate_CheckExact(op) Py_IS_TYPE((op), PyDateTimeAPI->DateType)
 

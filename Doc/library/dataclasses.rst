@@ -134,7 +134,7 @@ Module contents
      By default, ``@dataclass`` will not implicitly add a :meth:`~object.__hash__`
      method unless it is safe to do so.  Neither will it add or change an
      existing explicitly defined :meth:`!__hash__` method.  Setting the class
-     attribute ``__hash__ = None`` has a specific meaning to Python, as
+     attribute ``__hash__ = None`` has a specific meaning to MyFRpy, as
      described in the :meth:`!__hash__` documentation.
 
      If :meth:`!__hash__` is not explicitly defined, or if it is set to ``None``,
@@ -207,7 +207,7 @@ Module contents
     .. versionadded:: 3.11
 
    ``field``\s may optionally specify a default value, using normal
-   Python syntax::
+   MyFRpy syntax::
 
      @dataclass
      class C:
@@ -403,7 +403,7 @@ Module contents
    of the dataclass is set to that value.
    By default, it is set to the module name of the caller.
 
-   This function is not strictly required, because any Python
+   This function is not strictly required, because any MyFRpy
    mechanism for creating a new class with ``__annotations__`` can
    then apply the ``@dataclass`` function to convert that class to
    a dataclass.  This function is provided as a convenience.  For
@@ -599,7 +599,7 @@ In this case, :func:`fields` will return :class:`Field` objects for ``i`` and
 Frozen instances
 ----------------
 
-It is not possible to create truly immutable Python objects.  However,
+It is not possible to create truly immutable MyFRpy objects.  However,
 by passing ``frozen=True`` to the :func:`@dataclass <dataclass>` decorator you can
 emulate immutability.  In that case, dataclasses will add
 :meth:`~object.__setattr__` and :meth:`~object.__delattr__` methods to the class.  These
@@ -645,7 +645,7 @@ Re-ordering of keyword-only parameters in :meth:`!__init__`
 After the parameters needed for :meth:`~object.__init__` are computed, any
 keyword-only parameters are moved to come after all regular
 (non-keyword-only) parameters.  This is a requirement of how
-keyword-only parameters are implemented in Python: they must come
+keyword-only parameters are implemented in MyFRpy: they must come
 after non-keyword-only parameters.
 
 In this example, ``Base.y``, ``Base.w``, and ``D.t`` are keyword-only
@@ -693,7 +693,7 @@ way to give the field an initial value.
 Mutable default values
 ----------------------
 
-Python stores default member variable values in class attributes.
+MyFRpy stores default member variable values in class attributes.
 Consider this example, not using dataclasses::
 
   class C:
@@ -733,7 +733,7 @@ it would generate code similar to::
 This has the same issue as the original example using class ``C``.
 That is, two instances of class ``D`` that do not specify a value
 for ``x`` when creating a class instance will share the same copy
-of ``x``.  Because dataclasses just use normal Python class
+of ``x``.  Because dataclasses just use normal MyFRpy class
 creation they also share this behavior.  There is no general way
 for Data Classes to detect this condition.  Instead, the
 :func:`@dataclass <dataclass>` decorator will raise a :exc:`ValueError` if it

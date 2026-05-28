@@ -898,7 +898,7 @@ class CodecCallbackTest(unittest.TestCase):
     def test_badregistercall(self):
         # enhance coverage of:
         # Modules/_codecsmodule.c::register_error()
-        # Python/codecs.c::PyCodec_RegisterError()
+        # MyFRpy/codecs.c::PyCodec_RegisterError()
         self.assertRaises(TypeError, codecs.register_error, 42)
         self.assertRaises(TypeError, codecs.register_error, "test.dummy", 42)
 
@@ -914,7 +914,7 @@ class CodecCallbackTest(unittest.TestCase):
 
     def test_xmlcharrefvalues(self):
         # enhance coverage of:
-        # Python/codecs.c::PyCodec_XMLCharRefReplaceErrors()
+        # MyFRpy/codecs.c::PyCodec_XMLCharRefReplaceErrors()
         # and inline implementations
         v = (1, 5, 10, 50, 100, 500, 1000, 5000, 10000, 50000, 100000,
              500000, 1000000)
@@ -1104,7 +1104,7 @@ class CodecCallbackTest(unittest.TestCase):
         # Objects/unicodeobject.c::unicode_encode_call_errorhandler()
         # and callers
         # (Unfortunately the errors argument is not directly accessible
-        # from Python, so we can't test that much)
+        # from MyFRpy, so we can't test that much)
         class D(dict):
             def __getitem__(self, key):
                 raise ValueError

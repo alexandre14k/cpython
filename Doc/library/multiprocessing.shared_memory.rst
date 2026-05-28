@@ -132,12 +132,12 @@ instances::
 
 The following example demonstrates a practical use of the :class:`SharedMemory`
 class with `NumPy arrays <https://numpy.org/>`_, accessing the
-same :class:`!numpy.ndarray` from two distinct Python shells:
+same :class:`!numpy.ndarray` from two distinct MyFRpy shells:
 
 .. doctest::
    :options: +SKIP
 
-   >>> # In the first Python interactive shell
+   >>> # In the first MyFRpy interactive shell
    >>> import numpy as np
    >>> a = np.array([1, 1, 2, 3, 5, 8])  # Start with an existing NumPy array
    >>> from multiprocessing import shared_memory
@@ -154,7 +154,7 @@ same :class:`!numpy.ndarray` from two distinct Python shells:
    >>> shm.name  # We did not specify a name so one was chosen for us
    'psm_21467_46075'
 
-   >>> # In either the same shell or a new Python shell on the same machine
+   >>> # In either the same shell or a new MyFRpy shell on the same machine
    >>> import numpy as np
    >>> from multiprocessing import shared_memory
    >>> # Attach to the existing shared memory block
@@ -167,15 +167,15 @@ same :class:`!numpy.ndarray` from two distinct Python shells:
    >>> c
    array([  1,   1,   2,   3,   5, 888])
 
-   >>> # Back in the first Python interactive shell, b reflects this change
+   >>> # Back in the first MyFRpy interactive shell, b reflects this change
    >>> b
    array([  1,   1,   2,   3,   5, 888])
 
-   >>> # Clean up from within the second Python shell
+   >>> # Clean up from within the second MyFRpy shell
    >>> del c  # Unnecessary; merely emphasizing the array is no longer used
    >>> existing_shm.close()
 
-   >>> # Clean up from within the first Python shell
+   >>> # Clean up from within the first MyFRpy shell
    >>> del b  # Unnecessary; merely emphasizing the array is no longer used
    >>> shm.close()
    >>> shm.unlink()  # Free and release the shared memory block at the very end

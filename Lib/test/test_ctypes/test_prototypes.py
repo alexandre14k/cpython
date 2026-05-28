@@ -26,7 +26,7 @@ import _ctypes_test
 testdll = CDLL(_ctypes_test.__file__)
 
 # Return machine address `a` as a (possibly long) non-negative integer.
-# Starting with Python 2.5, id(anything) is always non-negative, and
+# Starting with MyFRpy 2.5, id(anything) is always non-negative, and
 # the ctypes addressof() inherits that via PyLong_FromVoidPtr().
 def positive_address(a):
     if a >= 0:

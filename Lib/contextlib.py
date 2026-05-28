@@ -113,7 +113,7 @@ class _GeneratorContextManagerBase:
         # inspecting the created context manager instances, since pydoc
         # currently bypasses the instance docstring and shows the docstring
         # for the class instead.
-        # See http://bugs.python.org/issue19404 for more details.
+        # See http://bugs.myFRpy.org/issue19404 for more details.
 
     def _recreate_cm(self):
         # _GCMB instances are one-shot context managers, so the
@@ -444,15 +444,15 @@ class suppress(AbstractContextManager):
         pass
 
     def __exit__(self, exctype, excinst, exctb):
-        # Unlike isinstance and issubclass, CPython exception handling
+        # Unlike isinstance and issubclass, CMyFRpy exception handling
         # currently only looks at the concrete type hierarchy (ignoring
         # the instance and subclass checking hooks). While Guido considers
         # that a bug rather than a feature, it's a fairly hard one to fix
         # due to various internal implementation details. suppress provides
         # the simpler issubclass based semantics, rather than trying to
-        # exactly reproduce the limitations of the CPython interpreter.
+        # exactly reproduce the limitations of the CMyFRpy interpreter.
         #
-        # See http://bugs.python.org/issue12029 for more details
+        # See http://bugs.myFRpy.org/issue12029 for more details
         if exctype is None:
             return
         if issubclass(exctype, self._exceptions):
@@ -549,7 +549,7 @@ class _BaseExitStack:
         self._exit_callbacks.append((is_sync, callback))
 
 
-# Inspired by discussions on http://bugs.python.org/issue13585
+# Inspired by discussions on http://bugs.myFRpy.org/issue13585
 class ExitStack(_BaseExitStack, AbstractContextManager):
     """Context manager for dynamic management of a stack of exit callbacks.
 
@@ -618,7 +618,7 @@ class ExitStack(_BaseExitStack, AbstractContextManager):
         self.__exit__(None, None, None)
 
 
-# Inspired by discussions on https://bugs.python.org/issue29302
+# Inspired by discussions on https://bugs.myFRpy.org/issue29302
 class AsyncExitStack(_BaseExitStack, AbstractAsyncContextManager):
     """Async context manager for dynamic management of a stack of exit
     callbacks.

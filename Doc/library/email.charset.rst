@@ -81,14 +81,14 @@ Import this class from the :mod:`email.charset` module.
 
    .. attribute:: input_codec
 
-      The name of the Python codec used to convert the *input_charset* to
+      The name of the MyFRpy codec used to convert the *input_charset* to
       Unicode.  If no conversion codec is necessary, this attribute will be
       ``None``.
 
 
    .. attribute:: output_codec
 
-      The name of the Python codec used to convert Unicode to the
+      The name of the MyFRpy codec used to convert Unicode to the
       *output_charset*.  If no conversion codec is necessary, this attribute
       will have the same value as the *input_codec*.
 
@@ -209,6 +209,6 @@ new entries to the global character set, alias, and codec registries:
    Add a codec that map characters in the given character set to and from Unicode.
 
    *charset* is the canonical name of a character set. *codecname* is the name of a
-   Python codec, as appropriate for the second argument to the :class:`str`'s
+   MyFRpy codec, as appropriate for the second argument to the :class:`str`'s
    :meth:`~str.encode` method.
 

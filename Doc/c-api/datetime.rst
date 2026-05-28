@@ -7,7 +7,7 @@ DateTime Objects
 
 Various date and time objects are supplied by the :mod:`datetime` module.
 Before using any of these functions, the header file :file:`datetime.h` must be
-included in your source (note that this is not included by :file:`Python.h`),
+included in your source (note that this is not included by :file:`MyFRpy.h`),
 and the macro :c:macro:`!PyDateTime_IMPORT` must be invoked, usually as part of
 the module initialisation function.  The macro puts a pointer to a C structure
 into a static variable, :c:data:`!PyDateTimeAPI`, that is used by the following
@@ -15,15 +15,15 @@ macros.
 
 .. c:type:: PyDateTime_Date
 
-   This subtype of :c:type:`PyObject` represents a Python date object.
+   This subtype of :c:type:`PyObject` represents a MyFRpy date object.
 
 .. c:type:: PyDateTime_DateTime
 
-   This subtype of :c:type:`PyObject` represents a Python datetime object.
+   This subtype of :c:type:`PyObject` represents a MyFRpy datetime object.
 
 .. c:type:: PyDateTime_Time
 
-   This subtype of :c:type:`PyObject` represents a Python time object.
+   This subtype of :c:type:`PyObject` represents a MyFRpy time object.
 
 .. c:type:: PyDateTime_Delta
 
@@ -31,29 +31,29 @@ macros.
 
 .. c:var:: PyTypeObject PyDateTime_DateType
 
-   This instance of :c:type:`PyTypeObject` represents the Python date type;
-   it is the same object as :class:`datetime.date` in the Python layer.
+   This instance of :c:type:`PyTypeObject` represents the MyFRpy date type;
+   it is the same object as :class:`datetime.date` in the MyFRpy layer.
 
 .. c:var:: PyTypeObject PyDateTime_DateTimeType
 
-   This instance of :c:type:`PyTypeObject` represents the Python datetime type;
-   it is the same object as :class:`datetime.datetime` in the Python layer.
+   This instance of :c:type:`PyTypeObject` represents the MyFRpy datetime type;
+   it is the same object as :class:`datetime.datetime` in the MyFRpy layer.
 
 .. c:var:: PyTypeObject PyDateTime_TimeType
 
-   This instance of :c:type:`PyTypeObject` represents the Python time type;
-   it is the same object as :class:`datetime.time` in the Python layer.
+   This instance of :c:type:`PyTypeObject` represents the MyFRpy time type;
+   it is the same object as :class:`datetime.time` in the MyFRpy layer.
 
 .. c:var:: PyTypeObject PyDateTime_DeltaType
 
-   This instance of :c:type:`PyTypeObject` represents Python type for
+   This instance of :c:type:`PyTypeObject` represents MyFRpy type for
    the difference between two datetime values;
-   it is the same object as :class:`datetime.timedelta` in the Python layer.
+   it is the same object as :class:`datetime.timedelta` in the MyFRpy layer.
 
 .. c:var:: PyTypeObject PyDateTime_TZInfoType
 
-   This instance of :c:type:`PyTypeObject` represents the Python time zone info type;
-   it is the same object as :class:`datetime.tzinfo` in the Python layer.
+   This instance of :c:type:`PyTypeObject` represents the MyFRpy time zone info type;
+   it is the same object as :class:`datetime.tzinfo` in the MyFRpy layer.
 
 
 Macro for access to the UTC singleton:

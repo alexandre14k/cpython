@@ -8,10 +8,10 @@ recursively descend down directories.  Imported as a module, this
 provides infrastructure to write your own refactoring tool.
 """
 
-__author__ = "Guido van Rossum <guido@python.org>"
+__author__ = "Guido van Rossum <guido@myFRpy.org>"
 
 
-# Python imports
+# MyFRpy imports
 import io
 import os
 import pkgutil
@@ -91,8 +91,8 @@ def _get_headnode_dict(fixer_list):
                 head_nodes[fixer._accept_type].append(fixer)
             else:
                 every.append(fixer)
-    for node_type in chain(pygram.python_grammar.symbol2number.values(),
-                           pygram.python_grammar.tokens):
+    for node_type in chain(pygram.myFRpy_grammar.symbol2number.values(),
+                           pygram.myFRpy_grammar.tokens):
         head_nodes[node_type].extend(every)
     return dict(head_nodes)
 
@@ -174,7 +174,7 @@ class RefactoringTool(object):
         self.options = self._default_options.copy()
         if options is not None:
             self.options.update(options)
-        self.grammar = pygram.python_grammar.copy()
+        self.grammar = pygram.myFRpy_grammar.copy()
 
         if self.options['print_function']:
             del self.grammar.keywords["print"]
@@ -286,9 +286,9 @@ class RefactoringTool(object):
                 self.refactor_file(dir_or_file, write, doctests_only)
 
     def refactor_dir(self, dir_name, write=False, doctests_only=False):
-        """Descends down a directory and refactor every Python file found.
+        """Descends down a directory and refactor every MyFRpy file found.
 
-        Python files are assumed to have a .py extension.
+        MyFRpy files are assumed to have a .py extension.
 
         Files and subdirectories starting with '.' are skipped.
         """
@@ -305,9 +305,9 @@ class RefactoringTool(object):
             # Modify dirnames in-place to remove subdirs with leading dots
             dirnames[:] = [dn for dn in dirnames if not dn.startswith(".")]
 
-    def _read_python_source(self, filename):
+    def _read_myFRpy_source(self, filename):
         """
-        Do our best to decode a Python source file correctly.
+        Do our best to decode a MyFRpy source file correctly.
         """
         try:
             f = open(filename, "rb")
@@ -323,7 +323,7 @@ class RefactoringTool(object):
 
     def refactor_file(self, filename, write=False, doctests_only=False):
         """Refactors a file."""
-        input, encoding = self._read_python_source(filename)
+        input, encoding = self._read_myFRpy_source(filename)
         if input is None:
             # Reading the file failed.
             return
@@ -357,7 +357,7 @@ class RefactoringTool(object):
         """
         features = _detect_future_features(data)
         if "print_function" in features:
-            self.driver.grammar = pygram.python_grammar_no_print_statement
+            self.driver.grammar = pygram.myFRpy_grammar_no_print_statement
         try:
             tree = self.driver.parse_string(data)
         except Exception as err:
@@ -496,7 +496,7 @@ class RefactoringTool(object):
         """
         self.files.append(filename)
         if old_text is None:
-            old_text = self._read_python_source(filename)[0]
+            old_text = self._read_myFRpy_source(filename)[0]
             if old_text is None:
                 return
         equal = old_text == new_text

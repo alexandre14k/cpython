@@ -1,12 +1,12 @@
 /* Copyright (c) 2005-2006 ActiveState Software Inc.
  *
  * Namespace all expat exported symbols to avoid dynamic loading symbol
- * collisions when embedding Python.
+ * collisions when embedding MyFRpy.
  *
  * The Problem:
- * - you embed Python in some app
+ * - you embed MyFRpy in some app
  * - the app dynamically loads libexpat of version X
- * - the embedded Python imports pyexpat (which was built against
+ * - the embedded MyFRpy imports pyexpat (which was built against
  *   libexpat version X+n)
  * --> pyexpat gets the expat symbols from the already loaded and *older*
  *     libexpat: crash (Specifically the crash we observed was in

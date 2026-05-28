@@ -10,20 +10,20 @@ imghdr = warnings_helper.import_deprecated("imghdr")
 
 
 TEST_FILES = (
-    ('python.png', 'png'),
-    ('python.gif', 'gif'),
-    ('python.bmp', 'bmp'),
-    ('python.ppm', 'ppm'),
-    ('python.pgm', 'pgm'),
-    ('python.pbm', 'pbm'),
-    ('python.jpg', 'jpeg'),
-    ('python-raw.jpg', 'jpeg'),  # raw JPEG without JFIF/EXIF markers
-    ('python.ras', 'rast'),
-    ('python.sgi', 'rgb'),
-    ('python.tiff', 'tiff'),
-    ('python.xbm', 'xbm'),
-    ('python.webp', 'webp'),
-    ('python.exr', 'exr'),
+    ('myFRpy.png', 'png'),
+    ('myFRpy.gif', 'gif'),
+    ('myFRpy.bmp', 'bmp'),
+    ('myFRpy.ppm', 'ppm'),
+    ('myFRpy.pgm', 'pgm'),
+    ('myFRpy.pbm', 'pbm'),
+    ('myFRpy.jpg', 'jpeg'),
+    ('myFRpy-raw.jpg', 'jpeg'),  # raw JPEG without JFIF/EXIF markers
+    ('myFRpy.ras', 'rast'),
+    ('myFRpy.sgi', 'rgb'),
+    ('myFRpy.tiff', 'tiff'),
+    ('myFRpy.xbm', 'xbm'),
+    ('myFRpy.webp', 'webp'),
+    ('myFRpy.exr', 'exr'),
 )
 
 class UnseekableIO(io.FileIO):
@@ -36,7 +36,7 @@ class UnseekableIO(io.FileIO):
 class TestImghdr(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.testfile = findfile('python.png', subdir='imghdrdata')
+        cls.testfile = findfile('myFRpy.png', subdir='imghdrdata')
         with open(cls.testfile, 'rb') as stream:
             cls.testdata = stream.read()
 

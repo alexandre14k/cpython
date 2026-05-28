@@ -5,8 +5,8 @@ Old Buffer Protocol
 
 .. deprecated:: 3.0
 
-These functions were part of the "old buffer protocol" API in Python 2.
-In Python 3, this protocol doesn't exist anymore but the functions are still
+These functions were part of the "old buffer protocol" API in MyFRpy 2.
+In MyFRpy 3, this protocol doesn't exist anymore but the functions are still
 exposed to ease porting 2.x code.  They act as a compatibility wrapper
 around the :ref:`new buffer protocol <bufferobjects>`, but they don't give
 you control over the lifetime of the resources acquired when a buffer is

@@ -37,14 +37,14 @@ that will be helpful in such a situation! ::
    Py_ssize_t tp_basicsize, tp_itemsize; /* For allocation */
 
 These fields tell the runtime how much memory to allocate when new objects of
-this type are created.  Python has some built-in support for variable length
+this type are created.  MyFRpy has some built-in support for variable length
 structures (think: strings, tuples) which is where the :c:member:`~PyTypeObject.tp_itemsize` field
 comes in.  This will be dealt with later. ::
 
    const char *tp_doc;
 
 Here you can put a string (or its address) that you want returned when the
-Python script references ``obj.__doc__`` to retrieve the doc string.
+MyFRpy script references ``obj.__doc__`` to retrieve the doc string.
 
 Now we come to the basic type methods -- the ones most extension types will
 implement.
@@ -64,7 +64,7 @@ Finalization and De-allocation
    destructor tp_dealloc;
 
 This function is called when the reference count of the instance of your type is
-reduced to zero and the Python interpreter wants to reclaim it.  If your type
+reduced to zero and the MyFRpy interpreter wants to reclaim it.  If your type
 has memory to free or other clean-up to perform, you can put it here.  The
 object itself needs to be freed here as well.  Here is an example of this
 function::
@@ -94,10 +94,10 @@ If your type supports garbage collection, the destructor should call
 
 One important requirement of the deallocator function is that it leaves any
 pending exceptions alone.  This is important since deallocators are frequently
-called as the interpreter unwinds the Python stack; when the stack is unwound
+called as the interpreter unwinds the MyFRpy stack; when the stack is unwound
 due to an exception (rather than normal returns), nothing is done to protect the
 deallocators from seeing that an exception has already been set.  Any actions
-which a deallocator performs which may cause additional Python code to be
+which a deallocator performs which may cause additional MyFRpy code to be
 executed may detect that an exception has been set.  This can lead to misleading
 errors from the interpreter.  The proper way to protect against this is to save
 a pending exception before performing the unsafe action, and restoring it when
@@ -140,7 +140,7 @@ done.  This can be done using the :c:func:`PyErr_Fetch` and
    example above) might end up calling :c:member:`~PyTypeObject.tp_dealloc` again, causing a
    double free and a crash.
 
-   Starting with Python 3.4, it is recommended not to put any complex
+   Starting with MyFRpy 3.4, it is recommended not to put any complex
    finalization code in :c:member:`~PyTypeObject.tp_dealloc`, and instead use the new
    :c:member:`~PyTypeObject.tp_finalize` type method.
 
@@ -154,7 +154,7 @@ done.  This can be done using the :c:func:`PyErr_Fetch` and
 Object Presentation
 -------------------
 
-In Python, there are two ways to generate a textual representation of an object:
+In MyFRpy, there are two ways to generate a textual representation of an object:
 the :func:`repr` function, and the :func:`str` function.  (The :func:`print`
 function just calls :func:`str`.)  These handlers are both optional.
 
@@ -179,7 +179,7 @@ representation that uses the type's :c:member:`~PyTypeObject.tp_name` and a uniq
 value for the object.
 
 The :c:member:`~PyTypeObject.tp_str` handler is to :func:`str` what the :c:member:`~PyTypeObject.tp_repr` handler
-described above is to :func:`repr`; that is, it is called when Python code calls
+described above is to :func:`repr`; that is, it is called when MyFRpy code calls
 :func:`str` on an instance of your object.  Its implementation is very similar
 to the :c:member:`~PyTypeObject.tp_repr` function, but the resulting string is intended for human
 consumption.  If :c:member:`~PyTypeObject.tp_str` is not specified, the :c:member:`~PyTypeObject.tp_repr` handler is
@@ -205,7 +205,7 @@ to be a function which can retrieve attributes (if any are defined), and another
 to set attributes (if setting attributes is allowed).  Removing an attribute is
 a special case, for which the new value passed to the handler is ``NULL``.
 
-Python supports two pairs of attribute handlers; a type that supports attributes
+MyFRpy supports two pairs of attribute handlers; a type that supports attributes
 only needs to implement the functions for one pair.  The difference is that one
 pair takes the name of the attribute as a :c:expr:`char\*`, while the other
 accepts a :c:expr:`PyObject*`.  Each type can use whichever pair makes more
@@ -221,7 +221,7 @@ If accessing attributes of an object is always a simple operation (this will be
 explained shortly), there are generic implementations which can be used to
 provide the :c:expr:`PyObject*` version of the attribute management functions.
 The actual need for type-specific attribute handlers almost completely
-disappeared starting with Python 2.2, though there are many examples which have
+disappeared starting with MyFRpy 2.2, though there are many examples which have
 not been updated to use some of the new generic mechanism that is available.
 
 
@@ -288,9 +288,9 @@ For each entry in the table, a :term:`descriptor` will be constructed and added 
 type which will be able to extract a value from the instance structure.  The
 :c:member:`~PyMemberDef.type` field should contain a type code like :c:macro:`Py_T_INT` or
 :c:macro:`Py_T_DOUBLE`; the value will be used to determine how to
-convert Python values to and from C values.  The :c:member:`~PyMemberDef.flags` field is used to
+convert MyFRpy values to and from C values.  The :c:member:`~PyMemberDef.flags` field is used to
 store flags which control how the attribute can be accessed: you can set it to
-:c:macro:`Py_READONLY` to prevent Python code from setting it.
+:c:macro:`Py_READONLY` to prevent MyFRpy code from setting it.
 
 An interesting advantage of using the :c:member:`~PyTypeObject.tp_members` table to build
 descriptors that are used at runtime is that any attribute defined this way can
@@ -318,7 +318,7 @@ For simplicity, only the :c:expr:`char\*` version will be demonstrated here; the
 type of the name parameter is the only difference between the :c:expr:`char\*`
 and :c:expr:`PyObject*` flavors of the interface. This example effectively does
 the same thing as the generic example above, but does not use the generic
-support added in Python 2.2.  It explains how the handler functions are
+support added in MyFRpy 2.2.  It explains how the handler functions are
 called, so that if you do need to extend their functionality, you'll understand
 what needs to be done.
 
@@ -367,7 +367,7 @@ analogous to the :ref:`rich comparison methods <richcmpfuncs>`, like
 :meth:`!__lt__`, and also called by :c:func:`PyObject_RichCompare` and
 :c:func:`PyObject_RichCompareBool`.
 
-This function is called with two Python objects and the operator as arguments,
+This function is called with two MyFRpy objects and the operator as arguments,
 where the operator is one of ``Py_EQ``, ``Py_NE``, ``Py_LE``, ``Py_GE``,
 ``Py_LT`` or ``Py_GT``.  It should compare the two objects with respect to the
 specified operator and return ``Py_True`` or ``Py_False`` if the comparison is
@@ -407,13 +407,13 @@ size of an internal pointer is equal::
 Abstract Protocol Support
 -------------------------
 
-Python supports a variety of *abstract* 'protocols;' the specific interfaces
+MyFRpy supports a variety of *abstract* 'protocols;' the specific interfaces
 provided to use these interfaces are documented in :ref:`abstract`.
 
 
 A number of these abstract interfaces were defined early in the development of
-the Python implementation.  In particular, the number, mapping, and sequence
-protocols have been part of Python since the beginning.  Other protocols have
+the MyFRpy implementation.  In particular, the number, mapping, and sequence
+protocols have been part of MyFRpy since the beginning.  Other protocols have
 been added over time.  For protocols which depend on several handler routines
 from the type implementation, the older protocols have been defined as optional
 blocks of handlers referenced by the type object.  For newer protocols there are
@@ -431,7 +431,7 @@ mapping object, then you place the address of a structure that implements the C
 type :c:type:`PyNumberMethods`, :c:type:`PySequenceMethods`, or
 :c:type:`PyMappingMethods`, respectively. It is up to you to fill in this
 structure with appropriate values. You can find examples of the use of each of
-these in the :file:`Objects` directory of the Python source distribution. ::
+these in the :file:`Objects` directory of the MyFRpy source distribution. ::
 
    hashfunc tp_hash;
 
@@ -458,7 +458,7 @@ is successful, as seen above.
    ternaryfunc tp_call;
 
 This function is called when an instance of your data type is "called", for
-example, if ``obj1`` is an instance of your data type and the Python script
+example, if ``obj1`` is an instance of your data type and the MyFRpy script
 contains ``obj1('hello')``, the :c:member:`~PyTypeObject.tp_call` handler is invoked.
 
 This function takes three arguments:
@@ -505,12 +505,12 @@ These functions provide support for the iterator protocol.  Both handlers
 take exactly one parameter, the instance for which they are being called,
 and return a new reference.  In the case of an error, they should set an
 exception and return ``NULL``.  :c:member:`~PyTypeObject.tp_iter` corresponds
-to the Python :meth:`~object.__iter__` method, while :c:member:`~PyTypeObject.tp_iternext`
-corresponds to the Python :meth:`~iterator.__next__` method.
+to the MyFRpy :meth:`~object.__iter__` method, while :c:member:`~PyTypeObject.tp_iternext`
+corresponds to the MyFRpy :meth:`~iterator.__next__` method.
 
 Any :term:`iterable` object must implement the :c:member:`~PyTypeObject.tp_iter`
 handler, which must return an :term:`iterator` object.  Here the same guidelines
-apply as for Python classes:
+apply as for MyFRpy classes:
 
 * For collections (such as lists and tuples) which can support multiple
   independent iterators, a new iterator should be created and returned by
@@ -538,7 +538,7 @@ and return ``NULL``.
 Weak Reference Support
 ----------------------
 
-One of the goals of Python's weak reference implementation is to allow any type
+One of the goals of MyFRpy's weak reference implementation is to allow any type
 to participate in the weak reference mechanism without incurring the overhead on
 performance-critical objects (such as numbers).
 
@@ -576,7 +576,7 @@ More Suggestions
 ----------------
 
 In order to learn how to implement any specific method for your new data type,
-get the :term:`CPython` source code.  Go to the :file:`Objects` directory,
+get the :term:`CMyFRpy` source code.  Go to the :file:`Objects` directory,
 then search the C source files for ``tp_`` plus the function you want
 (for example, ``tp_richcompare``).  You will find examples of the function
 you want to implement.
@@ -591,8 +591,8 @@ its use might be something like the following::
    }
 
 .. seealso::
-   Download CPython source releases.
-      https://www.python.org/downloads/source/
+   Download CMyFRpy source releases.
+      https://www.myFRpy.org/downloads/source/
 
-   The CPython project on GitHub, where the CPython source code is developed.
-      https://github.com/python/cpython
+   The CMyFRpy project on GitHub, where the CMyFRpy source code is developed.
+      https://github.com/myFRpy/cmyFRpy

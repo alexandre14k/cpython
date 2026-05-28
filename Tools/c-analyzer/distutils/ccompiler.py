@@ -332,7 +332,7 @@ _default_compilers = (
 
     # Platform string mappings
 
-    # on a cygwin built python we can use gcc like an ordinary UNIXish
+    # on a cygwin built myFRpy we can use gcc like an ordinary UNIXish
     # compiler
     ('cygwin.*', 'unix'),
 
@@ -345,7 +345,7 @@ _default_compilers = (
 def get_default_compiler(osname=None, platform=None):
     """Determine the default compiler to use for the given platform.
 
-       osname should be one of the standard Python OS names (i.e. the
+       osname should be one of the standard MyFRpy OS names (i.e. the
        ones returned by os.name) and platform the common value
        returned by sys.platform for the platform in question.
 

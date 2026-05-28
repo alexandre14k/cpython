@@ -36,7 +36,7 @@ requires_ssl = skipUnless(SUPPORTS_SSL, 'SSL not supported')
 
 # the dummy data returned by server when LIST and RETR commands are issued
 LIST_RESP = b'1 1\r\n2 2\r\n3 3\r\n4 4\r\n5 5\r\n.\r\n'
-RETR_RESP = b"""From: postmaster@python.org\
+RETR_RESP = b"""From: postmaster@myFRpy.org\
 \r\nContent-Type: text/plain\r\n\
 MIME-Version: 1.0\r\n\
 Subject: Dummy\r\n\
@@ -49,7 +49,7 @@ line3\r\n\
 
 class DummyPOP3Handler(asynchat.async_chat):
 
-    CAPAS = {'UIDL': [], 'IMPLEMENTATION': ['python-testlib-pop-server']}
+    CAPAS = {'UIDL': [], 'IMPLEMENTATION': ['myFRpy-testlib-pop-server']}
     enable_UTF8 = False
 
     def __init__(self, conn):
@@ -95,7 +95,7 @@ class DummyPOP3Handler(asynchat.async_chat):
         self.push('+OK password required')
 
     def cmd_pass(self, arg):
-        if arg != "python":
+        if arg != "myFRpy":
             self.push("-ERR wrong password")
         self.push('+OK 10 messages')
 
@@ -283,7 +283,7 @@ class TestPOP3Class(TestCase):
         self.assertRaises(poplib.error_proto, self.client.user, 'invalid')
 
     def test_pass_(self):
-        self.assertOK(self.client.pass_('python'))
+        self.assertOK(self.client.pass_('myFRpy'))
         self.assertRaises(poplib.error_proto, self.client.user, 'invalid')
 
     def test_stat(self):
@@ -297,7 +297,7 @@ class TestPOP3Class(TestCase):
 
     def test_retr(self):
         expected = (b'+OK 116 bytes',
-                    [b'From: postmaster@python.org', b'Content-Type: text/plain',
+                    [b'From: postmaster@myFRpy.org', b'Content-Type: text/plain',
                      b'MIME-Version: 1.0', b'Subject: Dummy',
                      b'', b'line1', b'line2', b'line3'],
                     113)
@@ -334,7 +334,7 @@ class TestPOP3Class(TestCase):
 
     def test_top(self):
         expected =  (b'+OK 116 bytes',
-                     [b'From: postmaster@python.org', b'Content-Type: text/plain',
+                     [b'From: postmaster@myFRpy.org', b'Content-Type: text/plain',
                       b'MIME-Version: 1.0', b'Subject: Dummy', b'',
                       b'line1', b'line2', b'line3'],
                      113)

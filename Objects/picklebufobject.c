@@ -1,7 +1,7 @@
 /* PickleBuffer object implementation */
 
 #define PY_SSIZE_T_CLEAN
-#include "Python.h"
+#include "MyFRpy.h"
 #include <stddef.h>
 
 typedef struct {
@@ -134,7 +134,7 @@ picklebuf_releasebuf(PyPickleBufferObject *self, Py_buffer *view)
     /* Since our bf_getbuffer redirects to the original object, this
      * implementation is never called.  It only exists to signal that
      * buffers exported by PickleBuffer have non-trivial releasing
-     * behaviour (see check in Python/getargs.c).
+     * behaviour (see check in MyFRpy/getargs.c).
      */
 }
 

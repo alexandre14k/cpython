@@ -129,7 +129,7 @@ static inline void _PyGC_SET_FINALIZED(PyObject *op) {
    the collector will untrack any dictionaries whose contents are not
    tracked.
 
-   The module provides the python function is_tracked(obj), which returns
+   The module provides the myFRpy function is_tracked(obj), which returns
    the CURRENT tracking status of the object. Subsequent garbage
    collections may change the tracking status of the object.
 

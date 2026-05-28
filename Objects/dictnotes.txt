@@ -6,7 +6,7 @@ Principal Use Cases for Dictionaries
 
 Passing keyword arguments
     Typically, one read and one write for 1 to 3 elements.
-    Occurs frequently in normal python code.
+    Occurs frequently in normal myFRpy code.
 
 Class method lookup
     Dictionaries vary in size with 8 to 16 elements being common.

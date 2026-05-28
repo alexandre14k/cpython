@@ -2,10 +2,10 @@ import unittest
 from test.support import os_helper
 
 import io # C implementation.
-import _pyio as pyio # Python implementation.
+import _pyio as pyio # MyFRpy implementation.
 
 # Simple test to ensure that optimizations in the IO library deliver the
-# expected results.  For best testing, run this under a debug-build Python too
+# expected results.  For best testing, run this under a debug-build MyFRpy too
 # (to exercise asserts in the C code).
 
 lengths = list(range(1, 257)) + [512, 1000, 1024, 2048, 4096, 8192, 10000,

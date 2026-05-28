@@ -1,7 +1,7 @@
 # Copyright 2004-2005 Elemental Security, Inc. All Rights Reserved.
 # Licensed to PSF under a Contributor Agreement.
 
-"""Safely evaluate Python string literals without using eval()."""
+"""Safely evaluate MyFRpy string literals without using eval()."""
 
 import re
 

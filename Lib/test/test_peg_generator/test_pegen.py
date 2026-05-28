@@ -16,7 +16,7 @@ with test_tools.imports_under_tool("peg_generator"):
     from pegen.grammar_visualizer import ASTGrammarPrinter
     from pegen.parser import Parser
     from pegen.parser_generator import compute_nullables, compute_left_recursives
-    from pegen.python_generator import PythonParserGenerator
+    from pegen.myFRpy_generator import MyFRpyParserGenerator
 
 
 class TestPegen(unittest.TestCase):
@@ -482,7 +482,7 @@ class TestPegen(unittest.TestCase):
             ],
         )
 
-    def test_python_expr(self) -> None:
+    def test_myFRpy_expr(self) -> None:
         grammar = """
         start: expr NEWLINE? $ { ast.Expression(expr, lineno=1, col_offset=0) }
         expr: ( expr '+' term { ast.BinOp(expr, ast.Add(), term, lineno=expr.lineno, col_offset=expr.col_offset, end_lineno=term.end_lineno, end_col_offset=term.end_col_offset) }
@@ -539,7 +539,7 @@ class TestPegen(unittest.TestCase):
         """
         grammar: Grammar = parse_string(grammar_source, GrammarParser)
         out = io.StringIO()
-        genr = PythonParserGenerator(grammar, out)
+        genr = MyFRpyParserGenerator(grammar, out)
         rules = grammar.rules
         self.assertFalse(rules["start"].left_recursive)
         self.assertTrue(rules["foo"].left_recursive)
@@ -640,7 +640,7 @@ class TestPegen(unittest.TestCase):
         """
         grammar: Grammar = parse_string(grammar_source, GrammarParser)
         out = io.StringIO()
-        genr = PythonParserGenerator(grammar, out)
+        genr = MyFRpyParserGenerator(grammar, out)
         genr.generate("<string>")
         ns: Dict[str, Any] = {}
         exec(out.getvalue(), ns)
@@ -845,7 +845,7 @@ class TestPegen(unittest.TestCase):
         """
         grammar = parse_string(source, GrammarParser)
         out = io.StringIO()
-        genr = PythonParserGenerator(
+        genr = MyFRpyParserGenerator(
             grammar, out, unreachable_formatting="This is a test"
         )
         genr.generate("<string>")
@@ -858,7 +858,7 @@ class TestPegen(unittest.TestCase):
         """
         grammar = parse_string(source, GrammarParser)
         out = io.StringIO()
-        genr = PythonParserGenerator(
+        genr = MyFRpyParserGenerator(
             grammar, out, unreachable_formatting="This is a test"
         )
         genr.generate("<string>")
@@ -871,7 +871,7 @@ class TestPegen(unittest.TestCase):
         """
         grammar = parse_string(source, GrammarParser)
         out = io.StringIO()
-        genr = PythonParserGenerator(
+        genr = MyFRpyParserGenerator(
             grammar, out, unreachable_formatting="This is a test"
         )
         genr.generate("<string>")
@@ -884,7 +884,7 @@ class TestPegen(unittest.TestCase):
         """
         grammar = parse_string(source, GrammarParser)
         out = io.StringIO()
-        genr = PythonParserGenerator(
+        genr = MyFRpyParserGenerator(
             grammar, out, unreachable_formatting="This is a test"
         )
         genr.generate("<string>")
@@ -911,7 +911,7 @@ class TestPegen(unittest.TestCase):
         )
         diff = "\n".join(
             difflib.unified_diff(
-                o.split("\n"), p.split("\n"), "cpython", "python-pegen"
+                o.split("\n"), p.split("\n"), "cmyFRpy", "myFRpy-pegen"
             )
         )
         self.assertFalse(diff)

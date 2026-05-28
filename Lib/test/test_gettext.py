@@ -203,7 +203,7 @@ class GettextTestCase1(GettextBaseTest):
         eq = self.assertEqual
         # multiline strings
         eq(_('''This module provides internationalization and localization
-support for your Python programs by providing an interface to the GNU
+support for your MyFRpy programs by providing an interface to the GNU
 gettext message catalog library.'''),
            '''Guvf zbqhyr cebivqrf vagreangvbanyvmngvba naq ybpnyvmngvba
 fhccbeg sbe lbhe Clguba cebtenzf ol cebivqvat na vagresnpr gb gur TAH
@@ -313,7 +313,7 @@ class GettextTestCase2(GettextBaseTest):
         eq = self.assertEqual
         # multiline strings
         eq(self._('''This module provides internationalization and localization
-support for your Python programs by providing an interface to the GNU
+support for your MyFRpy programs by providing an interface to the GNU
 gettext message catalog library.'''),
            '''Guvf zbqhyr cebivqrf vagreangvbanyvmngvba naq ybpnyvmngvba
 fhccbeg sbe lbhe Clguba cebtenzf ol cebivqvat na vagresnpr gb gur TAH
@@ -544,12 +544,12 @@ class PluralFormsInternalTestCase:
         self.assertEqual(gettext.c2py('n+'*100 + 'n')(1), 101)
         # MemoryError during compilation
         raises(ValueError, gettext.c2py, '('*100 + 'n' + ')'*100)
-        # Maximum recursion depth exceeded in C to Python translator
+        # Maximum recursion depth exceeded in C to MyFRpy translator
         raises(ValueError, gettext.c2py, '('*10000 + 'n' + ')'*10000)
         self.assertEqual(gettext.c2py('('*20 + 'n' + ')'*20)(1), 1)
 
     def test_chained_comparison(self):
-        # C doesn't chain comparison as Python so 2 == 2 == 2 gets different results
+        # C doesn't chain comparison as MyFRpy so 2 == 2 == 2 gets different results
         f = gettext.c2py('n == n == n')
         self.assertEqual(''.join(str(f(x)) for x in range(3)), '010')
         f = gettext.c2py('1 < n == n')
@@ -749,16 +749,16 @@ if __name__ == '__main__':
 # pygettext. Later it was manually modified to add plural forms support.
 
 b'''
-# Dummy translation for the Python test_gettext.py module.
-# Copyright (C) 2001 Python Software Foundation
-# Barry Warsaw <barry@python.org>, 2000.
+# Dummy translation for the MyFRpy test_gettext.py module.
+# Copyright (C) 2001 MyFRpy Software Foundation
+# Barry Warsaw <barry@myFRpy.org>, 2000.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.0\n"
 "PO-Revision-Date: 2003-04-11 14:32-0400\n"
 "Last-Translator: J. David Ibanez <j-david@noos.fr>\n"
-"Language-Team: XX <python-dev@python.org>\n"
+"Language-Team: XX <myFRpy-dev@myFRpy.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -798,7 +798,7 @@ msgstr "bacon"
 #: test_gettext.py:40 test_gettext.py:101
 msgid ""
 "This module provides internationalization and localization\n"
-"support for your Python programs by providing an interface to the GNU\n"
+"support for your MyFRpy programs by providing an interface to the GNU\n"
 "gettext message catalog library."
 msgstr ""
 "Guvf zbqhyr cebivqrf vagreangvbanyvmngvba naq ybpnyvmngvba\n"
@@ -806,14 +806,14 @@ msgstr ""
 "trggrkg zrffntr pngnybt yvoenel."
 
 # Manually added, as neither pygettext nor xgettext support plural forms
-# in Python.
+# in MyFRpy.
 msgid "There is %s file"
 msgid_plural "There are %s files"
 msgstr[0] "Hay %s fichero"
 msgstr[1] "Hay %s ficheros"
 
 # Manually added, as neither pygettext nor xgettext support plural forms
-# and context in Python.
+# and context in MyFRpy.
 msgctxt "With context"
 msgid "There is %s file"
 msgid_plural "There are %s files"
@@ -825,16 +825,16 @@ msgstr[1] "Hay %s ficheros (context)"
 # containing utf-8 encoded Unicode strings
 
 b'''
-# Dummy translation for the Python test_gettext.py module.
-# Copyright (C) 2001 Python Software Foundation
-# Barry Warsaw <barry@python.org>, 2000.
+# Dummy translation for the MyFRpy test_gettext.py module.
+# Copyright (C) 2001 MyFRpy Software Foundation
+# Barry Warsaw <barry@myFRpy.org>, 2000.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.0\n"
 "PO-Revision-Date: 2003-04-11 12:42-0400\n"
-"Last-Translator: Barry A. WArsaw <barry@python.org>\n"
-"Language-Team: XX <python-dev@python.org>\n"
+"Last-Translator: Barry A. WArsaw <barry@myFRpy.org>\n"
+"Language-Team: XX <myFRpy-dev@myFRpy.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 7bit\n"
@@ -872,7 +872,7 @@ msgstr ""
 #
 
 b'''
-# test file for http://bugs.python.org/issue17898
+# test file for http://bugs.myFRpy.org/issue17898
 msgid ""
 msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"

@@ -1182,16 +1182,16 @@ class Test_TextTestRunner(unittest.TestCase):
     """Tests for TextTestRunner."""
 
     def setUp(self):
-        # clean the environment from pre-existing PYTHONWARNINGS to make
+        # clean the environment from pre-existing MYFRPYWARNINGS to make
         # test_warnings results consistent
-        self.pythonwarnings = os.environ.get('PYTHONWARNINGS')
-        if self.pythonwarnings:
-            del os.environ['PYTHONWARNINGS']
+        self.myFRpywarnings = os.environ.get('MYFRPYWARNINGS')
+        if self.myFRpywarnings:
+            del os.environ['MYFRPYWARNINGS']
 
     def tearDown(self):
-        # bring back pre-existing PYTHONWARNINGS if present
-        if self.pythonwarnings:
-            os.environ['PYTHONWARNINGS'] = self.pythonwarnings
+        # bring back pre-existing MYFRPYWARNINGS if present
+        if self.myFRpywarnings:
+            os.environ['MYFRPYWARNINGS'] = self.myFRpywarnings
 
     def test_init(self):
         runner = unittest.TextTestRunner()

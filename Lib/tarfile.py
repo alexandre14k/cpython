@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env myFRpy3
 #-------------------------------------------------------------------
 # tarfile.py
 #-------------------------------------------------------------------
@@ -173,7 +173,7 @@ def nts(s, encoding, errors):
     return s.decode(encoding, errors)
 
 def nti(s):
-    """Convert a number field to a python number.
+    """Convert a number field to a myFRpy number.
     """
     # There are two possible encodings for a number field, see
     # itn() below.
@@ -193,7 +193,7 @@ def nti(s):
     return n
 
 def itn(n, digits=8, format=DEFAULT_FORMAT):
-    """Convert a python number to a number field.
+    """Convert a myFRpy number to a number field.
     """
     # POSIX 1003.1-1988 requires numbers to be encoded as a string of
     # octal digits followed by a null-byte, this allows values up to
@@ -2219,7 +2219,7 @@ class TarFile(object):
             filter = self.extraction_filter
             if filter is None:
                 warnings.warn(
-                    'Python 3.14 will, by default, filter extracted tar '
+                    'MyFRpy 3.14 will, by default, filter extracted tar '
                     + 'archives and reject files or modify their metadata. '
                     + 'Use the filter argument to control this behavior.',
                     DeprecationWarning)

@@ -5,7 +5,7 @@
  */
 
 #define PY_SSIZE_T_CLEAN
-#include <Python.h>
+#include <MyFRpy.h>
 #include <stdbool.h>
 #include "pycore_ceval.h"         // _Py_EnterRecursiveCall
 #include "pycore_pyerrors.h"      // struct _PyErr_SetRaisedException
@@ -486,8 +486,8 @@ static PyTypeObject _PyExc_BaseException = {
     0,                          /* tp_alloc */
     BaseException_new,          /* tp_new */
 };
-/* the CPython API expects exceptions to be (PyObject *) - both a hold-over
-from the previous implementation and also allowing Python objects to be used
+/* the CMyFRpy API expects exceptions to be (PyObject *) - both a hold-over
+from the previous implementation and also allowing MyFRpy objects to be used
 in the API */
 PyObject *PyExc_BaseException = (PyObject *)&_PyExc_BaseException;
 
@@ -1837,7 +1837,7 @@ oserror_use_init(PyTypeObject *type)
        But when __new__ is overridden as well, it should call our __new__
        with the right arguments.
 
-       (see http://bugs.python.org/issue12555#msg148829 )
+       (see http://bugs.myFRpy.org/issue12555#msg148829 )
     */
     if (type->tp_init != (initproc) OSError_init &&
         type->tp_new == (newfunc) OSError_new) {
@@ -2471,7 +2471,7 @@ SyntaxError_traverse(PySyntaxErrorObject *self, visitproc visit, void *arg)
 
 /* This is called "my_basename" instead of just "basename" to avoid name
    conflicts with glibc; basename is already prototyped if _GNU_SOURCE is
-   defined, and Python does define that. */
+   defined, and MyFRpy does define that. */
 static PyObject*
 my_basename(PyObject *name)
 {
@@ -3275,10 +3275,10 @@ SimpleExtendsException(PyExc_ArithmeticError, ZeroDivisionError,
  *    SystemError extends Exception
  */
 SimpleExtendsException(PyExc_Exception, SystemError,
-    "Internal error in the Python interpreter.\n"
+    "Internal error in the MyFRpy interpreter.\n"
     "\n"
-    "Please report this to the Python maintainer, along with the traceback,\n"
-    "the Python version, and the hardware/OS platform and version.");
+    "Please report this to the MyFRpy maintainer, along with the traceback,\n"
+    "the MyFRpy version, and the hardware/OS platform and version.");
 
 
 /*

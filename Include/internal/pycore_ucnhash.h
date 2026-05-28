@@ -17,7 +17,7 @@ typedef struct {
 
     /* Get name for a given character code.
        Returns non-zero if success, zero if not.
-       Does not set Python exceptions. */
+       Does not set MyFRpy exceptions. */
     int (*getname)(Py_UCS4 code, char* buffer, int buflen,
                    int with_alias_and_seq);
 

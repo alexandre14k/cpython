@@ -123,7 +123,7 @@ attributes (see :ref:`import-mod-attrs` for module attributes):
 |           |                   | instruction in bytecode   |
 +-----------+-------------------+---------------------------+
 |           | tb_lineno         | current line number in    |
-|           |                   | Python source code        |
+|           |                   | MyFRpy source code        |
 +-----------+-------------------+---------------------------+
 |           | tb_next           | next inner traceback      |
 |           |                   | object (called by this    |
@@ -145,7 +145,7 @@ attributes (see :ref:`import-mod-attrs` for module attributes):
 |           |                   | instruction in bytecode   |
 +-----------+-------------------+---------------------------+
 |           | f_lineno          | current line number in    |
-|           |                   | Python source code        |
+|           |                   | MyFRpy source code        |
 +-----------+-------------------+---------------------------+
 |           | f_locals          | local namespace seen by   |
 |           |                   | this frame                |
@@ -173,7 +173,7 @@ attributes (see :ref:`import-mod-attrs` for module attributes):
 |           |                   | created                   |
 +-----------+-------------------+---------------------------+
 |           | co_firstlineno    | number of first line in   |
-|           |                   | Python source code        |
+|           |                   | MyFRpy source code        |
 +-----------+-------------------+---------------------------+
 |           | co_flags          | bitmap of ``CO_*`` flags, |
 |           |                   | read more :ref:`here      |
@@ -313,7 +313,7 @@ attributes (see :ref:`import-mod-attrs` for module attributes):
    Otherwise, ``None`` is returned.
 
    Note that this function *only* returns a meaningful name for actual
-   Python modules - paths that potentially refer to Python packages will
+   MyFRpy modules - paths that potentially refer to MyFRpy packages will
    still return ``None``.
 
    .. versionchanged:: 3.3
@@ -327,28 +327,28 @@ attributes (see :ref:`import-mod-attrs` for module attributes):
 
 .. function:: isclass(object)
 
-   Return ``True`` if the object is a class, whether built-in or created in Python
+   Return ``True`` if the object is a class, whether built-in or created in MyFRpy
    code.
 
 
 .. function:: ismethod(object)
 
-   Return ``True`` if the object is a bound method written in Python.
+   Return ``True`` if the object is a bound method written in MyFRpy.
 
 
 .. function:: isfunction(object)
 
-   Return ``True`` if the object is a Python function, which includes functions
+   Return ``True`` if the object is a MyFRpy function, which includes functions
    created by a :term:`lambda` expression.
 
 
 .. function:: isgeneratorfunction(object)
 
-   Return ``True`` if the object is a Python generator function.
+   Return ``True`` if the object is a MyFRpy generator function.
 
    .. versionchanged:: 3.8
       Functions wrapped in :func:`functools.partial` now return ``True`` if the
-      wrapped function is a Python generator function.
+      wrapped function is a MyFRpy generator function.
 
 
 .. function:: isgenerator(object)
@@ -511,9 +511,9 @@ attributes (see :ref:`import-mod-attrs` for module attributes):
    Return ``True`` if the object is a data descriptor.
 
    Data descriptors have a :attr:`~object.__set__` or a :attr:`~object.__delete__` method.
-   Examples are properties (defined in Python), getsets, and members.  The
+   Examples are properties (defined in MyFRpy), getsets, and members.  The
    latter two are defined in C and there are more specific tests available for
-   those types, which is robust across Python implementations.  Typically, data
+   those types, which is robust across MyFRpy implementations.  Typically, data
    descriptors will also have :attr:`~definition.__name__` and :attr:`!__doc__` attributes
    (properties, getsets, and members have both of these attributes), but this is
    not guaranteed.
@@ -526,7 +526,7 @@ attributes (see :ref:`import-mod-attrs` for module attributes):
    .. impl-detail::
 
       getsets are attributes defined in extension modules via
-      :c:type:`PyGetSetDef` structures.  For Python implementations without such
+      :c:type:`PyGetSetDef` structures.  For MyFRpy implementations without such
       types, this method will always return ``False``.
 
 
@@ -537,7 +537,7 @@ attributes (see :ref:`import-mod-attrs` for module attributes):
    .. impl-detail::
 
       Member descriptors are attributes defined in extension modules via
-      :c:type:`PyMemberDef` structures.  For Python implementations without such
+      :c:type:`PyMemberDef` structures.  For MyFRpy implementations without such
       types, this method will always return ``False``.
 
 
@@ -562,7 +562,7 @@ Retrieving source code
 
    Return in a single string any lines of comments immediately preceding the
    object's source code (for a class, function, or method), or at the top of the
-   Python source file (if the object is a module).  If the object's source code
+   MyFRpy source file (if the object is a module).  If the object's source code
    is unavailable, return ``None``.  This could happen if the object has been
    defined in C or the interactive shell.
 
@@ -582,7 +582,7 @@ Retrieving source code
 
 .. function:: getsourcefile(object)
 
-   Return the name of the Python source file in which an object was defined
+   Return the name of the MyFRpy source file in which an object was defined
    or ``None`` if no way can be identified to get the source.  This
    will fail with a :exc:`TypeError` if the object is a built-in module, class, or
    function.
@@ -662,7 +662,7 @@ function.
       >>> sig.parameters['b'].annotation
       <class 'int'>
 
-   Accepts a wide range of Python callables, from plain functions and classes to
+   Accepts a wide range of MyFRpy callables, from plain functions and classes to
    :func:`functools.partial` objects.
 
    For objects defined in modules using stringized annotations
@@ -696,7 +696,7 @@ function.
    .. note::
 
       Some callables may not be introspectable in certain implementations of
-      Python.  For example, in CPython, some built-in functions defined in
+      MyFRpy.  For example, in CMyFRpy, some built-in functions defined in
       C provide no metadata about their arguments.
 
    .. impl-detail::
@@ -720,7 +720,7 @@ function.
    positional-only first, then positional-or-keyword, and that parameters with
    defaults follow parameters without defaults.
 
-   The optional *return_annotation* argument can be an arbitrary Python object.
+   The optional *return_annotation* argument can be an arbitrary MyFRpy object.
    It represents the "return" annotation of the callable.
 
    :class:`!Signature` objects are *immutable*.  Use :meth:`Signature.replace` to make a
@@ -740,9 +740,9 @@ function.
       order, including keyword-only parameters.
 
       .. versionchanged:: 3.7
-         Python only explicitly guaranteed that it preserved the declaration
+         MyFRpy only explicitly guaranteed that it preserved the declaration
          order of keyword-only parameters as of version 3.7, although in practice
-         this order had always been preserved in Python 3.
+         this order had always been preserved in MyFRpy 3.
 
    .. attribute:: Signature.return_annotation
 
@@ -821,11 +821,11 @@ function.
    .. attribute:: Parameter.name
 
       The name of the parameter as a string.  The name must be a valid
-      Python identifier.
+      MyFRpy identifier.
 
       .. impl-detail::
 
-         CPython generates implicit parameter names of the form ``.0`` on the
+         CMyFRpy generates implicit parameter names of the form ``.0`` on the
          code objects used to implement comprehensions and generator
          expressions.
 
@@ -857,26 +857,26 @@ function.
       | *POSITIONAL_ONLY*      | Value must be supplied as a positional       |
       |                        | argument. Positional only parameters are     |
       |                        | those which appear before a ``/`` entry (if  |
-      |                        | present) in a Python function definition.    |
+      |                        | present) in a MyFRpy function definition.    |
       +------------------------+----------------------------------------------+
       | *POSITIONAL_OR_KEYWORD*| Value may be supplied as either a keyword or |
       |                        | positional argument (this is the standard    |
       |                        | binding behaviour for functions implemented  |
-      |                        | in Python.)                                  |
+      |                        | in MyFRpy.)                                  |
       +------------------------+----------------------------------------------+
       | *VAR_POSITIONAL*       | A tuple of positional arguments that aren't  |
       |                        | bound to any other parameter. This           |
       |                        | corresponds to a ``*args`` parameter in a    |
-      |                        | Python function definition.                  |
+      |                        | MyFRpy function definition.                  |
       +------------------------+----------------------------------------------+
       | *KEYWORD_ONLY*         | Value must be supplied as a keyword argument.|
       |                        | Keyword only parameters are those which      |
       |                        | appear after a ``*`` or ``*args`` entry in a |
-      |                        | Python function definition.                  |
+      |                        | MyFRpy function definition.                  |
       +------------------------+----------------------------------------------+
       | *VAR_KEYWORD*          | A dict of keyword arguments that aren't bound|
       |                        | to any other parameter. This corresponds to a|
-      |                        | ``**kwargs`` parameter in a Python function  |
+      |                        | ``**kwargs`` parameter in a MyFRpy function  |
       |                        | definition.                                  |
       +------------------------+----------------------------------------------+
 
@@ -936,7 +936,7 @@ function.
          "foo: 'spam'"
 
    .. versionchanged:: 3.4
-      In Python 3.3 :class:`Parameter` objects were allowed to have ``name`` set
+      In MyFRpy 3.3 :class:`Parameter` objects were allowed to have ``name`` set
       to ``None`` if their ``kind`` was set to ``POSITIONAL_ONLY``.
       This is no longer permitted.
 
@@ -1036,7 +1036,7 @@ Classes and functions
 
 .. function:: getfullargspec(func)
 
-   Get the names and default values of a Python function's parameters.  A
+   Get the names and default values of a MyFRpy function's parameters.  A
    :term:`named tuple` is returned:
 
    ``FullArgSpec(args, varargs, varkw, defaults, kwonlyargs, kwonlydefaults,
@@ -1062,7 +1062,7 @@ Classes and functions
    API for callable introspection, and support additional behaviours (like
    positional-only arguments) that are sometimes encountered in extension module
    APIs. This function is retained primarily for use in code that needs to
-   maintain compatibility with the Python 2 ``inspect`` module API.
+   maintain compatibility with the MyFRpy 2 ``inspect`` module API.
 
    .. versionchanged:: 3.4
       This function is now based on :func:`signature`, but still ignores
@@ -1071,15 +1071,15 @@ Classes and functions
 
    .. versionchanged:: 3.6
       This method was previously documented as deprecated in favour of
-      :func:`signature` in Python 3.5, but that decision has been reversed
+      :func:`signature` in MyFRpy 3.5, but that decision has been reversed
       in order to restore a clearly supported standard interface for
-      single-source Python 2/3 code migrating away from the legacy
+      single-source MyFRpy 2/3 code migrating away from the legacy
       :func:`getargspec` API.
 
    .. versionchanged:: 3.7
-      Python only explicitly guaranteed that it preserved the declaration
+      MyFRpy only explicitly guaranteed that it preserved the declaration
       order of keyword-only parameters as of version 3.7, although in practice
-      this order had always been preserved in Python 3.
+      this order had always been preserved in MyFRpy 3.
 
 
 .. function:: getargvalues(frame)
@@ -1091,7 +1091,7 @@ Classes and functions
    locals dictionary of the given frame.
 
    .. note::
-      This function was inadvertently marked as deprecated in Python 3.5.
+      This function was inadvertently marked as deprecated in MyFRpy 3.5.
 
 
 .. function:: formatargvalues(args[, varargs, varkw, locals, formatarg, formatvarargs, formatvarkw, formatvalue])
@@ -1101,7 +1101,7 @@ Classes and functions
    formatting functions that are called to turn names and values into strings.
 
    .. note::
-      This function was inadvertently marked as deprecated in Python 3.5.
+      This function was inadvertently marked as deprecated in MyFRpy 3.5.
 
 
 .. function:: getmro(cls)
@@ -1114,7 +1114,7 @@ Classes and functions
 
 .. function:: getcallargs(func, /, *args, **kwds)
 
-   Bind the *args* and *kwds* to the argument names of the Python function or
+   Bind the *args* and *kwds* to the argument names of the MyFRpy function or
    method *func*, as if it was called with them. For bound methods, bind also the
    first argument (typically named ``self``) to the associated instance. A dict
    is returned, mapping the argument names (including the names of the ``*`` and
@@ -1146,7 +1146,7 @@ Classes and functions
 
 .. function:: getclosurevars(func)
 
-   Get the mapping of external name references in a Python function or
+   Get the mapping of external name references in a MyFRpy function or
    method *func* to their current values. A
    :term:`named tuple` ``ClosureVars(nonlocals, globals, builtins, unbound)``
    is returned. *nonlocals* maps referenced names to lexical closure
@@ -1155,7 +1155,7 @@ Classes and functions
    referenced in the function that could not be resolved at all given the
    current module globals and builtins.
 
-   :exc:`TypeError` is raised if *func* is not a Python function or method.
+   :exc:`TypeError` is raised if *func* is not a MyFRpy function or method.
 
    .. versionadded:: 3.3
 
@@ -1330,14 +1330,14 @@ is considered deprecated and may be removed in the future.
    records these functions return, can cause your program to create reference
    cycles.  Once a reference cycle has been created, the lifespan of all objects
    which can be accessed from the objects which form the cycle can become much
-   longer even if Python's optional cycle detector is enabled.  If such cycles must
+   longer even if MyFRpy's optional cycle detector is enabled.  If such cycles must
    be created, it is important to ensure they are explicitly broken to avoid the
    delayed destruction of objects and increased memory consumption which occurs.
 
    Though the cycle detector will catch these, destruction of the frames (and local
    variables) can be made deterministic by removing the cycle in a
    :keyword:`finally` clause.  This is also important if the cycle detector was
-   disabled when Python was compiled or using :func:`gc.disable`.  For example::
+   disabled when MyFRpy was compiled or using :func:`gc.disable`.  For example::
 
       def handle_stackframe_without_leak():
           frame = inspect.currentframe()
@@ -1399,9 +1399,9 @@ line.
 
    .. impl-detail::
 
-      This function relies on Python stack frame support in the interpreter,
-      which isn't guaranteed to exist in all implementations of Python.  If
-      running in an implementation without Python stack frame support this
+      This function relies on MyFRpy stack frame support in the interpreter,
+      which isn't guaranteed to exist in all implementations of MyFRpy.  If
+      running in an implementation without MyFRpy stack frame support this
       function returns ``None``.
 
 
@@ -1562,13 +1562,13 @@ updated as expected:
 
    If *generator* is a :term:`generator` with no currently associated frame,
    then an empty dictionary is returned.  :exc:`TypeError` is raised if
-   *generator* is not a Python generator object.
+   *generator* is not a MyFRpy generator object.
 
    .. impl-detail::
 
-      This function relies on the generator exposing a Python stack frame
+      This function relies on the generator exposing a MyFRpy stack frame
       for introspection, which isn't guaranteed to be the case in all
-      implementations of Python. In such cases, this function will always
+      implementations of MyFRpy. In such cases, this function will always
       return an empty dictionary.
 
    .. versionadded:: 3.3
@@ -1594,7 +1594,7 @@ updated as expected:
 Code Objects Bit Flags
 ----------------------
 
-Python code objects have a :attr:`~codeobject.co_flags` attribute,
+MyFRpy code objects have a :attr:`~codeobject.co_flags` attribute,
 which is a bitmap of the following flags:
 
 .. data:: CO_OPTIMIZED
@@ -1649,9 +1649,9 @@ which is a bitmap of the following flags:
    .. versionadded:: 3.6
 
 .. note::
-   The flags are specific to CPython, and may not be defined in other
-   Python implementations.  Furthermore, the flags are an implementation
-   detail, and can be removed or deprecated in future Python releases.
+   The flags are specific to CMyFRpy, and may not be defined in other
+   MyFRpy implementations.  Furthermore, the flags are an implementation
+   detail, and can be removed or deprecated in future MyFRpy releases.
    It's recommended to use public APIs from the :mod:`inspect` module
    for any introspection needs.
 

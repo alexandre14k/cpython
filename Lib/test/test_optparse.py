@@ -395,7 +395,7 @@ class TestOptionParser(BaseTest):
         self.assertRaises(self.parser.remove_option, ('foo',), None,
                           ValueError, "no such option 'foo'")
 
-    @support.impl_detail('Relies on sys.getrefcount', cpython=True)
+    @support.impl_detail('Relies on sys.getrefcount', cmyFRpy=True)
     def test_refleak(self):
         # If an OptionParser is carrying around a reference to a large
         # object, various cycles can prevent it from being GC'd in
@@ -1496,7 +1496,7 @@ class TestHelp(BaseTest):
 
         # We need to set COLUMNS for the OptionParser constructor, but
         # we must restore its original value -- otherwise, this test
-        # screws things up for other tests when it's part of the Python
+        # screws things up for other tests when it's part of the MyFRpy
         # test suite.
         with os_helper.EnvironmentVarGuard() as env:
             env['COLUMNS'] = str(columns)

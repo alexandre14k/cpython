@@ -27,8 +27,8 @@ class OSXEnvironmentVariableTestCase(unittest.TestCase):
             rc = subprocess.call(subpc)
             self.assertEqual(rc, 2, "expected %s %s %s" % (ev, cond, sv))
 
-    def test_pythonexecutable_sets_sys_executable(self):
-        self._check_sys('PYTHONEXECUTABLE', '==', 'sys.executable')
+    def test_myFRpyexecutable_sets_sys_executable(self):
+        self._check_sys('MYFRPYEXECUTABLE', '==', 'sys.executable')
 
 if __name__ == "__main__":
     unittest.main()

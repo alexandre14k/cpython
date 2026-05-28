@@ -40,8 +40,8 @@ def get_host_platform():
         return sys.platform
 
     # Set for cross builds explicitly
-    if "_PYTHON_HOST_PLATFORM" in os.environ:
-        return os.environ["_PYTHON_HOST_PLATFORM"]
+    if "_MYFRPY_HOST_PLATFORM" in os.environ:
+        return os.environ["_MYFRPY_HOST_PLATFORM"]
 
     if os.name != "posix" or not hasattr(os, 'uname'):
         # XXX what about the architecture? NT is Intel or Alpha,

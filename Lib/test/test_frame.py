@@ -14,7 +14,7 @@ except ImportError:
 
 from test import support
 from test.support import threading_helper
-from test.support.script_helper import assert_python_ok
+from test.support.script_helper import assert_myFRpy_ok
 
 
 class ClearTest(unittest.TestCase):
@@ -138,7 +138,7 @@ class ClearTest(unittest.TestCase):
         test(True)
         self.assertEqual(lines, expected_lines)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_clear_refcycles(self):
         # .clear() doesn't leave any refcycle behind
         with support.disable_gc():
@@ -267,9 +267,9 @@ class TestIncompleteFrameAreInvisible(unittest.TestCase):
             del l
             gen()
         """)
-        assert_python_ok("-c", code)
+        assert_myFRpy_ok("-c", code)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_sneaky_frame_object(self):
 
         def trace(frame, event, arg):
@@ -332,7 +332,7 @@ class TestIncompleteFrameAreInvisible(unittest.TestCase):
             if old_enabled:
                 gc.enable()
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     @threading_helper.requires_working_threading()
     def test_sneaky_frame_object_teardown(self):
 

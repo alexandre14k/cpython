@@ -3,8 +3,8 @@
 Full Grammar specification
 ==========================
 
-This is the full Python grammar, derived directly from the grammar
-used to generate the CPython parser (see :source:`Grammar/python.gram`).
+This is the full MyFRpy grammar, derived directly from the grammar
+used to generate the CMyFRpy parser (see :source:`Grammar/myFRpy.gram`).
 The version here omits details related to code generation and
 error recovery.
 
@@ -18,5 +18,5 @@ required *not* to match).  We use the ``|`` separator to mean PEG's
 "ordered choice" (written as ``/`` in traditional PEG grammars). See
 :pep:`617` for more details on the grammar's syntax.
 
-.. literalinclude:: ../../Grammar/python.gram
+.. literalinclude:: ../../Grammar/myFRpy.gram
   :language: peg

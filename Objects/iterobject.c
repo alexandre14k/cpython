@@ -1,6 +1,6 @@
 /* Iterator objects */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_call.h"          // _PyObject_CallNoArgs()
 #include "pycore_object.h"        // _PyObject_GC_TRACK()
 
@@ -441,7 +441,7 @@ throw(typ[,val[,tb]])\n\
 raise exception in the wrapped iterator, return next yielded value\n\
 or raise StopIteration.\n\
 the (type, val, tb) signature is deprecated, \n\
-and may be removed in a future version of Python.");
+and may be removed in a future version of MyFRpy.");
 
 
 PyDoc_STRVAR(close_doc,

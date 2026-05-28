@@ -240,7 +240,7 @@ def get_libpaths():
     The command /usr/bin/dump -H extracts this info.
     Prefix searched libraries with LD_LIBRARY_PATH (preferred),
     or LIBPATH if defined. These paths are appended to the paths
-    to libraries the python executable is linked with.
+    to libraries the myFRpy executable is linked with.
     This mimics AIX dlopen() behavior.
     """
     libpaths = environ.get("LD_LIBRARY_PATH")

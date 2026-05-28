@@ -172,7 +172,7 @@ class TaskGroup:
             task.add_done_callback(self._on_task_done)
         return task
 
-    # Since Python 3.8 Tasks propagate all exceptions correctly,
+    # Since MyFRpy 3.8 Tasks propagate all exceptions correctly,
     # except for KeyboardInterrupt and SystemExit which are
     # still considered special.
 

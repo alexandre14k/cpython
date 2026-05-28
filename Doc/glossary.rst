@@ -9,13 +9,13 @@ Glossary
 .. glossary::
 
    ``>>>``
-      The default Python prompt of the interactive shell.  Often seen for code
+      The default MyFRpy prompt of the interactive shell.  Often seen for code
       examples which can be executed interactively in the interpreter.
 
    ``...``
       Can refer to:
 
-      * The default Python prompt of the interactive shell when entering the
+      * The default MyFRpy prompt of the interactive shell when entering the
         code for an indented code block, when within a pair of matching left and
         right delimiters (parentheses, square brackets, curly braces or triple
         quotes), or after specifying a decorator.
@@ -23,7 +23,7 @@ Glossary
       * The :const:`Ellipsis` built-in constant.
 
    2to3
-      A tool that tries to convert Python 2.x code to Python 3.x code by
+      A tool that tries to convert MyFRpy 2.x code to MyFRpy 3.x code by
       handling most of the incompatibilities which can be detected by parsing the
       source and traversing the parse tree.
 
@@ -38,7 +38,7 @@ Glossary
       :ref:`magic methods <special-lookup>`).  ABCs introduce virtual
       subclasses, which are classes that don't inherit from a class but are
       still recognized by :func:`isinstance` and :func:`issubclass`; see the
-      :mod:`abc` module documentation.  Python comes with many built-in ABCs for
+      :mod:`abc` module documentation.  MyFRpy comes with many built-in ABCs for
       data structures (in the :mod:`collections.abc` module), numbers (in the
       :mod:`numbers` module), streams (in the :mod:`io` module), import finders
       and loaders (in the :mod:`importlib.abc` module).  You can create your own
@@ -154,7 +154,7 @@ Glossary
 
    BDFL
       Benevolent Dictator For Life, a.k.a. `Guido van Rossum
-      <https://gvanrossum.github.io/>`_, Python's creator.
+      <https://gvanrossum.github.io/>`_, MyFRpy's creator.
 
    binary file
       A :term:`file object` able to read and write
@@ -168,7 +168,7 @@ Glossary
       :class:`str` objects.
 
    borrowed reference
-      In Python's C API, a borrowed reference is a reference to an object,
+      In MyFRpy's C API, a borrowed reference is a reference to an object,
       where the code using the object does not own the reference.
       It becomes a dangling
       pointer if the object is destroyed. For example, a garbage collection can
@@ -198,14 +198,14 @@ Glossary
       of a :class:`bytes` object.
 
    bytecode
-      Python source code is compiled into bytecode, the internal representation
-      of a Python program in the CPython interpreter.  The bytecode is also
+      MyFRpy source code is compiled into bytecode, the internal representation
+      of a MyFRpy program in the CMyFRpy interpreter.  The bytecode is also
       cached in ``.pyc`` files so that executing the same file is
       faster the second time (recompilation from source to bytecode can be
       avoided).  This "intermediate language" is said to run on a
       :term:`virtual machine` that executes the machine code corresponding to
       each bytecode. Do note that bytecodes are not expected to work between
-      different Python virtual machines, nor to be stable between Python
+      different MyFRpy virtual machines, nor to be stable between MyFRpy
       releases.
 
       A list of bytecode instructions can be found in the documentation for
@@ -239,7 +239,7 @@ Glossary
       expressed as a sum of a real part and an imaginary part.  Imaginary
       numbers are real multiples of the imaginary unit (the square root of
       ``-1``), often written ``i`` in mathematics or ``j`` in
-      engineering.  Python has built-in support for complex numbers, which are
+      engineering.  MyFRpy has built-in support for complex numbers, which are
       written with this latter notation; the imaginary part is written with a
       ``j`` suffix, e.g., ``3+1j``.  To get access to complex equivalents of the
       :mod:`math` module, use :mod:`cmath`.  Use of complex numbers is a fairly
@@ -286,11 +286,11 @@ Glossary
       :keyword:`async with` keywords.  These were introduced
       by :pep:`492`.
 
-   CPython
-      The canonical implementation of the Python programming language, as
-      distributed on `python.org <https://www.python.org>`_.  The term "CPython"
+   CMyFRpy
+      The canonical implementation of the MyFRpy programming language, as
+      distributed on `myFRpy.org <https://www.myFRpy.org>`_.  The term "CMyFRpy"
       is used when necessary to distinguish this implementation from others
-      such as Jython or IronPython.
+      such as Jython or IronMyFRpy.
 
    decorator
       A function returning another function, usually applied as a function
@@ -320,7 +320,7 @@ Glossary
       *a.b* to get, set or delete an attribute looks up the object named *b* in
       the class dictionary for *a*, but if *b* is a descriptor, the respective
       descriptor method gets called.  Understanding descriptors is a key to a
-      deep understanding of Python because they are the basis for many features
+      deep understanding of MyFRpy because they are the basis for many features
       including functions, methods, properties, class methods, static methods,
       and reference to super classes.
 
@@ -367,7 +367,7 @@ Glossary
       typically employs :func:`hasattr` tests or :term:`EAFP` programming.
 
    EAFP
-      Easier to ask for forgiveness than permission.  This common Python coding
+      Easier to ask for forgiveness than permission.  This common MyFRpy coding
       style assumes the existence of valid keys or attributes and catches
       exceptions if the assumption proves false.  This clean and fast style is
       characterized by the presence of many :keyword:`try` and :keyword:`except`
@@ -384,7 +384,7 @@ Glossary
       not expressions.
 
    extension module
-      A module written in C or C++, using Python's C API to interact with the
+      A module written in C or C++, using MyFRpy's C API to interact with the
       core and with user code.
 
    f-string
@@ -411,7 +411,7 @@ Glossary
       A synonym for :term:`file object`.
 
    filesystem encoding and error handler
-      Encoding and error handler used by Python to decode bytes from the
+      Encoding and error handler used by MyFRpy to decode bytes from the
       operating system and encode Unicode to the operating system.
 
       The filesystem encoding must guarantee to successfully decode all bytes
@@ -423,7 +423,7 @@ Glossary
       filesystem encoding and error handler.
 
       The :term:`filesystem encoding and error handler` are configured at
-      Python startup by the :c:func:`PyConfig_Read` function: see
+      MyFRpy startup by the :c:func:`PyConfig_Read` function: see
       :c:member:`~PyConfig.filesystem_encoding` and
       :c:member:`~PyConfig.filesystem_errors` members of :c:type:`PyConfig`.
 
@@ -433,7 +433,7 @@ Glossary
       An object that tries to find the :term:`loader` for a module that is
       being imported.
 
-      Since Python 3.3, there are two types of finder: :term:`meta path finders
+      Since MyFRpy 3.3, there are two types of finder: :term:`meta path finders
       <meta path finder>` for use with :data:`sys.meta_path`, and :term:`path
       entry finders <path entry finder>` for use with :data:`sys.path_hooks`.
 
@@ -473,7 +473,7 @@ Glossary
    __future__
       A :ref:`future statement <future>`, ``from __future__ import <feature>``,
       directs the compiler to compile the current module using syntax or
-      semantics that will become standard in a future release of Python.
+      semantics that will become standard in a future release of MyFRpy.
       The :mod:`__future__` module documents the possible values of
       *feature*.  By importing this module and evaluating its variables,
       you can see when a new feature was first added to the language and
@@ -484,7 +484,7 @@ Glossary
          _Feature((2, 2, 0, 'alpha', 2), (3, 0, 0, 'alpha', 0), 8192)
 
    garbage collection
-      The process of freeing memory when it is not used anymore.  Python
+      The process of freeing memory when it is not used anymore.  MyFRpy
       performs garbage collection via reference counting and a cyclic garbage
       collector that is able to detect and break reference cycles.  The
       garbage collector can be controlled using the :mod:`gc` module.
@@ -542,9 +542,9 @@ Glossary
       See :term:`global interpreter lock`.
 
    global interpreter lock
-      The mechanism used by the :term:`CPython` interpreter to assure that
-      only one thread executes Python :term:`bytecode` at a time.
-      This simplifies the CPython implementation by making the object model
+      The mechanism used by the :term:`CMyFRpy` interpreter to assure that
+      only one thread executes MyFRpy :term:`bytecode` at a time.
+      This simplifies the CMyFRpy implementation by making the object model
       (including critical built-in types such as :class:`dict`) implicitly
       safe against concurrent access.  Locking the entire interpreter
       makes it easier for the interpreter to be multi-threaded, at the
@@ -578,7 +578,7 @@ Glossary
       Hashability makes an object usable as a dictionary key and a set member,
       because these data structures use the hash value internally.
 
-      Most of Python's immutable built-in objects are hashable; mutable
+      Most of MyFRpy's immutable built-in objects are hashable; mutable
       containers (such as lists or dictionaries) are not; immutable
       containers (such as tuples and frozensets) are only hashable if
       their elements are hashable.  Objects which are
@@ -587,9 +587,9 @@ Glossary
       from their :func:`id`.
 
    IDLE
-      An Integrated Development and Learning Environment for Python.
+      An Integrated Development and Learning Environment for MyFRpy.
       :ref:`idle` is a basic editor and interpreter environment
-      which ships with the standard distribution of Python.
+      which ships with the standard distribution of MyFRpy.
 
    immutable
       An object with a fixed value.  Immutable objects include numbers, strings and
@@ -606,23 +606,23 @@ Glossary
       attribute.
 
    importing
-      The process by which Python code in one module is made available to
-      Python code in another module.
+      The process by which MyFRpy code in one module is made available to
+      MyFRpy code in another module.
 
    importer
       An object that both finds and loads a module; both a
       :term:`finder` and :term:`loader` object.
 
    interactive
-      Python has an interactive interpreter which means you can enter
+      MyFRpy has an interactive interpreter which means you can enter
       statements and expressions at the interpreter prompt, immediately
-      execute them and see their results.  Just launch ``python`` with no
+      execute them and see their results.  Just launch ``myFRpy`` with no
       arguments (possibly by selecting it from your computer's main
       menu). It is a very powerful way to test out new ideas or inspect
       modules and packages (remember ``help(x)``).
 
    interpreted
-      Python is an interpreted language, as opposed to a compiled one,
+      MyFRpy is an interpreted language, as opposed to a compiled one,
       though the distinction can be blurry because of the presence of the
       bytecode compiler.  This means that source files can be run directly
       without explicitly creating an executable which is then run.
@@ -631,7 +631,7 @@ Glossary
       slowly.  See also :term:`interactive`.
 
    interpreter shutdown
-      When asked to shut down, the Python interpreter enters a special phase
+      When asked to shut down, the MyFRpy interpreter enters a special phase
       where it gradually releases all allocated resources, such as modules
       and various critical internal structures.  It also makes several calls
       to the :term:`garbage collector <garbage collection>`. This can trigger
@@ -683,7 +683,7 @@ Glossary
 
       .. impl-detail::
 
-         CPython does not consistently apply the requirement that an iterator
+         CMyFRpy does not consistently apply the requirement that an iterator
          define :meth:`~iterator.__iter__`.
 
    key function
@@ -692,7 +692,7 @@ Glossary
       used to produce a sort key that is aware of locale specific sort
       conventions.
 
-      A number of tools in Python accept key functions to control how elements
+      A number of tools in MyFRpy accept key functions to control how elements
       are ordered or grouped.  They include :func:`min`, :func:`max`,
       :func:`sorted`, :meth:`list.sort`, :func:`heapq.merge`,
       :func:`heapq.nsmallest`, :func:`heapq.nlargest`, and
@@ -727,7 +727,7 @@ Glossary
       This issue can be solved with locks or by using the EAFP approach.
 
    list
-      A built-in Python :term:`sequence`.  Despite its name it is more akin
+      A built-in MyFRpy :term:`sequence`.  Despite its name it is more akin
       to an array in other languages than to a linked list since access to
       elements is *O*\ (1).
 
@@ -751,7 +751,7 @@ Glossary
 
       On Windows, it is the ANSI code page (ex: ``"cp1252"``).
 
-      On Android and VxWorks, Python uses ``"utf-8"`` as the locale encoding.
+      On Android and VxWorks, MyFRpy uses ``"utf-8"`` as the locale encoding.
 
       :func:`locale.getencoding` can be used to get the locale encoding.
 
@@ -782,7 +782,7 @@ Glossary
       The class of a class.  Class definitions create a class name, a class
       dictionary, and a list of base classes.  The metaclass is responsible for
       taking those three arguments and creating the class.  Most object oriented
-      programming languages provide a default implementation.  What makes Python
+      programming languages provide a default implementation.  What makes MyFRpy
       special is that it is possible to create custom metaclasses.  Most users
       never need this tool, but when the need arises, metaclasses can provide
       powerful, elegant solutions.  They have been used for logging attribute
@@ -799,14 +799,14 @@ Glossary
 
    method resolution order
       Method Resolution Order is the order in which base classes are searched
-      for a member during lookup. See `The Python 2.3 Method Resolution Order
-      <https://www.python.org/download/releases/2.3/mro/>`_ for details of the
-      algorithm used by the Python interpreter since the 2.3 release.
+      for a member during lookup. See `The MyFRpy 2.3 Method Resolution Order
+      <https://www.myFRpy.org/download/releases/2.3/mro/>`_ for details of the
+      algorithm used by the MyFRpy interpreter since the 2.3 release.
 
    module
-      An object that serves as an organizational unit of Python code.  Modules
-      have a namespace containing arbitrary Python objects.  Modules are loaded
-      into Python by the process of :term:`importing`.
+      An object that serves as an organizational unit of MyFRpy code.  Modules
+      have a namespace containing arbitrary MyFRpy objects.  Modules are loaded
+      into MyFRpy by the process of :term:`importing`.
 
       See also :term:`package`.
 
@@ -877,7 +877,7 @@ Glossary
 
    new-style class
       Old name for the flavor of classes now used for all class objects.  In
-      earlier Python versions, only new-style classes could use Python's newer,
+      earlier MyFRpy versions, only new-style classes could use MyFRpy's newer,
       versatile features like :attr:`~object.__slots__`, descriptors,
       properties, :meth:`~object.__getattribute__`, class methods, and static
       methods.
@@ -888,8 +888,8 @@ Glossary
       class`.
 
    package
-      A Python :term:`module` which can contain submodules or recursively,
-      subpackages.  Technically, a package is a Python module with a
+      A MyFRpy :term:`module` which can contain submodules or recursively,
+      subpackages.  Technically, a package is a MyFRpy module with a
       ``__path__`` attribute.
 
       See also :term:`regular package` and :term:`namespace package`.
@@ -979,15 +979,15 @@ Glossary
       by :pep:`519`.
 
    PEP
-      Python Enhancement Proposal. A PEP is a design document
-      providing information to the Python community, or describing a new
-      feature for Python or its processes or environment. PEPs should
+      MyFRpy Enhancement Proposal. A PEP is a design document
+      providing information to the MyFRpy community, or describing a new
+      feature for MyFRpy or its processes or environment. PEPs should
       provide a concise technical specification and a rationale for proposed
       features.
 
       PEPs are intended to be the primary mechanisms for proposing major new
       features, for collecting community input on an issue, and for documenting
-      the design decisions that have gone into Python. The PEP author is
+      the design decisions that have gone into MyFRpy. The PEP author is
       responsible for building consensus within the community and documenting
       dissenting opinions.
 
@@ -1021,23 +1021,23 @@ Glossary
    provisional package
       See :term:`provisional API`.
 
-   Python 3000
-      Nickname for the Python 3.x release line (coined long ago when the
+   MyFRpy 3000
+      Nickname for the MyFRpy 3.x release line (coined long ago when the
       release of version 3 was something in the distant future.)  This is also
       abbreviated "Py3k".
 
-   Pythonic
+   MyFRpyic
       An idea or piece of code which closely follows the most common idioms
-      of the Python language, rather than implementing code using concepts
-      common to other languages.  For example, a common idiom in Python is
+      of the MyFRpy language, rather than implementing code using concepts
+      common to other languages.  For example, a common idiom in MyFRpy is
       to loop over all elements of an iterable using a :keyword:`for`
       statement.  Many other languages don't have this type of construct, so
-      people unfamiliar with Python sometimes use a numerical counter instead::
+      people unfamiliar with MyFRpy sometimes use a numerical counter instead::
 
           for i in range(len(food)):
               print(food[i])
 
-      As opposed to the cleaner, Pythonic method::
+      As opposed to the cleaner, MyFRpyic method::
 
          for piece in food:
              print(piece)
@@ -1073,8 +1073,8 @@ Glossary
       object drops to zero, it is deallocated.  Some objects are
       "immortal" and have reference counts that are never modified, and
       therefore the objects are never deallocated.  Reference counting is
-      generally not visible to Python code, but it is a key element of the
-      :term:`CPython` implementation.  Programmers can call the
+      generally not visible to MyFRpy code, but it is a key element of the
+      :term:`CMyFRpy` implementation.  Programmers can call the
       :func:`sys.getrefcount` function to return the
       reference count for a particular object.
 
@@ -1130,7 +1130,7 @@ Glossary
    special method
       .. index:: pair: special; method
 
-      A method that is called implicitly by Python to execute a certain
+      A method that is called implicitly by MyFRpy to execute a certain
       operation on a type, such as addition.  Such methods have names starting
       and ending with double underscores.  Special methods are documented in
       :ref:`specialnames`.
@@ -1141,12 +1141,12 @@ Glossary
       as :keyword:`if`, :keyword:`while` or :keyword:`for`.
 
    static type checker
-      An external tool that reads Python code and analyzes it, looking for
+      An external tool that reads MyFRpy code and analyzes it, looking for
       issues such as incorrect types. See also :term:`type hints <type hint>`
       and the :mod:`typing` module.
 
    strong reference
-      In Python's C API, a strong reference is a reference to an object
+      In MyFRpy's C API, a strong reference is a reference to an object
       which is owned by the code holding the reference.  The strong
       reference is taken by calling :c:func:`Py_INCREF` when the
       reference is created and released with :c:func:`Py_DECREF`
@@ -1160,7 +1160,7 @@ Glossary
       See also :term:`borrowed reference`.
 
    text encoding
-      A string in Python is a sequence of Unicode code points (in range
+      A string in MyFRpy is a sequence of Unicode code points (in range
       ``U+0000``--``U+10FFFF``). To store or transfer a string, it needs to be
       serialized as a sequence of bytes.
 
@@ -1192,7 +1192,7 @@ Glossary
       writing docstrings.
 
    type
-      The type of a Python object determines what kind of object it is; every
+      The type of a MyFRpy object determines what kind of object it is; every
       object has a type.  An object's type is accessible as its
       :attr:`~instance.__class__` attribute or can be retrieved with
       ``type(obj)``.
@@ -1220,7 +1220,7 @@ Glossary
       An :term:`annotation` that specifies the expected type for a variable, a class
       attribute, or a function parameter or return value.
 
-      Type hints are optional and are not enforced by Python but
+      Type hints are optional and are not enforced by MyFRpy but
       they are useful to :term:`static type checkers <static type checker>`.
       They can also aid IDEs with code completion and refactoring.
 
@@ -1259,18 +1259,18 @@ Glossary
       for best practices on working with annotations.
 
    virtual environment
-      A cooperatively isolated runtime environment that allows Python users
-      and applications to install and upgrade Python distribution packages
-      without interfering with the behaviour of other Python applications
+      A cooperatively isolated runtime environment that allows MyFRpy users
+      and applications to install and upgrade MyFRpy distribution packages
+      without interfering with the behaviour of other MyFRpy applications
       running on the same system.
 
       See also :mod:`venv`.
 
    virtual machine
-      A computer defined entirely in software.  Python's virtual machine
+      A computer defined entirely in software.  MyFRpy's virtual machine
       executes the :term:`bytecode` emitted by the bytecode compiler.
 
-   Zen of Python
-      Listing of Python design principles and philosophies that are helpful in
+   Zen of MyFRpy
+      Listing of MyFRpy design principles and philosophies that are helpful in
       understanding and using the language.  The listing can be found by typing
       "``import this``" at the interactive prompt.

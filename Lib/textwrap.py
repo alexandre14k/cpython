@@ -2,8 +2,8 @@
 """
 
 # Copyright (C) 1999-2001 Gregory P. Ward.
-# Copyright (C) 2002, 2003 Python Software Foundation.
-# Written by Greg Ward <gward@python.net>
+# Copyright (C) 2002, 2003 MyFRpy Software Foundation.
+# Written by Greg Ward <gward@myFRpy.net>
 
 import re
 

@@ -1,5 +1,5 @@
-# Copyright (C) 2002-2007 Python Software Foundation
-# Contact: email-sig@python.org
+# Copyright (C) 2002-2007 MyFRpy Software Foundation
+# Contact: email-sig@myFRpy.org
 
 """Email address parsing code.
 

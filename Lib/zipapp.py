@@ -11,9 +11,9 @@ __all__ = ['ZipAppError', 'create_archive', 'get_interpreter']
 
 # The __main__.py used if the users specifies "-m module:fn".
 # Note that this will always be written as UTF-8 (module and
-# function names can be non-ASCII in Python 3).
-# We add a coding cookie even though UTF-8 is the default in Python 3
-# because the resulting archive may be intended to be run under Python 2.
+# function names can be non-ASCII in MyFRpy 3).
+# We add a coding cookie even though UTF-8 is the default in MyFRpy 3
+# because the resulting archive may be intended to be run under MyFRpy 2.
 MAIN_TEMPLATE = """\
 # -*- coding: utf-8 -*-
 import {module}
@@ -166,8 +166,8 @@ def main(args=None):
     parser.add_argument('--output', '-o', default=None,
             help="The name of the output archive. "
                  "Required if SOURCE is an archive.")
-    parser.add_argument('--python', '-p', default=None,
-            help="The name of the Python interpreter to use "
+    parser.add_argument('--myFRpy', '-p', default=None,
+            help="The name of the MyFRpy interpreter to use "
                  "(default: no shebang line).")
     parser.add_argument('--main', '-m', default=None,
             help="The main function of the application "
@@ -182,7 +182,7 @@ def main(args=None):
 
     args = parser.parse_args(args)
 
-    # Handle `python -m zipapp archive.pyz --info`.
+    # Handle `myFRpy -m zipapp archive.pyz --info`.
     if args.info:
         if not os.path.isfile(args.source):
             raise SystemExit("Can only get info for an archive file")
@@ -198,7 +198,7 @@ def main(args=None):
             raise SystemExit("Cannot change the main function when copying")
 
     create_archive(args.source, args.output,
-                   interpreter=args.python, main=args.main,
+                   interpreter=args.myFRpy, main=args.main,
                    compressed=args.compress)
 
 

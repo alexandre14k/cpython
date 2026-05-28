@@ -1,4 +1,4 @@
-# Copyright (C) 2003 Python Software Foundation
+# Copyright (C) 2003 MyFRpy Software Foundation
 
 import unittest
 import unittest.mock
@@ -914,7 +914,7 @@ class TestCopyTree(BaseTest, unittest.TestCase):
             shutil.copytree(src_dir, dst_dir)
 
     def test_copytree_custom_copy_function(self):
-        # See: https://bugs.python.org/issue35648
+        # See: https://bugs.myFRpy.org/issue35648
         def custom_cpfun(a, b):
             flag.append(None)
             self.assertIsInstance(a, str)
@@ -1981,7 +1981,7 @@ class TestArchives(BaseTest, unittest.TestCase):
         self.check_unpack_archive(format, filter='fully_trusted')
         self.check_unpack_archive(format, filter='data')
         with warnings_helper.check_warnings(
-                ('Python 3.14', DeprecationWarning)):
+                ('MyFRpy 3.14', DeprecationWarning)):
             self.check_unpack_archive(format)
 
     def test_unpack_archive_tar(self):
@@ -2339,7 +2339,7 @@ class TestWhich(BaseTest, unittest.TestCase):
             rv = shutil.which(program, path=self.temp_dir)
             self.assertEqual(rv, temp_filexyz.name)
 
-    # Issue 40592: See https://bugs.python.org/issue40592
+    # Issue 40592: See https://bugs.myFRpy.org/issue40592
     @unittest.skipUnless(sys.platform == "win32", 'test specific to Windows')
     def test_pathext_with_empty_str(self):
         ext = self.to_text_type(".xyz")

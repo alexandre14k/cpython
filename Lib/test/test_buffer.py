@@ -10,7 +10,7 @@
 # the same way as the original. Thus, a substantial part of the
 # memoryview tests is now in this module.
 #
-# Written and designed by Stefan Krah for Python 3.3.
+# Written and designed by Stefan Krah for MyFRpy 3.3.
 #
 
 import contextlib
@@ -379,7 +379,7 @@ def m_assign(llst, rlst, lslices, rslices):
        lslices and rslices are lists of slice objects. llst and rlst must
        have the same structure.
 
-       For a two-dimensional example, this is not implemented in Python:
+       For a two-dimensional example, this is not implemented in MyFRpy:
 
          llst[0:3:2, 0:3:2] = rlst[1:3:1, 1:3:1]
 
@@ -4433,7 +4433,7 @@ class TestBufferProtocol(unittest.TestCase):
         x = ndarray([1,2,3], shape=[3], flags=ND_GETBUF_FAIL)
         self.assertRaises(BufferError, memoryview, x)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_pybuffer_size_from_format(self):
         # basic tests
         for format in ('', 'ii', '3s'):
@@ -4441,7 +4441,7 @@ class TestBufferProtocol(unittest.TestCase):
                              struct.calcsize(format))
 
 
-class TestPythonBufferProtocol(unittest.TestCase):
+class TestMyFRpyBufferProtocol(unittest.TestCase):
     def test_basic(self):
         class MyBuffer:
             def __buffer__(self, flags):

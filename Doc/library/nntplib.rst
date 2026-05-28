@@ -44,9 +44,9 @@ Here are two small examples of how it can be used.  To list some statistics
 about a newsgroup and print the subjects of the last 10 articles::
 
    >>> s = nntplib.NNTP('news.gmane.io')
-   >>> resp, count, first, last, name = s.group('gmane.comp.python.committers')
+   >>> resp, count, first, last, name = s.group('gmane.comp.myFRpy.committers')
    >>> print('Group', name, 'has', count, 'articles, range', first, 'to', last)
-   Group gmane.comp.python.committers has 1096 articles, range 1 to 1096
+   Group gmane.comp.myFRpy.committers has 1096 articles, range 1 to 1096
    >>> resp, overviews = s.over((last - 9, last))
    >>> for id, over in overviews:
    ...     print(id, nntplib.decode_header(over['subject']))
@@ -97,9 +97,9 @@ The module itself defines the following classes:
 
     >>> from nntplib import NNTP
     >>> with NNTP('news.gmane.io') as n:
-    ...     n.group('gmane.comp.python.committers')
+    ...     n.group('gmane.comp.myFRpy.committers')
     ... # doctest: +SKIP
-    ('211 1755 1 1755 gmane.comp.python.committers', 1755, 1, 1755, 'gmane.comp.python.committers')
+    ('211 1755 1 1755 gmane.comp.myFRpy.committers', 1755, 1, 1755, 'gmane.comp.myFRpy.committers')
     >>>
 
    .. audit-event:: nntplib.connect self,host,port nntplib.NNTP
@@ -357,11 +357,11 @@ tuples or objects that the method normally returns will be empty.
    strings).  Return a pair ``(response, descriptions)``, where *descriptions*
    is a dictionary mapping group names to textual descriptions.
 
-      >>> resp, descs = s.descriptions('gmane.comp.python.*')
+      >>> resp, descs = s.descriptions('gmane.comp.myFRpy.*')
       >>> len(descs) # doctest: +SKIP
       295
       >>> descs.popitem() # doctest: +SKIP
-      ('gmane.comp.python.bio.general', 'BioPython discussion list (Moderated)')
+      ('gmane.comp.myFRpy.bio.general', 'BioMyFRpy discussion list (Moderated)')
 
 
 .. method:: NNTP.description(group)
@@ -412,7 +412,7 @@ tuples or objects that the method normally returns will be empty.
    It is advisable to use the :func:`decode_header` function on header
    values when they may contain non-ASCII characters::
 
-      >>> _, _, first, last, _ = s.group('gmane.comp.python.devel')
+      >>> _, _, first, last, _ = s.group('gmane.comp.myFRpy.devel')
       >>> resp, overviews = s.over((last, last))
       >>> art_num, over = overviews[0]
       >>> art_num
@@ -441,7 +441,7 @@ tuples or objects that the method normally returns will be empty.
    current group is considered.  Return a triple ``(response, number, id)``
    where *number* is the article number and *id* is the message id.
 
-      >>> _, _, first, last, _ = s.group('gmane.comp.python.devel')
+      >>> _, _, first, last, _ = s.group('gmane.comp.myFRpy.devel')
       >>> resp, number, message_id = s.stat(first)
       >>> number, message_id
       (9099, '<20030112190404.GE29873@epoch.metaslash.com>')
@@ -580,7 +580,7 @@ The module also defines the following utility function:
 
       >>> decode_header("Some subject")
       'Some subject'
-      >>> decode_header("=?ISO-8859-15?Q?D=E9buter_en_Python?=")
-      'Débuter en Python'
+      >>> decode_header("=?ISO-8859-15?Q?D=E9buter_en_MyFRpy?=")
+      'Débuter en MyFRpy'
       >>> decode_header("Re: =?UTF-8?B?cHJvYmzDqG1lIGRlIG1hdHJpY2U=?=")
       'Re: problème de matrice'

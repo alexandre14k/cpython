@@ -10,7 +10,7 @@ import weakref
 
 from test import support
 from test.support import import_helper
-from test.support.script_helper import assert_python_ok
+from test.support.script_helper import assert_myFRpy_ok
 
 ISBIGENDIAN = sys.byteorder == "big"
 
@@ -568,7 +568,7 @@ class StructTest(unittest.TestCase):
         totalsize += struct.calcsize('P3n0P') * (number_of_codes + 1)
         support.check_sizeof(self, struct.Struct(format_str), totalsize)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test__sizeof__(self):
         for code in integer_codes:
             self.check_sizeof(code, 1)
@@ -668,14 +668,14 @@ class StructTest(unittest.TestCase):
 
             struct.x = C()
             """
-        rc, stdout, stderr = assert_python_ok("-c", code)
+        rc, stdout, stderr = assert_myFRpy_ok("-c", code)
         self.assertEqual(rc, 0)
         self.assertEqual(stdout.rstrip(), b"")
         self.assertIn(b"Exception ignored in:", stderr)
         self.assertIn(b"C.__del__", stderr)
 
     def test__struct_reference_cycle_cleaned_up(self):
-        # Regression test for python/cpython#94207.
+        # Regression test for myFRpy/cmyFRpy#94207.
 
         # When we create a new struct module, trigger use of its cache,
         # and then delete it ...
@@ -689,9 +689,9 @@ class StructTest(unittest.TestCase):
         self.assertIsNone(
             module_ref(), "_struct module was not garbage collected")
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test__struct_types_immutable(self):
-        # See https://github.com/python/cpython/issues/94254
+        # See https://github.com/myFRpy/cmyFRpy/issues/94254
 
         Struct = struct.Struct
         unpack_iterator = type(struct.iter_unpack("b", b'x'))
@@ -708,7 +708,7 @@ class StructTest(unittest.TestCase):
                                         'embedded null character'):
                 struct.calcsize(s)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_issue98248(self):
         def test_error_msg(prefix, int_type, is_unsigned):
             fmt_str = prefix + int_type
@@ -742,7 +742,7 @@ class StructTest(unittest.TestCase):
         int_type = 'n'
         test_error_msg('@', int_type, False)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_issue98248_error_propagation(self):
         class Div0:
             def __index__(self):
@@ -761,7 +761,7 @@ class StructTest(unittest.TestCase):
         test_error_propagation('n')
 
     def test_struct_subclass_instantiation(self):
-        # Regression test for https://github.com/python/cpython/issues/112358
+        # Regression test for https://github.com/myFRpy/cmyFRpy/issues/112358
         class MyStruct(struct.Struct):
             def __init__(self):
                 super().__init__('>h')

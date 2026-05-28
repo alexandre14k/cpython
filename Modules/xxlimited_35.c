@@ -1,5 +1,5 @@
 
-/* This module is compiled using limited API from Python 3.5,
+/* This module is compiled using limited API from MyFRpy 3.5,
  * making sure that it works as expected.
  *
  * See the xxlimited module for an extension module template.
@@ -7,7 +7,7 @@
 
 #define Py_LIMITED_API 0x03050000
 
-#include "Python.h"
+#include "MyFRpy.h"
 
 /* Xxo objects */
 
@@ -230,7 +230,7 @@ static PyMethodDef xx_methods[] = {
 };
 
 PyDoc_STRVAR(module_doc,
-"This is a module for testing limited API from Python 3.5.");
+"This is a module for testing limited API from MyFRpy 3.5.");
 
 static int
 xx_modexec(PyObject *m)

@@ -16,8 +16,8 @@
 #
 # Copyright (c) 2003-2009 by Fredrik Lundh.  All rights reserved.
 #
-# fredrik@pythonware.com
-# http://www.pythonware.com
+# fredrik@myFRpyware.com
+# http://www.myFRpyware.com
 #
 # --------------------------------------------------------------------
 # The ElementTree toolkit is
@@ -48,7 +48,7 @@
 # --------------------------------------------------------------------
 
 # Licensed to PSF under a Contributor Agreement.
-# See https://www.python.org/psf/license for licensing details.
+# See https://www.myFRpy.org/psf/license for licensing details.
 
 ##
 # Implementation module for XPath support.  There's usually no reason

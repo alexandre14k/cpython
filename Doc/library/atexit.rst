@@ -17,7 +17,7 @@ at interpreter termination time they will be run in the order ``C``, ``B``,
 ``A``.
 
 **Note:** The functions registered via this module are not called when the
-program is killed by a signal not handled by Python, when a Python fatal
+program is killed by a signal not handled by MyFRpy, when a MyFRpy fatal
 internal error is detected, or when :func:`os._exit` is called.
 
 **Note:** The effect of registering or unregistering functions from within
@@ -50,7 +50,7 @@ a cleanup function is undefined.
 
    .. warning::
        Starting new threads or calling :func:`os.fork` from a registered
-       function can lead to race condition between the main Python
+       function can lead to race condition between the main MyFRpy
        runtime thread freeing thread states while internal :mod:`threading`
        routines or the new process try to use that state. This can lead to
        crashes rather than clean shutdown.
@@ -122,6 +122,6 @@ Usage as a :term:`decorator`::
 
    @atexit.register
    def goodbye():
-       print('You are now leaving the Python sector.')
+       print('You are now leaving the MyFRpy sector.')
 
 This only works with functions that can be called without arguments.

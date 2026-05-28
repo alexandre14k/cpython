@@ -96,7 +96,7 @@ Panel objects have the following methods:
 .. method:: Panel.set_userptr(obj)
 
    Set the panel's user pointer to *obj*. This is used to associate an arbitrary
-   piece of data with the panel, and can be any Python object.
+   piece of data with the panel, and can be any MyFRpy object.
 
 
 .. method:: Panel.show()
@@ -111,7 +111,7 @@ Panel objects have the following methods:
 
 .. method:: Panel.userptr()
 
-   Returns the user pointer for the panel.  This might be any Python object.
+   Returns the user pointer for the panel.  This might be any MyFRpy object.
 
 
 .. method:: Panel.window()

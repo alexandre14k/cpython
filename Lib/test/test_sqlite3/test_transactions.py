@@ -25,7 +25,7 @@ import sqlite3 as sqlite
 from contextlib import contextmanager
 
 from test.support.os_helper import TESTFN, unlink
-from test.support.script_helper import assert_python_ok
+from test.support.script_helper import assert_myFRpy_ok
 
 from test.test_sqlite3.test_dbapi import memory_database
 
@@ -525,14 +525,14 @@ class AutocommitAttribute(unittest.TestCase):
                 self.assertFalse(cx.in_transaction)
 
     def test_autocommit_disabled_implicit_shutdown(self):
-        # The implicit ROLLBACK should not call back into Python during
+        # The implicit ROLLBACK should not call back into MyFRpy during
         # interpreter tear-down.
         code = """if 1:
             import sqlite3
             cx = sqlite3.connect(":memory:", autocommit=False)
             cx.set_trace_callback(print)
         """
-        assert_python_ok("-c", code, PYTHONIOENCODING="utf-8")
+        assert_myFRpy_ok("-c", code, MYFRPYIOENCODING="utf-8")
 
 
 if __name__ == "__main__":

@@ -17,10 +17,10 @@ def _reset_tzpath(to=None, stacklevel=4):
             raise ValueError(_get_invalid_paths_message(tzpaths))
         base_tzpath = tzpaths
     else:
-        env_var = os.environ.get("PYTHONTZPATH", None)
+        env_var = os.environ.get("MYFRPYTZPATH", None)
         if env_var is None:
             env_var = sysconfig.get_config_var("TZPATH")
-        base_tzpath = _parse_python_tzpath(env_var, stacklevel)
+        base_tzpath = _parse_myFRpy_tzpath(env_var, stacklevel)
 
     TZPATH = tuple(base_tzpath)
 
@@ -33,7 +33,7 @@ def reset_tzpath(to=None):
     _reset_tzpath(to)
 
 
-def _parse_python_tzpath(env_var, stacklevel):
+def _parse_myFRpy_tzpath(env_var, stacklevel):
     if not env_var:
         return ()
 
@@ -47,7 +47,7 @@ def _parse_python_tzpath(env_var, stacklevel):
         msg = _get_invalid_paths_message(raw_tzpath)
 
         warnings.warn(
-            "Invalid paths specified in PYTHONTZPATH environment variable. "
+            "Invalid paths specified in MYFRPYTZPATH environment variable. "
             + msg,
             InvalidTZPathWarning,
             stacklevel=stacklevel,
@@ -174,7 +174,7 @@ def available_timezones():
 
 
 class InvalidTZPathWarning(RuntimeWarning):
-    """Warning raised if an invalid path is specified in PYTHONTZPATH."""
+    """Warning raised if an invalid path is specified in MYFRPYTZPATH."""
 
 
 TZPATH = ()

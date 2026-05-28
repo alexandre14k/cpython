@@ -139,7 +139,7 @@ class MiscSourceEncodingTest(unittest.TestCase):
             rmtree('__pycache__')
 
     def test_error_from_string(self):
-        # See http://bugs.python.org/issue6289
+        # See http://bugs.myFRpy.org/issue6289
         input = "# coding: ascii\n\N{SNOWMAN}".encode('utf-8')
         with self.assertRaises(SyntaxError) as c:
             compile(input, "<string>", "exec")
@@ -154,7 +154,7 @@ class MiscSourceEncodingTest(unittest.TestCase):
             fd.write(b'print("""\n\xb1""")\n')
 
         try:
-            retcode, stdout, stderr = script_helper.assert_python_failure(TESTFN)
+            retcode, stdout, stderr = script_helper.assert_myFRpy_failure(TESTFN)
 
             self.assertGreater(retcode, 0)
             self.assertIn(b"Non-UTF-8 code starting with '\\xb1'", stderr)
@@ -166,7 +166,7 @@ class MiscSourceEncodingTest(unittest.TestCase):
         with open(TESTFN, "w") as fd:
             fd.write("{}".format(source))
         try:
-            retcode, stdout, stderr = script_helper.assert_python_ok(TESTFN)
+            retcode, stdout, stderr = script_helper.assert_myFRpy_ok(TESTFN)
             self.assertIn(b"SyntaxWarning: invalid binary litera", stderr)
             self.assertEqual(stderr.count(source.encode()), 1)
         finally:
@@ -261,7 +261,7 @@ class UTF8ValidatorTest(unittest.TestCase):
         # test it is to write actual files to disk.
 
         # Each example is put inside a string at the top of the file so
-        # it's an otherwise valid Python source file. Put some newlines
+        # it's an otherwise valid MyFRpy source file. Put some newlines
         # beforehand so we can assert that the error is reported on the
         # correct line.
         template = b'\n\n\n"%s"\n'
@@ -272,8 +272,8 @@ class UTF8ValidatorTest(unittest.TestCase):
         def check(content):
             with open(fn, 'wb') as fp:
                 fp.write(template % content)
-            rc, stdout, stderr = script_helper.assert_python_failure(fn)
-            # We want to assert that the python subprocess failed gracefully,
+            rc, stdout, stderr = script_helper.assert_myFRpy_failure(fn)
+            # We want to assert that the myFRpy subprocess failed gracefully,
             # not via a signal.
             self.assertGreaterEqual(rc, 1)
             self.assertIn(b"Non-UTF-8 code starting with", stderr)
@@ -333,7 +333,7 @@ class FileSourceEncodingTest(AbstractSourceEncodingTest, unittest.TestCase):
             fn = os.path.join(tmpd, 'test.py')
             with open(fn, 'wb') as fp:
                 fp.write(src)
-            res = script_helper.assert_python_ok(fn)
+            res = script_helper.assert_myFRpy_ok(fn)
         self.assertEqual(res.out.rstrip(), expected)
 
 

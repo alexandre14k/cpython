@@ -1,14 +1,14 @@
-#include "Python.h"
+#include "MyFRpy.h"
 #include "structmember.h"         // PyMemberDef
 
 PyDoc_STRVAR(xxsubtype__doc__,
 "xxsubtype is an example module showing how to subtype builtin types from C.\n"
 "test_descr.py in the standard test suite requires it in order to complete.\n"
-"If you don't care about the examples, and don't intend to run the Python\n"
-"test suite, you can recompile Python without Modules/xxsubtype.c.");
+"If you don't care about the examples, and don't intend to run the MyFRpy\n"
+"test suite, you can recompile MyFRpy without Modules/xxsubtype.c.");
 
 /* We link this module statically for convenience.  If compiled as a shared
-   library instead, some compilers don't allow addresses of Python objects
+   library instead, some compilers don't allow addresses of MyFRpy objects
    defined in other libraries to be used in static initializers here.  The
    DEFERRED_ADDRESS macro is used to tag the slots where such addresses
    appear; the module init function must fill in the tagged slots at runtime.

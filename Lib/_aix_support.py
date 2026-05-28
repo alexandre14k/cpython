@@ -9,7 +9,7 @@ def _read_cmd_output(commandstring, capture_stderr=False):
     """Output from successful command execution or None"""
     # Similar to os.popen(commandstring, "r").read(),
     # but without actually using os.popen because that
-    # function is not usable during python bootstrap.
+    # function is not usable during myFRpy bootstrap.
     import os
     import contextlib
     fp = open("/tmp/_aix_support.%s"%(
@@ -48,7 +48,7 @@ def _aix_bos_rte():
     If no builddate is found give a value that will satisfy pep425 related queries
     """
     # All AIX systems to have lslpp installed in this location
-    # subprocess may not be available during python bootstrap
+    # subprocess may not be available during myFRpy bootstrap
     try:
         import subprocess
         out = subprocess.check_output(["/usr/bin/lslpp", "-Lqc", "bos.rte"])
@@ -95,7 +95,7 @@ def _aix_bgt():
 def aix_buildtag():
     # type: () -> str
     """
-    Return the platform_tag of the system Python was built on.
+    Return the platform_tag of the system MyFRpy was built on.
     """
     # AIX_BUILDDATE is defined by configure with:
     # lslpp -Lcq bos.rte | awk -F:  '{ print $NF }'

@@ -1,11 +1,11 @@
 <#
 .Synopsis
-Activate a Python virtual environment for the current PowerShell session.
+Activate a MyFRpy virtual environment for the current PowerShell session.
 
 .Description
-Pushes the python executable for a virtual environment to the front of the
+Pushes the myFRpy executable for a virtual environment to the front of the
 $Env:PATH environment variable and sets the prompt to signify that you are
-in a Python virtual environment. Makes use of the command line switches as
+in a MyFRpy virtual environment. Makes use of the command line switches as
 well as the `pyvenv.cfg` file values present in the virtual environment.
 
 .Parameter VenvDir
@@ -20,20 +20,20 @@ surrounded by parentheses and followed by a single space (ie. '(.venv) ').
 
 .Example
 Activate.ps1
-Activates the Python virtual environment that contains the Activate.ps1 script.
+Activates the MyFRpy virtual environment that contains the Activate.ps1 script.
 
 .Example
 Activate.ps1 -Verbose
-Activates the Python virtual environment that contains the Activate.ps1 script,
+Activates the MyFRpy virtual environment that contains the Activate.ps1 script,
 and shows extra information about the activation as it executes.
 
 .Example
 Activate.ps1 -VenvDir C:\Users\MyUser\Common\.venv
-Activates the Python virtual environment located in the specified location.
+Activates the MyFRpy virtual environment located in the specified location.
 
 .Example
-Activate.ps1 -Prompt "MyPython"
-Activates the Python virtual environment that contains the Activate.ps1 script,
+Activate.ps1 -Prompt "MyMyFRpy"
+Activates the MyFRpy virtual environment that contains the Activate.ps1 script,
 and prefixes the current prompt with the specified string (surrounded in
 parentheses) while the virtual environment is active.
 
@@ -62,7 +62,7 @@ Param(
 <#
 .Synopsis
 Remove all shell session elements added by the Activate script, including the
-addition of the virtual environment's Python executable from the beginning of
+addition of the virtual environment's MyFRpy executable from the beginning of
 the PATH variable.
 
 .Parameter NonDestructive
@@ -79,10 +79,10 @@ function global:deactivate ([switch]$NonDestructive) {
         Remove-Item -Path Function:_OLD_VIRTUAL_PROMPT
     }
 
-    # The prior PYTHONHOME:
-    if (Test-Path -Path Env:_OLD_VIRTUAL_PYTHONHOME) {
-        Copy-Item -Path Env:_OLD_VIRTUAL_PYTHONHOME -Destination Env:PYTHONHOME
-        Remove-Item -Path Env:_OLD_VIRTUAL_PYTHONHOME
+    # The prior MYFRPYHOME:
+    if (Test-Path -Path Env:_OLD_VIRTUAL_MYFRPYHOME) {
+        Copy-Item -Path Env:_OLD_VIRTUAL_MYFRPYHOME -Destination Env:MYFRPYHOME
+        Remove-Item -Path Env:_OLD_VIRTUAL_MYFRPYHOME
     }
 
     # The prior PATH:
@@ -101,9 +101,9 @@ function global:deactivate ([switch]$NonDestructive) {
         Remove-Item -Path env:VIRTUAL_ENV_PROMPT
     }
 
-    # Just remove the _PYTHON_VENV_PROMPT_PREFIX altogether:
-    if (Get-Variable -Name "_PYTHON_VENV_PROMPT_PREFIX" -ErrorAction SilentlyContinue) {
-        Remove-Variable -Name _PYTHON_VENV_PROMPT_PREFIX -Scope Global -Force
+    # Just remove the _MYFRPY_VENV_PROMPT_PREFIX altogether:
+    if (Get-Variable -Name "_MYFRPY_VENV_PROMPT_PREFIX" -ErrorAction SilentlyContinue) {
+        Remove-Variable -Name _MYFRPY_VENV_PROMPT_PREFIX -Scope Global -Force
     }
 
     # Leave deactivate function in the global namespace if requested:
@@ -227,19 +227,19 @@ if (-not $Env:VIRTUAL_ENV_DISABLE_PROMPT) {
     # Make sure _OLD_VIRTUAL_PROMPT is global
     function global:_OLD_VIRTUAL_PROMPT { "" }
     Copy-Item -Path function:prompt -Destination function:_OLD_VIRTUAL_PROMPT
-    New-Variable -Name _PYTHON_VENV_PROMPT_PREFIX -Description "Python virtual environment prompt prefix" -Scope Global -Option ReadOnly -Visibility Public -Value $Prompt
+    New-Variable -Name _MYFRPY_VENV_PROMPT_PREFIX -Description "MyFRpy virtual environment prompt prefix" -Scope Global -Option ReadOnly -Visibility Public -Value $Prompt
 
     function global:prompt {
-        Write-Host -NoNewline -ForegroundColor Green "($_PYTHON_VENV_PROMPT_PREFIX) "
+        Write-Host -NoNewline -ForegroundColor Green "($_MYFRPY_VENV_PROMPT_PREFIX) "
         _OLD_VIRTUAL_PROMPT
     }
     $env:VIRTUAL_ENV_PROMPT = $Prompt
 }
 
-# Clear PYTHONHOME
-if (Test-Path -Path Env:PYTHONHOME) {
-    Copy-Item -Path Env:PYTHONHOME -Destination Env:_OLD_VIRTUAL_PYTHONHOME
-    Remove-Item -Path Env:PYTHONHOME
+# Clear MYFRPYHOME
+if (Test-Path -Path Env:MYFRPYHOME) {
+    Copy-Item -Path Env:MYFRPYHOME -Destination Env:_OLD_VIRTUAL_MYFRPYHOME
+    Remove-Item -Path Env:MYFRPYHOME
 }
 
 # Add the venv to the PATH

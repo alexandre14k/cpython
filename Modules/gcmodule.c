@@ -5,25 +5,25 @@
 
   Neil Schemenauer <nas@arctrix.com>
 
-  Based on a post on the python-dev list.  Ideas from Guido van Rossum,
+  Based on a post on the myFRpy-dev list.  Ideas from Guido van Rossum,
   Eric Tiedemann, and various others.
 
-  http://www.arctrix.com/nas/python/gc/
+  http://www.arctrix.com/nas/myFRpy/gc/
 
   The following mailing list threads provide a historical perspective on
   the design of this module.  Note that a fair amount of refinement has
   occurred since those discussions.
 
-  http://mail.python.org/pipermail/python-dev/2000-March/002385.html
-  http://mail.python.org/pipermail/python-dev/2000-March/002434.html
-  http://mail.python.org/pipermail/python-dev/2000-March/002497.html
+  http://mail.myFRpy.org/pipermail/myFRpy-dev/2000-March/002385.html
+  http://mail.myFRpy.org/pipermail/myFRpy-dev/2000-March/002434.html
+  http://mail.myFRpy.org/pipermail/myFRpy-dev/2000-March/002497.html
 
   For a highlevel view of the collection process, read the collect
   function.
 
 */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_context.h"
 #include "pycore_initconfig.h"
 #include "pycore_interp.h"      // PyInterpreterState.gc
@@ -335,7 +335,7 @@ gc_list_clear_collecting(PyGC_Head *collectable)
     }
 }
 
-/* Append objects in a GC list to a Python list.
+/* Append objects in a GC list to a MyFRpy list.
  * Return 0 if all OK, < 0 if error (out of memory for list)
  */
 static int
@@ -433,13 +433,13 @@ update_refs(PyGC_Head *containers)
            continue;
         }
         gc_reset_refs(gc, Py_REFCNT(FROM_GC(gc)));
-        /* Python's cyclic gc should never see an incoming refcount
+        /* MyFRpy's cyclic gc should never see an incoming refcount
          * of 0:  if something decref'ed to 0, it should have been
          * deallocated immediately at that time.
          * Possible cause (if the assert triggers):  a tp_dealloc
          * routine left a gc-aware object tracked during its teardown
          * phase, and did something-- or allowed something to happen --
-         * that called back into Python.  gc can trigger then, and may
+         * that called back into MyFRpy.  gc can trigger then, and may
          * see the still-tracked dying object.  Before this assert
          * was added, such mistakes went on to allow gc to try to
          * delete the object again.  In a debug build, that caused
@@ -936,7 +936,7 @@ debug_cycle(const char *msg, PyObject *op)
 /* Handle uncollectable garbage (cycles with tp_del slots, and stuff reachable
  * only from such cycles).
  * If DEBUG_SAVEALL, all objects in finalizers are appended to the module
- * garbage list (a Python list), else only the objects in finalizers with
+ * garbage list (a MyFRpy list), else only the objects in finalizers with
  * __del__ methods are appended to garbage.  All objects in finalizers are
  * merged into the old list regardless.
  */
@@ -1316,7 +1316,7 @@ gc_collect_main(PyThreadState *tstate, int generation,
             n+m, n, d);
     }
 
-    /* Append instances in the uncollectable set to a Python
+    /* Append instances in the uncollectable set to a MyFRpy
      * reachable list of garbage.  The programmer has to deal with
      * this if they insist on creating this type of structure.
      */
@@ -1471,9 +1471,9 @@ gc_collect_generations(PyThreadState *tstate)
                thusly: "each full garbage collection is more and more costly as the
                number of objects grows, but we do fewer and fewer of them").
 
-               This heuristic was suggested by Martin von Löwis on python-dev in
+               This heuristic was suggested by Martin von Löwis on myFRpy-dev in
                June 2008. His original analysis and proposal can be found at:
-               http://mail.python.org/pipermail/python-dev/2008-June/080579.html
+               http://mail.myFRpy.org/pipermail/myFRpy-dev/2008-June/080579.html
             */
             if (i == NUM_GENERATIONS - 1
                 && gcstate->long_lived_pending < gcstate->long_lived_total / 4)
@@ -2123,7 +2123,7 @@ _PyGC_CollectNoFail(PyThreadState *tstate)
        and therefore not recursively.  Unfortunately, when there are daemon
        threads, a daemon thread can start a cyclic garbage collection
        during interpreter shutdown (and then never finish it).
-       See http://bugs.python.org/issue8713#msg195178 for an example.
+       See http://bugs.myFRpy.org/issue8713#msg195178 for an example.
        */
     GCState *gcstate = &tstate->interp->gc;
     if (gcstate->collecting) {
@@ -2184,7 +2184,7 @@ _PyGC_Fini(PyInterpreterState *interp)
 
     /* We expect that none of this interpreters objects are shared
        with other interpreters.
-       See https://github.com/python/cpython/issues/90228. */
+       See https://github.com/myFRpy/cmyFRpy/issues/90228. */
 }
 
 /* for debugging */

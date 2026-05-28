@@ -74,7 +74,7 @@ class ParseArgsTestCase(unittest.TestCase):
                 with support.captured_stdout() as out, \
                      self.assertRaises(SystemExit):
                     self.parse_args([opt])
-                self.assertIn('Run Python regression tests.', out.getvalue())
+                self.assertIn('Run MyFRpy regression tests.', out.getvalue())
 
     def test_timeout(self):
         ns = self.parse_args(['--timeout', '4.2'])
@@ -423,13 +423,13 @@ class ParseArgsTestCase(unittest.TestCase):
         regrtest = self.check_ci_mode(args, use_resources)
         self.assertEqual(regrtest.timeout, 10 * 60)
 
-    def test_fast_ci_python_cmd(self):
-        args = ['--fast-ci', '--python', 'python -X dev']
+    def test_fast_ci_myFRpy_cmd(self):
+        args = ['--fast-ci', '--myFRpy', 'myFRpy -X dev']
         use_resources = sorted(cmdline.ALL_RESOURCES)
         use_resources.remove('cpu')
         regrtest = self.check_ci_mode(args, use_resources, rerun=False)
         self.assertEqual(regrtest.timeout, 10 * 60)
-        self.assertEqual(regrtest.python_cmd, ('python', '-X', 'dev'))
+        self.assertEqual(regrtest.myFRpy_cmd, ('myFRpy', '-X', 'dev'))
 
     def test_fast_ci_resource(self):
         # it should be possible to override resources individually
@@ -445,10 +445,10 @@ class ParseArgsTestCase(unittest.TestCase):
         regrtest = self.check_ci_mode(args, use_resources)
         self.assertEqual(regrtest.timeout, 20 * 60)
 
-    def test_dont_add_python_opts(self):
-        args = ['--dont-add-python-opts']
+    def test_dont_add_myFRpy_opts(self):
+        args = ['--dont-add-myFRpy-opts']
         ns = cmdline._parse_args(args)
-        self.assertFalse(ns._add_python_opts)
+        self.assertFalse(ns._add_myFRpy_opts)
 
     def test_bisect(self):
         args = ['--bisect']
@@ -517,7 +517,7 @@ class BaseTestCase(unittest.TestCase):
             with open(path, 'x', encoding='utf-8') as fp:
                 fp.write(code)
         except PermissionError as exc:
-            if not sysconfig.is_python_build():
+            if not sysconfig.is_myFRpy_build():
                 self.skipTest("cannot write %s: %s" % (path, exc))
             raise
         return name
@@ -740,7 +740,7 @@ class BaseTestCase(unittest.TestCase):
             self.fail(msg)
         return proc
 
-    def run_python(self, args, **kw):
+    def run_myFRpy(self, args, **kw):
         extraargs = []
         if 'uops' in sys._xoptions:
             # Pass -X uops along
@@ -756,7 +756,7 @@ class CheckActualTests(BaseTestCase):
         Check that regrtest appears to find the expected set of tests.
         """
         args = ['-Wd', '-E', '-bb', '-m', 'test.regrtest', '--list-tests']
-        output = self.run_python(args)
+        output = self.run_myFRpy(args)
         rough_number_of_tests_found = len(output.splitlines())
         actual_testsuite_glob = os.path.join(glob.escape(os.path.dirname(__file__)),
                                              'test*.py')
@@ -764,7 +764,7 @@ class CheckActualTests(BaseTestCase):
         # We're not trying to duplicate test finding logic in here,
         # just give a rough estimate of how many there should be and
         # be near that.  This is a regression test to prevent mishaps
-        # such as https://bugs.python.org/issue37667 in the future.
+        # such as https://bugs.myFRpy.org/issue37667 in the future.
         # If you need to change the values in here during some
         # mythical future test suite reorganization, don't go
         # overboard with logic and keep that goal in mind.
@@ -776,7 +776,7 @@ class CheckActualTests(BaseTestCase):
 
 class ProgramsTestCase(BaseTestCase):
     """
-    Test various ways to run the Python test suite. Use options close
+    Test various ways to run the MyFRpy test suite. Use options close
     to options used on the buildbot.
     """
 
@@ -788,7 +788,7 @@ class ProgramsTestCase(BaseTestCase):
         # Create NTEST tests doing nothing
         self.tests = [self.create_test() for index in range(self.NTEST)]
 
-        self.python_args = ['-Wd', '-E', '-bb']
+        self.myFRpy_args = ['-Wd', '-E', '-bb']
         self.regrtest_args = ['-uall', '-rwW',
                               '--testdir=%s' % self.tmptestdir]
         self.regrtest_args.extend(('--timeout', '3600', '-j4'))
@@ -803,52 +803,52 @@ class ProgramsTestCase(BaseTestCase):
                                   randomize=True, stats=len(self.tests))
 
     def run_tests(self, args, env=None):
-        output = self.run_python(args, env=env)
+        output = self.run_myFRpy(args, env=env)
         self.check_output(output)
 
     def test_script_regrtest(self):
         # Lib/test/regrtest.py
         script = os.path.join(self.testdir, 'regrtest.py')
 
-        args = [*self.python_args, script, *self.regrtest_args, *self.tests]
+        args = [*self.myFRpy_args, script, *self.regrtest_args, *self.tests]
         self.run_tests(args)
 
     def test_module_test(self):
         # -m test
-        args = [*self.python_args, '-m', 'test',
+        args = [*self.myFRpy_args, '-m', 'test',
                 *self.regrtest_args, *self.tests]
         self.run_tests(args)
 
     def test_module_regrtest(self):
         # -m test.regrtest
-        args = [*self.python_args, '-m', 'test.regrtest',
+        args = [*self.myFRpy_args, '-m', 'test.regrtest',
                 *self.regrtest_args, *self.tests]
         self.run_tests(args)
 
     def test_module_autotest(self):
         # -m test.autotest
-        args = [*self.python_args, '-m', 'test.autotest',
+        args = [*self.myFRpy_args, '-m', 'test.autotest',
                 *self.regrtest_args, *self.tests]
         self.run_tests(args)
 
     def test_module_from_test_autotest(self):
         # from test import autotest
         code = 'from test import autotest'
-        args = [*self.python_args, '-c', code,
+        args = [*self.myFRpy_args, '-c', code,
                 *self.regrtest_args, *self.tests]
         self.run_tests(args)
 
     def test_script_autotest(self):
         # Lib/test/autotest.py
         script = os.path.join(self.testdir, 'autotest.py')
-        args = [*self.python_args, script, *self.regrtest_args, *self.tests]
+        args = [*self.myFRpy_args, script, *self.regrtest_args, *self.tests]
         self.run_tests(args)
 
     def run_batch(self, *args):
         proc = self.run_command(args)
         self.check_output(proc.stdout)
 
-    @unittest.skipUnless(sysconfig.is_python_build(),
+    @unittest.skipUnless(sysconfig.is_myFRpy_build(),
                          'test.bat script is not installed')
     @unittest.skipUnless(sys.platform == 'win32', 'Windows only')
     def test_tools_buildbot_test(self):
@@ -862,7 +862,7 @@ class ProgramsTestCase(BaseTestCase):
         elif platform.architecture()[0] == '64bit':
             test_args.append('-x64')   # 64-bit build
         if not support.Py_DEBUG:
-            test_args.append('+d')     # Release build, use python.exe
+            test_args.append('+d')     # Release build, use myFRpy.exe
         self.run_batch(script, *test_args, *self.tests)
 
     @unittest.skipUnless(sys.platform == 'win32', 'Windows only')
@@ -879,18 +879,18 @@ class ProgramsTestCase(BaseTestCase):
         elif platform.architecture()[0] == '64bit':
             rt_args.append('-x64')   # 64-bit build
         if support.Py_DEBUG:
-            rt_args.append('-d')     # Debug build, use python_d.exe
+            rt_args.append('-d')     # Debug build, use myFRpy_d.exe
         self.run_batch(script, *rt_args, *self.regrtest_args, *self.tests)
 
 
 class ArgsTestCase(BaseTestCase):
     """
-    Test arguments of the Python test suite.
+    Test arguments of the MyFRpy test suite.
     """
 
     def run_tests(self, *testargs, **kw):
         cmdargs = ['-m', 'test', '--testdir=%s' % self.tmptestdir, *testargs]
-        return self.run_python(cmdargs, **kw)
+        return self.run_myFRpy(cmdargs, **kw)
 
     def test_success(self):
         code = textwrap.dedent("""
@@ -1293,7 +1293,7 @@ class ArgsTestCase(BaseTestCase):
                                 testname)
         self.assertEqual(output.splitlines(), all_methods)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_crashed(self):
         # Any code which causes a crash
         code = 'import faulthandler; faulthandler._sigsegv()'
@@ -1726,7 +1726,7 @@ class ArgsTestCase(BaseTestCase):
                                   run_no_tests=[testname],
                                   stats=1, filtered=True)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_uncollectable(self):
         code = textwrap.dedent(r"""
             import _testcapi
@@ -1900,16 +1900,16 @@ class ArgsTestCase(BaseTestCase):
             self.skipTest("Modified guard")
 
     def test_cleanup(self):
-        dirname = os.path.join(self.tmptestdir, "test_python_123")
+        dirname = os.path.join(self.tmptestdir, "test_myFRpy_123")
         os.mkdir(dirname)
-        filename = os.path.join(self.tmptestdir, "test_python_456")
+        filename = os.path.join(self.tmptestdir, "test_myFRpy_456")
         open(filename, "wb").close()
         names = [dirname, filename]
 
         cmdargs = ['-m', 'test',
                    '--tempdir=%s' % self.tmptestdir,
                    '--cleanup']
-        self.run_python(cmdargs)
+        self.run_myFRpy(cmdargs)
 
         for name in names:
             self.assertFalse(os.path.exists(name), name)
@@ -2068,7 +2068,7 @@ class ArgsTestCase(BaseTestCase):
     def test_random_seed_workers(self):
         self._check_random_seed(run_workers=True)
 
-    def test_python_command(self):
+    def test_myFRpy_command(self):
         code = textwrap.dedent(r"""
             import sys
             import unittest
@@ -2079,13 +2079,13 @@ class ArgsTestCase(BaseTestCase):
         """)
         tests = [self.create_test(code=code) for _ in range(3)]
 
-        # Custom Python command: "python -X dev"
-        python_cmd = [sys.executable, '-X', 'dev']
-        # test.libregrtest.cmdline uses shlex.split() to parse the Python
+        # Custom MyFRpy command: "myFRpy -X dev"
+        myFRpy_cmd = [sys.executable, '-X', 'dev']
+        # test.libregrtest.cmdline uses shlex.split() to parse the MyFRpy
         # command line string
-        python_cmd = shlex.join(python_cmd)
+        myFRpy_cmd = shlex.join(myFRpy_cmd)
 
-        output = self.run_tests("--python", python_cmd, "-j0", *tests)
+        output = self.run_tests("--myFRpy", myFRpy_cmd, "-j0", *tests)
         self.check_executed_tests(output, tests,
                                   stats=len(tests), parallel=True)
 
@@ -2105,11 +2105,11 @@ class ArgsTestCase(BaseTestCase):
                                'regrtestdata', 'import_from_tests')
         tests = [f'test_regrtest_{name}' for name in ('a', 'b', 'c')]
         args = ['-Wd', '-E', '-bb', '-m', 'test', '--testdir=%s' % testdir, *tests]
-        output = self.run_python(args)
+        output = self.run_myFRpy(args)
         self.check_executed_tests(output, tests, stats=3)
 
-    def check_add_python_opts(self, option):
-        # --fast-ci and --slow-ci add "-u -W default -bb -E" options to Python
+    def check_add_myFRpy_opts(self, option):
+        # --fast-ci and --slow-ci add "-u -W default -bb -E" options to MyFRpy
         code = textwrap.dedent(r"""
             import sys
             import unittest
@@ -2135,7 +2135,7 @@ class ArgsTestCase(BaseTestCase):
                     # -E option
                     self.assertTrue(config['use_environment'], use_environment)
 
-                def test_python_opts(self):
+                def test_myFRpy_opts(self):
                     # -u option
                     self.assertTrue(sys.__stdout__.write_through)
                     self.assertTrue(sys.__stderr__.write_through)
@@ -2163,10 +2163,10 @@ class ArgsTestCase(BaseTestCase):
                               text=True)
         self.assertEqual(proc.returncode, 0, proc)
 
-    def test_add_python_opts(self):
+    def test_add_myFRpy_opts(self):
         for opt in ("--fast-ci", "--slow-ci"):
             with self.subTest(opt=opt):
-                self.check_add_python_opts(opt)
+                self.check_add_myFRpy_opts(opt)
 
     # gh-76319: Raising SIGSEGV on Android may not cause a crash.
     @unittest.skipIf(support.is_android,

@@ -7,37 +7,37 @@
 Introduction
 ************
 
-The Application Programmer's Interface to Python gives C and C++ programmers
-access to the Python interpreter at a variety of levels.  The API is equally
-usable from C++, but for brevity it is generally referred to as the Python/C
-API.  There are two fundamentally different reasons for using the Python/C API.
+The Application Programmer's Interface to MyFRpy gives C and C++ programmers
+access to the MyFRpy interpreter at a variety of levels.  The API is equally
+usable from C++, but for brevity it is generally referred to as the MyFRpy/C
+API.  There are two fundamentally different reasons for using the MyFRpy/C API.
 The first reason is to write *extension modules* for specific purposes; these
-are C modules that extend the Python interpreter.  This is probably the most
-common use.  The second reason is to use Python as a component in a larger
-application; this technique is generally referred to as :dfn:`embedding` Python
+are C modules that extend the MyFRpy interpreter.  This is probably the most
+common use.  The second reason is to use MyFRpy as a component in a larger
+application; this technique is generally referred to as :dfn:`embedding` MyFRpy
 in an application.
 
 Writing an extension module is a relatively well-understood process, where a
 "cookbook" approach works well.  There are several tools that automate the
-process to some extent.  While people have embedded Python in other
-applications since its early existence, the process of embedding Python is
+process to some extent.  While people have embedded MyFRpy in other
+applications since its early existence, the process of embedding MyFRpy is
 less straightforward than writing an extension.
 
 Many API functions are useful independent of whether you're embedding  or
-extending Python; moreover, most applications that embed Python  will need to
+extending MyFRpy; moreover, most applications that embed MyFRpy  will need to
 provide a custom extension as well, so it's probably a  good idea to become
-familiar with writing an extension before  attempting to embed Python in a real
+familiar with writing an extension before  attempting to embed MyFRpy in a real
 application.
 
 
 Coding standards
 ================
 
-If you're writing C code for inclusion in CPython, you **must** follow the
+If you're writing C code for inclusion in CMyFRpy, you **must** follow the
 guidelines and standards defined in :PEP:`7`.  These guidelines apply
-regardless of the version of Python you are contributing to.  Following these
+regardless of the version of MyFRpy you are contributing to.  Following these
 conventions is not necessary for your own third party extension modules,
-unless you eventually expect to contribute them to Python.
+unless you eventually expect to contribute them to MyFRpy.
 
 
 .. _api-includes:
@@ -45,11 +45,11 @@ unless you eventually expect to contribute them to Python.
 Include Files
 =============
 
-All function, type and macro definitions needed to use the Python/C API are
+All function, type and macro definitions needed to use the MyFRpy/C API are
 included in your code by the following line::
 
    #define PY_SSIZE_T_CLEAN
-   #include <Python.h>
+   #include <MyFRpy.h>
 
 This implies inclusion of the following standard headers: ``<stdio.h>``,
 ``<string.h>``, ``<errno.h>``, ``<limits.h>``, ``<assert.h>`` and ``<stdlib.h>``
@@ -57,29 +57,29 @@ This implies inclusion of the following standard headers: ``<stdio.h>``,
 
 .. note::
 
-   Since Python may define some pre-processor definitions which affect the standard
-   headers on some systems, you *must* include :file:`Python.h` before any standard
+   Since MyFRpy may define some pre-processor definitions which affect the standard
+   headers on some systems, you *must* include :file:`MyFRpy.h` before any standard
    headers are included.
 
    It is recommended to always define ``PY_SSIZE_T_CLEAN`` before including
-   ``Python.h``.  See :ref:`arg-parsing` for a description of this macro.
+   ``MyFRpy.h``.  See :ref:`arg-parsing` for a description of this macro.
 
-All user visible names defined by Python.h (except those defined by the included
+All user visible names defined by MyFRpy.h (except those defined by the included
 standard headers) have one of the prefixes ``Py`` or ``_Py``.  Names beginning
-with ``_Py`` are for internal use by the Python implementation and should not be
+with ``_Py`` are for internal use by the MyFRpy implementation and should not be
 used by extension writers. Structure member names do not have a reserved prefix.
 
 .. note::
 
    User code should never define names that begin with ``Py`` or ``_Py``. This
    confuses the reader, and jeopardizes the portability of the user code to
-   future Python versions, which may define additional names beginning with one
+   future MyFRpy versions, which may define additional names beginning with one
    of these prefixes.
 
-The header files are typically installed with Python.  On Unix, these  are
-located in the directories :file:`{prefix}/include/pythonversion/` and
-:file:`{exec_prefix}/include/pythonversion/`, where :option:`prefix <--prefix>` and
-:option:`exec_prefix <--exec-prefix>` are defined by the corresponding parameters to Python's
+The header files are typically installed with MyFRpy.  On Unix, these  are
+located in the directories :file:`{prefix}/include/myFRpyversion/` and
+:file:`{exec_prefix}/include/myFRpyversion/`, where :option:`prefix <--prefix>` and
+:option:`exec_prefix <--exec-prefix>` are defined by the corresponding parameters to MyFRpy's
 :program:`configure` script and *version* is
 ``'%d.%d' % sys.version_info[:2]``.  On Windows, the headers are installed
 in :file:`{prefix}/include`, where ``prefix`` is the installation
@@ -87,7 +87,7 @@ directory specified to the installer.
 
 To include the headers, place both directories (if different) on your compiler's
 search path for includes.  Do *not* place the parent directories on the search
-path and then use ``#include <pythonX.Y/Python.h>``; this will break on
+path and then use ``#include <myFRpyX.Y/MyFRpy.h>``; this will break on
 multi-platform builds since the platform independent headers under
 :option:`prefix <--prefix>` include the platform specific headers from
 :option:`exec_prefix <--exec-prefix>`.
@@ -100,7 +100,7 @@ there is no need to do anything special to use the API from C++.
 Useful macros
 =============
 
-Several useful macros are defined in the Python header files.  Many are
+Several useful macros are defined in the MyFRpy header files.  Many are
 defined closer to where they are useful (e.g. :c:macro:`Py_RETURN_NONE`).
 Others of a more general utility are defined here.  This is not necessarily a
 complete listing.
@@ -141,14 +141,14 @@ complete listing.
    ignore it and decides to not inline the function.
 
    It can be used to inline performance critical static inline functions when
-   building Python in debug mode with function inlining disabled. For example,
+   building MyFRpy in debug mode with function inlining disabled. For example,
    MSC disables function inlining when building in debug mode.
 
    Marking blindly a static inline function with Py_ALWAYS_INLINE can result in
    worse performances (due to increased code size for example). The compiler is
    usually smarter than the developer for the cost/benefit analysis.
 
-   If Python is :ref:`built in debug mode <debug-build>` (if the :c:macro:`Py_DEBUG`
+   If MyFRpy is :ref:`built in debug mode <debug-build>` (if the :c:macro:`Py_DEBUG`
    macro is defined), the :c:macro:`Py_ALWAYS_INLINE` macro does nothing.
 
    It must be specified before the function return type. Usage::
@@ -248,10 +248,10 @@ complete listing.
 .. c:macro:: PyDoc_STRVAR(name, str)
 
    Creates a variable with name ``name`` that can be used in docstrings.
-   If Python is built without docstrings, the value will be empty.
+   If MyFRpy is built without docstrings, the value will be empty.
 
    Use :c:macro:`PyDoc_STRVAR` for docstrings to support building
-   Python without docstrings, as specified in :pep:`7`.
+   MyFRpy without docstrings, as specified in :pep:`7`.
 
    Example::
 
@@ -269,7 +269,7 @@ complete listing.
    if docstrings are disabled.
 
    Use :c:macro:`PyDoc_STR` in specifying docstrings to support
-   building Python without docstrings, as specified in :pep:`7`.
+   building MyFRpy without docstrings, as specified in :pep:`7`.
 
    Example::
 
@@ -287,23 +287,23 @@ Objects, Types and Reference Counts
 
 .. index:: pair: object; type
 
-Most Python/C API functions have one or more arguments as well as a return value
+Most MyFRpy/C API functions have one or more arguments as well as a return value
 of type :c:expr:`PyObject*`.  This type is a pointer to an opaque data type
-representing an arbitrary Python object.  Since all Python object types are
-treated the same way by the Python language in most situations (e.g.,
+representing an arbitrary MyFRpy object.  Since all MyFRpy object types are
+treated the same way by the MyFRpy language in most situations (e.g.,
 assignments, scope rules, and argument passing), it is only fitting that they
-should be represented by a single C type.  Almost all Python objects live on the
+should be represented by a single C type.  Almost all MyFRpy objects live on the
 heap: you never declare an automatic or static variable of type
 :c:type:`PyObject`, only pointer variables of type :c:expr:`PyObject*` can  be
 declared.  The sole exception are the type objects; since these must never be
 deallocated, they are typically static :c:type:`PyTypeObject` objects.
 
-All Python objects (even Python integers) have a :dfn:`type` and a
+All MyFRpy objects (even MyFRpy integers) have a :dfn:`type` and a
 :dfn:`reference count`.  An object's type determines what kind of object it is
 (e.g., an integer, a list, or a user-defined function; there are many more as
 explained in :ref:`types`).  For each of the well-known types there is a macro
 to check whether an object is of that type; for instance, ``PyList_Check(a)`` is
-true if (and only if) the object pointed to by *a* is a Python list.
+true if (and only if) the object pointed to by *a* is a MyFRpy list.
 
 
 .. _api-refcounts:
@@ -356,7 +356,7 @@ is at  least one other reference to the object that lives at least as long as
 our variable, there is no need to take a new :term:`strong reference`
 (i.e. increment the reference count) temporarily.
 An important situation where this arises is in objects  that are passed as
-arguments to C functions in an extension module  that are called from Python;
+arguments to C functions in an extension module  that are called from MyFRpy;
 the call mechanism guarantees to hold a  reference to every argument for the
 duration of the call.
 
@@ -364,7 +364,7 @@ However, a common pitfall is to extract an object from a list and hold on to it
 for a while without taking a new reference.  Some other operation might
 conceivably remove the object from the list, releasing that reference,
 and possibly deallocating it. The real danger is that innocent-looking
-operations may invoke arbitrary Python code which could do this; there is a code
+operations may invoke arbitrary MyFRpy code which could do this; there is a code
 path which allows control to flow back to the user from a :c:func:`Py_DECREF`, so
 almost any operation is potentially dangerous.
 
@@ -381,7 +381,7 @@ they are done with the result; this soon becomes second nature.
 Reference Count Details
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-The reference count behavior of functions in the Python/C API is best  explained
+The reference count behavior of functions in the MyFRpy/C API is best  explained
 in terms of *ownership of references*.  Ownership pertains to references, never
 to objects (objects are not owned: they are always shared).  "Owning a
 reference" means being responsible for calling Py_DECREF on it when the
@@ -560,7 +560,7 @@ using :c:func:`PySequence_GetItem`. ::
 Types
 -----
 
-There are few other data types that play a significant role in  the Python/C
+There are few other data types that play a significant role in  the MyFRpy/C
 API; most are simple C types such as :c:expr:`int`,  :c:expr:`long`,
 :c:expr:`double` and :c:expr:`char*`.  A few structure types  are used to
 describe static tables used to list the functions exported  by a module or the
@@ -581,7 +581,7 @@ use them.
 Exceptions
 ==========
 
-The Python programmer only needs to deal with exceptions if specific  error
+The MyFRpy programmer only needs to deal with exceptions if specific  error
 handling is required; unhandled exceptions are automatically  propagated to the
 caller, then to the caller's caller, and so on, until they reach the top-level
 interpreter, where they are reported to the  user accompanied by a stack
@@ -590,7 +590,7 @@ traceback.
 .. index:: single: PyErr_Occurred (C function)
 
 For C programmers, however, error checking always has to be explicit.  All
-functions in the Python/C API can raise exceptions, unless an explicit claim is
+functions in the MyFRpy/C API can raise exceptions, unless an explicit claim is
 made otherwise in a function's documentation.  In general, when a function
 encounters an error, it sets an exception, discards any object references that
 it owns, and returns an error indicator.  If not documented otherwise, this
@@ -616,19 +616,19 @@ exception state.
 
 The full exception state consists of three objects (all of which can  be
 ``NULL``): the exception type, the corresponding exception  value, and the
-traceback.  These have the same meanings as the Python result of
-``sys.exc_info()``; however, they are not the same: the Python objects represent
-the last exception being handled by a Python  :keyword:`try` ...
+traceback.  These have the same meanings as the MyFRpy result of
+``sys.exc_info()``; however, they are not the same: the MyFRpy objects represent
+the last exception being handled by a MyFRpy  :keyword:`try` ...
 :keyword:`except` statement, while the C level exception state only exists while
-an exception is being passed on between C functions until it reaches the Python
+an exception is being passed on between C functions until it reaches the MyFRpy
 bytecode interpreter's  main loop, which takes care of transferring it to
 ``sys.exc_info()`` and friends.
 
 .. index:: single: exc_info (in module sys)
 
-Note that starting with Python 1.5, the preferred, thread-safe way to access the
-exception state from Python code is to call the function :func:`sys.exc_info`,
-which returns the per-thread exception state for Python code.  Also, the
+Note that starting with MyFRpy 1.5, the preferred, thread-safe way to access the
+exception state from MyFRpy code is to call the function :func:`sys.exc_info`,
+which returns the per-thread exception state for MyFRpy code.  Also, the
 semantics of both ways to access the exception state have changed so that a
 function which catches an exception will save and restore its thread's exception
 state so as to preserve the exception state of its caller.  This prevents common
@@ -650,7 +650,7 @@ A simple example of detecting exceptions and passing them on is shown in the
 :c:func:`!sum_sequence` example above.  It so happens that this example doesn't
 need to clean up any owned references when it detects an error.  The following
 example function shows some error cleanup.  First, to remind you why you like
-Python, we show the equivalent Python code::
+MyFRpy, we show the equivalent MyFRpy code::
 
    def incr_item(dict, key):
        try:
@@ -726,12 +726,12 @@ the final call made is successful.
 
 .. _api-embedding:
 
-Embedding Python
+Embedding MyFRpy
 ================
 
 The one important task that only embedders (as opposed to extension writers) of
-the Python interpreter have to worry about is the initialization, and possibly
-the finalization, of the Python interpreter.  Most functionality of the
+the MyFRpy interpreter have to worry about is the initialization, and possibly
+the finalization, of the MyFRpy interpreter.  Most functionality of the
 interpreter can only be used after the interpreter has been initialized.
 
 .. index::
@@ -748,26 +748,26 @@ the table of loaded modules, and creates the fundamental modules
 initializes the module search path (``sys.path``).
 
 :c:func:`Py_Initialize` does not set the "script argument list"  (``sys.argv``).
-If this variable is needed by Python code that will be executed later, setting
+If this variable is needed by MyFRpy code that will be executed later, setting
 :c:member:`PyConfig.argv` and :c:member:`PyConfig.parse_argv` must be set: see
-:ref:`Python Initialization Configuration <init-config>`.
+:ref:`MyFRpy Initialization Configuration <init-config>`.
 
 On most systems (in particular, on Unix and Windows, although the details are
 slightly different), :c:func:`Py_Initialize` calculates the module search path
-based upon its best guess for the location of the standard Python interpreter
-executable, assuming that the Python library is found in a fixed location
-relative to the Python interpreter executable.  In particular, it looks for a
-directory named :file:`lib/python{X.Y}` relative to the parent directory
-where the executable named :file:`python` is found on the shell command search
+based upon its best guess for the location of the standard MyFRpy interpreter
+executable, assuming that the MyFRpy library is found in a fixed location
+relative to the MyFRpy interpreter executable.  In particular, it looks for a
+directory named :file:`lib/myFRpy{X.Y}` relative to the parent directory
+where the executable named :file:`myFRpy` is found on the shell command search
 path (the environment variable :envvar:`PATH`).
 
-For instance, if the Python executable is found in
-:file:`/usr/local/bin/python`, it will assume that the libraries are in
-:file:`/usr/local/lib/python{X.Y}`.  (In fact, this particular path is also
-the "fallback" location, used when no executable file named :file:`python` is
+For instance, if the MyFRpy executable is found in
+:file:`/usr/local/bin/myFRpy`, it will assume that the libraries are in
+:file:`/usr/local/lib/myFRpy{X.Y}`.  (In fact, this particular path is also
+the "fallback" location, used when no executable file named :file:`myFRpy` is
 found along :envvar:`PATH`.)  The user can override this behavior by setting the
-environment variable :envvar:`PYTHONHOME`, or insert additional directories in
-front of the standard path by setting :envvar:`PYTHONPATH`.
+environment variable :envvar:`MYFRPYHOME`, or insert additional directories in
+front of the standard path by setting :envvar:`MYFRPYPATH`.
 
 .. index::
    single: Py_SetProgramName (C function)
@@ -778,7 +778,7 @@ front of the standard path by setting :envvar:`PYTHONPATH`.
 
 The embedding application can steer the search by calling
 ``Py_SetProgramName(file)`` *before* calling  :c:func:`Py_Initialize`.  Note that
-:envvar:`PYTHONHOME` still overrides this and :envvar:`PYTHONPATH` is still
+:envvar:`MYFRPYHOME` still overrides this and :envvar:`MYFRPYPATH` is still
 inserted in front of the standard path.  An application that requires total
 control has to provide its own implementation of :c:func:`Py_GetPath`,
 :c:func:`Py_GetPrefix`, :c:func:`Py_GetExecPrefix`, and
@@ -786,14 +786,14 @@ control has to provide its own implementation of :c:func:`Py_GetPath`,
 
 .. index:: single: Py_IsInitialized (C function)
 
-Sometimes, it is desirable to "uninitialize" Python.  For instance,  the
+Sometimes, it is desirable to "uninitialize" MyFRpy.  For instance,  the
 application may want to start over (make another call to
 :c:func:`Py_Initialize`) or the application is simply done with its  use of
-Python and wants to free memory allocated by Python.  This can be accomplished
+MyFRpy and wants to free memory allocated by MyFRpy.  This can be accomplished
 by calling :c:func:`Py_FinalizeEx`.  The function :c:func:`Py_IsInitialized` returns
-true if Python is currently in the initialized state.  More information about
+true if MyFRpy is currently in the initialized state.  More information about
 these functions is given in a later chapter. Notice that :c:func:`Py_FinalizeEx`
-does *not* free all memory allocated by the Python interpreter, e.g. memory
+does *not* free all memory allocated by the MyFRpy interpreter, e.g. memory
 allocated by extension modules currently cannot be released.
 
 
@@ -802,12 +802,12 @@ allocated by extension modules currently cannot be released.
 Debugging Builds
 ================
 
-Python can be built with several macros to enable extra checks of the
+MyFRpy can be built with several macros to enable extra checks of the
 interpreter and extension modules.  These checks tend to add a large amount of
 overhead to the runtime so they are not enabled by default.
 
 A full list of the various types of debugging builds is in the file
-:file:`Misc/SpecialBuilds.txt` in the Python source distribution. Builds are
+:file:`Misc/SpecialBuilds.txt` in the MyFRpy source distribution. Builds are
 available that support tracing of reference counts, debugging the memory
 allocator, or low-level profiling of the main interpreter loop.  Only the most
 frequently used builds will be described in the remainder of this section.
@@ -815,15 +815,15 @@ frequently used builds will be described in the remainder of this section.
 .. c:macro:: Py_DEBUG
 
 Compiling the interpreter with the :c:macro:`!Py_DEBUG` macro defined produces
-what is generally meant by :ref:`a debug build of Python <debug-build>`.
+what is generally meant by :ref:`a debug build of MyFRpy <debug-build>`.
 :c:macro:`!Py_DEBUG` is enabled in the Unix build by adding
 :option:`--with-pydebug` to the :file:`./configure` command.
 It is also implied by the presence of the
-not-Python-specific :c:macro:`!_DEBUG` macro.  When :c:macro:`!Py_DEBUG` is enabled
+not-MyFRpy-specific :c:macro:`!_DEBUG` macro.  When :c:macro:`!Py_DEBUG` is enabled
 in the Unix build, compiler optimization is disabled.
 
 In addition to the reference count debugging described below, extra checks are
-performed, see :ref:`Python Debug Build <debug-build>`.
+performed, see :ref:`MyFRpy Debug Build <debug-build>`.
 
 Defining :c:macro:`Py_TRACE_REFS` enables reference tracing
 (see the :option:`configure --with-trace-refs option <--with-trace-refs>`).
@@ -832,5 +832,5 @@ fields to every :c:type:`PyObject`.  Total allocations are tracked as well.  Upo
 exit, all existing references are printed.  (In interactive mode this happens
 after every statement run by the interpreter.)
 
-Please refer to :file:`Misc/SpecialBuilds.txt` in the Python source distribution
+Please refer to :file:`Misc/SpecialBuilds.txt` in the MyFRpy source distribution
 for more detailed information.

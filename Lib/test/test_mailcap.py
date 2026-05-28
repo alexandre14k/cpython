@@ -172,7 +172,7 @@ class FindmatchTest(unittest.TestCase):
         # default findmatch arguments
         c = MAILCAPDICT
         fname = "foo.txt"
-        plist = ["access-type=default", "name=john", "site=python.org",
+        plist = ["access-type=default", "name=john", "site=myFRpy.org",
                  "directory=/tmp", "mode=foo", "server=bar"]
         audio_basic_entry = {
             'edit': 'audiocompose %s',
@@ -214,7 +214,7 @@ class FindmatchTest(unittest.TestCase):
              ("/usr/local/bin/showaudio audio/wav", audio_entry)),
             ([c, "message/external-body"],
              {"plist": plist},
-             ("showexternal /dev/null default john python.org     /tmp foo bar", message_entry))
+             ("showexternal /dev/null default john myFRpy.org     /tmp foo bar", message_entry))
         ]
         self._run_cases(cases)
 

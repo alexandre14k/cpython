@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.8
+#!/usr/bin/env myFRpy3.8
 
 """Produce a report about the most-memoable types.
 

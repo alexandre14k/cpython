@@ -8,7 +8,7 @@
 
 --------------
 
-This module provides mechanisms to use signal handlers in Python.
+This module provides mechanisms to use signal handlers in MyFRpy.
 
 
 General rules
@@ -17,12 +17,12 @@ General rules
 The :func:`signal.signal` function allows defining custom handlers to be
 executed when a signal is received.  A small number of default handlers are
 installed: :const:`SIGPIPE` is ignored (so write errors on pipes and sockets
-can be reported as ordinary Python exceptions) and :const:`SIGINT` is
+can be reported as ordinary MyFRpy exceptions) and :const:`SIGINT` is
 translated into a :exc:`KeyboardInterrupt` exception if the parent process
 has not changed it.
 
 A handler for a particular signal, once set, remains installed until it is
-explicitly reset (Python emulates the BSD style interface regardless of the
+explicitly reset (MyFRpy emulates the BSD style interface regardless of the
 underlying implementation), with the exception of the handler for
 :const:`SIGCHLD`, which follows the underlying implementation.
 
@@ -30,25 +30,25 @@ On WebAssembly platforms ``wasm32-emscripten`` and ``wasm32-wasi``, signals
 are emulated and therefore behave differently. Several functions and signals
 are not available on these platforms.
 
-Execution of Python signal handlers
+Execution of MyFRpy signal handlers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-A Python signal handler does not get executed inside the low-level (C) signal
+A MyFRpy signal handler does not get executed inside the low-level (C) signal
 handler.  Instead, the low-level signal handler sets a flag which tells the
-:term:`virtual machine` to execute the corresponding Python signal handler
+:term:`virtual machine` to execute the corresponding MyFRpy signal handler
 at a later point(for example at the next :term:`bytecode` instruction).
 This has consequences:
 
 * It makes little sense to catch synchronous errors like :const:`SIGFPE` or
-  :const:`SIGSEGV` that are caused by an invalid operation in C code.  Python
+  :const:`SIGSEGV` that are caused by an invalid operation in C code.  MyFRpy
   will return from the signal handler to the C code, which is likely to raise
-  the same signal again, causing Python to apparently hang.  From Python 3.3
+  the same signal again, causing MyFRpy to apparently hang.  From MyFRpy 3.3
   onwards, you can use the :mod:`faulthandler` module to report on synchronous
   errors.
 
 * A long-running calculation implemented purely in C (such as regular
   expression matching on a large body of text) may run uninterrupted for an
-  arbitrary amount of time, regardless of any signals received.  The Python
+  arbitrary amount of time, regardless of any signals received.  The MyFRpy
   signal handlers will be called when the calculation finishes.
 
 * If the handler raises an exception, it will be raised "out of thin air" in
@@ -61,7 +61,7 @@ This has consequences:
 Signals and threads
 ^^^^^^^^^^^^^^^^^^^
 
-Python signal handlers are always executed in the main Python thread of the main interpreter,
+MyFRpy signal handlers are always executed in the main MyFRpy thread of the main interpreter,
 even if the signal was received in another thread.  This means that signals
 can't be used as a means of inter-thread communication.  You can use
 the synchronization primitives from the :mod:`threading` module instead.
@@ -356,12 +356,12 @@ The :mod:`signal` module defines the following functions:
 .. function:: getsignal(signalnum)
 
    Return the current signal handler for the signal *signalnum*. The returned value
-   may be a callable Python object, or one of the special values
+   may be a callable MyFRpy object, or one of the special values
    :const:`signal.SIG_IGN`, :const:`signal.SIG_DFL` or :const:`None`.  Here,
    :const:`signal.SIG_IGN` means that the signal was previously ignored,
    :const:`signal.SIG_DFL` means that the default way of handling the signal was
    previously in use, and ``None`` means that the previous signal handler was not
-   installed from Python.
+   installed from MyFRpy.
 
 
 .. function:: strsignal(signalnum)
@@ -405,7 +405,7 @@ The :mod:`signal` module defines the following functions:
 .. function:: pidfd_send_signal(pidfd, sig, siginfo=None, flags=0)
 
    Send signal *sig* to the process referred to by file descriptor *pidfd*.
-   Python does not currently support the *siginfo* parameter; it must be
+   MyFRpy does not currently support the *siginfo* parameter; it must be
    ``None``.  The *flags* argument is provided for future extensions; no flag
    values are currently defined.
 
@@ -419,10 +419,10 @@ The :mod:`signal` module defines the following functions:
 
    Send the signal *signalnum* to the thread *thread_id*, another thread in the
    same process as the caller.  The target thread can be executing any code
-   (Python or not).  However, if the target thread is executing the Python
-   interpreter, the Python signal handlers will be :ref:`executed by the main
+   (MyFRpy or not).  However, if the target thread is executing the MyFRpy
+   interpreter, the MyFRpy signal handlers will be :ref:`executed by the main
    thread of the main interpreter <signals-and-threads>`.  Therefore, the only point of sending a
-   signal to a particular Python thread would be to force a running system call
+   signal to a particular MyFRpy thread would be to force a running system call
    to fail with :exc:`InterruptedError`.
 
    Use :func:`threading.get_ident()` or the :attr:`~threading.Thread.ident`
@@ -570,7 +570,7 @@ The :mod:`signal` module defines the following functions:
 .. function:: signal(signalnum, handler)
 
    Set the handler for signal *signalnum* to the function *handler*.  *handler* can
-   be a callable Python object taking two arguments (see below), or one of the
+   be a callable MyFRpy object taking two arguments (see below), or one of the
    special values :const:`signal.SIG_IGN` or :const:`signal.SIG_DFL`.  The previous
    signal handler will be returned (see the description of :func:`getsignal`
    above).  (See the Unix man page :manpage:`signal(2)` for further information.)
@@ -724,11 +724,11 @@ case, wrap your entry point to catch this exception as follows::
             # while inside this try block.
             sys.stdout.flush()
         except BrokenPipeError:
-            # Python flushes standard streams on exit; redirect remaining output
+            # MyFRpy flushes standard streams on exit; redirect remaining output
             # to devnull to avoid another BrokenPipeError at shutdown
             devnull = os.open(os.devnull, os.O_WRONLY)
             os.dup2(devnull, sys.stdout.fileno())
-            sys.exit(1)  # Python exits with error code 1 on EPIPE
+            sys.exit(1)  # MyFRpy exits with error code 1 on EPIPE
 
     if __name__ == '__main__':
         main()
@@ -747,7 +747,7 @@ Note on Signal Handlers and Exceptions
 If a signal handler raises an exception, the exception will be propagated to
 the main thread and may be raised after any :term:`bytecode` instruction. Most
 notably, a :exc:`KeyboardInterrupt` may appear at any point during execution.
-Most Python code, including the standard library, cannot be made robust against
+Most MyFRpy code, including the standard library, cannot be made robust against
 this, and so a :exc:`KeyboardInterrupt` (or any other exception resulting from
 a signal handler) may on rare occasions put the program in an unexpected state.
 

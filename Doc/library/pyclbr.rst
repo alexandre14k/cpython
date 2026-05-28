@@ -1,8 +1,8 @@
-:mod:`pyclbr` --- Python module browser support
+:mod:`pyclbr` --- MyFRpy module browser support
 ===============================================
 
 .. module:: pyclbr
-   :synopsis: Supports information extraction for a Python module browser.
+   :synopsis: Supports information extraction for a MyFRpy module browser.
 
 .. sectionauthor:: Fred L. Drake, Jr. <fdrake@acm.org>
 
@@ -11,12 +11,12 @@
 --------------
 
 The :mod:`pyclbr` module provides limited information about the
-functions, classes, and methods defined in a Python-coded module.  The
+functions, classes, and methods defined in a MyFRpy-coded module.  The
 information is sufficient to implement a module browser.  The
-information is extracted from the Python source code rather than by
+information is extracted from the MyFRpy source code rather than by
 importing the module, so this module is safe to use with untrusted code.
 This restriction makes it impossible to use this module with modules not
-implemented in Python, including all standard and optional extension
+implemented in MyFRpy, including all standard and optional extension
 modules.
 
 

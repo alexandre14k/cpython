@@ -12,7 +12,7 @@
 --------------
 
 The :mod:`xmlrpc.server` module provides a basic server framework for XML-RPC
-servers written in Python.  Servers can either be free standing, using
+servers written in MyFRpy.  Servers can either be free standing, using
 :class:`SimpleXMLRPCServer`, or embedded in a CGI environment, using
 :class:`CGIXMLRPCRequestHandler`.
 
@@ -85,7 +85,7 @@ alone XML-RPC servers.
    Register a function that can respond to XML-RPC requests.  If *name* is given,
    it will be the method name associated with *function*, otherwise
    :attr:`function.__name__` will be used.  *name* is a string, and may contain
-   characters not legal in Python identifiers, including the period character.
+   characters not legal in MyFRpy identifiers, including the period character.
 
    This method can also be used as a decorator.  When used as a decorator,
    *name* can only be given as a keyword argument to register *function* under
@@ -259,7 +259,7 @@ a server allowing dotted names and registering a multicall function.
 
 This ExampleService demo can be invoked from the command line::
 
-    python -m xmlrpc.server
+    myFRpy -m xmlrpc.server
 
 
 The client that interacts with the above server is included in
@@ -284,14 +284,14 @@ The client that interacts with the above server is included in
 
 This client which interacts with the demo XMLRPC server can be invoked as::
 
-    python -m xmlrpc.client
+    myFRpy -m xmlrpc.client
 
 
 CGIXMLRPCRequestHandler
 -----------------------
 
 The :class:`CGIXMLRPCRequestHandler` class can be used to handle XML-RPC
-requests sent to Python CGI scripts.
+requests sent to MyFRpy CGI scripts.
 
 
 .. method:: CGIXMLRPCRequestHandler.register_function(function=None, name=None)
@@ -299,7 +299,7 @@ requests sent to Python CGI scripts.
    Register a function that can respond to XML-RPC requests.  If *name* is given,
    it will be the method name associated with *function*, otherwise
    :attr:`function.__name__` will be used.  *name* is a string, and may contain
-   characters not legal in Python identifiers, including the period character.
+   characters not legal in MyFRpy identifiers, including the period character.
 
    This method can also be used as a decorator.  When used as a decorator,
    *name* can only be given as a keyword argument to register *function* under

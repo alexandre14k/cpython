@@ -489,7 +489,7 @@ class PEP3147Tests:
     def test_source_from_cache_no_slash(self):
         # No slashes at all in path -> ValueError
         self.assertRaises(
-            ValueError, self.util.source_from_cache, 'foo.cpython-32.pyc')
+            ValueError, self.util.source_from_cache, 'foo.cmyFRpy-32.pyc')
 
     def test_source_from_cache_too_few_dots(self):
         # Too few dots in final path component -> ValueError
@@ -499,19 +499,19 @@ class PEP3147Tests:
     def test_source_from_cache_too_many_dots(self):
         with self.assertRaises(ValueError):
             self.util.source_from_cache(
-                    '__pycache__/foo.cpython-32.opt-1.foo.pyc')
+                    '__pycache__/foo.cmyFRpy-32.opt-1.foo.pyc')
 
     def test_source_from_cache_not_opt(self):
         # Non-`opt-` path component -> ValueError
         self.assertRaises(
             ValueError, self.util.source_from_cache,
-            '__pycache__/foo.cpython-32.foo.pyc')
+            '__pycache__/foo.cmyFRpy-32.foo.pyc')
 
     def test_source_from_cache_no__pycache__(self):
         # Another problem with the path -> ValueError
         self.assertRaises(
             ValueError, self.util.source_from_cache,
-            '/foo/bar/foo.cpython-32.foo.pyc')
+            '/foo/bar/foo.cmyFRpy-32.foo.pyc')
 
     def test_source_from_cache_optimized_bytecode(self):
         # Optimized bytecode is not an issue.
@@ -617,10 +617,10 @@ class MagicNumberTests(unittest.TestCase):
     """
     @unittest.skipUnless(
         sys.version_info.releaselevel in ('candidate', 'final'),
-        'only applies to candidate or final python release levels'
+        'only applies to candidate or final myFRpy release levels'
     )
     def test_magic_number(self):
-        # Each python minor release should generally have a MAGIC_NUMBER
+        # Each myFRpy minor release should generally have a MAGIC_NUMBER
         # that does not change once the release reaches candidate status.
 
         # Once a release reaches candidate status, the value of the constant
@@ -630,7 +630,7 @@ class MagicNumberTests(unittest.TestCase):
 
         # In exceptional cases, it may be required to change the MAGIC_NUMBER
         # for a maintenance release. In this case the change should be
-        # discussed in python-dev. If a change is required, community
+        # discussed in myFRpy-dev. If a change is required, community
         # stakeholders such as OS package maintainers must be notified
         # in advance. Such exceptional releases will then require an
         # adjustment to this test case.
@@ -646,7 +646,7 @@ class MagicNumberTests(unittest.TestCase):
             "magic number in this test to the current MAGIC_NUMBER to "
             "continue with the release.\n\n"
             "Changing the MAGIC_NUMBER for a maintenance release "
-            "requires discussion in python-dev and notification of "
+            "requires discussion in myFRpy-dev and notification of "
             "community stakeholders."
         )
         self.assertEqual(EXPECTED_MAGIC_NUMBER, actual, msg)

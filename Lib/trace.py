@@ -1,8 +1,8 @@
-#!/usr/bin/env python3
+#!/usr/bin/env myFRpy3
 
 # portions copyright 2001, Autonomous Zones Industries, Inc., all rights...
 # err...  reserved and offered to the public under the terms of the
-# Python 2.2 license.
+# MyFRpy 2.2 license.
 # Author: Zooko O'Whielacronx
 # http://zooko.com/
 # mailto:zooko@zooko.com
@@ -19,7 +19,7 @@
 # Copyright 1991-1995, Stichting Mathematisch Centrum, all rights reserved.
 #
 #
-# Permission to use, copy, modify, and distribute this Python software and
+# Permission to use, copy, modify, and distribute this MyFRpy software and
 # its associated documentation for any purpose without fee is hereby
 # granted, provided that the above copyright notice appears in all copies,
 # and that both that copyright notice and this permission notice appear in
@@ -27,7 +27,7 @@
 # Bioreason or Mojam Media be used in advertising or publicity pertaining to
 # distribution of the software without specific, written prior permission.
 #
-"""program/module to trace Python program or function execution
+"""program/module to trace MyFRpy program or function execution
 
 Sample use, command line:
   trace.py -c -f counts --ignore-dir '$prefix' spam.py eggs

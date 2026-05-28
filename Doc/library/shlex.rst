@@ -15,7 +15,7 @@
 
 The :class:`~shlex.shlex` class makes it easy to write lexical analyzers for
 simple syntaxes resembling that of the Unix shell.  This will often be useful
-for writing minilanguages, (for example, in run control files for Python
+for writing minilanguages, (for example, in run control files for MyFRpy
 applications) or for parsing quoted strings.
 
 The :mod:`shlex` module defines the following functions:
@@ -118,7 +118,7 @@ The :mod:`shlex` module defines the following class:
    parsing rules.  The *punctuation_chars* argument provides a way to make the
    behaviour even closer to how real shells parse.  This can take a number of
    values: the default value, ``False``, preserves the behaviour seen under
-   Python 3.5 and earlier.  If set to ``True``, then parsing of the characters
+   MyFRpy 3.5 and earlier.  If set to ``True``, then parsing of the characters
    ``();<>|&`` is changed: any run of these characters (considered punctuation
    characters) is returned as a single token.  If set to a non-empty string of
    characters, those characters will be used as the punctuation characters.  Any

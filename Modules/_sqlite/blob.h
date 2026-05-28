@@ -1,7 +1,7 @@
 #ifndef PYSQLITE_BLOB_H
 #define PYSQLITE_BLOB_H
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "sqlite3.h"
 #include "connection.h"
 

@@ -58,7 +58,7 @@ def file_line_helper(line):
 class OutputWindow(EditorWindow):
     """An editor window that can serve as an output file.
 
-    Also the future base class for the Python shell window.
+    Also the future base class for the MyFRpy shell window.
     This class has no input facilities.
 
     Adds binding to open a file at a line to the text widget.
@@ -80,8 +80,8 @@ class OutputWindow(EditorWindow):
         self.text.bind("<<goto-file-line>>", self.goto_file_line)
 
     # Customize EditorWindow
-    def ispythonsource(self, filename):
-        "Python source is only part of output: do not colorize."
+    def ismyFRpysource(self, filename):
+        "MyFRpy source is only part of output: do not colorize."
         return False
 
     def short_title(self):

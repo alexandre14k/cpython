@@ -122,7 +122,7 @@ class PowTest(unittest.TestCase):
 
     def test_bug705231(self):
         # -1.0 raised to an integer should never blow up.  It did if the
-        # platform pow() was buggy, and Python didn't worm around it.
+        # platform pow() was buggy, and MyFRpy didn't worm around it.
         eq = self.assertEqual
         a = -1.0
         # The next two tests can still fail if the platform floor()

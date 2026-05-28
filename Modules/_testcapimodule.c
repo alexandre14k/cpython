@@ -1,11 +1,11 @@
 /*
- * C Extension module to test Python interpreter C APIs.
+ * C Extension module to test MyFRpy interpreter C APIs.
  *
  * The 'test_*' functions exported by this module are run as part of the
- * standard Python regression test, via Lib/test/test_capi.py.
+ * standard MyFRpy regression test, via Lib/test/test_capi.py.
  */
 
-/* This module tests the public (Include/ and Include/cpython/) C API.
+/* This module tests the public (Include/ and Include/cmyFRpy/) C API.
    The internal C API must not be used here: use _testinternalcapi for that.
 
    The Visual Studio projects builds _testcapi with Py_BUILD_CORE_MODULE
@@ -19,7 +19,7 @@
 
 #define PY_SSIZE_T_CLEAN
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "frameobject.h"          // PyFrame_New
 #include "marshal.h"              // PyMarshal_WriteLongToFile
 #include "structmember.h"         // for offsetof(), T_OBJECT
@@ -34,7 +34,7 @@
 #endif
 
 #ifdef Py_BUILD_CORE
-#  error "_testcapi must test the public Python C API, not CPython internal C API"
+#  error "_testcapi must test the public MyFRpy C API, not CMyFRpy internal C API"
 #endif
 
 #ifdef bool
@@ -874,7 +874,7 @@ static int _pending_callback(void *arg)
 }
 
 /* The following requests n callbacks to _pending_callback.  It can be
- * run from any python thread.
+ * run from any myFRpy thread.
  */
 static PyObject *
 pending_threadfunc(PyObject *self, PyObject *arg)
@@ -1758,7 +1758,7 @@ temporary_c_thread(void *data)
 
     PyThread_release_lock(test_c_thread->start_event);
 
-    /* Allocate a Python thread state for this thread */
+    /* Allocate a MyFRpy thread state for this thread */
     state = PyGILState_Ensure();
 
     res = PyObject_CallNoArgs(test_c_thread->callback);
@@ -1771,7 +1771,7 @@ temporary_c_thread(void *data)
         Py_DECREF(res);
     }
 
-    /* Destroy the Python thread state for this thread */
+    /* Destroy the MyFRpy thread state for this thread */
     PyGILState_Release(state);
 
     PyThread_release_lock(test_c_thread->exit_event);
@@ -2066,9 +2066,9 @@ raise_SIGINT_then_send_None(PyObject *self, PyObject *args)
        bpo-30039).
 
        Needs to be done in C, because:
-       - we don't have a Python wrapper for raise()
-       - we need to make sure that the Python-level signal handler doesn't run
-         *before* we enter the generator frame, which is impossible in Python
+       - we don't have a MyFRpy wrapper for raise()
+       - we need to make sure that the MyFRpy-level signal handler doesn't run
+         *before* we enter the generator frame, which is impossible in MyFRpy
          because we check for signals before every bytecode operation.
      */
     raise(SIGINT);
@@ -2193,7 +2193,7 @@ negative_refcount(PyObject *self, PyObject *Py_UNUSED(args))
     assert(Py_REFCNT(obj) == 1);
 
     Py_SET_REFCNT(obj,  0);
-    /* Py_DECREF() must call _Py_NegativeRefcount() and abort Python */
+    /* Py_DECREF() must call _Py_NegativeRefcount() and abort MyFRpy */
     Py_DECREF(obj);
 
     Py_RETURN_NONE;
@@ -2212,8 +2212,8 @@ decref_freed_object(PyObject *self, PyObject *Py_UNUSED(args))
     Py_DECREF(obj);
     // obj is a now a dangling pointer
 
-    // gh-109496: If Python is built in debug mode, Py_DECREF() must call
-    // _Py_NegativeRefcount() and abort Python.
+    // gh-109496: If MyFRpy is built in debug mode, Py_DECREF() must call
+    // _Py_NegativeRefcount() and abort MyFRpy.
     Py_DECREF(obj);
 
     Py_RETURN_NONE;
@@ -2225,7 +2225,7 @@ decref_freed_object(PyObject *self, PyObject *Py_UNUSED(args))
  * e.g. "meth_varargs" for METH_VARARGS.
  *
  * They all return a tuple of their C-level arguments, with None instead
- * of NULL and Python tuples instead of C arrays.
+ * of NULL and MyFRpy tuples instead of C arrays.
  */
 
 
@@ -2844,7 +2844,7 @@ eval_eval_code_ex(PyObject *mod, PyObject *pos_args)
 
     if (!PyCode_Check(code)) {
         PyErr_SetString(PyExc_TypeError,
-                        "code must be a Python code object");
+                        "code must be a MyFRpy code object");
         goto exit;
     }
 

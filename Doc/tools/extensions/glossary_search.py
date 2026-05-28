@@ -5,7 +5,7 @@
 
     Feature search results for glossary items prominently.
 
-    :license: Python license.
+    :license: MyFRpy license.
 """
 import json
 import os.path

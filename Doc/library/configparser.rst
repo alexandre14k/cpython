@@ -5,7 +5,7 @@
    :synopsis: Configuration file parser.
 
 .. moduleauthor:: Ken Manheimer <klm@zope.com>
-.. moduleauthor:: Barry Warsaw <bwarsaw@python.org>
+.. moduleauthor:: Barry Warsaw <bwarsaw@myFRpy.org>
 .. moduleauthor:: Eric S. Raymond <esr@thyrsus.com>
 .. moduleauthor:: Łukasz Langa <lukasz@langa.pl>
 .. sectionauthor:: Christopher G. Petrilli <petrilli@amber.org>
@@ -23,7 +23,7 @@
 
 This module provides the :class:`ConfigParser` class which implements a basic
 configuration language which provides a structure similar to what's found in
-Microsoft Windows INI files.  You can use this to write Python programs which
+Microsoft Windows INI files.  You can use this to write MyFRpy programs which
 can be customized by end users easily.
 
 .. note::
@@ -118,7 +118,7 @@ back and explore the data it holds.
    ['forge.example', 'topsecret.server.example']
    >>> 'forge.example' in config
    True
-   >>> 'python.org' in config
+   >>> 'myFRpy.org' in config
    False
    >>> config['forge.example']['User']
    'hg'
@@ -401,7 +401,7 @@ from ``get()`` calls.
       macports_dir: /opt/local
 
       [Frameworks]
-      Python: 3.2
+      MyFRpy: 3.2
       path: ${Common:system_dir}/Library/Frameworks/
 
       [Arthur]
@@ -409,7 +409,7 @@ from ``get()`` calls.
       last_name: Jackson
       my_dir: ${Common:home_dir}/twosheds
       my_pictures: ${my_dir}/Pictures
-      python_dir: ${Frameworks:path}/Python/Versions/${Frameworks:Python}
+      myFRpy_dir: ${Frameworks:path}/MyFRpy/Versions/${Frameworks:MyFRpy}
 
 Mapping Protocol Access
 -----------------------
@@ -602,7 +602,7 @@ the :meth:`!__init__` options:
     ...
     ... [hashes]
     ... shebang =
-    ...   ${hash}!/usr/bin/env python
+    ...   ${hash}!/usr/bin/env myFRpy
     ...   ${hash} -*- coding: utf-8 -*-
     ...
     ... extensions =
@@ -618,7 +618,7 @@ the :meth:`!__init__` options:
     ... """)
     >>> print(parser['hashes']['shebang'])
     <BLANKLINE>
-    #!/usr/bin/env python
+    #!/usr/bin/env myFRpy
     # -*- coding: utf-8 -*-
     >>> print(parser['hashes']['extensions'])
     <BLANKLINE>
@@ -832,7 +832,7 @@ An example of writing to a configuration file::
    config.set('Section1', 'a_bool', 'true')
    config.set('Section1', 'a_float', '3.1415')
    config.set('Section1', 'baz', 'fun')
-   config.set('Section1', 'bar', 'Python')
+   config.set('Section1', 'bar', 'MyFRpy')
    config.set('Section1', 'foo', '%(bar)s is %(baz)s!')
 
    # Writing our configuration file to 'example.cfg'
@@ -866,7 +866,7 @@ To get interpolation, use :class:`ConfigParser`::
 
    # Set the optional *raw* argument of get() to True if you wish to disable
    # interpolation in a single get operation.
-   print(cfg.get('Section1', 'foo', raw=False))  # -> "Python is fun!"
+   print(cfg.get('Section1', 'foo', raw=False))  # -> "MyFRpy is fun!"
    print(cfg.get('Section1', 'foo', raw=True))   # -> "%(bar)s is %(baz)s!"
 
    # The optional *vars* argument is a dict with members that will take
@@ -876,10 +876,10 @@ To get interpolation, use :class:`ConfigParser`::
 
    # The optional *fallback* argument can be used to provide a fallback value
    print(cfg.get('Section1', 'foo'))
-         # -> "Python is fun!"
+         # -> "MyFRpy is fun!"
 
    print(cfg.get('Section1', 'foo', fallback='Monty is not.'))
-         # -> "Python is fun!"
+         # -> "MyFRpy is fun!"
 
    print(cfg.get('Section1', 'monster', fallback='No such things as monsters.'))
          # -> "No such things as monsters."
@@ -899,7 +899,7 @@ interpolation if an option used is not defined elsewhere. ::
    config = configparser.ConfigParser({'bar': 'Life', 'baz': 'hard'})
    config.read('example.cfg')
 
-   print(config.get('Section1', 'foo'))     # -> "Python is fun!"
+   print(config.get('Section1', 'foo'))     # -> "MyFRpy is fun!"
    config.remove_option('Section1', 'bar')
    config.remove_option('Section1', 'baz')
    print(config.get('Section1', 'foo'))     # -> "Life is hard!"

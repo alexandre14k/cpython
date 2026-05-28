@@ -46,7 +46,7 @@ PyLong_AsPid(PyObject *obj)
     long result = PyLong_AsLongAndOverflow(obj, &overflow);
     if (overflow || result > INT_MAX || result < INT_MIN) {
         PyErr_SetString(PyExc_OverflowError,
-                        "Python int too large to convert to C int");
+                        "MyFRpy int too large to convert to C int");
         return -1;
     }
     return (int)result;
@@ -91,15 +91,15 @@ PyAPI_FUNC(long long) PyLong_AsLongLongAndOverflow(PyObject *, int *);
 PyAPI_FUNC(PyObject *) PyLong_FromString(const char *, char **, int);
 
 /* These aren't really part of the int object, but they're handy. The
-   functions are in Python/mystrtoul.c.
+   functions are in MyFRpy/mystrtoul.c.
  */
 PyAPI_FUNC(unsigned long) PyOS_strtoul(const char *, char **, int);
 PyAPI_FUNC(long) PyOS_strtol(const char *, char **, int);
 
 #ifndef Py_LIMITED_API
-#  define Py_CPYTHON_LONGOBJECT_H
-#  include "cpython/longobject.h"
-#  undef Py_CPYTHON_LONGOBJECT_H
+#  define Py_CMYFRPY_LONGOBJECT_H
+#  include "cmyFRpy/longobject.h"
+#  undef Py_CMYFRPY_LONGOBJECT_H
 #endif
 
 #ifdef __cplusplus

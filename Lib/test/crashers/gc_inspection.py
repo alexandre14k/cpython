@@ -1,7 +1,7 @@
 """
 gc.get_referrers() can be used to see objects before they are fully built.
 
-Note that this is only an example.  There are many ways to crash Python
+Note that this is only an example.  There are many ways to crash MyFRpy
 by using gc.get_referrers(), as well as many extension modules (even
 when they are using perfectly documented patterns to build objects).
 

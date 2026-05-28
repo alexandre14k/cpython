@@ -8,7 +8,7 @@ decimal floating point arithmetic. It is a complete implementation of
 Mike Cowlishaw/IBM's General Decimal Arithmetic Specification.
 
 
-Files required for the Python _decimal module
+Files required for the MyFRpy _decimal module
 =============================================
 
   Core files for small and medium precision arithmetic
@@ -65,7 +65,7 @@ Pointers to literature, proofs and more
 
     REFERENCES.txt  ->  List of relevant papers.
     bignum.txt      ->  Explanation of the Fast Number Theoretic Transform (FNT).
-    fnt.py          ->  Verify constants used in the FNT; Python demo for the
+    fnt.py          ->  Verify constants used in the FNT; MyFRpy demo for the
                         O(N**2) discrete transform.
 
     matrix-transform.txt -> Proof for the Matrix Fourier Transform used in

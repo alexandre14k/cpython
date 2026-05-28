@@ -32,7 +32,7 @@ def _convert_name(name):
     # on Linux / Mac OS X 'foo.PY' is not importable, but on
     # Windows it is. Simpler to do a case insensitive match
     # a better check would be to check that the name is a
-    # valid Python module name.
+    # valid MyFRpy module name.
     if os.path.isfile(name) and name.lower().endswith('.py'):
         if os.path.isabs(name):
             rel_path = os.path.relpath(name, os.getcwd())
@@ -88,7 +88,7 @@ class TestProgram(object):
         if warnings is None and not sys.warnoptions:
             # even if DeprecationWarnings are ignored by default
             # print them anyway unless other warnings settings are
-            # specified by the warnings arg or the -W python flag
+            # specified by the warnings arg or the -W myFRpy flag
             self.warnings = 'default'
         else:
             # here self.warnings is set either to the value passed
@@ -106,7 +106,7 @@ class TestProgram(object):
 
     def usageExit(self, msg=None):
         warnings.warn("TestProgram.usageExit() is deprecated and will be"
-                      " removed in Python 3.13", DeprecationWarning)
+                      " removed in MyFRpy 3.13", DeprecationWarning)
         if msg:
             print(msg)
         if self._discovery_parser is None:
@@ -131,7 +131,7 @@ class TestProgram(object):
                 return
             self._main_parser.parse_args(argv[1:], self)
             if not self.tests:
-                # this allows "python -m unittest -v" to still work for
+                # this allows "myFRpy -m unittest -v" to still work for
                 # test discovery.
                 self._do_discovery([])
                 return
@@ -141,7 +141,7 @@ class TestProgram(object):
         if self.tests:
             self.testNames = _convert_names(self.tests)
             if __name__ == '__main__':
-                # to support python -m unittest ...
+                # to support myFRpy -m unittest ...
                 self.module = None
         elif self.defaultTest is None:
             # createTests will load tests from self.module

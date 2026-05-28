@@ -72,7 +72,7 @@ data = b'''\
 ]>
 
 <root attr1="value1" attr2="value2&#8000;">
-<myns:subelement xmlns:myns="http://www.python.org/namespace">
+<myns:subelement xmlns:myns="http://www.myFRpy.org/namespace">
      Contents of subelements
 </myns:subelement>
 <sub2><![CDATA[contents of CDATA section]]></sub2>
@@ -210,10 +210,10 @@ class ParseTest(unittest.TestCase):
             "Not standalone",
             "End doctype",
             "Start element: 'root' {'attr1': 'value1', 'attr2': 'value2\u1f40'}",
-            "NS decl: 'myns' 'http://www.python.org/namespace'",
-            "Start element: 'http://www.python.org/namespace!subelement' {}",
+            "NS decl: 'myns' 'http://www.myFRpy.org/namespace'",
+            "Start element: 'http://www.myFRpy.org/namespace!subelement' {}",
             "Character data: 'Contents of subelements'",
-            "End element: 'http://www.python.org/namespace!subelement'",
+            "End element: 'http://www.myFRpy.org/namespace!subelement'",
             "End of NS decl: 'myns'",
             "Start element: 'sub2' {}",
             'Start of CDATA section',
@@ -304,7 +304,7 @@ class NamespaceSeparatorTest(unittest.TestCase):
         # considered a wart of the RDF specifications, it needs to be supported.
         #
         # See XML-SIG mailing list thread starting with
-        # http://mail.python.org/pipermail/xml-sig/2001-April/005202.html
+        # http://mail.myFRpy.org/pipermail/xml-sig/2001-April/005202.html
         #
         expat.ParserCreate(namespace_separator='') # too short
 
@@ -449,11 +449,11 @@ class HandlerExceptionTest(unittest.TestCase):
         self.assertEqual(os.path.basename(entry.filename), filename)
         self.assertEqual(entry.name, funcname)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_exception(self):
         # gh-66652: test _PyTraceback_Add() used by pyexpat.c to inject frames
 
-        # Change the current directory to the Python source code directory
+        # Change the current directory to the MyFRpy source code directory
         # if it is available.
         src_dir = sysconfig.get_config_var('abs_builddir')
         if src_dir:
@@ -467,7 +467,7 @@ class HandlerExceptionTest(unittest.TestCase):
             self._test_exception(have_source)
 
     def _test_exception(self, have_source):
-        # Use path relative to the current directory which should be the Python
+        # Use path relative to the current directory which should be the MyFRpy
         # source code directory (if it is available).
         PYEXPAT_C = os.path.join('Modules', 'pyexpat.c')
 
@@ -532,7 +532,7 @@ class PositionTest(unittest.TestCase):
 
 class sf1296433Test(unittest.TestCase):
     def test_parse_only_xml_data(self):
-        # https://bugs.python.org/issue1296433
+        # https://bugs.myFRpy.org/issue1296433
         #
         xml = "<?xml version='1.0' encoding='iso8859'?><s>%s</s>" % ('a' * 1025)
         # this one doesn't crash

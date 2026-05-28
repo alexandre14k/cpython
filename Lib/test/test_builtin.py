@@ -1,4 +1,4 @@
-# Python test set -- built-in functions
+# MyFRpy test set -- built-in functions
 
 import ast
 import asyncio
@@ -29,9 +29,9 @@ from textwrap import dedent
 from types import AsyncGeneratorType, FunctionType, CellType
 from operator import neg
 from test import support
-from test.support import (cpython_only, swap_attr, maybe_get_event_loop_policy)
+from test.support import (cmyFRpy_only, swap_attr, maybe_get_event_loop_policy)
 from test.support.os_helper import (EnvironmentVarGuard, TESTFN, unlink)
-from test.support.script_helper import assert_python_ok
+from test.support.script_helper import assert_myFRpy_ok
 from test.support.warnings_helper import check_warnings
 from test.support import requires_IEEE_754
 from unittest.mock import MagicMock, patch
@@ -1713,7 +1713,7 @@ class BuiltinTest(unittest.TestCase):
     @requires_IEEE_754
     @unittest.skipIf(HAVE_DOUBLE_ROUNDING,
                          "sum accuracy not guaranteed on machines with double rounding")
-    @support.cpython_only    # Other implementations may choose a different algorithm
+    @support.cmyFRpy_only    # Other implementations may choose a different algorithm
     def test_sum_accuracy(self):
         self.assertEqual(sum([0.1] * 10), 1.0)
         self.assertEqual(sum([1.0, 10E100, 1.0, -10E100]), 2.0)
@@ -1921,7 +1921,7 @@ class BuiltinTest(unittest.TestCase):
         l8 = self.iter_error(zip(Iter(3), "AB", strict=True), ValueError)
         self.assertEqual(l8, [(2, "A"), (1, "B")])
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_zip_result_gc(self):
         # bpo-42536: zip's tuple-reuse speed trick breaks the GC's assumptions
         # about what can be untracked. Make sure we re-track result tuples
@@ -2095,7 +2095,7 @@ class BuiltinTest(unittest.TestCase):
 class TestBreakpoint(unittest.TestCase):
     def setUp(self):
         # These tests require a clean slate environment.  For example, if the
-        # test suite is run with $PYTHONBREAKPOINT set to something else, it
+        # test suite is run with $MYFRPYBREAKPOINT set to something else, it
         # will mess up these tests.  Similarly for sys.breakpointhook.
         # Cleaning the slate here means you can't use breakpoint() to debug
         # these tests, but I think that's okay.  Just use pdb.set_trace() if
@@ -2103,7 +2103,7 @@ class TestBreakpoint(unittest.TestCase):
         self.resources = ExitStack()
         self.addCleanup(self.resources.close)
         self.env = self.resources.enter_context(EnvironmentVarGuard())
-        del self.env['PYTHONBREAKPOINT']
+        del self.env['MYFRPYBREAKPOINT']
         self.resources.enter_context(
             swap_attr(sys, 'breakpointhook', sys.__breakpointhook__))
 
@@ -2144,28 +2144,28 @@ class TestBreakpoint(unittest.TestCase):
 
     @unittest.skipIf(sys.flags.ignore_environment, '-E was given')
     def test_envar_good_path_builtin(self):
-        self.env['PYTHONBREAKPOINT'] = 'int'
+        self.env['MYFRPYBREAKPOINT'] = 'int'
         with patch('builtins.int') as mock:
             breakpoint('7')
             mock.assert_called_once_with('7')
 
     @unittest.skipIf(sys.flags.ignore_environment, '-E was given')
     def test_envar_good_path_other(self):
-        self.env['PYTHONBREAKPOINT'] = 'sys.exit'
+        self.env['MYFRPYBREAKPOINT'] = 'sys.exit'
         with patch('sys.exit') as mock:
             breakpoint()
             mock.assert_called_once_with()
 
     @unittest.skipIf(sys.flags.ignore_environment, '-E was given')
     def test_envar_good_path_noop_0(self):
-        self.env['PYTHONBREAKPOINT'] = '0'
+        self.env['MYFRPYBREAKPOINT'] = '0'
         with patch('pdb.set_trace') as mock:
             breakpoint()
             mock.assert_not_called()
 
     def test_envar_good_path_empty_string(self):
-        # PYTHONBREAKPOINT='' is the same as it not being set.
-        self.env['PYTHONBREAKPOINT'] = ''
+        # MYFRPYBREAKPOINT='' is the same as it not being set.
+        self.env['MYFRPYBREAKPOINT'] = ''
         with patch('pdb.set_trace') as mock:
             breakpoint()
             mock.assert_called_once_with()
@@ -2179,18 +2179,18 @@ class TestBreakpoint(unittest.TestCase):
                 'nosuchmodule.nosuchcallable',
                 ):
             with self.subTest(envar=envar):
-                self.env['PYTHONBREAKPOINT'] = envar
+                self.env['MYFRPYBREAKPOINT'] = envar
                 mock = self.resources.enter_context(patch('pdb.set_trace'))
                 w = self.resources.enter_context(check_warnings(quiet=True))
                 breakpoint()
                 self.assertEqual(
                     str(w.message),
-                    f'Ignoring unimportable $PYTHONBREAKPOINT: "{envar}"')
+                    f'Ignoring unimportable $MYFRPYBREAKPOINT: "{envar}"')
                 self.assertEqual(w.category, RuntimeWarning)
                 mock.assert_not_called()
 
     def test_envar_ignored_when_hook_is_set(self):
-        self.env['PYTHONBREAKPOINT'] = 'sys.exit'
+        self.env['MYFRPYBREAKPOINT'] = 'sys.exit'
         with patch('sys.exit') as mock:
             sys.breakpointhook = int
             breakpoint()
@@ -2316,7 +2316,7 @@ class PtyTests(unittest.TestCase):
 
     def skip_if_readline(self):
         # bpo-13886: When the readline module is loaded, PyOS_Readline() uses
-        # the readline implementation. In some cases, the Python readline
+        # the readline implementation. In some cases, the MyFRpy readline
         # callback rlhandler() is called by readline with a string without
         # non-ASCII characters. Skip tests on non-ASCII characters if the
         # readline module is loaded, since test_builtin is not intended to test
@@ -2420,13 +2420,13 @@ class ShutdownTest(unittest.TestCase):
         # so print("before") fails because the codec cannot be used to encode
         # "before" to sys.stdout.encoding. For example, on Windows,
         # sys.stdout.encoding is the OEM code page and these code pages are
-        # implemented in Python
-        rc, out, err = assert_python_ok("-c", code,
-                                        PYTHONIOENCODING="ascii")
+        # implemented in MyFRpy
+        rc, out, err = assert_myFRpy_ok("-c", code,
+                                        MYFRPYIOENCODING="ascii")
         self.assertEqual(["before", "after"], out.decode().splitlines())
 
 
-@cpython_only
+@cmyFRpy_only
 class ImmortalTests(unittest.TestCase):
 
     if sys.maxsize < (1 << 32):

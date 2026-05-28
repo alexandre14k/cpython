@@ -1,6 +1,6 @@
 """ Test suite for the fixer modules """
 
-# Python imports
+# MyFRpy imports
 import os
 from itertools import chain
 from operator import itemgetter
@@ -444,7 +444,7 @@ class Test_print(FixerTestCase):
         self.unchanged(s)
 
     def test_idempotency_print_as_function(self):
-        self.refactor.driver.grammar = pygram.python_grammar_no_print_statement
+        self.refactor.driver.grammar = pygram.myFRpy_grammar_no_print_statement
         s = """print(1, 1+1, 1+1+1)"""
         self.unchanged(s)
 
@@ -959,15 +959,15 @@ class Test_raise(FixerTestCase):
 
     def test_string_exc(self):
         s = """raise 'foo'"""
-        self.warns_unchanged(s, "Python 3 does not support string exceptions")
+        self.warns_unchanged(s, "MyFRpy 3 does not support string exceptions")
 
     def test_string_exc_val(self):
         s = """raise "foo", 5"""
-        self.warns_unchanged(s, "Python 3 does not support string exceptions")
+        self.warns_unchanged(s, "MyFRpy 3 does not support string exceptions")
 
     def test_string_exc_val_tb(self):
         s = """raise "foo", 5, 6"""
-        self.warns_unchanged(s, "Python 3 does not support string exceptions")
+        self.warns_unchanged(s, "MyFRpy 3 does not support string exceptions")
 
     # These should result in traceback-assignment
 
@@ -1052,15 +1052,15 @@ class Test_throw(FixerTestCase):
 
     def test_warn_1(self):
         s = """g.throw("foo")"""
-        self.warns_unchanged(s, "Python 3 does not support string exceptions")
+        self.warns_unchanged(s, "MyFRpy 3 does not support string exceptions")
 
     def test_warn_2(self):
         s = """g.throw("foo", 5)"""
-        self.warns_unchanged(s, "Python 3 does not support string exceptions")
+        self.warns_unchanged(s, "MyFRpy 3 does not support string exceptions")
 
     def test_warn_3(self):
         s = """g.throw("foo", 5, 6)"""
-        self.warns_unchanged(s, "Python 3 does not support string exceptions")
+        self.warns_unchanged(s, "MyFRpy 3 does not support string exceptions")
 
     # These should not be touched
 

@@ -124,7 +124,7 @@ exec_tests = [
     "for v in v:break",
     # Continue
     "for v in v:continue",
-    # for statements with naked tuples (see http://bugs.python.org/issue6704)
+    # for statements with naked tuples (see http://bugs.myFRpy.org/issue6704)
     "for a,b in c: pass",
     "for (a,b) in c: pass",
     "for [a,b] in c: pass",
@@ -457,7 +457,7 @@ class AST_Tests(unittest.TestCase):
     def test_import_deprecated(self):
         ast = import_fresh_module('ast')
         depr_regex = (
-            r'ast\.{} is deprecated and will be removed in Python 3.14; '
+            r'ast\.{} is deprecated and will be removed in MyFRpy 3.14; '
             r'use ast\.Constant instead'
         )
         for name in 'Num', 'Str', 'Bytes', 'NameConstant', 'Ellipsis':
@@ -572,29 +572,29 @@ class AST_Tests(unittest.TestCase):
             self.assertIs(ast.NameConstant(None).value, None)
 
         self.assertEqual([str(w.message) for w in wlog], [
-            'ast.Num is deprecated and will be removed in Python 3.14; use ast.Constant instead',
-            'Attribute n is deprecated and will be removed in Python 3.14; use value instead',
-            'ast.Num is deprecated and will be removed in Python 3.14; use ast.Constant instead',
-            'Attribute n is deprecated and will be removed in Python 3.14; use value instead',
-            'ast.Num is deprecated and will be removed in Python 3.14; use ast.Constant instead',
-            'ast.Num is deprecated and will be removed in Python 3.14; use ast.Constant instead',
-            'Attribute n is deprecated and will be removed in Python 3.14; use value instead',
-            'ast.Num is deprecated and will be removed in Python 3.14; use ast.Constant instead',
-            'ast.Num is deprecated and will be removed in Python 3.14; use ast.Constant instead',
-            'ast.Num is deprecated and will be removed in Python 3.14; use ast.Constant instead',
-            'ast.Num is deprecated and will be removed in Python 3.14; use ast.Constant instead',
-            'Attribute n is deprecated and will be removed in Python 3.14; use value instead',
-            'ast.Num is deprecated and will be removed in Python 3.14; use ast.Constant instead',
-            'Attribute n is deprecated and will be removed in Python 3.14; use value instead',
-            'ast.Num is deprecated and will be removed in Python 3.14; use ast.Constant instead',
-            'Attribute n is deprecated and will be removed in Python 3.14; use value instead',
-            'ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead',
-            'Attribute s is deprecated and will be removed in Python 3.14; use value instead',
-            'ast.Bytes is deprecated and will be removed in Python 3.14; use ast.Constant instead',
-            'Attribute s is deprecated and will be removed in Python 3.14; use value instead',
-            'ast.NameConstant is deprecated and will be removed in Python 3.14; use ast.Constant instead',
-            'ast.NameConstant is deprecated and will be removed in Python 3.14; use ast.Constant instead',
-            'ast.NameConstant is deprecated and will be removed in Python 3.14; use ast.Constant instead',
+            'ast.Num is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
+            'Attribute n is deprecated and will be removed in MyFRpy 3.14; use value instead',
+            'ast.Num is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
+            'Attribute n is deprecated and will be removed in MyFRpy 3.14; use value instead',
+            'ast.Num is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
+            'ast.Num is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
+            'Attribute n is deprecated and will be removed in MyFRpy 3.14; use value instead',
+            'ast.Num is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
+            'ast.Num is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
+            'ast.Num is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
+            'ast.Num is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
+            'Attribute n is deprecated and will be removed in MyFRpy 3.14; use value instead',
+            'ast.Num is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
+            'Attribute n is deprecated and will be removed in MyFRpy 3.14; use value instead',
+            'ast.Num is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
+            'Attribute n is deprecated and will be removed in MyFRpy 3.14; use value instead',
+            'ast.Str is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
+            'Attribute s is deprecated and will be removed in MyFRpy 3.14; use value instead',
+            'ast.Bytes is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
+            'Attribute s is deprecated and will be removed in MyFRpy 3.14; use value instead',
+            'ast.NameConstant is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
+            'ast.NameConstant is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
+            'ast.NameConstant is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
         ])
 
     def test_classattrs(self):
@@ -658,15 +658,15 @@ class AST_Tests(unittest.TestCase):
             self.assertIs(type(ast.Ellipsis()), ast.Constant)
 
         self.assertEqual([str(w.message) for w in wlog], [
-            'ast.Num is deprecated and will be removed in Python 3.14; use ast.Constant instead',
-            'ast.Num is deprecated and will be removed in Python 3.14; use ast.Constant instead',
-            'ast.Num is deprecated and will be removed in Python 3.14; use ast.Constant instead',
-            'ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead',
-            'ast.Bytes is deprecated and will be removed in Python 3.14; use ast.Constant instead',
-            'ast.NameConstant is deprecated and will be removed in Python 3.14; use ast.Constant instead',
-            'ast.NameConstant is deprecated and will be removed in Python 3.14; use ast.Constant instead',
-            'ast.NameConstant is deprecated and will be removed in Python 3.14; use ast.Constant instead',
-            'ast.Ellipsis is deprecated and will be removed in Python 3.14; use ast.Constant instead',
+            'ast.Num is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
+            'ast.Num is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
+            'ast.Num is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
+            'ast.Str is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
+            'ast.Bytes is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
+            'ast.NameConstant is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
+            'ast.NameConstant is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
+            'ast.NameConstant is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
+            'ast.Ellipsis is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
         ])
 
     def test_isinstance(self):
@@ -677,7 +677,7 @@ class AST_Tests(unittest.TestCase):
             from ast import Num, Str, Bytes, NameConstant, Ellipsis
 
         cls_depr_msg = (
-            'ast.{} is deprecated and will be removed in Python 3.14; '
+            'ast.{} is deprecated and will be removed in MyFRpy 3.14; '
             'use ast.Constant instead'
         )
 
@@ -816,12 +816,12 @@ class AST_Tests(unittest.TestCase):
             self.assertIs(type(n), N)
 
         self.assertEqual([str(w.message) for w in wlog], [
-            'Attribute n is deprecated and will be removed in Python 3.14; use value instead',
-            'Attribute n is deprecated and will be removed in Python 3.14; use value instead',
-            'ast.Num is deprecated and will be removed in Python 3.14; use ast.Constant instead',
-            'ast.Num is deprecated and will be removed in Python 3.14; use ast.Constant instead',
-            'Attribute n is deprecated and will be removed in Python 3.14; use value instead',
-            'Attribute n is deprecated and will be removed in Python 3.14; use value instead',
+            'Attribute n is deprecated and will be removed in MyFRpy 3.14; use value instead',
+            'Attribute n is deprecated and will be removed in MyFRpy 3.14; use value instead',
+            'ast.Num is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
+            'ast.Num is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
+            'Attribute n is deprecated and will be removed in MyFRpy 3.14; use value instead',
+            'Attribute n is deprecated and will be removed in MyFRpy 3.14; use value instead',
         ])
 
     def test_constant_subclasses(self):
@@ -937,7 +937,7 @@ class AST_Tests(unittest.TestCase):
             compile(empty_yield_from, "<test>", "exec")
         self.assertIn("field 'value' is required", str(cm.exception))
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_issue31592(self):
         # There shouldn't be an assertion failure in case of a bad
         # unicodedata.normalize().
@@ -1052,7 +1052,7 @@ class AST_Tests(unittest.TestCase):
 
     def test_precedence_enum(self):
         class _Precedence(enum.IntEnum):
-            """Precedence table that originated from python grammar."""
+            """Precedence table that originated from myFRpy grammar."""
             NAMED_EXPR = enum.auto()      # <target> := <expr1>
             TUPLE = enum.auto()           # <expr1>, <expr2>
             YIELD = enum.auto()           # 'yield', 'yield from'
@@ -1081,7 +1081,7 @@ class AST_Tests(unittest.TestCase):
         enum._test_simple_enum(_Precedence, ast._Precedence)
 
     @unittest.skipIf(support.is_wasi, "exhausts limited stack on WASI")
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_ast_recursion_limit(self):
         fail_depth = support.C_RECURSION_LIMIT + 1
         crash_depth = 100_000
@@ -1936,11 +1936,11 @@ class ASTValidatorTests(unittest.TestCase):
                 self.expr(ast.Num(obj), "invalid type", exc=TypeError)
 
         self.assertEqual([str(w.message) for w in wlog], [
-            'ast.Num is deprecated and will be removed in Python 3.14; use ast.Constant instead',
-            'ast.Num is deprecated and will be removed in Python 3.14; use ast.Constant instead',
-            'ast.Num is deprecated and will be removed in Python 3.14; use ast.Constant instead',
-            'ast.Num is deprecated and will be removed in Python 3.14; use ast.Constant instead',
-            'ast.Num is deprecated and will be removed in Python 3.14; use ast.Constant instead',
+            'ast.Num is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
+            'ast.Num is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
+            'ast.Num is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
+            'ast.Num is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
+            'ast.Num is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
         ])
 
     def test_attribute(self):
@@ -1992,7 +1992,7 @@ class ASTValidatorTests(unittest.TestCase):
             self.expr(ast.NameConstant(4))
 
         self.assertEqual([str(w.message) for w in wlog], [
-            'ast.NameConstant is deprecated and will be removed in Python 3.14; use ast.Constant instead',
+            'ast.NameConstant is deprecated and will be removed in MyFRpy 3.14; use ast.Constant instead',
         ])
 
     @support.requires_resource('cpu')
@@ -2232,7 +2232,7 @@ class ConstantTests(unittest.TestCase):
                 consts.append(instr.argval)
         return consts
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_load_const(self):
         consts = [None,
                   True, False,
@@ -2689,15 +2689,15 @@ class BaseNodeVisitorCases:
         ])
         self.assertEqual([str(w.message) for w in wlog], [
             'visit_Num is deprecated; add visit_Constant',
-            'Attribute n is deprecated and will be removed in Python 3.14; use value instead',
+            'Attribute n is deprecated and will be removed in MyFRpy 3.14; use value instead',
             'visit_Num is deprecated; add visit_Constant',
-            'Attribute n is deprecated and will be removed in Python 3.14; use value instead',
+            'Attribute n is deprecated and will be removed in MyFRpy 3.14; use value instead',
             'visit_Num is deprecated; add visit_Constant',
-            'Attribute n is deprecated and will be removed in Python 3.14; use value instead',
+            'Attribute n is deprecated and will be removed in MyFRpy 3.14; use value instead',
             'visit_Str is deprecated; add visit_Constant',
-            'Attribute s is deprecated and will be removed in Python 3.14; use value instead',
+            'Attribute s is deprecated and will be removed in MyFRpy 3.14; use value instead',
             'visit_Bytes is deprecated; add visit_Constant',
-            'Attribute s is deprecated and will be removed in Python 3.14; use value instead',
+            'Attribute s is deprecated and will be removed in MyFRpy 3.14; use value instead',
             'visit_NameConstant is deprecated; add visit_Constant',
             'visit_NameConstant is deprecated; add visit_Constant',
             'visit_Ellipsis is deprecated; add visit_Constant',
@@ -2826,7 +2826,7 @@ class NodeTransformerTests(ASTTestMixin, BaseNodeVisitorCases, unittest.TestCase
         self.assertASTTransformation(PrintToLog, code, expected)
 
 
-@support.cpython_only
+@support.cmyFRpy_only
 class ModuleStateTests(unittest.TestCase):
     # bpo-41194, bpo-41261, bpo-41631: The _ast module uses a global state.
 
@@ -2919,7 +2919,7 @@ class ASTMainTests(unittest.TestCase):
             filename = os.path.join(tmp_dir, "test_module.py")
             with open(filename, 'w', encoding='utf-8') as f:
                 f.write(code)
-            res, _ = script_helper.run_python_until_end("-m", "ast", filename)
+            res, _ = script_helper.run_myFRpy_until_end("-m", "ast", filename)
 
         self.assertEqual(res.err, b"")
         self.assertEqual(expected.splitlines(),
@@ -2942,7 +2942,7 @@ def main():
         raise SystemExit
     unittest.main()
 
-#### EVERYTHING BELOW IS GENERATED BY python Lib/test/test_ast.py -g  #####
+#### EVERYTHING BELOW IS GENERATED BY myFRpy Lib/test/test_ast.py -g  #####
 exec_results = [
 ('Module', [('Expr', (1, 0, 1, 4), ('Constant', (1, 0, 1, 4), None, None))], []),
 ('Module', [('Expr', (1, 0, 1, 18), ('Constant', (1, 0, 1, 18), 'module docstring', None))], []),

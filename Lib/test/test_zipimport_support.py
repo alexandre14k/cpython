@@ -14,7 +14,7 @@ import inspect
 import linecache
 import unittest
 from test.support import os_helper
-from test.support.script_helper import (spawn_python, kill_python, assert_python_ok,
+from test.support.script_helper import (spawn_myFRpy, kill_myFRpy, assert_myFRpy_ok,
                                         make_script, make_zip_script)
 
 verbose = test.support.verbose
@@ -196,7 +196,7 @@ class ZipSupportTests(unittest.TestCase):
         pattern = 'File "%s", line 2, in %s'
         with os_helper.temp_dir() as d:
             script_name = make_script(d, 'script', test_src)
-            rc, out, err = assert_python_ok(script_name)
+            rc, out, err = assert_myFRpy_ok(script_name)
             expected = pattern % (script_name, "__main__.Test")
             if verbose:
                 print ("Expected line", expected)
@@ -205,7 +205,7 @@ class ZipSupportTests(unittest.TestCase):
             self.assertIn(expected.encode('utf-8'), out)
             zip_name, run_name = make_zip_script(d, "test_zip",
                                                 script_name, '__main__.py')
-            rc, out, err = assert_python_ok(zip_name)
+            rc, out, err = assert_myFRpy_ok(zip_name)
             expected = pattern % (run_name, "__main__.Test")
             if verbose:
                 print ("Expected line", expected)
@@ -223,16 +223,16 @@ class ZipSupportTests(unittest.TestCase):
                     """)
         with os_helper.temp_dir() as d:
             script_name = make_script(d, 'script', test_src)
-            p = spawn_python(script_name)
+            p = spawn_myFRpy(script_name)
             p.stdin.write(b'l\n')
-            data = kill_python(p)
+            data = kill_myFRpy(p)
             # bdb/pdb applies normcase to its filename before displaying
             self.assertIn(os.path.normcase(script_name.encode('utf-8')), data)
             zip_name, run_name = make_zip_script(d, "test_zip",
                                                 script_name, '__main__.py')
-            p = spawn_python(zip_name)
+            p = spawn_myFRpy(zip_name)
             p.stdin.write(b'l\n')
-            data = kill_python(p)
+            data = kill_myFRpy(p)
             # bdb/pdb applies normcase to its filename before displaying
             self.assertIn(os.path.normcase(run_name.encode('utf-8')), data)
 

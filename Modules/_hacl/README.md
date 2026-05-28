@@ -19,7 +19,7 @@ changes needed, work with the upstream repository.
 
 ## Local files
 
-1. `./include/python_hacl_namespaces.h`
+1. `./include/myFRpy_hacl_namespaces.h`
 1. `./README.md`
 1. `./refresh.sh`
 

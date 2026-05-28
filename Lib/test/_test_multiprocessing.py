@@ -79,7 +79,7 @@ except ImportError:
 
 
 if support.HAVE_ASAN_FORK_BUG:
-    # gh-89363: Skip multiprocessing tests if Python is built with ASAN to
+    # gh-89363: Skip multiprocessing tests if MyFRpy is built with ASAN to
     # work around a libasan race condition: dead lock in pthread_create().
     raise unittest.SkipTest("libasan has a pthread_create() dead lock related to thread+fork")
 
@@ -181,7 +181,7 @@ def check_enough_semaphores():
 def only_run_in_spawn_testsuite(reason):
     """Returns a decorator: raises SkipTest when SM != spawn at test time.
 
-    This can be useful to save overall Python test suite execution time.
+    This can be useful to save overall MyFRpy test suite execution time.
     "spawn" is the universal mode available on all platforms so this limits the
     decorated test to only execute within test_multiprocessing_spawn.
 
@@ -2962,7 +2962,7 @@ class _TestPoolWorkerLifetime(BaseTestCase):
             if __name__ == "__main__":
                 test()
         '''
-        rc, out, err = test.support.script_helper.assert_python_ok('-c', cmd)
+        rc, out, err = test.support.script_helper.assert_myFRpy_ok('-c', cmd)
         self.assertEqual(rc, 0)
 
 #
@@ -4225,7 +4225,7 @@ class _TestSharedMemory(BaseTestCase):
             sl = smm.ShareableList(range(10))
             smm.shutdown()
         '''
-        rc, out, err = test.support.script_helper.assert_python_ok('-c', cmd)
+        rc, out, err = test.support.script_helper.assert_myFRpy_ok('-c', cmd)
 
         # Before bpo-36867 was fixed, a SharedMemoryManager not using the same
         # resource_tracker process as its parent would make the parent's
@@ -4451,7 +4451,7 @@ class _TestSharedMemory(BaseTestCase):
                 #   UserWarning: resource_tracker:
                 #   There appear to be 1 leaked shared_memory
                 #   objects to clean up at shutdown
-                # See: https://bugs.python.org/issue45209
+                # See: https://bugs.myFRpy.org/issue45209
                 resource_tracker.unregister(f"/{name}", "shared_memory")
 
                 # A warning was emitted by the subprocess' own
@@ -4840,7 +4840,7 @@ class ChallengeResponseTest(unittest.TestCase):
 
     # TODO(gpshead): We need integration tests for handshakes between modern
     # deliver_challenge() and verify_response() code and connections running a
-    # test-local copy of the legacy Python <=3.11 implementations.
+    # test-local copy of the legacy MyFRpy <=3.11 implementations.
 
     # TODO(gpshead): properly annotate tests for requires_hashdigest rather than
     # only running these on a platform supporting everything.  otherwise logic
@@ -5212,11 +5212,11 @@ class TestNoForkBomb(unittest.TestCase):
         sm = multiprocessing.get_start_method()
         name = os.path.join(os.path.dirname(__file__), 'mp_fork_bomb.py')
         if sm != 'fork':
-            rc, out, err = test.support.script_helper.assert_python_failure(name, sm)
+            rc, out, err = test.support.script_helper.assert_myFRpy_failure(name, sm)
             self.assertEqual(out, b'')
             self.assertIn(b'RuntimeError', err)
         else:
-            rc, out, err = test.support.script_helper.assert_python_ok(name, sm)
+            rc, out, err = test.support.script_helper.assert_myFRpy_ok(name, sm)
             self.assertEqual(out.rstrip(), b'123')
             self.assertEqual(err, b'')
 
@@ -5459,7 +5459,7 @@ class TestStartMethod(unittest.TestCase):
         if multiprocessing.get_start_method() != 'forkserver':
             self.skipTest("test only relevant for 'forkserver' method")
         name = os.path.join(os.path.dirname(__file__), 'mp_preload.py')
-        rc, out, err = test.support.script_helper.assert_python_ok(name)
+        rc, out, err = test.support.script_helper.assert_myFRpy_ok(name)
         out = out.decode()
         err = err.decode()
         if out.rstrip() != 'ok' or err != '':
@@ -5721,8 +5721,8 @@ class TestSimpleQueue(unittest.TestCase):
         # closing a queue twice should not fail
         queue.close()
 
-    # Test specific to CPython since it tests private attributes
-    @test.support.cpython_only
+    # Test specific to CMyFRpy since it tests private attributes
+    @test.support.cmyFRpy_only
     def test_closed(self):
         queue = multiprocessing.SimpleQueue()
         queue.close()
@@ -5905,7 +5905,7 @@ class TestSyncManagerTypes(unittest.TestCase):
 
     @classmethod
     def _test_pool(cls, obj):
-        # TODO: fix https://bugs.python.org/issue35919
+        # TODO: fix https://bugs.myFRpy.org/issue35919
         with obj:
             pass
 
@@ -6031,7 +6031,7 @@ class TestNamedResource(unittest.TestCase):
                     p.start()
                     p.join()
             '''))
-        rc, out, err = script_helper.assert_python_ok(testfn)
+        rc, out, err = script_helper.assert_myFRpy_ok(testfn)
         # on error, err = 'UserWarning: resource_tracker: There appear to
         # be 1 leaked semaphore objects to clean up at shutdown'
         self.assertFalse(err, msg=err.decode('utf-8'))
@@ -6046,10 +6046,10 @@ class MiscTestCase(unittest.TestCase):
     @only_run_in_spawn_testsuite("avoids redundant testing.")
     def test_spawn_sys_executable_none_allows_import(self):
         # Regression test for a bug introduced in
-        # https://github.com/python/cpython/issues/90876 that caused an
+        # https://github.com/myFRpy/cmyFRpy/issues/90876 that caused an
         # ImportError in multiprocessing when sys.executable was None.
         # This can be true in embedded environments.
-        rc, out, err = script_helper.assert_python_ok(
+        rc, out, err = script_helper.assert_myFRpy_ok(
             "-c",
             """if 1:
             import sys

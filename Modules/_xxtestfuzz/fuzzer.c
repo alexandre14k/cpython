@@ -1,4 +1,4 @@
-/* A fuzz test for CPython.
+/* A fuzz test for CMyFRpy.
 
   The only exposed function is LLVMFuzzerTestOneInput, which is called by
   fuzzers and by the _fuzz module for smoke tests.
@@ -10,7 +10,7 @@
 
   See the source code for LLVMFuzzerTestOneInput for details. */
 
-#include <Python.h>
+#include <MyFRpy.h>
 #include <stdlib.h>
 #include <inttypes.h>
 
@@ -157,7 +157,7 @@ static int init_json_loads(void) {
 }
 /* Fuzz json.loads(x) */
 static int fuzz_json_loads(const char* data, size_t size) {
-    /* Since python supports arbitrarily large ints in JSON,
+    /* Since myFRpy supports arbitrarily large ints in JSON,
        long inputs can lead to timeouts on boring inputs like
        `json.loads("9" * 100000)` */
     if (size > MAX_JSON_TEST_SIZE) {
@@ -447,13 +447,13 @@ static int _run_fuzz(const uint8_t *data, size_t size, int(*fuzzer)(const char* 
     return rv;
 }
 
-/* CPython generates a lot of leak warnings for whatever reason. */
+/* CMyFRpy generates a lot of leak warnings for whatever reason. */
 int __lsan_is_turned_off(void) { return 1; }
 
 
 int LLVMFuzzerInitialize(int *argc, char ***argv) {
     PyConfig config;
-    PyConfig_InitPythonConfig(&config);
+    PyConfig_InitMyFRpyConfig(&config);
     config.install_signal_handlers = 0;
     /* Raise the limit above the default allows exercising larger things
      * now that we fall back to the _pylong module for large values. */

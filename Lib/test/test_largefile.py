@@ -13,7 +13,7 @@ from test.support import SHORT_TIMEOUT
 from test.support import socket_helper
 from test.support.os_helper import TESTFN, unlink
 import io  # C implementation of io
-import _pyio as pyio # Python implementation of io
+import _pyio as pyio # MyFRpy implementation of io
 
 # size of file to create (>2 GiB; 2 GiB == 2,147,483,648 bytes)
 size = 2_500_000_000

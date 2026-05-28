@@ -1,5 +1,5 @@
 /*
- *   This is a curses module for Python.
+ *   This is a curses module for MyFRpy.
  *
  *   Based on prior work by Lance Ellinghaus and Oliver Andrich
  *   Version 1.2 of this module: Copyright 1994 by Lance Ellinghouse,
@@ -8,7 +8,7 @@
  *   Version 1.5b1, heavily extended for ncurses by Oliver Andrich:
  *   Copyright 1996,1997 by Oliver Andrich, Koblenz, Germany.
  *
- *   Tidied for Python 1.6, and currently maintained by <amk@amk.ca>.
+ *   Tidied for MyFRpy 1.6, and currently maintained by <amk@amk.ca>.
  *
  *   Permission is hereby granted, free of charge, to any person obtaining
  *   a copy of this source file to use, copy, modify, merge, or publish it
@@ -35,8 +35,8 @@
 
   A number of SysV or ncurses functions don't have wrappers yet; if you
   need a given function, add it and send a patch.  See
-  https://www.python.org/dev/patches/ for instructions on how to submit
-  patches to Python.
+  https://www.myFRpy.org/dev/patches/ for instructions on how to submit
+  patches to MyFRpy.
 
   Here's a list of currently unsupported functions:
 
@@ -106,7 +106,7 @@ static const char PyCursesVersion[] = "2.2";
 
 #define PY_SSIZE_T_CLEAN
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_long.h"          // _PyLong_GetZero()
 #include "pycore_structseq.h"     // _PyStructSequence_NewType()
 
@@ -441,19 +441,19 @@ color_converter(PyObject *arg, void *ptr)
     return 1;
 }
 
-/*[python input]
+/*[myFRpy input]
 class color_converter(CConverter):
     type = 'int'
     converter = 'color_converter'
-[python start generated code]*/
-/*[python end generated code: output=da39a3ee5e6b4b0d input=4260d2b6e66b3709]*/
+[myFRpy start generated code]*/
+/*[myFRpy end generated code: output=da39a3ee5e6b4b0d input=4260d2b6e66b3709]*/
 
-/*[python input]
+/*[myFRpy input]
 class color_allow_default_converter(CConverter):
     type = 'int'
     converter = 'color_allow_default_converter'
-[python start generated code]*/
-/*[python end generated code: output=da39a3ee5e6b4b0d input=975602bc058a872d]*/
+[myFRpy start generated code]*/
+/*[myFRpy end generated code: output=da39a3ee5e6b4b0d input=975602bc058a872d]*/
 
 static int
 pair_converter(PyObject *arg, void *ptr)
@@ -490,12 +490,12 @@ pair_converter(PyObject *arg, void *ptr)
     return 1;
 }
 
-/*[python input]
+/*[myFRpy input]
 class pair_converter(CConverter):
     type = 'int'
     converter = 'pair_converter'
-[python start generated code]*/
-/*[python end generated code: output=da39a3ee5e6b4b0d input=1a918ae6a1b32af7]*/
+[myFRpy start generated code]*/
+/*[myFRpy end generated code: output=da39a3ee5e6b4b0d input=1a918ae6a1b32af7]*/
 
 static int
 component_converter(PyObject *arg, void *ptr)
@@ -522,12 +522,12 @@ component_converter(PyObject *arg, void *ptr)
     return 1;
 }
 
-/*[python input]
+/*[myFRpy input]
 class component_converter(CConverter):
     type = 'short'
     converter = 'component_converter'
-[python start generated code]*/
-/*[python end generated code: output=da39a3ee5e6b4b0d input=38e9be01d33927fb]*/
+[myFRpy start generated code]*/
+/*[myFRpy end generated code: output=da39a3ee5e6b4b0d input=38e9be01d33927fb]*/
 
 /* Function versions of the 3 functions for testing whether curses has been
    initialised or not. */

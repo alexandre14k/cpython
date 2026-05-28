@@ -1,6 +1,6 @@
 from test import support
 from test.support import os_helper, requires_debug_ranges
-from test.support.script_helper import assert_python_ok
+from test.support.script_helper import assert_myFRpy_ok
 import array
 import io
 import marshal
@@ -30,7 +30,7 @@ class HelperMixin:
 
 class IntTestCase(unittest.TestCase, HelperMixin):
     def test_ints(self):
-        # Test a range of Python ints larger than the machine word size.
+        # Test a range of MyFRpy ints larger than the machine word size.
         n = sys.maxsize ** 2
         while n:
             for expected in (-n, n):
@@ -148,12 +148,12 @@ class CodeTestCase(unittest.TestCase):
             with open(os_helper.TESTFN, 'wb') as f:
                 marshal.dump(co, f)
 
-            assert_python_ok('-X', 'no_debug_ranges',
+            assert_myFRpy_ok('-X', 'no_debug_ranges',
                              '-c', code, os_helper.TESTFN)
         finally:
             os_helper.unlink(os_helper.TESTFN)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_same_filename_used(self):
         s = """def f(): pass\ndef g(): pass"""
         co = compile(s, "myfile", "exec")
@@ -218,7 +218,7 @@ class BugsTestCase(unittest.TestCase):
         self.assertRaises(Exception, marshal.loads, marshal.dumps(2**65)[:-1])
 
     def test_version_argument(self):
-        # Python 2.4.0 crashes for any call to marshal.dumps(x, y)
+        # MyFRpy 2.4.0 crashes for any call to marshal.dumps(x, y)
         self.assertEqual(marshal.loads(marshal.dumps(5, 0)), 5)
         self.assertEqual(marshal.loads(marshal.dumps(5, 1)), 5)
 
@@ -254,8 +254,8 @@ class BugsTestCase(unittest.TestCase):
     def test_recursion_limit(self):
         # Create a deeply nested structure.
         head = last = []
-        # The max stack depth should match the value in Python/marshal.c.
-        # BUG: https://bugs.python.org/issue33720
+        # The max stack depth should match the value in MyFRpy/marshal.c.
+        # BUG: https://bugs.myFRpy.org/issue33720
         # Windows always limits the maximum depth on release and debug builds
         #if os.name == 'nt' and support.Py_DEBUG:
         if os.name == 'nt':
@@ -366,13 +366,13 @@ class BugsTestCase(unittest.TestCase):
                     # algorithm (for example, using Py_HASH_EXTERNAL):
                     if sys.hash_info.algorithm in {"fnv", "siphash24"}:
                         args = ["-c", f"print({s})"]
-                        _, repr_0, _ = assert_python_ok(*args, PYTHONHASHSEED="0")
-                        _, repr_1, _ = assert_python_ok(*args, PYTHONHASHSEED="1")
+                        _, repr_0, _ = assert_myFRpy_ok(*args, MYFRPYHASHSEED="0")
+                        _, repr_1, _ = assert_myFRpy_ok(*args, MYFRPYHASHSEED="1")
                         self.assertNotEqual(repr_0, repr_1)
                     # Then, perform the actual test:
                     args = ["-c", f"import marshal; print(marshal.dumps({s}))"]
-                    _, dump_0, _ = assert_python_ok(*args, PYTHONHASHSEED="0")
-                    _, dump_1, _ = assert_python_ok(*args, PYTHONHASHSEED="1")
+                    _, dump_0, _ = assert_myFRpy_ok(*args, MYFRPYHASHSEED="0")
+                    _, dump_1, _ = assert_myFRpy_ok(*args, MYFRPYHASHSEED="1")
                     self.assertEqual(dump_0, dump_1)
 
 LARGE_SIZE = 2**31
@@ -568,7 +568,7 @@ class InterningTestCase(unittest.TestCase, HelperMixin):
         s2 = sys.intern(s)
         self.assertNotEqual(id(s2), id(s))
 
-@support.cpython_only
+@support.cmyFRpy_only
 @unittest.skipUnless(_testcapi, 'requires _testcapi')
 class CAPI_TestCase(unittest.TestCase, HelperMixin):
 

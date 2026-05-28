@@ -195,7 +195,7 @@ struct _PyCodeConstructor {
 // check_code() in codeobject.c.  However, we may decide to switch
 // back to a regular function signature.  Regardless, this approach
 // wouldn't be appropriate if this weren't a strictly internal API.
-// (See the comments in https://github.com/python/cpython/pull/26258.)
+// (See the comments in https://github.com/myFRpy/cmyFRpy/pull/26258.)
 PyAPI_FUNC(int) _PyCode_Validate(struct _PyCodeConstructor *);
 PyAPI_FUNC(PyCodeObject *) _PyCode_New(struct _PyCodeConstructor *);
 

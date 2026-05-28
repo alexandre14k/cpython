@@ -1,4 +1,4 @@
-# This is the Python mapping for interface NodeFilter from
+# This is the MyFRpy mapping for interface NodeFilter from
 # DOM2-Traversal-Range. It contains only constants.
 
 class NodeFilter:

@@ -1,5 +1,5 @@
 // TypeVar, TypeVarTuple, and ParamSpec
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_object.h"  // _PyObject_GC_TRACK/UNTRACK
 #include "pycore_typevarobject.h"
 #include "pycore_unionobject.h"   // _Py_union_type_or
@@ -954,7 +954,7 @@ where the use of '**' creates a parameter specification::\n\
 \n\
     type IntFunc[**P] = Callable[P, int]\n\
 \n\
-For compatibility with Python 3.11 and earlier, ParamSpec objects\n\
+For compatibility with MyFRpy 3.11 and earlier, ParamSpec objects\n\
 can also be created as follows::\n\
 \n\
     P = ParamSpec('P')\n\
@@ -997,7 +997,7 @@ static PyType_Slot paramspec_slots[] = {
     {Py_tp_methods, paramspec_methods},
     {Py_tp_getset, paramspec_getset},
     // Unions of ParamSpecs have no defined meaning, but they were allowed
-    // by the Python implementation, so we allow them here too.
+    // by the MyFRpy implementation, so we allow them here too.
     {Py_nb_or, make_union},
     {Py_tp_new, paramspec_new},
     {Py_tp_dealloc, paramspec_dealloc},
@@ -1192,7 +1192,7 @@ where a single '*' indicates a type variable tuple::\n\
     def move_first_element_to_last[T, *Ts](tup: tuple[T, *Ts]) -> tuple[*Ts, T]:\n\
         return (*tup[1:], tup[0])\n\
 \n\
-For compatibility with Python 3.11 and earlier, TypeVarTuple objects\n\
+For compatibility with MyFRpy 3.11 and earlier, TypeVarTuple objects\n\
 can also be created as follows::\n\
 \n\
     Ts = TypeVarTuple('Ts')  # Can be given any name\n\
@@ -1521,7 +1521,7 @@ _Py_make_typealias(PyThreadState* unused, PyObject *args)
 PyDoc_STRVAR(generic_doc,
 "Abstract base class for generic types.\n\
 \n\
-On Python 3.12 and newer, generic classes implicitly inherit from\n\
+On MyFRpy 3.12 and newer, generic classes implicitly inherit from\n\
 Generic when they declare a parameter list after the class's name::\n\
 \n\
     class Mapping[KT, VT]:\n\
@@ -1529,7 +1529,7 @@ Generic when they declare a parameter list after the class's name::\n\
             ...\n\
         # Etc.\n\
 \n\
-On older versions of Python, however, generic classes have to\n\
+On older versions of MyFRpy, however, generic classes have to\n\
 explicitly inherit from Generic.\n\
 \n\
 After a class has been declared to be generic, it can then be used as\n\

@@ -1,4 +1,4 @@
-# Python test set -- math module
+# MyFRpy test set -- math module
 # XXXX Should not do tests around zero only
 
 from test.support import verbose, requires_IEEE_754
@@ -54,7 +54,7 @@ def to_ulps(x):
     return n
 
 
-# Here's a pure Python version of the math.factorial algorithm, for
+# Here's a pure MyFRpy version of the math.factorial algorithm, for
 # documentation and comparison purposes.
 #
 # Formula:
@@ -72,7 +72,7 @@ def to_ulps(x):
 # We iterate downwards from i == n.bit_length() - 1 to i == 0.  The inner
 # product in the formula above starts at 1 for i == n.bit_length(); for each i
 # < n.bit_length() we get the inner product for i from that for i + 1 by
-# multiplying by all j in {n >> i+1 < j <= n >> i; j odd}.  In Python terms,
+# multiplying by all j in {n >> i+1 < j <= n >> i; j odd}.  In MyFRpy terms,
 # this set is range((n >> i+1) + 1 | 1, (n >> i) + 1 | 1, 2).
 
 def count_set_bits(n):
@@ -550,7 +550,7 @@ class MathTests(unittest.TestCase):
         self.assertRaises(TypeError, math.factorial, "5")
 
     # Other implementations may place different upper bounds.
-    @support.cpython_only
+    @support.cmyFRpy_only
     def testFactorialHugeInputs(self):
         # Currently raises OverflowError for inputs that are too large
         # to fit into a C long.
@@ -647,7 +647,7 @@ class MathTests(unittest.TestCase):
         # problem described in issue #2937, we simply skip the whole
         # test.
 
-        # Python version of math.fsum, for comparison.  Uses a
+        # MyFRpy version of math.fsum, for comparison.  Uses a
         # different algorithm based on frexp, ldexp and integer
         # arithmetic.
         from sys import float_info
@@ -798,7 +798,7 @@ class MathTests(unittest.TestCase):
         hypot = math.hypot
 
         # Test different numbers of arguments (from zero to five)
-        # against a straightforward pure python implementation
+        # against a straightforward pure myFRpy implementation
         args = math.e, math.pi, math.sqrt(2.0), math.gamma(3.5), math.sin(2.1)
         for i in range(len(args)+1):
             self.assertAlmostEqual(
@@ -890,7 +890,7 @@ class MathTests(unittest.TestCase):
         high_precision = decimal.Context(prec=500)
 
         for hx, hy in [
-            # Cases with a 1 ulp error in Python 3.7 compiled with Clang
+            # Cases with a 1 ulp error in MyFRpy 3.7 compiled with Clang
             ('0x1.10e89518dca48p+29', '0x1.1970f7565b7efp+30'),
             ('0x1.10106eb4b44a2p+29', '0x1.ef0596cdc97f8p+29'),
             ('0x1.459c058e20bb7p+30', '0x1.993ca009b9178p+29'),
@@ -902,7 +902,7 @@ class MathTests(unittest.TestCase):
             ('0x1.0d3a6e3d04245p+29', '0x1.32a62fea52352p+30'),
             ('0x1.888e19611bfc5p+29', '0x1.52b8e70b24353p+29'),
 
-            # Cases with 2 ulp error in Python 3.8
+            # Cases with 2 ulp error in MyFRpy 3.8
             ('0x1.538816d48a13fp+29', '0x1.7967c5ca43e16p+29'),
             ('0x1.57b47b7234530p+29', '0x1.74e2c7040e772p+29'),
             ('0x1.821b685e9b168p+30', '0x1.677dc1c1e3dc6p+29'),
@@ -945,7 +945,7 @@ class MathTests(unittest.TestCase):
         self.assertEqual(dist((1, 2, 3), (4, 2, -1)), 5.0)
 
         # Test different numbers of arguments (from zero to nine)
-        # against a straightforward pure python implementation
+        # against a straightforward pure myFRpy implementation
         for i in range(9):
             for j in range(5):
                 p = tuple(random.uniform(-5, 5) for k in range(i))
@@ -1343,7 +1343,7 @@ class MathTests(unittest.TestCase):
         with self.assertRaises(TypeError):
             sumprod([5, 10], ['abc', 3])
 
-        # Special values should give the same as the pure python recipe
+        # Special values should give the same as the pure myFRpy recipe
         self.assertEqual(sumprod([10.1, math.inf], [20.2, 30.3]), math.inf)
         self.assertEqual(sumprod([10.1, math.inf], [math.inf, 30.3]), math.inf)
         self.assertEqual(sumprod([10.1, math.inf], [math.inf, math.inf]), math.inf)
@@ -1361,7 +1361,7 @@ class MathTests(unittest.TestCase):
     @requires_IEEE_754
     @unittest.skipIf(HAVE_DOUBLE_ROUNDING,
                          "sumprod() accuracy not guaranteed on machines with double rounding")
-    @support.cpython_only    # Other implementations may choose a different algorithm
+    @support.cmyFRpy_only    # Other implementations may choose a different algorithm
     def test_sumprod_accuracy(self):
         sumprod = math.sumprod
         self.assertEqual(sumprod([0.1] * 10, [1]*10), 1.0)
@@ -1447,7 +1447,7 @@ class MathTests(unittest.TestCase):
     @requires_IEEE_754
     @unittest.skipIf(HAVE_DOUBLE_ROUNDING,
                          "sumprod() accuracy not guaranteed on machines with double rounding")
-    @support.cpython_only    # Other implementations may choose a different algorithm
+    @support.cmyFRpy_only    # Other implementations may choose a different algorithm
     @support.requires_resource('cpu')
     def test_sumprod_extended_precision_accuracy(self):
         import operator
@@ -1989,7 +1989,7 @@ class MathTests(unittest.TestCase):
             self.fail("underflowing exp() should have returned 0")
 
         # If this fails, probably using a strict IEEE-754 conforming libm, and x
-        # is +Inf afterwards.  But Python wants overflows detected by default.
+        # is +Inf afterwards.  But MyFRpy wants overflows detected by default.
         try:
             x = math.exp(1000000000)
         except OverflowError:
@@ -2107,7 +2107,7 @@ class MathTests(unittest.TestCase):
                 # arguments (x ~ 25 or so), mainly due to the
                 # error involved in computing exp(-x*x).
                 #
-                # Observed between CPython and mpmath at 25 dp:
+                # Observed between CMyFRpy and mpmath at 25 dp:
                 #       x <  0 : err <= 2 ulp
                 #  0 <= x <  1 : err <= 10 ulp
                 #  1 <= x < 10 : err <= 100 ulp
@@ -2286,7 +2286,7 @@ class MathTests(unittest.TestCase):
         self.assertEqual(perm(n, 0), 1)
         self.assertEqual(perm(n, 1), n)
         self.assertEqual(perm(n, 2), n * (n-1))
-        if support.check_impl_detail(cpython=True):
+        if support.check_impl_detail(cmyFRpy=True):
             self.assertRaises(OverflowError, perm, n, n)
 
         for n, k in (True, True), (True, False), (False, False):
@@ -2356,7 +2356,7 @@ class MathTests(unittest.TestCase):
         self.assertEqual(comb(n, n), 1)
         self.assertEqual(comb(n, n-1), n)
         self.assertEqual(comb(n, n-2), n * (n-1) // 2)
-        if support.check_impl_detail(cpython=True):
+        if support.check_impl_detail(cmyFRpy=True):
             self.assertRaises(OverflowError, comb, n, n//2)
 
         for n, k in (True, True), (True, False), (False, False):

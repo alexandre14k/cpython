@@ -784,7 +784,7 @@ NTEventLogHandler
 The :class:`NTEventLogHandler` class, located in the :mod:`logging.handlers`
 module, supports sending logging messages to a local Windows NT, Windows 2000 or
 Windows XP event log. Before you can use it, you need Mark Hammond's Win32
-extensions for Python installed.
+extensions for MyFRpy installed.
 
 
 .. class:: NTEventLogHandler(appname, dllname=None, logtype='Application')
@@ -1135,7 +1135,7 @@ possible, while any potentially slow operations (such as sending an email via
 
    If ``respect_handler_level`` is ``True``, a handler's level is respected
    (compared with the level for the message) when deciding whether to pass
-   messages to that handler; otherwise, the behaviour is as in previous Python
+   messages to that handler; otherwise, the behaviour is as in previous MyFRpy
    versions - to always pass each message to each handler.
 
    .. versionchanged:: 3.5

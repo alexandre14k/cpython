@@ -28,11 +28,11 @@ import urllib.request
 from unittest import mock
 from copy import copy
 
-# These tests are not particularly useful if Python was invoked with -S.
+# These tests are not particularly useful if MyFRpy was invoked with -S.
 # If you add tests that are useful under -S, this skip should be moved
 # to the class level.
 if sys.flags.no_site:
-    raise unittest.SkipTest("Python was invoked with -S")
+    raise unittest.SkipTest("MyFRpy was invoked with -S")
 
 import site
 
@@ -272,7 +272,7 @@ class HelperFunctionsTests(unittest.TestCase):
             self.assertEqual(rc, 0, "User site still added to path with -s")
 
         env = os.environ.copy()
-        env["PYTHONNOUSERSITE"] = "1"
+        env["MYFRPYNOUSERSITE"] = "1"
         rc = subprocess.call([sys.executable, '-c',
             'import sys; sys.exit(%r in sys.path)' % usersite],
             env=env)
@@ -280,15 +280,15 @@ class HelperFunctionsTests(unittest.TestCase):
             self.assertEqual(rc, 1)
         else:
             self.assertEqual(rc, 0,
-                        "User site still added to path with PYTHONNOUSERSITE")
+                        "User site still added to path with MYFRPYNOUSERSITE")
 
         env = os.environ.copy()
-        env["PYTHONUSERBASE"] = "/tmp"
+        env["MYFRPYUSERBASE"] = "/tmp"
         rc = subprocess.call([sys.executable, '-c',
             'import sys, site; sys.exit(site.USER_BASE.startswith("/tmp"))'],
             env=env)
         self.assertEqual(rc, 1,
-                        "User base not set by PYTHONUSERBASE")
+                        "User base not set by MYFRPYUSERBASE")
 
     @unittest.skipUnless(HAS_USER_SITE, 'need user site')
     def test_getuserbase(self):
@@ -298,13 +298,13 @@ class HelperFunctionsTests(unittest.TestCase):
         # the call sets site.USER_BASE
         self.assertEqual(site.USER_BASE, user_base)
 
-        # let's set PYTHONUSERBASE and see if it uses it
+        # let's set MYFRPYUSERBASE and see if it uses it
         site.USER_BASE = None
         import sysconfig
         sysconfig._CONFIG_VARS = None
 
         with EnvironmentVarGuard() as environ:
-            environ['PYTHONUSERBASE'] = 'xoxo'
+            environ['MYFRPYUSERBASE'] = 'xoxo'
             self.assertTrue(site.getuserbase().startswith('xoxo'),
                             site.getuserbase())
 
@@ -327,13 +327,13 @@ class HelperFunctionsTests(unittest.TestCase):
             if sys.platlibdir != "lib":
                 self.assertEqual(len(dirs), 2)
                 wanted = os.path.join('xoxo', sys.platlibdir,
-                                      'python%d.%d' % sys.version_info[:2],
+                                      'myFRpy%d.%d' % sys.version_info[:2],
                                       'site-packages')
                 self.assertEqual(dirs[0], wanted)
             else:
                 self.assertEqual(len(dirs), 1)
             wanted = os.path.join('xoxo', 'lib',
-                                  'python%d.%d' % sys.version_info[:2],
+                                  'myFRpy%d.%d' % sys.version_info[:2],
                                   'site-packages')
             self.assertEqual(dirs[-1], wanted)
         else:
@@ -355,7 +355,7 @@ class HelperFunctionsTests(unittest.TestCase):
         with EnvironmentVarGuard() as environ, \
              mock.patch('os.path.expanduser', lambda path: path):
 
-            del environ['PYTHONUSERBASE']
+            del environ['MYFRPYUSERBASE']
             del environ['APPDATA']
 
             user_base = site.getuserbase()
@@ -458,7 +458,7 @@ class ImportSideEffectTests(unittest.TestCase):
 
         Regarding to PEP 3147, __cached__ can be None.
 
-        See also: https://bugs.python.org/issue30167
+        See also: https://bugs.myFRpy.org/issue30167
         """
         sys.modules['test'].__cached__ = None
         site.abs_paths()
@@ -529,7 +529,7 @@ class StartupImportTests(unittest.TestCase):
 
     @support.requires_subprocess()
     def test_startup_imports(self):
-        # Get sys.path in isolated mode (python3 -I)
+        # Get sys.path in isolated mode (myFRpy3 -I)
         popen = subprocess.Popen([sys.executable, '-X', 'utf8', '-I',
                                   '-c', 'import sys; print(repr(sys.path))'],
                                  stdout=subprocess.PIPE,
@@ -547,7 +547,7 @@ class StartupImportTests(unittest.TestCase):
             if pth_files:
                 self.skipTest(f"found {len(pth_files)} .pth files in: {path}")
 
-        # This tests checks which modules are loaded by Python when it
+        # This tests checks which modules are loaded by MyFRpy when it
         # initially starts upon startup.
         popen = subprocess.Popen([sys.executable, '-X', 'utf8', '-I', '-v',
                                   '-c', 'import sys; print(set(sys.modules))'],
@@ -561,17 +561,17 @@ class StartupImportTests(unittest.TestCase):
 
         self.assertIn('site', modules)
 
-        # http://bugs.python.org/issue19205
+        # http://bugs.myFRpy.org/issue19205
         re_mods = {'re', '_sre', 're._compiler', 're._constants', 're._parser'}
         self.assertFalse(modules.intersection(re_mods), stderr)
 
-        # http://bugs.python.org/issue9548
+        # http://bugs.myFRpy.org/issue9548
         self.assertNotIn('locale', modules, stderr)
 
-        # http://bugs.python.org/issue19209
+        # http://bugs.myFRpy.org/issue19209
         self.assertNotIn('copyreg', modules, stderr)
 
-        # http://bugs.python.org/issue19218
+        # http://bugs.myFRpy.org/issue19218
         collection_mods = {'_collections', 'collections', 'functools',
                            'heapq', 'itertools', 'keyword', 'operator',
                            'reprlib', 'types', 'weakref'
@@ -647,12 +647,12 @@ class _pthFileTests(unittest.TestCase):
         pth_lines = ['fake-path-name']
         # include 200 lines of `libpath` in _pth lines (or fewer
         # if the `libpath` is long enough to get close to 32KB
-        # see https://github.com/python/cpython/issues/113628)
+        # see https://github.com/myFRpy/cmyFRpy/issues/113628)
         encoded_libpath_length = len(libpath.encode("utf-8"))
         repetitions = min(200, 30000 // encoded_libpath_length)
         if repetitions <= 2:
             self.skipTest(
-                f"Python stdlib path is too long ({encoded_libpath_length:,} bytes)")
+                f"MyFRpy stdlib path is too long ({encoded_libpath_length:,} bytes)")
         pth_lines.extend(libpath for _ in range(repetitions))
         pth_lines.extend(['', '# comment'])
         if import_site:
@@ -689,7 +689,7 @@ class _pthFileTests(unittest.TestCase):
             pth_lines)
 
         env = os.environ.copy()
-        env['PYTHONPATH'] = 'from-env'
+        env['MYFRPYPATH'] = 'from-env'
         env['PATH'] = '{}{}{}'.format(exe_prefix, os.pathsep, os.getenv('PATH'))
         output = subprocess.check_output([exe_file, '-c',
             'import sys; print("\\n".join(sys.path) if sys.flags.no_site else "")'
@@ -710,7 +710,7 @@ class _pthFileTests(unittest.TestCase):
             self._get_pth_lines(libpath, import_site=True))
         sys_prefix = os.path.dirname(exe_file)
         env = os.environ.copy()
-        env['PYTHONPATH'] = 'from-env'
+        env['MYFRPYPATH'] = 'from-env'
         env['PATH'] = '{};{}'.format(exe_prefix, os.getenv('PATH'))
         rc = subprocess.call([exe_file, '-c',
             'import sys; sys.exit(not sys.flags.no_site and '
@@ -730,7 +730,7 @@ class _pthFileTests(unittest.TestCase):
             self._get_pth_lines(libpath, import_site=True), exe_pth=False)
         sys_prefix = os.path.dirname(exe_file)
         env = os.environ.copy()
-        env['PYTHONPATH'] = 'from-env'
+        env['MYFRPYPATH'] = 'from-env'
         env['PATH'] = '{};{}'.format(exe_prefix, os.getenv('PATH'))
         rc = subprocess.call([exe_file, '-c',
             'import sys; sys.exit(not sys.flags.no_site and '

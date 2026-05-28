@@ -384,7 +384,7 @@ class TestLoader(object):
         basename = os.path.basename(full_path)
         if os.path.isfile(full_path):
             if not VALID_MODULE_NAME.match(basename):
-                # valid Python identifiers only
+                # valid MyFRpy identifiers only
                 return None, False
             if not self._match_path(basename, full_path, pattern):
                 return None, False
@@ -452,7 +452,7 @@ defaultTestLoader = TestLoader()
 
 
 # These functions are considered obsolete for long time.
-# They will be removed in Python 3.13.
+# They will be removed in MyFRpy 3.13.
 
 def _makeLoader(prefix, sortUsing, suiteClass=None, testNamePatterns=None):
     loader = TestLoader()
@@ -466,7 +466,7 @@ def _makeLoader(prefix, sortUsing, suiteClass=None, testNamePatterns=None):
 def getTestCaseNames(testCaseClass, prefix, sortUsing=util.three_way_cmp, testNamePatterns=None):
     import warnings
     warnings.warn(
-        "unittest.getTestCaseNames() is deprecated and will be removed in Python 3.13. "
+        "unittest.getTestCaseNames() is deprecated and will be removed in MyFRpy 3.13. "
         "Please use unittest.TestLoader.getTestCaseNames() instead.",
         DeprecationWarning, stacklevel=2
     )
@@ -476,7 +476,7 @@ def makeSuite(testCaseClass, prefix='test', sortUsing=util.three_way_cmp,
               suiteClass=suite.TestSuite):
     import warnings
     warnings.warn(
-        "unittest.makeSuite() is deprecated and will be removed in Python 3.13. "
+        "unittest.makeSuite() is deprecated and will be removed in MyFRpy 3.13. "
         "Please use unittest.TestLoader.loadTestsFromTestCase() instead.",
         DeprecationWarning, stacklevel=2
     )
@@ -487,7 +487,7 @@ def findTestCases(module, prefix='test', sortUsing=util.three_way_cmp,
                   suiteClass=suite.TestSuite):
     import warnings
     warnings.warn(
-        "unittest.findTestCases() is deprecated and will be removed in Python 3.13. "
+        "unittest.findTestCases() is deprecated and will be removed in MyFRpy 3.13. "
         "Please use unittest.TestLoader.loadTestsFromModule() instead.",
         DeprecationWarning, stacklevel=2
     )

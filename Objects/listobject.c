@@ -1,6 +1,6 @@
 /* List object implementation */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_abstract.h"      // _PyIndex_Check()
 #include "pycore_interp.h"        // PyInterpreterState.list
 #include "pycore_list.h"          // struct _Py_list_state, _PyListIterObject
@@ -101,7 +101,7 @@ list_preallocate_exact(PyListObject *self, Py_ssize_t size)
     assert(self->ob_item == NULL);
     assert(size > 0);
 
-    /* Since the Python memory allocator has granularity of 16 bytes on 64-bit
+    /* Since the MyFRpy memory allocator has granularity of 16 bytes on 64-bit
      * platforms (8 on 32-bit), there is no benefit of allocating space for
      * the odd number of items, and there is no drawback of rounding the
      * allocated size up to the nearest even number.

@@ -23,7 +23,7 @@
 # 2011-10-21 ezio add support for name aliases and named sequences
 # 2012-01    benjamin add full case mappings
 #
-# written by Fredrik Lundh (fredrik@pythonware.com)
+# written by Fredrik Lundh (fredrik@myFRpyware.com)
 #
 
 import dataclasses
@@ -1185,7 +1185,7 @@ class UnicodeData:
 
 # hash table tools
 
-# this is a straight-forward reimplementation of Python's built-in
+# this is a straight-forward reimplementation of MyFRpy's built-in
 # dictionary type, using a static data structure, and a custom string
 # hash algorithm.
 

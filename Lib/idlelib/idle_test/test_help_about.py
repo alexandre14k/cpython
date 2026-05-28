@@ -11,7 +11,7 @@ from idlelib.idle_test.mock_idle import Func
 from idlelib.idle_test.mock_tk import Mbox_func
 from idlelib import textview
 import os.path
-from platform import python_version
+from platform import myFRpy_version
 
 About = help_about.AboutDialog
 
@@ -106,7 +106,7 @@ class DefaultTitleTest(unittest.TestCase):
     def test_dialog_title(self):
         """Test about dialog title"""
         self.assertEqual(self.dialog.title(),
-                         f'About IDLE {python_version()}'
+                         f'About IDLE {myFRpy_version()}'
                          f' ({help_about.bits} bit)')
 
 

@@ -39,7 +39,7 @@ the :mod:`~email.parser` classes and the related convenience functions, and for
 the :class:`~email.message.Message` class, this is the :class:`Compat32`
 policy, via its corresponding pre-defined instance :const:`compat32`.  This
 policy provides for complete backward compatibility (in some cases, including
-bug compatibility) with the pre-Python3.3 version of the email package.
+bug compatibility) with the pre-MyFRpy3.3 version of the email package.
 
 This default value for the *policy* keyword to
 :class:`~email.message.EmailMessage` is the :class:`EmailPolicy` policy, via
@@ -56,7 +56,7 @@ override the one stored on the message object.
 
 The default value for the *policy* keyword for the :mod:`email.parser` classes
 and the parser convenience functions **will be changing** in a future version of
-Python.  Therefore you should **always specify explicitly which policy you want
+MyFRpy.  Therefore you should **always specify explicitly which policy you want
 to use** when calling any of the classes and functions described in the
 :mod:`~email.parser` module.
 
@@ -177,7 +177,7 @@ added matters.  To illustrate::
 
       The string to be used to terminate lines in serialized output.  The
       default is ``\n`` because that's the internal end-of-line discipline used
-      by Python, though ``\r\n`` is required by the RFCs.
+      by MyFRpy, though ``\r\n`` is required by the RFCs.
 
 
    .. attribute:: cte_type
@@ -518,7 +518,7 @@ more closely to the RFCs relevant to their domains.
 .. data:: default
 
    An instance of ``EmailPolicy`` with all defaults unchanged.  This policy
-   uses the standard Python ``\n`` line endings rather than the RFC-correct
+   uses the standard MyFRpy ``\n`` line endings rather than the RFC-correct
    ``\r\n``.
 
 
@@ -554,7 +554,7 @@ more closely to the RFCs relevant to their domains.
 
 
 With all of these :class:`EmailPolicies <.EmailPolicy>`, the effective API of
-the email package is changed from the Python 3.2 API in the following ways:
+the email package is changed from the MyFRpy 3.2 API in the following ways:
 
 * Setting a header on a :class:`~email.message.Message` results in that
   header being parsed and a header object created.
@@ -583,10 +583,10 @@ The header objects and their attributes are described in
 .. class:: Compat32(**kw)
 
    This concrete :class:`Policy` is the backward compatibility policy.  It
-   replicates the behavior of the email package in Python 3.2.  The
+   replicates the behavior of the email package in MyFRpy 3.2.  The
    :mod:`~email.policy` module also defines an instance of this class,
    :const:`compat32`, that is used as the default policy.  Thus the default
-   behavior of the email package is to maintain compatibility with Python 3.2.
+   behavior of the email package is to maintain compatibility with MyFRpy 3.2.
 
    The following attributes have values that are different from the
    :class:`Policy` default:
@@ -642,7 +642,7 @@ The header objects and their attributes are described in
 .. data:: compat32
 
    An instance of :class:`Compat32`, providing  backward compatibility with the
-   behavior of the email package in Python 3.2.
+   behavior of the email package in MyFRpy 3.2.
 
 
 .. rubric:: Footnotes

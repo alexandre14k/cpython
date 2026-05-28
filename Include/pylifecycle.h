@@ -1,5 +1,5 @@
 
-/* Interfaces to configure, query, create & destroy the Python runtime */
+/* Interfaces to configure, query, create & destroy the MyFRpy runtime */
 
 #ifndef Py_PYLIFECYCLE_H
 #define Py_PYLIFECYCLE_H
@@ -37,8 +37,8 @@ PyAPI_FUNC(int) Py_BytesMain(int argc, char **argv);
 Py_DEPRECATED(3.11) PyAPI_FUNC(void) Py_SetProgramName(const wchar_t *);
 PyAPI_FUNC(wchar_t *) Py_GetProgramName(void);
 
-Py_DEPRECATED(3.11) PyAPI_FUNC(void) Py_SetPythonHome(const wchar_t *);
-PyAPI_FUNC(wchar_t *) Py_GetPythonHome(void);
+Py_DEPRECATED(3.11) PyAPI_FUNC(void) Py_SetMyFRpyHome(const wchar_t *);
+PyAPI_FUNC(wchar_t *) Py_GetMyFRpyHome(void);
 
 PyAPI_FUNC(wchar_t *) Py_GetProgramFullPath(void);
 
@@ -47,7 +47,7 @@ PyAPI_FUNC(wchar_t *) Py_GetExecPrefix(void);
 PyAPI_FUNC(wchar_t *) Py_GetPath(void);
 Py_DEPRECATED(3.11) PyAPI_FUNC(void) Py_SetPath(const wchar_t *);
 #ifdef MS_WINDOWS
-int _Py_CheckPython3(void);
+int _Py_CheckMyFRpy3(void);
 #endif
 
 /* In their own files */
@@ -67,9 +67,9 @@ PyAPI_DATA(const unsigned long) Py_Version;
 #endif
 
 #ifndef Py_LIMITED_API
-#  define Py_CPYTHON_PYLIFECYCLE_H
-#  include "cpython/pylifecycle.h"
-#  undef Py_CPYTHON_PYLIFECYCLE_H
+#  define Py_CMYFRPY_PYLIFECYCLE_H
+#  include "cmyFRpy/pylifecycle.h"
+#  undef Py_CMYFRPY_PYLIFECYCLE_H
 #endif
 
 #ifdef __cplusplus

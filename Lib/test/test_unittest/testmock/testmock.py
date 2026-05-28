@@ -52,7 +52,7 @@ class MockTest(unittest.TestCase):
     def test_all(self):
         # if __all__ is badly defined then import * will raise an error
         # We have to exec it because you can't import * inside a method
-        # in Python 3
+        # in MyFRpy 3
         exec("from unittest.mock import *")
 
 
@@ -974,7 +974,7 @@ class MockTest(unittest.TestCase):
         current = sys.getrecursionlimit()
         self.addCleanup(sys.setrecursionlimit, current)
 
-        # can't use sys.maxint as this doesn't exist in Python 3
+        # can't use sys.maxint as this doesn't exist in MyFRpy 3
         sys.setrecursionlimit(int(10e8))
         # this segfaults without the fix in place
         copy.copy(Mock())

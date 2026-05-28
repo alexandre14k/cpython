@@ -164,7 +164,7 @@ support.
 
    Examples::
 
-      # list all modules python can access
+      # list all modules myFRpy can access
       walk_packages()
 
       # list all submodules of ctypes
@@ -218,7 +218,7 @@ support.
    third-party packages such as setuptools, Django and Pyramid.
 
    It is expected that *name* will be a string in one of the following
-   formats, where W is shorthand for a valid Python identifier and dot stands
+   formats, where W is shorthand for a valid MyFRpy identifier and dot stands
    for a literal period in these pseudo-regexes:
 
    * ``W(.W)*``

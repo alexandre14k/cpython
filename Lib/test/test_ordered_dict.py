@@ -123,7 +123,7 @@ class OrderedDictTests:
         self.assertEqual(calls, ['keys'])
 
     def test_overridden_init(self):
-        # Sync-up pure Python OD class with C class where
+        # Sync-up pure MyFRpy OD class with C class where
         # a consistent internal state is created in __new__
         # rather than __init__.
         OrderedDict = self.OrderedDict
@@ -342,7 +342,7 @@ class OrderedDictTests:
         pairs = [('c', 1), ('b', 2), ('a', 3), ('d', 4), ('e', 5), ('f', 6)]
         od = OrderedDict(pairs)
         # yaml.dump(od) -->
-        # '!!python/object/apply:__main__.OrderedDict\n- - [a, 1]\n  - [b, 2]\n'
+        # '!!myFRpy/object/apply:__main__.OrderedDict\n- - [a, 1]\n  - [b, 2]\n'
         self.assertTrue(all(type(pair)==list for pair in od.__reduce__()[1]))
 
     def test_reduce_not_too_fat(self):
@@ -473,7 +473,7 @@ class OrderedDictTests:
 
     def test_views(self):
         OrderedDict = self.OrderedDict
-        # See http://bugs.python.org/issue24286
+        # See http://bugs.myFRpy.org/issue24286
         s = 'the quick brown fox jumped over a lazy dog yesterday before dawn'.split()
         od = OrderedDict.fromkeys(s)
         self.assertEqual(od.keys(), dict(od).keys())
@@ -491,7 +491,7 @@ class OrderedDictTests:
     def test_highly_nested(self):
         # Issues 25395 and 35983: test that the trashcan mechanism works
         # correctly for OrderedDict: deleting a highly nested OrderDict
-        # should not crash Python.
+        # should not crash MyFRpy.
         OrderedDict = self.OrderedDict
         obj = None
         for _ in range(1000):
@@ -502,7 +502,7 @@ class OrderedDictTests:
     def test_highly_nested_subclass(self):
         # Issues 25395 and 35983: test that the trashcan mechanism works
         # correctly for OrderedDict: deleting a highly nested OrderDict
-        # should not crash Python.
+        # should not crash MyFRpy.
         OrderedDict = self.OrderedDict
         deleted = []
         class MyOD(OrderedDict):
@@ -727,7 +727,7 @@ class OrderedDictTests:
         with self.assertRaises(ValueError):
             a |= "BAD"
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_ordered_dict_items_result_gc(self):
         # bpo-42536: OrderedDict.items's tuple-reuse speed trick breaks the GC's
         # assumptions about what can be untracked. Make sure we re-track result
@@ -739,13 +739,13 @@ class OrderedDictTests:
         # when it's mutated and returned from __next__:
         self.assertTrue(gc.is_tracked(next(it)))
 
-class PurePythonOrderedDictTests(OrderedDictTests, unittest.TestCase):
+class PureMyFRpyOrderedDictTests(OrderedDictTests, unittest.TestCase):
 
     module = py_coll
     OrderedDict = py_coll.OrderedDict
 
 
-class CPythonBuiltinDictTests(unittest.TestCase):
+class CMyFRpyBuiltinDictTests(unittest.TestCase):
     """Builtin dict preserves insertion order.
 
     Reuse some of tests in OrderedDict selectively.
@@ -760,18 +760,18 @@ for method in (
     "test_popitem test_reinsert test_override_update " +
     "test_highly_nested test_highly_nested_subclass " +
     "test_delitem_hash_collision ").split():
-    setattr(CPythonBuiltinDictTests, method, getattr(OrderedDictTests, method))
+    setattr(CMyFRpyBuiltinDictTests, method, getattr(OrderedDictTests, method))
 del method
 
 
 @unittest.skipUnless(c_coll, 'requires the C version of the collections module')
-class CPythonOrderedDictTests(OrderedDictTests, unittest.TestCase):
+class CMyFRpyOrderedDictTests(OrderedDictTests, unittest.TestCase):
 
     module = c_coll
     OrderedDict = c_coll.OrderedDict
     check_sizeof = support.check_sizeof
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_sizeof_exact(self):
         OrderedDict = self.OrderedDict
         calcsize = struct.calcsize
@@ -838,7 +838,7 @@ class CPythonOrderedDictTests(OrderedDictTests, unittest.TestCase):
                     self.assertEqual(list(unpickled), expected)
                     self.assertEqual(list(it), expected)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_weakref_list_is_not_traversed(self):
         # Check that the weakref list is not traversed when collecting
         # OrderedDict objects. See bpo-39778 for more information.
@@ -859,21 +859,21 @@ class CPythonOrderedDictTests(OrderedDictTests, unittest.TestCase):
         gc.collect()
 
 
-class PurePythonOrderedDictSubclassTests(PurePythonOrderedDictTests):
+class PureMyFRpyOrderedDictSubclassTests(PureMyFRpyOrderedDictTests):
 
     module = py_coll
     class OrderedDict(py_coll.OrderedDict):
         pass
 
 
-class CPythonOrderedDictSubclassTests(CPythonOrderedDictTests):
+class CMyFRpyOrderedDictSubclassTests(CMyFRpyOrderedDictTests):
 
     module = c_coll
     class OrderedDict(c_coll.OrderedDict):
         pass
 
 
-class PurePythonOrderedDictWithSlotsCopyingTests(unittest.TestCase):
+class PureMyFRpyOrderedDictWithSlotsCopyingTests(unittest.TestCase):
 
     module = py_coll
     class OrderedDict(py_coll.OrderedDict):
@@ -882,7 +882,7 @@ class PurePythonOrderedDictWithSlotsCopyingTests(unittest.TestCase):
 
 
 @unittest.skipUnless(c_coll, 'requires the C version of the collections module')
-class CPythonOrderedDictWithSlotsCopyingTests(unittest.TestCase):
+class CMyFRpyOrderedDictWithSlotsCopyingTests(unittest.TestCase):
 
     module = c_coll
     class OrderedDict(c_coll.OrderedDict):
@@ -890,7 +890,7 @@ class CPythonOrderedDictWithSlotsCopyingTests(unittest.TestCase):
     test_copying = OrderedDictTests.test_copying
 
 
-class PurePythonGeneralMappingTests(mapping_tests.BasicTestMappingProtocol):
+class PureMyFRpyGeneralMappingTests(mapping_tests.BasicTestMappingProtocol):
 
     @classmethod
     def setUpClass(cls):
@@ -902,7 +902,7 @@ class PurePythonGeneralMappingTests(mapping_tests.BasicTestMappingProtocol):
 
 
 @unittest.skipUnless(c_coll, 'requires the C version of the collections module')
-class CPythonGeneralMappingTests(mapping_tests.BasicTestMappingProtocol):
+class CMyFRpyGeneralMappingTests(mapping_tests.BasicTestMappingProtocol):
 
     @classmethod
     def setUpClass(cls):
@@ -913,7 +913,7 @@ class CPythonGeneralMappingTests(mapping_tests.BasicTestMappingProtocol):
         self.assertRaises(KeyError, d.popitem)
 
 
-class PurePythonSubclassMappingTests(mapping_tests.BasicTestMappingProtocol):
+class PureMyFRpySubclassMappingTests(mapping_tests.BasicTestMappingProtocol):
 
     @classmethod
     def setUpClass(cls):
@@ -927,7 +927,7 @@ class PurePythonSubclassMappingTests(mapping_tests.BasicTestMappingProtocol):
 
 
 @unittest.skipUnless(c_coll, 'requires the C version of the collections module')
-class CPythonSubclassMappingTests(mapping_tests.BasicTestMappingProtocol):
+class CMyFRpySubclassMappingTests(mapping_tests.BasicTestMappingProtocol):
 
     @classmethod
     def setUpClass(cls):

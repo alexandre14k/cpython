@@ -1,5 +1,5 @@
 from test.support.os_helper import temp_dir
-from test.support.script_helper import assert_python_failure
+from test.support.script_helper import assert_myFRpy_failure
 from test.support.warnings_helper import import_deprecated
 import unittest
 import sys
@@ -39,11 +39,11 @@ class TestCgitb(unittest.TestCase):
 
     def test_syshook_no_logdir_default_format(self):
         with temp_dir() as tracedir:
-            rc, out, err = assert_python_failure(
+            rc, out, err = assert_myFRpy_failure(
                   '-c',
                   ('import cgitb; cgitb.enable(logdir=%s); '
                    'raise ValueError("Hello World")') % repr(tracedir),
-                  PYTHONIOENCODING='utf-8')
+                  MYFRPYIOENCODING='utf-8')
         out = out.decode()
         self.assertIn("ValueError", out)
         self.assertIn("Hello World", out)
@@ -55,11 +55,11 @@ class TestCgitb(unittest.TestCase):
     def test_syshook_no_logdir_text_format(self):
         # Issue 12890: we were emitting the <p> tag in text mode.
         with temp_dir() as tracedir:
-            rc, out, err = assert_python_failure(
+            rc, out, err = assert_myFRpy_failure(
                   '-c',
                   ('import cgitb; cgitb.enable(format="text", logdir=%s); '
                    'raise ValueError("Hello World")') % repr(tracedir),
-                  PYTHONIOENCODING='utf-8')
+                  MYFRPYIOENCODING='utf-8')
         out = out.decode()
         self.assertIn("ValueError", out)
         self.assertIn("Hello World", out)

@@ -49,11 +49,11 @@ class FaultHandlerTests(unittest.TestCase):
 
     def get_output(self, code, filename=None, fd=None):
         """
-        Run the specified code in Python (in a new child process) and read the
+        Run the specified code in MyFRpy (in a new child process) and read the
         output from the standard error or from a file (if filename is set).
         Return the output lines as a list.
 
-        Strip the reference count from the standard error for Python debug
+        Strip the reference count from the standard error for MyFRpy debug
         build, and replace "Current thread 0x00007f8d8fbd9700" by "Current
         thread XXX".
         """
@@ -68,7 +68,7 @@ class FaultHandlerTests(unittest.TestCase):
         support.set_sanitizer_env_var(env, option)
 
         with support.SuppressCrashReport():
-            process = script_helper.spawn_python('-c', code,
+            process = script_helper.spawn_myFRpy('-c', code,
                                                  pass_fds=pass_fds,
                                                  env=env)
             with process:
@@ -109,7 +109,7 @@ class FaultHandlerTests(unittest.TestCase):
             header = 'Stack'
         regex = [f'^{fatal_error}']
         if py_fatal_error:
-            regex.append("Python runtime state: initialized")
+            regex.append("MyFRpy runtime state: initialized")
         regex.append('')
         regex.append(fr'{header} \(most recent call first\):')
         if garbage_collecting:
@@ -130,7 +130,7 @@ class FaultHandlerTests(unittest.TestCase):
     def check_fatal_error(self, code, line_number, name_regex, func=None, **kw):
         if func:
             name_regex = '%s: %s' % (func, name_regex)
-        fatal_error = 'Fatal Python error: %s' % name_regex
+        fatal_error = 'Fatal MyFRpy error: %s' % name_regex
         self.check_error(code, line_number, fatal_error, **kw)
 
     def check_windows_exception(self, code, line_number, name_regex, **kw):
@@ -286,7 +286,7 @@ class FaultHandlerTests(unittest.TestCase):
 
     @unittest.skipIf(sys.platform.startswith('openbsd'),
                      "Issue #12868: sigaltstack() doesn't work on "
-                     "OpenBSD if Python is compiled with pthread")
+                     "OpenBSD if MyFRpy is compiled with pthread")
     @unittest.skipIf(not hasattr(faulthandler, '_stack_overflow'),
                      'need faulthandler._stack_overflow()')
     def test_stack_overflow(self):
@@ -357,7 +357,7 @@ class FaultHandlerTests(unittest.TestCase):
             faulthandler.disable()
             faulthandler._sigsegv()
             """
-        not_expected = 'Fatal Python error'
+        not_expected = 'Fatal MyFRpy error'
         stderr, exitcode = self.get_output(code)
         stderr = '\n'.join(stderr)
         self.assertTrue(not_expected not in stderr,
@@ -411,20 +411,20 @@ class FaultHandlerTests(unittest.TestCase):
         # By default, the module should be disabled
         code = "import faulthandler; print(faulthandler.is_enabled())"
         args = (sys.executable, "-E", "-c", code)
-        # don't use assert_python_ok() because it always enables faulthandler
+        # don't use assert_myFRpy_ok() because it always enables faulthandler
         output = subprocess.check_output(args)
         self.assertEqual(output.rstrip(), b"False")
 
     @support.requires_subprocess()
     def test_sys_xoptions(self):
-        # Test python -X faulthandler
+        # Test myFRpy -X faulthandler
         code = "import faulthandler; print(faulthandler.is_enabled())"
         args = filter(None, (sys.executable,
                              "-E" if sys.flags.ignore_environment else "",
                              "-X", "faulthandler", "-c", code))
         env = os.environ.copy()
-        env.pop("PYTHONFAULTHANDLER", None)
-        # don't use assert_python_ok() because it always enables faulthandler
+        env.pop("MYFRPYFAULTHANDLER", None)
+        # don't use assert_myFRpy_ok() because it always enables faulthandler
         output = subprocess.check_output(args, env=env)
         self.assertEqual(output.rstrip(), b"True")
 
@@ -434,16 +434,16 @@ class FaultHandlerTests(unittest.TestCase):
         code = "import faulthandler; print(faulthandler.is_enabled())"
         args = (sys.executable, "-c", code)
         env = dict(os.environ)
-        env['PYTHONFAULTHANDLER'] = ''
-        env['PYTHONDEVMODE'] = ''
-        # don't use assert_python_ok() because it always enables faulthandler
+        env['MYFRPYFAULTHANDLER'] = ''
+        env['MYFRPYDEVMODE'] = ''
+        # don't use assert_myFRpy_ok() because it always enables faulthandler
         output = subprocess.check_output(args, env=env)
         self.assertEqual(output.rstrip(), b"False")
 
         # non-empty env var
         env = dict(os.environ)
-        env['PYTHONFAULTHANDLER'] = '1'
-        env['PYTHONDEVMODE'] = ''
+        env['MYFRPYFAULTHANDLER'] = '1'
+        env['MYFRPYDEVMODE'] = ''
         output = subprocess.check_output(args, env=env)
         self.assertEqual(output.rstrip(), b"True")
 

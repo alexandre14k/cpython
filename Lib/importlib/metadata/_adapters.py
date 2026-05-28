@@ -7,7 +7,7 @@ import email.message
 from ._text import FoldedCase
 
 
-# Do not remove prior to 2024-01-01 or Python 3.14
+# Do not remove prior to 2024-01-01 or MyFRpy 3.14
 _warn = functools.partial(
     warnings.warn,
     "Implicit None on return values is deprecated and will raise KeyErrors.",
@@ -53,7 +53,7 @@ class Message(email.message.Message):
     def __getitem__(self, item):
         """
         Warn users that a ``KeyError`` can be expected when a
-        mising key is supplied. Ref python/importlib_metadata#371.
+        mising key is supplied. Ref myFRpy/importlib_metadata#371.
         """
         res = super().__getitem__(item)
         if res is None:

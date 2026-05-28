@@ -160,7 +160,7 @@ class TimeTestCase(unittest.TestCase):
         time.sleep(1.2)
 
     def test_epoch(self):
-        # bpo-43869: Make sure that Python use the same Epoch on all platforms:
+        # bpo-43869: Make sure that MyFRpy use the same Epoch on all platforms:
         # January 1, 1970, 00:00:00 (UTC).
         epoch = time.gmtime(0)
         # Only test the date and time, ignore other gmtime() members
@@ -216,7 +216,7 @@ class TimeTestCase(unittest.TestCase):
         # Check second [0, 61]
         self.assertRaises(ValueError, func,
                             (1900, 1, 1, 0, 0, -1, 0, 1, -1))
-        # C99 only requires allowing for one leap second, but Python's docs say
+        # C99 only requires allowing for one leap second, but MyFRpy's docs say
         # allow two leap seconds (0..61)
         func((1900, 1, 1, 0, 0, 60, 0, 1, -1))
         func((1900, 1, 1, 0, 0, 61, 0, 1, -1))

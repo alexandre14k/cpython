@@ -1,6 +1,6 @@
 /* Range object implementation */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_abstract.h"      // _PyIndex_Check()
 #include "pycore_range.h"
 #include "pycore_long.h"          // _PyLong_GetZero()
@@ -807,7 +807,7 @@ PyTypeObject PyRange_Type = {
 /*********************** range Iterator **************************/
 
 /* There are 2 types of iterators, one for C longs, the other for
-   Python ints (ie, PyObjects).  This should make iteration fast
+   MyFRpy ints (ie, PyObjects).  This should make iteration fast
    in the normal case, but possible for any numeric value.
 */
 

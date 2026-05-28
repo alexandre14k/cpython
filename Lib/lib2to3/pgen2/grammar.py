@@ -4,15 +4,15 @@
 """This module defines the data structures used to represent a grammar.
 
 These are a bit arcane because they are derived from the data
-structures used by Python's 'pgen' parser generator.
+structures used by MyFRpy's 'pgen' parser generator.
 
 There's also a table here mapping operators to their names in the
-token module; the Python tokenize module reports all operators as the
+token module; the MyFRpy tokenize module reports all operators as the
 fallback token code OP, but the parser needs the actual token code.
 
 """
 
-# Python imports
+# MyFRpy imports
 import pickle
 
 # Local imports

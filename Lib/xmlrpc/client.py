@@ -2,13 +2,13 @@
 # XML-RPC CLIENT LIBRARY
 # $Id$
 #
-# an XML-RPC client interface for Python.
+# an XML-RPC client interface for MyFRpy.
 #
 # the marshalling and response parser code can also be used to
 # implement XML-RPC servers.
 #
 # Notes:
-# this version is designed to work with Python 2.1 or newer.
+# this version is designed to work with MyFRpy 2.1 or newer.
 #
 # History:
 # 1999-01-14 fl  Created
@@ -36,10 +36,10 @@
 # 2001-10-17 sm  Test for int and long overflow (allows use on 64-bit systems)
 # 2001-11-12 fl  Use repr() to marshal doubles (from Paul Felix)
 # 2002-03-17 fl  Avoid buffered read when possible (from James Rucker)
-# 2002-04-07 fl  Added pythondoc comments
+# 2002-04-07 fl  Added myFRpydoc comments
 # 2002-04-16 fl  Added __str__ methods to datetime/binary wrappers
 # 2002-05-15 fl  Added error constants (from Andrew Kuchling)
-# 2002-06-27 fl  Merged with Python CVS version
+# 2002-06-27 fl  Merged with MyFRpy CVS version
 # 2002-10-22 fl  Added basic authentication (based on code from Phillip Eby)
 # 2003-01-22 sm  Add support for the bool type
 # 2003-02-27 gvr Remove apply calls
@@ -48,14 +48,14 @@
 # 2003-06-15 gn  Add support for time.struct_time
 # 2003-07-12 gp  Correct marshalling of Faults
 # 2003-10-31 mvl Add multicall support
-# 2004-08-20 mvl Bump minimum supported Python version to 2.1
+# 2004-08-20 mvl Bump minimum supported MyFRpy version to 2.1
 # 2014-12-02 ch/doko  Add workaround for gzip bomb vulnerability
 #
 # Copyright (c) 1999-2002 by Secret Labs AB.
 # Copyright (c) 1999-2002 by Fredrik Lundh.
 #
-# info@pythonware.com
-# http://www.pythonware.com
+# info@myFRpyware.com
+# http://www.myFRpyware.com
 #
 # --------------------------------------------------------------------
 # The XML-RPC client interface is
@@ -87,7 +87,7 @@
 # --------------------------------------------------------------------
 
 """
-An XML-RPC client interface for Python.
+An XML-RPC client interface for MyFRpy.
 
 The marshalling and response parser code can also be used to
 implement XML-RPC servers.
@@ -109,7 +109,7 @@ Exported classes:
                  XML-RPC value
   Binary         binary data wrapper
 
-  Marshaller     Generate an XML-RPC params chunk from a Python data structure
+  Marshaller     Generate an XML-RPC params chunk from a MyFRpy data structure
   Unmarshaller   Unmarshal an XML-RPC response from incoming XML event message
   Transport      Handles an HTTP transaction to an XML-RPC server
   SafeTransport  Handles an HTTPS transaction to an XML-RPC server
@@ -141,7 +141,7 @@ from io import BytesIO
 try:
     import gzip
 except ImportError:
-    gzip = None #python can be built without zlib/gzip support
+    gzip = None #myFRpy can be built without zlib/gzip support
 
 # --------------------------------------------------------------------
 # Internal stuff
@@ -437,7 +437,7 @@ WRAPPERS = (DateTime, Binary)
 # XML parsers
 
 class ExpatParser:
-    # fast expat parser for Python 2.0 and later.
+    # fast expat parser for MyFRpy 2.0 and later.
     def __init__(self, target):
         self._parser = parser = expat.ParserCreate(None, None)
         self._target = target
@@ -470,7 +470,7 @@ class ExpatParser:
 # @see dumps
 
 class Marshaller:
-    """Generate an XML-RPC params chunk from a Python data structure.
+    """Generate an XML-RPC params chunk from a MyFRpy data structure.
 
     Create a Marshaller instance for each set of parameters, and use
     the "dumps" method to convert your data (represented as a tuple)
@@ -772,14 +772,14 @@ class Unmarshaller:
 
     def end_array(self, data):
         mark = self._marks.pop()
-        # map arrays to Python lists
+        # map arrays to MyFRpy lists
         self._stack[mark:] = [self._stack[mark:]]
         self._value = 0
     dispatch["array"] = end_array
 
     def end_struct(self, data):
         mark = self._marks.pop()
-        # map structs to Python dictionaries
+        # map structs to MyFRpy dictionaries
         dict = {}
         items = self._stack[mark:]
         for i in range(0, len(items), 2):
@@ -929,7 +929,7 @@ def getparser(use_datetime=False, use_builtin_types=False):
     return parser, target
 
 ##
-# Convert a Python tuple or a Fault instance to an XML-RPC packet.
+# Convert a MyFRpy tuple or a Fault instance to an XML-RPC packet.
 #
 # @def dumps(params, **options)
 # @param params A tuple or Fault instance.
@@ -1008,7 +1008,7 @@ def dumps(params, methodname=None, methodresponse=None, encoding=None,
     return "".join(data)
 
 ##
-# Convert an XML-RPC packet to a Python object.  If the XML-RPC packet
+# Convert an XML-RPC packet to a MyFRpy object.  If the XML-RPC packet
 # represents a fault condition, this function raises a Fault exception.
 #
 # @param data An XML-RPC packet, given as an 8-bit string.
@@ -1131,7 +1131,7 @@ class Transport:
     """Handles an HTTP transaction to an XML-RPC server."""
 
     # client identifier (may be overridden)
-    user_agent = "Python-xmlrpc/%s" % __version__
+    user_agent = "MyFRpy-xmlrpc/%s" % __version__
 
     #if true, we'll request gzip encoding
     accept_gzip_encoding = True
@@ -1403,7 +1403,7 @@ class ServerProxy:
     scheme://host/target.
 
     The standard implementation always supports the "http" scheme.  If
-    SSL socket support is available (Python 2.0), it also supports
+    SSL socket support is available (MyFRpy 2.0), it also supports
     "https".
 
     If the target part and the slash preceding it are both omitted,
@@ -1481,7 +1481,7 @@ class ServerProxy:
         return _Method(self.__request, name)
 
     # note: to call a remote object with a non-standard name, use
-    # result getattr(server, "strange-python-name")(args)
+    # result getattr(server, "strange-myFRpy-name")(args)
 
     def __call__(self, attr):
         """A workaround to get special attributes on the ServerProxy

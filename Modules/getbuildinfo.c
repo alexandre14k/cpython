@@ -1,4 +1,4 @@
-#include "Python.h"
+#include "MyFRpy.h"
 
 #ifndef DONT_HAVE_STDIO_H
 #include <stdio.h>

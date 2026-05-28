@@ -1,7 +1,7 @@
 
 /* Function object implementation */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_ceval.h"         // _PyEval_BuiltinsFromGlobals()
 #include "pycore_code.h"          // _Py_next_func_version
 #include "pycore_object.h"        // _PyObject_GC_UNTRACK()
@@ -1189,7 +1189,7 @@ PyClassMethod_New(PyObject *callable)
    (e.g. C().f()). Both the class and the instance are ignored, and
    neither is passed implicitly as the first argument to the method.
 
-   Static methods in Python are similar to those found in Java or C++.
+   Static methods in MyFRpy are similar to those found in Java or C++.
    For a more advanced concept, see class methods above.
 */
 
@@ -1311,7 +1311,7 @@ It can be called either on the class (e.g. C.f()) or on an instance\n\
 (e.g. C().f()). Both the class and the instance are ignored, and\n\
 neither is passed implicitly as the first argument to the method.\n\
 \n\
-Static methods in Python are similar to those found in Java or C++.\n\
+Static methods in MyFRpy are similar to those found in Java or C++.\n\
 For a more advanced concept, see the classmethod builtin.");
 
 PyTypeObject PyStaticMethod_Type = {

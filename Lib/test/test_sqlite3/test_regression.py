@@ -151,7 +151,7 @@ class RegressionTests(unittest.TestCase):
             con.execute("insert into foo(bar, baz) values (?, ?)", parameters)
 
     def test_error_msg_decode_error(self):
-        # When porting the module to Python 3.0, the error message about
+        # When porting the module to MyFRpy 3.0, the error message about
         # decoding errors disappeared. This verifies they're back again.
         with self.assertRaises(sqlite.OperationalError) as cm:
             self.con.execute("select 'xxx' || ? || 'yyy' colname",
@@ -214,7 +214,7 @@ class RegressionTests(unittest.TestCase):
 
     def test_str_subclass(self):
         """
-        The Python 3.0 port of the module didn't cope with values of subclasses of str.
+        The MyFRpy 3.0 port of the module didn't cope with values of subclasses of str.
         """
         class MyStr(str): pass
         self.con.execute("select ?", (MyStr("abc"),))
@@ -268,7 +268,7 @@ class RegressionTests(unittest.TestCase):
 
     def test_recursive_cursor_use(self):
         """
-        http://bugs.python.org/issue10811
+        http://bugs.myFRpy.org/issue10811
 
         Recursively using a cursor, such as when reusing it from a generator led to segfaults.
         Now we catch recursive cursor usage and raise a ProgrammingError.
@@ -289,7 +289,7 @@ class RegressionTests(unittest.TestCase):
 
     def test_convert_timestamp_microsecond_padding(self):
         """
-        http://bugs.python.org/issue14720
+        http://bugs.myFRpy.org/issue14720
 
         The microsecond parsing of convert_timestamp() should pad with zeros,
         since the microsecond string "456" actually represents "456000".

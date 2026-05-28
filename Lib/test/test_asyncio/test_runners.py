@@ -201,7 +201,7 @@ class RunTests(BaseTest):
         self.assertFalse(spinner.ag_running)
 
     def test_asyncio_run_set_event_loop(self):
-        #See https://github.com/python/cpython/issues/93896
+        #See https://github.com/myFRpy/cmyFRpy/issues/93896
 
         async def main():
             await asyncio.sleep(0)
@@ -213,7 +213,7 @@ class RunTests(BaseTest):
         self.assertTrue(policy.set_event_loop.called)
 
     def test_asyncio_run_without_uncancel(self):
-        # See https://github.com/python/cpython/issues/95097
+        # See https://github.com/myFRpy/cmyFRpy/issues/95097
         class Task:
             def __init__(self, loop, coro, **kwargs):
                 self._task = asyncio.Task(coro, loop=loop, **kwargs)
@@ -469,7 +469,7 @@ class RunnerTests(BaseTest):
                 runner.run(coro())
 
     def test_set_event_loop_called_once(self):
-        # See https://github.com/python/cpython/issues/95736
+        # See https://github.com/myFRpy/cmyFRpy/issues/95736
         async def coro():
             pass
 
@@ -483,7 +483,7 @@ class RunnerTests(BaseTest):
         runner.close()
 
     def test_no_repr_is_call_on_the_task_result(self):
-        # See https://github.com/python/cpython/issues/112559.
+        # See https://github.com/myFRpy/cmyFRpy/issues/112559.
         class MyResult:
             def __init__(self):
                 self.repr_count = 0

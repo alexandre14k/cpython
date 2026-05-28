@@ -1,10 +1,10 @@
-# Requirements to build the Python documentation, for the oldest supported
+# Requirements to build the MyFRpy documentation, for the oldest supported
 # Sphinx version.
 #
 # We pin Sphinx and all of its dependencies to ensure a consistent environment.
 
 blurb
-python-docs-theme>=2022.1
+myFRpy-docs-theme>=2022.1
 
 # Generated from:
 #     pip install "Sphinx~=4.2.0"

@@ -71,14 +71,14 @@ ioerror_peer_reset = TransientResource(OSError, errno=errno.ECONNRESET)
 class AuthTests(unittest.TestCase):
     """Tests urllib2 authentication features."""
 
-## Disabled at the moment since there is no page under python.org which
+## Disabled at the moment since there is no page under myFRpy.org which
 ## could be used to HTTP authentication.
 #
 #    def test_basic_auth(self):
 #        import http.client
 #
-#        test_url = "http://www.python.org/test/test_urllib2/basic_auth"
-#        test_hostport = "www.python.org"
+#        test_url = "http://www.myFRpy.org/test/test_urllib2/basic_auth"
+#        test_hostport = "www.myFRpy.org"
 #        test_realm = 'Test Realm'
 #        test_user = 'test.test_urllib2net'
 #        test_password = 'blah'
@@ -97,7 +97,7 @@ class AuthTests(unittest.TestCase):
 #                                  test_user, test_password)
 #        opener = urllib2.build_opener(auth_handler)
 #        f = opener.open('http://localhost/')
-#        response = _urlopen_with_retry("http://www.python.org/")
+#        response = _urlopen_with_retry("http://www.myFRpy.org/")
 #
 #        # The 'userinfo' URL component is deprecated by RFC 3986 for security
 #        # reasons, let's not implement it!  (it's already implemented for proxy
@@ -137,9 +137,9 @@ class OtherNetworkTests(unittest.TestCase):
     def test_ftp(self):
         # Testing the same URL twice exercises the caching in CacheFTPHandler
         urls = [
-            'ftp://www.pythontest.net/README',
-            'ftp://www.pythontest.net/README',
-            ('ftp://www.pythontest.net/non-existent-file',
+            'ftp://www.myFRpytest.net/README',
+            'ftp://www.myFRpytest.net/README',
+            ('ftp://www.myFRpytest.net/non-existent-file',
              None, urllib.error.URLError),
             ]
         self._test_urls(urls, self._extra_handlers())
@@ -190,21 +190,21 @@ class OtherNetworkTests(unittest.TestCase):
 ##             self._test_urls(urls, self._extra_handlers()+[bauth, dauth])
 
     def test_urlwithfrag(self):
-        urlwith_frag = "http://www.pythontest.net/index.html#frag"
+        urlwith_frag = "http://www.myFRpytest.net/index.html#frag"
         with socket_helper.transient_internet(urlwith_frag):
             req = urllib.request.Request(urlwith_frag)
             res = urllib.request.urlopen(req)
             self.assertEqual(res.geturl(),
-                    "http://www.pythontest.net/index.html#frag")
+                    "http://www.myFRpytest.net/index.html#frag")
 
     @support.requires_resource('walltime')
     def test_redirect_url_withfrag(self):
-        redirect_url_with_frag = "http://www.pythontest.net/redir/with_frag/"
+        redirect_url_with_frag = "http://www.myFRpytest.net/redir/with_frag/"
         with socket_helper.transient_internet(redirect_url_with_frag):
             req = urllib.request.Request(redirect_url_with_frag)
             res = urllib.request.urlopen(req)
             self.assertEqual(res.geturl(),
-                    "http://www.pythontest.net/elsewhere/#frag")
+                    "http://www.myFRpytest.net/elsewhere/#frag")
 
     def test_custom_headers(self):
         url = support.TEST_HTTP_URL
@@ -334,7 +334,7 @@ class TimeoutTest(unittest.TestCase):
             self.addCleanup(u.close)
             self.assertEqual(u.fp.raw._sock.gettimeout(), 120)
 
-    FTP_HOST = 'ftp://www.pythontest.net/'
+    FTP_HOST = 'ftp://www.myFRpytest.net/'
 
     @support.requires_resource('walltime')
     def test_ftp_basic(self):

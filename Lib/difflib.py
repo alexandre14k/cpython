@@ -423,7 +423,7 @@ class SequenceMatcher:
 
         Each triple is of the form (i, j, n), and means that
         a[i:i+n] == b[j:j+n].  The triples are monotonically increasing in
-        i and in j.  New in Python 2.5, it's also guaranteed that if
+        i and in j.  New in MyFRpy 2.5, it's also guaranteed that if
         (i, j, n) and (i', j', n') are adjacent triples in the list, and
         the second is not the last triple in the list, then i+n != i' or
         j+n != j'.  IOW, adjacent triples never describe adjacent equal

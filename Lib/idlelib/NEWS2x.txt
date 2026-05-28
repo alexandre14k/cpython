@@ -37,7 +37,7 @@ What's New in IDLE 2.7? (Merged into 3.1 before 2.7 release.)
 - CodeContext was not importing.
 
 - Corrected two 3.0 compatibility errors reported by Mark Summerfield:
-  http://mail.python.org/pipermail/python-3000/2007-December/011491.html
+  http://mail.myFRpy.org/pipermail/myFRpy-3000/2007-December/011491.html
 
 - Shell was not colorizing due to bug introduced at r57998,  Bug 1586.
 
@@ -46,7 +46,7 @@ What's New in IDLE 2.7? (Merged into 3.1 before 2.7 release.)
 - Windows EOL sequence not converted correctly, encoding error.
   Caused file save to fail. Bug 1130.
 
-- IDLE converted to Python 3000 syntax.
+- IDLE converted to MyFRpy 3000 syntax.
 
 - Strings became Unicode.
 
@@ -75,8 +75,8 @@ What's New in IDLE 2.6
   '/' char on Windows.  issue2061 Patch by Tal Einat.
 
 - Configured selection highlighting colors were ignored; updating highlighting
-  in the config dialog would cause non-Python files to be colored as if they
-  were Python source; improve use of ColorDelagator.  Patch 1334. Tal Einat.
+  in the config dialog would cause non-MyFRpy files to be colored as if they
+  were MyFRpy source; improve use of ColorDelagator.  Patch 1334. Tal Einat.
 
 - ScriptBinding event handlers weren't returning 'break'. Patch 2050, Tal Einat
 
@@ -140,7 +140,7 @@ What's New in IDLE 2.6
   first.  Bug 1562716, 1562719
 
 - IDLE's version number takes a big jump to match the version number of
-  the Python release of which it's a part.
+  the MyFRpy release of which it's a part.
 
 
 What's New in IDLE 1.2?
@@ -210,7 +210,7 @@ What's New in IDLE 1.2?
 - Increased performance in CodeContext extension  Patch 936169 Noam Raphael
 
 - Mac line endings were incorrect when pasting code from some browsers
-  when using X11 and the Fink distribution.  Python Bug 1263656.
+  when using X11 and the Fink distribution.  MyFRpy Bug 1263656.
 
 - <Enter> when cursor is on a previous command retrieves that command.  Instead
   of replacing the input line, the previous command is now appended to the
@@ -224,8 +224,8 @@ What's New in IDLE 1.2?
   Patch 1196980 Jeff Shute
 
 - New files are colorized by default, and colorizing is removed when
-  saving as non-Python files. Patch 1196895 Jeff Shute
-  Closes Python Bugs 775012 and 800432, partial fix IDLEfork 763524
+  saving as non-MyFRpy files. Patch 1196895 Jeff Shute
+  Closes MyFRpy Bugs 775012 and 800432, partial fix IDLEfork 763524
 
 - Improve subprocess link error notification.
 
@@ -233,7 +233,7 @@ What's New in IDLE 1.2?
   loop.  Patch # 1190163 Michiel de Hoon
 
 - Add config-main option to make the 'history' feature non-cyclic.
-  Default remains cyclic.  Python Patch 914546 Noam Raphael.
+  Default remains cyclic.  MyFRpy Patch 914546 Noam Raphael.
 
 - Removed ability to configure tabs indent from Options dialog.  This 'feature'
   has never worked and no one has complained.  It is still possible to set a
@@ -247,7 +247,7 @@ What's New in IDLE 1.2?
 - Add keybindings for del-word-left and del-word-right.
 
 - Discourage using an indent width other than 8 when using tabs to indent
-  Python code.
+  MyFRpy code.
 
 - Restore use of EditorWindow.set_indentation_params(), was dead code since
   Autoindent was merged into EditorWindow.  This allows IDLE to conform to the
@@ -264,7 +264,7 @@ What's New in IDLE 1.2?
 
 - The GUI was hanging if the shell window was closed while a raw_input()
   was pending.  Restored the quit() of the readline() mainloop().
-  http://mail.python.org/pipermail/idle-dev/2004-December/002307.html
+  http://mail.myFRpy.org/pipermail/idle-dev/2004-December/002307.html
 
 - The remote procedure call module rpc.py can now access data attributes of
   remote registered objects.  Changes to these attributes are local, however.
@@ -279,10 +279,10 @@ What's New in IDLE 1.1?
 
 - Saving a Keyset w/o making changes (by using the "Save as New Custom Key Set"
   button) caused IDLE to fail on restart (no new keyset was created in
-  config-keys.cfg).  Also true for Theme/highlights.  Python Bug 1064535.
+  config-keys.cfg).  Also true for Theme/highlights.  MyFRpy Bug 1064535.
 
 - A change to the linecache.py API caused IDLE to exit when an exception was
-  raised while running without the subprocess (-n switch).  Python Bug 1063840.
+  raised while running without the subprocess (-n switch).  MyFRpy Bug 1063840.
 
 - When paragraph reformat width was made configurable, a bug was
   introduced that caused reformatting of comment blocks to ignore how
@@ -298,7 +298,7 @@ What's New in IDLE 1.1?
   open a new file, don't raise a dialog.  IDLEfork 854928.
 
 - EditorWindow.py was not finding the .chm help file on Windows.  Typo
-  at Rev 1.54.  Python Bug 990954
+  at Rev 1.54.  MyFRpy Bug 990954
 
 - checking sys.platform for substring 'win' was breaking IDLE docs on Mac
   (darwin).  Also, Mac Safari browser requires full file:// URIs.  SF 900580.
@@ -319,14 +319,14 @@ What's New in IDLE 1.1?
   which has scrolled above an edit window. Patch 936169 Noam Raphael.
 
 - If nulls somehow got into the strings in recent-files.lst
-  EditorWindow.update_recent_files_list() was failing.  Python Bug 931336.
+  EditorWindow.update_recent_files_list() was failing.  MyFRpy Bug 931336.
 
 - If the normal background is changed via Configure/Highlighting, it will
   update immediately, thanks to the previously mentioned patch by Nigel Rowe.
 
-- Add a highlight theme for builtin keywords.  Python Patch 805830 Nigel Rowe
+- Add a highlight theme for builtin keywords.  MyFRpy Patch 805830 Nigel Rowe
   This also fixed IDLEfork bug [ 693418 ] Normal text background color not
-  refreshed and Python bug [897872 ] Unknown color name on HP-UX
+  refreshed and MyFRpy bug [897872 ] Unknown color name on HP-UX
 
 - rpc.py:SocketIO - Large modules were generating large pickles when downloaded
   to the execution server.  The return of the OK response from the subprocess
@@ -340,24 +340,24 @@ What's New in IDLE 1.1?
   connect to the user GUI process.  Added a timeout to the GUI's listening
   socket.  Added Tk error dialogs to PyShell.py to announce a failure to bind
   the port or connect to the subprocess.  Clean up error handling during
-  connection initiation phase.  This is an update of Python Patch 778323.
+  connection initiation phase.  This is an update of MyFRpy Patch 778323.
 
 - Print correct exception even if source file changed since shell was
   restarted.  IDLEfork Patch 869012 Noam Raphael
 
 - Keybindings with the Shift modifier now work correctly.  So do bindings which
   use the Space key.  Limit unmodified user keybindings to the function keys.
-  Python Bug 775353, IDLEfork Bugs 755647, 761557
+  MyFRpy Bug 775353, IDLEfork Bugs 755647, 761557
 
 - After an exception, run.py was not setting the exception vector. Noam
   Raphael suggested correcting this so pdb's postmortem pm() would work.
   IDLEfork Patch 844675
 
 - IDLE now does not fail to save the file anymore if the Tk buffer is not a
-  Unicode string, yet eol_convention is.  Python Bugs 774680, 788378
+  Unicode string, yet eol_convention is.  MyFRpy Bugs 774680, 788378
 
-- IDLE didn't start correctly when Python was installed in "Program Files" on
-  W2K and XP.  Python Bugs 780451, 784183
+- IDLE didn't start correctly when MyFRpy was installed in "Program Files" on
+  W2K and XP.  MyFRpy Bugs 780451, 784183
 
 - config-main.def documentation incorrectly referred to idle- instead of
   config-  filenames.  SF 782759  Also added note about .idlerc location.
@@ -370,18 +370,18 @@ What's New in IDLE 1.0?
 - Added a banner to the shell discussing warnings possibly raised by personal
   firewall software.  Added same comment to README.txt.
 
-- Calltip error when docstring was None  Python Bug 775541
+- Calltip error when docstring was None  MyFRpy Bug 775541
 
 - Updated extend.txt, help.txt, and config-extensions.def to correctly
-  reflect the current status of the configuration system.  Python Bug 768469
+  reflect the current status of the configuration system.  MyFRpy Bug 768469
 
-- Fixed: Call Tip Trimming May Loop Forever. Python Patch 769142 (Daniels)
+- Fixed: Call Tip Trimming May Loop Forever. MyFRpy Patch 769142 (Daniels)
 
 - Replaced apply(f, args, kwds) with f(*args, **kwargs) to improve performance
-  Python Patch 768187
+  MyFRpy Patch 768187
 
 - Break or continue statements outside a loop were causing IDLE crash
-  Python Bug 767794
+  MyFRpy Bug 767794
 
 - Convert Unicode strings from readline to IOBinding.encoding.  Also set
   sys.std{in|out|err}.encoding, for both the local and the subprocess case.
@@ -390,15 +390,15 @@ What's New in IDLE 1.0?
 - Extend AboutDialog.ViewFile() to support file encodings.  Make the CREDITS
   file Latin-1.
 
-- Updated the About dialog to reflect re-integration into Python.  Provide
-  buttons to display Python's NEWS, License, and Credits, plus additional
+- Updated the About dialog to reflect re-integration into MyFRpy.  Provide
+  buttons to display MyFRpy's NEWS, License, and Credits, plus additional
   buttons for IDLE's README and NEWS.
 
 - TextViewer() now has a third parameter which allows inserting text into the
   viewer instead of reading from a file.
 
-- (Created the .../Lib/idlelib directory in the Python CVS, which is a clone of
-  IDLEfork modified to install in the Python environment.  The code in the
+- (Created the .../Lib/idlelib directory in the MyFRpy CVS, which is a clone of
+  IDLEfork modified to install in the MyFRpy environment.  The code in the
   interrupt module has been moved to thread.interrupt_main(). )
 
 - Printing the Shell window was failing if it was not saved first SF 748975
@@ -406,7 +406,7 @@ What's New in IDLE 1.0?
 - When using the Search in Files dialog, if the user had a selection
   highlighted in his Editor window, insert it into the dialog search field.
 
-- The Python Shell entry was disappearing from the Windows menu.
+- The MyFRpy Shell entry was disappearing from the Windows menu.
 
 - Update the Windows file list when a file name change occurs
 
@@ -520,7 +520,7 @@ What's New in IDLEfork 0.9b1?
 
 - Handle subprocess interrupt with an RPC message.
 
-- Restart the subprocess if it terminates itself. (VPython programs do that)
+- Restart the subprocess if it terminates itself. (VMyFRpy programs do that)
 
 - Support subclassing of exceptions, including in the shell, by moving the
   exception formatting to the subprocess.
@@ -530,7 +530,7 @@ What's New in IDLEfork 0.9 Alpha 2?
 ===================================
 *Release date: 27-Jan-2003*
 
-- Updated INSTALL.txt to claify use of the python2 rpm.
+- Updated INSTALL.txt to claify use of the myFRpy2 rpm.
 
 - Improved formatting in IDLE Help.
 
@@ -547,7 +547,7 @@ What's New in IDLEfork 0.9 Alpha 2?
 - IDLE icons will now install correctly even when setup.py is run from the
   build directory
 
-- Class Browser now compatible with Python2.3 version of pyclbr.py
+- Class Browser now compatible with MyFRpy2.3 version of pyclbr.py
 
 - Left cursor move in presence of selected text now moves from left end
   of the selection.
@@ -555,7 +555,7 @@ What's New in IDLEfork 0.9 Alpha 2?
 - Add Meta keybindings to "IDLE Classic Windows" to handle reversed
   Alt/Meta on some Linux distros.
 
-- Change default: IDLE now starts with Python Shell.
+- Change default: IDLE now starts with MyFRpy Shell.
 
 - Removed the File Path from the Additional Help Sources scrolled list.
 
@@ -568,7 +568,7 @@ What's New in IDLEfork 0.9 Alpha 2?
   number.
 
 - Add Browse button to New Help Source dialog.  Arrange to start in
-  Python/Doc if platform is Windows, otherwise start in current directory.
+  MyFRpy/Doc if platform is Windows, otherwise start in current directory.
 
 - Put the Additional Help Sources directly on the Help menu instead of in
   an Extra Help cascade menu.  Rearrange the Help menu so the Additional
@@ -586,15 +586,15 @@ What's New in IDLEfork 0.9 Alpha 2?
 - Fix Tk root pop-ups in configHelpSourceEdit: error dialogs not attached
   to parents.
 
-- Use os.startfile() to open both Additional Help and Python Help on the
+- Use os.startfile() to open both Additional Help and MyFRpy Help on the
   Windows platform.  The application associated with the file type will act as
   the viewer.  Windows help files (.chm) are now supported via the
   Settings/General/Additional Help facility.
 
-- If Python Help files are installed locally on Linux, use them instead of
-  accessing python.org.
+- If MyFRpy Help files are installed locally on Linux, use them instead of
+  accessing myFRpy.org.
 
-- Make the methods for finding the Python help docs more robust, and make
+- Make the methods for finding the MyFRpy help docs more robust, and make
   them work in the installed configuration, also.
 
 - On the Save Before Run dialog, make the OK button the default.  One
@@ -617,13 +617,13 @@ What's New in IDLEfork 0.9 Alpha 2?
   shell window menu "Shell/View Restart" with binding F6 to jump to the most
   recent restart boundary.
 
-- Add Shell menu to Python Shell; change "Settings" to "Options".
+- Add Shell menu to MyFRpy Shell; change "Settings" to "Options".
 
 - Remove incorrect comment in setup.py: IDLEfork is now installed as a package.
 
 - Add INSTALL.txt, HISTORY.txt, NEWS.txt to installed configuration.
 
-- In installer text, fix reference to Visual Python, should be VPython.
+- In installer text, fix reference to Visual MyFRpy, should be VMyFRpy.
   Properly credit David Scherer.
 
 - Modified idle, idle.py, idle.pyw to improve exception handling.

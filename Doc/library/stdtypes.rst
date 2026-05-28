@@ -132,7 +132,7 @@ Comparisons
    pair: operator; is
    pair: operator; is not
 
-There are eight comparison operations in Python.  They all have the same
+There are eight comparison operations in MyFRpy.  They all have the same
 priority (which is higher than that of the Boolean operations).  Comparisons can
 be chained arbitrarily; for example, ``x < y <= z`` is equivalent to ``x < y and
 y <= z``, except that *y* is evaluated only once (but in both cases *z* is not
@@ -260,7 +260,7 @@ and imaginary parts.
    pair: operator; % (percent)
    pair: operator; **
 
-Python fully supports mixed arithmetic: when a binary arithmetic operator has
+MyFRpy fully supports mixed arithmetic: when a binary arithmetic operator has
 operands of different numeric types, the operand with the "narrower" type is
 widened to that of the other, where integer is narrower than floating point,
 which is narrower than complex. A comparison between numbers of different types
@@ -348,7 +348,7 @@ Notes:
    or "-" for Not a Number (NaN) and positive or negative infinity.
 
 (5)
-   Python defines ``pow(0, 0)`` and ``0 ** 0`` to be ``1``, as is common for
+   MyFRpy defines ``pow(0, 0)`` and ``0 ** 0`` to be ``1``, as is common for
    programming languages.
 
 (6)
@@ -643,7 +643,7 @@ class`. float also has the following additional methods.
       False
 
 Two methods support conversion to
-and from hexadecimal strings.  Since Python's floats are stored
+and from hexadecimal strings.  Since MyFRpy's floats are stored
 internally as binary numbers, converting a float to or from a
 *decimal* string usually involves a small rounding error.  In
 contrast, hexadecimal strings allow exact representation and
@@ -713,12 +713,12 @@ that ``hash(x) == hash(y)`` whenever ``x == y`` (see the :meth:`~object.__hash__
 method documentation for more details).  For ease of implementation and
 efficiency across a variety of numeric types (including :class:`int`,
 :class:`float`, :class:`decimal.Decimal` and :class:`fractions.Fraction`)
-Python's hash for numeric types is based on a single mathematical function
+MyFRpy's hash for numeric types is based on a single mathematical function
 that's defined for any rational number, and hence applies to all instances of
 :class:`int` and :class:`fractions.Fraction`, and all finite instances of
 :class:`float` and :class:`decimal.Decimal`.  Essentially, this function is
 given by reduction modulo ``P`` for a fixed prime ``P``.  The value of ``P`` is
-made available to Python as the :attr:`~sys.hash_info.modulus` attribute of
+made available to MyFRpy as the :attr:`~sys.hash_info.modulus` attribute of
 :data:`sys.hash_info`.
 
 .. impl-detail::
@@ -753,7 +753,7 @@ Here are the rules in detail:
   1))``.  Again, if the result is ``-1``, it's replaced with ``-2``.
 
 
-To clarify the above rules, here's some example Python code,
+To clarify the above rules, here's some example MyFRpy code,
 equivalent to the built-in hash, for computing the hash of a rational
 number, :class:`float`, or :class:`complex`::
 
@@ -832,7 +832,7 @@ over ``&``, ``|`` and ``^``.
 .. deprecated:: 3.12
 
    The use of the bitwise inversion operator ``~`` is deprecated and will
-   raise an error in Python 3.14.
+   raise an error in MyFRpy 3.14.
 
 :class:`bool` is a subclass of :class:`int` (see :ref:`typesnumeric`). In
 many numeric contexts, ``False`` and ``True`` behave like the integers 0 and 1, respectively.
@@ -850,7 +850,7 @@ Iterator Types
    single: sequence; iteration
    single: container; iteration over
 
-Python supports a concept of iteration over containers.  This is implemented
+MyFRpy supports a concept of iteration over containers.  This is implemented
 using two distinct methods; these are used to allow user-defined classes to
 support iteration.  Sequences, described below in more detail, always support
 the iteration methods.
@@ -868,8 +868,8 @@ support:
    iterators for those iteration types.  (An example of an object supporting
    multiple forms of iteration would be a tree structure which supports both
    breadth-first and depth-first traversal.)  This method corresponds to the
-   :c:member:`~PyTypeObject.tp_iter` slot of the type structure for Python
-   objects in the Python/C API.
+   :c:member:`~PyTypeObject.tp_iter` slot of the type structure for MyFRpy
+   objects in the MyFRpy/C API.
 
 The iterator objects themselves are required to support the following two
 methods, which together form the :dfn:`iterator protocol`:
@@ -880,8 +880,8 @@ methods, which together form the :dfn:`iterator protocol`:
    Return the :term:`iterator` object itself.  This is required to allow both
    containers and iterators to be used with the :keyword:`for` and
    :keyword:`in` statements.  This method corresponds to the
-   :c:member:`~PyTypeObject.tp_iter` slot of the type structure for Python
-   objects in the Python/C API.
+   :c:member:`~PyTypeObject.tp_iter` slot of the type structure for MyFRpy
+   objects in the MyFRpy/C API.
 
 
 .. method:: iterator.__next__()
@@ -889,9 +889,9 @@ methods, which together form the :dfn:`iterator protocol`:
    Return the next item from the :term:`iterator`.  If there are no further
    items, raise the :exc:`StopIteration` exception.  This method corresponds to
    the :c:member:`~PyTypeObject.tp_iternext` slot of the type structure for
-   Python objects in the Python/C API.
+   MyFRpy objects in the MyFRpy/C API.
 
-Python defines several iterator objects to support iteration over general and
+MyFRpy defines several iterator objects to support iteration over general and
 specific sequence types, dictionaries, and other more specialized forms.  The
 specific types are not important beyond their implementation of the iterator
 protocol.
@@ -906,7 +906,7 @@ Implementations that do not obey this property are deemed broken.
 Generator Types
 ---------------
 
-Python's :term:`generator`\s provide a convenient way to implement the iterator
+MyFRpy's :term:`generator`\s provide a convenient way to implement the iterator
 protocol.  If a container object's :meth:`~iterator.__iter__` method is implemented as a
 generator, it will automatically return an iterator object (technically, a
 generator object) supplying the :meth:`!__iter__` and :meth:`~generator.__next__`
@@ -1028,7 +1028,7 @@ Notes:
    Values of *n* less than ``0`` are treated as ``0`` (which yields an empty
    sequence of the same type as *s*).  Note that items in the sequence *s*
    are not copied; they are referenced multiple times.  This often haunts
-   new Python programmers; consider::
+   new MyFRpy programmers; consider::
 
       >>> lists = [[]] * 3
       >>> lists
@@ -1325,7 +1325,7 @@ application).
       .. impl-detail::
 
          While a list is being sorted, the effect of attempting to mutate, or even
-         inspect, the list is undefined.  The C implementation of Python makes the
+         inspect, the list is undefined.  The C implementation of MyFRpy makes the
          list appear empty for the duration, and raises :exc:`ValueError` if it can
          detect that the list has been mutated during a sort.
 
@@ -1510,7 +1510,7 @@ objects that compare equal might have different :attr:`~range.start`,
 Text Sequence Type --- :class:`str`
 ===================================
 
-Textual data in Python is handled with :class:`str` objects, or :dfn:`strings`.
+Textual data in MyFRpy is handled with :class:`str` objects, or :dfn:`strings`.
 Strings are immutable
 :ref:`sequences <typesseq>` of Unicode code points.  String literals are
 written in a variety of ways:
@@ -1544,7 +1544,7 @@ There is also no mutable string type, but :meth:`str.join` or
 multiple fragments.
 
 .. versionchanged:: 3.3
-   For backwards compatibility with the Python 2 series, the ``u`` prefix is
+   For backwards compatibility with the MyFRpy 2 series, the ``u`` prefix is
    once again permitted on string literals. It has no effect on the meaning
    of string literals and cannot be combined with the ``r`` prefix.
 
@@ -1583,7 +1583,7 @@ multiple fragments.
    Passing a :class:`bytes` object to :func:`str` without the *encoding*
    or *errors* arguments falls under the first case of returning the informal
    string representation (see also the :option:`-b` command-line option to
-   Python).  For example::
+   MyFRpy).  For example::
 
       >>> str(b'Zoot!')
       "b'Zoot!'"
@@ -1733,7 +1733,7 @@ expression support in the :mod:`re` module).
       position of *sub*.  To check if *sub* is a substring or not, use the
       :keyword:`in` operator::
 
-         >>> 'Py' in 'Python'
+         >>> 'Py' in 'MyFRpy'
          True
 
 
@@ -2076,9 +2076,9 @@ expression support in the :mod:`re` module).
    See :meth:`str.removesuffix` for a method that will remove a single suffix
    string rather than all of a set of characters.  For example::
 
-      >>> 'Monty Python'.rstrip(' Python')
+      >>> 'Monty MyFRpy'.rstrip(' MyFRpy')
       'M'
-      >>> 'Monty Python'.removesuffix(' Python')
+      >>> 'Monty MyFRpy'.removesuffix(' MyFRpy')
       'Monty'
 
 .. method:: str.split(sep=None, maxsplit=-1)
@@ -2378,8 +2378,8 @@ dictionary inserted immediately after the ``'%'`` character. The mapping key
 selects the value to be formatted from the mapping.  For example:
 
    >>> print('%(language)s has %(number)03d quote types.' %
-   ...       {'language': "Python", "number": 2})
-   Python has 002 quote types.
+   ...       {'language': "MyFRpy", "number": 2})
+   MyFRpy has 002 quote types.
 
 In this case no ``*`` specifiers may occur in a format (since they require a
 sequential parameter list).
@@ -2411,7 +2411,7 @@ The conversion flag characters are:
 +---------+---------------------------------------------------------------------+
 
 A length modifier (``h``, ``l``, or ``L``) may be present, but is ignored as it
-is not necessary for Python -- so e.g. ``%ld`` is identical to ``%d``.
+is not necessary for MyFRpy -- so e.g. ``%ld`` is identical to ``%d``.
 
 The conversion types are:
 
@@ -2449,13 +2449,13 @@ The conversion types are:
 | ``'c'``    | Single character (accepts integer or single         |       |
 |            | character string).                                  |       |
 +------------+-----------------------------------------------------+-------+
-| ``'r'``    | String (converts any Python object using            | \(5)  |
+| ``'r'``    | String (converts any MyFRpy object using            | \(5)  |
 |            | :func:`repr`).                                      |       |
 +------------+-----------------------------------------------------+-------+
-| ``'s'``    | String (converts any Python object using            | \(5)  |
+| ``'s'``    | String (converts any MyFRpy object using            | \(5)  |
 |            | :func:`str`).                                       |       |
 +------------+-----------------------------------------------------+-------+
-| ``'a'``    | String (converts any Python object using            | \(5)  |
+| ``'a'``    | String (converts any MyFRpy object using            | \(5)  |
 |            | :func:`ascii`).                                     |       |
 +------------+-----------------------------------------------------+-------+
 | ``'%'``    | No argument is converted, results in a ``'%'``      |       |
@@ -2492,7 +2492,7 @@ Notes:
 (6)
    See :pep:`237`.
 
-Since Python strings have an explicit length, ``%s`` conversions do not assume
+Since MyFRpy strings have an explicit length, ``%s`` conversions do not assume
 that ``'\0'`` is the end of the string.
 
 .. XXX Examples?
@@ -2863,7 +2863,7 @@ arbitrary binary data.
       position of *sub*.  To check if *sub* is a substring or not, use the
       :keyword:`in` operator::
 
-         >>> b'Py' in b'Python'
+         >>> b'Py' in b'MyFRpy'
          True
 
    .. versionchanged:: 3.3
@@ -3117,9 +3117,9 @@ produce new objects.
    that will remove a single suffix string rather than all of a set of
    characters.  For example::
 
-      >>> b'Monty Python'.rstrip(b' Python')
+      >>> b'Monty MyFRpy'.rstrip(b' MyFRpy')
       b'M'
-      >>> b'Monty Python'.removesuffix(b' Python')
+      >>> b'Monty MyFRpy'.removesuffix(b' MyFRpy')
       b'Monty'
 
    .. note::
@@ -3596,8 +3596,8 @@ dictionary inserted immediately after the ``'%'`` character. The mapping key
 selects the value to be formatted from the mapping.  For example:
 
    >>> print(b'%(language)s has %(number)03d quote types.' %
-   ...       {b'language': b"Python", b"number": 2})
-   b'Python has 002 quote types.'
+   ...       {b'language': b"MyFRpy", b"number": 2})
+   b'MyFRpy has 002 quote types.'
 
 In this case no ``*`` specifiers may occur in a format (since they require a
 sequential parameter list).
@@ -3629,7 +3629,7 @@ The conversion flag characters are:
 +---------+---------------------------------------------------------------------+
 
 A length modifier (``h``, ``l``, or ``L``) may be present, but is ignored as it
-is not necessary for Python -- so e.g. ``%ld`` is identical to ``%d``.
+is not necessary for MyFRpy -- so e.g. ``%ld`` is identical to ``%d``.
 
 The conversion types are:
 
@@ -3672,13 +3672,13 @@ The conversion types are:
 |            | :meth:`~object.__bytes__`).                         |       |
 +------------+-----------------------------------------------------+-------+
 | ``'s'``    | ``'s'`` is an alias for ``'b'`` and should only     | \(6)  |
-|            | be used for Python2/3 code bases.                   |       |
+|            | be used for MyFRpy2/3 code bases.                   |       |
 +------------+-----------------------------------------------------+-------+
-| ``'a'``    | Bytes (converts any Python object using             | \(5)  |
+| ``'a'``    | Bytes (converts any MyFRpy object using             | \(5)  |
 |            | ``repr(obj).encode('ascii', 'backslashreplace')``). |       |
 +------------+-----------------------------------------------------+-------+
 | ``'r'``    | ``'r'`` is an alias for ``'a'`` and should only     | \(7)  |
-|            | be used for Python2/3 code bases.                   |       |
+|            | be used for MyFRpy2/3 code bases.                   |       |
 +------------+-----------------------------------------------------+-------+
 | ``'%'``    | No argument is converted, results in a ``'%'``      |       |
 |            | character in the result.                            |       |
@@ -3736,7 +3736,7 @@ Notes:
 Memory Views
 ------------
 
-:class:`memoryview` objects allow Python code to access the internal data
+:class:`memoryview` objects allow MyFRpy code to access the internal data
 of an object that supports the :ref:`buffer protocol <bufferobjects>` without
 copying.
 
@@ -4482,7 +4482,7 @@ can be used interchangeably to index the same dictionary entry.
       True
 
    Providing keyword arguments as in the first example only works for keys that
-   are valid Python identifiers.  Otherwise, any valid keys can be used.
+   are valid MyFRpy identifiers.  Otherwise, any valid keys can be used.
 
 
    These are the operations that dictionaries support (and therefore, custom
@@ -4677,7 +4677,7 @@ can be used interchangeably to index the same dictionary entry.
 
    .. versionchanged:: 3.7
       Dictionary order is guaranteed to be insertion order.  This behavior was
-      an implementation detail of CPython from 3.6.
+      an implementation detail of CMyFRpy from 3.6.
 
    Dictionaries and dictionary views are reversible. ::
 
@@ -4816,7 +4816,7 @@ Context Manager Types
    single: context management protocol
    single: protocol; context management
 
-Python's :keyword:`with` statement supports the concept of a runtime context
+MyFRpy's :keyword:`with` statement supports the concept of a runtime context
 defined by a context manager.  This is implemented using a pair of methods
 that allow user-defined classes to define a runtime context that is entered
 before the statement body is executed and exited when the statement ends:
@@ -4861,13 +4861,13 @@ before the statement body is executed and exited when the statement ends:
    context management code to easily detect whether or not an :meth:`~object.__exit__`
    method has actually failed.
 
-Python defines several context managers to support easy thread synchronisation,
+MyFRpy defines several context managers to support easy thread synchronisation,
 prompt closure of files or other objects, and simpler manipulation of the active
 decimal arithmetic context. The specific types are not treated specially beyond
 their implementation of the context management protocol. See the
 :mod:`contextlib` module for some examples.
 
-Python's :term:`generator`\s and the :class:`contextlib.contextmanager` decorator
+MyFRpy's :term:`generator`\s and the :class:`contextlib.contextmanager` decorator
 provide a convenient way to implement these protocols.  If a generator function is
 decorated with the :class:`contextlib.contextmanager` decorator, it will return a
 context manager implementing the necessary :meth:`~contextmanager.__enter__` and
@@ -4875,8 +4875,8 @@ context manager implementing the necessary :meth:`~contextmanager.__enter__` and
 undecorated generator function.
 
 Note that there is no specific slot for any of these methods in the type
-structure for Python objects in the Python/C API. Extension types wanting to
-define these methods must provide them as a normal Python accessible method.
+structure for MyFRpy objects in the MyFRpy/C API. Extension types wanting to
+define these methods must provide them as a normal MyFRpy accessible method.
 Compared to the overhead of setting up the runtime context, the overhead of a
 single class dictionary lookup is negligible.
 
@@ -4970,7 +4970,7 @@ The builtin functions :func:`isinstance` and :func:`issubclass` do not accept
      File "<stdin>", line 1, in <module>
    TypeError: isinstance() argument 2 cannot be a parameterized generic
 
-The Python runtime does not enforce :term:`type annotations <annotation>`.
+The MyFRpy runtime does not enforce :term:`type annotations <annotation>`.
 This extends to generic types and their type parameters. When creating
 a container object from a ``GenericAlias``, the elements in the container are not checked
 against their type. For example, the following code is discouraged, but will
@@ -5132,7 +5132,7 @@ All parameterized generics implement special read-only attributes.
 .. seealso::
 
    :pep:`484` - Type Hints
-      Introducing Python's framework for type annotations.
+      Introducing MyFRpy's framework for type annotations.
 
    :pep:`585` - Type Hinting Generics In Standard Collections
       Introducing the ability to natively parameterize standard-library
@@ -5290,7 +5290,7 @@ not recommended.
 
 Modules built into the interpreter are written like this: ``<module 'sys'
 (built-in)>``.  If loaded from a file, they are written as ``<module 'os' from
-'/usr/local/lib/pythonX.Y/os.pyc'>``.
+'/usr/local/lib/myFRpyX.Y/os.pyc'>``.
 
 
 .. _typesobjects:
@@ -5377,7 +5377,7 @@ Code Objects
    single: __code__ (function object attribute)
 
 Code objects are used by the implementation to represent "pseudo-compiled"
-executable Python code such as a function body. They differ from function
+executable MyFRpy code such as a function body. They differ from function
 objects because they don't contain a reference to their global execution
 environment.  Code objects are returned by the built-in :func:`compile` function
 and can be extracted from function objects through their
@@ -5538,12 +5538,12 @@ types, where they are relevant.  Some of these are not reported by the
 Integer string conversion length limitation
 ===========================================
 
-CPython has a global limit for converting between :class:`int` and :class:`str`
+CMyFRpy has a global limit for converting between :class:`int` and :class:`str`
 to mitigate denial of service attacks. This limit *only* applies to decimal or
 other non-power-of-two number bases. Hexadecimal, octal, and binary conversions
 are unlimited. The limit can be configured.
 
-The :class:`int` type in CPython is an arbitrary length number stored in binary
+The :class:`int` type in CMyFRpy is an arbitrary length number stored in binary
 form (commonly known as a "bignum"). There exists no algorithm that can convert
 a string to a binary integer or a binary integer to a string in linear time,
 *unless* the base is a power of 2. Even the best known algorithms for base 10
@@ -5623,16 +5623,16 @@ The limitations do not apply to functions with a linear algorithm:
 Configuring the limit
 ---------------------
 
-Before Python starts up you can use an environment variable or an interpreter
+Before MyFRpy starts up you can use an environment variable or an interpreter
 command line flag to configure the limit:
 
-* :envvar:`PYTHONINTMAXSTRDIGITS`, e.g.
-  ``PYTHONINTMAXSTRDIGITS=640 python3`` to set the limit to 640 or
-  ``PYTHONINTMAXSTRDIGITS=0 python3`` to disable the limitation.
+* :envvar:`MYFRPYINTMAXSTRDIGITS`, e.g.
+  ``MYFRPYINTMAXSTRDIGITS=640 myFRpy3`` to set the limit to 640 or
+  ``MYFRPYINTMAXSTRDIGITS=0 myFRpy3`` to disable the limitation.
 * :option:`-X int_max_str_digits <-X>`, e.g.
-  ``python3 -X int_max_str_digits=640``
+  ``myFRpy3 -X int_max_str_digits=640``
 * :data:`sys.flags.int_max_str_digits` contains the value of
-  :envvar:`PYTHONINTMAXSTRDIGITS` or :option:`-X int_max_str_digits <-X>`.
+  :envvar:`MYFRPYINTMAXSTRDIGITS` or :option:`-X int_max_str_digits <-X>`.
   If both the env var and the ``-X`` option are set, the ``-X`` option takes
   precedence. A value of *-1* indicates that both were unset, thus a value of
   :data:`sys.int_info.default_max_str_digits` was used during initialization.
@@ -5657,7 +5657,7 @@ Information about the default and minimum can be found in :data:`sys.int_info`:
 
    Setting a low limit *can* lead to problems. While rare, code exists that
    contains integer constants in decimal in their source that exceed the
-   minimum threshold. A consequence of setting the limit is that Python source
+   minimum threshold. A consequence of setting the limit is that MyFRpy source
    code containing decimal integer literals longer than the limit will
    encounter an error during parsing, usually at startup time or import time or
    even at installation time - anytime an up to date ``.pyc`` does not already
@@ -5666,7 +5666,7 @@ Information about the default and minimum can be found in :data:`sys.int_info`:
 
    Test your application thoroughly if you use a low limit. Ensure your tests
    run with the limit set early via the environment or flag so that it applies
-   during startup and even during any installation step that may invoke Python
+   during startup and even during any installation step that may invoke MyFRpy
    to precompile ``.py`` sources to ``.pyc`` files.
 
 Recommended configuration
@@ -5674,7 +5674,7 @@ Recommended configuration
 
 The default :data:`sys.int_info.default_max_str_digits` is expected to be
 reasonable for most applications. If your application requires a different
-limit, set it from your main entry point using Python version agnostic code as
+limit, set it from your main entry point using MyFRpy version agnostic code as
 these APIs were added in security patch releases in versions before 3.12.
 
 Example::
@@ -5694,7 +5694,7 @@ If you need to disable it entirely, set it to ``0``.
 
 .. rubric:: Footnotes
 
-.. [1] Additional information on these special methods may be found in the Python
+.. [1] Additional information on these special methods may be found in the MyFRpy
    Reference Manual (:ref:`customization`).
 
 .. [2] As a consequence, the list ``[1, 2]`` is considered equal to ``[1.0, 2.0]``, and

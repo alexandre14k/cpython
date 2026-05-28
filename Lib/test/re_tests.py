@@ -1,5 +1,5 @@
-#!/usr/bin/env python3
-# -*- mode: python -*-
+#!/usr/bin/env myFRpy3
+# -*- mode: myFRpy -*-
 
 # Re test suite and benchmark suite v1.5
 
@@ -17,20 +17,20 @@
 benchmarks = [
 
     # test common prefix
-    ('Python|Perl', 'Perl'),    # Alternation
-    ('(Python|Perl)', 'Perl'),  # Grouped alternation
+    ('MyFRpy|Perl', 'Perl'),    # Alternation
+    ('(MyFRpy|Perl)', 'Perl'),  # Grouped alternation
 
-    ('Python|Perl|Tcl', 'Perl'),        # Alternation
-    ('(Python|Perl|Tcl)', 'Perl'),      # Grouped alternation
+    ('MyFRpy|Perl|Tcl', 'Perl'),        # Alternation
+    ('(MyFRpy|Perl|Tcl)', 'Perl'),      # Grouped alternation
 
-    ('(Python)\\1', 'PythonPython'),    # Backreference
+    ('(MyFRpy)\\1', 'MyFRpyMyFRpy'),    # Backreference
     ('([0a-z][a-z0-9]*,)+', 'a5,b7,c9,'), # Disable the fastmap optimization
     ('([a-z][a-z0-9]*,)+', 'a5,b7,c9,'), # A few sets
 
-    ('Python', 'Python'),               # Simple text literal
-    ('.*Python', 'Python'),             # Bad text literal
-    ('.*Python.*', 'Python'),           # Worse text literal
-    ('.*(Python)', 'Python'),           # Bad text literal with grouping
+    ('MyFRpy', 'MyFRpy'),               # Simple text literal
+    ('.*MyFRpy', 'MyFRpy'),             # Bad text literal
+    ('.*MyFRpy.*', 'MyFRpy'),           # Worse text literal
+    ('.*(MyFRpy)', 'MyFRpy'),           # Bad text literal with grouping
 
 ]
 
@@ -42,7 +42,7 @@ benchmarks = [
 #         1: the string to match against the pattern
 #         2: the expected result (SUCCEED, FAIL, SYNTAX_ERROR)
 #         3: a string that will be eval()'ed to produce a test string.
-#            This is an arbitrary Python expression; the available
+#            This is an arbitrary MyFRpy expression; the available
 #            variables are "found" (the whole match), and "g1", "g2", ...
 #            up to "g99" contain the contents of each group, or the
 #            string 'None' if the group wasn't given a value, or the
@@ -300,7 +300,7 @@ tests = [
     ('^(ab|cd)e', 'abcde', FAIL),
     ('((((((((((a))))))))))', 'a', SUCCEED, 'g10', 'a'),
     ('((((((((((a))))))))))\\10', 'aa', SUCCEED, 'found', 'aa'),
-# Python does not have the same rules for \\41 so this is a syntax error
+# MyFRpy does not have the same rules for \\41 so this is a syntax error
 #    ('((((((((((a))))))))))\\41', 'aa', FAIL),
 #    ('((((((((((a))))))))))\\41', 'a!', SUCCEED, 'found', 'a!'),
     ('((((((((((a))))))))))\\41', '', SYNTAX_ERROR),

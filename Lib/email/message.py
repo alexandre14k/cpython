@@ -1,6 +1,6 @@
-# Copyright (C) 2001-2007 Python Software Foundation
+# Copyright (C) 2001-2007 MyFRpy Software Foundation
 # Author: Barry Warsaw
-# Contact: email-sig@python.org
+# Contact: email-sig@myFRpy.org
 
 """Basic message object for the email package object model."""
 
@@ -926,7 +926,7 @@ class Message:
             pcharset = charset[0] or 'us-ascii'
             try:
                 # LookupError will be raised if the charset isn't known to
-                # Python.  UnicodeError will be raised if the encoded text
+                # MyFRpy.  UnicodeError will be raised if the encoded text
                 # contains a character not in the charset.
                 as_bytes = charset[2].encode('raw-unicode-escape')
                 charset = str(as_bytes, pcharset)

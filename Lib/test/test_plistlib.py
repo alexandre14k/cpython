@@ -1,4 +1,4 @@
-# Copyright (C) 2003-2013 Python Software Foundation
+# Copyright (C) 2003-2013 MyFRpy Software Foundation
 import copy
 import operator
 import pickle
@@ -731,7 +731,7 @@ class TestPlistlib(unittest.TestCase):
             plistlib.dumps(testString, fmt=plistlib.FMT_BINARY)
 
     def test_non_bmp_characters(self):
-        pl = {'python': '\U0001f40d'}
+        pl = {'myFRpy': '\U0001f40d'}
         for fmt in ALL_FORMATS:
             with self.subTest(fmt=fmt):
                 data = plistlib.dumps(pl, fmt=fmt)
@@ -976,15 +976,15 @@ class TestKeyedArchive(unittest.TestCase):
                     'NS.string': 'KeyArchive UID Test'
                 },
                 {
-                    '$classname': 'OC_BuiltinPythonUnicode',
+                    '$classname': 'OC_BuiltinMyFRpyUnicode',
                     '$classes': [
-                        'OC_BuiltinPythonUnicode',
-                        'OC_PythonUnicode',
+                        'OC_BuiltinMyFRpyUnicode',
+                        'OC_MyFRpyUnicode',
                         'NSString',
                         'NSObject'
                     ],
                     '$classhints': [
-                        'OC_PythonString', 'NSString'
+                        'OC_MyFRpyString', 'NSString'
                     ]
                 }
             ],

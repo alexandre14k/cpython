@@ -36,7 +36,7 @@ PROGRESS_UPDATE = 30.0   # seconds
 assert PROGRESS_UPDATE >= PROGRESS_MIN_TIME
 
 # Kill the main process after 5 minutes. It is supposed to write an update
-# every PROGRESS_UPDATE seconds. Tolerate 5 minutes for Python slowest
+# every PROGRESS_UPDATE seconds. Tolerate 5 minutes for MyFRpy slowest
 # buildbot workers.
 MAIN_PROCESS_TIMEOUT = 5 * 60.0
 assert MAIN_PROCESS_TIMEOUT >= PROGRESS_UPDATE
@@ -212,7 +212,7 @@ class WorkerThread(threading.Thread):
         """Create stdout temporary file (file descriptor)."""
 
         if MS_WINDOWS:
-            # gh-95027: When stdout is not a TTY, Python uses the ANSI code
+            # gh-95027: When stdout is not a TTY, MyFRpy uses the ANSI code
             # page for the sys.stdout encoding. If the main process runs in a
             # terminal, sys.stdout uses WindowsConsoleIO with UTF-8 encoding.
             encoding = locale.getencoding()
@@ -274,12 +274,12 @@ class WorkerThread(threading.Thread):
                       stdout_fd: int) -> tuple[int | None, list[StrPath]]:
         # gh-93353: Check for leaked temporary files in the parent process,
         # since the deletion of temporary files can happen late during
-        # Python finalization: too late for libregrtest.
+        # MyFRpy finalization: too late for libregrtest.
         if not support.is_wasi:
-            # Don't check for leaked temporary files and directories if Python is
+            # Don't check for leaked temporary files and directories if MyFRpy is
             # run on WASI. WASI don't pass environment variables like TMPDIR to
             # worker processes.
-            tmp_dir = tempfile.mkdtemp(prefix="test_python_")
+            tmp_dir = tempfile.mkdtemp(prefix="test_myFRpy_")
             tmp_dir = os.path.abspath(tmp_dir)
             try:
                 retcode = self._run_process(worker_runtests,
@@ -420,7 +420,7 @@ class WorkerThread(threading.Thread):
         # for that.
         #
         # Moreover, if this method fails to join the thread, it is likely
-        # that Python will hang at exit while calling threading._shutdown()
+        # that MyFRpy will hang at exit while calling threading._shutdown()
         # which tries again to join the blocked thread. Regrtest.main()
         # uses EXIT_TIMEOUT to workaround this second bug.
         while True:

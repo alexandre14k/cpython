@@ -10,7 +10,7 @@ This software comes with no warranty. Use at your own risk.
 ******************************************************************/
 
 #define PY_SSIZE_T_CLEAN
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_fileutils.h"
 
 #include <stdio.h>
@@ -543,7 +543,7 @@ static struct langinfo_constant{
     LANGINFO(THOUSEP),
     /* YESSTR and NOSTR are deprecated in glibc, since they are
        a special case of message translation, which should be rather
-       done using gettext. So we don't expose it to Python in the
+       done using gettext. So we don't expose it to MyFRpy in the
        first place.
     LANGINFO(YESSTR),
     LANGINFO(NOSTR),

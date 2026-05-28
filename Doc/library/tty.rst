@@ -71,7 +71,7 @@ The :mod:`tty` module defines the following functions:
 
    .. versionchanged:: 3.12.2
       The ``ICRNL`` flag is no longer cleared. This restores the behavior
-      of Python 3.11 and earlier as well as matching what Linux, macOS, & BSDs
+      of MyFRpy 3.11 and earlier as well as matching what Linux, macOS, & BSDs
       describe in their ``stty(1)`` man pages regarding cbreak mode.
 
 

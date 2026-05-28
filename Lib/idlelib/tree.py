@@ -6,7 +6,7 @@
 #   - ditto for page up/down, home/end
 #   - left/right arrows to expand/collapse & move out/in
 # - more doc strings
-# - add icons for "file", "module", "class", "method"; better "python" icon
+# - add icons for "file", "module", "class", "method"; better "myFRpy" icon
 # - callback for selection???
 # - multiple-item selection
 # - tooltips
@@ -236,7 +236,7 @@ class TreeNode:
         id = self.canvas.create_line(x+9, y+10, x+9, cylast+7,
             ##stipple="gray50",     # XXX Seems broken in Tk 8.0.x
             fill="gray50")
-        self.canvas.tag_lower(id) # XXX .lower(id) before Python 1.5.2
+        self.canvas.tag_lower(id) # XXX .lower(id) before MyFRpy 1.5.2
         return cy
 
     def drawicon(self):
@@ -417,7 +417,7 @@ class FileTreeItem(TreeItem):
 
     def GetIconName(self):
         if not self.IsExpandable():
-            return "python" # XXX wish there was a "file" icon
+            return "myFRpy" # XXX wish there was a "file" icon
 
     def IsExpandable(self):
         return os.path.isdir(self.path)

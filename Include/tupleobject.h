@@ -8,10 +8,10 @@ extern "C" {
 
 /*
 Another generally useful object type is a tuple of object pointers.
-For Python, this is an immutable type.  C code can change the tuple items
+For MyFRpy, this is an immutable type.  C code can change the tuple items
 (but not their number), and even use tuples as general-purpose arrays of
 object references, but in general only brand new tuples should be mutated,
-not ones that might already have been exposed to Python code.
+not ones that might already have been exposed to MyFRpy code.
 
 *** WARNING *** PyTuple_SetItem does not increment the new item's reference
 count, but does decrement the reference count of the item it replaces,
@@ -35,9 +35,9 @@ PyAPI_FUNC(PyObject *) PyTuple_GetSlice(PyObject *, Py_ssize_t, Py_ssize_t);
 PyAPI_FUNC(PyObject *) PyTuple_Pack(Py_ssize_t, ...);
 
 #ifndef Py_LIMITED_API
-#  define Py_CPYTHON_TUPLEOBJECT_H
-#  include "cpython/tupleobject.h"
-#  undef Py_CPYTHON_TUPLEOBJECT_H
+#  define Py_CMYFRPY_TUPLEOBJECT_H
+#  include "cmyFRpy/tupleobject.h"
+#  undef Py_CMYFRPY_TUPLEOBJECT_H
 #endif
 
 #ifdef __cplusplus

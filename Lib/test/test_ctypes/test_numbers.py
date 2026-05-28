@@ -97,7 +97,7 @@ class NumberTestCase(unittest.TestCase):
 
     def test_floats(self):
         # c_float and c_double can be created from
-        # Python int and float
+        # MyFRpy int and float
         class FloatLike:
             def __float__(self):
                 return 2.0
@@ -198,7 +198,7 @@ class NumberTestCase(unittest.TestCase):
         self.assertEqual(v.value, b'?')
 
     def test_init(self):
-        # c_int() can be initialized from Python's int, and c_int.
+        # c_int() can be initialized from MyFRpy's int, and c_int.
         # Not from c_long or so, which seems strange, abc should
         # probably be changed:
         self.assertRaises(TypeError, c_int, c_long(42))

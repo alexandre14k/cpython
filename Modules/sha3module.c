@@ -10,7 +10,7 @@
  *  Trevor Perrin (trevp@trevp.net)
  *  Gregory P. Smith (greg@krypto.org)
  *
- * Copyright (C) 2012-2022  Christian Heimes (christian@python.org)
+ * Copyright (C) 2012-2022  Christian Heimes (christian@myFRpy.org)
  * Licensed to PSF under a Contributor Agreement.
  *
  */
@@ -19,7 +19,7 @@
 #  define Py_BUILD_CORE_MODULE 1
 #endif
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_strhex.h"        // _Py_strhex()
 #include "pycore_typeobject.h"    // _PyType_GetModuleState()
 #include "hashlib.h"

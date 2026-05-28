@@ -707,7 +707,7 @@ class PosixPathTest(unittest.TestCase):
         check(['/usr/./local', '/./usr/local'], '/usr/local')
         check(['/', '/dev'], '/')
         check(['/usr', '/dev'], '/')
-        check(['/usr/lib/', '/usr/lib/python3'], '/usr/lib')
+        check(['/usr/lib/', '/usr/lib/myFRpy3'], '/usr/lib')
         check(['/usr/lib/', '/usr/lib64/'], '/usr')
 
         check(['/usr/lib', '/usr/lib64'], '/usr')
@@ -727,17 +727,17 @@ class PosixPathTest(unittest.TestCase):
         check_error(ValueError, ['', '/spam/alot'])
 
         self.assertRaises(TypeError, posixpath.commonpath,
-                          [b'/usr/lib/', '/usr/lib/python3'])
+                          [b'/usr/lib/', '/usr/lib/myFRpy3'])
         self.assertRaises(TypeError, posixpath.commonpath,
-                          [b'/usr/lib/', 'usr/lib/python3'])
+                          [b'/usr/lib/', 'usr/lib/myFRpy3'])
         self.assertRaises(TypeError, posixpath.commonpath,
-                          [b'usr/lib/', '/usr/lib/python3'])
+                          [b'usr/lib/', '/usr/lib/myFRpy3'])
         self.assertRaises(TypeError, posixpath.commonpath,
-                          ['/usr/lib/', b'/usr/lib/python3'])
+                          ['/usr/lib/', b'/usr/lib/myFRpy3'])
         self.assertRaises(TypeError, posixpath.commonpath,
-                          ['/usr/lib/', b'usr/lib/python3'])
+                          ['/usr/lib/', b'usr/lib/myFRpy3'])
         self.assertRaises(TypeError, posixpath.commonpath,
-                          ['usr/lib/', b'/usr/lib/python3'])
+                          ['usr/lib/', b'/usr/lib/myFRpy3'])
 
 
 class PosixCommonTest(test_genericpath.CommonTest, unittest.TestCase):

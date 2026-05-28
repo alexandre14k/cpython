@@ -1,6 +1,6 @@
 // types.GenericAlias -- used to represent e.g. list[int].
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_object.h"
 #include "pycore_unionobject.h"   // _Py_union_type_or, _PyGenericAlias_Check
 #include "structmember.h"         // PyMemberDef
@@ -253,7 +253,7 @@ _Py_make_parameters(PyObject *args)
     for (Py_ssize_t iarg = 0; iarg < nargs; iarg++) {
         PyObject *t = PyTuple_GET_ITEM(args, iarg);
         PyObject *subst;
-        // We don't want __parameters__ descriptor of a bare Python class.
+        // We don't want __parameters__ descriptor of a bare MyFRpy class.
         if (PyType_Check(t)) {
             continue;
         }

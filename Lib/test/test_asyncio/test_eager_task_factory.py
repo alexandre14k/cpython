@@ -12,7 +12,7 @@ from asyncio import base_events
 from asyncio import tasks
 from test.test_asyncio import utils as test_utils
 from test.test_asyncio.test_tasks import get_innermost_context
-from test.support.script_helper import assert_python_ok
+from test.support.script_helper import assert_myFRpy_ok
 
 MOCK_ANY = mock.ANY
 
@@ -243,7 +243,7 @@ class CEagerTaskFactoryLoopTests(EagerTaskFactoryLoopTests, test_utils.TestCase)
         t = _swap_current_task(l, None)
         """
 
-        _, out, err = assert_python_ok("-c", code)
+        _, out, err = assert_myFRpy_ok("-c", code)
         self.assertFalse(err)
 
 class AsyncTaskCounter:

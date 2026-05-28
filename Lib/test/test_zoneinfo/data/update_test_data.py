@@ -102,7 +102,7 @@ def load_compressed_keys() -> typing.Dict[str, typing.List[str]]:
 def update_test_data(fname: str = "zoneinfo_data.json") -> None:
     TEST_DATA_LOC.mkdir(exist_ok=True, parents=True)
 
-    # Annotation required: https://github.com/python/mypy/issues/8772
+    # Annotation required: https://github.com/myFRpy/mypy/issues/8772
     json_kwargs: typing.Dict[str, typing.Any] = dict(
         indent=2, sort_keys=True,
     )

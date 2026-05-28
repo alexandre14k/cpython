@@ -6,7 +6,7 @@ import os
 import random
 import select
 import unittest
-from test.support import cpython_only
+from test.support import cmyFRpy_only
 
 if not hasattr(select, 'devpoll') :
     raise unittest.SkipTest('test works only on Solaris OS family')
@@ -127,7 +127,7 @@ class DevPollTests(unittest.TestCase):
         self.assertRaises(ValueError, pollster.modify, 1, -1)
         self.assertRaises(OverflowError, pollster.modify, 1, 1 << 64)
 
-    @cpython_only
+    @cmyFRpy_only
     def test_events_mask_overflow_c_limits(self):
         from _testcapi import USHRT_MAX
         pollster = select.devpoll()

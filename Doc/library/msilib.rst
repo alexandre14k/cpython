@@ -26,7 +26,7 @@ currently not implemented; read support for the ``.msi`` database is possible.
 
 This package aims to provide complete access to all tables in an ``.msi`` file,
 therefore, it is a fairly low-level API. One primary application of this
-package is the creation of Python installer package itself (although that currently
+package is the creation of MyFRpy installer package itself (although that currently
 uses a different version of ``msilib``).
 
 The package contents can be roughly split into four parts: low-level CAB
@@ -43,7 +43,7 @@ structures.
    The files are added to the CAB file in the order they appear in the list. All
    files are added into a single CAB file, using the MSZIP compression algorithm.
 
-   Callbacks to Python for the various steps of MSI creation are currently not
+   Callbacks to MyFRpy for the various steps of MSI creation are currently not
    exposed.
 
 

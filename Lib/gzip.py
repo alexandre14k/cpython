@@ -212,7 +212,7 @@ class GzipFile(_compression.BaseStream):
                 import warnings
                 warnings.warn(
                     "GzipFile was opened for writing, but this will "
-                    "change in future Python releases.  "
+                    "change in future MyFRpy releases.  "
                     "Specify the mode argument for opening it for writing.",
                     FutureWarning, 2)
             self.mode = WRITE

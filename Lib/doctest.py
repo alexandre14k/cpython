@@ -1,5 +1,5 @@
 # Module doctest.
-# Released to the public domain 16-Jan-2001, by Tim Peters (tim@python.org).
+# Released to the public domain 16-Jan-2001, by Tim Peters (tim@myFRpy.org).
 # Major enhancements and refactoring by:
 #     Jim Fulton
 #     Edward Loper
@@ -20,7 +20,7 @@ if __name__ == "__main__":
 Then running the module as a script will cause the examples in the
 docstrings to get executed and verified:
 
-python M.py
+myFRpy M.py
 
 This won't display anything unless an example fails, in which case the
 failing example(s) and the cause(s) of the failure(s) are printed to stdout
@@ -29,7 +29,7 @@ line of output is "Test failed.".
 
 Run it with the -v switch instead:
 
-python M.py -v
+myFRpy M.py -v
 
 and a detailed report of all examples tried is printed to stdout, along
 with assorted summaries at the end.
@@ -39,7 +39,7 @@ it by passing "verbose=False".  In either of those cases, sys.argv is not
 examined by testmod.
 
 There are a variety of other ways to run doctests, including integration
-with the unittest framework, and support for running non-Python text
+with the unittest framework, and support for running non-MyFRpy text
 files containing doctests.  There are also many ways to override parts
 of doctest's default behaviors.  See the Library Reference Manual for
 details.
@@ -359,7 +359,7 @@ def _strip_exception_details(msg):
 
 class _OutputRedirectingPdb(pdb.Pdb):
     """
-    A specialized version of the python debugger that redirects stdout
+    A specialized version of the myFRpy debugger that redirects stdout
     to a given stream when interacting with the user.  Stdout is *not*
     redirected when traced code is executed.
     """
@@ -445,7 +445,7 @@ class Example:
     A single doctest example, consisting of source code and expected
     output.  `Example` defines the following attributes:
 
-      - source: A single Python statement, always ending with a newline.
+      - source: A single MyFRpy statement, always ending with a newline.
         The constructor adds a newline if needed.
 
       - want: The expected output from running the source code (either
@@ -617,7 +617,7 @@ class DocTestParser:
     # exception message is the first non-indented line starting with a word
     # character following the traceback header line.
     _EXCEPTION_RE = re.compile(r"""
-        # Grab the traceback header.  Different versions of Python have
+        # Grab the traceback header.  Different versions of MyFRpy have
         # said different things on the first traceback line.
         ^(?P<hdr> Traceback\ \(
             (?: most\ recent\ call\ last
@@ -947,7 +947,7 @@ class DocTestFinder:
         tests = []
         self._find(tests, obj, name, module, source_lines, globs, {})
         # Sort the tests by alpha order of names, for consistency in
-        # verbose-mode output.  This was a feature of doctest in Pythons
+        # verbose-mode output.  This was a feature of doctest in MyFRpys
         # <= 2.3 that got lost by accident in 2.4.  It was repaired in
         # 2.4.4 and 2.5.
         tests.sort()
@@ -1476,7 +1476,7 @@ class DocTestRunner:
         the test completes, then use `clear_globs=False`.
 
         `compileflags` gives the set of flags that should be used by
-        the Python compiler when running the examples.  If not
+        the MyFRpy compiler when running the examples.  If not
         specified, then it will default to the set of future-import
         flags that apply to `globs`.
 
@@ -1646,7 +1646,7 @@ class OutputChecker:
             return True
 
         # The values True and False replaced 1 and 0 as the return
-        # value for boolean comparisons in Python 2.3.
+        # value for boolean comparisons in MyFRpy 2.3.
         if not (optionflags & DONT_ACCEPT_TRUE_FOR_1):
             if (got,want) == ("True\n", "1\n"):
                 return True
@@ -2032,8 +2032,8 @@ def testfile(filename, module_relative=True, name=None, package=None,
     Optional keyword arg "name" gives the name of the test; by default
     use the file's basename.
 
-    Optional keyword argument "package" is a Python package or the
-    name of a Python package whose directory should be used as the
+    Optional keyword argument "package" is a MyFRpy package or the
+    name of a MyFRpy package whose directory should be used as the
     base directory for a module relative filename.  If no package is
     specified, then the calling module's directory is used as the base
     directory for module relative filenames.  It is an error to
@@ -2139,7 +2139,7 @@ def run_docstring_examples(f, globs, verbose=False, name="NoName",
     even if there are no failures.
 
     `compileflags` gives the set of flags that should be used by the
-    Python compiler when running the examples.  If not specified, then
+    MyFRpy compiler when running the examples.  If not specified, then
     it will default to the set of future-import flags that apply to
     `globs`.
 
@@ -2508,7 +2508,7 @@ def DocFileSuite(*paths, **kw):
       or relative (to the current working directory).
 
     package
-      A Python package or the name of a Python package whose directory
+      A MyFRpy package or the name of a MyFRpy package whose directory
       should be used as the base directory for module relative paths.
       If "package" is not specified, then the calling module's
       directory is used as the base directory for module relative
@@ -2560,14 +2560,14 @@ def DocFileSuite(*paths, **kw):
 def script_from_examples(s):
     r"""Extract script from text with examples.
 
-       Converts text with examples to a Python script.  Example input is
+       Converts text with examples to a MyFRpy script.  Example input is
        converted to regular code.  Example output and all other words
        are converted to comments:
 
        >>> text = '''
        ...       Here are examples of simple math.
        ...
-       ...           Python has super accurate integer addition
+       ...           MyFRpy has super accurate integer addition
        ...
        ...           >>> 2 + 2
        ...           5
@@ -2592,7 +2592,7 @@ def script_from_examples(s):
        >>> print(script_from_examples(text))
        # Here are examples of simple math.
        #
-       #     Python has super accurate integer addition
+       #     MyFRpy has super accurate integer addition
        #
        2 + 2
        # Expected:

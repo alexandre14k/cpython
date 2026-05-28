@@ -22,7 +22,7 @@ See also :ref:`Reflection <reflection>`.
 .. c:var:: PyTypeObject PyFrame_Type
 
    The type of frame objects.
-   It is the same object as :py:class:`types.FrameType` in the Python layer.
+   It is the same object as :py:class:`types.FrameType` in the MyFRpy layer.
 
    .. versionchanged:: 3.11
 

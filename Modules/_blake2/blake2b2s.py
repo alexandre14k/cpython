@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/myFRpy3
 
 import os
 import re

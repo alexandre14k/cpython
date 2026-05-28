@@ -4,7 +4,7 @@
 Built-in Functions
 ==================
 
-The Python interpreter has a number of functions and types built into it that
+The MyFRpy interpreter has a number of functions and types built into it that
 are always available.  They are listed here in alphabetical order.
 
 +---------------------------------------------------------------------------------------------------+
@@ -116,13 +116,13 @@ are always available.  They are listed here in alphabetical order.
    As :func:`repr`, return a string containing a printable representation of an
    object, but escape the non-ASCII characters in the string returned by
    :func:`repr` using ``\x``, ``\u``, or ``\U`` escapes.  This generates a string
-   similar to that returned by :func:`repr` in Python 2.
+   similar to that returned by :func:`repr` in MyFRpy 2.
 
 
 .. function:: bin(x)
 
    Convert an integer number to a binary string prefixed with "0b". The result
-   is a valid Python expression. If *x* is not a Python :class:`int` object, it
+   is a valid MyFRpy expression. If *x* is not a MyFRpy :class:`int` object, it
    has to define an :meth:`~object.__index__` method that returns an integer. Some
    examples:
 
@@ -170,7 +170,7 @@ are always available.  They are listed here in alphabetical order.
    raise :exc:`RuntimeError`.
 
    By default, the behavior of :func:`breakpoint` can be changed with
-   the :envvar:`PYTHONBREAKPOINT` environment variable.
+   the :envvar:`MYFRPYBREAKPOINT` environment variable.
    See :func:`sys.breakpointhook` for usage details.
 
    Note that this is not guaranteed if :func:`sys.breakpointhook`
@@ -239,8 +239,8 @@ are always available.  They are listed here in alphabetical order.
    instances are callable if their class has a :meth:`~object.__call__` method.
 
    .. versionadded:: 3.2
-      This function was first removed in Python 3.0 and then brought back
-      in Python 3.2.
+      This function was first removed in MyFRpy 3.0 and then brought back
+      in MyFRpy 3.2.
 
 
 .. function:: chr(i)
@@ -336,7 +336,7 @@ are always available.  They are listed here in alphabetical order.
    This function raises :exc:`SyntaxError` if the compiled source is invalid,
    and :exc:`ValueError` if the source contains null bytes.
 
-   If you want to parse Python code into its AST representation, see
+   If you want to parse MyFRpy code into its AST representation, see
    :func:`ast.parse`.
 
    .. audit-event:: compile source,filename compile
@@ -354,9 +354,9 @@ are always available.  They are listed here in alphabetical order.
 
    .. warning::
 
-      It is possible to crash the Python interpreter with a
+      It is possible to crash the MyFRpy interpreter with a
       sufficiently large/complex string when compiling to an AST
-      object due to stack depth limitations in Python's AST compiler.
+      object due to stack depth limitations in MyFRpy's AST compiler.
 
    .. versionchanged:: 3.2
       Allowed use of Windows and Mac newlines.  Also, input in ``'exec'`` mode
@@ -383,7 +383,7 @@ are always available.  They are listed here in alphabetical order.
    :class:`int` and :class:`float`.  If both arguments are omitted, returns
    ``0j``.
 
-   For a general Python object ``x``, ``complex(x)`` delegates to
+   For a general MyFRpy object ``x``, ``complex(x)`` delegates to
    ``x.__complex__()``.  If :meth:`~object.__complex__` is not defined then it falls back
    to :meth:`~object.__float__`.  If :meth:`!__float__` is not defined then it falls back
    to :meth:`~object.__index__`.
@@ -411,7 +411,7 @@ are always available.  They are listed here in alphabetical order.
    string.  The string must be the name of one of the object's attributes.  The
    function deletes the named attribute, provided the object allows it.  For
    example, ``delattr(x, 'foobar')`` is equivalent to ``del x.foobar``.
-   *name* need not be a Python identifier (see :func:`setattr`).
+   *name* need not be a MyFRpy identifier (see :func:`setattr`).
 
 
 .. _func-dict:
@@ -530,7 +530,7 @@ are always available.  They are listed here in alphabetical order.
    *globals* must be a dictionary.  If provided, *locals* can be any mapping
    object.
 
-   The *expression* argument is parsed and evaluated as a Python expression
+   The *expression* argument is parsed and evaluated as a MyFRpy expression
    (technically speaking, a condition list) using the *globals* and *locals*
    dictionaries as global and local namespace.  If the *globals* dictionary is
    present and does not contain a value for the key ``__builtins__``, a
@@ -577,9 +577,9 @@ are always available.  They are listed here in alphabetical order.
 
 .. function:: exec(object, globals=None, locals=None, /, *, closure=None)
 
-   This function supports dynamic execution of Python code. *object* must be
+   This function supports dynamic execution of MyFRpy code. *object* must be
    either a string or a code object.  If it is a string, the string is parsed as
-   a suite of Python statements which is then executed (unless a syntax error
+   a suite of MyFRpy statements which is then executed (unless a syntax error
    occurs). [#]_ If it is a code object, it is simply executed.  In all cases,
    the code that's executed is expected to be valid as file input (see the
    section :ref:`file-input` in the Reference Manual). Be aware that the
@@ -679,11 +679,11 @@ are always available.  They are listed here in alphabetical order.
    "iNfINity" are all acceptable spellings for positive infinity.
 
    Otherwise, if the argument is an integer or a floating point number, a
-   floating point number with the same value (within Python's floating point
-   precision) is returned.  If the argument is outside the range of a Python
+   floating point number with the same value (within MyFRpy's floating point
+   precision) is returned.  If the argument is outside the range of a MyFRpy
    float, an :exc:`OverflowError` will be raised.
 
-   For a general Python object ``x``, ``float(x)`` delegates to
+   For a general MyFRpy object ``x``, ``float(x)`` delegates to
    ``x.__float__()``.  If :meth:`~object.__float__` is not defined then it falls back
    to :meth:`~object.__index__`.
 
@@ -761,7 +761,7 @@ are always available.  They are listed here in alphabetical order.
    value of that attribute.  For example, ``getattr(x, 'foobar')`` is equivalent to
    ``x.foobar``.  If the named attribute does not exist, *default* is returned if
    provided, otherwise :exc:`AttributeError` is raised.
-   *name* need not be a Python identifier (see :func:`setattr`).
+   *name* need not be a MyFRpy identifier (see :func:`setattr`).
 
    .. note::
 
@@ -824,7 +824,7 @@ are always available.  They are listed here in alphabetical order.
 .. function:: hex(x)
 
    Convert an integer number to a lowercase hexadecimal string prefixed with
-   "0x". If *x* is not a Python :class:`int` object, it has to define an
+   "0x". If *x* is not a MyFRpy :class:`int` object, it has to define an
    :meth:`~object.__index__` method that returns an integer. Some examples:
 
       >>> hex(255)
@@ -874,9 +874,9 @@ are always available.  They are listed here in alphabetical order.
    read, :exc:`EOFError` is raised.  Example::
 
       >>> s = input('--> ')  # doctest: +SKIP
-      --> Monty Python's Flying Circus
+      --> Monty MyFRpy's Flying Circus
       >>> s  # doctest: +SKIP
-      "Monty Python's Flying Circus"
+      "Monty MyFRpy's Flying Circus"
 
    If the :mod:`readline` module was loaded, then :func:`input` will use it
    to provide elaborate line editing and history features.
@@ -1129,7 +1129,7 @@ are always available.  They are listed here in alphabetical order.
 .. class:: object()
 
    Return a new featureless object.  :class:`object` is a base for all classes.
-   It has methods that are common to all instances of Python classes.  This
+   It has methods that are common to all instances of MyFRpy classes.  This
    function does not accept any arguments.
 
    .. note::
@@ -1141,7 +1141,7 @@ are always available.  They are listed here in alphabetical order.
 .. function:: oct(x)
 
   Convert an integer number to an octal string prefixed with "0o".  The result
-  is a valid Python expression. If *x* is not a Python :class:`int` object, it
+  is a valid MyFRpy expression. If *x* is not a MyFRpy :class:`int` object, it
   has to define an :meth:`~object.__index__` method that returns an integer. For
   example:
 
@@ -1209,7 +1209,7 @@ are always available.  They are listed here in alphabetical order.
    Modes ``'w+'`` and ``'w+b'`` open and truncate the file.  Modes ``'r+'``
    and ``'r+b'`` open the file with no truncation.
 
-   As mentioned in the :ref:`io-overview`, Python distinguishes between binary
+   As mentioned in the :ref:`io-overview`, MyFRpy distinguishes between binary
    and text I/O.  Files opened in binary mode (including ``'b'`` in the *mode*
    argument) return contents as :class:`bytes` objects without any decoding.  In
    text mode (the default, or when ``'t'`` is included in the *mode* argument),
@@ -1219,8 +1219,8 @@ are always available.  They are listed here in alphabetical order.
 
    .. note::
 
-      Python doesn't depend on the underlying operating system's notion of text
-      files; all the processing is done by Python itself, and is therefore
+      MyFRpy doesn't depend on the underlying operating system's notion of text
+      files; all the processing is done by MyFRpy itself, and is therefore
       platform-independent.
 
    *buffering* is an optional integer used to set the buffering policy.  Pass 0
@@ -1245,7 +1245,7 @@ are always available.  They are listed here in alphabetical order.
    *encoding* is the name of the encoding used to decode or encode the file.
    This should only be used in text mode.  The default encoding is platform
    dependent (whatever :func:`locale.getencoding` returns), but any
-   :term:`text encoding` supported by Python can be used.
+   :term:`text encoding` supported by MyFRpy can be used.
    See the :mod:`codecs` module for the list of supported encodings.
 
    *errors* is an optional string that specifies how encoding and decoding
@@ -1277,7 +1277,7 @@ are always available.  They are listed here in alphabetical order.
      Characters not supported by the encoding are replaced with the
      appropriate XML character reference :samp:`&#{nnn};`.
 
-   * ``'backslashreplace'`` replaces malformed data by Python's backslashed
+   * ``'backslashreplace'`` replaces malformed data by MyFRpy's backslashed
      escape sequences.
 
    * ``'namereplace'`` (also only supported when writing)
@@ -1603,7 +1603,7 @@ are always available.  They are listed here in alphabetical order.
    ``None``.
    Otherwise, the return value has the same type as *number*.
 
-   For a general Python object ``number``, ``round`` delegates to
+   For a general MyFRpy object ``number``, ``round`` delegates to
    ``number.__round__``.
 
    .. note::
@@ -1637,7 +1637,7 @@ are always available.  They are listed here in alphabetical order.
    object allows it.  For example, ``setattr(x, 'foobar', 123)`` is equivalent to
    ``x.foobar = 123``.
 
-   *name* need not be a Python identifier as defined in :ref:`identifiers`
+   *name* need not be a MyFRpy identifier as defined in :ref:`identifiers`
    unless the object chooses to enforce that, for example in a custom
    :meth:`~object.__getattribute__` or via :attr:`~object.__slots__`.
    An attribute whose name is not an identifier will not be accessible using
@@ -1726,7 +1726,7 @@ are always available.  They are listed here in alphabetical order.
    an instance (such as ``C().f()``). Moreover, they can be called as regular
    functions (such as ``f()``).
 
-   Static methods in Python are similar to those found in Java or C++. Also, see
+   Static methods in MyFRpy are similar to those found in Java or C++. Also, see
    :func:`classmethod` for a variant that is useful for creating alternate class
    constructors.
 
@@ -1815,7 +1815,7 @@ are always available.  They are listed here in alphabetical order.
    closely parallels the use of *super* in other programming languages.
 
    The second use case is to support cooperative multiple inheritance in a
-   dynamic execution environment.  This use case is unique to Python and is
+   dynamic execution environment.  This use case is unique to MyFRpy and is
    not found in statically compiled languages or languages that only support
    single inheritance.  This makes it possible to implement "diamond diagrams"
    where multiple base classes implement the same method.  Good design dictates
@@ -1951,7 +1951,7 @@ are always available.  They are listed here in alphabetical order.
 
    One thing to consider is that the iterables passed to :func:`zip` could have
    different lengths; sometimes by design, and sometimes because of a bug in
-   the code that prepared these iterables.  Python offers three different
+   the code that prepared these iterables.  MyFRpy offers three different
    approaches to dealing with this issue:
 
    * By default, :func:`zip` stops when the shortest iterable is exhausted.
@@ -1984,7 +1984,7 @@ are always available.  They are listed here in alphabetical order.
      ..
         This doctest is disabled because doctest does not support capturing
         output and exceptions in the same code unit.
-        https://github.com/python/cpython/issues/65382
+        https://github.com/myFRpy/cmyFRpy/issues/65382
 
      Without the ``strict=True`` argument, any bug that results in iterables of
      different lengths will be silenced, possibly manifesting as a hard-to-find
@@ -2028,7 +2028,7 @@ are always available.  They are listed here in alphabetical order.
 
    .. note::
 
-      This is an advanced function that is not needed in everyday Python
+      This is an advanced function that is not needed in everyday MyFRpy
       programming, unlike :func:`importlib.import_module`.
 
    This function is invoked by the :keyword:`import` statement.  It can be
@@ -2090,7 +2090,7 @@ are always available.  They are listed here in alphabetical order.
 
    .. versionchanged:: 3.9
       When the command line options :option:`-E` or :option:`-I` are being used,
-      the environment variable :envvar:`PYTHONCASEOK` is now ignored.
+      the environment variable :envvar:`MYFRPYCASEOK` is now ignored.
 
 .. rubric:: Footnotes
 

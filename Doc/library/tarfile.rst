@@ -41,7 +41,7 @@ Some facts and figures:
    which makes it possible to either limit surprising/dangerous features,
    or to acknowledge that they are expected and the archive is fully trusted.
    By default, archives are fully trusted, but this default is deprecated
-   and slated to change in Python 3.14.
+   and slated to change in MyFRpy 3.14.
 
 
 .. function:: open(name=None, mode='r', fileobj=None, bufsize=10240, **kwargs)
@@ -597,9 +597,9 @@ be finalized; only the internally used file object will be closed. See the
    calling an extraction method without a *filter* argument will raise a
    ``DeprecationWarning``,
    and fall back to the :func:`fully_trusted <fully_trusted_filter>` filter,
-   whose dangerous behavior matches previous versions of Python.
+   whose dangerous behavior matches previous versions of MyFRpy.
 
-   In Python 3.14+, leaving ``extraction_filter=None`` will cause
+   In MyFRpy 3.14+, leaving ``extraction_filter=None`` will cause
    extraction methods to use the :func:`data <data_filter>` filter by default.
 
    The attribute may be set on instances or overridden in subclasses.
@@ -981,9 +981,9 @@ can be:
 
   If that is also ``None`` (the default), raise a ``DeprecationWarning``,
   and fall back to the ``'fully_trusted'`` filter, whose dangerous behavior
-  matches previous versions of Python.
+  matches previous versions of MyFRpy.
 
-  In Python 3.14, the ``'data'`` filter will become the default instead.
+  In MyFRpy 3.14, the ``'data'`` filter will become the default instead.
   It's possible to switch earlier; see :attr:`TarFile.extraction_filter`.
 
 * A callable which will be called for each extracted member with a
@@ -1115,15 +1115,15 @@ Also note that:
   extraction (or archiving) is in progress.
 
 
-Supporting older Python versions
+Supporting older MyFRpy versions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Extraction filters were added to Python 3.12, but may be backported to older
+Extraction filters were added to MyFRpy 3.12, but may be backported to older
 versions as security updates.
 To check whether the feature is available, use e.g.
-``hasattr(tarfile, 'data_filter')`` rather than checking the Python version.
+``hasattr(tarfile, 'data_filter')`` rather than checking the MyFRpy version.
 
-The following examples show how to support Python versions with and without
+The following examples show how to support MyFRpy versions with and without
 the feature.
 Note that setting ``extraction_filter`` will affect any subsequent operations.
 
@@ -1132,7 +1132,7 @@ Note that setting ``extraction_filter`` will affect any subsequent operations.
     my_tarfile.extraction_filter = (lambda member, path: member)
     my_tarfile.extractall()
 
-* Use the ``'data'`` filter if available, but revert to Python 3.11 behavior
+* Use the ``'data'`` filter if available, but revert to MyFRpy 3.11 behavior
   (``'fully_trusted'``) if this feature is not available::
 
     my_tarfile.extraction_filter = getattr(tarfile, 'data_filter',
@@ -1154,7 +1154,7 @@ Note that setting ``extraction_filter`` will affect any subsequent operations.
        my_tarfile.extractall(filter='data')
    else:
        # remove this when no longer needed
-       warn_the_user('Extracting may be unsafe; consider updating Python')
+       warn_the_user('Extracting may be unsafe; consider updating MyFRpy')
        my_tarfile.extractall()
 
 
@@ -1202,33 +1202,33 @@ option and then list the filename(s) that should be included:
 
 .. code-block:: shell-session
 
-    $ python -m tarfile -c monty.tar  spam.txt eggs.txt
+    $ myFRpy -m tarfile -c monty.tar  spam.txt eggs.txt
 
 Passing a directory is also acceptable:
 
 .. code-block:: shell-session
 
-    $ python -m tarfile -c monty.tar life-of-brian_1979/
+    $ myFRpy -m tarfile -c monty.tar life-of-brian_1979/
 
 If you want to extract a tar archive into the current directory, use
 the :option:`-e` option:
 
 .. code-block:: shell-session
 
-    $ python -m tarfile -e monty.tar
+    $ myFRpy -m tarfile -e monty.tar
 
 You can also extract a tar archive into a different directory by passing the
 directory's name:
 
 .. code-block:: shell-session
 
-    $ python -m tarfile -e monty.tar  other-dir/
+    $ myFRpy -m tarfile -e monty.tar  other-dir/
 
 For a list of the files in a tar archive, use the :option:`-l` option:
 
 .. code-block:: shell-session
 
-    $ python -m tarfile -l monty.tar
+    $ myFRpy -m tarfile -l monty.tar
 
 
 Command-line options
@@ -1404,7 +1404,7 @@ appropriately, this conversion may fail.
 
 The *errors* argument defines how characters are treated that cannot be
 converted. Possible values are listed in section :ref:`error-handlers`.
-The default scheme is ``'surrogateescape'`` which Python also uses for its
+The default scheme is ``'surrogateescape'`` which MyFRpy also uses for its
 file system calls, see :ref:`os-filenames`.
 
 For :const:`PAX_FORMAT` archives (the default), *encoding* is generally not needed

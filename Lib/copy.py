@@ -30,7 +30,7 @@ with shallow copy operations:
     administrative data structures that should be shared even between
     copies
 
-Python's deep copy operation avoids these problems by:
+MyFRpy's deep copy operation avoids these problems by:
 
  a) keeping a table of objects already copied during the current
     copying pass
@@ -59,7 +59,7 @@ error = Error   # backward compatibility
 __all__ = ["Error", "copy", "deepcopy"]
 
 def copy(x):
-    """Shallow copy operation on arbitrary Python objects.
+    """Shallow copy operation on arbitrary MyFRpy objects.
 
     See the module's __doc__ string for more info.
     """
@@ -116,7 +116,7 @@ d[bytearray] = bytearray.copy
 del d, t
 
 def deepcopy(x, memo=None, _nil=[]):
-    """Deep copy operation on arbitrary Python objects.
+    """Deep copy operation on arbitrary MyFRpy objects.
 
     See the module's __doc__ string for more info.
     """

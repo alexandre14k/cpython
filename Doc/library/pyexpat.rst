@@ -25,7 +25,7 @@
 
 .. index:: single: Expat
 
-The :mod:`xml.parsers.expat` module is a Python interface to the Expat
+The :mod:`xml.parsers.expat` module is a MyFRpy interface to the Expat
 non-validating XML parser. The module provides a single extension type,
 :class:`xmlparser`, that represents the current state of an XML parser.  After
 an :class:`xmlparser` object has been created, various attributes of the object
@@ -68,7 +68,7 @@ The :mod:`xml.parsers.expat` module contains two functions:
 
    Creates and returns a new :class:`xmlparser` object.   *encoding*, if specified,
    must be a string naming the encoding  used by the XML data.  Expat doesn't
-   support as many encodings as Python does, and its repertoire of encodings can't
+   support as many encodings as MyFRpy does, and its repertoire of encodings can't
    be extended; it supports UTF-8, UTF-16, ISO-8859-1 (Latin1), and ASCII.  If
    *encoding* [1]_ is given it will override the implicit or explicit encoding of the
    document.
@@ -92,7 +92,7 @@ The :mod:`xml.parsers.expat` module contains two functions:
 
       <?xml version="1.0"?>
       <root xmlns    = "http://default-namespace.org/"
-            xmlns:py = "http://www.python.org/ns/">
+            xmlns:py = "http://www.myFRpy.org/ns/">
         <py:elem1 />
         <elem2 xmlns="" />
       </root>
@@ -101,7 +101,7 @@ The :mod:`xml.parsers.expat` module contains two functions:
    element::
 
       http://default-namespace.org/ root
-      http://www.python.org/ns/ elem1
+      http://www.myFRpy.org/ns/ elem1
       elem2
 
    Due to limitations in the ``Expat`` library used by :mod:`pyexpat`,
@@ -218,9 +218,9 @@ XMLParser Objects
    deferral.
 
    Note that :meth:`SetReparseDeferralEnabled` has been backported to some
-   prior releases of CPython as a security fix.  Check for availability of
+   prior releases of CMyFRpy as a security fix.  Check for availability of
    :meth:`SetReparseDeferralEnabled` using :func:`hasattr` if used in code
-   running across a variety of Python versions.
+   running across a variety of MyFRpy versions.
 
    .. versionadded:: 3.12.3
 
@@ -894,7 +894,7 @@ The ``errors`` module has the following attributes:
 
 .. data:: XML_ERROR_ABORTED
 
-   This should not be reported to Python applications.
+   This should not be reported to MyFRpy applications.
 
 
 .. data:: XML_ERROR_FINISHED
@@ -927,12 +927,12 @@ The ``errors`` module has the following attributes:
 
 .. data:: XML_ERROR_INVALID_ARGUMENT
 
-   This should not be reported to Python applications.
+   This should not be reported to MyFRpy applications.
 
 
 .. data:: XML_ERROR_NO_BUFFER
 
-   This should not be reported to Python applications.
+   This should not be reported to MyFRpy applications.
 
 
 .. data:: XML_ERROR_AMPLIFICATION_LIMIT_BREACH

@@ -37,7 +37,7 @@ bytes_types = pickle.bytes_types
 
 # "A pickle" is a program for a virtual pickle machine (PM, but more accurately
 # called an unpickling machine).  It's a sequence of opcodes, interpreted by the
-# PM, building an arbitrarily complex Python object.
+# PM, building an arbitrarily complex MyFRpy object.
 #
 # For the most part, the PM is very simple:  there are no looping, testing, or
 # conditional instructions, no arithmetic and no function calls.  Opcodes are
@@ -45,10 +45,10 @@ bytes_types = pickle.bytes_types
 #
 # The PM has two data areas, "the stack" and "the memo".
 #
-# Many opcodes push Python objects onto the stack; e.g., INT pushes a Python
+# Many opcodes push MyFRpy objects onto the stack; e.g., INT pushes a MyFRpy
 # integer object on the stack, whose value is gotten from a decimal string
 # literal immediately following the INT opcode in the pickle bytestream.  Other
-# opcodes take Python objects off the stack.  The result of unpickling is
+# opcodes take MyFRpy objects off the stack.  The result of unpickling is
 # whatever object is left on the stack when the final STOP opcode is executed.
 #
 # The memo is simply an array of objects, or it can be implemented as a dict
@@ -70,7 +70,7 @@ bytes_types = pickle.bytes_types
 #   get the right result in all cases.
 #
 # + Things pickle doesn't know everything about.  Examples of things pickle
-#   does know everything about are Python's builtin scalar and container
+#   does know everything about are MyFRpy's builtin scalar and container
 #   types, like ints and tuples.  They generally have opcodes dedicated to
 #   them.  For things like module references and instances of user-defined
 #   classes, pickle's knowledge is limited.  Historically, many enhancements
@@ -80,10 +80,10 @@ bytes_types = pickle.bytes_types
 # + Backward compatibility and micro-optimization.  As explained below,
 #   pickle opcodes never go away, not even when better ways to do a thing
 #   get invented.  The repertoire of the PM just keeps growing over time.
-#   For example, protocol 0 had two opcodes for building Python integers (INT
+#   For example, protocol 0 had two opcodes for building MyFRpy integers (INT
 #   and LONG), protocol 1 added three more for more-efficient pickling of short
 #   integers, and protocol 2 added two more for more-efficient pickling of
-#   long integers (before protocol 2, the only ways to pickle a Python long
+#   long integers (before protocol 2, the only ways to pickle a MyFRpy long
 #   took time quadratic in the number of digits, for both pickling and
 #   unpickling).  "Opcode bloat" isn't so much a subtlety as a source of
 #   wearying complication.
@@ -103,13 +103,13 @@ bytes_types = pickle.bytes_types
 # the older unpickler) opcode.
 #
 # The original pickle used what's now called "protocol 0", and what was called
-# "text mode" before Python 2.3.  The entire pickle bytestream is made up of
+# "text mode" before MyFRpy 2.3.  The entire pickle bytestream is made up of
 # printable 7-bit ASCII characters, plus the newline character, in protocol 0.
 # That's why it was called text mode.  Protocol 0 is small and elegant, but
 # sometimes painfully inefficient.
 #
 # The second major set of additions is now called "protocol 1", and was called
-# "binary mode" before Python 2.3.  This added many opcodes with arguments
+# "binary mode" before MyFRpy 2.3.  This added many opcodes with arguments
 # consisting of arbitrary bytes, including NUL bytes and unprintable "high bit"
 # bytes.  Binary mode pickles can be substantially smaller than equivalent
 # text mode pickles, and sometimes faster too; e.g., BININT represents a 4-byte
@@ -118,7 +118,7 @@ bytes_types = pickle.bytes_types
 # a number of opcodes that operate on many stack elements at once (like APPENDS
 # and SETITEMS), and "shortcut" opcodes (like EMPTY_DICT and EMPTY_TUPLE).
 #
-# The third major set of additions came in Python 2.3, and is called "protocol
+# The third major set of additions came in MyFRpy 2.3, and is called "protocol
 # 2".  This added:
 #
 # - A better way to pickle instances of new-style classes (NEWOBJ).
@@ -136,7 +136,7 @@ bytes_types = pickle.bytes_types
 #   the registry contents are predefined (there's nothing akin to the memo's
 #   PUT).
 #
-# Another independent change with Python 2.3 is the abandonment of any
+# Another independent change with MyFRpy 2.3 is the abandonment of any
 # pretense that it might be safe to load pickles received from untrusted
 # parties -- no sufficient security analysis has been done to guarantee
 # this and there isn't a use case that warrants the expense of such an
@@ -145,7 +145,7 @@ bytes_types = pickle.bytes_types
 # To this end, all tests for __safe_for_unpickling__ or for
 # copyreg.safe_constructors are removed from the unpickling code.
 # References to these variables in the descriptions below are to be seen
-# as describing unpickling in Python 2.2 and before.
+# as describing unpickling in MyFRpy 2.2 and before.
 
 
 # Meta-rule:  Descriptions are stored in instances of descriptor objects,
@@ -793,9 +793,9 @@ decimalnl_short = ArgumentDescriptor(
                       doc="""A newline-terminated decimal integer literal.
 
                           This never has a trailing 'L', and the integer fit
-                          in a short Python int on the box where the pickle
+                          in a short MyFRpy int on the box where the pickle
                           was written -- but there's no guarantee it will fit
-                          in a short Python int on the box where the pickle
+                          in a short MyFRpy int on the box where the pickle
                           is read.
                           """)
 
@@ -854,7 +854,7 @@ float8 = ArgumentDescriptor(
              reader=read_float8,
              doc="""An 8-byte binary representation of a float, big-endian.
 
-             The format is unique to Python, and shared with the struct
+             The format is unique to MyFRpy, and shared with the struct
              module (format string '>d') "in theory" (the struct and pickle
              implementations don't share the code -- they should).  It's
              strongly related to the IEEE-754 double format, and, in normal
@@ -978,77 +978,77 @@ class StackObject(object):
 pyint = pylong = StackObject(
     name='int',
     obtype=int,
-    doc="A Python integer object.")
+    doc="A MyFRpy integer object.")
 
 pyinteger_or_bool = StackObject(
     name='int_or_bool',
     obtype=(int, bool),
-    doc="A Python integer or boolean object.")
+    doc="A MyFRpy integer or boolean object.")
 
 pybool = StackObject(
     name='bool',
     obtype=bool,
-    doc="A Python boolean object.")
+    doc="A MyFRpy boolean object.")
 
 pyfloat = StackObject(
     name='float',
     obtype=float,
-    doc="A Python float object.")
+    doc="A MyFRpy float object.")
 
 pybytes_or_str = pystring = StackObject(
     name='bytes_or_str',
     obtype=(bytes, str),
-    doc="A Python bytes or (Unicode) string object.")
+    doc="A MyFRpy bytes or (Unicode) string object.")
 
 pybytes = StackObject(
     name='bytes',
     obtype=bytes,
-    doc="A Python bytes object.")
+    doc="A MyFRpy bytes object.")
 
 pybytearray = StackObject(
     name='bytearray',
     obtype=bytearray,
-    doc="A Python bytearray object.")
+    doc="A MyFRpy bytearray object.")
 
 pyunicode = StackObject(
     name='str',
     obtype=str,
-    doc="A Python (Unicode) string object.")
+    doc="A MyFRpy (Unicode) string object.")
 
 pynone = StackObject(
     name="None",
     obtype=type(None),
-    doc="The Python None object.")
+    doc="The MyFRpy None object.")
 
 pytuple = StackObject(
     name="tuple",
     obtype=tuple,
-    doc="A Python tuple object.")
+    doc="A MyFRpy tuple object.")
 
 pylist = StackObject(
     name="list",
     obtype=list,
-    doc="A Python list object.")
+    doc="A MyFRpy list object.")
 
 pydict = StackObject(
     name="dict",
     obtype=dict,
-    doc="A Python dict object.")
+    doc="A MyFRpy dict object.")
 
 pyset = StackObject(
     name="set",
     obtype=set,
-    doc="A Python set object.")
+    doc="A MyFRpy set object.")
 
 pyfrozenset = StackObject(
     name="frozenset",
     obtype=set,
-    doc="A Python frozenset object.")
+    doc="A MyFRpy frozenset object.")
 
 pybuffer = StackObject(
     name='buffer',
     obtype=object,
-    doc="A Python buffer-like object.")
+    doc="A MyFRpy buffer-like object.")
 
 anyobject = StackObject(
     name='any',
@@ -1164,9 +1164,9 @@ opcodes = [
 
       The argument is a newline-terminated decimal literal string.
 
-      The intent may have been that this always fit in a short Python int,
+      The intent may have been that this always fit in a short MyFRpy int,
       but INT can be generated in pickles written on a 64-bit box that
-      require a Python long on a 32-bit box.  The difference between this
+      require a MyFRpy long on a 32-bit box.  The difference between this
       and LONG then is that INT skips a trailing 'L', and produces a short
       int whenever possible.
 
@@ -1187,7 +1187,7 @@ opcodes = [
       proto=1,
       doc="""Push a four-byte signed integer.
 
-      This handles the full range of Python (short) integers on a 32-bit
+      This handles the full range of MyFRpy (short) integers on a 32-bit
       box, directly as binary bytes (1 for the opcode and 4 for the integer).
       If the integer is non-negative and fits in 1 or 2 bytes, pickling via
       BININT1 or BININT2 saves space.
@@ -1227,13 +1227,13 @@ opcodes = [
       doc="""Push a long integer.
 
       The same as INT, except that the literal ends with 'L', and always
-      unpickles to a Python long.  There doesn't seem a real purpose to the
+      unpickles to a MyFRpy long.  There doesn't seem a real purpose to the
       trailing 'L'.
 
       Note that LONG takes time quadratic in the number of digits when
       unpickling (this is simply due to the nature of decimal->binary
       conversion).  Proto 2 added linear-time (in C; still quadratic-time
-      in Python) LONG1 and LONG4 opcodes.
+      in MyFRpy) LONG1 and LONG4 opcodes.
       """),
 
     I(name="LONG1",
@@ -1244,7 +1244,7 @@ opcodes = [
       proto=2,
       doc="""Long integer using one-byte length.
 
-      A more efficient encoding of a Python long; the long1 encoding
+      A more efficient encoding of a MyFRpy long; the long1 encoding
       says it all."""),
 
     I(name="LONG4",
@@ -1255,7 +1255,7 @@ opcodes = [
       proto=2,
       doc="""Long integer using four-byte length.
 
-      A more efficient encoding of a Python long; the long4 encoding
+      A more efficient encoding of a MyFRpy long; the long4 encoding
       says it all."""),
 
     # Ways to spell strings (8-bit, not Unicode).
@@ -1266,7 +1266,7 @@ opcodes = [
       stack_before=[],
       stack_after=[pybytes_or_str],
       proto=0,
-      doc="""Push a Python string object.
+      doc="""Push a MyFRpy string object.
 
       The argument is a repr-style string, with bracketing quote characters,
       and perhaps embedded escapes.  The argument extends until the next
@@ -1282,7 +1282,7 @@ opcodes = [
       stack_before=[],
       stack_after=[pybytes_or_str],
       proto=1,
-      doc="""Push a Python string object.
+      doc="""Push a MyFRpy string object.
 
       There are two arguments: the first is a 4-byte little-endian
       signed int giving the number of bytes in the string, and the
@@ -1299,7 +1299,7 @@ opcodes = [
       stack_before=[],
       stack_after=[pybytes_or_str],
       proto=1,
-      doc="""Push a Python string object.
+      doc="""Push a MyFRpy string object.
 
       There are two arguments: the first is a 1-byte unsigned int giving
       the number of bytes in the string, and the second is that many
@@ -1318,7 +1318,7 @@ opcodes = [
       stack_before=[],
       stack_after=[pybytes],
       proto=3,
-      doc="""Push a Python bytes object.
+      doc="""Push a MyFRpy bytes object.
 
       There are two arguments:  the first is a 4-byte little-endian unsigned int
       giving the number of bytes, and the second is that many bytes, which are
@@ -1331,7 +1331,7 @@ opcodes = [
       stack_before=[],
       stack_after=[pybytes],
       proto=3,
-      doc="""Push a Python bytes object.
+      doc="""Push a MyFRpy bytes object.
 
       There are two arguments:  the first is a 1-byte unsigned int giving
       the number of bytes, and the second is that many bytes, which are taken
@@ -1344,7 +1344,7 @@ opcodes = [
       stack_before=[],
       stack_after=[pybytes],
       proto=4,
-      doc="""Push a Python bytes object.
+      doc="""Push a MyFRpy bytes object.
 
       There are two arguments:  the first is an 8-byte unsigned int giving
       the number of bytes in the string, and the second is that many bytes,
@@ -1359,7 +1359,7 @@ opcodes = [
       stack_before=[],
       stack_after=[pybytearray],
       proto=5,
-      doc="""Push a Python bytearray object.
+      doc="""Push a MyFRpy bytearray object.
 
       There are two arguments:  the first is an 8-byte unsigned int giving
       the number of bytes in the bytearray, and the second is that many bytes,
@@ -1421,7 +1421,7 @@ opcodes = [
       stack_before=[],
       stack_after=[pyunicode],
       proto=0,  # this may be pure-text, but it's a later addition
-      doc="""Push a Python Unicode string object.
+      doc="""Push a MyFRpy Unicode string object.
 
       The argument is a raw-unicode-escape encoding of a Unicode string,
       and so may contain embedded escape sequences.  The argument extends
@@ -1434,7 +1434,7 @@ opcodes = [
       stack_before=[],
       stack_after=[pyunicode],
       proto=4,
-      doc="""Push a Python Unicode string object.
+      doc="""Push a MyFRpy Unicode string object.
 
       There are two arguments:  the first is a 1-byte little-endian signed int
       giving the number of bytes in the string.  The second is that many
@@ -1447,7 +1447,7 @@ opcodes = [
       stack_before=[],
       stack_after=[pyunicode],
       proto=1,
-      doc="""Push a Python Unicode string object.
+      doc="""Push a MyFRpy Unicode string object.
 
       There are two arguments:  the first is a 4-byte little-endian unsigned int
       giving the number of bytes in the string.  The second is that many
@@ -1460,7 +1460,7 @@ opcodes = [
       stack_before=[],
       stack_after=[pyunicode],
       proto=4,
-      doc="""Push a Python Unicode string object.
+      doc="""Push a MyFRpy Unicode string object.
 
       There are two arguments:  the first is an 8-byte little-endian signed int
       giving the number of bytes in the string.  The second is that many
@@ -1479,7 +1479,7 @@ opcodes = [
 
       The argument is repr(a_float), and in general requires 17 significant
       digits for roundtrip conversion to be an identity (this is so for
-      IEEE-754 double precision values, which is what Python float maps to
+      IEEE-754 double precision values, which is what MyFRpy float maps to
       on most boxes).
 
       In general, FLOAT cannot be used to transport infinities, NaNs, or
@@ -1552,7 +1552,7 @@ opcodes = [
       doc="""Build a list out of the topmost stack slice, after markobject.
 
       All the stack entries following the topmost markobject are placed into
-      a single Python list, which single list object replaces all of the
+      a single MyFRpy list, which single list object replaces all of the
       stack from the topmost markobject onward.  For example,
 
       Stack before: ... markobject 1 2 3 'abc'
@@ -1578,7 +1578,7 @@ opcodes = [
       doc="""Build a tuple out of the topmost stack slice, after markobject.
 
       All the stack entries following the topmost markobject are placed into
-      a single Python tuple, which single tuple object replaces all of the
+      a single MyFRpy tuple, which single tuple object replaces all of the
       stack from the topmost markobject onward.  For example,
 
       Stack before: ... markobject 1 2 3 'abc'
@@ -1649,7 +1649,7 @@ opcodes = [
       doc="""Build a dict out of the topmost stack slice, after markobject.
 
       All the stack entries following the topmost markobject are placed into
-      a single Python dict, which single dict object replaces all of the
+      a single MyFRpy dict, which single dict object replaces all of the
       stack from the topmost markobject onward.  The stack slice alternates
       key, value, key, value, ....  For example,
 
@@ -1733,7 +1733,7 @@ opcodes = [
       doc="""Build a frozenset out of the topmost slice, after markobject.
 
       All the stack entries following the topmost markobject are placed into
-      a single Python frozenset, which single frozenset object replaces all
+      a single MyFRpy frozenset, which single frozenset object replaces all
       of the stack from the topmost markobject onward.  For example,
 
       Stack before: ... markobject 1 2 3
@@ -2051,9 +2051,9 @@ opcodes = [
       argtuple obtained from the stack, and the resulting instance object
       is pushed on the stack.
 
-      NOTE:  checks for __safe_for_unpickling__ went away in Python 2.3.
+      NOTE:  checks for __safe_for_unpickling__ went away in MyFRpy 2.3.
       NOTE:  the distinction between old-style and new-style classes does
-             not make sense in Python 3.
+             not make sense in MyFRpy 3.
       """),
 
     I(name='OBJ',
@@ -2083,7 +2083,7 @@ opcodes = [
       except that no __safe_for_unpickling__ check is done (XXX this is
       a bug).  See INST for the gory details.
 
-      NOTE:  In Python 2.3, INST and OBJ are identical except for how they
+      NOTE:  In MyFRpy 2.3, INST and OBJ are identical except for how they
       get the class object.  That was always the intent; the implementations
       had diverged for accidental reasons.
       """),
@@ -2174,7 +2174,7 @@ opcodes = [
       bracketing quote characters) string, which *is* "the persistent ID".
       The unpickler passes this string to self.persistent_load().  Whatever
       object that returns is pushed on the stack.  There is no implementation
-      of persistent_load() in Python's unpickler:  it must be supplied by an
+      of persistent_load() in MyFRpy's unpickler:  it must be supplied by an
       unpickler subclass.
       """),
 
@@ -2311,7 +2311,7 @@ def genops(pickle):
     opcode is an OpcodeInfo record, describing the current opcode.
 
     If the opcode has an argument embedded in the pickle, arg is its decoded
-    value, as a Python object.  If the opcode doesn't have an argument, arg
+    value, as a MyFRpy object.  If the opcode doesn't have an argument, arg
     is None.
 
     If the pickle has a tell() method, pos was the value of pickle.tell()
@@ -2402,7 +2402,7 @@ def dis(pickle, out=None, memo=None, indentlevel=4, annotate=0):
     Optional arg 'out' is a file-like object to which the disassembly is
     printed.  It defaults to sys.stdout.
 
-    Optional arg 'memo' is a Python dict, used as the pickle's memo.  It
+    Optional arg 'memo' is a MyFRpy dict, used as the pickle's memo.  It
     may be mutated by dis(), if the pickle contains PUT or BINPUT opcodes.
     Passing the same memo object to another dis() call then allows disassembly
     to proceed across multiple pickles that were all created by the same

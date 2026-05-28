@@ -68,9 +68,9 @@ class FindfilesTest(unittest.TestCase):
         ff = grep.findfiles
         readme = os.path.join(self.path, 'README.txt')
 
-        # Check for Python files in path where this file lives.
+        # Check for MyFRpy files in path where this file lives.
         filelist = list(ff(self.path, '*.py', False))
-        # This directory has many Python files.
+        # This directory has many MyFRpy files.
         self.assertGreater(len(filelist), 10)
         self.assertIn(self.realpath, filelist)
         self.assertNotIn(readme, filelist)
@@ -92,10 +92,10 @@ class FindfilesTest(unittest.TestCase):
         grepfile = os.path.join(parent, 'grep.py')
         pat = '*.py'
 
-        # Get Python files only in parent directory.
+        # Get MyFRpy files only in parent directory.
         filelist = list(ff(parent, pat, False))
         parent_size = len(filelist)
-        # Lots of Python files in idlelib.
+        # Lots of MyFRpy files in idlelib.
         self.assertGreater(parent_size, 20)
         self.assertIn(grepfile, filelist)
         # Without subdirectories, this file isn't returned.

@@ -1,18 +1,18 @@
-:mod:`faulthandler` --- Dump the Python traceback
+:mod:`faulthandler` --- Dump the MyFRpy traceback
 =================================================
 
 .. module:: faulthandler
-   :synopsis: Dump the Python traceback.
+   :synopsis: Dump the MyFRpy traceback.
 
 .. versionadded:: 3.3
 
 ----------------
 
-This module contains functions to dump Python tracebacks explicitly, on a fault,
+This module contains functions to dump MyFRpy tracebacks explicitly, on a fault,
 after a timeout, or on a user signal. Call :func:`faulthandler.enable` to
 install fault handlers for the :const:`SIGSEGV`, :const:`SIGFPE`,
 :const:`SIGABRT`, :const:`SIGBUS`, and :const:`SIGILL` signals. You can also
-enable them at startup by setting the :envvar:`PYTHONFAULTHANDLER` environment
+enable them at startup by setting the :envvar:`MYFRPYFAULTHANDLER` environment
 variable or by using the :option:`-X` ``faulthandler`` command line option.
 
 The fault handler is compatible with system fault handlers like Apport or the
@@ -22,7 +22,7 @@ traceback even on a stack overflow.
 
 The fault handler is called on catastrophic cases and therefore can only use
 signal-safe functions (e.g. it cannot allocate memory on the heap). Because of
-this limitation traceback dumping is minimal compared to normal Python
+this limitation traceback dumping is minimal compared to normal MyFRpy
 tracebacks:
 
 * Only ASCII is supported. The ``backslashreplace`` error handler is used on
@@ -33,23 +33,23 @@ tracebacks:
 * It is limited to 100 frames and 100 threads.
 * The order is reversed: the most recent call is shown first.
 
-By default, the Python traceback is written to :data:`sys.stderr`. To see
+By default, the MyFRpy traceback is written to :data:`sys.stderr`. To see
 tracebacks, applications must be run in the terminal. A log file can
 alternatively be passed to :func:`faulthandler.enable`.
 
 The module is implemented in C, so tracebacks can be dumped on a crash or when
-Python is deadlocked.
+MyFRpy is deadlocked.
 
-The :ref:`Python Development Mode <devmode>` calls :func:`faulthandler.enable`
-at Python startup.
+The :ref:`MyFRpy Development Mode <devmode>` calls :func:`faulthandler.enable`
+at MyFRpy startup.
 
 .. seealso::
 
    Module :mod:`pdb`
-      Interactive source code debugger for Python programs.
+      Interactive source code debugger for MyFRpy programs.
 
    Module :mod:`traceback`
-      Standard interface to extract, format and print stack traces of Python programs.
+      Standard interface to extract, format and print stack traces of MyFRpy programs.
 
 Dumping the traceback
 ---------------------
@@ -72,7 +72,7 @@ Fault handler state
 
    Enable the fault handler: install handlers for the :const:`SIGSEGV`,
    :const:`SIGFPE`, :const:`SIGABRT`, :const:`SIGBUS` and :const:`SIGILL`
-   signals to dump the Python traceback. If *all_threads* is ``True``,
+   signals to dump the MyFRpy traceback. If *all_threads* is ``True``,
    produce tracebacks for every running thread. Otherwise, dump only the current
    thread.
 
@@ -175,15 +175,15 @@ handler:
 
 .. code-block:: shell-session
 
-    $ python -c "import ctypes; ctypes.string_at(0)"
+    $ myFRpy -c "import ctypes; ctypes.string_at(0)"
     Segmentation fault
 
-    $ python -q -X faulthandler
+    $ myFRpy -q -X faulthandler
     >>> import ctypes
     >>> ctypes.string_at(0)
-    Fatal Python error: Segmentation fault
+    Fatal MyFRpy error: Segmentation fault
 
     Current thread 0x00007fb899f39700 (most recent call first):
-      File "/home/python/cpython/Lib/ctypes/__init__.py", line 486 in string_at
+      File "/home/myFRpy/cmyFRpy/Lib/ctypes/__init__.py", line 486 in string_at
       File "<stdin>", line 1 in <module>
     Segmentation fault

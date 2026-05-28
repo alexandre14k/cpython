@@ -1,6 +1,6 @@
-"""RPC Implementation, originally written for the Python Idle IDE
+"""RPC Implementation, originally written for the MyFRpy Idle IDE
 
-For security reasons, GvR requested that Idle's Python execution server process
+For security reasons, GvR requested that Idle's MyFRpy execution server process
 connect to the Idle process, which listens for the connection.  Since Idle has
 only one client per server, this was not a limitation.
 

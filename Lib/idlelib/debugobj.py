@@ -29,7 +29,7 @@ class ObjectTreeItem(TreeItem):
         return myrepr.repr(self.object)
     def GetIconName(self):
         if not self.IsExpandable():
-            return "python"
+            return "myFRpy"
     def IsEditable(self):
         return self.setfunction is not None
     def SetText(self, text):

@@ -1,4 +1,4 @@
-"""Test compiler changes for unary ops (+, -, ~) introduced in Python 2.2"""
+"""Test compiler changes for unary ops (+, -, ~) introduced in MyFRpy 2.2"""
 
 import unittest
 

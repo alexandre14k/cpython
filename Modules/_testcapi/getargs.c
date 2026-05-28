@@ -1,5 +1,5 @@
 /*
- * Tests for Python/getargs.c and Python/modsupport.c;
+ * Tests for MyFRpy/getargs.c and MyFRpy/modsupport.c;
  * APIs that parse and build arguments.
  */
 

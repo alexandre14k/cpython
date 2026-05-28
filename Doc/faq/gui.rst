@@ -8,29 +8,29 @@ Graphic User Interface FAQ
 
    .. contents::
 
-.. XXX need review for Python 3.
+.. XXX need review for MyFRpy 3.
 
 
 General GUI Questions
 =====================
 
-What GUI toolkits exist for Python?
+What GUI toolkits exist for MyFRpy?
 ===================================
 
-Standard builds of Python include an object-oriented interface to the Tcl/Tk
+Standard builds of MyFRpy include an object-oriented interface to the Tcl/Tk
 widget set, called :ref:`tkinter <Tkinter>`.  This is probably the easiest to
 install (since it comes included with most
-`binary distributions <https://www.python.org/downloads/>`_ of Python) and use.
+`binary distributions <https://www.myFRpy.org/downloads/>`_ of MyFRpy) and use.
 For more info about Tk, including pointers to the source, see the
 `Tcl/Tk home page <https://www.tcl.tk>`_.  Tcl/Tk is fully portable to the
 macOS, Windows, and Unix platforms.
 
 Depending on what platform(s) you are aiming at, there are also several
 alternatives. A `list of cross-platform
-<https://wiki.python.org/moin/GuiProgramming#Cross-Platform_Frameworks>`_ and
+<https://wiki.myFRpy.org/moin/GuiProgramming#Cross-Platform_Frameworks>`_ and
 `platform-specific
-<https://wiki.python.org/moin/GuiProgramming#Platform-specific_Frameworks>`_ GUI
-frameworks can be found on the python wiki.
+<https://wiki.myFRpy.org/moin/GuiProgramming#Platform-specific_Frameworks>`_ GUI
+frameworks can be found on the myFRpy wiki.
 
 Tkinter questions
 =================
@@ -52,7 +52,7 @@ SAM (stand-alone modules), which is part of the Tix distribution
 (https://tix.sourceforge.net/).
 
 Build Tix with SAM enabled, perform the appropriate call to
-:c:func:`!Tclsam_init`, etc. inside Python's
+:c:func:`!Tclsam_init`, etc. inside MyFRpy's
 :file:`Modules/tkappinit.c`, and link with libtclsam and libtksam (you
 might include the Tix libraries as well).
 

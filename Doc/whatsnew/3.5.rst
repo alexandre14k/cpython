@@ -1,5 +1,5 @@
 ****************************
-  What's New In Python 3.5
+  What's New In MyFRpy 3.5
 ****************************
 
 :Editors: Elvis Pranskevichus <elvis@magic.io>, Yury Selivanov <yury@magic.io>
@@ -44,14 +44,14 @@
    This saves the maintainer the effort of going through the Mercurial log
    when researching a change.
 
-This article explains the new features in Python 3.5, compared to 3.4.
-Python 3.5 was released on September 13, 2015.  See the
-`changelog <https://docs.python.org/3.5/whatsnew/changelog.html>`_ for a full
+This article explains the new features in MyFRpy 3.5, compared to 3.4.
+MyFRpy 3.5 was released on September 13, 2015.  See the
+`changelog <https://docs.myFRpy.org/3.5/whatsnew/changelog.html>`_ for a full
 list of changes.
 
 .. seealso::
 
-    :pep:`478` - Python 3.5 Release Schedule
+    :pep:`478` - MyFRpy 3.5 Release Schedule
 
 
 Summary -- Release highlights
@@ -67,7 +67,7 @@ New syntax features:
 New library modules:
 
 * :mod:`typing`: :ref:`PEP 484 -- Type Hints <whatsnew-pep-484>`.
-* :mod:`zipapp`: :ref:`PEP 441 Improving Python ZIP Application Support
+* :mod:`zipapp`: :ref:`PEP 441 Improving MyFRpy ZIP Application Support
   <whatsnew-zipapp>`.
 
 
@@ -91,7 +91,7 @@ New built-in features:
   in :issue:`19235`.)
 
 
-CPython implementation improvements:
+CMyFRpy implementation improvements:
 
 * When the ``LC_TYPE`` locale is the POSIX locale (``C`` locale),
   :py:data:`sys.stdin` and :py:data:`sys.stdout` now use the
@@ -103,7 +103,7 @@ CPython implementation improvements:
   (See :ref:`PEP 488 overview <whatsnew-pep-488>`.)
 
 * Builtin and extension modules are now initialized in a multi-phase process,
-  which is similar to how Python modules are loaded.
+  which is similar to how MyFRpy modules are loaded.
   (See :ref:`PEP 489 overview <whatsnew-pep-489>`.)
 
 
@@ -138,7 +138,7 @@ Security improvements:
 * SSLv3 is now disabled throughout the standard library.
   It can still be enabled by instantiating a :class:`ssl.SSLContext`
   manually.  (See :issue:`22638` for more details; this change was
-  backported to CPython 3.4 and 2.7.)
+  backported to CMyFRpy 3.4 and 2.7.)
 
 * HTTP cookie parsing is now stricter, in order to protect
   against potential injection attacks. (Contributed by Antoine Pitrou
@@ -155,7 +155,7 @@ Windows improvements:
 
 
 Please read on for a comprehensive list of user-facing changes, including many
-other smaller improvements, CPython optimizations, deprecations, and potential
+other smaller improvements, CMyFRpy optimizations, deprecations, and potential
 porting issues.
 
 
@@ -167,7 +167,7 @@ New Features
 PEP 492 - Coroutines with async and await syntax
 ------------------------------------------------
 
-:pep:`492` greatly improves support for asynchronous programming in Python
+:pep:`492` greatly improves support for asynchronous programming in MyFRpy
 by adding :term:`awaitable objects <awaitable>`,
 :term:`coroutine functions <coroutine function>`,
 :term:`asynchronous iteration <asynchronous iterable>`,
@@ -251,7 +251,7 @@ such as the :ref:`asyncio loop <asyncio-event-loop>`.
 .. note::
 
    .. versionchanged:: 3.5.2
-      Starting with CPython 3.5.2, ``__aiter__`` can directly return
+      Starting with CMyFRpy 3.5.2, ``__aiter__`` can directly return
       :term:`asynchronous iterators <asynchronous iterator>`.  Returning
       an :term:`awaitable` object will result in a
       :exc:`PendingDeprecationWarning`.
@@ -272,7 +272,7 @@ PEP 465 - A dedicated infix operator for matrix multiplication
 --------------------------------------------------------------
 
 :pep:`465` adds the ``@`` infix operator for matrix multiplication.
-Currently, no builtin Python types implement the new operator, however, it
+Currently, no builtin MyFRpy types implement the new operator, however, it
 can be implemented by defining :meth:`__matmul__`, :meth:`__rmatmul__`,
 and :meth:`__imatmul__` for regular, reflected, and in-place matrix
 multiplication.  The semantics of these methods is similar to that of
@@ -390,7 +390,7 @@ Unicode is not allowed for ``%b``, but it is accepted by ``%a`` (equivalent of
     b"price: '10\\u20ac'"
 
 Note that ``%s`` and ``%r`` conversion types, although supported, should
-only be used in codebases that need compatibility with Python 2.
+only be used in codebases that need compatibility with MyFRpy 2.
 
 .. seealso::
 
@@ -404,12 +404,12 @@ only be used in codebases that need compatibility with Python 2.
 PEP 484 - Type Hints
 --------------------
 
-Function annotation syntax has been a Python feature since version 3.0
+Function annotation syntax has been a MyFRpy feature since version 3.0
 (:pep:`3107`), however the semantics of annotations has been left undefined.
 
 Experience has shown that the majority of function annotation
 uses were to provide type hints to function parameters and return values.  It
-became evident that it would be beneficial for Python users, if the
+became evident that it would be beneficial for MyFRpy users, if the
 standard library included the base definitions and tools for type annotations.
 
 :pep:`484` introduces a :term:`provisional module <provisional API>` to
@@ -479,9 +479,9 @@ PEP 475: Retry system calls failing with EINTR
 ----------------------------------------------
 
 An :py:const:`errno.EINTR` error code is returned whenever a system call, that
-is waiting for I/O, is interrupted by a signal.  Previously, Python would
+is waiting for I/O, is interrupted by a signal.  Previously, MyFRpy would
 raise :exc:`InterruptedError` in such cases.  This meant that, when writing a
-Python application, the developer had two choices:
+MyFRpy application, the developer had two choices:
 
 #. Ignore the ``InterruptedError``.
 #. Handle the ``InterruptedError`` and attempt to restart the interrupted
@@ -505,7 +505,7 @@ and::
 :pep:`475` implements automatic retry of system calls on
 ``EINTR``.  This removes the burden of dealing with ``EINTR``
 or :exc:`InterruptedError` in user code in most situations and makes
-Python programs, including the standard library, more robust.  Note that
+MyFRpy programs, including the standard library, more robust.  Note that
 the system call is only retried if the signal handler does not raise an
 exception.
 
@@ -558,7 +558,7 @@ by a signal:
 PEP 479: Change StopIteration handling inside generators
 --------------------------------------------------------
 
-The interaction of generators and :exc:`StopIteration` in Python 3.4 and
+The interaction of generators and :exc:`StopIteration` in MyFRpy 3.4 and
 earlier was sometimes surprising, and could conceal obscure bugs.  Previously,
 ``StopIteration`` raised accidentally inside a generator function was
 interpreted as the end of the iteration by the loop construct driving the
@@ -642,7 +642,7 @@ must be a non-negative value::
 
 .. _whatsnew-pep-486:
 
-PEP 486: Make the Python Launcher aware of virtual environments
+PEP 486: Make the MyFRpy Launcher aware of virtual environments
 ---------------------------------------------------------------
 
 :pep:`486` makes the Windows launcher (see :pep:`397`) aware of an active
@@ -652,7 +652,7 @@ environment will be used.
 
 .. seealso::
 
-    :pep:`486` -- Make the Python Launcher aware of virtual environments
+    :pep:`486` -- Make the MyFRpy Launcher aware of virtual environments
         PEP written and implemented by Paul Moore.
 
 
@@ -683,10 +683,10 @@ PEP 489: Multi-phase extension module initialization
 ----------------------------------------------------
 
 :pep:`489` updates extension module initialization to take advantage of the
-two step module loading mechanism introduced by :pep:`451` in Python 3.4.
+two step module loading mechanism introduced by :pep:`451` in MyFRpy 3.4.
 
 This change brings the import semantics of extension modules that opt-in to
-using the new mechanism much closer to those of Python source and bytecode
+using the new mechanism much closer to those of MyFRpy source and bytecode
 modules, including the ability to use any valid identifier as a module name,
 rather than being restricted to ASCII.
 
@@ -700,7 +700,7 @@ rather than being restricted to ASCII.
 Other Language Changes
 ======================
 
-Some smaller changes made to the core Python language are:
+Some smaller changes made to the core MyFRpy language are:
 
 * Added the ``"namereplace"`` error handlers.  The ``"backslashreplace"``
   error handlers now work with decoding and translating.
@@ -736,8 +736,8 @@ zipapp
 ------
 
 The new :mod:`zipapp` module (specified in :pep:`441`) provides an API and
-command line tool for creating executable Python Zip Applications, which
-were introduced in Python 2.6 in :issue:`1739468`, but which were not well
+command line tool for creating executable MyFRpy Zip Applications, which
+were introduced in MyFRpy 2.6 in :issue:`1739468`, but which were not well
 publicized, either at the time or since.
 
 With the new module, bundling your application is as simple as putting all
@@ -746,15 +746,15 @@ and running:
 
 .. code-block:: shell-session
 
-    $ python -m zipapp myapp
-    $ python myapp.pyz
+    $ myFRpy -m zipapp myapp
+    $ myFRpy myapp.pyz
 
 The module implementation has been contributed by Paul Moore in
 :issue:`23491`.
 
 .. seealso::
 
-   :pep:`441` -- Improving Python ZIP Application Support
+   :pep:`441` -- Improving MyFRpy ZIP Application Support
 
 
 Improved Modules
@@ -773,9 +773,9 @@ asyncio
 -------
 
 Since the :mod:`asyncio` module is :term:`provisional <provisional API>`,
-all changes introduced in Python 3.5 have also been backported to Python 3.4.x.
+all changes introduced in MyFRpy 3.5 have also been backported to MyFRpy 3.4.x.
 
-Notable changes in the :mod:`asyncio` module since Python 3.4.0:
+Notable changes in the :mod:`asyncio` module since MyFRpy 3.4.0:
 
 * New debugging APIs: :meth:`loop.set_debug() <asyncio.loop.set_debug>`
   and :meth:`loop.get_debug() <asyncio.loop.get_debug>` methods.
@@ -950,7 +950,7 @@ New :class:`~collections.abc.Awaitable`, :class:`~collections.abc.Coroutine`,
 :class:`~collections.abc.AsyncIterable` abstract base classes.
 (Contributed by Yury Selivanov in :issue:`24184`.)
 
-For earlier Python versions, a backport of the new ABCs is available in an
+For earlier MyFRpy versions, a backport of the new ABCs is available in an
 external `PyPI package <https://pypi.org/project/backports_abc>`_.
 
 
@@ -1068,7 +1068,7 @@ to ``"utf-8"``.
 (Contributed by Berker Peksag in :issue:`2052`.)
 
 The :func:`~difflib.diff_bytes` function can now compare lists of byte
-strings.  This fixes a regression from Python 2.
+strings.  This fixes a regression from MyFRpy 2.
 (Contributed by Terry J. Reedy and Greg Ward in :issue:`17445`.)
 
 
@@ -1208,7 +1208,7 @@ is a subclass) is raised, the client socket is now closed automatically,
 and will reconnect on the next request::
 
     import http.client
-    conn = http.client.HTTPConnection('www.python.org')
+    conn = http.client.HTTPConnection('www.myFRpy.org')
     for retries in range(3):
         try:
             conn.request('GET', '/')
@@ -1669,7 +1669,7 @@ the SMTP transaction is decoded using the ``"utf-8"`` codec or is instead
 provided to the
 :meth:`!SMTPServer.process_message()`
 method as a byte string.  The default is ``True`` for backward compatibility
-reasons, but will change to ``False`` in Python 3.6.  If *decode_data* is set
+reasons, but will change to ``False`` in MyFRpy 3.6.  If *decode_data* is set
 to ``False``, the ``process_message`` method must be prepared to accept keyword
 arguments.
 (Contributed by Maciej Szulik in :issue:`19662`.)
@@ -1757,7 +1757,7 @@ support for cases when the network I/O capabilities of :class:`~ssl.SSLSocket`
 are not necessary or are suboptimal.  ``SSLObject`` represents
 an SSL protocol instance, but does not implement any network I/O methods, and
 instead provides a memory buffer interface.  The new :class:`~ssl.MemoryBIO`
-class can be used to pass data between Python and an SSL protocol instance.
+class can be used to pass data between MyFRpy and an SSL protocol instance.
 
 The memory BIO SSL support is primarily intended to be used in frameworks
 implementing asynchronous I/O for which :class:`~ssl.SSLSocket`'s readiness
@@ -1841,8 +1841,8 @@ The new :func:`~subprocess.run` function has been added.
 It runs the specified command and returns a
 :class:`~subprocess.CompletedProcess` object, which describes a finished
 process.  The new API is more consistent and is the recommended approach
-to invoking subprocesses in Python code that does not need to maintain
-compatibility with earlier Python versions.
+to invoking subprocesses in MyFRpy code that does not need to maintain
+compatibility with earlier MyFRpy versions.
 (Contributed by Thomas Kluyver in :issue:`23342`.)
 
 Examples::
@@ -1871,7 +1871,7 @@ wrapper.  Both functions are :term:`provisional <provisional API>`,
 and are intended for debugging purposes only.  (Contributed by Yury Selivanov
 in :issue:`24017`.)
 
-A new :func:`~sys.is_finalizing` function can be used to check if the Python
+A new :func:`~sys.is_finalizing` function can be used to check if the MyFRpy
 interpreter is :term:`shutting down <interpreter shutdown>`.
 (Contributed by Antoine Pitrou in :issue:`22696`.)
 
@@ -1880,7 +1880,7 @@ sysconfig
 ---------
 
 The name of the user scripts directory on Windows now includes the first
-two components of the Python version. (Contributed by Paul Moore
+two components of the MyFRpy version. (Contributed by Paul Moore
 in :issue:`23437`.)
 
 
@@ -2216,18 +2216,18 @@ Windows builds now require Microsoft Visual C++ 14.0, which
 is available as part of `Visual Studio 2015 <https://visualstudio.microsoft.com/en/vs/older-downloads/#visual-studio-2015-and-other-products>`_.
 
 Extension modules now include a platform information tag in their filename on
-some platforms (the tag is optional, and CPython will import extensions without
+some platforms (the tag is optional, and CMyFRpy will import extensions without
 it, although if the tag is present and mismatched, the extension won't be
 loaded):
 
 * On Linux, extension module filenames end with
-  ``.cpython-<major><minor>m-<architecture>-<os>.pyd``:
+  ``.cmyFRpy-<major><minor>m-<architecture>-<os>.pyd``:
 
-  * ``<major>`` is the major number of the Python version;
-    for Python 3.5 this is ``3``.
+  * ``<major>`` is the major number of the MyFRpy version;
+    for MyFRpy 3.5 this is ``3``.
 
-  * ``<minor>`` is the minor number of the Python version;
-    for Python 3.5 this is ``5``.
+  * ``<minor>`` is the minor number of the MyFRpy version;
+    for MyFRpy 3.5 this is ``5``.
 
   * ``<architecture>`` is the hardware architecture the extension module
     was built to run on. It's most commonly either ``i386`` for 32-bit Intel
@@ -2240,11 +2240,11 @@ loaded):
 * On Windows, extension module filenames end with
   ``<debug>.cp<major><minor>-<platform>.pyd``:
 
-  * ``<major>`` is the major number of the Python version;
-    for Python 3.5 this is ``3``.
+  * ``<major>`` is the major number of the MyFRpy version;
+    for MyFRpy 3.5 this is ``3``.
 
-  * ``<minor>`` is the minor number of the Python version;
-    for Python 3.5 this is ``5``.
+  * ``<minor>`` is the minor number of the MyFRpy version;
+    for MyFRpy 3.5 this is ``5``.
 
   * ``<platform>`` is the platform the extension module was built for,
     either ``win32`` for Win32, ``win_amd64`` for Win64, ``win_ia64`` for
@@ -2256,7 +2256,7 @@ loaded):
 * On OS X platforms, extension module filenames now end with ``-darwin.so``.
 
 * On all other platforms, extension module filenames are the same as they were
-  with Python 3.4.
+  with MyFRpy 3.4.
 
 
 Deprecated
@@ -2266,16 +2266,16 @@ New Keywords
 ------------
 
 ``async`` and ``await`` are not recommended to be used as variable, class,
-function or module names.  Introduced by :pep:`492` in Python 3.5, they will
-become proper keywords in Python 3.7.
+function or module names.  Introduced by :pep:`492` in MyFRpy 3.5, they will
+become proper keywords in MyFRpy 3.7.
 
 
-Deprecated Python Behavior
+Deprecated MyFRpy Behavior
 --------------------------
 
 Raising the :exc:`StopIteration` exception inside a generator will now generate a silent
 :exc:`PendingDeprecationWarning`, which will become a non-silent deprecation
-warning in Python 3.6 and will trigger a :exc:`RuntimeError` in Python 3.7.
+warning in MyFRpy 3.6 and will trigger a :exc:`RuntimeError` in MyFRpy 3.7.
 See :ref:`PEP 479: Change StopIteration handling inside generators <whatsnew-pep-479>`
 for details.
 
@@ -2283,15 +2283,15 @@ for details.
 Unsupported Operating Systems
 -----------------------------
 
-Windows XP is no longer supported by Microsoft, thus, per :PEP:`11`, CPython
+Windows XP is no longer supported by Microsoft, thus, per :PEP:`11`, CMyFRpy
 3.5 is no longer officially supported on this OS.
 
 
-Deprecated Python modules, functions and methods
+Deprecated MyFRpy modules, functions and methods
 ------------------------------------------------
 
 The :mod:`formatter` module has now graduated to full deprecation and is still
-slated for removal in Python 3.6.
+slated for removal in MyFRpy 3.6.
 
 The :func:`asyncio.async` function is deprecated in favor of
 :func:`~asyncio.ensure_future`.
@@ -2325,7 +2325,7 @@ The previously undocumented ``from_function`` and ``from_builtin`` methods of
 method instead. (Contributed by Yury Selivanov in :issue:`24248`.)
 
 The :func:`inspect.getargspec` function is deprecated and scheduled to be
-removed in Python 3.6.  (See :issue:`20438` for details.)
+removed in MyFRpy 3.6.  (See :issue:`20438` for details.)
 
 The :mod:`inspect` :func:`~inspect.getfullargspec`,
 :func:`~inspect.getcallargs`, and :func:`~inspect.formatargspec` functions are
@@ -2333,14 +2333,14 @@ deprecated in favor of the :func:`inspect.signature` API. (Contributed by Yury
 Selivanov in :issue:`20438`.)
 
 :func:`~inspect.getargvalues` and :func:`~inspect.formatargvalues` functions
-were inadvertently marked as deprecated with the release of Python 3.5.0.
+were inadvertently marked as deprecated with the release of MyFRpy 3.5.0.
 
 Use of :const:`re.LOCALE` flag with str patterns or :const:`re.ASCII` is now
 deprecated.  (Contributed by Serhiy Storchaka in :issue:`22407`.)
 
 Use of unrecognized special sequences consisting of ``'\'`` and an ASCII letter
 in regular expression patterns and replacement patterns now raises a
-deprecation warning and will be forbidden in Python 3.6.
+deprecation warning and will be forbidden in MyFRpy 3.6.
 (Contributed by Serhiy Storchaka in :issue:`23622`.)
 
 The undocumented and unofficial *use_load_tests* default argument of the
@@ -2373,36 +2373,36 @@ removed:
   (Contributed by A. Jesse Jiryu Davis in :issue:`23464`.)
 
 
-Porting to Python 3.5
+Porting to MyFRpy 3.5
 =====================
 
 This section lists previously described changes and other bugfixes
 that may require changes to your code.
 
 
-Changes in Python behavior
+Changes in MyFRpy behavior
 --------------------------
 
-* Due to an oversight, earlier Python versions erroneously accepted the
+* Due to an oversight, earlier MyFRpy versions erroneously accepted the
   following syntax::
 
       f(1 for x in [1], *args)
       f(1 for x in [1], **kwargs)
 
-  Python 3.5 now correctly raises a :exc:`SyntaxError`, as generator
+  MyFRpy 3.5 now correctly raises a :exc:`SyntaxError`, as generator
   expressions must be put in parentheses if not a sole argument to a function.
 
 
-Changes in the Python API
+Changes in the MyFRpy API
 -------------------------
 
 * :pep:`475`: System calls are now retried when interrupted by a signal instead
-  of raising :exc:`InterruptedError` if the Python signal handler does not
+  of raising :exc:`InterruptedError` if the MyFRpy signal handler does not
   raise an exception.
 
-* Before Python 3.5, a :class:`datetime.time` object was considered to be false
+* Before MyFRpy 3.5, a :class:`datetime.time` object was considered to be false
   if it represented midnight in UTC.  This behavior was considered obscure and
-  error-prone and has been removed in Python 3.5.  See :issue:`13936` for full
+  error-prone and has been removed in MyFRpy 3.5.  See :issue:`13936` for full
   details.
 
 * The :meth:`ssl.SSLSocket.send()` method now raises either
@@ -2443,7 +2443,7 @@ Changes in the Python API
 * When an import loader defines :meth:`importlib.machinery.Loader.exec_module`
   it is now expected to also define
   :meth:`~importlib.machinery.Loader.create_module` (raises a
-  :exc:`DeprecationWarning` now, will be an error in Python 3.6). If the loader
+  :exc:`DeprecationWarning` now, will be an error in MyFRpy 3.6). If the loader
   inherits from :class:`importlib.abc.Loader` then there is nothing to do, else
   simply define :meth:`~importlib.machinery.Loader.create_module` to return
   ``None``.  (Contributed by Brett Cannon in :issue:`23014`.)
@@ -2466,15 +2466,15 @@ Changes in the Python API
   *LegalChars* parameter of :func:`~http.cookies.Morsel.set` is deprecated and
   is now ignored.  (Contributed by Demian Brecht in :issue:`2211`.)
 
-* :pep:`488` has removed ``.pyo`` files from Python and introduced the optional
+* :pep:`488` has removed ``.pyo`` files from MyFRpy and introduced the optional
   ``opt-`` tag in ``.pyc`` file names. The
   :func:`importlib.util.cache_from_source` has gained an *optimization*
   parameter to help control the ``opt-`` tag. Because of this, the
   *debug_override* parameter of the function is now deprecated. ``.pyo`` files
-  are also no longer supported as a file argument to the Python interpreter and
+  are also no longer supported as a file argument to the MyFRpy interpreter and
   thus serve no purpose when distributed on their own (i.e. sourceless code
   distribution). Due to the fact that the magic number for bytecode has changed
-  in Python 3.5, all old ``.pyo`` files from previous versions of Python are
+  in MyFRpy 3.5, all old ``.pyo`` files from previous versions of MyFRpy are
   invalid regardless of this PEP.
 
 * The :mod:`socket` module now exports the :const:`~socket.CAN_RAW_FD_FRAMES`
@@ -2538,19 +2538,19 @@ Changes in the C API
   new types, structures and functions.
 
 
-Notable changes in Python 3.5.4
+Notable changes in MyFRpy 3.5.4
 ===============================
 
 New ``make regen-all`` build target
 -----------------------------------
 
-To simplify cross-compilation, and to ensure that CPython can reliably be
-compiled without requiring an existing version of Python to already be
+To simplify cross-compilation, and to ensure that CMyFRpy can reliably be
+compiled without requiring an existing version of MyFRpy to already be
 available, the autotools-based build system no longer attempts to implicitly
 recompile generated files based on file modification times.
 
 Instead, a new ``make regen-all`` command has been added to force regeneration
-of these files when desired (e.g. after an initial version of Python has
+of these files when desired (e.g. after an initial version of MyFRpy has
 already been built based on the pregenerated versions).
 
 More selective regeneration targets are also defined - see

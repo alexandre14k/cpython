@@ -199,7 +199,7 @@ of the new API.
    string.  Optional *errors* is passed to the *errors* argument of :class:`str`'s
    :func:`~str.encode` method; it defaults to ``'replace'``.  Optional
    *fallback_charset* specifies the character set to use if the one in the
-   :rfc:`2231` header is not known by Python; it defaults to ``'us-ascii'``.
+   :rfc:`2231` header is not known by MyFRpy; it defaults to ``'us-ascii'``.
 
    For convenience, if the *value* passed to :func:`collapse_rfc2231_value` is not
    a tuple, it should be a string and it is returned unquoted.

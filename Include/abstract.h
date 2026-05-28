@@ -25,7 +25,7 @@ extern "C" {
 
    Returns 1 if object 'o' has the attribute attr_name, and 0 otherwise.
 
-   This is equivalent to the Python expression: hasattr(o,attr_name).
+   This is equivalent to the MyFRpy expression: hasattr(o,attr_name).
 
    This function always succeeds. */
 
@@ -37,7 +37,7 @@ extern "C" {
    Retrieve an attributed named attr_name form object o.
    Returns the attribute value on success, or NULL on failure.
 
-   This is the equivalent of the Python expression: o.attr_name. */
+   This is the equivalent of the MyFRpy expression: o.attr_name. */
 
 
 /* Implemented elsewhere:
@@ -46,7 +46,7 @@ extern "C" {
 
    Returns 1 if o has the attribute attr_name, and 0 otherwise.
 
-   This is equivalent to the Python expression: hasattr(o,attr_name).
+   This is equivalent to the MyFRpy expression: hasattr(o,attr_name).
 
    This function always succeeds. */
 
@@ -57,7 +57,7 @@ extern "C" {
    Retrieve an attributed named 'attr_name' form object 'o'.
    Returns the attribute value on success, or NULL on failure.
 
-   This is the equivalent of the Python expression: o.attr_name. */
+   This is the equivalent of the MyFRpy expression: o.attr_name. */
 
 
 /* Implemented elsewhere:
@@ -68,7 +68,7 @@ extern "C" {
    to the value 'v'. Raise an exception and return -1 on failure; return 0 on
    success.
 
-   This is the equivalent of the Python statement o.attr_name=v. */
+   This is the equivalent of the MyFRpy statement o.attr_name=v. */
 
 
 /* Implemented elsewhere:
@@ -78,7 +78,7 @@ extern "C" {
    Set the value of the attribute named attr_name, for object 'o', to the value
    'v'. an exception and return -1 on failure; return 0 on success.
 
-   This is the equivalent of the Python statement o.attr_name=v. */
+   This is the equivalent of the MyFRpy statement o.attr_name=v. */
 
 /* Implemented as a macro:
 
@@ -87,7 +87,7 @@ extern "C" {
    Delete attribute named attr_name, for object o. Returns
    -1 on failure.
 
-   This is the equivalent of the Python statement: del o.attr_name. */
+   This is the equivalent of the MyFRpy statement: del o.attr_name. */
 #define PyObject_DelAttrString(O, A) PyObject_SetAttrString((O), (A), NULL)
 
 
@@ -96,7 +96,7 @@ extern "C" {
    int PyObject_DelAttr(PyObject *o, PyObject *attr_name);
 
    Delete attribute named attr_name, for object o. Returns -1
-   on failure.  This is the equivalent of the Python
+   on failure.  This is the equivalent of the MyFRpy
    statement: del o.attr_name. */
 #define  PyObject_DelAttr(O, A) PyObject_SetAttr((O), (A), NULL)
 
@@ -108,7 +108,7 @@ extern "C" {
    Compute the string representation of object 'o'.  Returns the
    string representation on success, NULL on failure.
 
-   This is the equivalent of the Python expression: repr(o).
+   This is the equivalent of the MyFRpy expression: repr(o).
 
    Called by the repr() built-in function. */
 
@@ -120,7 +120,7 @@ extern "C" {
    Compute the string representation of object, o.  Returns the
    string representation on success, NULL on failure.
 
-   This is the equivalent of the Python expression: str(o).
+   This is the equivalent of the MyFRpy expression: str(o).
 
    Called by the str() and print() built-in functions. */
 
@@ -142,34 +142,34 @@ extern "C" {
 
 
 #if !defined(Py_LIMITED_API) || Py_LIMITED_API+0 >= 0x03090000
-/* Call a callable Python object without any arguments */
+/* Call a callable MyFRpy object without any arguments */
 PyAPI_FUNC(PyObject *) PyObject_CallNoArgs(PyObject *func);
 #endif
 
 
-/* Call a callable Python object 'callable' with arguments given by the
+/* Call a callable MyFRpy object 'callable' with arguments given by the
    tuple 'args' and keywords arguments given by the dictionary 'kwargs'.
 
    'args' must not be NULL, use an empty tuple if no arguments are
    needed. If no named arguments are needed, 'kwargs' can be NULL.
 
-   This is the equivalent of the Python expression:
+   This is the equivalent of the MyFRpy expression:
    callable(*args, **kwargs). */
 PyAPI_FUNC(PyObject *) PyObject_Call(PyObject *callable,
                                      PyObject *args, PyObject *kwargs);
 
 
-/* Call a callable Python object 'callable', with arguments given by the
+/* Call a callable MyFRpy object 'callable', with arguments given by the
    tuple 'args'.  If no arguments are needed, then 'args' can be NULL.
 
    Returns the result of the call on success, or NULL on failure.
 
-   This is the equivalent of the Python expression:
+   This is the equivalent of the MyFRpy expression:
    callable(*args). */
 PyAPI_FUNC(PyObject *) PyObject_CallObject(PyObject *callable,
                                            PyObject *args);
 
-/* Call a callable Python object, callable, with a variable number of C
+/* Call a callable MyFRpy object, callable, with a variable number of C
    arguments. The C arguments are described using a mkvalue-style format
    string.
 
@@ -177,7 +177,7 @@ PyAPI_FUNC(PyObject *) PyObject_CallObject(PyObject *callable,
 
    Returns the result of the call on success, or NULL on failure.
 
-   This is the equivalent of the Python expression:
+   This is the equivalent of the MyFRpy expression:
    callable(arg1, arg2, ...). */
 PyAPI_FUNC(PyObject *) PyObject_CallFunction(PyObject *callable,
                                              const char *format, ...);
@@ -189,7 +189,7 @@ PyAPI_FUNC(PyObject *) PyObject_CallFunction(PyObject *callable,
 
    Returns the result of the call on success, or NULL on failure.
 
-   This is the equivalent of the Python expression:
+   This is the equivalent of the MyFRpy expression:
    obj.name(arg1, arg2, ...). */
 PyAPI_FUNC(PyObject *) PyObject_CallMethod(PyObject *obj,
                                            const char *name,
@@ -204,13 +204,13 @@ PyAPI_FUNC(PyObject *) _PyObject_CallMethod_SizeT(PyObject *obj,
                                                   const char *format,
                                                   ...);
 
-/* Call a callable Python object 'callable' with a variable number of C
+/* Call a callable MyFRpy object 'callable' with a variable number of C
    arguments. The C arguments are provided as PyObject* values, terminated
    by a NULL.
 
    Returns the result of the call on success, or NULL on failure.
 
-   This is the equivalent of the Python expression:
+   This is the equivalent of the MyFRpy expression:
    callable(arg1, arg2, ...). */
 PyAPI_FUNC(PyObject *) PyObject_CallFunctionObjArgs(PyObject *callable,
                                                     ...);
@@ -221,7 +221,7 @@ PyAPI_FUNC(PyObject *) PyObject_CallFunctionObjArgs(PyObject *callable,
 
    Returns the result of the call on success, or NULL on failure.
 
-   This is the equivalent of the Python expression: obj.name(*args). */
+   This is the equivalent of the MyFRpy expression: obj.name(*args). */
 
 PyAPI_FUNC(PyObject *) PyObject_CallMethodObjArgs(
     PyObject *obj,
@@ -230,7 +230,7 @@ PyAPI_FUNC(PyObject *) PyObject_CallMethodObjArgs(
 
 /* Given a vectorcall nargsf argument, return the actual number of arguments.
  * (For use outside the limited API, this is re-defined as a static inline
- * function in cpython/abstract.h)
+ * function in cmyFRpy/abstract.h)
  */
 PyAPI_FUNC(Py_ssize_t) PyVectorcall_NARGS(size_t nargsf);
 
@@ -262,7 +262,7 @@ PyAPI_FUNC(PyObject *) PyObject_VectorcallMethod(
    Compute and return the hash, hash_value, of an object, o.  On
    failure, return -1.
 
-   This is the equivalent of the Python expression: hash(o). */
+   This is the equivalent of the MyFRpy expression: hash(o). */
 
 
 /* Implemented elsewhere:
@@ -272,7 +272,7 @@ PyAPI_FUNC(PyObject *) PyObject_VectorcallMethod(
    Returns 1 if the object, o, is considered to be true, 0 if o is
    considered to be false and -1 on failure.
 
-   This is equivalent to the Python expression: not not o. */
+   This is equivalent to the MyFRpy expression: not not o. */
 
 
 /* Implemented elsewhere:
@@ -282,7 +282,7 @@ PyAPI_FUNC(PyObject *) PyObject_VectorcallMethod(
    Returns 0 if the object, o, is considered to be true, 1 if o is
    considered to be false and -1 on failure.
 
-   This is equivalent to the Python expression: not o. */
+   This is equivalent to the MyFRpy expression: not o. */
 
 
 /* Get the type of an object.
@@ -290,7 +290,7 @@ PyAPI_FUNC(PyObject *) PyObject_VectorcallMethod(
    On success, returns a type object corresponding to the object type of object
    'o'. On failure, returns NULL.
 
-   This is equivalent to the Python expression: type(o) */
+   This is equivalent to the MyFRpy expression: type(o) */
 PyAPI_FUNC(PyObject *) PyObject_Type(PyObject *o);
 
 
@@ -299,7 +299,7 @@ PyAPI_FUNC(PyObject *) PyObject_Type(PyObject *o);
 
    On error, -1 is returned.
 
-   This is the equivalent to the Python expression: len(o) */
+   This is the equivalent to the MyFRpy expression: len(o) */
 PyAPI_FUNC(Py_ssize_t) PyObject_Size(PyObject *o);
 
 
@@ -311,7 +311,7 @@ PyAPI_FUNC(Py_ssize_t) PyObject_Length(PyObject *o);
 /* Return element of 'o' corresponding to the object 'key'. Return NULL
   on failure.
 
-  This is the equivalent of the Python expression: o[key] */
+  This is the equivalent of the MyFRpy expression: o[key] */
 PyAPI_FUNC(PyObject *) PyObject_GetItem(PyObject *o, PyObject *key);
 
 
@@ -319,25 +319,25 @@ PyAPI_FUNC(PyObject *) PyObject_GetItem(PyObject *o, PyObject *key);
 
    Raise an exception and return -1 on failure; return 0 on success.
 
-   This is the equivalent of the Python statement: o[key]=v. */
+   This is the equivalent of the MyFRpy statement: o[key]=v. */
 PyAPI_FUNC(int) PyObject_SetItem(PyObject *o, PyObject *key, PyObject *v);
 
 /* Remove the mapping for the string 'key' from the object 'o'.
    Returns -1 on failure.
 
-   This is equivalent to the Python statement: del o[key]. */
+   This is equivalent to the MyFRpy statement: del o[key]. */
 PyAPI_FUNC(int) PyObject_DelItemString(PyObject *o, const char *key);
 
 /* Delete the mapping for the object 'key' from the object 'o'.
    Returns -1 on failure.
 
-   This is the equivalent of the Python statement: del o[key]. */
+   This is the equivalent of the MyFRpy statement: del o[key]. */
 PyAPI_FUNC(int) PyObject_DelItem(PyObject *o, PyObject *key);
 
 
 /* === Old Buffer API ============================================ */
 
-/* FIXME:  usage of these should all be replaced in Python itself
+/* FIXME:  usage of these should all be replaced in MyFRpy itself
    but for backwards compatibility we will implement them.
    Their usage without a corresponding "unlock" mechanism
    may create issues (but they would already be there). */
@@ -444,108 +444,108 @@ PyAPI_FUNC(int) PyNumber_Check(PyObject *o);
 
 /* Returns the result of adding o1 and o2, or NULL on failure.
 
-   This is the equivalent of the Python expression: o1 + o2. */
+   This is the equivalent of the MyFRpy expression: o1 + o2. */
 PyAPI_FUNC(PyObject *) PyNumber_Add(PyObject *o1, PyObject *o2);
 
 /* Returns the result of subtracting o2 from o1, or NULL on failure.
 
-   This is the equivalent of the Python expression: o1 - o2. */
+   This is the equivalent of the MyFRpy expression: o1 - o2. */
 PyAPI_FUNC(PyObject *) PyNumber_Subtract(PyObject *o1, PyObject *o2);
 
 /* Returns the result of multiplying o1 and o2, or NULL on failure.
 
-   This is the equivalent of the Python expression: o1 * o2. */
+   This is the equivalent of the MyFRpy expression: o1 * o2. */
 PyAPI_FUNC(PyObject *) PyNumber_Multiply(PyObject *o1, PyObject *o2);
 
 #if !defined(Py_LIMITED_API) || Py_LIMITED_API+0 >= 0x03050000
-/* This is the equivalent of the Python expression: o1 @ o2. */
+/* This is the equivalent of the MyFRpy expression: o1 @ o2. */
 PyAPI_FUNC(PyObject *) PyNumber_MatrixMultiply(PyObject *o1, PyObject *o2);
 #endif
 
 /* Returns the result of dividing o1 by o2 giving an integral result,
    or NULL on failure.
 
-   This is the equivalent of the Python expression: o1 // o2. */
+   This is the equivalent of the MyFRpy expression: o1 // o2. */
 PyAPI_FUNC(PyObject *) PyNumber_FloorDivide(PyObject *o1, PyObject *o2);
 
 /* Returns the result of dividing o1 by o2 giving a float result, or NULL on
    failure.
 
-   This is the equivalent of the Python expression: o1 / o2. */
+   This is the equivalent of the MyFRpy expression: o1 / o2. */
 PyAPI_FUNC(PyObject *) PyNumber_TrueDivide(PyObject *o1, PyObject *o2);
 
 /* Returns the remainder of dividing o1 by o2, or NULL on failure.
 
-   This is the equivalent of the Python expression: o1 % o2. */
+   This is the equivalent of the MyFRpy expression: o1 % o2. */
 PyAPI_FUNC(PyObject *) PyNumber_Remainder(PyObject *o1, PyObject *o2);
 
 /* See the built-in function divmod.
 
    Returns NULL on failure.
 
-   This is the equivalent of the Python expression: divmod(o1, o2). */
+   This is the equivalent of the MyFRpy expression: divmod(o1, o2). */
 PyAPI_FUNC(PyObject *) PyNumber_Divmod(PyObject *o1, PyObject *o2);
 
 /* See the built-in function pow. Returns NULL on failure.
 
-   This is the equivalent of the Python expression: pow(o1, o2, o3),
+   This is the equivalent of the MyFRpy expression: pow(o1, o2, o3),
    where o3 is optional. */
 PyAPI_FUNC(PyObject *) PyNumber_Power(PyObject *o1, PyObject *o2,
                                       PyObject *o3);
 
 /* Returns the negation of o on success, or NULL on failure.
 
- This is the equivalent of the Python expression: -o. */
+ This is the equivalent of the MyFRpy expression: -o. */
 PyAPI_FUNC(PyObject *) PyNumber_Negative(PyObject *o);
 
 /* Returns the positive of o on success, or NULL on failure.
 
-   This is the equivalent of the Python expression: +o. */
+   This is the equivalent of the MyFRpy expression: +o. */
 PyAPI_FUNC(PyObject *) PyNumber_Positive(PyObject *o);
 
 /* Returns the absolute value of 'o', or NULL on failure.
 
-   This is the equivalent of the Python expression: abs(o). */
+   This is the equivalent of the MyFRpy expression: abs(o). */
 PyAPI_FUNC(PyObject *) PyNumber_Absolute(PyObject *o);
 
 /* Returns the bitwise negation of 'o' on success, or NULL on failure.
 
-   This is the equivalent of the Python expression: ~o. */
+   This is the equivalent of the MyFRpy expression: ~o. */
 PyAPI_FUNC(PyObject *) PyNumber_Invert(PyObject *o);
 
 /* Returns the result of left shifting o1 by o2 on success, or NULL on failure.
 
-   This is the equivalent of the Python expression: o1 << o2. */
+   This is the equivalent of the MyFRpy expression: o1 << o2. */
 PyAPI_FUNC(PyObject *) PyNumber_Lshift(PyObject *o1, PyObject *o2);
 
 /* Returns the result of right shifting o1 by o2 on success, or NULL on
    failure.
 
-   This is the equivalent of the Python expression: o1 >> o2. */
+   This is the equivalent of the MyFRpy expression: o1 >> o2. */
 PyAPI_FUNC(PyObject *) PyNumber_Rshift(PyObject *o1, PyObject *o2);
 
 /* Returns the result of bitwise and of o1 and o2 on success, or NULL on
    failure.
 
-   This is the equivalent of the Python expression: o1 & o2. */
+   This is the equivalent of the MyFRpy expression: o1 & o2. */
 PyAPI_FUNC(PyObject *) PyNumber_And(PyObject *o1, PyObject *o2);
 
 /* Returns the bitwise exclusive or of o1 by o2 on success, or NULL on failure.
 
-   This is the equivalent of the Python expression: o1 ^ o2. */
+   This is the equivalent of the MyFRpy expression: o1 ^ o2. */
 PyAPI_FUNC(PyObject *) PyNumber_Xor(PyObject *o1, PyObject *o2);
 
 /* Returns the result of bitwise or on o1 and o2 on success, or NULL on
    failure.
 
-   This is the equivalent of the Python expression: o1 | o2. */
+   This is the equivalent of the MyFRpy expression: o1 | o2. */
 PyAPI_FUNC(PyObject *) PyNumber_Or(PyObject *o1, PyObject *o2);
 
 /* Returns 1 if obj is an index integer (has the nb_index slot of the
    tp_as_number structure filled in), and 0 otherwise. */
 PyAPI_FUNC(int) PyIndex_Check(PyObject *);
 
-/* Returns the object 'o' converted to a Python int, or NULL with an exception
+/* Returns the object 'o' converted to a MyFRpy int, or NULL with an exception
    raised on failure. */
 PyAPI_FUNC(PyObject *) PyNumber_Index(PyObject *o);
 
@@ -560,13 +560,13 @@ PyAPI_FUNC(Py_ssize_t) PyNumber_AsSsize_t(PyObject *o, PyObject *exc);
 /* Returns the object 'o' converted to an integer object on success, or NULL
    on failure.
 
-   This is the equivalent of the Python expression: int(o). */
+   This is the equivalent of the MyFRpy expression: int(o). */
 PyAPI_FUNC(PyObject *) PyNumber_Long(PyObject *o);
 
 /* Returns the object 'o' converted to a float object on success, or NULL
   on failure.
 
-  This is the equivalent of the Python expression: float(o). */
+  This is the equivalent of the MyFRpy expression: float(o). */
 PyAPI_FUNC(PyObject *) PyNumber_Float(PyObject *o);
 
 
@@ -575,50 +575,50 @@ PyAPI_FUNC(PyObject *) PyNumber_Float(PyObject *o);
 /* Returns the result of adding o2 to o1, possibly in-place, or NULL
    on failure.
 
-   This is the equivalent of the Python expression: o1 += o2. */
+   This is the equivalent of the MyFRpy expression: o1 += o2. */
 PyAPI_FUNC(PyObject *) PyNumber_InPlaceAdd(PyObject *o1, PyObject *o2);
 
 /* Returns the result of subtracting o2 from o1, possibly in-place or
    NULL on failure.
 
-   This is the equivalent of the Python expression: o1 -= o2. */
+   This is the equivalent of the MyFRpy expression: o1 -= o2. */
 PyAPI_FUNC(PyObject *) PyNumber_InPlaceSubtract(PyObject *o1, PyObject *o2);
 
 /* Returns the result of multiplying o1 by o2, possibly in-place, or NULL on
    failure.
 
-   This is the equivalent of the Python expression: o1 *= o2. */
+   This is the equivalent of the MyFRpy expression: o1 *= o2. */
 PyAPI_FUNC(PyObject *) PyNumber_InPlaceMultiply(PyObject *o1, PyObject *o2);
 
 #if !defined(Py_LIMITED_API) || Py_LIMITED_API+0 >= 0x03050000
-/* This is the equivalent of the Python expression: o1 @= o2. */
+/* This is the equivalent of the MyFRpy expression: o1 @= o2. */
 PyAPI_FUNC(PyObject *) PyNumber_InPlaceMatrixMultiply(PyObject *o1, PyObject *o2);
 #endif
 
 /* Returns the result of dividing o1 by o2 giving an integral result, possibly
    in-place, or NULL on failure.
 
-   This is the equivalent of the Python expression: o1 /= o2. */
+   This is the equivalent of the MyFRpy expression: o1 /= o2. */
 PyAPI_FUNC(PyObject *) PyNumber_InPlaceFloorDivide(PyObject *o1,
                                                    PyObject *o2);
 
 /* Returns the result of dividing o1 by o2 giving a float result, possibly
    in-place, or null on failure.
 
-   This is the equivalent of the Python expression: o1 /= o2. */
+   This is the equivalent of the MyFRpy expression: o1 /= o2. */
 PyAPI_FUNC(PyObject *) PyNumber_InPlaceTrueDivide(PyObject *o1,
                                                   PyObject *o2);
 
 /* Returns the remainder of dividing o1 by o2, possibly in-place, or NULL on
    failure.
 
-   This is the equivalent of the Python expression: o1 %= o2. */
+   This is the equivalent of the MyFRpy expression: o1 %= o2. */
 PyAPI_FUNC(PyObject *) PyNumber_InPlaceRemainder(PyObject *o1, PyObject *o2);
 
 /* Returns the result of raising o1 to the power of o2, possibly in-place,
    or NULL on failure.
 
-   This is the equivalent of the Python expression: o1 **= o2,
+   This is the equivalent of the MyFRpy expression: o1 **= o2,
    or o1 = pow(o1, o2, o3) if o3 is present. */
 PyAPI_FUNC(PyObject *) PyNumber_InPlacePower(PyObject *o1, PyObject *o2,
                                              PyObject *o3);
@@ -626,31 +626,31 @@ PyAPI_FUNC(PyObject *) PyNumber_InPlacePower(PyObject *o1, PyObject *o2,
 /* Returns the result of left shifting o1 by o2, possibly in-place, or NULL
    on failure.
 
-   This is the equivalent of the Python expression: o1 <<= o2. */
+   This is the equivalent of the MyFRpy expression: o1 <<= o2. */
 PyAPI_FUNC(PyObject *) PyNumber_InPlaceLshift(PyObject *o1, PyObject *o2);
 
 /* Returns the result of right shifting o1 by o2, possibly in-place or NULL
    on failure.
 
-   This is the equivalent of the Python expression: o1 >>= o2. */
+   This is the equivalent of the MyFRpy expression: o1 >>= o2. */
 PyAPI_FUNC(PyObject *) PyNumber_InPlaceRshift(PyObject *o1, PyObject *o2);
 
 /* Returns the result of bitwise and of o1 and o2, possibly in-place, or NULL
    on failure.
 
-   This is the equivalent of the Python expression: o1 &= o2. */
+   This is the equivalent of the MyFRpy expression: o1 &= o2. */
 PyAPI_FUNC(PyObject *) PyNumber_InPlaceAnd(PyObject *o1, PyObject *o2);
 
 /* Returns the bitwise exclusive or of o1 by o2, possibly in-place, or NULL
    on failure.
 
-   This is the equivalent of the Python expression: o1 ^= o2. */
+   This is the equivalent of the MyFRpy expression: o1 ^= o2. */
 PyAPI_FUNC(PyObject *) PyNumber_InPlaceXor(PyObject *o1, PyObject *o2);
 
 /* Returns the result of bitwise or of o1 and o2, possibly in-place,
    or NULL on failure.
 
-   This is the equivalent of the Python expression: o1 |= o2. */
+   This is the equivalent of the MyFRpy expression: o1 |= o2. */
 PyAPI_FUNC(PyObject *) PyNumber_InPlaceOr(PyObject *o1, PyObject *o2);
 
 /* Returns the integer n converted to a string with a base, with a base
@@ -679,56 +679,56 @@ PyAPI_FUNC(Py_ssize_t) PySequence_Length(PyObject *o);
 
 /* Return the concatenation of o1 and o2 on success, and NULL on failure.
 
-   This is the equivalent of the Python expression: o1 + o2. */
+   This is the equivalent of the MyFRpy expression: o1 + o2. */
 PyAPI_FUNC(PyObject *) PySequence_Concat(PyObject *o1, PyObject *o2);
 
 /* Return the result of repeating sequence object 'o' 'count' times,
   or NULL on failure.
 
-  This is the equivalent of the Python expression: o * count. */
+  This is the equivalent of the MyFRpy expression: o * count. */
 PyAPI_FUNC(PyObject *) PySequence_Repeat(PyObject *o, Py_ssize_t count);
 
 /* Return the ith element of o, or NULL on failure.
 
-   This is the equivalent of the Python expression: o[i]. */
+   This is the equivalent of the MyFRpy expression: o[i]. */
 PyAPI_FUNC(PyObject *) PySequence_GetItem(PyObject *o, Py_ssize_t i);
 
 /* Return the slice of sequence object o between i1 and i2, or NULL on failure.
 
-   This is the equivalent of the Python expression: o[i1:i2]. */
+   This is the equivalent of the MyFRpy expression: o[i1:i2]. */
 PyAPI_FUNC(PyObject *) PySequence_GetSlice(PyObject *o, Py_ssize_t i1, Py_ssize_t i2);
 
 /* Assign object 'v' to the ith element of the sequence 'o'. Raise an exception
    and return -1 on failure; return 0 on success.
 
-   This is the equivalent of the Python statement o[i] = v. */
+   This is the equivalent of the MyFRpy statement o[i] = v. */
 PyAPI_FUNC(int) PySequence_SetItem(PyObject *o, Py_ssize_t i, PyObject *v);
 
 /* Delete the 'i'-th element of the sequence 'v'. Returns -1 on failure.
 
-   This is the equivalent of the Python statement: del o[i]. */
+   This is the equivalent of the MyFRpy statement: del o[i]. */
 PyAPI_FUNC(int) PySequence_DelItem(PyObject *o, Py_ssize_t i);
 
 /* Assign the sequence object 'v' to the slice in sequence object 'o',
    from 'i1' to 'i2'. Returns -1 on failure.
 
-   This is the equivalent of the Python statement: o[i1:i2] = v. */
+   This is the equivalent of the MyFRpy statement: o[i1:i2] = v. */
 PyAPI_FUNC(int) PySequence_SetSlice(PyObject *o, Py_ssize_t i1, Py_ssize_t i2,
                                     PyObject *v);
 
 /* Delete the slice in sequence object 'o' from 'i1' to 'i2'.
    Returns -1 on failure.
 
-   This is the equivalent of the Python statement: del o[i1:i2]. */
+   This is the equivalent of the MyFRpy statement: del o[i1:i2]. */
 PyAPI_FUNC(int) PySequence_DelSlice(PyObject *o, Py_ssize_t i1, Py_ssize_t i2);
 
 /* Returns the sequence 'o' as a tuple on success, and NULL on failure.
 
-   This is equivalent to the Python expression: tuple(o). */
+   This is equivalent to the MyFRpy expression: tuple(o). */
 PyAPI_FUNC(PyObject *) PySequence_Tuple(PyObject *o);
 
 /* Returns the sequence 'o' as a list on success, and NULL on failure.
-   This is equivalent to the Python expression: list(o) */
+   This is equivalent to the MyFRpy expression: list(o) */
 PyAPI_FUNC(PyObject *) PySequence_List(PyObject *o);
 
 /* Return the sequence 'o' as a list, unless it's already a tuple or list.
@@ -759,7 +759,7 @@ PyAPI_FUNC(PyObject *) PySequence_Fast(PyObject *o, const char* m);
 /* Return the number of occurrences on value on 'o', that is, return
    the number of keys for which o[key] == value.
 
-   On failure, return -1.  This is equivalent to the Python expression:
+   On failure, return -1.  This is equivalent to the MyFRpy expression:
    o.count(value). */
 PyAPI_FUNC(Py_ssize_t) PySequence_Count(PyObject *o, PyObject *value);
 
@@ -774,7 +774,7 @@ PyAPI_FUNC(int) PySequence_Contains(PyObject *seq, PyObject *ob);
 /* Determine if the sequence 'o' contains 'value'. If an item in 'o' is equal
    to 'value', return 1, otherwise return 0. On error, return -1.
 
-   This is equivalent to the Python expression: value in o. */
+   This is equivalent to the MyFRpy expression: value in o. */
 PyAPI_FUNC(int) PySequence_In(PyObject *o, PyObject *value);
 
 /* For source-level backwards compatibility */
@@ -784,7 +784,7 @@ PyAPI_FUNC(int) PySequence_In(PyObject *o, PyObject *value);
 /* Return the first index for which o[i] == value.
    On error, return -1.
 
-   This is equivalent to the Python expression: o.index(value). */
+   This is equivalent to the MyFRpy expression: o.index(value). */
 PyAPI_FUNC(Py_ssize_t) PySequence_Index(PyObject *o, PyObject *value);
 
 
@@ -793,13 +793,13 @@ PyAPI_FUNC(Py_ssize_t) PySequence_Index(PyObject *o, PyObject *value);
 /* Append sequence 'o2' to sequence 'o1', in-place when possible. Return the
    resulting object, which could be 'o1', or NULL on failure.
 
-  This is the equivalent of the Python expression: o1 += o2. */
+  This is the equivalent of the MyFRpy expression: o1 += o2. */
 PyAPI_FUNC(PyObject *) PySequence_InPlaceConcat(PyObject *o1, PyObject *o2);
 
 /* Repeat sequence 'o' by 'count', in-place when possible. Return the resulting
    object, which could be 'o', or NULL on failure.
 
-   This is the equivalent of the Python expression: o1 *= count.  */
+   This is the equivalent of the MyFRpy expression: o1 *= count.  */
 PyAPI_FUNC(PyObject *) PySequence_InPlaceRepeat(PyObject *o, Py_ssize_t count);
 
 
@@ -811,7 +811,7 @@ PyAPI_FUNC(PyObject *) PySequence_InPlaceRepeat(PyObject *o, Py_ssize_t count);
 PyAPI_FUNC(int) PyMapping_Check(PyObject *o);
 
 /* Returns the number of keys in mapping object 'o' on success, and -1 on
-  failure. This is equivalent to the Python expression: len(o). */
+  failure. This is equivalent to the MyFRpy expression: len(o). */
 PyAPI_FUNC(Py_ssize_t) PyMapping_Size(PyObject *o);
 
 /* For DLL compatibility */
@@ -827,7 +827,7 @@ PyAPI_FUNC(Py_ssize_t) PyMapping_Length(PyObject *o);
    Remove the mapping for the string 'key' from the mapping 'o'. Returns -1 on
    failure.
 
-   This is equivalent to the Python statement: del o[key]. */
+   This is equivalent to the MyFRpy statement: del o[key]. */
 #define PyMapping_DelItemString(O, K) PyObject_DelItemString((O), (K))
 
 /* Implemented as a macro:
@@ -837,20 +837,20 @@ PyAPI_FUNC(Py_ssize_t) PyMapping_Length(PyObject *o);
    Remove the mapping for the object 'key' from the mapping object 'o'.
    Returns -1 on failure.
 
-   This is equivalent to the Python statement: del o[key]. */
+   This is equivalent to the MyFRpy statement: del o[key]. */
 #define PyMapping_DelItem(O, K) PyObject_DelItem((O), (K))
 
 /* On success, return 1 if the mapping object 'o' has the key 'key',
    and 0 otherwise.
 
-   This is equivalent to the Python expression: key in o.
+   This is equivalent to the MyFRpy expression: key in o.
 
    This function always succeeds. */
 PyAPI_FUNC(int) PyMapping_HasKeyString(PyObject *o, const char *key);
 
 /* Return 1 if the mapping object has the key 'key', and 0 otherwise.
 
-   This is equivalent to the Python expression: key in o.
+   This is equivalent to the MyFRpy expression: key in o.
 
    This function always succeeds. */
 PyAPI_FUNC(int) PyMapping_HasKey(PyObject *o, PyObject *key);
@@ -870,14 +870,14 @@ PyAPI_FUNC(PyObject *) PyMapping_Items(PyObject *o);
 
 /* Return element of 'o' corresponding to the string 'key' or NULL on failure.
 
-   This is the equivalent of the Python expression: o[key]. */
+   This is the equivalent of the MyFRpy expression: o[key]. */
 PyAPI_FUNC(PyObject *) PyMapping_GetItemString(PyObject *o,
                                                const char *key);
 
 /* Map the string 'key' to the value 'v' in the mapping 'o'.
    Returns -1 on failure.
 
-   This is the equivalent of the Python statement: o[key]=v. */
+   This is the equivalent of the MyFRpy statement: o[key]=v. */
 PyAPI_FUNC(int) PyMapping_SetItemString(PyObject *o, const char *key,
                                         PyObject *value);
 
@@ -888,9 +888,9 @@ PyAPI_FUNC(int) PyObject_IsInstance(PyObject *object, PyObject *typeorclass);
 PyAPI_FUNC(int) PyObject_IsSubclass(PyObject *object, PyObject *typeorclass);
 
 #ifndef Py_LIMITED_API
-#  define Py_CPYTHON_ABSTRACTOBJECT_H
-#  include "cpython/abstract.h"
-#  undef Py_CPYTHON_ABSTRACTOBJECT_H
+#  define Py_CMYFRPY_ABSTRACTOBJECT_H
+#  include "cmyFRpy/abstract.h"
+#  undef Py_CMYFRPY_ABSTRACTOBJECT_H
 #endif
 
 #ifdef __cplusplus

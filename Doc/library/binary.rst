@@ -13,7 +13,7 @@ Some libraries described under :ref:`textservices` also work with either
 ASCII-compatible binary formats (for example, :mod:`re`) or all binary data
 (for example, :mod:`difflib`).
 
-In addition, see the documentation for Python's built-in binary data types in
+In addition, see the documentation for MyFRpy's built-in binary data types in
 :ref:`binaryseq`.
 
 .. toctree::

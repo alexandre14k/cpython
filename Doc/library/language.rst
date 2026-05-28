@@ -1,10 +1,10 @@
 .. _language:
 
 ************************
-Python Language Services
+MyFRpy Language Services
 ************************
 
-Python provides a number of modules to assist in working with the Python
+MyFRpy provides a number of modules to assist in working with the MyFRpy
 language.  These modules support tokenizing, parsing, syntax analysis, bytecode
 disassembly, and various other facilities.
 

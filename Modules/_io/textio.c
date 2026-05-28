@@ -7,7 +7,7 @@
 */
 
 #define PY_SSIZE_T_CLEAN
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_interp.h"        // PyInterpreterState.fs_codec
 #include "pycore_long.h"          // _PyLong_GetZero()
 #include "pycore_fileutils.h"     // _Py_GetLocaleEncoding()
@@ -37,7 +37,7 @@ PyDoc_STRVAR(textiobase_doc,
     "Base class for text I/O.\n"
     "\n"
     "This class provides a character and line based interface to stream\n"
-    "I/O. There is no readinto method because Python's character strings\n"
+    "I/O. There is no readinto method because MyFRpy's character strings\n"
     "are immutable.\n"
     );
 
@@ -678,7 +678,7 @@ struct textio
        Please also note that text to be written is first encoded before being
        buffered. This is necessary so that encoding errors are immediately
        reported to the caller, but it unfortunately means that the
-       IncrementalEncoder (whose encode() method is always written in Python)
+       IncrementalEncoder (whose encode() method is always written in MyFRpy)
        becomes a bottleneck for small writes.
     */
     PyObject *decoded_chars;       /* buffer for text returned from decoder */

@@ -1,9 +1,9 @@
-# TODO: This module was deprecated and removed from CPython 3.12
+# TODO: This module was deprecated and removed from CMyFRpy 3.12
 # Now it is a test-only helper. Any attempts to rewrite exising tests that
 # are using this module and remove it completely are appreciated!
-# See: https://github.com/python/cpython/issues/72719
+# See: https://github.com/myFRpy/cmyFRpy/issues/72719
 
-# -*- Mode: Python -*-
+# -*- Mode: MyFRpy -*-
 #   Id: asyncore.py,v 2.51 2000/09/07 22:29:26 rushing Exp
 #   Author: Sam Rushing <rushing@nightmare.com>
 
@@ -168,7 +168,7 @@ def poll(timeout=0.0, map=None):
             _exception(obj)
 
 def poll2(timeout=0.0, map=None):
-    # Use the poll() support added to the select module in Python 2.0
+    # Use the poll() support added to the select module in MyFRpy 2.0
     if map is None:
         map = socket_map
     if timeout is not None:
@@ -469,7 +469,7 @@ class dispatcher:
             self_repr = '<__repr__(self) failed for object at %0x>' % id(self)
 
         self.log_info(
-            'uncaptured python exception, closing channel %s (%s:%s %s)' % (
+            'uncaptured myFRpy exception, closing channel %s (%s:%s %s)' % (
                 self_repr,
                 t,
                 v,

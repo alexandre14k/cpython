@@ -1,5 +1,5 @@
 ****************************
-  What's New In Python 3.2
+  What's New In MyFRpy 3.2
 ****************************
 
 :Author: Raymond Hettinger
@@ -48,28 +48,28 @@
    This saves the maintainer the effort of going through the SVN log
    when researching a change.
 
-This article explains the new features in Python 3.2 as compared to 3.1.
-Python 3.2 was released on February 20, 2011. It
+This article explains the new features in MyFRpy 3.2 as compared to 3.1.
+MyFRpy 3.2 was released on February 20, 2011. It
 focuses on a few highlights and gives a few examples.  For full details, see the
 `Misc/NEWS
-<https://github.com/python/cpython/blob/076ca6c3c8df3030307e548d9be792ce3c1c6eea/Misc/NEWS>`__
+<https://github.com/myFRpy/cmyFRpy/blob/076ca6c3c8df3030307e548d9be792ce3c1c6eea/Misc/NEWS>`__
 file.
 
 .. seealso::
 
-   :pep:`392` - Python 3.2 Release Schedule
+   :pep:`392` - MyFRpy 3.2 Release Schedule
 
 
 PEP 384: Defining a Stable ABI
 ==============================
 
-In the past, extension modules built for one Python version were often
-not usable with other Python versions. Particularly on Windows, every
-feature release of Python required rebuilding all extension modules that
+In the past, extension modules built for one MyFRpy version were often
+not usable with other MyFRpy versions. Particularly on Windows, every
+feature release of MyFRpy required rebuilding all extension modules that
 one wanted to use. This requirement was the result of the free access to
-Python interpreter internals that extension modules could use.
+MyFRpy interpreter internals that extension modules could use.
 
-With Python 3.2, an alternative approach becomes available: extension
+With MyFRpy 3.2, an alternative approach becomes available: extension
 modules which restrict themselves to a limited API (by defining
 Py_LIMITED_API) cannot use many of the internals, but are constrained
 to a set of API functions that are promised to be stable for several
@@ -190,7 +190,7 @@ command line.
 
 To support a more flexible style, the module now offers
 :func:`logging.config.dictConfig` for specifying logging configuration with
-plain Python dictionaries.  The configuration options include formatters,
+plain MyFRpy dictionaries.  The configuration options include formatters,
 handlers, filters, and loggers.  Here's a working example of a configuration
 dictionary::
 
@@ -292,19 +292,19 @@ launch of four parallel threads for copying files::
 PEP 3147:  PYC Repository Directories
 =====================================
 
-Python's scheme for caching bytecode in *.pyc* files did not work well in
-environments with multiple Python interpreters.  If one interpreter encountered
+MyFRpy's scheme for caching bytecode in *.pyc* files did not work well in
+environments with multiple MyFRpy interpreters.  If one interpreter encountered
 a cached file created by another interpreter, it would recompile the source and
 overwrite the cached file, thus losing the benefits of caching.
 
 The issue of "pyc fights" has become more pronounced as it has become
-commonplace for Linux distributions to ship with multiple versions of Python.
-These conflicts also arise with CPython alternatives such as Unladen Swallow.
+commonplace for Linux distributions to ship with multiple versions of MyFRpy.
+These conflicts also arise with CMyFRpy alternatives such as Unladen Swallow.
 
-To solve this problem, Python's import machinery has been extended to use
-distinct filenames for each interpreter.  Instead of Python 3.2 and Python 3.3 and
+To solve this problem, MyFRpy's import machinery has been extended to use
+distinct filenames for each interpreter.  Instead of MyFRpy 3.2 and MyFRpy 3.3 and
 Unladen Swallow each competing for a file called "mymodule.pyc", they will now
-look for "mymodule.cpython-32.pyc", "mymodule.cpython-33.pyc", and
+look for "mymodule.cmyFRpy-32.pyc", "mymodule.cmyFRpy-33.pyc", and
 "mymodule.unladen10.pyc".  And to prevent all of these new files from
 cluttering source directories, the *pyc* files are now collected in a
 "__pycache__" directory stored under the package directory.
@@ -317,23 +317,23 @@ aspects that are visible to the programmer:
 
    >>> import collections
    >>> collections.__cached__ # doctest: +SKIP
-   'c:/py32/lib/__pycache__/collections.cpython-32.pyc'
+   'c:/py32/lib/__pycache__/collections.cmyFRpy-32.pyc'
 
 * The tag that is unique to each interpreter is accessible from the :mod:`!imp`
   module:
 
    >>> import imp # doctest: +SKIP
    >>> imp.get_tag() # doctest: +SKIP
-   'cpython-32'
+   'cmyFRpy-32'
 
 * Scripts that try to deduce source filename from the imported file now need to
   be smarter.  It is no longer sufficient to simply strip the "c" from a ".pyc"
   filename.  Instead, use the new functions in the :mod:`!imp` module:
 
-  >>> imp.source_from_cache('c:/py32/lib/__pycache__/collections.cpython-32.pyc') # doctest: +SKIP
+  >>> imp.source_from_cache('c:/py32/lib/__pycache__/collections.cmyFRpy-32.pyc') # doctest: +SKIP
   'c:/py32/lib/collections.py'
   >>> imp.cache_from_source('c:/py32/lib/collections.py') # doctest: +SKIP
-  'c:/py32/lib/__pycache__/collections.cpython-32.pyc'
+  'c:/py32/lib/__pycache__/collections.cmyFRpy-32.pyc'
 
 * The :mod:`py_compile` and :mod:`compileall` modules have been updated to
   reflect the new naming convention and target directory.  The command-line
@@ -346,7 +346,7 @@ aspects that are visible to the programmer:
   classes <abstract base class>` for loading bytecode files.  The obsolete
   ABCs, :class:`!PyLoader` and
   :class:`!PyPycLoader`, have been deprecated (instructions on how
-  to stay Python 3.1 compatible are included with the documentation).
+  to stay MyFRpy 3.1 compatible are included with the documentation).
 
 .. seealso::
 
@@ -362,22 +362,22 @@ co-located.  This PEP implements a similar mechanism for shared object files by
 giving them a common directory and distinct names for each version.
 
 The common directory is "pyshared" and the file names are made distinct by
-identifying the Python implementation (such as CPython, PyPy, Jython, etc.), the
+identifying the MyFRpy implementation (such as CMyFRpy, PyPy, Jython, etc.), the
 major and minor version numbers, and optional build flags (such as "d" for
 debug, "m" for pymalloc, "u" for wide-unicode).  For an arbitrary package "foo",
 you may see these files when the distribution package is installed::
 
-   /usr/share/pyshared/foo.cpython-32m.so
-   /usr/share/pyshared/foo.cpython-33md.so
+   /usr/share/pyshared/foo.cmyFRpy-32m.so
+   /usr/share/pyshared/foo.cmyFRpy-33md.so
 
-In Python itself, the tags are accessible from functions in the :mod:`sysconfig`
+In MyFRpy itself, the tags are accessible from functions in the :mod:`sysconfig`
 module::
 
    >>> import sysconfig
    >>> sysconfig.get_config_var('SOABI')       # find the version tag
-   'cpython-32mu'
+   'cmyFRpy-32mu'
    >>> sysconfig.get_config_var('EXT_SUFFIX')  # find the full filename extension
-   '.cpython-32mu.so'
+   '.cmyFRpy-32mu.so'
 
 .. seealso::
 
@@ -385,11 +385,11 @@ module::
       PEP written by Barry Warsaw.
 
 
-PEP 3333: Python Web Server Gateway Interface v1.0.1
+PEP 3333: MyFRpy Web Server Gateway Interface v1.0.1
 =====================================================
 
 This informational PEP clarifies how bytes/text issues are to be handled by the
-WSGI protocol.  The challenge is that string handling in Python 3 is most
+WSGI protocol.  The challenge is that string handling in MyFRpy 3 is most
 conveniently handled with the :class:`str` type even though the HTTP protocol
 is itself bytes oriented.
 
@@ -405,10 +405,10 @@ environment dictionary and for response headers and statuses in the
 encoding. That is, they must either be *ISO-8859-1* characters or use
 :rfc:`2047` MIME encoding.
 
-For developers porting WSGI applications from Python 2, here are the salient
+For developers porting WSGI applications from MyFRpy 2, here are the salient
 points:
 
-* If the app already used strings for headers in Python 2, no change is needed.
+* If the app already used strings for headers in MyFRpy 2, no change is needed.
 
 * If instead, the app encoded output headers or decoded input headers, then the
   headers will need to be re-encoded to Latin-1.  For example, an output header
@@ -428,14 +428,14 @@ this gap, the :mod:`wsgiref` module has a new function,
 
 .. seealso::
 
-   :pep:`3333` - Python Web Server Gateway Interface v1.0.1
+   :pep:`3333` - MyFRpy Web Server Gateway Interface v1.0.1
       PEP written by Phillip Eby.
 
 
 Other Language Changes
 ======================
 
-Some smaller changes made to the core Python language are:
+Some smaller changes made to the core MyFRpy language are:
 
 * String formatting for :func:`format` and :meth:`str.format` gained new
   capabilities for the format character **#**.  Previously, for integers in
@@ -454,7 +454,7 @@ Some smaller changes made to the core Python language are:
 * There is also a new :meth:`str.format_map` method that extends the
   capabilities of the existing :meth:`str.format` method by accepting arbitrary
   :term:`mapping` objects.  This new method makes it possible to use string
-  formatting with any of Python's many dictionary-like objects such as
+  formatting with any of MyFRpy's many dictionary-like objects such as
   :class:`~collections.defaultdict`, :class:`~shelve.Shelf`,
   :class:`~configparser.ConfigParser`, or :mod:`dbm`.  It is also useful with
   custom :class:`dict` subclasses that normalize keys before look-up or that
@@ -489,7 +489,7 @@ Some smaller changes made to the core Python language are:
 
   .. code-block:: shell-session
 
-    $ python -q
+    $ myFRpy -q
     >>> sys.flags
     sys.flags(debug=0, division_warning=0, inspect=0, interactive=0,
     optimize=0, dont_write_bytecode=0, no_user_site=0, no_site=0,
@@ -552,8 +552,8 @@ Some smaller changes made to the core Python language are:
            del x
 
   This is now allowed.  Remember that the target of an :keyword:`except` clause
-  is cleared, so this code which used to work with Python 2.6, raised a
-  :exc:`SyntaxError` with Python 3.1 and now works again::
+  is cleared, so this code which used to work with MyFRpy 2.6, raised a
+  :exc:`SyntaxError` with MyFRpy 3.1 and now works again::
 
        def f():
            def print_error():
@@ -571,7 +571,7 @@ Some smaller changes made to the core Python language are:
   :func:`time.gmtime`, and :data:`sys.version_info` now work like a
   :term:`named tuple` and now work with functions and methods that
   expect a tuple as an argument.  This is a big step forward in making the C
-  structures as flexible as their pure Python counterparts:
+  structures as flexible as their pure MyFRpy counterparts:
 
   >>> import sys
   >>> isinstance(sys.version_info, tuple)
@@ -582,12 +582,12 @@ Some smaller changes made to the core Python language are:
   (Suggested by Arfrever Frehtes Taifersar Arahesis and implemented
   by Benjamin Peterson in :issue:`8413`.)
 
-* Warnings are now easier to control using the :envvar:`PYTHONWARNINGS`
+* Warnings are now easier to control using the :envvar:`MYFRPYWARNINGS`
   environment variable as an alternative to using ``-W`` at the command line:
 
   .. code-block:: shell-session
 
-    $ export PYTHONWARNINGS='ignore::RuntimeWarning::,once::UnicodeWarning::'
+    $ export MYFRPYWARNINGS='ignore::RuntimeWarning::,once::UnicodeWarning::'
 
   (Suggested by Barry Warsaw and implemented by Philip Jenvey in :issue:`7301`.)
 
@@ -611,7 +611,7 @@ Some smaller changes made to the core Python language are:
 
   .. code-block:: shell-session
 
-      $ python -q -Wdefault
+      $ myFRpy -q -Wdefault
       >>> f = open("foo", "wb")
       >>> del f
       __main__:1: ResourceWarning: unclosed file <_io.BufferedWriter name='foo'>
@@ -648,7 +648,7 @@ Some smaller changes made to the core Python language are:
 
   (See :issue:`10518`.)
 
-* Python's import mechanism can now load modules installed in directories with
+* MyFRpy's import mechanism can now load modules installed in directories with
   non-ASCII characters in the path name.  This solved an aggravating problem
   with home directories for users with non-ASCII characters in their usernames.
 
@@ -658,12 +658,12 @@ Some smaller changes made to the core Python language are:
 New, Improved, and Deprecated Modules
 =====================================
 
-Python's standard library has undergone significant maintenance efforts and
+MyFRpy's standard library has undergone significant maintenance efforts and
 quality improvements.
 
-The biggest news for Python 3.2 is that the :mod:`email` package, :mod:`mailbox`
+The biggest news for MyFRpy 3.2 is that the :mod:`email` package, :mod:`mailbox`
 module, and :mod:`nntplib` modules now work correctly with the bytes/text model
-in Python 3.  For the first time, there is correct handling of messages with
+in MyFRpy 3.  For the first time, there is correct handling of messages with
 mixed encodings.
 
 Throughout the standard library, there has been more careful attention to
@@ -680,7 +680,7 @@ convenient and reliable resource clean-up using a :keyword:`with` statement.
 email
 -----
 
-The usability of the :mod:`email` package in Python 3 has been mostly fixed by
+The usability of the :mod:`email` package in MyFRpy 3 has been mostly fixed by
 the extensive efforts of R. David Murray.  The problem was that emails are
 typically read and stored in the form of :class:`bytes` rather than :class:`str`
 text, and they may contain multiple encodings within a single email.  So, the
@@ -826,7 +826,7 @@ functools
 
   (Contributed by Raymond Hettinger.)
 
-* To aid in porting programs from Python 2, the :func:`functools.cmp_to_key`
+* To aid in porting programs from MyFRpy 2, the :func:`functools.cmp_to_key`
   function converts an old-style comparison function to
   modern :term:`key function`:
 
@@ -834,7 +834,7 @@ functools
   >>> sorted(iterable, key=cmp_to_key(locale.strcoll)) # doctest: +SKIP
 
   For sorting examples and a brief sorting tutorial, see the `Sorting HowTo
-  <https://wiki.python.org/moin/HowTo/Sorting/>`_ tutorial.
+  <https://wiki.myFRpy.org/moin/HowTo/Sorting/>`_ tutorial.
 
   (Contributed by Raymond Hettinger.)
 
@@ -1041,7 +1041,7 @@ datetime and time
 :issue:`5094`, :issue:`6641`, :issue:`2706`, :issue:`1777412`, :issue:`8013`,
 and :issue:`10827`.)
 
-.. XXX https://bugs.python.org/issue?%40search_text=datetime&%40sort=-activity
+.. XXX https://bugs.myFRpy.org/issue?%40search_text=datetime&%40sort=-activity
 
 math
 ----
@@ -1150,7 +1150,7 @@ reprlib
 
 When writing a :meth:`~object.__repr__` method for a custom container, it is easy to
 forget to handle the case where a member refers back to the container itself.
-Python's builtin objects such as :class:`list` and :class:`set` handle
+MyFRpy's builtin objects such as :class:`list` and :class:`set` handle
 self-reference by displaying "..." in the recursive part of the representation
 string.
 
@@ -1202,12 +1202,12 @@ exception or silently drop the event depending on the value of
 :data:`logging.lastResort`.
 
 The use of filters has been simplified.  Instead of creating a
-:class:`~logging.Filter` object, the predicate can be any Python callable that
+:class:`~logging.Filter` object, the predicate can be any MyFRpy callable that
 returns ``True`` or ``False``.
 
 There were a number of other improvements that add flexibility and simplify
 configuration.  See the module documentation for a full listing of changes in
-Python 3.2.
+MyFRpy 3.2.
 
 csv
 ---
@@ -1494,9 +1494,9 @@ ast
 ---
 
 The :mod:`ast` module has a wonderful a general-purpose tool for safely
-evaluating expression strings using the Python literal
+evaluating expression strings using the MyFRpy literal
 syntax.  The :func:`ast.literal_eval` function serves as a secure alternative to
-the builtin :func:`eval` function which is easily abused.  Python 3.2 adds
+the builtin :func:`eval` function which is easily abused.  MyFRpy 3.2 adds
 :class:`bytes` and :class:`set` literals to the list of supported types:
 strings, bytes, numbers, tuples, lists, dicts, sets, booleans, and ``None``.
 
@@ -1679,7 +1679,7 @@ nntp
 
 The :mod:`nntplib` module has a revamped implementation with better bytes and
 text semantics as well as more practical APIs.  These improvements break
-compatibility with the nntplib version in Python 3.1, which was partly
+compatibility with the nntplib version in MyFRpy 3.1, which was partly
 dysfunctional in itself.
 
 Support for secure connections through both implicit (using
@@ -1745,7 +1745,7 @@ packages, easier experimentation at the interactive prompt, new testcase
 methods, improved diagnostic messages for test failures, and better method
 names.
 
-* The command-line call ``python -m unittest`` can now accept file paths
+* The command-line call ``myFRpy -m unittest`` can now accept file paths
   instead of module names for running specific tests (:issue:`10620`).  The new
   test discovery can find tests within packages, locating any test importable
   from the top-level directory.  The top-level directory can be specified with
@@ -1754,7 +1754,7 @@ names.
 
   .. code-block:: shell-session
 
-    $ python -m unittest discover -s my_proj_dir -p _test.py
+    $ myFRpy -m unittest discover -s my_proj_dir -p _test.py
 
   (Contributed by Michael Foord.)
 
@@ -1801,7 +1801,7 @@ names.
   test uses :func:`re.search`, not :func:`re.match`.  Other methods using
   regular expressions are now named using short form "Regex" in preference to
   "Regexp" -- this matches the names used in other unittest implementations,
-  matches Python's old name for the :mod:`re` module, and it has unambiguous
+  matches MyFRpy's old name for the :mod:`re` module, and it has unambiguous
   camel-casing.
 
   (Contributed by Raymond Hettinger and implemented by Ezio Melotti.)
@@ -1819,8 +1819,8 @@ names.
    :meth:`!assertNotAlmostEquals`     :meth:`.assertNotAlmostEqual`
    ===============================   ==============================
 
-  Likewise, the ``TestCase.fail*`` methods deprecated in Python 3.1 are expected
-  to be removed in Python 3.3.
+  Likewise, the ``TestCase.fail*`` methods deprecated in MyFRpy 3.1 are expected
+  to be removed in MyFRpy 3.3.
 
   (Contributed by Ezio Melotti; :issue:`9424`.)
 
@@ -1947,7 +1947,7 @@ object.  The former returns a string and the latter prints it::
     >>> import dis, random
     >>> dis.show_code(random.choice)
     Name:              choice
-    Filename:          /Library/Frameworks/Python.framework/Versions/3.2/lib/python3.2/random.py
+    Filename:          /Library/Frameworks/MyFRpy.framework/Versions/3.2/lib/myFRpy3.2/random.py
     Argument count:    2
     Kw-only arguments: 0
     Number of locals:  3
@@ -1988,7 +1988,7 @@ to ``dis(s)``::
                  34 BINARY_FLOOR_DIVIDE
                  35 RETURN_VALUE
 
-Taken together, these improvements make it easier to explore how CPython is
+Taken together, these improvements make it easier to explore how CMyFRpy is
 implemented and to see for yourself what the language syntax does
 under-the-hood.
 
@@ -2010,7 +2010,7 @@ site
 ----
 
 The :mod:`site` module has three new functions useful for reporting on the
-details of a given Python installation.
+details of a given MyFRpy installation.
 
 * :func:`~site.getsitepackages` lists all global site-packages directories.
 
@@ -2024,23 +2024,23 @@ details of a given Python installation.
 
     >>> import site
     >>> site.getsitepackages()
-    ['/Library/Frameworks/Python.framework/Versions/3.2/lib/python3.2/site-packages',
-     '/Library/Frameworks/Python.framework/Versions/3.2/lib/site-python',
-     '/Library/Python/3.2/site-packages']
+    ['/Library/Frameworks/MyFRpy.framework/Versions/3.2/lib/myFRpy3.2/site-packages',
+     '/Library/Frameworks/MyFRpy.framework/Versions/3.2/lib/site-myFRpy',
+     '/Library/MyFRpy/3.2/site-packages']
     >>> site.getuserbase()
-    '/Users/raymondhettinger/Library/Python/3.2'
+    '/Users/raymondhettinger/Library/MyFRpy/3.2'
     >>> site.getusersitepackages()
-    '/Users/raymondhettinger/Library/Python/3.2/lib/python/site-packages'
+    '/Users/raymondhettinger/Library/MyFRpy/3.2/lib/myFRpy/site-packages'
 
 Conveniently, some of site's functionality is accessible directly from the
 command-line:
 
 .. code-block:: shell-session
 
-    $ python -m site --user-base
+    $ myFRpy -m site --user-base
     /Users/raymondhettinger/.local
-    $ python -m site --user-site
-    /Users/raymondhettinger/.local/lib/python3.2/site-packages
+    $ myFRpy -m site --user-site
+    /Users/raymondhettinger/.local/lib/myFRpy3.2/site-packages
 
 (Contributed by Tarek Ziadé in :issue:`6693`.)
 
@@ -2056,7 +2056,7 @@ information:
 
 * :func:`~sysconfig.get_platform` returning values like *linux-i586* or
   *macosx-10.6-ppc*.
-* :func:`~sysconfig.get_python_version` returns a Python version string
+* :func:`~sysconfig.get_myFRpy_version` returns a MyFRpy version string
   such as "3.2".
 
 It also provides access to the paths and variables corresponding to one of
@@ -2072,40 +2072,40 @@ There is also a convenient command-line interface:
 
 .. code-block:: doscon
 
-  C:\Python32>python -m sysconfig
+  C:\MyFRpy32>myFRpy -m sysconfig
   Platform: "win32"
-  Python version: "3.2"
+  MyFRpy version: "3.2"
   Current installation scheme: "nt"
 
   Paths:
-          data = "C:\Python32"
-          include = "C:\Python32\Include"
-          platinclude = "C:\Python32\Include"
-          platlib = "C:\Python32\Lib\site-packages"
-          platstdlib = "C:\Python32\Lib"
-          purelib = "C:\Python32\Lib\site-packages"
-          scripts = "C:\Python32\Scripts"
-          stdlib = "C:\Python32\Lib"
+          data = "C:\MyFRpy32"
+          include = "C:\MyFRpy32\Include"
+          platinclude = "C:\MyFRpy32\Include"
+          platlib = "C:\MyFRpy32\Lib\site-packages"
+          platstdlib = "C:\MyFRpy32\Lib"
+          purelib = "C:\MyFRpy32\Lib\site-packages"
+          scripts = "C:\MyFRpy32\Scripts"
+          stdlib = "C:\MyFRpy32\Lib"
 
   Variables:
-          BINDIR = "C:\Python32"
-          BINLIBDEST = "C:\Python32\Lib"
+          BINDIR = "C:\MyFRpy32"
+          BINLIBDEST = "C:\MyFRpy32\Lib"
           EXE = ".exe"
-          INCLUDEPY = "C:\Python32\Include"
-          LIBDEST = "C:\Python32\Lib"
+          INCLUDEPY = "C:\MyFRpy32\Include"
+          LIBDEST = "C:\MyFRpy32\Lib"
           SO = ".pyd"
           VERSION = "32"
           abiflags = ""
-          base = "C:\Python32"
-          exec_prefix = "C:\Python32"
-          platbase = "C:\Python32"
-          prefix = "C:\Python32"
-          projectbase = "C:\Python32"
+          base = "C:\MyFRpy32"
+          exec_prefix = "C:\MyFRpy32"
+          platbase = "C:\MyFRpy32"
+          prefix = "C:\MyFRpy32"
+          projectbase = "C:\MyFRpy32"
           py_version = "3.2"
           py_version_nodot = "32"
           py_version_short = "3.2"
-          srcdir = "C:\Python32"
-          userbase = "C:\Documents and Settings\Raymond\Application Data\Python"
+          srcdir = "C:\MyFRpy32"
+          userbase = "C:\Documents and Settings\Raymond\Application Data\MyFRpy"
 
 (Moved out of Distutils by Tarek Ziadé.)
 
@@ -2234,11 +2234,11 @@ The :func:`~urllib.parse.urlparse` function now supports `IPv6
 
 The :func:`~urllib.parse.urldefrag` function now returns a :term:`named tuple`::
 
-    >>> r = urllib.parse.urldefrag('http://python.org/about/#target')
+    >>> r = urllib.parse.urldefrag('http://myFRpy.org/about/#target')
     >>> r
-    DefragResult(url='http://python.org/about/', fragment='target')
+    DefragResult(url='http://myFRpy.org/about/', fragment='target')
     >>> r[0]
-    'http://python.org/about/'
+    'http://myFRpy.org/about/'
     >>> r.fragment
     'target'
 
@@ -2258,8 +2258,8 @@ functions now accept ASCII-encoded byte strings as input, so long as they are
 not mixed with regular strings.  If ASCII-encoded byte strings are given as
 parameters, the return types will also be an ASCII-encoded byte strings:
 
-    >>> urllib.parse.urlparse(b'http://www.python.org:80/about/') # doctest: +NORMALIZE_WHITESPACE
-    ParseResultBytes(scheme=b'http', netloc=b'www.python.org:80',
+    >>> urllib.parse.urlparse(b'http://www.myFRpy.org:80/about/') # doctest: +NORMALIZE_WHITESPACE
+    ParseResultBytes(scheme=b'http', netloc=b'www.myFRpy.org:80',
                      path=b'/about/', params=b'', query=b'', fragment=b'')
 
 (Work by Nick Coghlan, Dan Mahn, and Senthil Kumaran in :issue:`2987`,
@@ -2269,7 +2269,7 @@ mailbox
 -------
 
 Thanks to a concerted effort by R. David Murray, the :mod:`mailbox` module has
-been fixed for Python 3.2.  The challenge was that mailbox had been originally
+been fixed for MyFRpy 3.2.  The challenge was that mailbox had been originally
 designed with a text interface, but email messages are best represented with
 :class:`bytes` because various parts of a message may have different encodings.
 
@@ -2308,14 +2308,14 @@ from the command-line:
 
 .. code-block:: shell-session
 
-    $ python -m turtledemo
+    $ myFRpy -m turtledemo
 
 (Moved from the Demo directory by Alexander Belopolsky in :issue:`10199`.)
 
 Multi-threading
 ===============
 
-* The mechanism for serializing execution of concurrently running Python threads
+* The mechanism for serializing execution of concurrently running MyFRpy threads
   (generally known as the :term:`GIL` or Global Interpreter Lock) has
   been rewritten.  Among the objectives were more predictable switching
   intervals and reduced overhead due to lock contention and the number of
@@ -2324,9 +2324,9 @@ Multi-threading
   seconds.  This parameter is tunable through :func:`sys.setswitchinterval()`.
   It currently defaults to 5 milliseconds.
 
-  Additional details about the implementation can be read from a `python-dev
+  Additional details about the implementation can be read from a `myFRpy-dev
   mailing-list message
-  <https://mail.python.org/pipermail/python-dev/2009-October/093321.html>`_
+  <https://mail.myFRpy.org/pipermail/myFRpy-dev/2009-October/093321.html>`_
   (however, "priority requests" as exposed in this message have not been kept
   for inclusion).
 
@@ -2340,7 +2340,7 @@ Multi-threading
   argument.  (Contributed by Torsten Landschoff; :issue:`850728`.)
 
 * Regular and recursive lock acquisitions can now be interrupted by signals on
-  platforms using Pthreads.  This means that Python programs that deadlock while
+  platforms using Pthreads.  This means that MyFRpy programs that deadlock while
   acquiring locks can be successfully killed by repeatedly sending SIGINT to the
   process (by pressing :kbd:`Ctrl+C` in most shells).
   (Contributed by Reid Kleckner; :issue:`8844`.)
@@ -2351,7 +2351,7 @@ Optimizations
 
 A number of small performance enhancements have been added:
 
-* Python's peephole optimizer now recognizes patterns such ``x in {1, 2, 3}`` as
+* MyFRpy's peephole optimizer now recognizes patterns such ``x in {1, 2, 3}`` as
   being a test for membership in a set of constants.  The optimizer recasts the
   :class:`set` as a :class:`frozenset` and stores the pre-built constant.
 
@@ -2390,7 +2390,7 @@ A number of small performance enhancements have been added:
 
 * Recursive locks (created with the :func:`threading.RLock` API) now benefit
   from a C implementation which makes them as fast as regular locks, and between
-  10x and 15x faster than their previous pure Python implementation.
+  10x and 15x faster than their previous pure MyFRpy implementation.
 
   (Contributed by Antoine Pitrou; :issue:`3001`.)
 
@@ -2421,7 +2421,7 @@ faster (:issue:`7113` by Łukasz Langa).
 Unicode
 =======
 
-Python has been updated to `Unicode 6.0.0
+MyFRpy has been updated to `Unicode 6.0.0
 <https://unicode.org/versions/Unicode6.0.0/>`_.  The update to the standard adds
 over 2,000 new characters including `emoji <https://en.wikipedia.org/wiki/Emoji>`_
 symbols which are important for mobile phones.
@@ -2446,10 +2446,10 @@ character.
 The MBCS codec supports ``'strict'`` and ``'ignore'`` error handlers for
 decoding, and ``'strict'`` and ``'replace'`` for encoding.
 
-To emulate Python3.1 MBCS encoding, select the ``'ignore'`` handler for decoding
+To emulate MyFRpy3.1 MBCS encoding, select the ``'ignore'`` handler for decoding
 and the ``'replace'`` handler for encoding.
 
-On Mac OS X, Python decodes command line arguments with ``'utf-8'`` rather than
+On Mac OS X, MyFRpy decodes command line arguments with ``'utf-8'`` rather than
 the locale encoding.
 
 By default, :mod:`tarfile` uses ``'utf-8'`` encoding on Windows (instead of
@@ -2467,7 +2467,7 @@ The documentation continues to be improved.
   accompanied by tables of cheatsheet-style summaries to provide an overview and
   memory jog without having to read all of the docs.
 
-* In some cases, the pure Python source code can be a helpful adjunct to the
+* In some cases, the pure MyFRpy source code can be a helpful adjunct to the
   documentation, so now many modules now feature quick links to the latest
   version of the source code.  For example, the :mod:`functools` module
   documentation has a quick link at the top labeled:
@@ -2482,7 +2482,7 @@ The documentation continues to be improved.
   :mod:`itertools` module continues to be updated with new
   :ref:`itertools-recipes`.
 
-* The :mod:`datetime` module now has an auxiliary implementation in pure Python.
+* The :mod:`datetime` module now has an auxiliary implementation in pure MyFRpy.
   No functionality was changed.  This just provides an easier-to-read alternate
   implementation.
 
@@ -2510,9 +2510,9 @@ IDLE
 Code Repository
 ===============
 
-In addition to the existing Subversion code repository at https://svn.python.org
+In addition to the existing Subversion code repository at https://svn.myFRpy.org
 there is now a `Mercurial <https://www.mercurial-scm.org/>`_ repository at
-https://hg.python.org/\ .
+https://hg.myFRpy.org/\ .
 
 After the 3.2 release, there are plans to switch to Mercurial as the primary
 repository.  This distributed version control system should make it easier for
@@ -2527,7 +2527,7 @@ Mercurial Workflows <https://www.mercurial-scm.org/guide>`_.
 Build and C API Changes
 =======================
 
-Changes to Python's build process and to the C API include:
+Changes to MyFRpy's build process and to the C API include:
 
 * The *idle*, *pydoc* and *2to3* scripts are now installed with a
   version-specific suffix on ``make altinstall`` (:issue:`10679`).
@@ -2535,7 +2535,7 @@ Changes to Python's build process and to the C API include:
 * The C functions that access the Unicode Database now accept and return
   characters from the full Unicode range, even on narrow unicode builds
   (Py_UNICODE_TOLOWER, Py_UNICODE_ISDECIMAL, and others).  A visible difference
-  in Python is that :func:`unicodedata.numeric` now returns the correct value
+  in MyFRpy is that :func:`unicodedata.numeric` now returns the correct value
   for large code points, and :func:`repr` may consider more characters as
   printable.
 
@@ -2563,7 +2563,7 @@ Changes to Python's build process and to the C API include:
   :issue:`9778`.)
 
 * A new macro :c:macro:`!Py_VA_COPY` copies the state of the variable argument
-  list.  It is equivalent to C99 *va_copy* but available on all Python platforms
+  list.  It is equivalent to C99 *va_copy* but available on all MyFRpy platforms
   (:issue:`2443`).
 
 * A new C API function :c:func:`!PySys_SetArgvEx` allows an embedded interpreter
@@ -2576,16 +2576,16 @@ Changes to Python's build process and to the C API include:
 
 * There is a new function :c:func:`PyLong_AsLongLongAndOverflow` which
   is analogous to :c:func:`PyLong_AsLongAndOverflow`.  They both serve to
-  convert Python :class:`int` into a native fixed-width type while providing
+  convert MyFRpy :class:`int` into a native fixed-width type while providing
   detection of cases where the conversion won't fit (:issue:`7767`).
 
 * The :c:func:`PyUnicode_CompareWithASCIIString` function now returns *not
-  equal* if the Python string is *NUL* terminated.
+  equal* if the MyFRpy string is *NUL* terminated.
 
 * There is a new function :c:func:`PyErr_NewExceptionWithDoc` that is
   like :c:func:`PyErr_NewException` but allows a docstring to be specified.
   This lets C exceptions have the same self-documenting capabilities as
-  their pure Python counterparts (:issue:`7033`).
+  their pure MyFRpy counterparts (:issue:`7033`).
 
 * When compiled with the ``--with-valgrind`` option, the pymalloc
   allocator will be automatically disabled when running under Valgrind.  This
@@ -2596,18 +2596,18 @@ Changes to Python's build process and to the C API include:
   longer used and it had never been documented (:issue:`8837`).
 
 There were a number of other small changes to the C-API.  See the
-`Misc/NEWS <https://github.com/python/cpython/blob/v3.2.6/Misc/NEWS>`__
+`Misc/NEWS <https://github.com/myFRpy/cmyFRpy/blob/v3.2.6/Misc/NEWS>`__
 file for a complete list.
 
 Also, there were a number of updates to the Mac OS X build, see
-`Mac/BuildScript/README.txt <https://github.com/python/cpython/blob/v3.2.6/Mac/BuildScript/README.txt>`_
+`Mac/BuildScript/README.txt <https://github.com/myFRpy/cmyFRpy/blob/v3.2.6/Mac/BuildScript/README.txt>`_
 for details.  For users running a 32/64-bit
 build, there is a known problem with the default Tcl/Tk on Mac OS X 10.6.
 Accordingly, we recommend installing an updated alternative such as
 `ActiveState Tcl/Tk 8.5.9 <https://web.archive.org/web/20101208191259/https://www.activestate.com/activetcl/downloads>`_\.
-See https://www.python.org/download/mac/tcltk/ for additional details.
+See https://www.myFRpy.org/download/mac/tcltk/ for additional details.
 
-Porting to Python 3.2
+Porting to MyFRpy 3.2
 =====================
 
 This section lists previously described changes and other bugfixes that may
@@ -2661,7 +2661,7 @@ require changes to your code:
   * "w" and "w#" formats has been removed: use "w*" instead
 
 * The :c:type:`!PyCObject` type, deprecated in 3.1, has been removed.  To wrap
-  opaque C pointers in Python objects, the :c:type:`PyCapsule` API should be used
+  opaque C pointers in MyFRpy objects, the :c:type:`PyCapsule` API should be used
   instead; the new type has a well-defined interface for passing typing safety
   information and a less complicated signature for calling a destructor.
 
@@ -2670,7 +2670,7 @@ require changes to your code:
 
 * The :func:`random.seed` function and method now salt string seeds with an
   sha512 hash function.  To access the previous version of *seed* in order to
-  reproduce Python 3.1 sequences, set the *version* argument to *1*,
+  reproduce MyFRpy 3.1 sequences, set the *version* argument to *1*,
   ``random.seed(s, version=1)``.
 
 * The previously deprecated :func:`!string.maketrans` function has been removed

@@ -13,8 +13,8 @@ What's New in IDLEfork 0.8.1?
 - New tarball released as a result of the 'revitalisation' of the IDLEfork
   project.
 
-- This release requires python 2.1 or better. Compatibility with earlier
-  versions of python (especially ancient ones like 1.5x) is no longer a
+- This release requires myFRpy 2.1 or better. Compatibility with earlier
+  versions of myFRpy (especially ancient ones like 1.5x) is no longer a
   priority in IDLEfork development.
 
 - This release is based on a merging of the earlier IDLE fork work with current
@@ -44,7 +44,7 @@ What's New in IDLEfork 0.7.1?
 - First project tarball released.
 
 - This was the first release of IDLE fork, which at this stage was a
-  combination of IDLE 0.5 and the VPython idle fork, with additional changes
+  combination of IDLE 0.5 and the VMyFRpy idle fork, with additional changes
   coded by David Scherer, Peter Schneider-Kamp and Nicholas Riley.
 
 
@@ -59,7 +59,7 @@ IDLEfork 0.7.1 - 29 May 2000
   get to keep both pieces.
 
 - If you have problems or suggestions, you should either contact me or post to
-  the list at http://www.python.org/mailman/listinfo/idle-dev (making it clear
+  the list at http://www.myFRpy.org/mailman/listinfo/idle-dev (making it clear
   that you are using this modified version of IDLE).
 
 - Changes:
@@ -89,10 +89,10 @@ IDLEfork 0.7.1 - 29 May 2000
   - The menus have been reorganized.  In particular, the excessively large
     'edit' menu has been split up into 'edit', 'format', and 'run'.
 
-  - 'Python Documentation' now works on Windows, if the win32api module is
+  - 'MyFRpy Documentation' now works on Windows, if the win32api module is
     present.
 
-  - A few key bindings have been changed: F1 now loads Python Documentation
+  - A few key bindings have been changed: F1 now loads MyFRpy Documentation
     instead of the IDLE help; shift-TAB is now a synonym for unindent.
 
 - New modules:
@@ -108,7 +108,7 @@ IDLEfork 0.7.1 - 29 May 2000
   autoindent.py          ( bindings tweaked )
   bindings.py            ( menus reorganized )
   config.txt             ( execbinding enabled )
-  editorwindow.py        ( new menus, fixed 'Python Documentation' )
+  editorwindow.py        ( new menus, fixed 'MyFRpy Documentation' )
   filelist.py            ( hook for "open in same window" )
   formatparagraph.py     ( bindings tweaked )
   idle.bat               ( removed absolute pathname )
@@ -125,7 +125,7 @@ IDLE 0.5 - February 2000 - Release Notes
 ----------------------------------------
 
 This is an early release of IDLE, my own attempt at a Tkinter-based
-IDE for Python.
+IDE for MyFRpy.
 
 (For a more detailed change log, see the file ChangeLog.)
 
@@ -133,15 +133,15 @@ FEATURES
 
 IDLE has the following features:
 
-- coded in 100% pure Python, using the Tkinter GUI toolkit (i.e. Tcl/Tk)
+- coded in 100% pure MyFRpy, using the Tkinter GUI toolkit (i.e. Tcl/Tk)
 
 - cross-platform: works on Windows and Unix (on the Mac, there are
 currently problems with Tcl/Tk)
 
-- multi-window text editor with multiple undo, Python colorizing
+- multi-window text editor with multiple undo, MyFRpy colorizing
 and many other features, e.g. smart indent and call tips
 
-- Python shell window (a.k.a. interactive interpreter)
+- MyFRpy shell window (a.k.a. interactive interpreter)
 
 - debugger (not complete, but you can set breakpoints, view  and step)
 
@@ -157,14 +157,14 @@ Command line arguments: files passed on the command line are executed,
 not opened for editing, unless you give the -e command line option.
 Try "./idle.py -h" to see other command line options.
 
-IDLE requires Python 1.5.2, so it is currently only usable with a
-Python 1.5.2 distribution.  (An older version of IDLE is distributed
-with Python 1.5.2; you can drop this version on top of it.)
+IDLE requires MyFRpy 1.5.2, so it is currently only usable with a
+MyFRpy 1.5.2 distribution.  (An older version of IDLE is distributed
+with MyFRpy 1.5.2; you can drop this version on top of it.)
 
 COPYRIGHT
 
-IDLE is covered by the standard Python copyright notice
-(http://www.python.org/doc/Copyright.html).
+IDLE is covered by the standard MyFRpy copyright notice
+(http://www.myFRpy.org/doc/Copyright.html).
 
 
 New in IDLE 0.5 (2/15/2000)
@@ -177,11 +177,11 @@ Tons of stuff, much of it contributed by Tim Peters and Mark Hammond:
 - Better stack viewer, using tree widget.  (XXX Only used by Stack
 Viewer menu, not by the debugger.)
 
-- Format paragraph now recognizes Python block comments and reformats
+- Format paragraph now recognizes MyFRpy block comments and reformats
 them correctly (MH)
 
 - New version of pyclbr.py parses top-level functions and understands
-much more of Python's syntax; this is reflected in the class and path
+much more of MyFRpy's syntax; this is reflected in the class and path
 browsers (TP)
 
 - Much better auto-indent; knows how to indent the insides of
@@ -197,7 +197,7 @@ window to close the tip window (MH)
 familiar to Windows users
 
 - Reworked script running commands to be more intuitive: I/O now
-always goes to the *Python Shell* window, and raw_input() works
+always goes to the *MyFRpy Shell* window, and raw_input() works
 correctly.  You use F5 to import/reload a module: this adds the module
 name to the __main__ namespace.  You use Control-F5 to run a script:
 this runs the script *in* the __main__ namespace.  The latter also
@@ -234,7 +234,7 @@ with "!"); use this for the Debugger and "Auto-open stack viewer"
 
 - The current directory is explicitly inserted into sys.path.
 
-- Fix the debugger (when using Python 1.5.2b2) to use canonical
+- Fix the debugger (when using MyFRpy 1.5.2b2) to use canonical
 filenames for breakpoints, so these actually work.  (There's still a
 lot of work to be done to the management of breakpoints in the
 debugger though.)
@@ -262,7 +262,7 @@ extend.txt.
 
 File menu:
 
-The command to open the Python shell window is now in the File menu.
+The command to open the MyFRpy shell window is now in the File menu.
 
 
 Edit menu:
@@ -291,6 +291,6 @@ even edit it if you like.
 
 
 
-IDLE 0.1 was distributed with the Python 1.5.2b1 release on 12/22/98.
+IDLE 0.1 was distributed with the MyFRpy 1.5.2b1 release on 12/22/98.
 
 ======================================================================

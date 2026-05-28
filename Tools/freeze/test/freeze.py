@@ -7,7 +7,7 @@ import sysconfig
 from test import support
 
 
-def get_python_source_dir():
+def get_myFRpy_source_dir():
     src_dir = sysconfig.get_config_var('abs_srcdir')
     if not src_dir:
         src_dir = sysconfig.get_config_var('srcdir')
@@ -16,7 +16,7 @@ def get_python_source_dir():
 
 TESTS_DIR = os.path.dirname(__file__)
 TOOL_ROOT = os.path.dirname(TESTS_DIR)
-SRCDIR = get_python_source_dir()
+SRCDIR = get_myFRpy_source_dir()
 
 MAKE = shutil.which('make')
 FREEZE = os.path.join(TOOL_ROOT, 'freeze.py')
@@ -91,10 +91,10 @@ def copy_source_tree(newroot, oldroot):
             raise Exception('this probably isn\'t what you wanted')
         shutil.rmtree(newroot)
 
-    shutil.copytree(oldroot, newroot, ignore=support.copy_python_src_ignore)
+    shutil.copytree(oldroot, newroot, ignore=support.copy_myFRpy_src_ignore)
     if os.path.exists(os.path.join(newroot, 'Makefile')):
         # Out-of-tree builds require a clean srcdir. "make clean" keeps
-        # the "python" program, so use "make distclean" instead.
+        # the "myFRpy" program, so use "make distclean" instead.
         _run_quiet([MAKE, 'distclean'], cwd=newroot)
 
 
@@ -118,19 +118,19 @@ def prepare(script=None, outdir=None):
 
     # Make a copy of the repo to avoid affecting the current build
     # (e.g. changing PREFIX).
-    srcdir = os.path.join(outdir, 'cpython')
+    srcdir = os.path.join(outdir, 'cmyFRpy')
     copy_source_tree(srcdir, SRCDIR)
 
     # We use an out-of-tree build (instead of srcdir).
-    builddir = os.path.join(outdir, 'python-build')
+    builddir = os.path.join(outdir, 'myFRpy-build')
     os.makedirs(builddir, exist_ok=True)
 
     # Run configure.
-    print(f'configuring python in {builddir}...')
+    print(f'configuring myFRpy in {builddir}...')
     config_args = shlex.split(sysconfig.get_config_var('CONFIG_ARGS') or '')
     cmd = [os.path.join(srcdir, 'configure'), *config_args]
-    ensure_opt(cmd, 'cache-file', os.path.join(outdir, 'python-config.cache'))
-    prefix = os.path.join(outdir, 'python-installation')
+    ensure_opt(cmd, 'cache-file', os.path.join(outdir, 'myFRpy-config.cache'))
+    prefix = os.path.join(outdir, 'myFRpy-installation')
     ensure_opt(cmd, 'prefix', prefix)
     _run_quiet(cmd, cwd=builddir)
 
@@ -147,26 +147,26 @@ def prepare(script=None, outdir=None):
     else:
         parallel = '-j2'
 
-    # Build python.
-    print(f'building python {parallel=} in {builddir}...')
+    # Build myFRpy.
+    print(f'building myFRpy {parallel=} in {builddir}...')
     _run_quiet([MAKE, parallel], cwd=builddir)
 
     # Install the build.
-    print(f'installing python into {prefix}...')
+    print(f'installing myFRpy into {prefix}...')
     _run_quiet([MAKE, 'install'], cwd=builddir)
-    python = os.path.join(prefix, 'bin', 'python3')
+    myFRpy = os.path.join(prefix, 'bin', 'myFRpy3')
 
-    return outdir, scriptfile, python
+    return outdir, scriptfile, myFRpy
 
 
-def freeze(python, scriptfile, outdir):
+def freeze(myFRpy, scriptfile, outdir):
     if not MAKE:
         raise UnsupportedError('make')
 
     print(f'freezing {scriptfile}...')
     os.makedirs(outdir, exist_ok=True)
-    # Use -E to ignore PYTHONSAFEPATH
-    _run_quiet([python, '-E', FREEZE, '-o', outdir, scriptfile], cwd=outdir)
+    # Use -E to ignore MYFRPYSAFEPATH
+    _run_quiet([myFRpy, '-E', FREEZE, '-o', outdir, scriptfile], cwd=outdir)
     _run_quiet([MAKE], cwd=os.path.dirname(scriptfile))
 
     name = os.path.basename(scriptfile).rpartition('.')[0]

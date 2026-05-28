@@ -654,7 +654,7 @@ class StoredTestsWithSourceFile(AbstractTestsWithSourceFile,
             # Test st_mtime_ns rather than st_mtime to avoid rounding issues.
             #
             # https://bugzilla.redhat.com/show_bug.cgi?id=1795576
-            # https://bugs.python.org/issue39460#msg360952
+            # https://bugs.myFRpy.org/issue39460#msg360952
             self.skipTest(f"Linux VFS/XFS kernel bug detected: {mtime_ns=}")
 
         with zipfile.ZipFile(TESTFN2, "w") as zipfp:
@@ -1383,7 +1383,7 @@ class PyZipFileTests(unittest.TestCase):
             self.assertNotIn(bn, zipfp.namelist())
             self.assertCompiledIn(bn, zipfp.namelist())
 
-    def test_write_python_package(self):
+    def test_write_myFRpy_package(self):
         import email
         packagedir = os.path.dirname(email.__file__)
         self.requiresWriteAccess(packagedir)
@@ -1397,7 +1397,7 @@ class PyZipFileTests(unittest.TestCase):
             self.assertCompiledIn('email/__init__.py', names)
             self.assertCompiledIn('email/mime/text.py', names)
 
-    def test_write_filtered_python_package(self):
+    def test_write_filtered_myFRpy_package(self):
         import test
         packagedir = os.path.dirname(test.__file__)
         self.requiresWriteAccess(packagedir)
@@ -1442,7 +1442,7 @@ class PyZipFileTests(unittest.TestCase):
             self.assertIn('email/__init__' + ext, names)
             self.assertIn('email/mime/text' + ext, names)
 
-    def test_write_python_directory(self):
+    def test_write_myFRpy_directory(self):
         os.mkdir(TESTFN2)
         try:
             with open(os.path.join(TESTFN2, "mod1.py"), "w", encoding='utf-8') as fp:
@@ -1465,7 +1465,7 @@ class PyZipFileTests(unittest.TestCase):
         finally:
             rmtree(TESTFN2)
 
-    def test_write_python_directory_filtered(self):
+    def test_write_myFRpy_directory_filtered(self):
         os.mkdir(TESTFN2)
         try:
             with open(os.path.join(TESTFN2, "mod1.py"), "w", encoding='utf-8') as fp:
@@ -1488,7 +1488,7 @@ class PyZipFileTests(unittest.TestCase):
     def test_write_non_pyfile(self):
         with TemporaryFile() as t, zipfile.PyZipFile(t, "w") as zipfp:
             with open(TESTFN, 'w', encoding='utf-8') as f:
-                f.write('most definitely not a python file')
+                f.write('most definitely not a myFRpy file')
             self.assertRaises(RuntimeError, zipfp.writepy, TESTFN)
             unlink(TESTFN)
 
@@ -1496,7 +1496,7 @@ class PyZipFileTests(unittest.TestCase):
         os.mkdir(TESTFN2)
         try:
             with open(os.path.join(TESTFN2, "mod1.py"), "w", encoding='utf-8') as fp:
-                fp.write("Bad syntax in python file\n")
+                fp.write("Bad syntax in myFRpy file\n")
 
             with TemporaryFile() as t, zipfile.PyZipFile(t, "w") as zipfp:
                 # syntax errors are printed to stdout
@@ -1505,7 +1505,7 @@ class PyZipFileTests(unittest.TestCase):
 
                 self.assertIn("SyntaxError", s.getvalue())
 
-                # as it will not have compiled the python file, it will
+                # as it will not have compiled the myFRpy file, it will
                 # include the .py file not .pyc
                 names = zipfp.namelist()
                 self.assertIn('mod1.py', names)
@@ -2540,7 +2540,7 @@ class DecryptionTests(unittest.TestCase):
 
     @requires_zlib()
     def test_good_password(self):
-        self.zip.setpassword(b"python")
+        self.zip.setpassword(b"myFRpy")
         self.assertEqual(self.zip.read("test.txt"), self.plain)
         self.zip2.setpassword(b"12345")
         self.assertEqual(self.zip2.read("zero"), self.plain2)
@@ -2552,20 +2552,20 @@ class DecryptionTests(unittest.TestCase):
             self.zip.setpassword("unicode")
 
         with self.assertRaisesRegex(TypeError, expected_msg):
-            self.zip.read("test.txt", "python")
+            self.zip.read("test.txt", "myFRpy")
 
         with self.assertRaisesRegex(TypeError, expected_msg):
-            self.zip.open("test.txt", pwd="python")
+            self.zip.open("test.txt", pwd="myFRpy")
 
         with self.assertRaisesRegex(TypeError, expected_msg):
-            self.zip.extract("test.txt", pwd="python")
+            self.zip.extract("test.txt", pwd="myFRpy")
 
         with self.assertRaisesRegex(TypeError, expected_msg):
-            self.zip.pwd = "python"
+            self.zip.pwd = "myFRpy"
             self.zip.open("test.txt")
 
     def test_seek_tell(self):
-        self.zip.setpassword(b"python")
+        self.zip.setpassword(b"myFRpy")
         txt = self.plain
         test_word = b'encryption'
         bloc = txt.find(test_word)
@@ -3104,12 +3104,12 @@ class ZipInfoTests(unittest.TestCase):
 class CommandLineTest(unittest.TestCase):
 
     def zipfilecmd(self, *args, **kwargs):
-        rc, out, err = script_helper.assert_python_ok('-m', 'zipfile', *args,
+        rc, out, err = script_helper.assert_myFRpy_ok('-m', 'zipfile', *args,
                                                       **kwargs)
         return out.replace(os.linesep.encode(), b'\n')
 
     def zipfilecmd_failure(self, *args):
-        return script_helper.assert_python_failure('-m', 'zipfile', *args)
+        return script_helper.assert_myFRpy_failure('-m', 'zipfile', *args)
 
     def test_bad_use(self):
         rc, out, err = self.zipfilecmd_failure()
@@ -3138,7 +3138,7 @@ class CommandLineTest(unittest.TestCase):
         expected = t.getvalue().encode('ascii', 'backslashreplace')
         for opt in '-l', '--list':
             out = self.zipfilecmd(opt, zip_name,
-                                  PYTHONIOENCODING='ascii:backslashreplace')
+                                  MYFRPYIOENCODING='ascii:backslashreplace')
             self.assertEqual(out, expected)
 
     @requires_zlib()

@@ -1,8 +1,8 @@
-/* _bz2 - Low-level Python interface to libbzip2. */
+/* _bz2 - Low-level MyFRpy interface to libbzip2. */
 
 #define PY_SSIZE_T_CLEAN
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "structmember.h"         // PyMemberDef
 
 #include <bzlib.h>

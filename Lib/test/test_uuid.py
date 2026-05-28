@@ -343,102 +343,102 @@ class BaseTestUUID:
                     with self.subTest(protocol=proto):
                         check(pickle.loads(pickle.dumps(u, proto)), u)
 
-    def test_unpickle_previous_python_versions(self):
+    def test_unpickle_previous_myFRpy_versions(self):
         def check(actual, expected):
             self.assertEqual(actual, expected)
             self.assertEqual(actual.is_safe, expected.is_safe)
 
         pickled_uuids = [
-            # Python 2.7, protocol 0
+            # MyFRpy 2.7, protocol 0
             b'ccopy_reg\n_reconstructor\n(cuuid\nUUID\nc__builtin__\nobject\nN'
             b'tR(dS\'int\'\nL287307832597519156748809049798316161701L\nsb.',
-            # Python 2.7, protocol 1
+            # MyFRpy 2.7, protocol 1
             b'ccopy_reg\n_reconstructor\n(cuuid\nUUID\nc__builtin__\nobject\nN'
             b'tR}U\x03intL287307832597519156748809049798316161701L\nsb.',
-            # Python 2.7, protocol 2
+            # MyFRpy 2.7, protocol 2
             b'\x80\x02cuuid\nUUID\n)\x81}U\x03int\x8a\x11\xa5z\xecz\nI\xdf}'
             b'\xde\xa0Bf\xcey%\xd8\x00sb.',
-            # Python 3.6, protocol 0
+            # MyFRpy 3.6, protocol 0
             b'ccopy_reg\n_reconstructor\n(cuuid\nUUID\nc__builtin__\nobject\nN'
             b'tR(dVint\nL287307832597519156748809049798316161701L\nsb.',
-            # Python 3.6, protocol 1
+            # MyFRpy 3.6, protocol 1
             b'ccopy_reg\n_reconstructor\n(cuuid\nUUID\nc__builtin__\nobject\nN'
             b'tR}X\x03\x00\x00\x00intL287307832597519156748809049798316161701L'
             b'\nsb.',
-            # Python 3.6, protocol 2
+            # MyFRpy 3.6, protocol 2
             b'\x80\x02cuuid\nUUID\n)\x81}X\x03\x00\x00\x00int\x8a\x11\xa5z\xec'
             b'z\nI\xdf}\xde\xa0Bf\xcey%\xd8\x00sb.',
-            # Python 3.6, protocol 3
+            # MyFRpy 3.6, protocol 3
             b'\x80\x03cuuid\nUUID\n)\x81}X\x03\x00\x00\x00int\x8a\x11\xa5z\xec'
             b'z\nI\xdf}\xde\xa0Bf\xcey%\xd8\x00sb.',
-            # Python 3.6, protocol 4
+            # MyFRpy 3.6, protocol 4
             b'\x80\x04\x95+\x00\x00\x00\x00\x00\x00\x00\x8c\x04uuid\x8c\x04UUI'
             b'D\x93)\x81}\x8c\x03int\x8a\x11\xa5z\xecz\nI\xdf}\xde\xa0Bf\xcey%'
             b'\xd8\x00sb.',
-            # Python 3.7, protocol 0
+            # MyFRpy 3.7, protocol 0
             b'ccopy_reg\n_reconstructor\n(cuuid\nUUID\nc__builtin__\nobject\nN'
             b'tR(dVint\nL287307832597519156748809049798316161701L\nsVis_safe\n'
             b'cuuid\nSafeUUID\n(NtRsb.',
-            # Python 3.7, protocol 1
+            # MyFRpy 3.7, protocol 1
             b'ccopy_reg\n_reconstructor\n(cuuid\nUUID\nc__builtin__\nobject\nN'
             b'tR}(X\x03\x00\x00\x00intL287307832597519156748809049798316161701'
             b'L\nX\x07\x00\x00\x00is_safecuuid\nSafeUUID\n(NtRub.',
-            # Python 3.7, protocol 2
+            # MyFRpy 3.7, protocol 2
             b'\x80\x02cuuid\nUUID\n)\x81}(X\x03\x00\x00\x00int\x8a\x11\xa5z'
             b'\xecz\nI\xdf}\xde\xa0Bf\xcey%\xd8\x00X\x07\x00\x00\x00is_safecuu'
             b'id\nSafeUUID\nN\x85Rub.',
-            # Python 3.7, protocol 3
+            # MyFRpy 3.7, protocol 3
             b'\x80\x03cuuid\nUUID\n)\x81}(X\x03\x00\x00\x00int\x8a\x11\xa5z'
             b'\xecz\nI\xdf}\xde\xa0Bf\xcey%\xd8\x00X\x07\x00\x00\x00is_safecuu'
             b'id\nSafeUUID\nN\x85Rub.',
-            # Python 3.7, protocol 4
+            # MyFRpy 3.7, protocol 4
             b'\x80\x04\x95F\x00\x00\x00\x00\x00\x00\x00\x8c\x04uuid\x94\x8c'
             b'\x04UUID\x93)\x81}(\x8c\x03int\x8a\x11\xa5z\xecz\nI\xdf}\xde\xa0'
             b'Bf\xcey%\xd8\x00\x8c\x07is_safeh\x00\x8c\x08SafeUUID\x93N\x85Rub'
             b'.',
         ]
         pickled_uuids_safe = [
-            # Python 3.7, protocol 0
+            # MyFRpy 3.7, protocol 0
             b'ccopy_reg\n_reconstructor\n(cuuid\nUUID\nc__builtin__\nobject\nN'
             b'tR(dVint\nL287307832597519156748809049798316161701L\nsVis_safe\n'
             b'cuuid\nSafeUUID\n(I0\ntRsb.',
-            # Python 3.7, protocol 1
+            # MyFRpy 3.7, protocol 1
             b'ccopy_reg\n_reconstructor\n(cuuid\nUUID\nc__builtin__\nobject\nN'
             b'tR}(X\x03\x00\x00\x00intL287307832597519156748809049798316161701'
             b'L\nX\x07\x00\x00\x00is_safecuuid\nSafeUUID\n(K\x00tRub.',
-            # Python 3.7, protocol 2
+            # MyFRpy 3.7, protocol 2
             b'\x80\x02cuuid\nUUID\n)\x81}(X\x03\x00\x00\x00int\x8a\x11\xa5z'
             b'\xecz\nI\xdf}\xde\xa0Bf\xcey%\xd8\x00X\x07\x00\x00\x00is_safecuu'
             b'id\nSafeUUID\nK\x00\x85Rub.',
-            # Python 3.7, protocol 3
+            # MyFRpy 3.7, protocol 3
             b'\x80\x03cuuid\nUUID\n)\x81}(X\x03\x00\x00\x00int\x8a\x11\xa5z'
             b'\xecz\nI\xdf}\xde\xa0Bf\xcey%\xd8\x00X\x07\x00\x00\x00is_safecuu'
             b'id\nSafeUUID\nK\x00\x85Rub.',
-            # Python 3.7, protocol 4
+            # MyFRpy 3.7, protocol 4
             b'\x80\x04\x95G\x00\x00\x00\x00\x00\x00\x00\x8c\x04uuid\x94\x8c'
             b'\x04UUID\x93)\x81}(\x8c\x03int\x8a\x11\xa5z\xecz\nI\xdf}\xde\xa0'
             b'Bf\xcey%\xd8\x00\x8c\x07is_safeh\x00\x8c\x08SafeUUID\x93K\x00'
             b'\x85Rub.',
         ]
         pickled_uuids_unsafe = [
-            # Python 3.7, protocol 0
+            # MyFRpy 3.7, protocol 0
             b'ccopy_reg\n_reconstructor\n(cuuid\nUUID\nc__builtin__\nobject\nN'
             b'tR(dVint\nL287307832597519156748809049798316161701L\nsVis_safe\n'
             b'cuuid\nSafeUUID\n(I-1\ntRsb.',
-            # Python 3.7, protocol 1
+            # MyFRpy 3.7, protocol 1
             b'ccopy_reg\n_reconstructor\n(cuuid\nUUID\nc__builtin__\nobject\nN'
             b'tR}(X\x03\x00\x00\x00intL287307832597519156748809049798316161701'
             b'L\nX\x07\x00\x00\x00is_safecuuid\nSafeUUID\n(J\xff\xff\xff\xfftR'
             b'ub.',
-            # Python 3.7, protocol 2
+            # MyFRpy 3.7, protocol 2
             b'\x80\x02cuuid\nUUID\n)\x81}(X\x03\x00\x00\x00int\x8a\x11\xa5z'
             b'\xecz\nI\xdf}\xde\xa0Bf\xcey%\xd8\x00X\x07\x00\x00\x00is_safecuu'
             b'id\nSafeUUID\nJ\xff\xff\xff\xff\x85Rub.',
-            # Python 3.7, protocol 3
+            # MyFRpy 3.7, protocol 3
             b'\x80\x03cuuid\nUUID\n)\x81}(X\x03\x00\x00\x00int\x8a\x11\xa5z'
             b'\xecz\nI\xdf}\xde\xa0Bf\xcey%\xd8\x00X\x07\x00\x00\x00is_safecuu'
             b'id\nSafeUUID\nJ\xff\xff\xff\xff\x85Rub.',
-            # Python 3.7, protocol 4
+            # MyFRpy 3.7, protocol 4
             b'\x80\x04\x95J\x00\x00\x00\x00\x00\x00\x00\x8c\x04uuid\x94\x8c'
             b'\x04UUID\x93)\x81}(\x8c\x03int\x8a\x11\xa5z\xecz\nI\xdf}\xde\xa0'
             b'Bf\xcey%\xd8\x00\x8c\x07is_safeh\x00\x8c\x08SafeUUID\x93J\xff'
@@ -601,9 +601,9 @@ class BaseTestUUID:
         equal = self.assertEqual
 
         # Test some known version-3 UUIDs with name passed as a byte object
-        for u, v in [(self.uuid.uuid3(self.uuid.NAMESPACE_DNS, b'python.org'),
+        for u, v in [(self.uuid.uuid3(self.uuid.NAMESPACE_DNS, b'myFRpy.org'),
                       '6fa459ea-ee8a-3ca4-894e-db77e160355e'),
-                     (self.uuid.uuid3(self.uuid.NAMESPACE_URL, b'http://python.org/'),
+                     (self.uuid.uuid3(self.uuid.NAMESPACE_URL, b'http://myFRpy.org/'),
                       '9fe8e8c4-aaa8-32a9-a55c-4535a88b748d'),
                      (self.uuid.uuid3(self.uuid.NAMESPACE_OID, b'1.3.6.1'),
                       'dd1a1cef-13d5-368a-ad82-eca71acd4cd1'),
@@ -616,9 +616,9 @@ class BaseTestUUID:
             equal(str(u), v)
 
         # Test some known version-3 UUIDs with name passed as a string
-        for u, v in [(self.uuid.uuid3(self.uuid.NAMESPACE_DNS, 'python.org'),
+        for u, v in [(self.uuid.uuid3(self.uuid.NAMESPACE_DNS, 'myFRpy.org'),
                       '6fa459ea-ee8a-3ca4-894e-db77e160355e'),
-                     (self.uuid.uuid3(self.uuid.NAMESPACE_URL, 'http://python.org/'),
+                     (self.uuid.uuid3(self.uuid.NAMESPACE_URL, 'http://myFRpy.org/'),
                       '9fe8e8c4-aaa8-32a9-a55c-4535a88b748d'),
                      (self.uuid.uuid3(self.uuid.NAMESPACE_OID, '1.3.6.1'),
                       'dd1a1cef-13d5-368a-ad82-eca71acd4cd1'),
@@ -648,9 +648,9 @@ class BaseTestUUID:
         equal = self.assertEqual
 
         # Test some known version-5 UUIDs with names given as byte objects
-        for u, v in [(self.uuid.uuid5(self.uuid.NAMESPACE_DNS, b'python.org'),
+        for u, v in [(self.uuid.uuid5(self.uuid.NAMESPACE_DNS, b'myFRpy.org'),
                       '886313e1-3b8a-5372-9b90-0c9aee199e5d'),
-                     (self.uuid.uuid5(self.uuid.NAMESPACE_URL, b'http://python.org/'),
+                     (self.uuid.uuid5(self.uuid.NAMESPACE_URL, b'http://myFRpy.org/'),
                       '4c565f0d-3f5a-5890-b41b-20cf47701c5e'),
                      (self.uuid.uuid5(self.uuid.NAMESPACE_OID, b'1.3.6.1'),
                       '1447fa61-5277-5fef-a9b3-fbc6e44f4af3'),
@@ -663,9 +663,9 @@ class BaseTestUUID:
             equal(str(u), v)
 
         # Test some known version-5 UUIDs with names given as strings
-        for u, v in [(self.uuid.uuid5(self.uuid.NAMESPACE_DNS, 'python.org'),
+        for u, v in [(self.uuid.uuid5(self.uuid.NAMESPACE_DNS, 'myFRpy.org'),
                       '886313e1-3b8a-5372-9b90-0c9aee199e5d'),
-                     (self.uuid.uuid5(self.uuid.NAMESPACE_URL, 'http://python.org/'),
+                     (self.uuid.uuid5(self.uuid.NAMESPACE_URL, 'http://myFRpy.org/'),
                       '4c565f0d-3f5a-5890-b41b-20cf47701c5e'),
                      (self.uuid.uuid5(self.uuid.NAMESPACE_OID, '1.3.6.1'),
                       '1447fa61-5277-5fef-a9b3-fbc6e44f4af3'),
@@ -715,7 +715,7 @@ class BaseTestUUID:
         self.assertEqual(cm.exception.code, 2)
         self.assertIn("error: Incorrect number of arguments", mock_err.getvalue())
 
-    @mock.patch.object(sys, "argv", ["", "-u", "uuid3", "-N", "python.org"])
+    @mock.patch.object(sys, "argv", ["", "-u", "uuid3", "-N", "myFRpy.org"])
     @mock.patch('sys.stderr', new_callable=io.StringIO)
     def test_cli_name_required_for_uuid3(self, mock_err):
         with self.assertRaises(SystemExit) as cm:
@@ -738,7 +738,7 @@ class BaseTestUUID:
         self.assertEqual(uuid_output.version, 4)
 
     @mock.patch.object(sys, "argv",
-                       ["", "-u", "uuid3", "-n", "@dns", "-N", "python.org"])
+                       ["", "-u", "uuid3", "-n", "@dns", "-N", "myFRpy.org"])
     def test_cli_uuid3_ouputted_with_valid_namespace_and_name(self):
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
@@ -752,7 +752,7 @@ class BaseTestUUID:
         self.assertEqual(uuid_output.version, 3)
 
     @mock.patch.object(sys, "argv",
-                       ["", "-u", "uuid5", "-n", "@dns", "-N", "python.org"])
+                       ["", "-u", "uuid5", "-n", "@dns", "-N", "myFRpy.org"])
     def test_cli_uuid5_ouputted_with_valid_namespace_and_name(self):
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):

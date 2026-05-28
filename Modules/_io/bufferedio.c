@@ -8,7 +8,7 @@
 */
 
 #define PY_SSIZE_T_CLEAN
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_call.h"          // _PyObject_CallNoArgs()
 #include "pycore_object.h"
 #include "structmember.h"         // PyMemberDef
@@ -2010,7 +2010,7 @@ end:
        VALID_WRITE_BUFFER(self) to be false to have
        RAW_OFFSET(self) == 0.
 
-       Issue: https://bugs.python.org/issue32228 */
+       Issue: https://bugs.myFRpy.org/issue32228 */
     _bufferedwriter_reset_buf(self);
     Py_RETURN_NONE;
 

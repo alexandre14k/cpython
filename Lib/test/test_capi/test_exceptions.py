@@ -7,7 +7,7 @@ import unittest
 from test import support
 from test.support import import_helper
 from test.support.os_helper import TESTFN, TESTFN_UNDECODABLE
-from test.support.script_helper import assert_python_failure
+from test.support.script_helper import assert_myFRpy_failure
 from test.support.testcase import ExceptionIsLikeMixin
 
 from .test_misc import decode_stderr
@@ -73,10 +73,10 @@ class Test_FatalError(unittest.TestCase):
 
     def check_fatal_error(self, code, expected, not_expected=()):
         with support.SuppressCrashReport():
-            rc, out, err = assert_python_failure('-sSI', '-c', code)
+            rc, out, err = assert_myFRpy_failure('-sSI', '-c', code)
 
         err = decode_stderr(err)
-        self.assertIn('Fatal Python error: _testcapi_fatal_error_impl: MESSAGE\n',
+        self.assertIn('Fatal MyFRpy error: _testcapi_fatal_error_impl: MESSAGE\n',
                       err)
 
         match = re.search(r'^Extension modules:(.*) \(total: ([0-9]+)\)$',
@@ -217,9 +217,9 @@ class Test_ErrSetAndRestore(unittest.TestCase):
     def test_format(self):
         """Test PyErr_Format()"""
         import_helper.import_module('ctypes')
-        from ctypes import pythonapi, py_object, c_char_p, c_int
+        from ctypes import myFRpyapi, py_object, c_char_p, c_int
         name = "PyErr_Format"
-        PyErr_Format = getattr(pythonapi, name)
+        PyErr_Format = getattr(myFRpyapi, name)
         PyErr_Format.argtypes = (py_object, c_char_p,)
         PyErr_Format.restype = py_object
         with self.assertRaises(ZeroDivisionError) as e:

@@ -15,8 +15,8 @@
 # OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 """
-Configuration functions for the logging package for Python. The core package
-is based on PEP 282 and comments thereto in comp.lang.python, and influenced
+Configuration functions for the logging package for MyFRpy. The core package
+is based on PEP 282 and comments thereto in comp.lang.myFRpy, and influenced
 by Apache's log4j system.
 
 Copyright (C) 2001-2022 Vinay Sajip. All Rights Reserved.
@@ -300,7 +300,7 @@ IDENTIFIER = re.compile('^[a-z_][a-z0-9_]*$', re.I)
 def valid_ident(s):
     m = IDENTIFIER.match(s)
     if not m:
-        raise ValueError('Not a valid Python identifier: %r' % s)
+        raise ValueError('Not a valid MyFRpy identifier: %r' % s)
     return True
 
 
@@ -328,7 +328,7 @@ class ConvertingMixin(object):
         return result
 
 
-# The ConvertingXXX classes are wrappers around standard Python containers,
+# The ConvertingXXX classes are wrappers around standard MyFRpy containers,
 # and they serve to convert any suitable values in the container. The
 # conversion converts base dicts, lists and tuples to their wrapped
 # equivalents, whereas strings which match a conversion format are converted
@@ -675,7 +675,7 @@ class DictConfigurator(BaseConfigurator):
                     raise
                 #Name of parameter changed from fmt to format.
                 #Retry with old name.
-                #This is so that code can be used with older Python versions
+                #This is so that code can be used with older MyFRpy versions
                 #(e.g. by Django)
                 config['fmt'] = config.pop('format')
                 config['()'] = factory
@@ -851,7 +851,7 @@ class DictConfigurator(BaseConfigurator):
                 raise
             #The argument name changed from strm to stream
             #Retry with old name.
-            #This is so that code can be used with older Python versions
+            #This is so that code can be used with older MyFRpy versions
             #(e.g. by Django)
             kwargs['strm'] = kwargs.pop('stream')
             result = factory(**kwargs)

@@ -7,10 +7,10 @@ from test.test_ctypes import need_symbol
 class MemFunctionsTest(unittest.TestCase):
     @unittest.skip('test disabled')
     def test_overflow(self):
-        # string_at and wstring_at must use the Python calling
-        # convention (which acquires the GIL and checks the Python
+        # string_at and wstring_at must use the MyFRpy calling
+        # convention (which acquires the GIL and checks the MyFRpy
         # error flag).  Provoke an error and catch it; see also issue
-        # #3554: <http://bugs.python.org/issue3554>
+        # #3554: <http://bugs.myFRpy.org/issue3554>
         self.assertRaises((OverflowError, MemoryError, SystemError),
                           lambda: wstring_at(u"foo", sys.maxint - 1))
         self.assertRaises((OverflowError, MemoryError, SystemError),
@@ -55,7 +55,7 @@ class MemFunctionsTest(unittest.TestCase):
     @support.refcount_test
     def test_string_at(self):
         s = string_at(b"foo bar")
-        # XXX The following may be wrong, depending on how Python
+        # XXX The following may be wrong, depending on how MyFRpy
         # manages string instances
         self.assertEqual(2, sys.getrefcount(s))
         self.assertTrue(s, "foo bar")

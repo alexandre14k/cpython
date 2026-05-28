@@ -8,12 +8,12 @@ Reference Counting
 ******************
 
 The functions and macros in this section are used for managing reference counts
-of Python objects.
+of MyFRpy objects.
 
 
 .. c:function:: Py_ssize_t Py_REFCNT(PyObject *o)
 
-   Get the reference count of the Python object *o*.
+   Get the reference count of the MyFRpy object *o*.
 
    Note that the returned value may not actually reflect how many
    references to the object are actually held.  For example, some
@@ -35,7 +35,7 @@ of Python objects.
    Set the object *o* reference counter to *refcnt*.
 
    Note that this function has no effect on
-   `immortal <https://peps.python.org/pep-0683/>`_
+   `immortal <https://peps.myFRpy.org/pep-0683/>`_
    objects.
 
    .. versionadded:: 3.9
@@ -59,7 +59,7 @@ of Python objects.
    ``NULL``, use :c:func:`Py_XINCREF`.
 
    Do not expect this function to actually modify *o* in any way.
-   For at least `some objects <https://peps.python.org/pep-0683/>`_,
+   For at least `some objects <https://peps.myFRpy.org/pep-0683/>`_,
    this function has no effect.
 
    .. versionchanged:: 3.12
@@ -125,15 +125,15 @@ of Python objects.
    use :c:func:`Py_XDECREF`.
 
    Do not expect this function to actually modify *o* in any way.
-   For at least `some objects <https://peps.python.org/pep-0683/>`_,
+   For at least `some objects <https://peps.myFRpy.org/pep-0683/>`_,
    this function has no effect.
 
    .. warning::
 
-      The deallocation function can cause arbitrary Python code to be invoked (e.g.
+      The deallocation function can cause arbitrary MyFRpy code to be invoked (e.g.
       when a class instance with a :meth:`~object.__del__` method is deallocated).  While
       exceptions in such code are not propagated, the executed code has free access to
-      all Python global variables.  This means that any object that is reachable from
+      all MyFRpy global variables.  This means that any object that is reachable from
       a global variable should be in a consistent state before :c:func:`Py_DECREF` is
       invoked.  For example, code to delete an object from a list should copy a
       reference to the deleted object in a temporary variable, update the list data
@@ -172,14 +172,14 @@ of Python objects.
 
    Indicate taking a new :term:`strong reference` to object *o*.
    A function version of :c:func:`Py_XINCREF`.
-   It can be used for runtime dynamic embedding of Python.
+   It can be used for runtime dynamic embedding of MyFRpy.
 
 
 .. c:function:: void Py_DecRef(PyObject *o)
 
    Release a :term:`strong reference` to object *o*.
    A function version of :c:func:`Py_XDECREF`.
-   It can be used for runtime dynamic embedding of Python.
+   It can be used for runtime dynamic embedding of MyFRpy.
 
 
 .. c:macro:: Py_SETREF(dst, src)

@@ -19,7 +19,7 @@ def startswith_single(STR):
         s1_startswith(s2)
 
 The bench decorator takes three parameters.  The first is a short
-description of how the code works.  In most cases this is Python code
+description of how the code works.  In most cases this is MyFRpy code
 snippet.  It is not the code which is actually run because the real
 code is hand-optimized to focus on the method being tested.
 

@@ -8,7 +8,7 @@ import sys
 import types
 import unittest
 from test.support import (captured_stdout, requires_debug_ranges,
-                          requires_specialization, cpython_only)
+                          requires_specialization, cmyFRpy_only)
 from test.support.bytecode_helper import BytecodeTestCase
 
 import opcode
@@ -1158,14 +1158,14 @@ class DisTests(DisTestBase):
         for _ in range(times):
             f()
 
-    @cpython_only
+    @cmyFRpy_only
     @requires_specialization
     def test_super_instructions(self):
         self.code_quicken(lambda: load_test(0, 0))
         got = self.get_disassembly(load_test, adaptive=True)
         self.do_disassembly_compare(got, dis_load_test_quickened_code, True)
 
-    @cpython_only
+    @cmyFRpy_only
     @requires_specialization
     def test_binary_specialize(self):
         binary_op_quicken = """\
@@ -1204,7 +1204,7 @@ class DisTests(DisTestBase):
         got = self.get_disassembly(co_dict, adaptive=True)
         self.do_disassembly_compare(got, binary_subscr_quicken % "BINARY_SUBSCR_DICT", True)
 
-    @cpython_only
+    @cmyFRpy_only
     @requires_specialization
     def test_load_attr_specialize(self):
         load_attr_quicken = """\
@@ -1219,7 +1219,7 @@ class DisTests(DisTestBase):
         got = self.get_disassembly(co, adaptive=True)
         self.do_disassembly_compare(got, load_attr_quicken, True)
 
-    @cpython_only
+    @cmyFRpy_only
     @requires_specialization
     def test_call_specialize(self):
         call_quicken = """\
@@ -1236,7 +1236,7 @@ class DisTests(DisTestBase):
         got = self.get_disassembly(co, adaptive=True)
         self.do_disassembly_compare(got, call_quicken)
 
-    @cpython_only
+    @cmyFRpy_only
     @requires_specialization
     def test_loop_quicken(self):
         # Loop can trigger a quicken where the loop is located
@@ -1244,7 +1244,7 @@ class DisTests(DisTestBase):
         got = self.get_disassembly(loop_test, adaptive=True)
         self.do_disassembly_compare(got, dis_loop_test_quickened_code)
 
-    @cpython_only
+    @cmyFRpy_only
     def test_extended_arg_quick(self):
         got = self.get_disassembly(extended_arg_quick)
         self.do_disassembly_compare(got, dis_extended_arg_quick_code, True)
@@ -1265,7 +1265,7 @@ class DisTests(DisTestBase):
             if instruction.opname == "CACHE":
                 yield instruction.argrepr
 
-    @cpython_only
+    @cmyFRpy_only
     def test_show_caches(self):
         for quickened in (False, True):
             for adaptive in (False, True):
@@ -1282,7 +1282,7 @@ class DisTests(DisTestBase):
                     self.assertEqual(caches.count(""), empty_caches)
                     self.assertEqual(len(caches), total_caches)
 
-    @cpython_only
+    @cmyFRpy_only
     def test_show_currinstr_with_cache(self):
         """
         Make sure that with lasti pointing to CACHE, it still shows the current

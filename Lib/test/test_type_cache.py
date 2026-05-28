@@ -1,4 +1,4 @@
-""" Tests for the internal type cache in CPython. """
+""" Tests for the internal type cache in CMyFRpy. """
 import unittest
 import dis
 from test import support
@@ -16,7 +16,7 @@ type_assign_version = _testcapi.type_assign_version
 type_modified = _testcapi.type_modified
 
 
-@support.cpython_only
+@support.cmyFRpy_only
 @unittest.skipIf(_clear_type_cache is None, "requires sys._clear_type_cache")
 class TypeCacheTests(unittest.TestCase):
     def test_tp_version_tag_unique(self):
@@ -80,7 +80,7 @@ class TypeCacheTests(unittest.TestCase):
         _clear_type_cache()
 
 
-@support.cpython_only
+@support.cmyFRpy_only
 class TypeCacheWithSpecializationTests(unittest.TestCase):
     def tearDown(self):
         _clear_type_cache()

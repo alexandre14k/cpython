@@ -12,11 +12,11 @@
 --------------
 
 The :mod:`pprint` module provides a capability to "pretty-print" arbitrary
-Python data structures in a form which can be used as input to the interpreter.
-If the formatted structures include objects which are not fundamental Python
+MyFRpy data structures in a form which can be used as input to the interpreter.
+If the formatted structures include objects which are not fundamental MyFRpy
 types, the representation may not be loadable.  This may be the case if objects
 such as files, sockets or classes are included, as well as many other
-objects which are not representable as Python literals.
+objects which are not representable as MyFRpy literals.
 
 The formatted representation keeps objects on a single line if it can, and
 breaks them onto multiple lines if they don't fit within the allowed width.
@@ -276,21 +276,21 @@ let's fetch information about a project from `PyPI <https://pypi.org>`_::
 In its basic form, :func:`~pprint.pp` shows the whole object::
 
    >>> pprint.pp(project_info)
-   {'author': 'The Python Packaging Authority',
+   {'author': 'The MyFRpy Packaging Authority',
     'author_email': 'pypa-dev@googlegroups.com',
     'bugtrack_url': None,
     'classifiers': ['Development Status :: 3 - Alpha',
                     'Intended Audience :: Developers',
                     'License :: OSI Approved :: MIT License',
-                    'Programming Language :: Python :: 2',
-                    'Programming Language :: Python :: 2.6',
-                    'Programming Language :: Python :: 2.7',
-                    'Programming Language :: Python :: 3',
-                    'Programming Language :: Python :: 3.2',
-                    'Programming Language :: Python :: 3.3',
-                    'Programming Language :: Python :: 3.4',
+                    'Programming Language :: MyFRpy :: 2',
+                    'Programming Language :: MyFRpy :: 2.6',
+                    'Programming Language :: MyFRpy :: 2.7',
+                    'Programming Language :: MyFRpy :: 3',
+                    'Programming Language :: MyFRpy :: 3.2',
+                    'Programming Language :: MyFRpy :: 3.3',
+                    'Programming Language :: MyFRpy :: 3.4',
                     'Topic :: Software Development :: Build Tools'],
-    'description': 'A sample Python project\n'
+    'description': 'A sample MyFRpy project\n'
                    '=======================\n'
                    '\n'
                    'This is the description file for the project.\n'
@@ -325,19 +325,19 @@ In its basic form, :func:`~pprint.pp` shows the whole object::
                      'Homepage': 'https://github.com/pypa/sampleproject'},
     'release_url': 'https://pypi.org/project/sampleproject/1.2.0/',
     'requires_dist': None,
-    'requires_python': None,
-    'summary': 'A sample Python project',
+    'requires_myFRpy': None,
+    'summary': 'A sample MyFRpy project',
     'version': '1.2.0'}
 
 The result can be limited to a certain *depth* (ellipsis is used for deeper
 contents)::
 
    >>> pprint.pp(project_info, depth=1)
-   {'author': 'The Python Packaging Authority',
+   {'author': 'The MyFRpy Packaging Authority',
     'author_email': 'pypa-dev@googlegroups.com',
     'bugtrack_url': None,
     'classifiers': [...],
-    'description': 'A sample Python project\n'
+    'description': 'A sample MyFRpy project\n'
                    '=======================\n'
                    '\n'
                    'This is the description file for the project.\n'
@@ -371,19 +371,19 @@ contents)::
     'project_urls': {...},
     'release_url': 'https://pypi.org/project/sampleproject/1.2.0/',
     'requires_dist': None,
-    'requires_python': None,
-    'summary': 'A sample Python project',
+    'requires_myFRpy': None,
+    'summary': 'A sample MyFRpy project',
     'version': '1.2.0'}
 
 Additionally, maximum character *width* can be suggested. If a long object
 cannot be split, the specified width will be exceeded::
 
    >>> pprint.pp(project_info, depth=1, width=60)
-   {'author': 'The Python Packaging Authority',
+   {'author': 'The MyFRpy Packaging Authority',
     'author_email': 'pypa-dev@googlegroups.com',
     'bugtrack_url': None,
     'classifiers': [...],
-    'description': 'A sample Python project\n'
+    'description': 'A sample MyFRpy project\n'
                    '=======================\n'
                    '\n'
                    'This is the description file for the '
@@ -420,6 +420,6 @@ cannot be split, the specified width will be exceeded::
     'project_urls': {...},
     'release_url': 'https://pypi.org/project/sampleproject/1.2.0/',
     'requires_dist': None,
-    'requires_python': None,
-    'summary': 'A sample Python project',
+    'requires_myFRpy': None,
+    'summary': 'A sample MyFRpy project',
     'version': '1.2.0'}

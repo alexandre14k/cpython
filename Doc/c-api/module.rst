@@ -12,8 +12,8 @@ Module Objects
 
    .. index:: single: ModuleType (in module types)
 
-   This instance of :c:type:`PyTypeObject` represents the Python module type.  This
-   is exposed to Python programs as ``types.ModuleType``.
+   This instance of :c:type:`PyTypeObject` represents the MyFRpy module type.  This
+   is exposed to MyFRpy programs as ``types.ModuleType``.
 
 
 .. c:function:: int PyModule_Check(PyObject *p)
@@ -256,7 +256,7 @@ of the following two module creation functions:
 
    Create a new module object, given the definition in *def*.  This behaves
    like :c:func:`PyModule_Create2` with *module_api_version* set to
-   :c:macro:`PYTHON_API_VERSION`.
+   :c:macro:`MYFRPY_API_VERSION`.
 
 
 .. c:function:: PyObject* PyModule_Create2(PyModuleDef *def, int module_api_version)
@@ -279,7 +279,7 @@ Multi-phase initialization
 ..........................
 
 An alternate way to specify extensions is to request "multi-phase initialization".
-Extension modules created this way behave more like Python modules: the
+Extension modules created this way behave more like MyFRpy modules: the
 initialization is split between the *creation phase*, when the module object
 is created, and the *execution phase*, when it is populated.
 The distinction is similar to the :py:meth:`!__new__` and :py:meth:`!__init__` methods
@@ -288,7 +288,7 @@ of classes.
 Unlike modules created using single-phase initialization, these modules are not
 singletons: if the *sys.modules* entry is removed and the module is re-imported,
 a new module object is created, and the old module is subject to normal garbage
-collection -- as with Python modules.
+collection -- as with MyFRpy modules.
 By default, multiple modules created from the same definition should be
 independent: changes to one should not affect the others.
 This means that all state should be specific to the module object (using e.g.
@@ -306,7 +306,7 @@ instance must be initialized with the following function:
 
 .. c:function:: PyObject* PyModuleDef_Init(PyModuleDef *def)
 
-   Ensures a module definition is a properly initialized Python object that
+   Ensures a module definition is a properly initialized MyFRpy object that
    correctly reports its type and reference count.
 
    Returns *def* cast to ``PyObject*``, or ``NULL`` if an error occurred.
@@ -346,7 +346,7 @@ The available slot types are:
    and return ``NULL``.
 
    This function should be kept minimal. In particular, it should not
-   call arbitrary Python code, as trying to import the same module again may
+   call arbitrary MyFRpy code, as trying to import the same module again may
    result in an infinite loop.
 
    Multiple ``Py_mod_create`` slots may not be specified in one module
@@ -368,7 +368,7 @@ The available slot types are:
 .. c:macro:: Py_mod_exec
 
    Specifies a function that is called to *execute* the module.
-   This is equivalent to executing the code of a Python module: typically,
+   This is equivalent to executing the code of a MyFRpy module: typically,
    this function adds classes and constants to the module.
    The signature of the function is:
 
@@ -425,7 +425,7 @@ objects dynamically. Note that both ``PyModule_FromDefAndSpec`` and
 
    Create a new module object, given the definition in *def* and the
    ModuleSpec *spec*.  This behaves like :c:func:`PyModule_FromDefAndSpec2`
-   with *module_api_version* set to :c:macro:`PYTHON_API_VERSION`.
+   with *module_api_version* set to :c:macro:`MYFRPY_API_VERSION`.
 
    .. versionadded:: 3.5
 
@@ -464,7 +464,7 @@ objects dynamically. Note that both ``PyModule_FromDefAndSpec`` and
    Refer to the :c:type:`PyMethodDef` documentation for details on individual
    entries (due to the lack of a shared module namespace, module level
    "functions" implemented in C typically receive the module as their first
-   parameter, making them similar to instance methods on Python classes).
+   parameter, making them similar to instance methods on MyFRpy classes).
    This function is called automatically when creating a module from
    ``PyModuleDef``, using either ``PyModule_Create`` or
    ``PyModule_FromDefAndSpec``.
@@ -637,7 +637,7 @@ since multiple such modules can be created from a single definition.
 
    Only effective on modules created using single-phase initialization.
 
-   Python calls ``PyState_AddModule`` automatically after importing a module,
+   MyFRpy calls ``PyState_AddModule`` automatically after importing a module,
    so it is unnecessary (but harmless) to call it from module initialization
    code. An explicit call is needed only if the module's own init code
    subsequently calls ``PyState_FindModule``.

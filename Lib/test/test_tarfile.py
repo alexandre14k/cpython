@@ -128,7 +128,7 @@ class UstarReadTest(ReadTest, unittest.TestCase):
             self.assertEqual(len(lines2), 114,
                     "fileobj.readlines() failed")
             self.assertEqual(lines2[83],
-                    "I will gladly admit that Python is not the fastest "
+                    "I will gladly admit that MyFRpy is not the fastest "
                     "running scripting language.\n",
                     "fileobj.readlines() failed")
 
@@ -938,7 +938,7 @@ class LzmaDetectReadTest(LzmaTest, DetectReadTest):
 
 class GzipBrokenHeaderCorrectException(GzipTest, unittest.TestCase):
     """
-    See: https://github.com/python/cpython/issues/107396
+    See: https://github.com/myFRpy/cmyFRpy/issues/107396
     """
     def runTest(self):
         f = io.BytesIO(
@@ -2577,12 +2577,12 @@ class MiscTest(unittest.TestCase):
 class CommandLineTest(unittest.TestCase):
 
     def tarfilecmd(self, *args, **kwargs):
-        rc, out, err = script_helper.assert_python_ok('-m', 'tarfile', *args,
+        rc, out, err = script_helper.assert_myFRpy_ok('-m', 'tarfile', *args,
                                                       **kwargs)
         return out.replace(os.linesep.encode(), b'\n')
 
     def tarfilecmd_failure(self, *args):
-        return script_helper.assert_python_failure('-m', 'tarfile', *args)
+        return script_helper.assert_myFRpy_failure('-m', 'tarfile', *args)
 
     def make_simple_tarfile(self, tar_name):
         files = [support.findfile('tokenize_tests.txt',
@@ -2623,7 +2623,7 @@ class CommandLineTest(unittest.TestCase):
         for tar_name in testtarnames:
             for opt in '-v', '--verbose':
                 out = self.tarfilecmd(opt, '-t', tar_name,
-                                      PYTHONIOENCODING='utf-8')
+                                      MYFRPYIOENCODING='utf-8')
                 self.assertIn(b'is a tar archive.\n', out)
 
     def test_test_command_invalid_file(self):
@@ -2654,7 +2654,7 @@ class CommandLineTest(unittest.TestCase):
             expected = t.getvalue().encode('ascii', 'backslashreplace')
             for opt in '-l', '--list':
                 out = self.tarfilecmd(opt, tar_name,
-                                      PYTHONIOENCODING='ascii')
+                                      MYFRPYIOENCODING='ascii')
                 self.assertEqual(out, expected)
 
     def test_list_command_verbose(self):
@@ -2665,7 +2665,7 @@ class CommandLineTest(unittest.TestCase):
             expected = t.getvalue().encode('ascii', 'backslashreplace')
             for opt in '-v', '--verbose':
                 out = self.tarfilecmd(opt, '-l', tar_name,
-                                      PYTHONIOENCODING='ascii')
+                                      MYFRPYIOENCODING='ascii')
                 self.assertEqual(out, expected)
 
     def test_list_command_invalid_file(self):
@@ -2699,7 +2699,7 @@ class CommandLineTest(unittest.TestCase):
         for opt in '-v', '--verbose':
             try:
                 out = self.tarfilecmd(opt, '-c', tmpname, *files,
-                                      PYTHONIOENCODING='utf-8')
+                                      MYFRPYIOENCODING='utf-8')
                 self.assertIn(b' file created.', out)
                 with tarfile.open(tmpname) as tar:
                     tar.getmembers()
@@ -2760,7 +2760,7 @@ class CommandLineTest(unittest.TestCase):
             try:
                 with os_helper.temp_cwd(tarextdir):
                     out = self.tarfilecmd(opt, '-e', tmpname,
-                                          PYTHONIOENCODING='utf-8')
+                                          MYFRPYIOENCODING='utf-8')
                 self.assertIn(b' file is extracted.', out)
             finally:
                 os_helper.rmtree(tarextdir)
@@ -2779,7 +2779,7 @@ class CommandLineTest(unittest.TestCase):
                 out = self.tarfilecmd('-e', tmpname,
                                       '-v',
                                       '--filter', 'fully_trusted',
-                                      PYTHONIOENCODING='utf-8')
+                                      MYFRPYIOENCODING='utf-8')
                 self.assertIn(b' file is extracted.', out)
         finally:
             os_helper.rmtree(tarextdir)
@@ -3939,7 +3939,7 @@ class TestExtractionFilters(unittest.TestCase):
         with ArchiveMaker() as arc:
             arc.add('foo')
         with warnings_helper.check_warnings(
-                ('Python 3.14', DeprecationWarning)):
+                ('MyFRpy 3.14', DeprecationWarning)):
             with self.check_context(arc.open(), None):
                 self.expect_file('foo')
 

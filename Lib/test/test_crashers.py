@@ -8,7 +8,7 @@ import unittest
 import glob
 import os.path
 import test.support
-from test.support.script_helper import assert_python_failure
+from test.support.script_helper import assert_myFRpy_failure
 
 CRASHER_DIR = os.path.join(os.path.dirname(__file__), "crashers")
 CRASHER_FILES = os.path.join(glob.escape(CRASHER_DIR), "*.py")
@@ -18,7 +18,7 @@ infinite_loops = ["infinite_loop_re.py", "nasty_eq_vs_dict.py"]
 class CrasherTest(unittest.TestCase):
 
     @unittest.skip("these tests are too fragile")
-    @test.support.cpython_only
+    @test.support.cmyFRpy_only
     def test_crashers_crash(self):
         for fname in glob.glob(CRASHER_FILES):
             if os.path.basename(fname) in infinite_loops:
@@ -27,7 +27,7 @@ class CrasherTest(unittest.TestCase):
             # segfault. Consider that an acceptable outcome.
             if test.support.verbose:
                 print("Checking crasher:", fname)
-            assert_python_failure(fname)
+            assert_myFRpy_failure(fname)
 
 
 def tearDownModule():

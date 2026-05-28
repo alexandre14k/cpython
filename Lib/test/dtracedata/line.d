@@ -1,4 +1,4 @@
-python$target:::line
+myFRpy$target:::line
 /(copyinstr(arg1)=="test_line")/
 {
     printf("%d\t%s:%s:%s:%d\n", timestamp,

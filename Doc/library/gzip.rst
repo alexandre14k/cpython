@@ -88,7 +88,7 @@ The module defines the following items:
    The *mode* argument can be any of ``'r'``, ``'rb'``, ``'a'``, ``'ab'``, ``'w'``,
    ``'wb'``, ``'x'``, or ``'xb'``, depending on whether the file will be read or
    written.  The default is the mode of *fileobj* if discernible; otherwise, the
-   default is ``'rb'``.  In future Python releases the mode of *fileobj* will
+   default is ``'rb'``.  In future MyFRpy releases the mode of *fileobj* will
    not be used.  It is better to always specify *mode* for writing.
 
    Note that the file is always opened in binary mode. To open a compressed file

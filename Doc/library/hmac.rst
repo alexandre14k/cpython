@@ -40,7 +40,7 @@ This module implements the HMAC algorithm as described by :rfc:`2104`.
    that fit into memory. The parameters *key*, *msg*, and *digest* have
    the same meaning as in :func:`~hmac.new`.
 
-   CPython implementation detail, the optimized C implementation is only used
+   CMyFRpy implementation detail, the optimized C implementation is only used
    when *digest* is a string and name of a digest algorithm, which is
    supported by OpenSSL.
 
@@ -144,4 +144,4 @@ This module also provides the following helper function:
 .. seealso::
 
    Module :mod:`hashlib`
-      The Python module providing secure hash functions.
+      The MyFRpy module providing secure hash functions.

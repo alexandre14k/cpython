@@ -3202,9 +3202,9 @@ class TestTracing(unittest.TestCase):
 
 if __name__ == "__main__":
     """
-    # From inside environment using this Python, with pyperf installed:
+    # From inside environment using this MyFRpy, with pyperf installed:
     sudo $(which pyperf) system tune && \
-         $(which python) -m test.test_patma --rigorous; \
+         $(which myFRpy) -m test.test_patma --rigorous; \
     sudo $(which pyperf) system reset
     """
     import pyperf

@@ -1915,7 +1915,7 @@ class PdbTestCase(unittest.TestCase):
         os_helper.unlink(os_helper.TESTFN)
 
     @unittest.skipIf(sys.flags.safe_path,
-                     'PYTHONSAFEPATH changes default sys.path')
+                     'MYFRPYSAFEPATH changes default sys.path')
     def _run_pdb(self, pdb_args, commands, expected_returncode=0):
         self.addCleanup(os_helper.rmtree, '__pycache__')
         cmd = [sys.executable, '-m', 'pdb'] + pdb_args
@@ -1924,7 +1924,7 @@ class PdbTestCase(unittest.TestCase):
                 stdout=subprocess.PIPE,
                 stdin=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
-                env = {**os.environ, 'PYTHONIOENCODING': 'utf-8'}
+                env = {**os.environ, 'MYFRPYIOENCODING': 'utf-8'}
         ) as proc:
             stdout, stderr = proc.communicate(str.encode(commands))
         stdout = stdout and bytes.decode(stdout)
@@ -2135,7 +2135,7 @@ def bœr():
             stdout=subprocess.PIPE,
             stdin=subprocess.PIPE,
             stderr=subprocess.STDOUT,
-            env={**os.environ, 'PYTHONIOENCODING': 'utf-8'}
+            env={**os.environ, 'MYFRPYIOENCODING': 'utf-8'}
             )
         self.addCleanup(proc.stdout.close)
         stdout, stderr = proc.communicate(b'cont\n')
@@ -2165,7 +2165,7 @@ def bœr():
             stdout=subprocess.PIPE,
             stdin=subprocess.PIPE,
             stderr=subprocess.STDOUT,
-            env = {**os.environ, 'PYTHONIOENCODING': 'utf-8'}
+            env = {**os.environ, 'MYFRPYIOENCODING': 'utf-8'}
             )
         self.addCleanup(proc.stdout.close)
         stdout, stderr = proc.communicate(b'cont\ncont\n')
@@ -2529,7 +2529,7 @@ def bœr():
         check('"', 'No closing quotation')
 
     def test_issue42384(self):
-        '''When running `python foo.py` sys.path[0] is an absolute path. `python -m pdb foo.py` should behave the same'''
+        '''When running `myFRpy foo.py` sys.path[0] is an absolute path. `myFRpy -m pdb foo.py` should behave the same'''
         script = textwrap.dedent("""
             import sys
             print('sys.path[0] is', sys.path[0])
@@ -2545,7 +2545,7 @@ def bœr():
 
     @os_helper.skip_unless_symlink
     def test_issue42384_symlink(self):
-        '''When running `python foo.py` sys.path[0] resolves symlinks. `python -m pdb foo.py` should behave the same'''
+        '''When running `myFRpy foo.py` sys.path[0] resolves symlinks. `myFRpy -m pdb foo.py` should behave the same'''
         script = textwrap.dedent("""
             import sys
             print('sys.path[0] is', sys.path[0])

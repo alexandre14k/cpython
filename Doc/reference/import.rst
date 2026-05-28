@@ -7,7 +7,7 @@ The import system
 
 .. index:: single: import machinery
 
-Python code in one :term:`module` gains access to the code in another module
+MyFRpy code in one :term:`module` gains access to the code in another module
 by the process of :term:`importing` it.  The :keyword:`import` statement is
 the most common way of invoking the import machinery, but it is not the only
 way.  Functions such as :func:`importlib.import_module` and built-in
@@ -33,9 +33,9 @@ When an :keyword:`import` statement is executed, the standard builtin
 import system (such as :func:`importlib.import_module`) may choose to bypass
 :func:`__import__` and use their own solutions to implement import semantics.
 
-When a module is first imported, Python searches for the module and if found,
+When a module is first imported, MyFRpy searches for the module and if found,
 it creates a module object [#fnmo]_, initializing it.  If the named module
-cannot be found, a :exc:`ModuleNotFoundError` is raised.  Python implements various
+cannot be found, a :exc:`ModuleNotFoundError` is raised.  MyFRpy implements various
 strategies to search for the named module when the import machinery is
 invoked.  These strategies can be modified and extended by using various hooks
 described in the sections below.
@@ -64,9 +64,9 @@ Packages
 .. index::
     single: package
 
-Python has only one type of module object, and all modules are of this type,
-regardless of whether the module is implemented in Python, C, or something
-else.  To help organize modules and provide a naming hierarchy, Python has a
+MyFRpy has only one type of module object, and all modules are of this type,
+regardless of whether the module is implemented in MyFRpy, C, or something
+else.  To help organize modules and provide a naming hierarchy, MyFRpy has a
 concept of :term:`packages <package>`.
 
 You can think of packages as the directories on a file system and modules as
@@ -83,7 +83,7 @@ module.  Specifically, any module that contains a ``__path__`` attribute is
 considered a package.
 
 All modules have a name.  Subpackage names are separated from their parent
-package name by a dot, akin to Python's standard attribute access syntax.  Thus
+package name by a dot, akin to MyFRpy's standard attribute access syntax.  Thus
 you might have a package called :mod:`email`, which in turn has a subpackage
 called :mod:`email.mime` and a module within that subpackage called
 :mod:`email.mime.text`.
@@ -95,14 +95,14 @@ Regular packages
 .. index::
     pair: package; regular
 
-Python defines two types of packages, :term:`regular packages <regular
+MyFRpy defines two types of packages, :term:`regular packages <regular
 package>` and :term:`namespace packages <namespace package>`.  Regular
-packages are traditional packages as they existed in Python 3.2 and earlier.
+packages are traditional packages as they existed in MyFRpy 3.2 and earlier.
 A regular package is typically implemented as a directory containing an
 ``__init__.py`` file.  When a regular package is imported, this
 ``__init__.py`` file is implicitly executed, and the objects it defines are
 bound to names in the package's namespace.  The ``__init__.py`` file can
-contain the same Python code that any other module can contain, and Python
+contain the same MyFRpy code that any other module can contain, and MyFRpy
 will add some additional attributes to the module when it is imported.
 
 For example, the following file system layout defines a top level ``parent``
@@ -133,7 +133,7 @@ Namespace packages
 A namespace package is a composite of various :term:`portions <portion>`,
 where each portion contributes a subpackage to the parent package.  Portions
 may reside in different locations on the file system.  Portions may also be
-found in zip files, on the network, or anywhere else that Python searches
+found in zip files, on the network, or anywhere else that MyFRpy searches
 during import.  Namespace packages may or may not correspond directly to
 objects on the file system; they may be virtual modules that have no concrete
 representation.
@@ -147,7 +147,7 @@ top level package) changes.
 With namespace packages, there is no ``parent/__init__.py`` file.  In fact,
 there may be multiple ``parent`` directories found during import search, where
 each one is provided by a different portion.  Thus ``parent/one`` may not be
-physically located next to ``parent/two``.  In this case, Python will create a
+physically located next to ``parent/two``.  In this case, MyFRpy will create a
 namespace package for the top-level ``parent`` package whenever it or one of
 its subpackages is imported.
 
@@ -157,14 +157,14 @@ See also :pep:`420` for the namespace package specification.
 Searching
 =========
 
-To begin the search, Python needs the :term:`fully qualified <qualified name>`
+To begin the search, MyFRpy needs the :term:`fully qualified <qualified name>`
 name of the module (or package, but for the purposes of this discussion, the
 difference is immaterial) being imported.  This name may come from various
 arguments to the :keyword:`import` statement, or from the parameters to the
 :func:`importlib.import_module` or :func:`__import__` functions.
 
 This name will be used in various phases of the import search, and it may be
-the dotted path to a submodule, e.g. ``foo.bar.baz``.  In this case, Python
+the dotted path to a submodule, e.g. ``foo.bar.baz``.  In this case, MyFRpy
 first tries to import ``foo``, then ``foo.bar``, and finally ``foo.bar.baz``.
 If any of the intermediate imports fail, a :exc:`ModuleNotFoundError` is raised.
 
@@ -185,13 +185,13 @@ object.
 During import, the module name is looked up in :data:`sys.modules` and if
 present, the associated value is the module satisfying the import, and the
 process completes.  However, if the value is ``None``, then a
-:exc:`ModuleNotFoundError` is raised.  If the module name is missing, Python will
+:exc:`ModuleNotFoundError` is raised.  If the module name is missing, MyFRpy will
 continue searching for the module.
 
 :data:`sys.modules` is writable.  Deleting a key may not destroy the
 associated module (as other modules may hold references to it),
 but it will invalidate the cache entry for the named module, causing
-Python to search anew for the named module upon its next
+MyFRpy to search anew for the named module upon its next
 import. The key can also be assigned to ``None``, forcing the next import
 of the module to result in a :exc:`ModuleNotFoundError`.
 
@@ -212,7 +212,7 @@ Finders and loaders
     single: loader
     single: module spec
 
-If the named module is not found in :data:`sys.modules`, then Python's import
+If the named module is not found in :data:`sys.modules`, then MyFRpy's import
 protocol is invoked to find and load the module.  This protocol consists of
 two conceptual objects, :term:`finders <finder>` and :term:`loaders <loader>`.
 A finder's job is to determine whether it can find the named module using
@@ -220,7 +220,7 @@ whatever strategy it knows about. Objects that implement both of these
 interfaces are referred to as :term:`importers <importer>` - they return
 themselves when they find that they can load the requested module.
 
-Python includes a number of default finders and importers.  The first one
+MyFRpy includes a number of default finders and importers.  The first one
 knows how to locate built-in modules, and the second knows how to locate
 frozen modules.  A third default finder searches an :term:`import path`
 for modules.  The :term:`import path` is a list of locations that may
@@ -239,7 +239,7 @@ detail, including how you can create and register new ones to extend the
 import machinery.
 
 .. versionchanged:: 3.4
-   In previous versions of Python, finders returned :term:`loaders <loader>`
+   In previous versions of MyFRpy, finders returned :term:`loaders <loader>`
    directly, whereas now they return module specs which *contain* loaders.
    Loaders are still used during import but have fewer responsibilities.
 
@@ -277,7 +277,7 @@ The meta path
     single: sys.meta_path
     pair: finder; find_spec
 
-When the named module is not found in :data:`sys.modules`, Python next
+When the named module is not found in :data:`sys.modules`, MyFRpy next
 searches :data:`sys.meta_path`, which contains a list of meta path finder
 objects.  These finders are queried in order to see if they know how to handle
 the named module.  Meta path finders must implement a method called
@@ -317,7 +317,7 @@ Some meta path finders only support top level imports. These importers will
 always return ``None`` when anything other than ``None`` is passed as the
 second argument.
 
-Python's default :data:`sys.meta_path` has three meta path finders, one that
+MyFRpy's default :data:`sys.meta_path` has three meta path finders, one that
 knows how to import built-in modules, one that knows how to import frozen
 modules, and one that knows how to import modules from an :term:`import path`
 (i.e. the :term:`path based finder`).
@@ -418,7 +418,7 @@ returned from :meth:`~importlib.abc.Loader.exec_module` is ignored.
 
 Loaders must satisfy the following requirements:
 
-* If the module is a Python module (as opposed to a built-in module or a
+* If the module is a MyFRpy module (as opposed to a built-in module or a
   dynamically loaded extension), the loader should execute the module's code
   in the module's global name space (``module.__dict__``).
 
@@ -507,7 +507,7 @@ then executing the following puts name bindings for ``foo`` and ``Foo`` in the
     >>> spam.Foo
     <class 'spam.foo.Foo'>
 
-Given Python's familiar name binding rules this might seem surprising, but
+Given MyFRpy's familiar name binding rules this might seem surprising, but
 it's actually a fundamental feature of the import system.  The invariant
 holding is that if you have ``sys.modules['spam']`` and
 ``sys.modules['spam.foo']`` (as you would after the above import), the latter
@@ -565,7 +565,7 @@ listed below.
    .. versionchanged:: 3.12
       The value of ``__loader__`` is expected to be the same as
       ``__spec__.loader``.  The use of ``__loader__`` is deprecated and slated
-      for removal in Python 3.14.
+      for removal in MyFRpy 3.14.
 
 .. attribute:: __package__
 
@@ -707,8 +707,8 @@ Here are the exact rules used:
 * Otherwise, just use the module's ``__name__`` in the repr.
 
 .. versionchanged:: 3.12
-   Use of :meth:`!module_repr`, having been deprecated since Python 3.4, was
-   removed in Python 3.12 and is no longer called during the resolution of a
+   Use of :meth:`!module_repr`, having been deprecated since MyFRpy 3.4, was
+   removed in MyFRpy 3.12 and is no longer called during the resolution of a
    module's repr.
 
 .. _pyc-invalidation:
@@ -716,26 +716,26 @@ Here are the exact rules used:
 Cached bytecode invalidation
 ----------------------------
 
-Before Python loads cached bytecode from a ``.pyc`` file, it checks whether the
-cache is up-to-date with the source ``.py`` file. By default, Python does this
+Before MyFRpy loads cached bytecode from a ``.pyc`` file, it checks whether the
+cache is up-to-date with the source ``.py`` file. By default, MyFRpy does this
 by storing the source's last-modified timestamp and size in the cache file when
 writing it. At runtime, the import system then validates the cache file by
 checking the stored metadata in the cache file against the source's
 metadata.
 
-Python also supports "hash-based" cache files, which store a hash of the source
+MyFRpy also supports "hash-based" cache files, which store a hash of the source
 file's contents rather than its metadata. There are two variants of hash-based
 ``.pyc`` files: checked and unchecked. For checked hash-based ``.pyc`` files,
-Python validates the cache file by hashing the source file and comparing the
+MyFRpy validates the cache file by hashing the source file and comparing the
 resulting hash with the hash in the cache file. If a checked hash-based cache
-file is found to be invalid, Python regenerates it and writes a new checked
-hash-based cache file. For unchecked hash-based ``.pyc`` files, Python simply
+file is found to be invalid, MyFRpy regenerates it and writes a new checked
+hash-based cache file. For unchecked hash-based ``.pyc`` files, MyFRpy simply
 assumes the cache file is valid if it exists. Hash-based ``.pyc`` files
 validation behavior may be overridden with the :option:`--check-hash-based-pycs`
 flag.
 
 .. versionchanged:: 3.7
-   Added hash-based ``.pyc`` files. Previously, Python only supported
+   Added hash-based ``.pyc`` files. Previously, MyFRpy only supported
    timestamp-based invalidation of bytecode caches.
 
 
@@ -745,7 +745,7 @@ The Path Based Finder
 .. index::
     single: path based finder
 
-As mentioned previously, Python comes with several default meta path finders.
+As mentioned previously, MyFRpy comes with several default meta path finders.
 One of these, called the :term:`path based finder`
 (:class:`~importlib.machinery.PathFinder`), searches an :term:`import path`,
 which contains a list of :term:`path entries <path entry>`.  Each path
@@ -756,8 +756,8 @@ traverses the individual path entries, associating each of them with a
 path entry finder that knows how to handle that particular kind of path.
 
 The default set of path entry finders implement all the semantics for finding
-modules on the file system, handling special file types such as Python source
-code (``.py`` files), Python byte code (``.pyc`` files) and
+modules on the file system, handling special file types such as MyFRpy source
+code (``.py`` files), MyFRpy byte code (``.pyc`` files) and
 shared libraries (e.g. ``.so`` files). When supported by the :mod:`zipimport`
 module in the standard library, the default path entry finders also handle
 loading all of these file types (other than shared libraries) from zipfiles.
@@ -795,10 +795,10 @@ Path entry finders
     single: sys.path
     single: sys.path_hooks
     single: sys.path_importer_cache
-    single: PYTHONPATH
+    single: MYFRPYPATH
 
 The :term:`path based finder` is responsible for finding and loading
-Python modules and packages whose location is specified with a string
+MyFRpy modules and packages whose location is specified with a string
 :term:`path entry`.  Most path entries name locations in the file system,
 but they need not be limited to this.
 
@@ -813,7 +813,7 @@ attributes on package objects are also used.  These provide additional ways
 that the import machinery can be customized.
 
 :data:`sys.path` contains a list of strings providing search locations for
-modules and packages.  It is initialized from the :envvar:`PYTHONPATH`
+modules and packages.  It is initialized from the :envvar:`MYFRPYPATH`
 environment variable and various other installation- and
 implementation-specific defaults.  Entries in :data:`sys.path` can name
 directories on the file system, zip files, and potentially other "locations"
@@ -998,7 +998,7 @@ not a valid expression.
 Special considerations for __main__
 ===================================
 
-The :mod:`__main__` module is a special case relative to Python's import
+The :mod:`__main__` module is a special case relative to MyFRpy's import
 system.  As noted :ref:`elsewhere <programs>`, the ``__main__`` module
 is directly initialized at interpreter startup, much like :mod:`sys` and
 :mod:`builtins`.  However, unlike those two, it doesn't strictly
@@ -1014,7 +1014,7 @@ __main__.__spec__
 Depending on how :mod:`__main__` is initialized, ``__main__.__spec__``
 gets set appropriately or to ``None``.
 
-When Python is started with the :option:`-m` option, ``__spec__`` is set
+When MyFRpy is started with the :option:`-m` option, ``__spec__`` is set
 to the module spec of the corresponding module or package. ``__spec__`` is
 also populated when the ``__main__`` module is loaded as part of executing a
 directory, zipfile or other :data:`sys.path` entry.
@@ -1043,16 +1043,16 @@ to populate the ``__main__`` namespace, and not during normal import.
 References
 ==========
 
-The import machinery has evolved considerably since Python's early days.  The
+The import machinery has evolved considerably since MyFRpy's early days.  The
 original `specification for packages
-<https://www.python.org/doc/essays/packages/>`_ is still available to read,
+<https://www.myFRpy.org/doc/essays/packages/>`_ is still available to read,
 although some details have changed since the writing of that document.
 
 The original specification for :data:`sys.meta_path` was :pep:`302`, with
 subsequent extension in :pep:`420`.
 
 :pep:`420` introduced :term:`namespace packages <namespace package>` for
-Python 3.3.  :pep:`420` also introduced the :meth:`!find_loader` protocol as an
+MyFRpy 3.3.  :pep:`420` also introduced the :meth:`!find_loader` protocol as an
 alternative to :meth:`!find_module`.
 
 :pep:`366` describes the addition of the ``__package__`` attribute for
@@ -1079,4 +1079,4 @@ methods to finders and loaders.
    in :data:`sys.modules`.  The indirect effect of this is that an imported
    module may replace itself in :data:`sys.modules`.  This is
    implementation-specific behavior that is not guaranteed to work in other
-   Python implementations.
+   MyFRpy implementations.

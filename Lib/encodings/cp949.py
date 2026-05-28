@@ -1,5 +1,5 @@
 #
-# cp949.py: Python Unicode Codec for CP949
+# cp949.py: MyFRpy Unicode Codec for CP949
 #
 # Written by Hye-Shik Chang <perky@FreeBSD.org>
 #

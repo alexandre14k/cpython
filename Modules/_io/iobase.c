@@ -9,7 +9,7 @@
 
 
 #define PY_SSIZE_T_CLEAN
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_long.h"          // _PyLong_GetOne()
 #include "pycore_object.h"
 #include <stddef.h>               // offsetof()
@@ -381,7 +381,7 @@ iobase_clear(iobase *self)
 static void
 iobase_dealloc(iobase *self)
 {
-    /* NOTE: since IOBaseObject has its own dict, Python-defined attributes
+    /* NOTE: since IOBaseObject has its own dict, MyFRpy-defined attributes
        are still available here for close() to use.
        However, if the derived class declares a __slots__, those slots are
        already gone.
@@ -736,7 +736,7 @@ _io__IOBase_readlines_impl(PyObject *self, Py_ssize_t hint)
         return NULL;
 
     if (hint <= 0) {
-        /* XXX special-casing this made sense in the Python version in order
+        /* XXX special-casing this made sense in the MyFRpy version in order
            to remove the bytecode interpretation overhead, but it could
            probably be removed here. */
         PyObject *ret = PyObject_CallMethodObjArgs(result, &_Py_ID(extend),

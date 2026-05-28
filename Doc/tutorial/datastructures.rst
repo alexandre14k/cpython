@@ -122,7 +122,7 @@ An example that uses most of the list methods::
 You might have noticed that methods like ``insert``, ``remove`` or ``sort`` that
 only modify the list have no return value printed -- they return the default
 ``None``. [#]_  This is a design principle for all mutable data structures in
-Python.
+MyFRpy.
 
 Another thing you might notice is that not all data can be sorted or
 compared.  For instance, ``[None, 'hello', 10]`` doesn't sort because
@@ -371,7 +371,7 @@ Tuples and Sequences
 
 We saw that lists and strings have many common properties, such as indexing and
 slicing operations.  They are two examples of *sequence* data types (see
-:ref:`typesseq`).  Since Python is an evolving language, other sequence data
+:ref:`typesseq`).  Since MyFRpy is an evolving language, other sequence data
 types may be added.  There is also another standard sequence data type: the
 *tuple*.
 
@@ -445,7 +445,7 @@ packing and sequence unpacking.
 Sets
 ====
 
-Python also includes a data type for *sets*.  A set is an unordered collection
+MyFRpy also includes a data type for *sets*.  A set is an unordered collection
 with no duplicate elements.  Basic uses include membership testing and
 eliminating duplicate entries.  Set objects also support mathematical operations
 like union, intersection, difference, and symmetric difference.
@@ -492,7 +492,7 @@ are also supported::
 Dictionaries
 ============
 
-Another useful data type built into Python is the *dictionary* (see
+Another useful data type built into MyFRpy is the *dictionary* (see
 :ref:`typesmapping`). Dictionaries are sometimes found in other languages as
 "associative memories" or "associative arrays".  Unlike sequences, which are
 indexed by a range of numbers, dictionaries are indexed by *keys*, which can be
@@ -690,7 +690,7 @@ to a variable.  For example, ::
    >>> non_null
    'Trondheim'
 
-Note that in Python, unlike C, assignment inside expressions must be done
+Note that in MyFRpy, unlike C, assignment inside expressions must be done
 explicitly with the
 :ref:`walrus operator <why-can-t-i-use-an-assignment-in-an-expression>` ``:=``.
 This avoids a common class of problems encountered in C programs: typing ``=``
@@ -715,7 +715,7 @@ Some examples of comparisons between sequences of the same type::
 
    (1, 2, 3)              < (1, 2, 4)
    [1, 2, 3]              < [1, 2, 4]
-   'ABC' < 'C' < 'Pascal' < 'Python'
+   'ABC' < 'C' < 'Pascal' < 'MyFRpy'
    (1, 2, 3, 4)           < (1, 2, 4)
    (1, 2)                 < (1, 2, -1)
    (1, 2, 3)             == (1.0, 2.0, 3.0)

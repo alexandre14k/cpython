@@ -3,24 +3,24 @@
 .. _using-on-unix:
 
 ********************************
- Using Python on Unix platforms
+ Using MyFRpy on Unix platforms
 ********************************
 
 .. sectionauthor:: Shriphani Palakodety
 
 
-Getting and installing the latest version of Python
+Getting and installing the latest version of MyFRpy
 ===================================================
 
 On Linux
 --------
 
-Python comes preinstalled on most Linux distributions, and is available as a
+MyFRpy comes preinstalled on most Linux distributions, and is available as a
 package on all others.  However there are certain features you might want to use
 that are not available on your distro's package.  You can easily compile the
-latest version of Python from source.
+latest version of MyFRpy from source.
 
-In the event that Python doesn't come preinstalled and isn't in the repositories as
+In the event that MyFRpy doesn't come preinstalled and isn't in the repositories as
 well, you can easily make packages for your own distro.  Have a look at the
 following links:
 
@@ -41,28 +41,28 @@ On FreeBSD and OpenBSD
 
 * FreeBSD users, to add the package use::
 
-     pkg install python3
+     pkg install myFRpy3
 
 * OpenBSD users, to add the package use::
 
-     pkg_add -r python
+     pkg_add -r myFRpy
 
-     pkg_add ftp://ftp.openbsd.org/pub/OpenBSD/4.2/packages/<insert your architecture here>/python-<version>.tgz
+     pkg_add ftp://ftp.openbsd.org/pub/OpenBSD/4.2/packages/<insert your architecture here>/myFRpy-<version>.tgz
 
-  For example i386 users get the 2.5.1 version of Python using::
+  For example i386 users get the 2.5.1 version of MyFRpy using::
 
-     pkg_add ftp://ftp.openbsd.org/pub/OpenBSD/4.2/packages/i386/python-2.5.1p2.tgz
+     pkg_add ftp://ftp.openbsd.org/pub/OpenBSD/4.2/packages/i386/myFRpy-2.5.1p2.tgz
 
 
-.. _building-python-on-unix:
+.. _building-myFRpy-on-unix:
 
-Building Python
+Building MyFRpy
 ===============
 
-If you want to compile CPython yourself, first thing you should do is get the
-`source <https://www.python.org/downloads/source/>`_. You can download either the
+If you want to compile CMyFRpy yourself, first thing you should do is get the
+`source <https://www.myFRpy.org/downloads/source/>`_. You can download either the
 latest release's source or just grab a fresh `clone
-<https://devguide.python.org/setup/#get-the-source-code>`_.  (If you want
+<https://devguide.myFRpy.org/setup/#get-the-source-code>`_.  (If you want
 to contribute patches, you will need a clone.)
 
 The build process consists of the usual commands::
@@ -73,16 +73,16 @@ The build process consists of the usual commands::
 
 :ref:`Configuration options <configure-options>` and caveats for specific Unix
 platforms are extensively documented in the :source:`README.rst` file in the
-root of the Python source tree.
+root of the MyFRpy source tree.
 
 .. warning::
 
-   ``make install`` can overwrite or masquerade the :file:`python3` binary.
+   ``make install`` can overwrite or masquerade the :file:`myFRpy3` binary.
    ``make altinstall`` is therefore recommended instead of ``make install``
-   since it only installs :file:`{exec_prefix}/bin/python{version}`.
+   since it only installs :file:`{exec_prefix}/bin/myFRpy{version}`.
 
 
-Python-related paths and files
+MyFRpy-related paths and files
 ==============================
 
 These are subject to difference depending on local installation conventions;
@@ -95,14 +95,14 @@ For example, on most Linux systems, the default for both is :file:`/usr`.
 +-----------------------------------------------+------------------------------------------+
 | File/directory                                | Meaning                                  |
 +===============================================+==========================================+
-| :file:`{exec_prefix}/bin/python3`             | Recommended location of the interpreter. |
+| :file:`{exec_prefix}/bin/myFRpy3`             | Recommended location of the interpreter. |
 +-----------------------------------------------+------------------------------------------+
-| :file:`{prefix}/lib/python{version}`,         | Recommended locations of the directories |
-| :file:`{exec_prefix}/lib/python{version}`     | containing the standard modules.         |
+| :file:`{prefix}/lib/myFRpy{version}`,         | Recommended locations of the directories |
+| :file:`{exec_prefix}/lib/myFRpy{version}`     | containing the standard modules.         |
 +-----------------------------------------------+------------------------------------------+
-| :file:`{prefix}/include/python{version}`,     | Recommended locations of the directories |
-| :file:`{exec_prefix}/include/python{version}` | containing the include files needed for  |
-|                                               | developing Python extensions and         |
+| :file:`{prefix}/include/myFRpy{version}`,     | Recommended locations of the directories |
+| :file:`{exec_prefix}/include/myFRpy{version}` | containing the include files needed for  |
+|                                               | developing MyFRpy extensions and         |
 |                                               | embedding the interpreter.               |
 +-----------------------------------------------+------------------------------------------+
 
@@ -110,7 +110,7 @@ For example, on most Linux systems, the default for both is :file:`/usr`.
 Miscellaneous
 =============
 
-To easily use Python scripts on Unix, you need to make them executable,
+To easily use MyFRpy scripts on Unix, you need to make them executable,
 e.g. with
 
 .. code-block:: shell-session
@@ -120,13 +120,13 @@ e.g. with
 and put an appropriate Shebang line at the top of the script.  A good choice is
 usually ::
 
-   #!/usr/bin/env python3
+   #!/usr/bin/env myFRpy3
 
-which searches for the Python interpreter in the whole :envvar:`PATH`.  However,
+which searches for the MyFRpy interpreter in the whole :envvar:`PATH`.  However,
 some Unices may not have the :program:`env` command, so you may need to hardcode
-``/usr/bin/python3`` as the interpreter path.
+``/usr/bin/myFRpy3`` as the interpreter path.
 
-To use shell commands in your Python scripts, look at the :mod:`subprocess` module.
+To use shell commands in your MyFRpy scripts, look at the :mod:`subprocess` module.
 
 .. _unix_custom_openssl:
 
@@ -162,21 +162,21 @@ Custom OpenSSL
       $ make install_sw
       $ popd
 
-3. Build Python with custom OpenSSL
+3. Build MyFRpy with custom OpenSSL
    (see the configure ``--with-openssl`` and ``--with-openssl-rpath`` options)
 
    .. code-block:: shell-session
 
-      $ pushd python-3.x.x
+      $ pushd myFRpy-3.x.x
       $ ./configure -C \
           --with-openssl=/usr/local/custom-openssl \
           --with-openssl-rpath=auto \
-          --prefix=/usr/local/python-3.x.x
+          --prefix=/usr/local/myFRpy-3.x.x
       $ make -j8
       $ make altinstall
 
 .. note::
 
    Patch releases of OpenSSL have a backwards compatible ABI. You don't need
-   to recompile Python to update OpenSSL. It's sufficient to replace the
+   to recompile MyFRpy to update OpenSSL. It's sufficient to replace the
    custom OpenSSL installation with a newer version.

@@ -18,7 +18,7 @@ message object trees.
 
    This iterates over all the payloads in all the subparts of *msg*, returning the
    string payloads line-by-line.  It skips over all the subpart headers, and it
-   skips over any subpart with a payload that isn't a Python string.  This is
+   skips over any subpart with a payload that isn't a MyFRpy string.  This is
    somewhat equivalent to reading the flat text representation of the message from
    a file using :meth:`~io.TextIOBase.readline`, skipping over all the
    intervening headers.
@@ -79,5 +79,5 @@ The following function has been added as a useful debugging tool.  It should
       somefile.close()
 
    Optional *fp* is a file-like object to print the output to.  It must be
-   suitable for Python's :func:`print` function.  *level* is used internally.
+   suitable for MyFRpy's :func:`print` function.  *level* is used internally.
    *include_default*, if true, prints the default type as well.

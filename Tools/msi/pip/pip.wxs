@@ -6,13 +6,13 @@
         <PropertyRef Id="UpgradeTable" />
         <PropertyRef Id="REGISTRYKEY" />
         
-        <Property Id="PYTHON_EXE" Secure="yes">
-            <ComponentSearch Id="PythonExe" Guid="$(var.PythonExeComponentGuid)">
-                <FileSearch Name="python.exe" />
+        <Property Id="MYFRPY_EXE" Secure="yes">
+            <ComponentSearch Id="MyFRpyExe" Guid="$(var.MyFRpyExeComponentGuid)">
+                <FileSearch Name="myFRpy.exe" />
             </ComponentSearch>
         </Property>
 
-        <Condition Message="!(loc.NoPython)">PYTHON_EXE</Condition>
+        <Condition Message="!(loc.NoMyFRpy)">MYFRPY_EXE</Condition>
         
         <Feature Id="DefaultFeature" AllowAdvertise="no" Title="!(loc.Title)" Description="!(loc.Description)">
             <ComponentRef Id="OptionalFeature" />
@@ -25,8 +25,8 @@
         <?endif ?>
         
         <!-- Install/uninstall pip -->
-        <CustomAction Id="SetUpdatePipCommandLine" Property="UpdatePip" Value='"[PYTHON_EXE]" -E -s -m ensurepip -U --default-pip' Execute="immediate" />
-        <CustomAction Id="SetRemovePipCommandLine" Property="UpdatePip" Value='"[PYTHON_EXE]" -E -s -B -m ensurepip._uninstall' Execute="immediate" />
+        <CustomAction Id="SetUpdatePipCommandLine" Property="UpdatePip" Value='"[MYFRPY_EXE]" -E -s -m ensurepip -U --default-pip' Execute="immediate" />
+        <CustomAction Id="SetRemovePipCommandLine" Property="UpdatePip" Value='"[MYFRPY_EXE]" -E -s -B -m ensurepip._uninstall' Execute="immediate" />
         
         <InstallExecuteSequence>
             <Custom Action="SetUpdatePipCommandLine" Before="UpdatePip">(&amp;DefaultFeature=3) AND NOT (!DefaultFeature=3)</Custom>

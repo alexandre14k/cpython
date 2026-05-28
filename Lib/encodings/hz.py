@@ -1,5 +1,5 @@
 #
-# hz.py: Python Unicode Codec for HZ
+# hz.py: MyFRpy Unicode Codec for HZ
 #
 # Written by Hye-Shik Chang <perky@FreeBSD.org>
 #

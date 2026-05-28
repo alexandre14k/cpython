@@ -6,7 +6,7 @@
 
 --------------
 
-This module provides direct access to all 'built-in' identifiers of Python; for
+This module provides direct access to all 'built-in' identifiers of MyFRpy; for
 example, ``builtins.open`` is the full name for the built-in function
 :func:`open`.  See :ref:`built-in-funcs` and :ref:`built-in-consts` for
 documentation.
@@ -39,4 +39,4 @@ As an implementation detail, most modules have the name ``__builtins__`` made
 available as part of their globals.  The value of ``__builtins__`` is normally
 either this module or the value of this module's :attr:`~object.__dict__` attribute.
 Since this is an implementation detail, it may not be used by alternate
-implementations of Python.
+implementations of MyFRpy.

@@ -35,7 +35,7 @@ TO DO:
 - don't open second class browser on same module (nor second path browser)
 - unify class and path browsers
 - Need to define a standard way whereby one can determine one is running
-  inside IDLE (needed for Tk mainloop, also handy for $PYTHONSTARTUP)
+  inside IDLE (needed for Tk mainloop, also handy for $MYFRPYSTARTUP)
 - Add more utility methods for use by extensions (a la get_selection)
 - Way to run command in totally separate interpreter (fork+os.system?) DONE
 - Way to find definition of fully-qualified name:
@@ -78,7 +78,7 @@ Jeff Bauer suggests:
 
 The last suggestion is already a reality, but not yet
 integrated into IDLE.  I use a module called inspector.py,
-that used to be available from python.org(?)  It no longer
+that used to be available from myFRpy.org(?)  It no longer
 appears to be in the contributed section, and the source
 has no author attribution.
 
@@ -127,7 +127,7 @@ Things I'd like to see:
     - I'd like support for shift-click extending the selection. There's a
       bug now that it doesn't work the first time you try it.
     - Printing is needed. How hard can that be on Windows? FIRST CUT DONE
-    - The python-mode trick of autoindenting a line with <tab> is neat and
+    - The myFRpy-mode trick of autoindenting a line with <tab> is neat and
       very handy.
     - (someday) a spellchecker for docstrings and comments.
     - a pagedown/up command key which moves to next class/def statement (top
@@ -174,7 +174,7 @@ project directories should exist [not so sure --GvR].  (Tim Peters)
 
 - Merge attr-tips and auto-expand.  (Mark Hammond, Tim Peters)
 
-- Python Shell should behave more like a "shell window" as users know
+- MyFRpy Shell should behave more like a "shell window" as users know
 it -- i.e. you can only edit the current command, and the cursor can't
 escape from the command area.  (Albert Brandl)
 
@@ -190,7 +190,7 @@ beginning with "idle" -- for window manangers.  (Randall Hopper)
 lines below the cursor, hitting Return should ignore or delete those
 blank lines rather than deciding you're not on the last line.  (me)
 
-- Run command (F5 c.s.) should be more like Pythonwin's Run -- a
+- Run command (F5 c.s.) should be more like MyFRpywin's Run -- a
 dialog with options to give command line arguments, run the debugger,
 etc.  (me)
 

@@ -67,7 +67,7 @@ This document includes four main sections:
 Tutorial
 --------
 
-In this tutorial, you will create a database of Monty Python movies
+In this tutorial, you will create a database of Monty MyFRpy movies
 using basic :mod:`!sqlite3` functionality.
 It assumes a fundamental understanding of database concepts,
 including `cursors`_ and `transactions`_.
@@ -143,7 +143,7 @@ once again by calling :meth:`cur.execute(...) <Cursor.execute>`:
 
    cur.execute("""
        INSERT INTO movie VALUES
-           ('Monty Python and the Holy Grail', 1975, 8.2),
+           ('Monty MyFRpy and the Holy Grail', 1975, 8.2),
            ('And Now for Something Completely Different', 1971, 7.5)
    """)
 
@@ -178,16 +178,16 @@ Now, insert three more rows by calling
 .. testcode::
 
    data = [
-       ("Monty Python Live at the Hollywood Bowl", 1982, 7.9),
-       ("Monty Python's The Meaning of Life", 1983, 7.5),
-       ("Monty Python's Life of Brian", 1979, 8.0),
+       ("Monty MyFRpy Live at the Hollywood Bowl", 1982, 7.9),
+       ("Monty MyFRpy's The Meaning of Life", 1983, 7.5),
+       ("Monty MyFRpy's Life of Brian", 1979, 8.0),
    ]
    cur.executemany("INSERT INTO movie VALUES(?, ?, ?)", data)
    con.commit()  # Remember to commit the transaction after executing INSERT.
 
 Notice that ``?`` placeholders are used to bind ``data`` to the query.
 Always use placeholders instead of :ref:`string formatting <tut-formatting>`
-to bind Python values to SQL statements,
+to bind MyFRpy values to SQL statements,
 to avoid `SQL injection attacks`_
 (see :ref:`sqlite3-placeholders` for more details).
 
@@ -200,10 +200,10 @@ this time iterating over the results of the query:
    >>> for row in cur.execute("SELECT year, title FROM movie ORDER BY year"):
    ...     print(row)
    (1971, 'And Now for Something Completely Different')
-   (1975, 'Monty Python and the Holy Grail')
-   (1979, "Monty Python's Life of Brian")
-   (1982, 'Monty Python Live at the Hollywood Bowl')
-   (1983, "Monty Python's The Meaning of Life")
+   (1975, 'Monty MyFRpy and the Holy Grail')
+   (1979, "Monty MyFRpy's Life of Brian")
+   (1982, 'Monty MyFRpy Live at the Hollywood Bowl')
+   (1983, "Monty MyFRpy's The Meaning of Life")
 
 Each row is a two-item :class:`tuple` of ``(year, title)``,
 matching the columns selected in the query.
@@ -220,8 +220,8 @@ creating a new cursor, then querying the database:
    >>> new_cur = new_con.cursor()
    >>> res = new_cur.execute("SELECT title, year FROM movie ORDER BY score DESC")
    >>> title, year = res.fetchone()
-   >>> print(f'The highest scoring Monty Python movie is {title!r}, released in {year}')
-   The highest scoring Monty Python movie is 'Monty Python and the Holy Grail', released in 1975
+   >>> print(f'The highest scoring Monty MyFRpy movie is {title!r}, released in {year}')
+   The highest scoring Monty MyFRpy movie is 'Monty MyFRpy and the Holy Grail', released in 1975
    >>> new_con.close()
 
 You've now created an SQLite database using the :mod:`!sqlite3` module,
@@ -284,7 +284,7 @@ Module functions
    :param int detect_types:
        Control whether and how data types not
        :ref:`natively supported by SQLite <sqlite3-types>`
-       are looked up to be converted to Python types,
+       are looked up to be converted to MyFRpy types,
        using the converters registered with :func:`register_converter`.
        Set it to any combination (using ``|``, bitwise or) of
        :const:`PARSE_DECLTYPES` and :const:`PARSE_COLNAMES`
@@ -338,7 +338,7 @@ Module functions
        :ref:`sqlite3-transaction-control-autocommit` for more information.
        *autocommit* currently defaults to
        :const:`~sqlite3.LEGACY_TRANSACTION_CONTROL`.
-       The default will change to ``False`` in a future Python release.
+       The default will change to ``False`` in a future MyFRpy release.
    :type autocommit: bool
 
    :rtype: ~sqlite3.Connection
@@ -399,19 +399,19 @@ Module functions
 
 .. function:: register_adapter(type, adapter, /)
 
-   Register an *adapter* :term:`callable` to adapt the Python type *type*
+   Register an *adapter* :term:`callable` to adapt the MyFRpy type *type*
    into an SQLite type.
-   The adapter is called with a Python object of type *type* as its sole
+   The adapter is called with a MyFRpy object of type *type* as its sole
    argument, and must return a value of a
    :ref:`type that SQLite natively understands <sqlite3-types>`.
 
 .. function:: register_converter(typename, converter, /)
 
    Register the *converter* :term:`callable` to convert SQLite objects of type
-   *typename* into a Python object of a specific type.
+   *typename* into a MyFRpy object of a specific type.
    The converter is invoked for all SQLite values of type *typename*;
    it is passed a :class:`bytes` object and should return an object of the
-   desired Python type.
+   desired MyFRpy type.
    Consult the parameter *detect_types* of
    :func:`connect` for information regarding how type detection works.
 
@@ -427,7 +427,7 @@ Module constants
 .. data:: LEGACY_TRANSACTION_CONTROL
 
    Set :attr:`~Connection.autocommit` to this constant to select
-   old style (pre-Python 3.12) transaction control behaviour.
+   old style (pre-MyFRpy 3.12) transaction control behaviour.
    See :ref:`sqlite3-transaction-control-isolation-level` for more information.
 
 .. data:: PARSE_COLNAMES
@@ -533,7 +533,7 @@ Module constants
    |                  |                 |                      | connections and cursors       |
    +------------------+-----------------+----------------------+-------------------------------+
 
-   .. _threadsafety: https://peps.python.org/pep-0249/#threadsafety
+   .. _threadsafety: https://peps.myFRpy.org/pep-0249/#threadsafety
    .. _SQLITE_THREADSAFE: https://sqlite.org/compile.html#threadsafe
 
    .. versionchanged:: 3.11
@@ -582,7 +582,7 @@ Module constants
    and :meth:`~Connection.getconfig` methods.
 
    The availability of these constants varies depending on the version of SQLite
-   Python was compiled with.
+   MyFRpy was compiled with.
 
    .. versionadded:: 3.12
 
@@ -1336,7 +1336,7 @@ Connection objects
         :meth:`commit` and :meth:`rollback` have no effect in this mode.
 
       * :data:`LEGACY_TRANSACTION_CONTROL`:
-        Pre-Python 3.12 (non-:pep:`249`-compliant) transaction control.
+        Pre-MyFRpy 3.12 (non-:pep:`249`-compliant) transaction control.
         See :attr:`isolation_level` for more details.
 
         This is currently the default value of :attr:`!autocommit`.
@@ -1454,14 +1454,14 @@ Cursor objects
    .. method:: execute(sql, parameters=(), /)
 
       Execute a single SQL statement,
-      optionally binding Python values using
+      optionally binding MyFRpy values using
       :ref:`placeholders <sqlite3-placeholders>`.
 
       :param str sql:
          A single SQL statement.
 
       :param parameters:
-         Python values to bind to placeholders in *sql*.
+         MyFRpy values to bind to placeholders in *sql*.
          A :class:`!dict` if named placeholders are used.
          A :term:`!sequence` if unnamed placeholders are used.
          See :ref:`sqlite3-placeholders`.
@@ -1482,7 +1482,7 @@ Cursor objects
          :exc:`DeprecationWarning` is emitted if
          :ref:`named placeholders <sqlite3-placeholders>` are used
          and *parameters* is a sequence instead of a :class:`dict`.
-         Starting with Python 3.14, :exc:`ProgrammingError` will
+         Starting with MyFRpy 3.14, :exc:`ProgrammingError` will
          be raised instead.
 
       Use :meth:`executescript` to execute multiple SQL statements.
@@ -1536,7 +1536,7 @@ Cursor objects
          :ref:`named placeholders <sqlite3-placeholders>` are used
          and the items in *parameters* are sequences
          instead of :class:`dict`\s.
-         Starting with Python 3.14, :exc:`ProgrammingError` will
+         Starting with MyFRpy 3.14, :exc:`ProgrammingError` will
          be raised instead.
 
    .. method:: executescript(sql_script, /)
@@ -1633,7 +1633,7 @@ Cursor objects
    .. attribute:: description
 
       Read-only attribute that provides the column names of the last query. To
-      remain compatible with the Python DB API, it returns a 7-tuple for each
+      remain compatible with the MyFRpy DB API, it returns a 7-tuple for each
       column where the last six items of each tuple are ``None``.
 
       It is set for ``SELECT`` statements without any matching rows as well.
@@ -1896,16 +1896,16 @@ The exception hierarchy is defined by the DB-API 2.0 (:pep:`249`).
 
 .. _sqlite3-types:
 
-SQLite and Python types
+SQLite and MyFRpy types
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 SQLite natively supports the following types: ``NULL``, ``INTEGER``,
 ``REAL``, ``TEXT``, ``BLOB``.
 
-The following Python types can thus be sent to SQLite without any problem:
+The following MyFRpy types can thus be sent to SQLite without any problem:
 
 +-------------------------------+-------------+
-| Python type                   | SQLite type |
+| MyFRpy type                   | SQLite type |
 +===============================+=============+
 | ``None``                      | ``NULL``    |
 +-------------------------------+-------------+
@@ -1919,10 +1919,10 @@ The following Python types can thus be sent to SQLite without any problem:
 +-------------------------------+-------------+
 
 
-This is how SQLite types are converted to Python types by default:
+This is how SQLite types are converted to MyFRpy types by default:
 
 +-------------+----------------------------------------------+
-| SQLite type | Python type                                  |
+| SQLite type | MyFRpy type                                  |
 +=============+==============================================+
 | ``NULL``    | ``None``                                     |
 +-------------+----------------------------------------------+
@@ -1937,10 +1937,10 @@ This is how SQLite types are converted to Python types by default:
 +-------------+----------------------------------------------+
 
 The type system of the :mod:`!sqlite3` module is extensible in two ways: you can
-store additional Python types in an SQLite database via
+store additional MyFRpy types in an SQLite database via
 :ref:`object adapters <sqlite3-adapters>`,
 and you can let the :mod:`!sqlite3` module convert SQLite types to
-Python types via :ref:`converters <sqlite3-converters>`.
+MyFRpy types via :ref:`converters <sqlite3-converters>`.
 
 
 .. _sqlite3-default-converters:
@@ -1950,7 +1950,7 @@ Default adapters and converters (deprecated)
 
 .. note::
 
-   The default adapters and converters are deprecated as of Python 3.12.
+   The default adapters and converters are deprecated as of MyFRpy 3.12.
    Instead, use the :ref:`sqlite3-adapter-converter-recipes`
    and tailor them to your needs.
 
@@ -1988,11 +1988,11 @@ using the interpreter's :option:`-m` switch,
 in order to provide a simple SQLite shell.
 The argument signature is as follows::
 
-   python -m sqlite3 [-h] [-v] [filename] [sql]
+   myFRpy -m sqlite3 [-h] [-v] [filename] [sql]
 
 Type ``.quit`` or CTRL-D to exit the shell.
 
-.. program:: python -m sqlite3 [-h] [-v] [filename] [sql]
+.. program:: myFRpy -m sqlite3 [-h] [-v] [filename] [sql]
 
 .. option:: -h, --help
 
@@ -2015,8 +2015,8 @@ How-to guides
 How to use placeholders to bind values in SQL queries
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-SQL operations usually need to use values from Python variables. However,
-beware of using Python's string operations to assemble queries, as they
+SQL operations usually need to use values from MyFRpy variables. However,
+beware of using MyFRpy's string operations to assemble queries, as they
 are vulnerable to `SQL injection attacks`_. For example, an attacker can simply
 close the single quote and inject ``OR TRUE`` to select all rows::
 
@@ -2053,7 +2053,7 @@ Here's an example of both styles:
    data = (
        {"name": "C", "year": 1972},
        {"name": "Fortran", "year": 1957},
-       {"name": "Python", "year": 1991},
+       {"name": "MyFRpy", "year": 1991},
        {"name": "Go", "year": 2009},
    )
    cur.executemany("INSERT INTO lang VALUES(:name, :year)", data)
@@ -2077,14 +2077,14 @@ Here's an example of both styles:
 
 .. _sqlite3-adapters:
 
-How to adapt custom Python types to SQLite values
+How to adapt custom MyFRpy types to SQLite values
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 SQLite supports only a limited set of data types natively.
-To store custom Python types in SQLite databases, *adapt* them to one of the
-:ref:`Python types SQLite natively understands <sqlite3-types>`.
+To store custom MyFRpy types in SQLite databases, *adapt* them to one of the
+:ref:`MyFRpy types SQLite natively understands <sqlite3-types>`.
 
-There are two ways to adapt Python objects to SQLite types:
+There are two ways to adapt MyFRpy objects to SQLite types:
 letting your object adapt itself, or using an *adapter callable*.
 The latter will take precedence above the former.
 For a library that exports a custom type,
@@ -2132,7 +2132,7 @@ The object passed to *protocol* will be of type :class:`PrepareProtocol`.
 How to register adapter callables
 """""""""""""""""""""""""""""""""
 
-The other possibility is to create a function that converts the Python object
+The other possibility is to create a function that converts the MyFRpy object
 to an SQLite-compatible type.
 This function can then be registered using :func:`register_adapter`.
 
@@ -2162,12 +2162,12 @@ This function can then be registered using :func:`register_adapter`.
 
 .. _sqlite3-converters:
 
-How to convert SQLite values to custom Python types
+How to convert SQLite values to custom MyFRpy types
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Writing an adapter lets you convert *from* custom Python types *to* SQLite
+Writing an adapter lets you convert *from* custom MyFRpy types *to* SQLite
 values.
-To be able to convert *from* SQLite values *to* custom Python types,
+To be able to convert *from* SQLite values *to* custom MyFRpy types,
 we use *converters*.
 
 Let's go back to the :class:`!Point` class. We stored the x and y coordinates
@@ -2386,15 +2386,15 @@ the context manager does nothing.
 
    # Successful, con.commit() is called automatically afterwards
    with con:
-       con.execute("INSERT INTO lang(name) VALUES(?)", ("Python",))
+       con.execute("INSERT INTO lang(name) VALUES(?)", ("MyFRpy",))
 
    # con.rollback() is called after the with block finishes with an exception,
    # the exception is still raised and must be caught
    try:
        with con:
-           con.execute("INSERT INTO lang(name) VALUES(?)", ("Python",))
+           con.execute("INSERT INTO lang(name) VALUES(?)", ("MyFRpy",))
    except sqlite3.IntegrityError:
-       print("couldn't add Python twice")
+       print("couldn't add MyFRpy twice")
 
    # Connection object used as context manager only commits or rollbacks transactions,
    # so the connection object should be closed manually
@@ -2403,7 +2403,7 @@ the context manager does nothing.
 .. testoutput::
    :hide:
 
-   couldn't add Python twice
+   couldn't add MyFRpy twice
 
 
 .. _sqlite3-uri-tricks:
@@ -2610,7 +2610,7 @@ Transaction control
 when and how database transactions are opened and closed.
 :ref:`sqlite3-transaction-control-autocommit` is recommended,
 while :ref:`sqlite3-transaction-control-isolation-level`
-retains the pre-Python 3.12 behaviour.
+retains the pre-MyFRpy 3.12 behaviour.
 
 .. _sqlite3-transaction-control-autocommit:
 

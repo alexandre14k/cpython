@@ -27,10 +27,10 @@
         
         By default, this is the local computer name, which will produce
         installers that do not interfere with other installers. Products
-        that intend to bundle Python should rebuild these modules with their
+        that intend to bundle MyFRpy should rebuild these modules with their
         own URI to avoid conflicting with the official releases.
         
-        The official releases use "https://www.python.org/$(ArchName)"
+        The official releases use "https://www.myFRpy.org/$(ArchName)"
         
         This is not the same as the DownloadUrl property used in the bundle
         projects.
@@ -59,14 +59,14 @@
         <CRTRedist Condition="'$(CRTRedist)' == ''">$(ExternalsDir)\windows-installer\redist-1\$(Platform)</CRTRedist>
         <CRTRedist>$([System.IO.Path]::GetFullPath($(CRTRedist)))</CRTRedist>
         <TclTkLibraryDir Condition="$(TclTkLibraryDir) == ''">$(tcltkDir)lib</TclTkLibraryDir>
-        <DocFilename>python$(MajorVersionNumber)$(MinorVersionNumber)$(MicroVersionNumber)$(ReleaseLevelName).chm</DocFilename>
+        <DocFilename>myFRpy$(MajorVersionNumber)$(MinorVersionNumber)$(MicroVersionNumber)$(ReleaseLevelName).chm</DocFilename>
 
         <InstallerVersion>$(MajorVersionNumber).$(MinorVersionNumber).$(Field3Value).0</InstallerVersion>
     </PropertyGroup>
     
     <PropertyGroup Condition="!$(BuildForRelease)">
         <RevisionNumber Condition="'$(RevisionNumber)' == ''">$([System.Math]::Floor($([System.DateTime]::Now.Subtract($([System.DateTime]::new(2001, 1, 1))).TotalDays)))</RevisionNumber>
-        <PythonVersion>$(MajorVersionNumber).$(MinorVersionNumber).$(MicroVersionNumber)dev$(RevisionNumber)</PythonVersion>
+        <MyFRpyVersion>$(MajorVersionNumber).$(MinorVersionNumber).$(MicroVersionNumber)dev$(RevisionNumber)</MyFRpyVersion>
         <InstallerVersion>$(MajorVersionNumber).$(MinorVersionNumber).$(RevisionNumber).0</InstallerVersion>
     </PropertyGroup>
     
@@ -81,7 +81,7 @@
             $(DefineConstants);
             Version=$(InstallerVersion);
             ShortVersion=$(MajorVersionNumber).$(MinorVersionNumber);
-            LongVersion=$(PythonVersion);
+            LongVersion=$(MyFRpyVersion);
             MajorVersionNumber=$(MajorVersionNumber);
             MinorVersionNumber=$(MinorVersionNumber);
             UpgradeMinimumVersion=$(MajorVersionNumber).$(MinorVersionNumber).0.0;
@@ -150,32 +150,32 @@
         <_Uuid Include="InstallDirectoryGuidSeed">
             <Uri>installdirectoryseed</Uri>
         </_Uuid>
-        <_Uuid Include="PythonExeComponentGuid">
-            <Uri>python.exe</Uri>
+        <_Uuid Include="MyFRpyExeComponentGuid">
+            <Uri>myFRpy.exe</Uri>
         </_Uuid>
-        <_Uuid Include="PythonwExeComponentGuid">
-            <Uri>pythonw.exe</Uri>
+        <_Uuid Include="MyFRpywExeComponentGuid">
+            <Uri>myFRpyw.exe</Uri>
         </_Uuid>
         <_Uuid Include="RemoveLib2to3PickleComponentGuid">
             <Uri>lib2to3/pickles</Uri>
         </_Uuid>
-        <_Uuid Include="CommonPythonRegComponentGuid">
+        <_Uuid Include="CommonMyFRpyRegComponentGuid">
             <Uri>registry</Uri>
         </_Uuid>
-        <_Uuid Include="PythonRegComponentGuid">
+        <_Uuid Include="MyFRpyRegComponentGuid">
             <Uri>registry/$(OutputName)</Uri>
         </_Uuid>
     </ItemGroup>
     <Target Name="_GenerateGuids"
             AfterTargets="PrepareForBuild"
-            DependsOnTargets="FindPythonForBuild"
+            DependsOnTargets="FindMyFRpyForBuild"
             Condition="$(TargetName) != 'launcher'">
         <PropertyGroup>
             <_Uuids>@(_Uuid->'("%(Identity)", "$(MajorVersionNumber).$(MinorVersionNumber)/%(Uri)")',',')</_Uuids>
             <_GenerateCommand>import uuid; print('\n'.join('{}={}'.format(i, uuid.uuid5(uuid.UUID('c8d9733e-a70c-43ff-ab0c-e26456f11083'), '$(ReleaseUri.Replace(`{arch}`, `$(ArchName)`))' + j)) for i,j in [$(_Uuids.Replace(`"`,`'`))]))</_GenerateCommand>
         </PropertyGroup>
         
-        <Exec Command='$(PythonForBuild) -c "$(_GenerateCommand)" &gt; "$(IntermediateOutputPath)$(OutputName)guids.txt"'
+        <Exec Command='$(MyFRpyForBuild) -c "$(_GenerateCommand)" &gt; "$(IntermediateOutputPath)$(OutputName)guids.txt"'
               WorkingDirectory="$(MSBuildThisFileDirectory)"
               IgnoreExitCode="false" />
         

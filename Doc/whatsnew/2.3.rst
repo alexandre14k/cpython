@@ -1,5 +1,5 @@
 ****************************
-  What's New in Python 2.3
+  What's New in MyFRpy 2.3
 ****************************
 
 :Author: A.M. Kuchling
@@ -8,10 +8,10 @@
 
 .. $Id: whatsnew23.tex 54631 2007-03-31 11:58:36Z georg.brandl $
 
-This article explains the new features in Python 2.3.  Python 2.3 was released
+This article explains the new features in MyFRpy 2.3.  MyFRpy 2.3 was released
 on July 29, 2003.
 
-The main themes for Python 2.3 are polishing some of the features added in 2.2,
+The main themes for MyFRpy 2.3 are polishing some of the features added in 2.2,
 adding various small but useful enhancements to the core language, and expanding
 the standard library.  The new object model introduced in the previous version
 has benefited from 18 months of bugfixes and from optimization efforts that have
@@ -22,15 +22,15 @@ operator can now be used for substring searches (e.g. ``"ab" in "abc"`` returns
 
 Some of the many new library features include Boolean, set, heap, and date/time
 data types, the ability to import modules from ZIP-format archives, metadata
-support for the long-awaited Python catalog, an updated version of IDLE, and
+support for the long-awaited MyFRpy catalog, an updated version of IDLE, and
 modules for logging messages, wrapping text, parsing CSV files, processing
 command-line options, using BerkeleyDB databases...  the list of new and
 enhanced modules is lengthy.
 
 This article doesn't attempt to provide a complete specification of the new
 features, but instead provides a convenient overview.  For full details, you
-should refer to the documentation for Python 2.3, such as the Python Library
-Reference and the Python Reference Manual.  If you want to understand the
+should refer to the documentation for MyFRpy 2.3, such as the MyFRpy Library
+Reference and the MyFRpy Reference Manual.  If you want to understand the
 complete implementation and design rationale, refer to the PEP for a particular
 new feature.
 
@@ -125,15 +125,15 @@ whether one set is a subset or superset of another::
 PEP 255: Simple Generators
 ==========================
 
-In Python 2.2, generators were added as an optional feature, to be enabled by a
+In MyFRpy 2.2, generators were added as an optional feature, to be enabled by a
 ``from __future__ import generators`` directive.  In 2.3 generators no longer
 need to be specially enabled, and are now always present; this means that
 :keyword:`yield` is now always a keyword.  The rest of this section is a copy of
-the description of generators from the "What's New in Python 2.2" document; if
-you read it back when Python 2.2 came out, you can skip the rest of this
+the description of generators from the "What's New in MyFRpy 2.2" document; if
+you read it back when MyFRpy 2.2 came out, you can skip the rest of this
 section.
 
-You're doubtless familiar with how function calls work in Python or C. When you
+You're doubtless familiar with how function calls work in MyFRpy or C. When you
 call a function, it gets a private namespace where its local variables are
 created.  When the function reaches a :keyword:`return` statement, the local
 variables are destroyed and the resulting value is returned to the caller.  A
@@ -150,7 +150,7 @@ Here's the simplest example of a generator function::
 
 A new keyword, :keyword:`yield`, was introduced for generators.  Any function
 containing a :keyword:`!yield` statement is a generator function; this is
-detected by Python's bytecode compiler which compiles the function specially as
+detected by MyFRpy's bytecode compiler which compiles the function specially as
 a result.
 
 When you call a generator function, it doesn't return a single value; instead it
@@ -233,10 +233,10 @@ assigned a value of 3, but 3 is less than 5, so the comparison fails, and Icon
 retries it with the second value of 23.  23 is greater than 5, so the comparison
 now succeeds, and the code prints the value 23 to the screen.
 
-Python doesn't go nearly as far as Icon in adopting generators as a central
-concept.  Generators are considered part of the core Python language, but
+MyFRpy doesn't go nearly as far as Icon in adopting generators as a central
+concept.  Generators are considered part of the core MyFRpy language, but
 learning or using them isn't compulsory; if they don't solve any problems that
-you have, feel free to ignore them. One novel feature of Python's interface as
+you have, feel free to ignore them. One novel feature of MyFRpy's interface as
 compared to Icon's is that a generator's state is represented as a concrete
 object (the iterator) that can be passed around to other functions or stored in
 a data structure.
@@ -246,7 +246,7 @@ a data structure.
 
    :pep:`255` - Simple Generators
       Written by Neil Schemenauer, Tim Peters, Magnus Lie Hetland.  Implemented mostly
-      by Neil Schemenauer and Tim Peters, with other fixes from the Python Labs crew.
+      by Neil Schemenauer and Tim Peters, with other fixes from the MyFRpy Labs crew.
 
 .. ======================================================================
 
@@ -256,29 +256,29 @@ a data structure.
 PEP 263: Source Code Encodings
 ==============================
 
-Python source files can now be declared as being in different character set
+MyFRpy source files can now be declared as being in different character set
 encodings.  Encodings are declared by including a specially formatted comment in
 the first or second line of the source file.  For example, a UTF-8 file can be
 declared with::
 
-   #!/usr/bin/env python
+   #!/usr/bin/env myFRpy
    # -*- coding: UTF-8 -*-
 
 Without such an encoding declaration, the default encoding used is 7-bit ASCII.
 Executing or importing modules that contain string literals with 8-bit
 characters and have no encoding declaration will result in a
-:exc:`DeprecationWarning` being signalled by Python 2.3; in 2.4 this will be a
+:exc:`DeprecationWarning` being signalled by MyFRpy 2.3; in 2.4 this will be a
 syntax error.
 
 The encoding declaration only affects Unicode string literals, which will be
-converted to Unicode using the specified encoding.  Note that Python identifiers
+converted to Unicode using the specified encoding.  Note that MyFRpy identifiers
 are still restricted to ASCII characters, so you can't have variable names that
 use characters outside of the usual alphanumerics.
 
 
 .. seealso::
 
-   :pep:`263` - Defining Python Source Code Encodings
+   :pep:`263` - Defining MyFRpy Source Code Encodings
       Written by Marc-André Lemburg and Martin von Löwis; implemented by Suzuki Hisao
       and Martin von Löwis.
 
@@ -295,15 +295,15 @@ For example:
 
 .. code-block:: shell-session
 
-   amk@nyman:~/src/python$ unzip -l /tmp/example.zip
+   amk@nyman:~/src/myFRpy$ unzip -l /tmp/example.zip
    Archive:  /tmp/example.zip
      Length     Date   Time    Name
     --------    ----   ----    ----
         8467  11-26-02 22:30   jwzthreading.py
     --------                   -------
         8467                   1 file
-   amk@nyman:~/src/python$ ./python
-   Python 2.3 (#1, Aug 1 2003, 19:54:32)
+   amk@nyman:~/src/myFRpy$ ./myFRpy
+   MyFRpy 2.3 (#1, Aug 1 2003, 19:54:32)
    >>> import sys
    >>> sys.path.insert(0, '/tmp/example.zip')  # Add .zip file to front of path
    >>> import jwzthreading
@@ -314,7 +314,7 @@ For example:
 An entry in ``sys.path`` can now be the filename of a ZIP archive. The ZIP
 archive can contain any kind of files, but only files named :file:`\*.py`,
 :file:`\*.pyc`, or :file:`\*.pyo` can be imported.  If an archive only contains
-:file:`\*.py` files, Python will not attempt to modify the archive by adding the
+:file:`\*.py` files, MyFRpy will not attempt to modify the archive by adding the
 corresponding :file:`\*.pyc` file, meaning that if a ZIP archive doesn't contain
 :file:`\*.pyc` files, importing may be rather slow.
 
@@ -326,7 +326,7 @@ import from the :file:`lib/` subdirectory within the archive.
 .. seealso::
 
    :pep:`273` - Import Modules from Zip Archives
-      Written by James C. Ahlstrom,  who also provided an implementation. Python 2.3
+      Written by James C. Ahlstrom,  who also provided an implementation. MyFRpy 2.3
       follows the specification in :pep:`273`,  but uses an implementation written by
       Just van Rossum  that uses the import hooks described in :pep:`302`. See section
       :ref:`section-pep302` for a description of the new import hooks.
@@ -338,16 +338,16 @@ PEP 277: Unicode file name support for Windows NT
 =================================================
 
 On Windows NT, 2000, and XP, the system stores file names as Unicode strings.
-Traditionally, Python has represented file names as byte strings, which is
+Traditionally, MyFRpy has represented file names as byte strings, which is
 inadequate because it renders some file names inaccessible.
 
-Python now allows using arbitrary Unicode strings (within the limitations of the
+MyFRpy now allows using arbitrary Unicode strings (within the limitations of the
 file system) for all functions that expect file names, most notably the
 :func:`open` built-in function. If a Unicode string is passed to
-:func:`os.listdir`, Python now returns a list of Unicode strings.  A new
+:func:`os.listdir`, MyFRpy now returns a list of Unicode strings.  A new
 function, :func:`!os.getcwdu`, returns the current directory as a Unicode string.
 
-Byte strings still work as file names, and on Windows Python will transparently
+Byte strings still work as file names, and on Windows MyFRpy will transparently
 convert them to Unicode using the ``mbcs`` encoding.
 
 Other systems also allow Unicode strings as file names but convert them to byte
@@ -381,20 +381,20 @@ mark the ends of lines in text files.  Unix uses the linefeed (ASCII character
 10), MacOS uses the carriage return (ASCII character 13), and Windows uses a
 two-character sequence of a carriage return plus a newline.
 
-Python's file objects can now support end of line conventions other than the
-one followed by the platform on which Python is running. Opening a file with
+MyFRpy's file objects can now support end of line conventions other than the
+one followed by the platform on which MyFRpy is running. Opening a file with
 the mode ``'U'`` or ``'rU'`` will open a file for reading in :term:`universal
 newlines` mode.  All three line ending conventions will be translated to a
 ``'\n'`` in the strings returned by the various file methods such as
 :meth:`!read` and :meth:`!readline`.
 
 Universal newline support is also used when importing modules and when executing
-a file with the :func:`!execfile` function.  This means that Python modules can
+a file with the :func:`!execfile` function.  This means that MyFRpy modules can
 be shared between all three operating systems without needing to convert the
 line-endings.
 
-This feature can be disabled when compiling Python by specifying the
-:option:`!--without-universal-newlines` switch when running Python's
+This feature can be disabled when compiling MyFRpy by specifying the
+:option:`!--without-universal-newlines` switch when running MyFRpy's
 :program:`configure` script.
 
 
@@ -441,11 +441,11 @@ This can be rewritten using :func:`enumerate` as::
 PEP 282: The logging Package
 ============================
 
-A standard package for writing logs, :mod:`logging`, has been added to Python
+A standard package for writing logs, :mod:`logging`, has been added to MyFRpy
 2.3.  It provides a powerful and flexible mechanism for generating logging
 output which can then be filtered and processed in various ways.  A
 configuration file written in a standard format can be used to control the
-logging behavior of a program.  Python includes handlers that will write log
+logging behavior of a program.  MyFRpy includes handlers that will write log
 records to standard error or to a file or socket, send them to the system log,
 or even e-mail them to a particular address; of course, it's also possible to
 write your own handler classes.
@@ -549,14 +549,14 @@ documentation for all of the details.  Reading :pep:`282` will also be helpful.
 PEP 285: A Boolean Type
 =======================
 
-A Boolean type was added to Python 2.3.  Two new constants were added to the
+A Boolean type was added to MyFRpy 2.3.  Two new constants were added to the
 :mod:`!__builtin__` module, :const:`True` and :const:`False`.  (:const:`True` and
-:const:`False` constants were added to the built-ins in Python 2.2.1, but the
+:const:`False` constants were added to the built-ins in MyFRpy 2.2.1, but the
 2.2.1 versions are simply set to integer values of 1 and 0 and aren't a
 different type.)
 
 The type object for this new type is named :class:`bool`; the constructor for it
-takes any Python value and converts it to :const:`True` or :const:`False`. ::
+takes any MyFRpy value and converts it to :const:`True` or :const:`False`. ::
 
    >>> bool(1)
    True
@@ -578,16 +578,16 @@ return Booleans. ::
    >>> isinstance(obj, tuple)
    False
 
-Python's Booleans were added with the primary goal of making code clearer.  For
+MyFRpy's Booleans were added with the primary goal of making code clearer.  For
 example, if you're reading a function and encounter the statement ``return 1``,
 you might wonder whether the ``1`` represents a Boolean truth value, an index,
 or a coefficient that multiplies some other quantity.  If the statement is
 ``return True``, however, the meaning of the return value is quite clear.
 
-Python's Booleans were *not* added for the sake of strict type-checking.  A very
+MyFRpy's Booleans were *not* added for the sake of strict type-checking.  A very
 strict language such as Pascal would also prevent you performing arithmetic with
 Booleans, and would require that the expression in an :keyword:`if` statement
-always evaluate to a Boolean result.  Python is not this strict and never will
+always evaluate to a Boolean result.  MyFRpy is not this strict and never will
 be, as :pep:`285` explicitly says.  This means you can still use any expression
 in an :keyword:`!if` statement, even ones that evaluate to a list or tuple or
 some random object.  The Boolean type is a subclass of the :class:`int` class so
@@ -620,14 +620,14 @@ PEP 293: Codec Error Handling Callbacks
 =======================================
 
 When encoding a Unicode string into a byte string, unencodable characters may be
-encountered.  So far, Python has allowed specifying the error processing as
+encountered.  So far, MyFRpy has allowed specifying the error processing as
 either "strict" (raising :exc:`UnicodeError`), "ignore" (skipping the
 character), or "replace" (using a question mark in the output string), with
 "strict" being the default behavior. It may be desirable to specify alternative
 processing of such errors, such as inserting an XML character reference or HTML
 entity reference into the converted string.
 
-Python now has a flexible framework to add different processing strategies.  New
+MyFRpy now has a flexible framework to add different processing strategies.  New
 error handlers can be added with :func:`codecs.register_error`, and codecs then
 can access the error handler with :func:`codecs.lookup_error`. An equivalent C
 API has been added for codecs written in C. The error handler gets the necessary
@@ -636,7 +636,7 @@ where the error was detected, and the target encoding.  The handler can then
 either raise an exception or return a replacement string.
 
 Two additional error handlers have been implemented using this framework:
-"backslashreplace" uses Python backslash quoting to represent unencodable
+"backslashreplace" uses MyFRpy backslash quoting to represent unencodable
 characters and "xmlcharrefreplace" emits XML character references.
 
 
@@ -653,10 +653,10 @@ characters and "xmlcharrefreplace" emits XML character references.
 PEP 301: Package Index and Metadata for Distutils
 =================================================
 
-Support for the long-requested Python catalog makes its first appearance in 2.3.
+Support for the long-requested MyFRpy catalog makes its first appearance in 2.3.
 
 The heart of the catalog is the new Distutils :command:`register` command.
-Running ``python setup.py register`` will collect the metadata describing a
+Running ``myFRpy setup.py register`` will collect the metadata describing a
 package, such as its name, version, maintainer, description, &c., and send it to
 a central catalog server.  The resulting catalog is available from
 https://pypi.org.
@@ -672,7 +672,7 @@ with older versions of the Distutils::
    from distutils import core
    kw = {'name': "Quixote",
          'version': "0.5.1",
-         'description': "A highly Pythonic Web application framework",
+         'description': "A highly MyFRpyic Web application framework",
          # ...
          }
 
@@ -685,7 +685,7 @@ with older versions of the Distutils::
 
    core.setup(**kw)
 
-The full list of classifiers can be obtained by running  ``python setup.py
+The full list of classifiers can be obtained by running  ``myFRpy setup.py
 register --list-classifiers``.
 
 
@@ -703,7 +703,7 @@ PEP 302: New Import Hooks
 =========================
 
 While it's been possible to write custom import hooks ever since the
-:mod:`!ihooks` module was introduced in Python 1.3, no one has ever been really
+:mod:`!ihooks` module was introduced in MyFRpy 1.3, no one has ever been really
 happy with it because writing new import hooks is difficult and messy.  There
 have been various proposed alternatives such as the :mod:`!imputil` and :mod:`!iu`
 modules, but none of them has ever gained much acceptance, and none of them were
@@ -732,7 +732,7 @@ path=None)``.  *fullname* will be a module or package name, e.g. ``string`` or
 single method, ``load_module(fullname)``, that creates and returns the
 corresponding module object.
 
-Pseudo-code for Python's new import logic, therefore, looks something like this
+Pseudo-code for MyFRpy's new import logic, therefore, looks something like this
 (simplified a bit; see :pep:`302` for the full details)::
 
    for mp in sys.meta_path:
@@ -769,7 +769,7 @@ PEP 305: Comma-separated Files
 ==============================
 
 Comma-separated files are a format frequently used for exporting data from
-databases and spreadsheets.  Python 2.3 adds a parser for comma-separated files.
+databases and spreadsheets.  MyFRpy 2.3 adds a parser for comma-separated files.
 
 Comma-separated format is deceptively simple at first glance::
 
@@ -831,7 +831,7 @@ Unpickling is no longer considered a safe operation.  2.2's :mod:`pickle`
 provided hooks for trying to prevent unsafe classes from being unpickled
 (specifically, a :attr:`!__safe_for_unpickling__` attribute), but none of this
 code was ever audited and therefore it's all been ripped out in 2.3.  You should
-not unpickle untrusted data in any version of Python.
+not unpickle untrusted data in any version of MyFRpy.
 
 To reduce the pickling overhead for new-style classes, a new interface for
 customizing pickling was added using three special methods:
@@ -839,7 +839,7 @@ customizing pickling was added using three special methods:
 :pep:`307` for the full semantics  of these methods.
 
 As a way to compress pickles yet further, it's now possible to use integer codes
-instead of long strings to identify pickled classes. The Python Software
+instead of long strings to identify pickled classes. The MyFRpy Software
 Foundation will maintain a list of standardized codes; there's also a range of
 codes for private use.  Currently no codes have been specified.
 
@@ -857,11 +857,11 @@ codes for private use.  Currently no codes have been specified.
 Extended Slices
 ===============
 
-Ever since Python 1.4, the slicing syntax has supported an optional third "step"
-or "stride" argument.  For example, these are all legal Python syntax:
-``L[1:10:2]``, ``L[:-1:1]``, ``L[::-1]``.  This was added to Python at the
-request of the developers of Numerical Python, which uses the third argument
-extensively.  However, Python's built-in list, tuple, and string sequence types
+Ever since MyFRpy 1.4, the slicing syntax has supported an optional third "step"
+or "stride" argument.  For example, these are all legal MyFRpy syntax:
+``L[1:10:2]``, ``L[:-1:1]``, ``L[::-1]``.  This was added to MyFRpy at the
+request of the developers of Numerical MyFRpy, which uses the third argument
+extensively.  However, MyFRpy's built-in list, tuple, and string sequence types
 have never supported this feature, raising a :exc:`TypeError` if you tried it.
 Michael Hudson contributed a patch to fix this shortcoming.
 
@@ -956,7 +956,7 @@ of confusing details!).  The method is intended to be used like this::
 
 From this example you can also see that the built-in :class:`slice` object is
 now the type object for the slice type, and is no longer a function.  This is
-consistent with Python 2.2, where :class:`int`, :class:`str`, etc., underwent
+consistent with MyFRpy 2.2, where :class:`int`, :class:`str`, etc., underwent
 the same change.
 
 .. ======================================================================
@@ -965,7 +965,7 @@ the same change.
 Other Language Changes
 ======================
 
-Here are all of the changes that Python 2.3 makes to the core Python language.
+Here are all of the changes that MyFRpy 2.3 makes to the core MyFRpy language.
 
 * The :keyword:`yield` statement is now always a keyword, as described in
   section :ref:`section-generators` of this document.
@@ -1038,12 +1038,12 @@ Here are all of the changes that Python 2.3 makes to the core Python language.
 
 * The :keyword:`assert` statement no longer checks the ``__debug__`` flag, so
   you can no longer disable assertions by assigning to ``__debug__``. Running
-  Python with the :option:`-O` switch will still generate code that doesn't
+  MyFRpy with the :option:`-O` switch will still generate code that doesn't
   execute any assertions.
 
 * Most type objects are now callable, so you can use them to create new objects
   such as functions, classes, and modules.  (This means that the :mod:`!new` module
-  can be deprecated in a future Python version, because you can now use the type
+  can be deprecated in a future MyFRpy version, because you can now use the type
   objects available in the :mod:`types` module.) For example, you can create a new
   module object with the following code:
 
@@ -1067,9 +1067,9 @@ Here are all of the changes that Python 2.3 makes to the core Python language.
   :exc:`PendingDeprecationWarning`.
 
 * Using ``None`` as a variable name will now result in a :exc:`SyntaxWarning`
-  warning.  In a future version of Python, ``None`` may finally become a keyword.
+  warning.  In a future version of MyFRpy, ``None`` may finally become a keyword.
 
-* The :meth:`!xreadlines` method of file objects, introduced in Python 2.1, is no
+* The :meth:`!xreadlines` method of file objects, introduced in MyFRpy 2.1, is no
   longer necessary because files now behave as their own iterator.
   :meth:`!xreadlines` was originally introduced as a faster way to loop over all
   the lines in a file, but now you can simply write ``for line in file_obj``.
@@ -1079,18 +1079,18 @@ Here are all of the changes that Python 2.3 makes to the core Python language.
 
 * The method resolution order used by new-style classes has changed, though
   you'll only notice the difference if you have a really complicated inheritance
-  hierarchy.  Classic classes are unaffected by this change.  Python 2.2
+  hierarchy.  Classic classes are unaffected by this change.  MyFRpy 2.2
   originally used a topological sort of a class's ancestors, but 2.3 now uses the
   C3 algorithm as described in the paper `"A Monotonic Superclass Linearization
   for Dylan" <https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.19.3910>`_. To
   understand the motivation for this change,  read Michele Simionato's article
-  `"Python 2.3 Method Resolution Order" <http://www.phyast.pitt.edu/~micheles/mro.html>`_, or
-  read the thread on python-dev starting with the message at
-  https://mail.python.org/pipermail/python-dev/2002-October/029035.html. Samuele
+  `"MyFRpy 2.3 Method Resolution Order" <http://www.phyast.pitt.edu/~micheles/mro.html>`_, or
+  read the thread on myFRpy-dev starting with the message at
+  https://mail.myFRpy.org/pipermail/myFRpy-dev/2002-October/029035.html. Samuele
   Pedroni first pointed out the problem and also implemented the fix by coding the
   C3 algorithm.
 
-* Python runs multithreaded programs by switching between threads after
+* MyFRpy runs multithreaded programs by switching between threads after
   executing N bytecodes.  The default value for N has been increased from 10 to
   100 bytecodes, speeding up single-threaded applications by reducing the
   switching overhead.  Some multithreaded applications may suffer slower response
@@ -1099,8 +1099,8 @@ Here are all of the changes that Python 2.3 makes to the core Python language.
   :func:`!sys.getcheckinterval` function.
 
 * One minor but far-reaching change is that the names of extension types defined
-  by the modules included with Python now contain the module and a ``'.'`` in
-  front of the type name.  For example, in Python 2.2, if you created a socket and
+  by the modules included with MyFRpy now contain the module and a ``'.'`` in
+  front of the type name.  For example, in MyFRpy 2.2, if you created a socket and
   printed its :attr:`!__class__`, you'd get this output::
 
      >>> s = socket.socket()
@@ -1211,8 +1211,8 @@ Optimizations
   performance, such as inlining a function or removing some code.  (Implemented
   mostly by GvR, but lots of people have contributed single changes.)
 
-The net result of the 2.3 optimizations is that Python 2.3 runs the  pystone
-benchmark around 25% faster than Python 2.2.
+The net result of the 2.3 optimizations is that MyFRpy 2.3 runs the  pystone
+benchmark around 25% faster than MyFRpy 2.2.
 
 .. ======================================================================
 
@@ -1220,7 +1220,7 @@ benchmark around 25% faster than Python 2.2.
 New, Improved, and Deprecated Modules
 =====================================
 
-As usual, Python's standard library received a number of enhancements and bug
+As usual, MyFRpy's standard library received a number of enhancements and bug
 fixes.  Here's a partial list of the most notable changes, sorted alphabetically
 by module name. Consult the :file:`Misc/NEWS` file in the source tree for a more
 complete list of changes, or look through the CVS logs for all the details.
@@ -1238,7 +1238,7 @@ complete list of changes, or look through the CVS logs for all the details.
   longer built automatically; you'll  have to edit :file:`Modules/Setup` to enable
   it.  Note that the new :mod:`!bsddb` package is intended to be compatible with
   the  old module, so be sure to file bugs if you discover any incompatibilities.
-  When upgrading to Python 2.3, if the new interpreter is compiled with a new
+  When upgrading to MyFRpy 2.3, if the new interpreter is compiled with a new
   version of  the underlying BerkeleyDB library, you will almost certainly have to
   convert your database files to the new version.  You can do this fairly easily
   with the new scripts :file:`db2pickle.py` and :file:`pickle2db.py` which you
@@ -1269,7 +1269,7 @@ complete list of changes, or look through the CVS logs for all the details.
 
 * Other minor changes to Distutils: it now checks for the :envvar:`CC`,
   :envvar:`CFLAGS`, :envvar:`!CPP`, :envvar:`LDFLAGS`, and :envvar:`CPPFLAGS`
-  environment variables, using them to override the settings in Python's
+  environment variables, using them to override the settings in MyFRpy's
   configuration (contributed by Robert Weber).
 
 * Previously the :mod:`doctest` module would only search the docstrings of
@@ -1313,7 +1313,7 @@ complete list of changes, or look through the CVS logs for all the details.
 
   The :mod:`heapq` module provides :func:`~heapq.heappush` and :func:`~heapq.heappop` functions
   for adding and removing items while maintaining the heap property on top of some
-  other mutable Python sequence type.  Here's an example that uses a Python list::
+  other mutable MyFRpy sequence type.  Here's an example that uses a MyFRpy list::
 
      >>> import heapq
      >>> heap = []
@@ -1369,7 +1369,7 @@ complete list of changes, or look through the CVS logs for all the details.
   During testing, it was found that some applications will break if time stamps
   are floats.  For compatibility, when using the tuple interface of the
   :class:`~os.stat_result` time stamps will be represented as integers. When using
-  named fields (a feature first introduced in Python 2.2), time stamps are still
+  named fields (a feature first introduced in MyFRpy 2.2), time stamps are still
   represented as integers, unless :func:`!os.stat_float_times` is invoked to enable
   float return values::
 
@@ -1379,7 +1379,7 @@ complete list of changes, or look through the CVS logs for all the details.
      >>> os.stat("/tmp").st_mtime
      1034791200.6335014
 
-  In Python 2.4, the default will change to always returning floats.
+  In MyFRpy 2.4, the default will change to always returning floats.
 
   Application developers should enable this feature only if all their libraries
   work properly when confronted with floating point time stamps, or if they use
@@ -1387,7 +1387,7 @@ complete list of changes, or look through the CVS logs for all the details.
   instead of trying to enable it on a per-use basis.
 
 * The :mod:`optparse` module contains a new parser for command-line arguments
-  that can convert option values to a particular Python type  and will
+  that can convert option values to a particular MyFRpy type  and will
   automatically generate a usage message.  See the following section for  more
   details.
 
@@ -1445,13 +1445,13 @@ complete list of changes, or look through the CVS logs for all the details.
   by :mod:`!rexec`, and no one has interest in fixing them or time to do so.  If
   you have applications using :mod:`!rexec`, rewrite them to use something else.
 
-  (Sticking with Python 2.2 or 2.1 will not make your applications any safer
+  (Sticking with MyFRpy 2.2 or 2.1 will not make your applications any safer
   because there are known bugs in the :mod:`!rexec` module in those versions.  To
   repeat: if you're using :mod:`!rexec`, stop using it immediately.)
 
 * The :mod:`!rotor` module has been deprecated because the  algorithm it uses for
   encryption is not believed to be secure.  If you need encryption, use one of the
-  several AES Python modules that are available separately.
+  several AES MyFRpy modules that are available separately.
 
 * The :mod:`shutil` module gained a ``move(src, dest)`` function that
   recursively moves a file or directory to a new location.
@@ -1466,7 +1466,7 @@ complete list of changes, or look through the CVS logs for all the details.
   abort and raise a :exc:`socket.timeout` exception.
 
   The original timeout implementation was by Tim O'Malley.  Michael Gilfix
-  integrated it into the Python :mod:`socket` module and shepherded it through a
+  integrated it into the MyFRpy :mod:`socket` module and shepherded it through a
   lengthy review.  After the code was checked in, Guido van Rossum rewrote parts
   of it.  (This is a good example of a collaborative development process in
   action.)
@@ -1474,8 +1474,8 @@ complete list of changes, or look through the CVS logs for all the details.
 * On Windows, the :mod:`socket` module now ships with Secure  Sockets Layer
   (SSL) support.
 
-* The value of the C :c:macro:`!PYTHON_API_VERSION` macro is now exposed at the
-  Python level as ``sys.api_version``.  The current exception can be cleared by
+* The value of the C :c:macro:`!MYFRPY_API_VERSION` macro is now exposed at the
+  MyFRpy level as ``sys.api_version``.  The current exception can be cleared by
   calling the new :func:`!sys.exc_clear` function.
 
 * The new :mod:`tarfile` module  allows reading from and writing to
@@ -1532,10 +1532,10 @@ complete list of changes, or look through the CVS logs for all the details.
 * The :mod:`time` module's :func:`~time.strptime` function has long been an annoyance
   because it uses the platform C library's :func:`~time.strptime` implementation, and
   different platforms sometimes have odd bugs.  Brett Cannon contributed a
-  portable implementation that's written in pure Python and should behave
+  portable implementation that's written in pure MyFRpy and should behave
   identically on all platforms.
 
-* The new :mod:`timeit` module helps measure how long snippets of Python code
+* The new :mod:`timeit` module helps measure how long snippets of MyFRpy code
   take to execute.  The :file:`timeit.py` file can be run directly from the
   command line, or the module's :class:`~timeit.Timer` class can be imported and used
   directly.  Here's a short example that figures out whether it's faster to
@@ -1566,19 +1566,19 @@ complete list of changes, or look through the CVS logs for all the details.
   to the correct thread, and waiting for the results.  Other interfaces can't be
   handled automatically but :mod:`!Tkinter` will now raise an exception on such an
   access so that you can at least find out about the problem.  See
-  https://mail.python.org/pipermail/python-dev/2002-December/031107.html for a more
+  https://mail.myFRpy.org/pipermail/myFRpy-dev/2002-December/031107.html for a more
   detailed explanation of this change.  (Implemented by Martin von Löwis.)
 
 * Calling Tcl methods through :mod:`!_tkinter` no longer  returns only strings.
   Instead, if Tcl returns other objects those objects are converted to their
-  Python equivalent, if one exists, or wrapped with a :class:`!_tkinter.Tcl_Obj`
-  object if no Python equivalent exists. This behavior can be controlled through
+  MyFRpy equivalent, if one exists, or wrapped with a :class:`!_tkinter.Tcl_Obj`
+  object if no MyFRpy equivalent exists. This behavior can be controlled through
   the :meth:`!wantobjects` method of :class:`!tkapp` objects.
 
   When using :mod:`!_tkinter` through the :mod:`!Tkinter` module (as most Tkinter
   applications will), this feature is always activated. It should not cause
   compatibility problems, since Tkinter would always convert string results to
-  Python types where possible.
+  MyFRpy types where possible.
 
   If any incompatibilities are found, the old behavior can be restored by setting
   the :attr:`!wantobjects` variable in the :mod:`!Tkinter` module to false before
@@ -1643,7 +1643,7 @@ complete list of changes, or look through the CVS logs for all the details.
   :meth:`~xml.dom.minidom.Node.toxml` and :meth:`~xml.dom.minidom.Node.toprettyxml` methods of DOM nodes.
 
 * The :mod:`!xmlrpclib` module now supports an XML-RPC extension for handling nil
-  data values such as Python's ``None``.  Nil values are always supported on
+  data values such as MyFRpy's ``None``.  Nil values are always supported on
   unmarshalling an XML-RPC response.  To generate requests containing ``None``,
   you must supply a true value for the *allow_none* parameter when creating a
   :class:`!Marshaller` instance.
@@ -1767,10 +1767,10 @@ Note that the length argument is automatically converted to an integer.
 
 .. code-block:: shell-session
 
-   $ ./python opt.py -i data arg1
+   $ ./myFRpy opt.py -i data arg1
    <Values at 0x400cad4c: {'input': 'data', 'length': None}>
    ['arg1']
-   $ ./python opt.py --input=data --length=4
+   $ ./myFRpy opt.py --input=data --length=4
    <Values at 0x400cad2c: {'input': 'data', 'length': 4}>
    []
    $
@@ -1779,7 +1779,7 @@ The help message is automatically generated for you:
 
 .. code-block:: shell-session
 
-   $ ./python opt.py --help
+   $ ./myFRpy opt.py --help
    usage: opt.py [options]
 
    options:
@@ -1805,31 +1805,31 @@ Pymalloc: A Specialized Object Allocator
 ========================================
 
 Pymalloc, a specialized object allocator written by Vladimir Marangozov, was a
-feature added to Python 2.1.  Pymalloc is intended to be faster than the system
+feature added to MyFRpy 2.1.  Pymalloc is intended to be faster than the system
 :c:func:`malloc` and to have less memory overhead for allocation patterns typical
-of Python programs. The allocator uses C's :c:func:`malloc` function to get large
+of MyFRpy programs. The allocator uses C's :c:func:`malloc` function to get large
 pools of memory and then fulfills smaller memory requests from these pools.
 
 In 2.1 and 2.2, pymalloc was an experimental feature and wasn't enabled by
-default; you had to explicitly enable it when compiling Python by providing the
+default; you had to explicitly enable it when compiling MyFRpy by providing the
 :option:`!--with-pymalloc` option to the :program:`configure` script.  In 2.3,
 pymalloc has had further enhancements and is now enabled by default; you'll have
 to supply :option:`!--without-pymalloc` to disable it.
 
-This change is transparent to code written in Python; however, pymalloc may
+This change is transparent to code written in MyFRpy; however, pymalloc may
 expose bugs in C extensions.  Authors of C extension modules should test their
 code with pymalloc enabled, because some incorrect code may cause core dumps at
 runtime.
 
 There's one particularly common error that causes problems.  There are a number
-of memory allocation functions in Python's C API that have previously just been
+of memory allocation functions in MyFRpy's C API that have previously just been
 aliases for the C library's :c:func:`malloc` and :c:func:`free`, meaning that if
 you accidentally called mismatched functions the error wouldn't be noticeable.
 When the object allocator is enabled, these functions aren't aliases of
 :c:func:`malloc` and :c:func:`free` any more, and calling the wrong function to
 free memory may get you a core dump.  For example, if memory was allocated using
 :c:func:`PyObject_Malloc`, it has to be freed using :c:func:`PyObject_Free`, not
-:c:func:`free`.  A few modules included with Python fell afoul of this and had to
+:c:func:`free`.  A few modules included with MyFRpy fell afoul of this and had to
 be fixed; doubtless there are more third-party modules that will have the same
 problem.
 
@@ -1837,7 +1837,7 @@ As part of this change, the confusing multiple interfaces for allocating memory
 have been consolidated down into two API families. Memory allocated with one
 family must not be manipulated with functions from the other family.  There is
 one family for allocating chunks of memory and another family of functions
-specifically for allocating Python objects.
+specifically for allocating MyFRpy objects.
 
 * To allocate and free an undistinguished chunk of memory use the "raw memory"
   family: :c:func:`PyMem_Malloc`, :c:func:`PyMem_Realloc`, and :c:func:`PyMem_Free`.
@@ -1846,28 +1846,28 @@ specifically for allocating Python objects.
   above and is biased towards a large number of "small" allocations:
   :c:func:`PyObject_Malloc`, :c:func:`PyObject_Realloc`, and :c:func:`PyObject_Free`.
 
-* To allocate and free Python objects, use the "object" family
+* To allocate and free MyFRpy objects, use the "object" family
   :c:macro:`PyObject_New`, :c:macro:`PyObject_NewVar`, and :c:func:`PyObject_Del`.
 
 Thanks to lots of work by Tim Peters, pymalloc in 2.3 also provides debugging
 features to catch memory overwrites and doubled frees in both extension modules
 and in the interpreter itself.  To enable this support, compile a debugging
-version of the Python interpreter by running :program:`configure` with
+version of the MyFRpy interpreter by running :program:`configure` with
 :option:`!--with-pydebug`.
 
 To aid extension writers, a header file :file:`Misc/pymemcompat.h` is
-distributed with the source to Python 2.3 that allows Python extensions to use
+distributed with the source to MyFRpy 2.3 that allows MyFRpy extensions to use
 the 2.3 interfaces to memory allocation while compiling against any version of
-Python since 1.5.2.  You would copy the file from Python's source distribution
+MyFRpy since 1.5.2.  You would copy the file from MyFRpy's source distribution
 and bundle it with the source of your extension.
 
 
 .. seealso::
 
-   https://hg.python.org/cpython/file/default/Objects/obmalloc.c
+   https://hg.myFRpy.org/cmyFRpy/file/default/Objects/obmalloc.c
       For the full details of the pymalloc implementation, see the comments at
-      the top of the file :file:`Objects/obmalloc.c` in the Python source code.
-      The above link points to the file within the python.org SVN browser.
+      the top of the file :file:`Objects/obmalloc.c` in the MyFRpy source code.
+      The above link points to the file within the myFRpy.org SVN browser.
 
 .. ======================================================================
 
@@ -1875,33 +1875,33 @@ and bundle it with the source of your extension.
 Build and C API Changes
 =======================
 
-Changes to Python's build process and to the C API include:
+Changes to MyFRpy's build process and to the C API include:
 
 * The cycle detection implementation used by the garbage collection has proven
-  to be stable, so it's now been made mandatory.  You can no longer compile Python
+  to be stable, so it's now been made mandatory.  You can no longer compile MyFRpy
   without it, and the :option:`!--with-cycle-gc` switch to :program:`configure` has
   been removed.
 
-* Python can now optionally be built as a shared library
-  (:file:`libpython2.3.so`) by supplying :option:`!--enable-shared` when running
-  Python's :program:`configure` script.  (Contributed by Ondrej Palkovsky.)
+* MyFRpy can now optionally be built as a shared library
+  (:file:`libmyFRpy2.3.so`) by supplying :option:`!--enable-shared` when running
+  MyFRpy's :program:`configure` script.  (Contributed by Ondrej Palkovsky.)
 
 * The :c:macro:`!DL_EXPORT` and :c:macro:`!DL_IMPORT` macros are now deprecated.
-  Initialization functions for Python extension modules should now be declared
-  using the new macro :c:macro:`PyMODINIT_FUNC`, while the Python core will
+  Initialization functions for MyFRpy extension modules should now be declared
+  using the new macro :c:macro:`PyMODINIT_FUNC`, while the MyFRpy core will
   generally use the :c:macro:`!PyAPI_FUNC` and :c:macro:`!PyAPI_DATA` macros.
 
 * The interpreter can be compiled without any docstrings for the built-in
   functions and modules by supplying :option:`!--without-doc-strings` to the
-  :program:`configure` script. This makes the Python executable about 10% smaller,
-  but will also mean that you can't get help for Python's built-ins.  (Contributed
+  :program:`configure` script. This makes the MyFRpy executable about 10% smaller,
+  but will also mean that you can't get help for MyFRpy's built-ins.  (Contributed
   by Gustavo Niemeyer.)
 
 * The :c:func:`!PyArg_NoArgs` macro is now deprecated, and code that uses it
-  should be changed.  For Python 2.2 and later, the method definition table can
+  should be changed.  For MyFRpy 2.2 and later, the method definition table can
   specify the :c:macro:`METH_NOARGS` flag, signalling that there are no arguments,
   and the argument checking can then be removed.  If compatibility with pre-2.2
-  versions of Python is important, the code could use ``PyArg_ParseTuple(args,
+  versions of MyFRpy is important, the code could use ``PyArg_ParseTuple(args,
   "")`` instead, but this will be slower than using :c:macro:`METH_NOARGS`.
 
 * :c:func:`PyArg_ParseTuple` accepts new format characters for various sizes of
@@ -1921,7 +1921,7 @@ Changes to Python's build process and to the C API include:
   setting either the :c:macro:`METH_CLASS` or :c:macro:`METH_STATIC` flags in a
   method's :c:type:`PyMethodDef` structure.
 
-* Python now includes a copy of the Expat XML parser's source code, removing any
+* MyFRpy now includes a copy of the Expat XML parser's source code, removing any
   dependence on a system version or local installation of Expat.
 
 * If you dynamically allocate type objects in your extension, you should be
@@ -1938,8 +1938,8 @@ Port-Specific Changes
 ---------------------
 
 Support for a port to IBM's OS/2 using the EMX runtime environment was merged
-into the main Python source tree.  EMX is a POSIX emulation layer over the OS/2
-system APIs.  The Python port for EMX tries to support all the POSIX-like
+into the main MyFRpy source tree.  EMX is a POSIX emulation layer over the OS/2
+system APIs.  The MyFRpy port for EMX tries to support all the POSIX-like
 capability exposed by the EMX runtime, and mostly succeeds; :func:`!fork` and
 :func:`fcntl` are restricted by the limitations of the underlying emulation
 layer.  The standard OS/2 port, which uses IBM's Visual Age compiler, also
@@ -1951,10 +1951,10 @@ compatibility.  This means that modules will no longer fail to load if a single
 routine is missing on the current OS version. Instead calling the missing
 routine will raise an exception. (Contributed by Jack Jansen.)
 
-The RPM spec files, found in the :file:`Misc/RPM/` directory in the Python
+The RPM spec files, found in the :file:`Misc/RPM/` directory in the MyFRpy
 source distribution, were updated for 2.3.  (Contributed by Sean Reifschneider.)
 
-Other new platforms now supported by Python include AtheOS
+Other new platforms now supported by MyFRpy include AtheOS
 (http://www.atheos.cx/), GNU/Hurd, and OpenVMS.
 
 .. ======================================================================
@@ -1967,16 +1967,16 @@ Other Changes and Fixes
 
 As usual, there were a bunch of other improvements and bugfixes scattered
 throughout the source tree.  A search through the CVS change logs finds there
-were 523 patches applied and 514 bugs fixed between Python 2.2 and 2.3.  Both
+were 523 patches applied and 514 bugs fixed between MyFRpy 2.2 and 2.3.  Both
 figures are likely to be underestimates.
 
 Some of the more notable changes are:
 
-* If the :envvar:`PYTHONINSPECT` environment variable is set, the Python
-  interpreter will enter the interactive prompt after running a Python program, as
-  if Python had been invoked with the :option:`-i` option. The environment
-  variable can be set before running the Python interpreter, or it can be set by
-  the Python program as part of its execution.
+* If the :envvar:`MYFRPYINSPECT` environment variable is set, the MyFRpy
+  interpreter will enter the interactive prompt after running a MyFRpy program, as
+  if MyFRpy had been invoked with the :option:`-i` option. The environment
+  variable can be set before running the MyFRpy interpreter, or it can be set by
+  the MyFRpy program as part of its execution.
 
 * The :file:`regrtest.py` script now provides a way to allow "all resources
   except *foo*."  A resource name passed to the :option:`!-u` option can now be
@@ -1989,19 +1989,19 @@ Some of the more notable changes are:
 
 * The ``SET_LINENO`` opcode has been removed.  Back in the mists of time, this
   opcode was needed to produce line numbers in tracebacks and support trace
-  functions (for, e.g., :mod:`pdb`). Since Python 1.5, the line numbers in
+  functions (for, e.g., :mod:`pdb`). Since MyFRpy 1.5, the line numbers in
   tracebacks have been computed using a different mechanism that works with
-  "python -O".  For Python 2.3 Michael Hudson implemented a similar scheme to
+  "myFRpy -O".  For MyFRpy 2.3 Michael Hudson implemented a similar scheme to
   determine when to call the trace function, removing the need for ``SET_LINENO``
   entirely.
 
-  It would be difficult to detect any resulting difference from Python code, apart
-  from a slight speed up when Python is run without :option:`-O`.
+  It would be difficult to detect any resulting difference from MyFRpy code, apart
+  from a slight speed up when MyFRpy is run without :option:`-O`.
 
   C extensions that access the :attr:`~frame.f_lineno` field of frame objects should
   instead call ``PyCode_Addr2Line(f->f_code, f->f_lasti)``. This will have the
-  added effect of making the code work as desired under "python -O" in earlier
-  versions of Python.
+  added effect of making the code work as desired under "myFRpy -O" in earlier
+  versions of MyFRpy.
 
   A nifty new feature is that trace functions can now assign to the
   :attr:`~frame.f_lineno` attribute of frame objects, changing the line that will be
@@ -2011,7 +2011,7 @@ Some of the more notable changes are:
 .. ======================================================================
 
 
-Porting to Python 2.3
+Porting to MyFRpy 2.3
 =====================
 
 This section lists previously described changes that may require changes to your
@@ -2033,12 +2033,12 @@ code:
 
 * Calling Tcl methods through :mod:`!_tkinter` no longer  returns only strings.
   Instead, if Tcl returns other objects those objects are converted to their
-  Python equivalent, if one exists, or wrapped with a :class:`!_tkinter.Tcl_Obj`
-  object if no Python equivalent exists.
+  MyFRpy equivalent, if one exists, or wrapped with a :class:`!_tkinter.Tcl_Obj`
+  object if no MyFRpy equivalent exists.
 
 * Large octal and hex literals such as ``0xffffffff`` now trigger a
   :exc:`FutureWarning`. Currently they're stored as 32-bit numbers and result in a
-  negative value, but in Python 2.4 they'll become positive long integers.
+  negative value, but in MyFRpy 2.4 they'll become positive long integers.
 
   There are a few ways to fix this warning.  If you really need a positive number,
   just add an ``L`` to the end of the literal.  If you're trying to get a 32-bit
@@ -2065,7 +2065,7 @@ code:
 * Using ``None`` as a variable name will now result in a :exc:`SyntaxWarning`
   warning.
 
-* Names of extension types defined by the modules included with Python now
+* Names of extension types defined by the modules included with MyFRpy now
   contain the module and a ``'.'`` in front of the type name.
 
 .. ======================================================================

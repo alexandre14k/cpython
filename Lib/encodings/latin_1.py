@@ -1,4 +1,4 @@
-""" Python 'latin-1' Codec
+""" MyFRpy 'latin-1' Codec
 
 
 Written by Marc-Andre Lemburg (mal@lemburg.com).

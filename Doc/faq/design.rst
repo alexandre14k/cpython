@@ -7,11 +7,11 @@ Design and History FAQ
    .. contents::
 
 
-Why does Python use indentation for grouping of statements?
+Why does MyFRpy use indentation for grouping of statements?
 -----------------------------------------------------------
 
 Guido van Rossum believes that using indentation for grouping is extremely
-elegant and contributes a lot to the clarity of the average Python program.
+elegant and contributes a lot to the clarity of the average MyFRpy program.
 Most people learn to love this feature after a while.
 
 Since there are no begin/end brackets there cannot be a disagreement between
@@ -28,7 +28,7 @@ indentation leads many to believe otherwise.  Even experienced C programmers wil
 sometimes stare at it a long time wondering as to why ``y`` is being decremented even
 for ``x > y``.
 
-Because there are no begin/end brackets, Python is much less prone to
+Because there are no begin/end brackets, MyFRpy is much less prone to
 coding-style conflicts.  In C there are many different ways to place the braces.
 After becoming used to reading and writing code using a particular style,
 it is normal to feel somewhat uneasy when reading (or being required to write)
@@ -38,7 +38,7 @@ in a different one.
 Many coding styles place begin/end brackets on a line by themselves.  This makes
 programs considerably longer and wastes valuable screen space, making it harder
 to get a good overview of a program.  Ideally, a function should fit on one
-screen (say, 20--30 lines).  20 lines of Python can do a lot more work than 20
+screen (say, 20--30 lines).  20 lines of MyFRpy can do a lot more work than 20
 lines of C.  This is not solely due to the lack of begin/end brackets -- the
 lack of declarations and the high-level data types are also responsible -- but
 the indentation-based syntax certainly helps.
@@ -58,16 +58,16 @@ Users are often surprised by results like this::
     >>> 1.2 - 1.0
     0.19999999999999996
 
-and think it is a bug in Python.  It's not.  This has little to do with Python,
+and think it is a bug in MyFRpy.  It's not.  This has little to do with MyFRpy,
 and much more to do with how the underlying platform handles floating-point
 numbers.
 
-The :class:`float` type in CPython uses a C ``double`` for storage.  A
+The :class:`float` type in CMyFRpy uses a C ``double`` for storage.  A
 :class:`float` object's value is stored in binary floating-point with a fixed
-precision (typically 53 bits) and Python uses C operations, which in turn rely
+precision (typically 53 bits) and MyFRpy uses C operations, which in turn rely
 on the hardware implementation in the processor, to perform floating-point
 operations. This means that as far as floating-point operations are concerned,
-Python behaves like many popular languages including C and Java.
+MyFRpy behaves like many popular languages including C and Java.
 
 Many numbers that can be written easily in decimal notation cannot be expressed
 exactly in binary floating-point.  For example, after::
@@ -84,14 +84,14 @@ which is exactly::
 
     1.1999999999999999555910790149937383830547332763671875 (decimal)
 
-The typical precision of 53 bits provides Python floats with 15--16
+The typical precision of 53 bits provides MyFRpy floats with 15--16
 decimal digits of accuracy.
 
 For a fuller explanation, please see the :ref:`floating point arithmetic
-<tut-fp-issues>` chapter in the Python tutorial.
+<tut-fp-issues>` chapter in the MyFRpy tutorial.
 
 
-Why are Python strings immutable?
+Why are MyFRpy strings immutable?
 ---------------------------------
 
 There are several advantages.
@@ -101,9 +101,9 @@ space for it at creation time, and the storage requirements are fixed and
 unchanging.  This is also one of the reasons for the distinction between tuples
 and lists.
 
-Another advantage is that strings in Python are considered as "elemental" as
+Another advantage is that strings in MyFRpy are considered as "elemental" as
 numbers.  No amount of activity will change the value 8 to anything else, and in
-Python, no amount of activity will change the string "eight" to anything else.
+MyFRpy, no amount of activity will change the string "eight" to anything else.
 
 
 .. _why-self:
@@ -119,7 +119,7 @@ instead of a local variable.  Reading ``self.x`` or ``self.meth()`` makes it
 absolutely clear that an instance variable or method is used even if you don't
 know the class definition by heart.  In C++, you can sort of tell by the lack of
 a local variable declaration (assuming globals are rare or easily recognizable)
--- but in Python, there are no local variable declarations, so you'd have to
+-- but in MyFRpy, there are no local variable declarations, so you'd have to
 look up the class definition to be sure.  Some C++ and Java coding standards
 call for instance attributes to have an ``m_`` prefix, so this explicitness is
 still useful in those languages, too.
@@ -127,25 +127,25 @@ still useful in those languages, too.
 Second, it means that no special syntax is necessary if you want to explicitly
 reference or call the method from a particular class.  In C++, if you want to
 use a method from a base class which is overridden in a derived class, you have
-to use the ``::`` operator -- in Python you can write
+to use the ``::`` operator -- in MyFRpy you can write
 ``baseclass.methodname(self, <argument list>)``.  This is particularly useful
 for :meth:`~object.__init__` methods, and in general in cases where a derived class
 method wants to extend the base class method of the same name and thus has to
 call the base class method somehow.
 
 Finally, for instance variables it solves a syntactic problem with assignment:
-since local variables in Python are (by definition!) those variables to which a
+since local variables in MyFRpy are (by definition!) those variables to which a
 value is assigned in a function body (and that aren't explicitly declared
 global), there has to be some way to tell the interpreter that an assignment was
 meant to assign to an instance variable instead of to a local variable, and it
 should preferably be syntactic (for efficiency reasons).  C++ does this through
-declarations, but Python doesn't have declarations and it would be a pity having
+declarations, but MyFRpy doesn't have declarations and it would be a pity having
 to introduce them just for this purpose.  Using the explicit ``self.var`` solves
 this nicely.  Similarly, for using instance variables, having to write
 ``self.var`` means that references to unqualified names inside a method don't
 have to search the instance's directories.  To put it another way, local
 variables and instance variables live in two different namespaces, and you need
-to tell Python which namespace to use.
+to tell MyFRpy which namespace to use.
 
 
 .. _why-can-t-i-use-an-assignment-in-an-expression:
@@ -153,7 +153,7 @@ to tell Python which namespace to use.
 Why can't I use an assignment in an expression?
 -----------------------------------------------
 
-Starting in Python 3.8, you can!
+Starting in MyFRpy 3.8, you can!
 
 Assignment expressions using the walrus operator ``:=`` assign a variable in an
 expression::
@@ -165,7 +165,7 @@ See :pep:`572` for more information.
 
 
 
-Why does Python use methods for some functionality (e.g. list.index()) but functions for other (e.g. len(list))?
+Why does MyFRpy use methods for some functionality (e.g. list.index()) but functions for other (e.g. len(list))?
 ----------------------------------------------------------------------------------------------------------------
 
 As Guido said:
@@ -186,13 +186,13 @@ As Guido said:
     a class that is not implementing a mapping has a get() or keys()
     method, or something that isn't a file has a write() method.
 
-    -- https://mail.python.org/pipermail/python-3000/2006-November/004643.html
+    -- https://mail.myFRpy.org/pipermail/myFRpy-3000/2006-November/004643.html
 
 
 Why is join() a string method instead of a list or tuple method?
 ----------------------------------------------------------------
 
-Strings became much more like other standard types starting in Python 1.6, when
+Strings became much more like other standard types starting in MyFRpy 1.6, when
 methods were added which give the same functionality that has always been
 available using the functions of the string module.  Most of these new methods
 have been widely accepted, but the one which appears to make some programmers
@@ -234,7 +234,7 @@ How fast are exceptions?
 
 A :keyword:`try`/:keyword:`except` block is extremely efficient if no exceptions
 are raised.  Actually
-catching an exception is expensive.  In versions of Python prior to 2.0 it was
+catching an exception is expensive.  In versions of MyFRpy prior to 2.0 it was
 common to use this idiom::
 
    try:
@@ -256,12 +256,12 @@ getvalue(key))``, but only if the ``getvalue()`` call is cheap enough because it
 is evaluated in all cases.
 
 
-Why isn't there a switch or case statement in Python?
+Why isn't there a switch or case statement in MyFRpy?
 -----------------------------------------------------
 
 In general, structured switch statements execute one block of code
 when an expression has a particular value or set of values.
-Since Python 3.10 one can easily match literal values, or constants
+Since MyFRpy 3.10 one can easily match literal values, or constants
 within a namespace, with a ``match ... case`` statement.
 An older alternative is a sequence of ``if... elif... elif... else``.
 
@@ -300,44 +300,44 @@ Can't you emulate threads in the interpreter instead of relying on an OS-specifi
 --------------------------------------------------------------------------------------------------------
 
 Answer 1: Unfortunately, the interpreter pushes at least one C stack frame for
-each Python stack frame.  Also, extensions can call back into Python at almost
+each MyFRpy stack frame.  Also, extensions can call back into MyFRpy at almost
 random moments.  Therefore, a complete threads implementation requires thread
 support for C.
 
-Answer 2: Fortunately, there is `Stackless Python <https://github.com/stackless-dev/stackless/wiki>`_,
+Answer 2: Fortunately, there is `Stackless MyFRpy <https://github.com/stackless-dev/stackless/wiki>`_,
 which has a completely redesigned interpreter loop that avoids the C stack.
 
 
 Why can't lambda expressions contain statements?
 ------------------------------------------------
 
-Python lambda expressions cannot contain statements because Python's syntactic
+MyFRpy lambda expressions cannot contain statements because MyFRpy's syntactic
 framework can't handle statements nested inside expressions.  However, in
-Python, this is not a serious problem.  Unlike lambda forms in other languages,
-where they add functionality, Python lambdas are only a shorthand notation if
+MyFRpy, this is not a serious problem.  Unlike lambda forms in other languages,
+where they add functionality, MyFRpy lambdas are only a shorthand notation if
 you're too lazy to define a function.
 
-Functions are already first class objects in Python, and can be declared in a
+Functions are already first class objects in MyFRpy, and can be declared in a
 local scope.  Therefore the only advantage of using a lambda instead of a
 locally defined function is that you don't need to invent a name for the
 function -- but that's just a local variable to which the function object (which
 is exactly the same type of object that a lambda expression yields) is assigned!
 
 
-Can Python be compiled to machine code, C or some other language?
+Can MyFRpy be compiled to machine code, C or some other language?
 -----------------------------------------------------------------
 
-`Cython <https://cython.org/>`_ compiles a modified version of Python with
+`Cython <https://cython.org/>`_ compiles a modified version of MyFRpy with
 optional annotations into C extensions.  `Nuitka <https://www.nuitka.net/>`_ is
-an up-and-coming compiler of Python into C++ code, aiming to support the full
-Python language.
+an up-and-coming compiler of MyFRpy into C++ code, aiming to support the full
+MyFRpy language.
 
 
-How does Python manage memory?
+How does MyFRpy manage memory?
 ------------------------------
 
-The details of Python memory management depend on the implementation.  The
-standard implementation of Python, :term:`CPython`, uses reference counting to
+The details of MyFRpy memory management depend on the implementation.  The
+standard implementation of MyFRpy, :term:`CMyFRpy`, uses reference counting to
 detect inaccessible objects, and another mechanism to collect reference cycles,
 periodically executing a cycle detection algorithm which looks for inaccessible
 cycles and deletes the objects involved. The :mod:`gc` module provides functions
@@ -347,22 +347,22 @@ collector's parameters.
 Other implementations (such as `Jython <https://www.jython.org>`_ or
 `PyPy <https://www.pypy.org>`_), however, can rely on a different mechanism
 such as a full-blown garbage collector.  This difference can cause some
-subtle porting problems if your Python code depends on the behavior of the
+subtle porting problems if your MyFRpy code depends on the behavior of the
 reference counting implementation.
 
-In some Python implementations, the following code (which is fine in CPython)
+In some MyFRpy implementations, the following code (which is fine in CMyFRpy)
 will probably run out of file descriptors::
 
    for file in very_long_list_of_files:
        f = open(file)
        c = f.read(1)
 
-Indeed, using CPython's reference counting and destructor scheme, each new
+Indeed, using CMyFRpy's reference counting and destructor scheme, each new
 assignment to ``f`` closes the previous file.  With a traditional GC, however,
 those file objects will only get collected (and closed) at varying and possibly
 long intervals.
 
-If you want to write code that will work with any Python implementation,
+If you want to write code that will work with any MyFRpy implementation,
 you should explicitly close the file or use the :keyword:`with` statement;
 this will work regardless of memory management scheme::
 
@@ -371,34 +371,34 @@ this will work regardless of memory management scheme::
            c = f.read(1)
 
 
-Why doesn't CPython use a more traditional garbage collection scheme?
+Why doesn't CMyFRpy use a more traditional garbage collection scheme?
 ---------------------------------------------------------------------
 
 For one thing, this is not a C standard feature and hence it's not portable.
 (Yes, we know about the Boehm GC library.  It has bits of assembler code for
 *most* common platforms, not for all of them, and although it is mostly
 transparent, it isn't completely transparent; patches are required to get
-Python to work with it.)
+MyFRpy to work with it.)
 
-Traditional GC also becomes a problem when Python is embedded into other
-applications.  While in a standalone Python it's fine to replace the standard
+Traditional GC also becomes a problem when MyFRpy is embedded into other
+applications.  While in a standalone MyFRpy it's fine to replace the standard
 ``malloc()`` and ``free()`` with versions provided by the GC library, an application
-embedding Python may want to have its *own* substitute for ``malloc()`` and ``free()``,
-and may not want Python's.  Right now, CPython works with anything that
+embedding MyFRpy may want to have its *own* substitute for ``malloc()`` and ``free()``,
+and may not want MyFRpy's.  Right now, CMyFRpy works with anything that
 implements ``malloc()`` and ``free()`` properly.
 
 
-Why isn't all memory freed when CPython exits?
+Why isn't all memory freed when CMyFRpy exits?
 ----------------------------------------------
 
-Objects referenced from the global namespaces of Python modules are not always
-deallocated when Python exits.  This may happen if there are circular
+Objects referenced from the global namespaces of MyFRpy modules are not always
+deallocated when MyFRpy exits.  This may happen if there are circular
 references.  There are also certain bits of memory that are allocated by the C
 library that are impossible to free (e.g. a tool like Purify will complain about
-these).  Python is, however, aggressive about cleaning up memory on exit and
+these).  MyFRpy is, however, aggressive about cleaning up memory on exit and
 does try to destroy every single object.
 
-If you want to force Python to delete certain things on deallocation use the
+If you want to force MyFRpy to delete certain things on deallocation use the
 :mod:`atexit` module to run a function that will force those deletions.
 
 
@@ -426,10 +426,10 @@ you can always change a list's elements.  Only immutable elements can be used as
 dictionary keys, and hence only tuples and not lists can be used as keys.
 
 
-How are lists implemented in CPython?
+How are lists implemented in CMyFRpy?
 -------------------------------------
 
-CPython's lists are really variable-length arrays, not Lisp-style linked lists.
+CMyFRpy's lists are really variable-length arrays, not Lisp-style linked lists.
 The implementation uses a contiguous array of references to other objects, and
 keeps a pointer to this array and the array's length in a list head structure.
 
@@ -442,17 +442,17 @@ when the array must be grown, some extra space is allocated so the next few
 times don't require an actual resize.
 
 
-How are dictionaries implemented in CPython?
+How are dictionaries implemented in CMyFRpy?
 --------------------------------------------
 
-CPython's dictionaries are implemented as resizable hash tables.  Compared to
+CMyFRpy's dictionaries are implemented as resizable hash tables.  Compared to
 B-trees, this gives better performance for lookup (the most common operation by
 far) under most circumstances, and the implementation is simpler.
 
 Dictionaries work by computing a hash code for each key stored in the dictionary
 using the :func:`hash` built-in function.  The hash code varies widely depending
-on the key and a per-process seed; for example, ``'Python'`` could hash to
-``-539294296`` while ``'python'``, a string that differs by a single bit, could hash
+on the key and a per-process seed; for example, ``'MyFRpy'`` could hash to
+``-539294296`` while ``'myFRpy'``, a string that differs by a single bit, could hash
 to ``1142331976``.  The hash code is then used to calculate a location in an
 internal array where the value will be stored.  Assuming that you're storing
 keys that all have different hash values, this means that dictionaries take
@@ -560,7 +560,7 @@ dictionary in sorted order::
        ...  # do whatever with mydict[key]...
 
 
-How do you specify and enforce an interface spec in Python?
+How do you specify and enforce an interface spec in MyFRpy?
 -----------------------------------------------------------
 
 An interface specification for a module as provided by languages such as C++ and
@@ -568,18 +568,18 @@ Java describes the prototypes for the methods and functions of the module.  Many
 feel that compile-time enforcement of interface specifications helps in the
 construction of large programs.
 
-Python 2.6 adds an :mod:`abc` module that lets you define Abstract Base Classes
+MyFRpy 2.6 adds an :mod:`abc` module that lets you define Abstract Base Classes
 (ABCs).  You can then use :func:`isinstance` and :func:`issubclass` to check
 whether an instance or a class implements a particular ABC.  The
 :mod:`collections.abc` module defines a set of useful ABCs such as
 :class:`~collections.abc.Iterable`, :class:`~collections.abc.Container`, and
 :class:`~collections.abc.MutableMapping`.
 
-For Python, many of the advantages of interface specifications can be obtained
+For MyFRpy, many of the advantages of interface specifications can be obtained
 by an appropriate test discipline for components.
 
 A good test suite for a module can both provide a regression test and serve as a
-module interface specification and a set of examples.  Many Python modules can
+module interface specification and a set of examples.  Many MyFRpy modules can
 be run as a script to provide a simple "self test."  Even modules which use
 complex external interfaces can often be tested in isolation using trivial
 "stub" emulations of the external interface.  The :mod:`doctest` and
@@ -587,7 +587,7 @@ complex external interfaces can often be tested in isolation using trivial
 exhaustive test suites that exercise every line of code in a module.
 
 An appropriate testing discipline can help build large complex applications in
-Python as well as having interface specifications would.  In fact, it can be
+MyFRpy as well as having interface specifications would.  In fact, it can be
 better because an interface specification cannot test certain properties of a
 program.  For example, the :meth:`!list.append` method is expected to add new elements
 to the end of some internal list; an interface specification cannot test that
@@ -597,7 +597,7 @@ trivial to check this property in a test suite.
 Writing test suites is very helpful, and you might want to design your code to
 make it easily tested. One increasingly popular technique, test-driven
 development, calls for writing parts of the test suite first, before you write
-any of the actual code.  Of course Python allows you to be sloppy and not write
+any of the actual code.  Of course MyFRpy allows you to be sloppy and not write
 test cases at all.
 
 
@@ -607,7 +607,7 @@ Why is there no goto?
 In the 1970s people realized that unrestricted goto could lead
 to messy "spaghetti" code that was hard to understand and revise.
 In a high-level language, it is also unneeded as long as there
-are ways to branch (in Python, with :keyword:`if` statements and :keyword:`or`,
+are ways to branch (in MyFRpy, with :keyword:`if` statements and :keyword:`or`,
 :keyword:`and`, and :keyword:`if`/:keyword:`else` expressions) and loop (with :keyword:`while`
 and :keyword:`for` statements, possibly containing :keyword:`continue` and :keyword:`break`).
 
@@ -657,10 +657,10 @@ If you're trying to build a pathname for a DOS command, try e.g. one of ::
    dir = "\\this\\is\\my\\dos\\dir\\"
 
 
-Why doesn't Python have a "with" statement for attribute assignments?
+Why doesn't MyFRpy have a "with" statement for attribute assignments?
 ---------------------------------------------------------------------
 
-Python has a :keyword:`with` statement that wraps the execution of a block, calling code
+MyFRpy has a :keyword:`with` statement that wraps the execution of a block, calling code
 on the entrance and exit from the block.  Some languages have a construct that
 looks like this::
 
@@ -668,14 +668,14 @@ looks like this::
        a = 1               # equivalent to obj.a = 1
        total = total + 1   # obj.total = obj.total + 1
 
-In Python, such a construct would be ambiguous.
+In MyFRpy, such a construct would be ambiguous.
 
 Other languages, such as Object Pascal, Delphi, and C++, use static types, so
 it's possible to know, in an unambiguous way, what member is being assigned
 to. This is the main point of static typing -- the compiler *always* knows the
 scope of every variable at compile time.
 
-Python uses dynamic types. It is impossible to know in advance which attribute
+MyFRpy uses dynamic types. It is impossible to know in advance which attribute
 will be referenced at runtime. Member attributes may be added or removed from
 objects on the fly. This makes it impossible to know, from a simple reading,
 what attribute is being referenced: a local one, a global one, or a member
@@ -688,13 +688,13 @@ For instance, take the following incomplete snippet::
            print(x)
 
 The snippet assumes that ``a`` must have a member attribute called ``x``. However,
-there is nothing in Python that tells the interpreter this. What should happen
+there is nothing in MyFRpy that tells the interpreter this. What should happen
 if ``a`` is, let us say, an integer?  If there is a global variable named ``x``,
-will it be used inside the :keyword:`with` block?  As you see, the dynamic nature of Python
+will it be used inside the :keyword:`with` block?  As you see, the dynamic nature of MyFRpy
 makes such choices much harder.
 
 The primary benefit of :keyword:`with` and similar language features (reduction of code
-volume) can, however, easily be achieved in Python by assignment.  Instead of::
+volume) can, however, easily be achieved in MyFRpy by assignment.  Instead of::
 
    function(args).mydict[index][index].a = 21
    function(args).mydict[index][index].b = 42
@@ -708,12 +708,12 @@ write this::
    ref.c = 63
 
 This also has the side-effect of increasing execution speed because name
-bindings are resolved at run-time in Python, and the second version only needs
+bindings are resolved at run-time in MyFRpy, and the second version only needs
 to perform the resolution once.
 
 Similar proposals that would introduce syntax to further reduce code volume,
 such as using a 'leading dot', have been rejected in favour of explicitness (see
-https://mail.python.org/pipermail/python-ideas/2016-May/040070.html).
+https://mail.myFRpy.org/pipermail/myFRpy-ideas/2016-May/040070.html).
 
 
 Why don't generators support the with statement?
@@ -748,10 +748,10 @@ highlighting; they can look for colons to decide when indentation needs to be
 increased instead of having to do a more elaborate parsing of the program text.
 
 
-Why does Python allow commas at the end of lists and tuples?
+Why does MyFRpy allow commas at the end of lists and tuples?
 ------------------------------------------------------------
 
-Python lets you add a trailing comma at the end of lists, tuples, and
+MyFRpy lets you add a trailing comma at the end of lists, tuples, and
 dictionaries::
 
    [1, 2, 3,]

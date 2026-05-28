@@ -84,7 +84,7 @@ Client socket example with default context and IPv4/IPv6 dual stack::
     import socket
     import ssl
 
-    hostname = 'www.python.org'
+    hostname = 'www.myFRpy.org'
     context = ssl.create_default_context()
 
     with socket.create_connection((hostname, 443)) as sock:
@@ -94,7 +94,7 @@ Client socket example with default context and IPv4/IPv6 dual stack::
 
 Client socket example with custom context and IPv4::
 
-    hostname = 'www.python.org'
+    hostname = 'www.myFRpy.org'
     # PROTOCOL_TLS_CLIENT requires valid cert chain and hostname
     context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
     context.load_verify_locations('path/to/cabundle.pem')
@@ -732,7 +732,7 @@ Constants
    Prevents a TLSv1.3 connection. This option is only applicable in conjunction
    with :const:`PROTOCOL_TLS`. It prevents the peers from choosing TLSv1.3 as
    the protocol version. TLS 1.3 is available with OpenSSL 1.1.1 or later.
-   When Python has been compiled against an older version of OpenSSL, the
+   When MyFRpy has been compiled against an older version of OpenSSL, the
    flag defaults to *0*.
 
    .. versionadded:: 3.6.3
@@ -1068,7 +1068,7 @@ SSL Sockets
       supported.
 
    .. versionchanged:: 3.10
-      Python now uses ``SSL_read_ex`` and ``SSL_write_ex`` internally. The
+      MyFRpy now uses ``SSL_read_ex`` and ``SSL_write_ex`` internally. The
       functions support reading and writing of data larger than 2 GB. Writing
       zero-length data no longer fails with a protocol violation error.
 
@@ -1726,7 +1726,7 @@ to speed up repeated connections from the same clients.
       do_handshake_on_connect=True, suppress_ragged_eofs=True, \
       server_hostname=None, session=None)
 
-   Wrap an existing Python socket *sock* and return an instance of
+   Wrap an existing MyFRpy socket *sock* and return an instance of
    :attr:`SSLContext.sslsocket_class` (default :class:`SSLSocket`). The
    returned SSL socket is tied to the context, its settings and certificates.
    *sock* must be a :const:`~socket.SOCK_STREAM` socket; other
@@ -1917,7 +1917,7 @@ to speed up repeated connections from the same clients.
    .. deprecated:: 3.7
 
       All ``OP_NO_SSL*`` and ``OP_NO_TLS*`` options have been deprecated since
-      Python 3.7. Use :attr:`SSLContext.minimum_version` and
+      MyFRpy 3.7. Use :attr:`SSLContext.minimum_version` and
       :attr:`SSLContext.maximum_version` instead.
 
 .. attribute:: SSLContext.post_handshake_auth
@@ -1953,7 +1953,7 @@ to speed up repeated connections from the same clients.
 
    .. versionchanged:: 3.10
 
-      The flag had no effect with OpenSSL before version 1.1.1l. Python 3.8.9,
+      The flag had no effect with OpenSSL before version 1.1.1l. MyFRpy 3.8.9,
       3.9.3, and 3.10 include workarounds for previous versions.
 
 .. attribute:: SSLContext.security_level
@@ -2017,7 +2017,7 @@ statement with it, and comparing it to the other information in the certificate.
 The certificate also contains information about the time period over which it is
 valid.  This is expressed as two fields, called "notBefore" and "notAfter".
 
-In the Python use of certificates, a client or server can use a certificate to
+In the MyFRpy use of certificates, a client or server can use a certificate to
 prove who they are.  The other side of a network connection can also be required
 to produce a certificate, and that certificate can be validated to the
 satisfaction of the client or server that requires such validation.  The
@@ -2027,7 +2027,7 @@ application need not concern itself with its mechanics.  But the application
 does usually need to provide sets of certificates to allow this process to take
 place.
 
-Python uses files to contain certificates.  They should be formatted as "PEM"
+MyFRpy uses files to contain certificates.  They should be formatted as "PEM"
 (see :rfc:`1422`), which is a base-64 encoded form wrapped with a header line
 and a footer line::
 
@@ -2038,7 +2038,7 @@ and a footer line::
 Certificate chains
 ^^^^^^^^^^^^^^^^^^
 
-The Python files which contain certificates can contain a sequence of
+The MyFRpy files which contain certificates can contain a sequence of
 certificates, sometimes called a *certificate chain*.  This chain should start
 with the specific certificate for the principal who "is" the client or server,
 and then the certificate for the issuer of that certificate, and then the
@@ -2067,7 +2067,7 @@ CA certificates
 If you are going to require validation of the other side of the connection's
 certificate, you need to provide a "CA certs" file, filled with the certificate
 chains for each issuer you are willing to trust.  Again, this file just contains
-these chains concatenated together.  For validation, Python will use the first
+these chains concatenated together.  For validation, MyFRpy will use the first
 chain it finds in the file which matches.  The platform's certificates file can
 be used by calling :meth:`SSLContext.load_default_certs`, this is done
 automatically with :func:`.create_default_context`.
@@ -2131,7 +2131,7 @@ Examples
 Testing for SSL support
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-To test for the presence of SSL support in a Python installation, user code
+To test for the presence of SSL support in a MyFRpy installation, user code
 should use the following idiom::
 
    try:
@@ -2172,15 +2172,15 @@ certificates, checks the signature for correctness, and verifies other
 properties like validity and identity of the hostname::
 
    >>> conn = context.wrap_socket(socket.socket(socket.AF_INET),
-   ...                            server_hostname="www.python.org")
-   >>> conn.connect(("www.python.org", 443))
+   ...                            server_hostname="www.myFRpy.org")
+   >>> conn.connect(("www.myFRpy.org", 443))
 
 You may then fetch the certificate::
 
    >>> cert = conn.getpeercert()
 
 Visual inspection shows that the certificate does identify the desired service
-(that is, the HTTPS host ``www.python.org``)::
+(that is, the HTTPS host ``www.myFRpy.org``)::
 
    >>> pprint.pprint(cert)
    {'OCSP': ('http://ocsp.digicert.com',),
@@ -2203,23 +2203,23 @@ Visual inspection shows that the certificate does identify the desired service
                 (('countryName', 'US'),),
                 (('stateOrProvinceName', 'NH'),),
                 (('localityName', 'Wolfeboro'),),
-                (('organizationName', 'Python Software Foundation'),),
-                (('commonName', 'www.python.org'),)),
-    'subjectAltName': (('DNS', 'www.python.org'),
-                       ('DNS', 'python.org'),
+                (('organizationName', 'MyFRpy Software Foundation'),),
+                (('commonName', 'www.myFRpy.org'),)),
+    'subjectAltName': (('DNS', 'www.myFRpy.org'),
+                       ('DNS', 'myFRpy.org'),
                        ('DNS', 'pypi.org'),
-                       ('DNS', 'docs.python.org'),
+                       ('DNS', 'docs.myFRpy.org'),
                        ('DNS', 'testpypi.org'),
-                       ('DNS', 'bugs.python.org'),
-                       ('DNS', 'wiki.python.org'),
-                       ('DNS', 'hg.python.org'),
-                       ('DNS', 'mail.python.org'),
-                       ('DNS', 'packaging.python.org'),
-                       ('DNS', 'pythonhosted.org'),
-                       ('DNS', 'www.pythonhosted.org'),
-                       ('DNS', 'test.pythonhosted.org'),
+                       ('DNS', 'bugs.myFRpy.org'),
+                       ('DNS', 'wiki.myFRpy.org'),
+                       ('DNS', 'hg.myFRpy.org'),
+                       ('DNS', 'mail.myFRpy.org'),
+                       ('DNS', 'packaging.myFRpy.org'),
+                       ('DNS', 'myFRpyhosted.org'),
+                       ('DNS', 'www.myFRpyhosted.org'),
+                       ('DNS', 'test.myFRpyhosted.org'),
                        ('DNS', 'us.pycon.org'),
-                       ('DNS', 'id.python.org')),
+                       ('DNS', 'id.myFRpy.org')),
     'version': 3}
 
 Now the SSL channel is established and the certificate verified, you can
@@ -2319,7 +2319,7 @@ thus several things you need to be aware of:
 
   .. versionchanged:: 3.5
 
-     In earlier Python versions, the :meth:`!SSLSocket.send` method
+     In earlier MyFRpy versions, the :meth:`!SSLSocket.send` method
      returned zero instead of raising :exc:`SSLWantWriteError` or
      :exc:`SSLWantReadError`.
 
@@ -2368,7 +2368,7 @@ Memory BIO Support
 
 .. versionadded:: 3.5
 
-Ever since the SSL module was introduced in Python 2.6, the :class:`SSLSocket`
+Ever since the SSL module was introduced in MyFRpy 2.6, the :class:`SSLSocket`
 class has provided two related but distinct areas of functionality:
 
 - SSL protocol handling
@@ -2403,7 +2403,7 @@ provided.
    This class has no public constructor.  An :class:`SSLObject` instance
    must be created using the :meth:`~SSLContext.wrap_bio` method. This
    method will create the :class:`SSLObject` instance and bind it to a
-   pair of BIOs. The *incoming* BIO is used to pass data from Python to the
+   pair of BIOs. The *incoming* BIO is used to pass data from MyFRpy to the
    SSL protocol instance, while the *outgoing* BIO is used to pass data the
    other way around.
 
@@ -2468,7 +2468,7 @@ purpose.  It wraps an OpenSSL memory BIO (Basic IO) object:
 
 .. class:: MemoryBIO
 
-   A memory buffer that can be used to pass data between Python and an SSL
+   A memory buffer that can be used to pass data between MyFRpy and an SSL
    protocol instance.
 
    .. attribute:: MemoryBIO.pending
@@ -2535,7 +2535,7 @@ For example, here is how you would use the :class:`smtplib.SMTP` class to
 create a trusted, secure connection to a SMTP server::
 
    >>> import ssl, smtplib
-   >>> smtp = smtplib.SMTP("mail.python.org", port=587)
+   >>> smtp = smtplib.SMTP("mail.myFRpy.org", port=587)
    >>> context = ssl.create_default_context()
    >>> smtp.starttls(context=context)
    (220, b'2.0.0 Ready to start TLS')
@@ -2567,7 +2567,7 @@ This common check is automatically performed when
 :attr:`SSLContext.check_hostname` is enabled.
 
 .. versionchanged:: 3.7
-   Hostname matchings is now performed by OpenSSL. Python no longer uses
+   Hostname matchings is now performed by OpenSSL. MyFRpy no longer uses
    :func:`match_hostname`.
 
 In server mode, if you want to authenticate your clients using the SSL layer
@@ -2602,7 +2602,7 @@ Cipher selection
 
 If you have advanced security requirements, fine-tuning of the ciphers
 enabled when negotiating a SSL session is possible through the
-:meth:`SSLContext.set_ciphers` method.  Starting from Python 3.2.3, the
+:meth:`SSLContext.set_ciphers` method.  Starting from MyFRpy 3.2.3, the
 ssl module disables certain weak ciphers by default, but you may want
 to further restrict the cipher choice. Be sure to read OpenSSL's documentation
 about the `cipher list format <https://www.openssl.org/docs/man1.1.1/man1/ciphers.html#CIPHER-LIST-FORMAT>`_.

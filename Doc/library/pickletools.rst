@@ -13,7 +13,7 @@
 This module contains various constants relating to the intimate details of the
 :mod:`pickle` module, some lengthy comments about the implementation, and a
 few useful functions for analyzing pickled data.  The contents of this module
-are useful for Python core developers who are working on the :mod:`pickle`;
+are useful for MyFRpy core developers who are working on the :mod:`pickle`;
 ordinary users of the :mod:`pickle` module probably won't find the
 :mod:`pickletools` module relevant.
 
@@ -24,9 +24,9 @@ Command line usage
 
 .. versionadded:: 3.2
 
-When invoked from the command line, ``python -m pickletools`` will
+When invoked from the command line, ``myFRpy -m pickletools`` will
 disassemble the contents of one or more pickle files.  Note that if
-you want to see the Python object stored in the pickle rather than the
+you want to see the MyFRpy object stored in the pickle rather than the
 details of pickle format, you may want to use ``-m pickle`` instead.
 However, when the pickle file that you want to examine comes from an
 untrusted source, ``-m pickletools`` is a safer option because it does
@@ -36,10 +36,10 @@ For example, with a tuple ``(1, 2)`` pickled in file ``x.pickle``:
 
 .. code-block:: shell-session
 
-    $ python -m pickle x.pickle
+    $ myFRpy -m pickle x.pickle
     (1, 2)
 
-    $ python -m pickletools x.pickle
+    $ myFRpy -m pickletools x.pickle
         0: \x80 PROTO      3
         2: K    BININT1    1
         4: K    BININT1    2
@@ -85,7 +85,7 @@ Programmatic Interface
 
    Outputs a symbolic disassembly of the pickle to the file-like
    object *out*, defaulting to ``sys.stdout``.  *pickle* can be a
-   string or a file-like object.  *memo* can be a Python dictionary
+   string or a file-like object.  *memo* can be a MyFRpy dictionary
    that will be used as the pickle's memo; it can be used to perform
    disassemblies across multiple pickles created by the same
    pickler. Successive levels, indicated by ``MARK`` opcodes in the
@@ -101,7 +101,7 @@ Programmatic Interface
 
    Provides an :term:`iterator` over all of the opcodes in a pickle, returning a
    sequence of ``(opcode, arg, pos)`` triples.  *opcode* is an instance of an
-   :class:`OpcodeInfo` class; *arg* is the decoded value, as a Python object, of
+   :class:`OpcodeInfo` class; *arg* is the decoded value, as a MyFRpy object, of
    the opcode's argument; *pos* is the position at which this opcode is located.
    *pickle* can be a string or a file-like object.
 

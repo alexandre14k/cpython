@@ -39,7 +39,7 @@ OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
 
 #define PY_SSIZE_T_CLEAN
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_abstract.h"      // _PyIndex_Check()
 #include "pycore_atomic_funcs.h"  // _Py_atomic_size_get()
 #include "pycore_bytesobject.h"   // _PyBytes_Repeat()
@@ -76,7 +76,7 @@ class str "PyObject *" "&PyUnicode_Type"
 [clinic start generated code]*/
 /*[clinic end generated code: output=da39a3ee5e6b4b0d input=4884c934de622cf6]*/
 
-/*[python input]
+/*[myFRpy input]
 class Py_UCS4_converter(CConverter):
     type = 'Py_UCS4'
     converter = 'convert_uc'
@@ -87,8 +87,8 @@ class Py_UCS4_converter(CConverter):
             if len(self.c_default) > 4 or self.c_default[0] != "'":
                 self.c_default = hex(ord(self.default))
 
-[python start generated code]*/
-/*[python end generated code: output=da39a3ee5e6b4b0d input=88f5dd06cd8e7a61]*/
+[myFRpy start generated code]*/
+/*[myFRpy end generated code: output=da39a3ee5e6b4b0d input=88f5dd06cd8e7a61]*/
 
 /* --- Globals ------------------------------------------------------------
 
@@ -514,7 +514,7 @@ unicode_check_encoding_errors(const char *encoding, const char *errors)
         return 0;
     }
 
-    /* Disable checks during Python finalization. For example, it allows to
+    /* Disable checks during MyFRpy finalization. For example, it allows to
        call _PyObject_Dump() during finalization for debugging purpose. */
     if (_PyInterpreterState_GetFinalizing(interp) != NULL) {
         return 0;
@@ -713,7 +713,7 @@ backslashreplace(_PyBytesWriter *writer, char *str,
         }
         if (size > PY_SSIZE_T_MAX - incr) {
             PyErr_SetString(PyExc_OverflowError,
-                            "encoded result is too long for a Python string");
+                            "encoded result is too long for a MyFRpy string");
             return NULL;
         }
         size += incr;
@@ -787,7 +787,7 @@ xmlcharrefreplace(_PyBytesWriter *writer, char *str,
         }
         if (size > PY_SSIZE_T_MAX - incr) {
             PyErr_SetString(PyExc_OverflowError,
-                            "encoded result is too long for a Python string");
+                            "encoded result is too long for a MyFRpy string");
             return NULL;
         }
         size += incr;
@@ -1708,7 +1708,7 @@ PyUnicode_Resize(PyObject **p_unicode, Py_ssize_t length)
     return unicode_resize(p_unicode, length);
 }
 
-/* Copy an ASCII or latin1 char* string into a Python Unicode string.
+/* Copy an ASCII or latin1 char* string into a MyFRpy Unicode string.
 
    WARNING: The function doesn't copy the terminating null character and
    doesn't check the maximum character (may write a latin1 character in an
@@ -2470,7 +2470,7 @@ unicode_fromformat_arg(_PyUnicodeWriter *writer,
     /* Flags '+', ' ' and '#' are not particularly useful.
      * They are not worth the implementation and maintenance costs.
      * In addition, '#' should add "0" for "o" conversions for compatibility
-     * with printf, but it would confuse Python users. */
+     * with printf, but it would confuse MyFRpy users. */
     while (1) {
         switch (*f++) {
         case '-': flags |= F_LJUST; continue;
@@ -3484,7 +3484,7 @@ PyUnicode_EncodeFSDefault(PyObject *unicode)
     }
 #endif
     else {
-        /* Before _PyUnicode_InitEncodings() is called, the Python codec
+        /* Before _PyUnicode_InitEncodings() is called, the MyFRpy codec
            machinery is not ready and so cannot be used:
            use wcstombs() in this case. */
         const PyConfig *config = _PyInterpreterState_GetConfig(interp);
@@ -3722,7 +3722,7 @@ PyUnicode_DecodeFSDefaultAndSize(const char *s, Py_ssize_t size)
     }
 #endif
     else {
-        /* Before _PyUnicode_InitEncodings() is called, the Python codec
+        /* Before _PyUnicode_InitEncodings() is called, the MyFRpy codec
            machinery is not ready and so cannot be used:
            use mbstowcs() in this case. */
         const PyConfig *config = _PyInterpreterState_GetConfig(interp);
@@ -3852,7 +3852,7 @@ PyUnicode_AsUTF8(PyObject *unicode)
 }
 
 /*
-PyUnicode_GetSize() has been deprecated since Python 3.3
+PyUnicode_GetSize() has been deprecated since MyFRpy 3.3
 because it returned length of Py_UNICODE.
 
 But this function is part of stable abi, because it don't
@@ -4069,7 +4069,7 @@ unicode_decode_call_errorhandler_wchar(
 
   overflow:
     PyErr_SetString(PyExc_OverflowError,
-                    "decoded result is too long for a Python string");
+                    "decoded result is too long for a MyFRpy string");
 
   onError:
     Py_XDECREF(restuple);
@@ -9549,7 +9549,7 @@ PyUnicode_Join(PyObject *separator, PyObject *seq)
         return NULL;
     }
 
-    /* NOTE: the following code can't call back into Python code,
+    /* NOTE: the following code can't call back into MyFRpy code,
      * so we are sure that fseq won't be mutated.
      */
 
@@ -9647,7 +9647,7 @@ _PyUnicode_JoinArray(PyObject *separator, PyObject *const *items, Py_ssize_t seq
         }
         if (add_sz > (size_t)(PY_SSIZE_T_MAX - sz)) {
             PyErr_SetString(PyExc_OverflowError,
-                            "join() result is too long for a Python string");
+                            "join() result is too long for a MyFRpy string");
             goto onError;
         }
         sz += add_sz;
@@ -10674,7 +10674,7 @@ PyUnicode_CompareWithASCIIString(PyObject* uni, const char* str)
         for (i = 0; (chr = PyUnicode_READ(kind, data, i)) && str[i]; i++)
             if (chr != (unsigned char)str[i])
                 return (chr < (unsigned char)(str[i])) ? -1 : 1;
-        /* This check keeps Python strings that end in '\0' from comparing equal
+        /* This check keeps MyFRpy strings that end in '\0' from comparing equal
          to C strings identical up to that point. */
         if (PyUnicode_GET_LENGTH(uni) != i || chr)
             return 1; /* uni is longer */
@@ -11659,7 +11659,7 @@ PyUnicode_IsIdentifier(PyObject *self)
 /*[clinic input]
 str.isidentifier as unicode_isidentifier
 
-Return True if the string is a valid Python identifier, False otherwise.
+Return True if the string is a valid MyFRpy identifier, False otherwise.
 
 Call keyword.iskeyword(s) to test whether string s is a reserved identifier,
 such as "def" or "class".
@@ -13632,8 +13632,8 @@ formatfloat(PyObject *v, struct unicode_format_arg_t *arg,
 }
 
 /* formatlong() emulates the format codes d, u, o, x and X, and
- * the F_ALT flag, for Python's long (unbounded) ints.  It's not used for
- * Python's regular ints.
+ * the F_ALT flag, for MyFRpy's long (unbounded) ints.  It's not used for
+ * MyFRpy's regular ints.
  * Return value:  a new PyUnicodeObject*, or NULL if error.
  *     The output string is of the form
  *         "-"? ("0x" | "0X")? digit+
@@ -13647,7 +13647,7 @@ formatfloat(PyObject *v, struct unicode_format_arg_t *arg,
  * type         a character in [duoxX]; u acts the same as d
  *
  * CAUTION:  o, x and X conversions on regular ints can never
- * produce a '-' sign, but can for Python's unbounded ints.
+ * produce a '-' sign, but can for MyFRpy's unbounded ints.
  */
 PyObject *
 _PyUnicode_FormatLong(PyObject *val, int alt, int prec, int type)
@@ -14863,9 +14863,9 @@ _PyUnicode_ClearInterned(PyInterpreterState *interp)
 
     /* TODO:
      * Currently, the runtime is not able to guarantee that it can exit without
-     * allocations that carry over to a future initialization of Python within
+     * allocations that carry over to a future initialization of MyFRpy within
      * the same process. i.e:
-     *   ./python -X showrefcount -c 'import itertools'
+     *   ./myFRpy -X showrefcount -c 'import itertools'
      *   [237 refs, 237 blocks]
      *
      * Therefore, this should remain disabled for until there is a strict guarantee
@@ -15201,10 +15201,10 @@ error:
 static PyStatus
 init_stdio_encoding(PyInterpreterState *interp)
 {
-    /* Update the stdio encoding to the normalized Python codec name. */
+    /* Update the stdio encoding to the normalized MyFRpy codec name. */
     PyConfig *config = (PyConfig*)_PyInterpreterState_GetConfig(interp);
     if (config_get_codec_name(&config->stdio_encoding) < 0) {
-        return _PyStatus_ERR("failed to get the Python codec name "
+        return _PyStatus_ERR("failed to get the MyFRpy codec name "
                              "of the stdio encoding");
     }
     return _PyStatus_OK();
@@ -15251,7 +15251,7 @@ init_fs_codec(PyInterpreterState *interp)
 #endif
 
     /* At this point, PyUnicode_EncodeFSDefault() and
-       PyUnicode_DecodeFSDefault() can now use the Python codec rather than
+       PyUnicode_DecodeFSDefault() can now use the MyFRpy codec rather than
        the C implementation of the filesystem encoding. */
 
     /* Set Py_FileSystemDefaultEncoding and Py_FileSystemDefaultEncodeErrors
@@ -15273,13 +15273,13 @@ init_fs_encoding(PyThreadState *tstate)
 {
     PyInterpreterState *interp = tstate->interp;
 
-    /* Update the filesystem encoding to the normalized Python codec name.
+    /* Update the filesystem encoding to the normalized MyFRpy codec name.
        For example, replace "ANSI_X3.4-1968" (locale encoding) with "ascii"
-       (Python codec name). */
+       (MyFRpy codec name). */
     PyConfig *config = (PyConfig*)_PyInterpreterState_GetConfig(interp);
     if (config_get_codec_name(&config->filesystem_encoding) < 0) {
         _Py_DumpPathConfig(tstate);
-        return _PyStatus_ERR("failed to get the Python codec "
+        return _PyStatus_ERR("failed to get the MyFRpy codec "
                              "of the filesystem encoding");
     }
 
@@ -15377,7 +15377,7 @@ _PyUnicode_Fini(PyInterpreterState *interp)
 }
 
 /* A _string module, to export formatter_parser and formatter_field_name_split
-   to the string.Formatter class implemented in Python. */
+   to the string.Formatter class implemented in MyFRpy. */
 
 static PyMethodDef _string_methods[] = {
     {"formatter_field_name_split", (PyCFunction) formatter_field_name_split,

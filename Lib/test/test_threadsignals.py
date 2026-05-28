@@ -34,7 +34,7 @@ def handle_signals(sig,frame):
 def send_signals():
     # We use `raise_signal` rather than `kill` because:
     #   * It verifies that a signal delivered to a background thread still has
-    #     its Python-level handler called on the main thread.
+    #     its MyFRpy-level handler called on the main thread.
     #   * It ensures the signal is handled before the thread exits.
     signal.raise_signal(signal.SIGUSR1)
     signal.raise_signal(signal.SIGUSR2)

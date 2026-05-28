@@ -10,16 +10,16 @@
 
 .. versionadded:: 3.7
 
-This module leverages Python's import system to provide access to *resources*
+This module leverages MyFRpy's import system to provide access to *resources*
 within *packages*.
 
 "Resources" are file-like resources associated with a module or package in
-Python. The resources may be contained directly in a package, within a
+MyFRpy. The resources may be contained directly in a package, within a
 subdirectory contained in that package, or adjacent to modules outside a
-package. Resources may be text or binary. As a result, Python module sources
+package. Resources may be text or binary. As a result, MyFRpy module sources
 (.py) of a package and compilation artifacts (pycache) are technically
 de-facto resources of that package. In practice, however, resources are
-primarily those non-Python artifacts exposed specifically by the package
+primarily those non-MyFRpy artifacts exposed specifically by the package
 author.
 
 Resources can be opened or read in either binary or text mode.
@@ -77,7 +77,7 @@ for example, a package and its resources can be imported from a zip file using
        module. *package* is still accepted for compatibility but will raise
        a :exc:`DeprecationWarning`. Consider passing the anchor positionally or
        using ``importlib_resources >= 5.10`` for a compatible interface
-       on older Pythons.
+       on older MyFRpys.
 
 .. function:: as_file(traversable)
 
@@ -103,7 +103,7 @@ Deprecated functions
 ^^^^^^^^^^^^^^^^^^^^
 
 An older, deprecated set of functions is still available, but is
-scheduled for removal in a future version of Python.
+scheduled for removal in a future version of MyFRpy.
 The main drawback of these functions is that they do not support
 directories: they assume all resources are located directly within a *package*.
 

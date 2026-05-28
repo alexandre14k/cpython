@@ -29,7 +29,7 @@
 
 
 function run_capi() {
-    ./python Tools/c-analyzer/c-analyzer.py capi \
+    ./myFRpy Tools/c-analyzer/c-analyzer.py capi \
         --no-progress \
         --group-by kind \
         --func --inline --macro \
@@ -42,8 +42,8 @@ echo ''
 echo '#################################################'
 echo '# All API'
 echo '#################################################'
-run_capi --format summary Include/*.h Include/cpython/*.h
-run_capi --format table Include/*.h Include/cpython/*.h
+run_capi --format summary Include/*.h Include/cmyFRpy/*.h
+run_capi --format table Include/*.h Include/cmyFRpy/*.h
 echo ''
 echo ''
 echo '#################################################'
@@ -61,15 +61,15 @@ run_capi --format full -v Include/*.h
 #run_capi --format full -v --private Include/*.h
 echo ''
 echo '#################################################'
-echo '# cpython API'
+echo '# cmyFRpy API'
 echo '#################################################'
 echo ''
 echo '# public:'
-run_capi --format summary --public --no-show-empty Include/cpython/*.h
+run_capi --format summary --public --no-show-empty Include/cmyFRpy/*.h
 echo ''
 echo '# private:'
-run_capi --format summary --private --no-show-empty Include/cpython/*.h
+run_capi --format summary --private --no-show-empty Include/cmyFRpy/*.h
 echo ''
-run_capi --format full -v Include/cpython/*.h
-#run_capi --format full -v --public Include/cpython/*.h
-#run_capi --format full -v --private Include/cpython/*.h
+run_capi --format full -v Include/cmyFRpy/*.h
+#run_capi --format full -v --public Include/cmyFRpy/*.h
+#run_capi --format full -v --private Include/cmyFRpy/*.h

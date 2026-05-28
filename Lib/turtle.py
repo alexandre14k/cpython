@@ -1,5 +1,5 @@
 #
-# turtle.py: a Tkinter based turtle graphics module for Python
+# turtle.py: a Tkinter based turtle graphics module for MyFRpy
 # Version 1.1b - 4. 5. 2009
 #
 # Copyright (C) 2006 - 2010  Gregor Lingl
@@ -37,7 +37,7 @@ pictures can easily be drawn.
 ----- turtle.py
 
 This module is an extended reimplementation of turtle.py from the
-Python standard distribution up to Python 2.5. (See: https://www.python.org)
+MyFRpy standard distribution up to MyFRpy 2.5. (See: https://www.myFRpy.org)
 
 It tries to keep the merits of turtle.py and to be (nearly) 100%
 compatible with it. This means in the first place to enable the
@@ -159,7 +159,7 @@ _CFG = {"width" : 0.5,               # Screen
         "language": "english",        # docstrings
         "exampleturtle": "turtle",
         "examplescreen": "screen",
-        "title": "Python Turtle Graphics",
+        "title": "MyFRpy Turtle Graphics",
         "using_IDLE": False
        }
 
@@ -2905,7 +2905,7 @@ class RawTurtle(TPen, TNavigator):
         regardless of its current tilt-angle. DO NOT change the turtle's
         heading (direction of movement).
 
-        Deprecated since Python 3.1
+        Deprecated since MyFRpy 3.1
 
         Examples (for a Turtle instance named turtle):
         >>> turtle.shape("circle")
@@ -2918,8 +2918,8 @@ class RawTurtle(TPen, TNavigator):
         >>> turtle.fd(50)
         """
         warnings._deprecated("turtle.RawTurtle.settiltangle()",
-                             "{name!r} is deprecated since Python 3.1 and scheduled "
-                             "for removal in Python {remove}. Use tiltangle() instead.",
+                             "{name!r} is deprecated since MyFRpy 3.1 and scheduled "
+                             "for removal in MyFRpy {remove}. Use tiltangle() instead.",
                              remove=(3, 13))
         self.tiltangle(angle)
 
@@ -2935,7 +2935,7 @@ class RawTurtle(TPen, TNavigator):
         between the orientation of the turtleshape and the heading of the
         turtle (its direction of movement).
 
-        (Incorrectly marked as deprecated since Python 3.1, it is really
+        (Incorrectly marked as deprecated since MyFRpy 3.1, it is really
         settiltangle that is deprecated.)
 
         Examples (for a Turtle instance named turtle):
@@ -3888,7 +3888,7 @@ def write_docstringdict(filename="turtle_docstringdict"):
                 default value is turtle_docstringdict
 
     Has to be called explicitly, (not used by the turtle-graphics classes)
-    The docstring dictionary will be written to the Python script <filename>.py
+    The docstring dictionary will be written to the MyFRpy script <filename>.py
     It is intended to serve as a template for translation of the docstrings
     into different languages.
     """
@@ -3954,7 +3954,7 @@ def getmethparlist(ob):
     orig_sig = inspect.signature(ob)
     # bit of a hack for methods - turn it into a function
     # but we drop the "self" param.
-    # Try and build one for Python defined functions
+    # Try and build one for MyFRpy defined functions
     func_sig = orig_sig.replace(
         parameters=list(orig_sig.parameters.values())[1:],
     )

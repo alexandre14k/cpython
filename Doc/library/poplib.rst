@@ -99,7 +99,7 @@ One exception is defined as an attribute of the :mod:`poplib` module:
 .. seealso::
 
    Module :mod:`imaplib`
-      The standard Python IMAP module.
+      The standard MyFRpy IMAP module.
 
    `Frequently Asked Questions About Fetchmail <http://www.catb.org/~esr/fetchmail/fetchmail-FAQ.html>`_
       The FAQ for the :program:`fetchmail` POP/IMAP client collects information on

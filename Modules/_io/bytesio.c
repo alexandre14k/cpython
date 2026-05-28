@@ -1,4 +1,4 @@
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_object.h"
 #include <stddef.h>               // offsetof()
 #include "_iomodule.h"
@@ -131,7 +131,7 @@ resize_buffer(bytesio *self, size_t size)
        overflow, which is undefined in C. */
     size_t alloc = PyBytes_GET_SIZE(self->buf);
 
-    /* For simplicity, stay in the range of the signed type. Anyway, Python
+    /* For simplicity, stay in the range of the signed type. Anyway, MyFRpy
        doesn't allow strings to be longer than this. */
     if (size > PY_SSIZE_T_MAX)
         goto overflow;
@@ -1062,7 +1062,7 @@ PyType_Spec bytesio_spec = {
 /*
  * Implementation of the small intermediate object used by getbuffer().
  * getbuffer() returns a memoryview over this object, which should make it
- * invisible from Python code.
+ * invisible from MyFRpy code.
  */
 
 static int

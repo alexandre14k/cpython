@@ -106,7 +106,7 @@ Local naming conventions:
 #endif
 
 #define PY_SSIZE_T_CLEAN
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_fileutils.h"     // _Py_set_inheritable()
 #include "pycore_moduleobject.h"  // _PyModule_GetState
 #include "structmember.h"         // PyMemberDef
@@ -281,7 +281,7 @@ shutdown(how) -- shut down traffic in one or both directions\n\
 /* Helpers needed for AF_HYPERV */
 # include <Rpc.h>
 
-/* Macros based on the IPPROTO enum, see: https://bugs.python.org/issue29515 */
+/* Macros based on the IPPROTO enum, see: https://bugs.myFRpy.org/issue29515 */
 #define IPPROTO_ICMP IPPROTO_ICMP
 #define IPPROTO_IGMP IPPROTO_IGMP
 #define IPPROTO_GGP IPPROTO_GGP
@@ -416,7 +416,7 @@ remove_unusable_flags(PyObject *m)
 # define O_NONBLOCK O_NDELAY
 #endif
 
-/* include Python's addrinfo.h unless it causes trouble */
+/* include MyFRpy's addrinfo.h unless it causes trouble */
 #if defined(__sgi) && _COMPILER_VERSION>700 && defined(_SS_ALIGNSIZE)
   /* Do not include addinfo.h on some newer IRIX versions.
    * _SS_ALIGNSIZE is defined in sys/socket.h by 6.5.21,
@@ -1096,7 +1096,7 @@ new_sockobject(socket_state *state, SOCKET_T fd, int family, int type,
 #endif
 
 
-/* Lock to allow python interpreter to continue, but only allow one
+/* Lock to allow myFRpy interpreter to continue, but only allow one
    thread to be in gethostbyname or getaddrinfo */
 #if defined(USE_GETHOSTBYNAME_LOCK)
 static PyThread_type_lock netdb_lock;
@@ -1265,7 +1265,7 @@ setipaddr(socket_state *state, const char *name, struct sockaddr *addr_ret,
 }
 #endif // HAVE_GETADDRINFO
 
-/* Convert IPv4 sockaddr to a Python str. */
+/* Convert IPv4 sockaddr to a MyFRpy str. */
 
 static PyObject *
 make_ipv4_addr(const struct sockaddr_in *addr)
@@ -1279,7 +1279,7 @@ make_ipv4_addr(const struct sockaddr_in *addr)
 }
 
 #ifdef ENABLE_IPV6
-/* Convert IPv6 sockaddr to a Python str. */
+/* Convert IPv6 sockaddr to a MyFRpy str. */
 
 static PyObject *
 make_ipv6_addr(const struct sockaddr_in6 *addr)
@@ -3078,7 +3078,7 @@ sock_settimeout(PySocketSockObject *s, PyObject *arg)
     s->sock_timeout = timeout;
 
     int block = timeout < 0;
-    /* Blocking mode for a Python socket object means that operations
+    /* Blocking mode for a MyFRpy socket object means that operations
        like :meth:`recv` or :meth:`sendall` will block the execution of
        the current thread until they are complete or aborted with a
        `TimeoutError` or `socket.error` errors.  When timeout is `None`,
@@ -3355,7 +3355,7 @@ sock_close(PySocketSockObject *s, PyObject *Py_UNUSED(ignored))
         res = SOCKETCLOSE(fd);
         Py_END_ALLOW_THREADS
         /* bpo-30319: The peer can already have closed the connection.
-           Python ignores ECONNRESET on close(). */
+           MyFRpy ignores ECONNRESET on close(). */
         if (res < 0 && errno != ECONNRESET) {
             return s->errorhandler();
         }
@@ -5577,7 +5577,7 @@ static PyType_Spec sock_spec = {
 
 
 #ifdef HAVE_GETHOSTNAME
-/* Python interface to gethostname(). */
+/* MyFRpy interface to gethostname(). */
 
 /*ARGSUSED*/
 static PyObject *
@@ -5687,7 +5687,7 @@ extern int sethostname(const char *, size_t);
 #endif
 
 #ifdef HAVE_GETADDRINFO
-/* Python interface to gethostbyname(name). */
+/* MyFRpy interface to gethostbyname(name). */
 
 /*ARGSUSED*/
 static PyObject *
@@ -5879,7 +5879,7 @@ gethost_common(socket_state *state, struct hostent *h, struct sockaddr *addr,
 #endif
 
 #if defined(HAVE_GETHOSTBYNAME_R) || defined (HAVE_GETHOSTBYNAME)
-/* Python interface to gethostbyname_ex(name). */
+/* MyFRpy interface to gethostbyname_ex(name). */
 
 /*ARGSUSED*/
 static PyObject *
@@ -5956,7 +5956,7 @@ for a host.  The host argument is a string giving a host name or IP number.");
 #endif
 
 #if defined(HAVE_GETHOSTBYNAME_R) || defined (HAVE_GETHOSTBYADDR)
-/* Python interface to gethostbyaddr(IP). */
+/* MyFRpy interface to gethostbyaddr(IP). */
 
 /*ARGSUSED*/
 static PyObject *
@@ -6055,7 +6055,7 @@ for a host.  The host argument is a string giving a host name or IP number.");
 #endif
 
 #ifdef HAVE_GETSERVBYNAME
-/* Python interface to getservbyname(name).
+/* MyFRpy interface to getservbyname(name).
    This only returns the port number, since the other info is already
    known or not useful (like the list of aliases). */
 
@@ -6091,7 +6091,7 @@ otherwise any protocol will match.");
 #endif
 
 #ifdef HAVE_GETSERVBYPORT
-/* Python interface to getservbyport(port).
+/* MyFRpy interface to getservbyport(port).
    This only returns the service name, since the other info is already
    known or not useful (like the list of aliases). */
 
@@ -6134,7 +6134,7 @@ otherwise any protocol will match.");
 #endif
 
 #ifdef HAVE_GETPROTOBYNAME
-/* Python interface to getprotobyname(name).
+/* MyFRpy interface to getprotobyname(name).
    This only returns the protocol number, since the other info is
    already known or not useful (like the list of aliases). */
 
@@ -6175,7 +6175,7 @@ socket_close(PyObject *self, PyObject *fdobj)
     res = SOCKETCLOSE(fd);
     Py_END_ALLOW_THREADS
     /* bpo-30319: The peer can already have closed the connection.
-       Python ignores ECONNRESET on close(). */
+       MyFRpy ignores ECONNRESET on close(). */
     if (res < 0 && !CHECK_ERRNO(ECONNRESET)) {
         return set_error();
     }
@@ -6346,13 +6346,13 @@ socket_ntohs(PyObject *self, PyObject *args)
     }
     if (x < 0) {
         PyErr_SetString(PyExc_OverflowError,
-                        "ntohs: can't convert negative Python int to C "
+                        "ntohs: can't convert negative MyFRpy int to C "
                         "16-bit unsigned integer");
         return NULL;
     }
     if (x > 0xffff) {
         PyErr_SetString(PyExc_OverflowError,
-                        "ntohs: Python int too large to convert to C "
+                        "ntohs: MyFRpy int too large to convert to C "
                         "16-bit unsigned integer");
         return NULL;
     }
@@ -6409,13 +6409,13 @@ socket_htons(PyObject *self, PyObject *args)
     }
     if (x < 0) {
         PyErr_SetString(PyExc_OverflowError,
-                        "htons: can't convert negative Python int to C "
+                        "htons: can't convert negative MyFRpy int to C "
                         "16-bit unsigned integer");
         return NULL;
     }
     if (x > 0xffff) {
         PyErr_SetString(PyExc_OverflowError,
-                        "htons: Python int too large to convert to C "
+                        "htons: MyFRpy int too large to convert to C "
                         "16-bit unsigned integer");
         return NULL;
     }
@@ -6678,7 +6678,7 @@ socket_inet_ntop(PyObject *self, PyObject *args)
 #endif /* HAVE_INET_PTON */
 
 #ifdef HAVE_GETADDRINFO
-/* Python interface to getaddrinfo(host, port). */
+/* MyFRpy interface to getaddrinfo(host, port). */
 
 /*ARGSUSED*/
 static PyObject *
@@ -6814,7 +6814,7 @@ Resolve host and port into addrinfo struct.");
 #endif // HAVE_GETADDRINFO
 
 #ifdef HAVE_GETNAMEINFO
-/* Python interface to getnameinfo(sa, flags). */
+/* MyFRpy interface to getnameinfo(sa, flags). */
 
 /*ARGSUSED*/
 static PyObject *
@@ -6921,7 +6921,7 @@ PyDoc_STRVAR(getnameinfo_doc,
 Get host and port for a sockaddr.");
 #endif // HAVE_GETNAMEINFO
 
-/* Python API to getting and setting the default timeout value. */
+/* MyFRpy API to getting and setting the default timeout value. */
 
 static PyObject *
 socket_getdefaulttimeout(PyObject *self, PyObject *Py_UNUSED(ignored))
@@ -6965,7 +6965,7 @@ A value of None indicates that new socket objects have no timeout.\n\
 When the socket module is first imported, the default is None.");
 
 #if defined(HAVE_IF_NAMEINDEX) || defined(MS_WINDOWS)
-/* Python API for getting interface indices and names */
+/* MyFRpy API for getting interface indices and names */
 
 static PyObject *
 socket_if_nameindex(PyObject *self, PyObject *arg)
@@ -7119,7 +7119,7 @@ Returns the interface name corresponding to the interface index if_index.");
 
 
 #ifdef CMSG_LEN
-/* Python interface to CMSG_LEN(length). */
+/* MyFRpy interface to CMSG_LEN(length). */
 
 static PyObject *
 socket_CMSG_LEN(PyObject *self, PyObject *args)
@@ -7149,7 +7149,7 @@ is outside the permissible range of values.");
 
 
 #ifdef CMSG_SPACE
-/* Python interface to CMSG_SPACE(length). */
+/* MyFRpy interface to CMSG_SPACE(length). */
 
 static PyObject *
 socket_CMSG_SPACE(PyObject *self, PyObject *args)

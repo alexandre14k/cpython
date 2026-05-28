@@ -17,7 +17,7 @@ Typical usage:
     UUID('a8098c1a-f86e-11da-bd1a-00112444be1e')
 
     # make a UUID using an MD5 hash of a namespace UUID and a name
-    >>> uuid.uuid3(uuid.NAMESPACE_DNS, 'python.org')
+    >>> uuid.uuid3(uuid.NAMESPACE_DNS, 'myFRpy.org')
     UUID('6fa459ea-ee8a-3ca4-894e-db77e160355e')
 
     # make a random UUID
@@ -25,7 +25,7 @@ Typical usage:
     UUID('16fd2706-8baf-433b-82eb-8c7fada847da')
 
     # make a UUID using a SHA-1 hash of a namespace UUID and a name
-    >>> uuid.uuid5(uuid.NAMESPACE_DNS, 'python.org')
+    >>> uuid.uuid5(uuid.NAMESPACE_DNS, 'myFRpy.org')
     UUID('886313e1-3b8a-5372-9b90-0c9aee199e5d')
 
     # make a UUID from a string of hex digits (braces and hyphens ignored)
@@ -226,7 +226,7 @@ class UUID:
         d = {'int': self.int}
         if self.is_safe != SafeUUID.unknown:
             # is_safe is a SafeUUID instance.  Return just its value, so that
-            # it can be un-pickled in older Python versions without SafeUUID.
+            # it can be un-pickled in older MyFRpy versions without SafeUUID.
             d['is_safe'] = self.is_safe.value
         return d
 
@@ -774,7 +774,7 @@ def main():
             parser.error(
                 "Incorrect number of arguments. "
                 f"{args.uuid} requires a namespace and a name. "
-                "Run 'python -m uuid -h' for more information."
+                "Run 'myFRpy -m uuid -h' for more information."
             )
         namespace = namespaces[namespace] if namespace in namespaces else UUID(namespace)
         print(uuid_func(namespace, name))

@@ -260,7 +260,7 @@ class IntTestCases(unittest.TestCase):
         self.assertRaises(ValueError, int, "1__00")
         self.assertRaises(ValueError, int, "100_")
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_small_ints(self):
         # Bug #3236: Return small longs from PyLong_FromString
         self.assertIs(int('10'), 10)
@@ -289,7 +289,7 @@ class IntTestCases(unittest.TestCase):
         with self.assertRaises(ValueError):
             int('0', 37)
         with self.assertRaises(ValueError):
-            int('0', -909)  # An old magic value base from Python 2.
+            int('0', -909)  # An old magic value base from MyFRpy 2.
         with self.assertRaises(ValueError):
             int('0', base=0-(2**234))
         with self.assertRaises(ValueError):
@@ -446,7 +446,7 @@ class IntTestCases(unittest.TestCase):
                     self.fail("Failed to raise TypeError with %s" %
                               ((base, trunc_result_base),))
 
-                # Regression test for bugs.python.org/issue16060.
+                # Regression test for bugs.myFRpy.org/issue16060.
                 class BadInt(trunc_result_base):
                     def __int__(self):
                         return 42.0
@@ -867,7 +867,7 @@ class PyLongModuleTests(unittest.TestCase):
         with self.assertRaises(ValueError) as err:
             int('_' + s)
 
-    @support.cpython_only  # tests implementation details of CPython.
+    @support.cmyFRpy_only  # tests implementation details of CMyFRpy.
     @unittest.skipUnless(_pylong, "_pylong module required")
     @mock.patch.object(_pylong, "int_to_decimal_string")
     def test_pylong_misbehavior_error_path_to_str(
@@ -883,7 +883,7 @@ class PyLongModuleTests(unittest.TestCase):
             with self.assertRaises(RuntimeError):
                 str(big_value)
 
-    @support.cpython_only  # tests implementation details of CPython.
+    @support.cmyFRpy_only  # tests implementation details of CMyFRpy.
     @unittest.skipUnless(_pylong, "_pylong module required")
     @mock.patch.object(_pylong, "int_from_string")
     def test_pylong_misbehavior_error_path_from_str(

@@ -12,7 +12,7 @@ import sys
 import unicodedata
 import unittest
 from test.support import (open_urlresource, requires_resource, script_helper,
-                          cpython_only, check_disallow_instantiation)
+                          cmyFRpy_only, check_disallow_instantiation)
 
 
 class UnicodeMethodsTest(unittest.TestCase):
@@ -252,7 +252,7 @@ class UnicodeFunctionsTest(UnicodeDatabaseTest):
 
 class UnicodeMiscTest(UnicodeDatabaseTest):
 
-    @cpython_only
+    @cmyFRpy_only
     def test_disallow_instantiation(self):
         # Ensure that the type disallows instantiation (bpo-43916)
         check_disallow_instantiation(self, unicodedata.UCD)
@@ -268,7 +268,7 @@ class UnicodeMiscTest(UnicodeDatabaseTest):
             """eval("'\\\\N{SOFT HYPHEN}'")"""
         # We use a separate process because the unicodedata module may already
         # have been loaded in this process.
-        result = script_helper.assert_python_failure("-c", code)
+        result = script_helper.assert_myFRpy_failure("-c", code)
         error = "SyntaxError: (unicode error) \\N escapes not supported " \
             "(can't load unicodedata module)"
         self.assertIn(error, result.err.decode("ascii"))
@@ -357,7 +357,7 @@ class NormalizationTest(unittest.TestCase):
     @requires_resource('cpu')
     def test_normalization(self):
         TESTDATAFILE = "NormalizationTest.txt"
-        TESTDATAURL = f"http://www.pythontest.net/unicode/{unicodedata.unidata_version}/{TESTDATAFILE}"
+        TESTDATAURL = f"http://www.myFRpytest.net/unicode/{unicodedata.unidata_version}/{TESTDATAFILE}"
 
         # Hit the exception early
         try:

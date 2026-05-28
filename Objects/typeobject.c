@@ -1,6 +1,6 @@
 /* Type object implementation */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_call.h"
 #include "pycore_code.h"          // CO_FAST_FREE
 #include "pycore_symtable.h"      // _Py_Mangle()
@@ -60,7 +60,7 @@ static void
 slot_bf_releasebuffer(PyObject *self, Py_buffer *buffer);
 
 static void
-releasebuffer_call_python(PyObject *self, Py_buffer *buffer);
+releasebuffer_call_myFRpy(PyObject *self, Py_buffer *buffer);
 
 static PyObject *
 slot_tp_new(PyTypeObject *type, PyObject *args, PyObject *kwds);
@@ -3175,7 +3175,7 @@ type_new_copy_slots(type_new_ctx *ctx, PyObject *dict)
             goto error;
         }
         if (r > 0) {
-            /* CPython inserts these names (when needed)
+            /* CMyFRpy inserts these names (when needed)
                into the namespace when creating a class.  They will be deleted
                below so won't act as class variables. */
             if (!_PyUnicode_Equal(slot, &_Py_ID(__qualname__)) &&
@@ -4213,7 +4213,7 @@ _PyType_FromMetaclass_impl(
                     PyExc_DeprecationWarning,
                     0,
                     "Creating immutable type %s from mutable base %s is "
-                    "deprecated, and slated to be disallowed in Python 3.14.",
+                    "deprecated, and slated to be disallowed in MyFRpy 3.14.",
                     spec->name,
                     b->tp_name))
                 {
@@ -4244,7 +4244,7 @@ _PyType_FromMetaclass_impl(
                     PyExc_DeprecationWarning, 1,
                     "Type %s uses PyType_Spec with a metaclass that has custom "
                     "tp_new. This is deprecated and will no longer be allowed in "
-                    "Python 3.14.", spec->name) < 0) {
+                    "MyFRpy 3.14.", spec->name) < 0) {
                 goto finally;
             }
         }
@@ -4294,7 +4294,7 @@ _PyType_FromMetaclass_impl(
     /* Allocate the new type
      *
      * Between here and PyType_Ready, we should limit:
-     * - calls to Python code
+     * - calls to MyFRpy code
      * - raising exceptions
      * - memory allocations
      */
@@ -4402,7 +4402,7 @@ _PyType_FromMetaclass_impl(
     /* Ready the type (which includes inheritance).
      *
      * After this call we should generally only touch up what's
-     * accessible to Python code, like __dict__.
+     * accessible to MyFRpy code, like __dict__.
      */
 
     if (PyType_Ready(type) < 0) {
@@ -5723,7 +5723,7 @@ object_set_class(PyObject *self, PyObject *value, void *closure)
         return -1;
     }
 
-    /* In versions of CPython prior to 3.5, the code in
+    /* In versions of CMyFRpy prior to 3.5, the code in
        compatible_for_assignment was not set up to correctly check for memory
        layout / slot / etc. compatibility for non-HEAPTYPE classes, so we just
        disallowed __class__ assignment in any case that wasn't HEAPTYPE ->
@@ -5751,7 +5751,7 @@ object_set_class(PyObject *self, PyObject *value, void *closure)
          # including future instances (!), because the 1 object is interned.
          (1).__class__ = MyInt
 
-       (see https://bugs.python.org/issue24912).
+       (see https://bugs.myFRpy.org/issue24912).
 
        In theory the proper fix would be to identify which classes rely on
        this invariant and somehow disallow __class__ assignment only for them,
@@ -5761,7 +5761,7 @@ object_set_class(PyObject *self, PyObject *value, void *closure)
        approach and reinstating the same HEAPTYPE->HEAPTYPE check that we used
        to have, plus an "allowlist". For now, the allowlist consists only of
        ModuleType subtypes, since those are the cases that motivated the patch
-       in the first place -- see https://bugs.python.org/issue22986 -- and
+       in the first place -- see https://bugs.myFRpy.org/issue22986 -- and
        since module objects are mutable we can be sure that they are
        definitely not being interned. So now we allow HEAPTYPE->HEAPTYPE *or*
        ModuleType subtype -> ModuleType subtype.
@@ -6291,7 +6291,7 @@ reduce_newobj(PyObject *obj)
  * were implemented in the same function:
  *  - trying to pickle an object with a custom __reduce__ method that
  *    fell back to object.__reduce__ in certain circumstances led to
- *    infinite recursion at Python level and eventual RecursionError.
+ *    infinite recursion at MyFRpy level and eventual RecursionError.
  *  - Pickling objects that lied about their type by overwriting the
  *    __class__ descriptor could lead to infinite recursion at C level
  *    and eventual segfault.
@@ -7597,7 +7597,7 @@ add_subclass(PyTypeObject *base, PyTypeObject *type)
 
     // Only get tp_subclasses after creating the key and value.
     // PyWeakref_NewRef() can trigger a garbage collection which can execute
-    // arbitrary Python code and so modify base->tp_subclasses.
+    // arbitrary MyFRpy code and so modify base->tp_subclasses.
     PyObject *subclasses = lookup_tp_subclasses(base);
     if (subclasses == NULL) {
         subclasses = init_tp_subclasses(base);
@@ -7968,7 +7968,7 @@ wrap_delitem(PyObject *self, PyObject *args, void *wrapped)
 
 /* Helper to check for object.__setattr__ or __delattr__ applied to a type.
    This is called the Carlo Verre hack after its discoverer.  See
-   https://mail.python.org/pipermail/python-dev/2003-April/034535.html
+   https://mail.myFRpy.org/pipermail/myFRpy-dev/2003-April/034535.html
    */
 static int
 hackcheck(PyObject *self, setattrofunc func, const char *what)
@@ -7987,7 +7987,7 @@ hackcheck(PyObject *self, setattrofunc func, const char *what)
     for (i = PyTuple_GET_SIZE(mro) - 1; i >= 0; i--) {
         PyTypeObject *base = _PyType_CAST(PyTuple_GET_ITEM(mro, i));
         if (base->tp_setattro == slot_tp_setattro) {
-            /* Ignore Python classes:
+            /* Ignore MyFRpy classes:
                they never define their own C-level setattro. */
         }
         else if (base->tp_setattro == type->tp_setattro) {
@@ -8003,7 +8003,7 @@ hackcheck(PyObject *self, setattrofunc func, const char *what)
             break;
         }
         else if (base->tp_setattro != slot_tp_setattro) {
-            /* 'base' is not a Python class and overrides 'func'.
+            /* 'base' is not a MyFRpy class and overrides 'func'.
                Its tp_setattro should be called instead. */
             PyErr_Format(PyExc_TypeError,
                          "can't apply this %s to %s object",
@@ -8735,7 +8735,7 @@ slot_tp_hash(PyObject *self)
         return -1;
     }
     /* Transform the PyLong `res` to a Py_hash_t `h`.  For an existing
-       hashable Python object x, hash(x) will always lie within the range of
+       hashable MyFRpy object x, hash(x) will always lie within the range of
        Py_hash_t.  Therefore our transformation must preserve values that
        already lie within this range, to ensure that if x.__hash__() returns
        hash(y) then hash(x) == hash(y). */
@@ -9110,12 +9110,12 @@ bufferwrapper_releasebuf(PyObject *self, Py_buffer *view)
 
     assert(PyMemoryView_Check(mv));
     Py_TYPE(mv)->tp_as_buffer->bf_releasebuffer(mv, view);
-    // We only need to call bf_releasebuffer if it's a Python function. If it's a C
+    // We only need to call bf_releasebuffer if it's a MyFRpy function. If it's a C
     // bf_releasebuf, it will be called when the memoryview is released.
     if (((PyMemoryViewObject *)mv)->view.obj != obj
             && Py_TYPE(obj)->tp_as_buffer != NULL
             && Py_TYPE(obj)->tp_as_buffer->bf_releasebuffer == slot_bf_releasebuffer) {
-        releasebuffer_call_python(obj, view);
+        releasebuffer_call_myFRpy(obj, view);
     }
 
     Py_CLEAR(bw->mv);
@@ -9227,12 +9227,12 @@ releasebuffer_maybe_call_super(PyObject *self, Py_buffer *buffer)
 }
 
 static void
-releasebuffer_call_python(PyObject *self, Py_buffer *buffer)
+releasebuffer_call_myFRpy(PyObject *self, Py_buffer *buffer)
 {
     // bf_releasebuffer may be called while an exception is already active.
     // We have no way to report additional errors up the stack, because
     // this slot returns void, so we simply stash away the active exception
-    // and restore it after the call to Python returns.
+    // and restore it after the call to MyFRpy returns.
     PyObject *exc = PyErr_GetRaisedException();
 
     PyObject *mv;
@@ -9248,7 +9248,7 @@ releasebuffer_call_python(PyObject *self, Py_buffer *buffer)
     }
     else {
         // This means we are not dealing with a memoryview returned
-        // from a Python __buffer__ function.
+        // from a MyFRpy __buffer__ function.
         mv = PyMemoryView_FromBuffer(buffer);
         if (mv == NULL) {
             PyErr_WriteUnraisable(self);
@@ -9257,7 +9257,7 @@ releasebuffer_call_python(PyObject *self, Py_buffer *buffer)
         // Set the memoryview to restricted mode, which forbids
         // users from saving any reference to the underlying buffer
         // (e.g., by doing .cast()). This is necessary to ensure
-        // no Python code retains a reference to the to-be-released
+        // no MyFRpy code retains a reference to the to-be-released
         // buffer.
         ((PyMemoryViewObject *)mv)->flags |= _Py_MEMORYVIEW_RESTRICTED;
     }
@@ -9288,10 +9288,10 @@ end:
 /*
  * bf_releasebuffer is very delicate, because we need to ensure that
  * C bf_releasebuffer slots are called correctly (or we'll leak memory),
- * but we cannot trust any __release_buffer__ implemented in Python to
+ * but we cannot trust any __release_buffer__ implemented in MyFRpy to
  * do so correctly. Therefore, if a base class has a C bf_releasebuffer
  * slot, we call it directly here. That is safe because this function
- * only gets called from C callers of the bf_releasebuffer slot. Python
+ * only gets called from C callers of the bf_releasebuffer slot. MyFRpy
  * code that calls __release_buffer__ directly instead goes through
  * wrap_releasebuffer(), which doesn't call the bf_releasebuffer slot
  * directly but instead simply releases the associated memoryview.
@@ -9299,7 +9299,7 @@ end:
 static void
 slot_bf_releasebuffer(PyObject *self, Py_buffer *buffer)
 {
-    releasebuffer_call_python(self, buffer);
+    releasebuffer_call_myFRpy(self, buffer);
     if (releasebuffer_maybe_call_super(self, buffer) < 0) {
         if (PyErr_Occurred()) {
             PyErr_WriteUnraisable(self);

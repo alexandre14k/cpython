@@ -1,4 +1,4 @@
-""" Python Character Mapping Codec cp1140 generated from 'python-mappings/CP1140.TXT' with gencodec.py.
+""" MyFRpy Character Mapping Codec cp1140 generated from 'myFRpy-mappings/CP1140.TXT' with gencodec.py.
 
 """#"
 

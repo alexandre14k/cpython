@@ -183,7 +183,7 @@ class BaseSelectorTestCase:
 
     def test_modify_unregister(self):
         # Make sure the fd is unregister()ed in case of error on
-        # modify(): http://bugs.python.org/issue30014
+        # modify(): http://bugs.myFRpy.org/issue30014
         if self.SELECTOR.__name__ == 'EpollSelector':
             patch = unittest.mock.patch(
                 'selectors.EpollSelector._selector_cls')

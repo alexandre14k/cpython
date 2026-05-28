@@ -1,4 +1,4 @@
-"""More comprehensive traceback formatting for Python scripts.
+"""More comprehensive traceback formatting for MyFRpy scripts.
 
 To enable this module, do:
 
@@ -83,7 +83,7 @@ def lookup(name, frame, locals):
     return None, __UNDEF__
 
 def scanvars(reader, frame, locals):
-    """Scan one logical line of Python and look up values of variables used."""
+    """Scan one logical line of MyFRpy and look up values of variables used."""
     vars, lasttoken, parent, prefix, value = [], None, None, '', __UNDEF__
     for ttype, token, start, end, line in tokenize.generate_tokens(reader):
         if ttype == tokenize.NEWLINE: break
@@ -108,7 +108,7 @@ def html(einfo, context=5):
     etype, evalue, etb = einfo
     if isinstance(etype, type):
         etype = etype.__name__
-    pyver = 'Python ' + sys.version.split()[0] + ': ' + sys.executable
+    pyver = 'MyFRpy ' + sys.version.split()[0] + ': ' + sys.executable
     date = time.ctime(time.time())
     head = f'''
 <body bgcolor="#f0f0f8">
@@ -120,7 +120,7 @@ def html(einfo, context=5):
 <td align=right valign=bottom>
 <font color="#ffffff" face="helvetica, arial">{pyver}<br>{date}</font></td>
 </tr></table>
-<p>A problem occurred in a Python script.  Here is the sequence of
+<p>A problem occurred in a MyFRpy script.  Here is the sequence of
 function calls leading up to the error, in the order they occurred.</p>'''
 
     indent = '<tt>' + small('&nbsp;' * 5) + '&nbsp;</tt>'
@@ -191,7 +191,7 @@ function calls leading up to the error, in the order they occurred.</p>'''
     return head + ''.join(frames) + ''.join(exception) + '''
 
 
-<!-- The above is a description of an error in a Python program, formatted
+<!-- The above is a description of an error in a MyFRpy program, formatted
      for a web browser because the 'cgitb' module was enabled.  In case you
      are not reading this in a web browser, here is the original traceback:
 
@@ -205,10 +205,10 @@ def text(einfo, context=5):
     etype, evalue, etb = einfo
     if isinstance(etype, type):
         etype = etype.__name__
-    pyver = 'Python ' + sys.version.split()[0] + ': ' + sys.executable
+    pyver = 'MyFRpy ' + sys.version.split()[0] + ': ' + sys.executable
     date = time.ctime(time.time())
     head = "%s\n%s\n%s\n" % (str(etype), pyver, date) + '''
-A problem occurred in a Python script.  Here is the sequence of
+A problem occurred in a MyFRpy script.  Here is the sequence of
 function calls leading up to the error, in the order they occurred.
 '''
 
@@ -260,7 +260,7 @@ function calls leading up to the error, in the order they occurred.
 
     return head + ''.join(frames) + ''.join(exception) + '''
 
-The above is a description of an error in a Python program.  Here is
+The above is a description of an error in a MyFRpy program.  Here is
 the original traceback:
 
 %s
@@ -300,7 +300,7 @@ class Hook:
             else:
                 self.file.write(doc + '\n')
         else:
-            self.file.write('<p>A problem occurred in a Python script.\n')
+            self.file.write('<p>A problem occurred in a MyFRpy script.\n')
 
         if self.logdir is not None:
             suffix = ['.txt', '.html'][self.format=="html"]

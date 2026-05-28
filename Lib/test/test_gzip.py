@@ -12,7 +12,7 @@ from subprocess import PIPE, Popen
 from test.support import import_helper
 from test.support import os_helper
 from test.support import _4G, bigmemtest, requires_subprocess
-from test.support.script_helper import assert_python_ok, assert_python_failure
+from test.support.script_helper import assert_myFRpy_ok, assert_myFRpy_failure
 
 gzip = import_helper.import_module('gzip')
 zlib = import_helper.import_module('zlib')
@@ -1011,7 +1011,7 @@ class TestCommandLine(unittest.TestCase):
 
         with gzip.open(gzipname, mode='wb') as fp:
             fp.write(self.data)
-        rc, out, err = assert_python_ok('-m', 'gzip', '-d', gzipname)
+        rc, out, err = assert_myFRpy_ok('-m', 'gzip', '-d', gzipname)
 
         with open(os.path.join(TEMPDIR, "testgzip"), "rb") as gunziped:
             self.assertEqual(gunziped.read(), self.data)
@@ -1022,7 +1022,7 @@ class TestCommandLine(unittest.TestCase):
         self.assertEqual(err, b'')
 
     def test_decompress_infile_outfile_error(self):
-        rc, out, err = assert_python_failure('-m', 'gzip', '-d', 'thisisatest.out')
+        rc, out, err = assert_myFRpy_failure('-m', 'gzip', '-d', 'thisisatest.out')
         self.assertEqual(b"filename doesn't end in .gz: 'thisisatest.out'", err.strip())
         self.assertEqual(rc, 1)
         self.assertEqual(out, b'')
@@ -1046,7 +1046,7 @@ class TestCommandLine(unittest.TestCase):
         with open(local_testgzip, 'wb') as fp:
             fp.write(self.data)
 
-        rc, out, err = assert_python_ok('-m', 'gzip', local_testgzip)
+        rc, out, err = assert_myFRpy_ok('-m', 'gzip', local_testgzip)
 
         self.assertTrue(os.path.exists(gzipname))
         self.assertEqual(out, b'')
@@ -1063,7 +1063,7 @@ class TestCommandLine(unittest.TestCase):
                 with open(local_testgzip, 'wb') as fp:
                     fp.write(self.data)
 
-                rc, out, err = assert_python_ok('-m', 'gzip', compress_level, local_testgzip)
+                rc, out, err = assert_myFRpy_ok('-m', 'gzip', compress_level, local_testgzip)
 
                 self.assertTrue(os.path.exists(gzipname))
                 self.assertEqual(out, b'')
@@ -1072,12 +1072,12 @@ class TestCommandLine(unittest.TestCase):
                 self.assertFalse(os.path.exists(gzipname))
 
     def test_compress_fast_best_are_exclusive(self):
-        rc, out, err = assert_python_failure('-m', 'gzip', '--fast', '--best')
+        rc, out, err = assert_myFRpy_failure('-m', 'gzip', '--fast', '--best')
         self.assertIn(b"error: argument --best: not allowed with argument --fast", err)
         self.assertEqual(out, b'')
 
     def test_decompress_cannot_have_flags_compression(self):
-        rc, out, err = assert_python_failure('-m', 'gzip', '--fast', '-d')
+        rc, out, err = assert_myFRpy_failure('-m', 'gzip', '--fast', '-d')
         self.assertIn(b'error: argument -d/--decompress: not allowed with argument --fast', err)
         self.assertEqual(out, b'')
 

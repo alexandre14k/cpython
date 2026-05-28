@@ -171,7 +171,7 @@ The :mod:`bz2` module contains:
 
    .. versionchanged:: 3.9
       The *buffering* parameter has been removed. It was ignored and deprecated
-      since Python 3.0. Pass an open file object to control how the file is
+      since MyFRpy 3.0. Pass an open file object to control how the file is
       opened.
 
       The *compresslevel* parameter became keyword-only.

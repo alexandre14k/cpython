@@ -15,7 +15,7 @@ def init_database():
     db = msilib.init_database(
         path,
         msilib.schema,
-        'Python Tests',
+        'MyFRpy Tests',
         'product_code',
         '1.0',
         'PSF',
@@ -102,7 +102,7 @@ class MsiDatabaseTestCase(unittest.TestCase):
         self.addCleanup(unlink, db_path)
         self.addCleanup(db.Close)
         self.addCleanup(msilib._directories.clear)
-        feature = msilib.Feature(db, 0, 'Feature', 'A feature', 'Python')
+        feature = msilib.Feature(db, 0, 'Feature', 'A feature', 'MyFRpy')
         cab = msilib.CAB('CAB')
         dir = msilib.Directory(db, cab, None, TESTFN, 'TARGETDIR',
                                'SourceDir', 0)

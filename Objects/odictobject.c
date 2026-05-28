@@ -1,6 +1,6 @@
 /* Ordered Dictionary object implementation.
 
-This implementation is necessarily explicitly equivalent to the pure Python
+This implementation is necessarily explicitly equivalent to the pure MyFRpy
 OrderedDict class in Lib/collections/__init__.py.  The strategy there
 involves using a doubly-linked-list to capture the order.  We keep to that
 strategy, using a lower-level linked-list.
@@ -19,7 +19,7 @@ macros from BSD's queue.h, and the linux's list.h.
 Getting O(1) Node Lookup
 ------------------------
 
-One invariant of Python's OrderedDict is that it preserves time complexity
+One invariant of MyFRpy's OrderedDict is that it preserves time complexity
 of dict's methods, particularly the O(1) operations.  Simply adding a
 linked-list on top of dict is not sufficient here; operations for nodes in
 the middle of the linked-list implicitly require finding the node first.
@@ -31,7 +31,7 @@ In order to preserve O(1) performance for node removal (finding nodes), we
 must do better than just looping through the linked-list.  Here are options
 we've considered:
 
-1. use a second dict to map keys to nodes (a la the pure Python version).
+1. use a second dict to map keys to nodes (a la the pure MyFRpy version).
 2. keep a simple hash table mirroring the order of dict's, mapping each key
    to the corresponding node in the linked-list.
 3. use a version of shared keys (split dict) that allows non-unicode keys.
@@ -177,10 +177,10 @@ Concrete API Compatibility
 --------------------------
 
 Use of the concrete C-API for dict (PyDict_*) with OrderedDict is
-problematic.  (See http://bugs.python.org/issue10977.)  The concrete API
+problematic.  (See http://bugs.myFRpy.org/issue10977.)  The concrete API
 has a number of hard-coded assumptions tied to the dict implementation.
 This is, in part, due to performance reasons, which is understandable
-given the part dict plays in Python.
+given the part dict plays in MyFRpy.
 
 Any attempt to replace dict with OrderedDict for any role in the
 interpreter (e.g. **kwds) faces a challenge.  Such any effort must
@@ -189,12 +189,12 @@ the concrete API.
 
 Here are some ways to address this challenge:
 
-1. Change the relevant usage of the concrete API in CPython and add
+1. Change the relevant usage of the concrete API in CMyFRpy and add
    PyDict_CheckExact() calls to each of the concrete API functions.
 2. Adjust the relevant concrete API functions to explicitly accommodate
    OrderedDict.
 3. As with #1, add the checks, but improve the abstract API with smart fast
-   paths for dict and OrderedDict, and refactor CPython to use the abstract
+   paths for dict and OrderedDict, and refactor CMyFRpy to use the abstract
    API.  Improvements to the abstract API would be valuable regardless.
 
 Adding the checks to the concrete API would help make any interpreter
@@ -202,7 +202,7 @@ switch to OrderedDict less painful for extension modules.  However, this
 won't work.  The equivalent C API call to `dict.__setitem__(obj, k, v)`
 is 'PyDict_SetItem(obj, k, v)`.  This illustrates how subclasses in C call
 the base class's methods, since there is no equivalent of super() in the
-C API.  Calling into Python for parent class API would work, but some
+C API.  Calling into MyFRpy for parent class API would work, but some
 extension modules already rely on this feature of the concrete API.
 
 For reference, here is a breakdown of some of the dict concrete API:
@@ -301,10 +301,10 @@ values           -                   dictvalues_new
 ================ =================== ===============
 
 
-Pure Python OrderedDict
+Pure MyFRpy OrderedDict
 =======================
 
-As already noted, compatibility with the pure Python OrderedDict
+As already noted, compatibility with the pure MyFRpy OrderedDict
 implementation is a key goal of this C implementation.  To further that
 goal, here's a summary of how OrderedDict-specific methods are implemented
 in collections/__init__.py.  Also provided is an indication of which
@@ -420,8 +420,8 @@ During iteration through an OrderedDict, it is possible that items could
 get added, removed, or reordered.  For a linked-list implementation, as
 with some other implementations, that situation may lead to undefined
 behavior.  The documentation for dict mentions this in the `iter()` section
-of http://docs.python.org/3.4/library/stdtypes.html#dictionary-view-objects.
-In this implementation we follow dict's lead (as does the pure Python
+of http://docs.myFRpy.org/3.4/library/stdtypes.html#dictionary-view-objects.
+In this implementation we follow dict's lead (as does the pure MyFRpy
 implementation) for __iter__(), keys(), values(), and items().
 
 For internal iteration (using _odict_FOREACH or not), there is still the
@@ -450,12 +450,12 @@ Potential Optimizations
 
 sooner:
 - reentrancy (make sure everything is at a thread-safe state when calling
-  into Python).  I've already checked this multiple times, but want to
+  into MyFRpy).  I've already checked this multiple times, but want to
   make one more pass.
 - add unit tests for reentrancy?
 
 later:
-- make the dict views support the full set API (the pure Python impl does)
+- make the dict views support the full set API (the pure MyFRpy impl does)
 - implement a fuller MutableMapping API in C?
 - move the MutableMapping implementation to abstract.c?
 - optimize mutablemapping_update
@@ -464,7 +464,7 @@ later:
 
 */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_call.h"          // _PyObject_CallNoArgs()
 #include "pycore_object.h"        // _PyObject_GC_UNTRACK()
 #include "pycore_dict.h"          // _Py_dict_lookup()

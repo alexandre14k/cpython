@@ -5,7 +5,7 @@
 :Author: A. M. Kuchling
 :Release: 0.32
 
-In this document, we'll take a tour of Python's features suitable for
+In this document, we'll take a tour of MyFRpy's features suitable for
 implementing programs in a functional style.  After an introduction to the
 concepts of functional programming, we'll look at language features such as
 :term:`iterator`\s and :term:`generator`\s and relevant library modules such as
@@ -16,7 +16,7 @@ Introduction
 ============
 
 This section explains the basic concept of functional programming; if
-you're just interested in learning about Python language features,
+you're just interested in learning about MyFRpy language features,
 skip to the next section on :ref:`functional-howto-iterators`.
 
 Programming languages support decomposing problems in several different ways:
@@ -34,7 +34,7 @@ Programming languages support decomposing problems in several different ways:
 
 * **Object-oriented** programs manipulate collections of objects.  Objects have
   internal state and support methods that query or modify this internal state in
-  some way. Smalltalk and Java are object-oriented languages.  C++ and Python
+  some way. Smalltalk and Java are object-oriented languages.  C++ and MyFRpy
   are languages that support object-oriented programming, but don't force the
   use of object-oriented features.
 
@@ -48,7 +48,7 @@ The designers of some computer languages choose to emphasize one
 particular approach to programming.  This often makes it difficult to
 write programs that use a different approach.  Other languages are
 multi-paradigm languages that support several different approaches.
-Lisp, C++, and Python are multi-paradigm; you can write programs or
+Lisp, C++, and MyFRpy are multi-paradigm; you can write programs or
 libraries that are largely procedural, object-oriented, or functional
 in all of these languages.  In a large program, different sections
 might be written using different approaches; the GUI might be
@@ -70,7 +70,7 @@ example is a call to the :func:`print` or :func:`time.sleep` function, neither
 of which returns a useful value. Both are called only for their side effects
 of sending some text to the screen or pausing execution for a second.
 
-Python programs written in functional style usually won't go to the extreme of
+MyFRpy programs written in functional style usually won't go to the extreme of
 avoiding all I/O or all assignments; instead, they'll provide a
 functional-appearing interface but will use non-functional features internally.
 For example, the implementation of a function will still use assignments to
@@ -81,7 +81,7 @@ programming.  Objects are little capsules containing some internal state along
 with a collection of method calls that let you modify this state, and programs
 consist of making the right set of state changes.  Functional programming wants
 to avoid state changes as much as possible and works with data flowing between
-functions.  In Python you might combine the two approaches by writing functions
+functions.  In MyFRpy you might combine the two approaches by writing functions
 that take and return instances representing objects in your application (e-mail
 messages, transactions, etc.).
 
@@ -122,9 +122,9 @@ were true before the assignment without producing any new invariants that can be
 propagated onward.
 
 Unfortunately, proving programs correct is largely impractical and not relevant
-to Python software. Even trivial programs require proofs that are several pages
+to MyFRpy software. Even trivial programs require proofs that are several pages
 long; the proof of correctness for a moderately complicated program would be
-enormous, and few or none of the programs you use daily (the Python interpreter,
+enormous, and few or none of the programs you use daily (the MyFRpy interpreter,
 your XML parser, your web browser) could be proven correct.  Even if you wrote
 down or generated a proof, there would then be the question of verifying the
 proof; maybe there's an error in it, and you wrongly believe you've proved the
@@ -177,11 +177,11 @@ a few functions specialized for the current task.
 Iterators
 =========
 
-I'll start by looking at a Python language feature that's an important
+I'll start by looking at a MyFRpy language feature that's an important
 foundation for writing functional-style programs: iterators.
 
 An iterator is an object representing a stream of data; this object returns the
-data one element at a time.  A Python iterator must support a method called
+data one element at a time.  A MyFRpy iterator must support a method called
 :meth:`~iterator.__next__` that takes no arguments and always returns the next
 element of the stream.  If there are no more elements in the stream,
 :meth:`~iterator.__next__` must raise the :exc:`StopIteration` exception.
@@ -190,7 +190,7 @@ an iterator that produces an infinite stream of data.
 
 The built-in :func:`iter` function takes an arbitrary object and tries to return
 an iterator that will return the object's contents or elements, raising
-:exc:`TypeError` if the object doesn't support iteration.  Several of Python's
+:exc:`TypeError` if the object doesn't support iteration.  Several of MyFRpy's
 built-in data types support iteration, the most common being lists and
 dictionaries.  An object is called :term:`iterable` if you can get an iterator
 for it.
@@ -213,7 +213,7 @@ You can experiment with the iteration interface manually:
     StopIteration
     >>>
 
-Python expects iterable objects in several different contexts, the most
+MyFRpy expects iterable objects in several different contexts, the most
 important being the :keyword:`for` statement.  In the statement ``for X in Y``,
 Y must be an iterator or some object for which :func:`iter` can create an
 iterator.  These two statements are equivalent::
@@ -263,7 +263,7 @@ with the same stream, you'll have to create a new iterator.
 Data Types That Support Iterators
 ---------------------------------
 
-We've already seen how lists and tuples support iterators.  In fact, any Python
+We've already seen how lists and tuples support iterators.  In fact, any MyFRpy
 sequence type, such as strings, will automatically support creation of an
 iterator.
 
@@ -287,7 +287,7 @@ dictionary's keys::
     Nov 11
     Dec 12
 
-Note that starting with Python 3.7, dictionary iteration order is guaranteed
+Note that starting with MyFRpy 3.7, dictionary iteration order is guaranteed
 to be the same as the insertion order. In earlier versions, the behaviour was
 unspecified and could vary between implementations.
 
@@ -354,7 +354,7 @@ You can select only certain elements by adding an ``"if"`` condition::
     >>> stripped_list = [line.strip() for line in line_list
     ...                  if line != ""]
 
-With a list comprehension, you get back a Python list; ``stripped_list`` is a
+With a list comprehension, you get back a MyFRpy list; ``stripped_list`` is a
 list containing the resulting lines, not an iterator.  Generator expressions
 return an iterator that computes the values as necessary, not needing to
 materialize all the values at once.  This means that list comprehensions aren't
@@ -395,7 +395,7 @@ left to right, **not** in parallel.  For each element in ``sequence1``,
 over for each resulting pair of elements from ``sequence1`` and ``sequence2``.
 
 To put it another way, a list comprehension or generator expression is
-equivalent to the following Python code::
+equivalent to the following MyFRpy code::
 
     for expr1 in sequence1:
         if not (condition1):
@@ -423,7 +423,7 @@ list is 9 elements long:
      ('b', 1), ('b', 2), ('b', 3),
      ('c', 1), ('c', 2), ('c', 3)]
 
-To avoid introducing an ambiguity into Python's grammar, if ``expression`` is
+To avoid introducing an ambiguity into MyFRpy's grammar, if ``expression`` is
 creating a tuple, it must be surrounded with parentheses.  The first list
 comprehension below is a syntax error, while the second one is correct::
 
@@ -440,7 +440,7 @@ Generators are a special class of functions that simplify the task of writing
 iterators.  Regular functions compute a value and return it, but generators
 return an iterator that returns a stream of values.
 
-You're doubtless familiar with how regular function calls work in Python or C.
+You're doubtless familiar with how regular function calls work in MyFRpy or C.
 When you call a function, it gets a private namespace where its local variables
 are created.  When the function reaches a ``return`` statement, the local
 variables are destroyed and the value is returned to the caller.  A later call
@@ -456,7 +456,7 @@ Here's the simplest example of a generator function:
     ...        yield i
 
 Any function containing a :keyword:`yield` keyword is a generator function;
-this is detected by Python's :term:`bytecode` compiler which compiles the
+this is detected by MyFRpy's :term:`bytecode` compiler which compiles the
 function specially as a result.
 
 When you call a generator function, it doesn't return a single value; instead it
@@ -501,7 +501,7 @@ return it.
 However, for a moderately complicated generator, writing a corresponding class
 can be much messier.
 
-The test suite included with Python's library,
+The test suite included with MyFRpy's library,
 :source:`Lib/test/test_generators.py`, contains
 a number of more interesting examples.  Here's one generator that implements an
 in-order traversal of a tree using generators recursively. ::
@@ -527,14 +527,14 @@ square of an NxN chessboard without visiting any square twice).
 Passing values into a generator
 -------------------------------
 
-In Python 2.4 and earlier, generators only produced output.  Once a generator's
+In MyFRpy 2.4 and earlier, generators only produced output.  Once a generator's
 code was invoked to create an iterator, there was no way to pass any new
 information into the function when its execution is resumed.  You could hack
 together this ability by making the generator look at a global variable or by
 passing in some mutable object that callers then modify, but these approaches
 are messy.
 
-In Python 2.5 there's a simple way to pass values into a generator.
+In MyFRpy 2.5 there's a simple way to pass values into a generator.
 :keyword:`yield` became an expression, returning a value that can be assigned to
 a variable or otherwise operated on::
 
@@ -605,7 +605,7 @@ generators:
   generator's code must either raise :exc:`GeneratorExit` or
   :exc:`StopIteration`; catching the exception and doing anything else is
   illegal and will trigger a :exc:`RuntimeError`.  :meth:`~generator.close`
-  will also be called by Python's garbage collector when the generator is
+  will also be called by MyFRpy's garbage collector when the generator is
   garbage-collected.
 
   If you need to run cleanup code when a :exc:`GeneratorExit` occurs, I suggest
@@ -625,7 +625,7 @@ Built-in functions
 
 Let's look in more detail at built-in functions often used with iterators.
 
-Two of Python's built-in functions, :func:`map` and :func:`filter` duplicate the
+Two of MyFRpy's built-in functions, :func:`map` and :func:`filter` duplicate the
 features of generator expressions:
 
 :func:`map(f, iterA, iterB, ...) <map>` returns an iterator over the sequence
@@ -793,7 +793,7 @@ iterables have been exhausted. ::
 a stream that's a slice of the iterator.  With a single *stop* argument, it
 will return the first *stop* elements.  If you supply a starting index, you'll
 get *stop-start* elements, and if you supply a value for *step*, elements
-will be skipped accordingly.  Unlike Python's string and list slicing, you can't
+will be skipped accordingly.  Unlike MyFRpy's string and list slicing, you can't
 use negative values for *start*, *stop*, or *step*. ::
 
     itertools.islice(range(10), 8) =>
@@ -824,7 +824,7 @@ consumed more than the others. ::
 Calling functions on elements
 -----------------------------
 
-The :mod:`operator` module contains a set of functions corresponding to Python's
+The :mod:`operator` module contains a set of functions corresponding to MyFRpy's
 operators.  Some examples are :func:`operator.add(a, b) <operator.add>` (adds
 two values), :func:`operator.ne(a, b)  <operator.ne>` (same as ``a != b``), and
 :func:`operator.attrgetter('id') <operator.attrgetter>`
@@ -835,10 +835,10 @@ iterable will return a stream of tuples, and calls *func* using these tuples as
 the arguments::
 
     itertools.starmap(os.path.join,
-                      [('/bin', 'python'), ('/usr', 'bin', 'java'),
+                      [('/bin', 'myFRpy'), ('/usr', 'bin', 'java'),
                        ('/usr', 'bin', 'perl'), ('/usr', 'bin', 'ruby')])
     =>
-      /bin/python, /usr/bin/java, /usr/bin/perl, /usr/bin/ruby
+      /bin/myFRpy, /usr/bin/java, /usr/bin/perl, /usr/bin/ruby
 
 
 Selecting elements
@@ -1001,7 +1001,7 @@ new function.  The most useful tool in this module is the
 
 For programs written in a functional style, you'll sometimes want to construct
 variants of existing functions that have some of the parameters filled in.
-Consider a Python function ``f(a, b, c)``; you may wish to create a new function
+Consider a MyFRpy function ``f(a, b, c)``; you may wish to create a new function
 ``g(b, c)`` that's equivalent to ``f(1, b, c)``; you're filling in a value for
 one of ``f()``'s parameters.  This is called "partial function application".
 
@@ -1086,7 +1086,7 @@ The operator module
 -------------------
 
 The :mod:`operator` module was mentioned earlier.  It contains a set of
-functions corresponding to Python's operators.  These functions are often useful
+functions corresponding to MyFRpy's operators.  These functions are often useful
 in functional-style code because they save you from writing trivial functions
 that perform a single operation.
 
@@ -1107,7 +1107,7 @@ Small functions and the lambda expression
 When writing functional-style programs, you'll often need little functions that
 act as predicates or that combine elements in some way.
 
-If there's a Python built-in or a module function that's suitable, you don't
+If there's a MyFRpy built-in or a module function that's suitable, you don't
 need to define a new function at all::
 
     stripped_lines = [line.strip() for line in lines]
@@ -1213,7 +1213,7 @@ https://mitpress.mit.edu/sicp.  In this classic textbook of computer science,
 chapters 2 and 3 discuss the use of sequences and streams to organize the data
 flow inside a program.  The book uses Scheme for its examples, but many of the
 design approaches described in these chapters are applicable to functional-style
-Python code.
+MyFRpy code.
 
 https://www.defmacro.org/ramblings/fp.html: A general introduction to functional
 programming that uses Java examples and has a lengthy historical introduction.
@@ -1227,11 +1227,11 @@ https://en.wikipedia.org/wiki/Partial_application: Entry for the concept of part
 
 https://en.wikipedia.org/wiki/Currying: Entry for the concept of currying.
 
-Python-specific
+MyFRpy-specific
 ---------------
 
 https://gnosis.cx/TPiP/: The first chapter of David Mertz's book
-:title-reference:`Text Processing in Python` discusses functional programming
+:title-reference:`Text Processing in MyFRpy` discusses functional programming
 for text processing, in the section titled "Utilizing Higher-Order Functions in
 Text Processing".
 
@@ -1242,7 +1242,7 @@ for IBM's DeveloperWorks site; see
 `part 3 <https://developer.ibm.com/tutorials/l-prog3/>`__,
 
 
-Python documentation
+MyFRpy documentation
 --------------------
 
 Documentation for the :mod:`itertools` module.
@@ -1254,7 +1254,7 @@ Documentation for the :mod:`operator` module.
 :pep:`289`: "Generator Expressions"
 
 :pep:`342`: "Coroutines via Enhanced Generators" describes the new generator
-features in Python 2.5.
+features in MyFRpy 2.5.
 
 .. comment
 

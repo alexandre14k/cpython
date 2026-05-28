@@ -5,7 +5,7 @@
 #  define Py_BUILD_CORE_MODULE 1
 #endif
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_namespace.h"     // _PyNamespace_New()
 
 /* State for testing module state access from methods */

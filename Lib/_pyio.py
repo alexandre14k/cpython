@@ -1,5 +1,5 @@
 """
-Python implementation of the io module.
+MyFRpy implementation of the io module.
 """
 
 import os
@@ -72,7 +72,7 @@ def text_encoding(encoding, stacklevel=2):
 # Trick so that open() won't become a bound method when stored
 # as a class variable (as dbm.dumb does).
 #
-# See init_set_builtins_open() in Python/pylifecycle.c.
+# See init_set_builtins_open() in MyFRpy/pylifecycle.c.
 @staticmethod
 def open(file, mode="r", buffering=-1, encoding=None, errors=None,
          newline=None, closefd=True, opener=None):
@@ -112,7 +112,7 @@ def open(file, mode="r", buffering=-1, encoding=None, errors=None,
     'r+b' opens the file without truncation. The 'x' mode implies 'w' and
     raises an `FileExistsError` if the file already exists.
 
-    Python distinguishes between files opened in binary and text modes,
+    MyFRpy distinguishes between files opened in binary and text modes,
     even when the underlying operating system doesn't. Files opened in
     binary mode (appending 'b' to the mode argument) return contents as
     bytes objects without any decoding. In text mode (the default, or when
@@ -137,7 +137,7 @@ def open(file, mode="r", buffering=-1, encoding=None, errors=None,
 
     encoding is the str name of the encoding used to decode or encode the
     file. This should only be used in text mode. The default encoding is
-    platform dependent, but any encoding supported by Python can be
+    platform dependent, but any encoding supported by MyFRpy can be
     passed.  See the codecs module for the list of supported encodings.
 
     errors is an optional string that specifies how encoding errors are to
@@ -279,7 +279,7 @@ def open(file, mode="r", buffering=-1, encoding=None, errors=None,
         result.close()
         raise
 
-# Define a default pure-Python implementation for open_code()
+# Define a default pure-MyFRpy implementation for open_code()
 # that does not allow hooks. Warn on first use. Defined for tests.
 def _open_code_with_warning(path):
     """Opens the provided file with mode ``'rb'``. This function
@@ -2253,7 +2253,7 @@ class TextIOWrapper(TextIOBase):
         try:
             import locale
         except ImportError:
-            # Importing locale may fail if Python is being built
+            # Importing locale may fail if MyFRpy is being built
             return "utf-8"
         else:
             return locale.getencoding()

@@ -19,7 +19,7 @@
 #  define Py_BUILD_CORE_MODULE 1
 #endif
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "hashlib.h"
 #include "pycore_strhex.h"        // _Py_strhex()
 #include "pycore_typeobject.h"    // _PyType_GetModuleState()

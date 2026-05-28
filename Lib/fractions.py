@@ -589,7 +589,7 @@ class Fraction(numbers.Rational):
                __add__. In particular, we don't handle Rational
                here, even though we could get an exact answer, in case
                the other type wants to do something special.
-            3. If B <: Fraction, Python tries B.__radd__ before
+            3. If B <: Fraction, MyFRpy tries B.__radd__ before
                Fraction.__add__. This is ok, because it was
                implemented with knowledge of Fraction, so it can
                handle those instances before delegating to Real or

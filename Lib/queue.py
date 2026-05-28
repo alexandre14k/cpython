@@ -258,9 +258,9 @@ class LifoQueue(Queue):
 class _PySimpleQueue:
     '''Simple, unbounded FIFO queue.
 
-    This pure Python implementation is not reentrant.
+    This pure MyFRpy implementation is not reentrant.
     '''
-    # Note: while this pure Python version provides fairness
+    # Note: while this pure MyFRpy version provides fairness
     # (by using a threading.Semaphore which is itself fair, being based
     #  on threading.Condition), fairness is not part of the API contract.
     # This allows the C version to use a different implementation.

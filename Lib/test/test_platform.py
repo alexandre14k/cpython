@@ -81,7 +81,7 @@ class PlatformTest(unittest.TestCase):
     @os_helper.skip_unless_symlink
     @support.requires_subprocess()
     def test_architecture_via_symlink(self): # issue3762
-        with support.PythonSymlink() as py:
+        with support.MyFRpySymlink() as py:
             cmd = "-c", "import platform; print(platform.architecture())"
             self.assertEqual(py.call_real(*cmd), py.call_link(*cmd))
 
@@ -122,23 +122,23 @@ class PlatformTest(unittest.TestCase):
         # Old test.
         for input, output in (
             ('2.4.3 (#1, Jun 21 2006, 13:54:21) \n[GCC 3.3.4 (pre 3.3.5 20040809)]',
-             ('CPython', '2.4.3', '', '', '1', 'Jun 21 2006 13:54:21', 'GCC 3.3.4 (pre 3.3.5 20040809)')),
+             ('CMyFRpy', '2.4.3', '', '', '1', 'Jun 21 2006 13:54:21', 'GCC 3.3.4 (pre 3.3.5 20040809)')),
             ('2.4.3 (truncation, date, t) \n[GCC]',
-             ('CPython', '2.4.3', '', '', 'truncation', 'date t', 'GCC')),
+             ('CMyFRpy', '2.4.3', '', '', 'truncation', 'date t', 'GCC')),
             ('2.4.3 (truncation, date, ) \n[GCC]',
-             ('CPython', '2.4.3', '', '', 'truncation', 'date', 'GCC')),
+             ('CMyFRpy', '2.4.3', '', '', 'truncation', 'date', 'GCC')),
             ('2.4.3 (truncation, date,) \n[GCC]',
-             ('CPython', '2.4.3', '', '', 'truncation', 'date', 'GCC')),
+             ('CMyFRpy', '2.4.3', '', '', 'truncation', 'date', 'GCC')),
             ('2.4.3 (truncation, date) \n[GCC]',
-             ('CPython', '2.4.3', '', '', 'truncation', 'date', 'GCC')),
+             ('CMyFRpy', '2.4.3', '', '', 'truncation', 'date', 'GCC')),
             ('2.4.3 (truncation, d) \n[GCC]',
-             ('CPython', '2.4.3', '', '', 'truncation', 'd', 'GCC')),
+             ('CMyFRpy', '2.4.3', '', '', 'truncation', 'd', 'GCC')),
             ('2.4.3 (truncation, ) \n[GCC]',
-             ('CPython', '2.4.3', '', '', 'truncation', '', 'GCC')),
+             ('CMyFRpy', '2.4.3', '', '', 'truncation', '', 'GCC')),
             ('2.4.3 (truncation,) \n[GCC]',
-             ('CPython', '2.4.3', '', '', 'truncation', '', 'GCC')),
+             ('CMyFRpy', '2.4.3', '', '', 'truncation', '', 'GCC')),
             ('2.4.3 (truncation) \n[GCC]',
-             ('CPython', '2.4.3', '', '', 'truncation', '', 'GCC')),
+             ('CMyFRpy', '2.4.3', '', '', 'truncation', '', 'GCC')),
             ):
             # branch and revision are not "parsed", but fetched
             # from sys._git.  Ignore them
@@ -147,20 +147,20 @@ class PlatformTest(unittest.TestCase):
             self.assertEqual(
                 (name, version, '', '', buildno, builddate, compiler), output)
 
-        # Tests for python_implementation(), python_version(), python_branch(),
-        # python_revision(), python_build(), and python_compiler().
+        # Tests for myFRpy_implementation(), myFRpy_version(), myFRpy_branch(),
+        # myFRpy_revision(), myFRpy_build(), and myFRpy_compiler().
         sys_versions = {
             ("2.6.1 (r261:67515, Dec  6 2008, 15:26:00) \n[GCC 4.0.1 (Apple Computer, Inc. build 5370)]",
-             ('CPython', 'tags/r261', '67515'), self.save_platform)
+             ('CMyFRpy', 'tags/r261', '67515'), self.save_platform)
             :
-                ("CPython", "2.6.1", "tags/r261", "67515",
+                ("CMyFRpy", "2.6.1", "tags/r261", "67515",
                  ('r261:67515', 'Dec  6 2008 15:26:00'),
                  'GCC 4.0.1 (Apple Computer, Inc. build 5370)'),
 
             ("3.10.8 (tags/v3.10.8:aaaf517424, Feb 14 2023, 16:28:12) [GCC 9.4.0]",
              None, "linux")
             :
-                ('CPython', '3.10.8', '', '',
+                ('CMyFRpy', '3.10.8', '', '',
                 ('tags/v3.10.8:aaaf517424', 'Feb 14 2023 16:28:12'), 'GCC 9.4.0'),
 
             ("2.5 (trunk:6107, Mar 26 2009, 13:02:18) \n[Java HotSpot(TM) Client VM (\"Apple Computer, Inc.\")]",
@@ -185,12 +185,12 @@ class PlatformTest(unittest.TestCase):
                 sys._git = scm
             if sys_platform is not None:
                 sys.platform = sys_platform
-            self.assertEqual(platform.python_implementation(), info[0])
-            self.assertEqual(platform.python_version(), info[1])
-            self.assertEqual(platform.python_branch(), info[2])
-            self.assertEqual(platform.python_revision(), info[3])
-            self.assertEqual(platform.python_build(), info[4])
-            self.assertEqual(platform.python_compiler(), info[5])
+            self.assertEqual(platform.myFRpy_implementation(), info[0])
+            self.assertEqual(platform.myFRpy_version(), info[1])
+            self.assertEqual(platform.myFRpy_branch(), info[2])
+            self.assertEqual(platform.myFRpy_revision(), info[3])
+            self.assertEqual(platform.myFRpy_build(), info[4])
+            self.assertEqual(platform.myFRpy_compiler(), info[5])
 
         with self.assertRaises(ValueError):
             platform._sys_version('2. 4.3 (truncation) \n[GCC]')
@@ -454,7 +454,7 @@ class PlatformTest(unittest.TestCase):
         self.assertEqual(platform.libc_ver(filename, chunksize=chunksize),
                          ('glibc', '1.23.4'))
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test__comparable_version(self):
         from platform import _comparable_version as V
         self.assertEqual(V('1.2.3'), V('1.2.3'))
@@ -527,9 +527,9 @@ class PlatformTest(unittest.TestCase):
             self.assertIn("NAME", info)
             self.assertIn("ID", info)
 
-            info["CPYTHON_TEST"] = "test"
+            info["CMYFRPY_TEST"] = "test"
             self.assertNotIn(
-                "CPYTHON_TEST",
+                "CMYFRPY_TEST",
                 platform.freedesktop_os_release()
             )
         else:

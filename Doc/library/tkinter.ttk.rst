@@ -405,7 +405,7 @@ This widget accepts the following specific options:
 | from                 | Float value.  If set, this is the minimum value to   |
 |                      | which the decrement button will decrement.  Must be  |
 |                      | spelled as ``from_`` when used as an argument, since |
-|                      | ``from`` is a Python keyword.                        |
+|                      | ``from`` is a MyFRpy keyword.                        |
 +----------------------+------------------------------------------------------+
 | to                   | Float value.  If set, this is the maximum value to   |
 |                      | which the increment button will increment.           |
@@ -431,7 +431,7 @@ This widget accepts the following specific options:
 |                      | the value, P is the precision, and '%' and 'f' are   |
 |                      | literal.                                             |
 +----------------------+------------------------------------------------------+
-| command              | Python callable.  Will be called with no arguments   |
+| command              | MyFRpy callable.  Will be called with no arguments   |
 |                      | whenever either of the increment or decrement buttons|
 |                      | are pressed.                                         |
 |                      |                                                      |

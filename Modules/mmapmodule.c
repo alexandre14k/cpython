@@ -15,7 +15,7 @@
  / This version of mmapmodule.c has been changed significantly
  / from the original mmapfile.c on which it was based.
  / The original version of mmapfile is maintained by Sam at
- / ftp://squirl.nightmare.com/pub/python/python-ext.
+ / ftp://squirl.nightmare.com/pub/myFRpy/myFRpy-ext.
 */
 
 #ifndef Py_BUILD_CORE_BUILTIN
@@ -23,7 +23,7 @@
 #endif
 
 #define PY_SSIZE_T_CLEAN
-#include <Python.h>
+#include <MyFRpy.h>
 #include "pycore_bytesobject.h"   // _PyBytes_Find()
 #include "pycore_fileutils.h"     // _Py_stat_struct
 #include "structmember.h"         // PyMemberDef
@@ -497,7 +497,7 @@ mmap_size_method(mmap_object *self,
  / have the new size
  /
  / Is this really necessary?  This could easily be done
- / from python by just closing and re-opening with the
+ / from myFRpy by just closing and re-opening with the
  / new size?
  */
 
@@ -1468,7 +1468,7 @@ new_mmap_object(PyTypeObject *type, PyObject *args, PyObject *kwdict)
 
     if (fh) {
         /* It is necessary to duplicate the handle, so the
-           Python code can close it on us */
+           MyFRpy code can close it on us */
         if (!DuplicateHandle(
             GetCurrentProcess(), /* source process handle */
             fh, /* handle to be duplicated */

@@ -7,8 +7,8 @@ Utilities
 *********
 
 The functions in this chapter perform various utility tasks, ranging from
-helping C code be more portable across platforms, using Python modules from C,
-and parsing function arguments and constructing Python values from C values.
+helping C code be more portable across platforms, using MyFRpy modules from C,
+and parsing function arguments and constructing MyFRpy values from C values.
 
 .. toctree::
 

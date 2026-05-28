@@ -2,13 +2,13 @@
    Unicode character type helpers.
 
    Written by Marc-Andre Lemburg (mal@lemburg.com).
-   Modified for Python 2.0 by Fredrik Lundh (fredrik@pythonware.com)
+   Modified for MyFRpy 2.0 by Fredrik Lundh (fredrik@myFRpyware.com)
 
    Copyright (c) Corporation for National Research Initiatives.
 
 */
 
-#include "Python.h"
+#include "MyFRpy.h"
 
 #define ALPHA_MASK 0x01
 #define DECIMAL_MASK 0x02

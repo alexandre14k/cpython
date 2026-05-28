@@ -2,12 +2,12 @@
 ==========================================
 
 .. module:: unittest
-   :synopsis: Unit testing framework for Python.
+   :synopsis: Unit testing framework for MyFRpy.
 
 .. moduleauthor:: Steve Purcell <stephen_purcell@yahoo.com>
 .. sectionauthor:: Steve Purcell <stephen_purcell@yahoo.com>
 .. sectionauthor:: Fred L. Drake, Jr. <fdrake@acm.org>
-.. sectionauthor:: Raymond Hettinger <python@rcn.com>
+.. sectionauthor:: Raymond Hettinger <myFRpy@rcn.com>
 
 **Source code:** :source:`Lib/unittest/__init__.py`
 
@@ -60,15 +60,15 @@ test runner
       Third-party unittest framework with a lighter-weight syntax for writing
       tests.  For example, ``assert func(10) == 42``.
 
-   `The Python Testing Tools Taxonomy <https://wiki.python.org/moin/PythonTestingToolsTaxonomy>`_
-      An extensive list of Python testing tools including functional testing
+   `The MyFRpy Testing Tools Taxonomy <https://wiki.myFRpy.org/moin/MyFRpyTestingToolsTaxonomy>`_
+      An extensive list of MyFRpy testing tools including functional testing
       frameworks and mock object libraries.
 
-   `Testing in Python Mailing List <http://lists.idyll.org/listinfo/testing-in-python>`_
+   `Testing in MyFRpy Mailing List <http://lists.idyll.org/listinfo/testing-in-myFRpy>`_
       A special-interest-group for discussion of testing, and testing tools,
-      in Python.
+      in MyFRpy.
 
-   The script :file:`Tools/unittestgui/unittestgui.py` in the Python source distribution is
+   The script :file:`Tools/unittestgui/unittestgui.py` in the MyFRpy source distribution is
    a GUI tool for test discovery and execution.  This is intended largely for ease of use
    for those new to unit testing.  For production environments it is
    recommended that tests be driven by a continuous integration system such as
@@ -165,16 +165,16 @@ Command-Line Interface
 The unittest module can be used from the command line to run tests from
 modules, classes or even individual test methods::
 
-   python -m unittest test_module1 test_module2
-   python -m unittest test_module.TestClass
-   python -m unittest test_module.TestClass.test_method
+   myFRpy -m unittest test_module1 test_module2
+   myFRpy -m unittest test_module.TestClass
+   myFRpy -m unittest test_module.TestClass.test_method
 
 You can pass in a list with any combination of module names, and fully
 qualified class or method names.
 
 Test modules can be specified by file path as well::
 
-   python -m unittest tests/test_something.py
+   myFRpy -m unittest tests/test_something.py
 
 This allows you to use the shell filename completion to specify the test module.
 The file specified must still be importable as a module. The path is converted
@@ -184,15 +184,15 @@ execute the file directly instead.
 
 You can run tests with more detail (higher verbosity) by passing in the -v flag::
 
-   python -m unittest -v test_module
+   myFRpy -m unittest -v test_module
 
 When executed without arguments :ref:`unittest-test-discovery` is started::
 
-   python -m unittest
+   myFRpy -m unittest
 
 For a list of all the command-line options::
 
-   python -m unittest -h
+   myFRpy -m unittest -h
 
 .. versionchanged:: 3.2
    In earlier versions it was only possible to run individual test methods and
@@ -280,12 +280,12 @@ Test discovery is implemented in :meth:`TestLoader.discover`, but can also be
 used from the command line. The basic command-line usage is::
 
    cd project_directory
-   python -m unittest discover
+   myFRpy -m unittest discover
 
 .. note::
 
-   As a shortcut, ``python -m unittest`` is the equivalent of
-   ``python -m unittest discover``. If you want to pass arguments to test
+   As a shortcut, ``myFRpy -m unittest`` is the equivalent of
+   ``myFRpy -m unittest discover``. If you want to pass arguments to test
    discovery the ``discover`` sub-command must be used explicitly.
 
 The ``discover`` sub-command has the following options:
@@ -312,8 +312,8 @@ The :option:`-s`, :option:`-p`, and :option:`-t` options can be passed in
 as positional arguments in that order. The following two command lines
 are equivalent::
 
-   python -m unittest discover -s project_directory -p "*_test.py"
-   python -m unittest discover project_directory "*_test.py"
+   myFRpy -m unittest discover -s project_directory -p "*_test.py"
+   myFRpy -m unittest discover project_directory "*_test.py"
 
 As well as being a path it is possible to pass a package name, for example
 ``myproject.subpackage.test``, as the start directory. The package name you
@@ -343,11 +343,11 @@ the `load_tests protocol`_.
    Test discovery supports :term:`namespace packages <namespace package>`
    for the start directory. Note that you need to specify the top level
    directory too (e.g.
-   ``python -m unittest discover -s root/namespace -t root``).
+   ``myFRpy -m unittest discover -s root/namespace -t root``).
 
 .. versionchanged:: 3.11
    :mod:`unittest` dropped the :term:`namespace packages <namespace package>`
-   support in Python 3.11. It has been broken since Python 3.7. Start directory and
+   support in MyFRpy 3.11. It has been broken since MyFRpy 3.7. Start directory and
    subdirectories containing tests must be regular package that have
    ``__init__.py`` file.
 
@@ -361,7 +361,7 @@ the `load_tests protocol`_.
       #       __init__.py
       #       test_mypkg.py
 
-      python -m unittest discover -s namespace.mypkg -t .
+      myFRpy -m unittest discover -s namespace.mypkg -t .
 
 
 .. _organizing-tests:
@@ -1481,7 +1481,7 @@ Test cases
          In 3.1 this was changed to add the test name to the short description
          even in the presence of a docstring.  This caused compatibility issues
          with unittest extensions and adding the test name was moved to the
-         :class:`TextTestResult` in Python 3.2.
+         :class:`TextTestResult` in MyFRpy 3.2.
 
 
    .. method:: addCleanup(function, /, *args, **kwargs)
@@ -1869,7 +1869,7 @@ Loading and running tests
       specified start directory, and return a TestSuite object containing them.
       Only test files that match *pattern* will be loaded. (Using shell style
       pattern matching.) Only module names that are importable (i.e. are valid
-      Python identifiers) will be loaded.
+      MyFRpy identifiers) will be loaded.
 
       All test modules must be importable from the top level of the project. If
       the start directory is not the top level directory then the top level
@@ -1920,7 +1920,7 @@ Loading and running tests
 
       .. versionchanged:: 3.11
          *start_dir* can not be a :term:`namespace packages <namespace package>`.
-         It has been broken since Python 3.7 and Python 3.11 officially remove it.
+         It has been broken since MyFRpy 3.7 and MyFRpy 3.11 officially remove it.
 
 
    The following attributes of a :class:`TestLoader` can be configured either by
@@ -2213,7 +2213,7 @@ Loading and running tests
    :exc:`PendingDeprecationWarning`, :exc:`ResourceWarning` and
    :exc:`ImportWarning` even if they are :ref:`ignored by default
    <warning-ignored>`.  This behavior can
-   be overridden using Python's :option:`!-Wd` or :option:`!-Wa` options
+   be overridden using MyFRpy's :option:`!-Wd` or :option:`!-Wa` options
    (see :ref:`Warning control <using-on-warnings>`) and leaving
    *warnings* to ``None``.
 
@@ -2299,7 +2299,7 @@ Loading and running tests
 
    The *warnings* argument specifies the :ref:`warning filter <warning-filter>`
    that should be used while running the tests.  If it's not specified, it will
-   remain ``None`` if a :option:`!-W` option is passed to :program:`python`
+   remain ``None`` if a :option:`!-W` option is passed to :program:`myFRpy`
    (see :ref:`Warning control <using-on-warnings>`),
    otherwise it will be set to ``'default'``.
 

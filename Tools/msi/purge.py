@@ -4,7 +4,7 @@
 #   py -3 purge.py 3.5.1rc1
 #
 
-__author__ = 'Steve Dower <steve.dower@python.org>'
+__author__ = 'Steve Dower <steve.dower@myFRpy.org>'
 __version__ = '1.0.0'
 
 import re
@@ -24,7 +24,7 @@ except LookupError:
     print('Missing version argument. Expected something like "3.5.1rc1"')
     sys.exit(1)
 
-URL = "https://www.python.org/ftp/python/{}/".format(m.group(1))
+URL = "https://www.myFRpy.org/ftp/myFRpy/{}/".format(m.group(1))
 REL = m.group(2) or ''
 
 FILES = [
@@ -61,15 +61,15 @@ FILES = [
     "Windows8-RT-KB2999226-x86.msu",
 ]
 PATHS = [
-    "python-{}.exe".format(m.group(0)),
-    "python-{}-webinstall.exe".format(m.group(0)),
-    "python-{}-amd64.exe".format(m.group(0)),
-    "python-{}-amd64-webinstall.exe".format(m.group(0)),
-    "python-{}-arm64.exe".format(m.group(0)),
-    "python-{}-arm64-webinstall.exe".format(m.group(0)),
-    "python-{}-embed-amd64.zip".format(m.group(0)),
-    "python-{}-embed-win32.zip".format(m.group(0)),
-    "python-{}-embed-arm64.zip".format(m.group(0)),
+    "myFRpy-{}.exe".format(m.group(0)),
+    "myFRpy-{}-webinstall.exe".format(m.group(0)),
+    "myFRpy-{}-amd64.exe".format(m.group(0)),
+    "myFRpy-{}-amd64-webinstall.exe".format(m.group(0)),
+    "myFRpy-{}-arm64.exe".format(m.group(0)),
+    "myFRpy-{}-arm64-webinstall.exe".format(m.group(0)),
+    "myFRpy-{}-embed-amd64.zip".format(m.group(0)),
+    "myFRpy-{}-embed-win32.zip".format(m.group(0)),
+    "myFRpy-{}-embed-arm64.zip".format(m.group(0)),
     *["win32{}/{}".format(REL, f) for f in FILES],
     *["amd64{}/{}".format(REL, f) for f in FILES],
     *["arm64{}/{}".format(REL, f) for f in FILES],

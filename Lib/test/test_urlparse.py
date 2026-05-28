@@ -178,9 +178,9 @@ class UrlParseTestCase(unittest.TestCase):
             ('file:///tmp/junk.txt',
              ('file', '', '/tmp/junk.txt', '', '', ''),
              ('file', '', '/tmp/junk.txt', '', '')),
-            ('imap://mail.python.org/mbox1',
-             ('imap', 'mail.python.org', '/mbox1', '', '', ''),
-             ('imap', 'mail.python.org', '/mbox1', '', '')),
+            ('imap://mail.myFRpy.org/mbox1',
+             ('imap', 'mail.myFRpy.org', '/mbox1', '', '', ''),
+             ('imap', 'mail.myFRpy.org', '/mbox1', '', '')),
             ('mms://wms.sys.hinet.net/cts/Drama/09006251100.asf',
              ('mms', 'wms.sys.hinet.net', '/cts/Drama/09006251100.asf',
               '', '', ''),
@@ -218,18 +218,18 @@ class UrlParseTestCase(unittest.TestCase):
         # so we test both 'http:' and 'https:' in all the following.
         # Three cheers for white box knowledge!
         str_cases = [
-            ('://www.python.org',
-             ('www.python.org', '', '', '', ''),
-             ('www.python.org', '', '', '')),
-            ('://www.python.org#abc',
-             ('www.python.org', '', '', '', 'abc'),
-             ('www.python.org', '', '', 'abc')),
-            ('://www.python.org?q=abc',
-             ('www.python.org', '', '', 'q=abc', ''),
-             ('www.python.org', '', 'q=abc', '')),
-            ('://www.python.org/#abc',
-             ('www.python.org', '/', '', '', 'abc'),
-             ('www.python.org', '/', '', 'abc')),
+            ('://www.myFRpy.org',
+             ('www.myFRpy.org', '', '', '', ''),
+             ('www.myFRpy.org', '', '', '')),
+            ('://www.myFRpy.org#abc',
+             ('www.myFRpy.org', '', '', '', 'abc'),
+             ('www.myFRpy.org', '', '', 'abc')),
+            ('://www.myFRpy.org?q=abc',
+             ('www.myFRpy.org', '', '', 'q=abc', ''),
+             ('www.myFRpy.org', '', 'q=abc', '')),
+            ('://www.myFRpy.org/#abc',
+             ('www.myFRpy.org', '/', '', '', 'abc'),
+             ('www.myFRpy.org', '/', '', 'abc')),
             ('://a/b/c/d;p?q#f',
              ('a', '/b/c/d', 'p', 'q', 'f'),
              ('a', '/b/c/d;p', 'q', 'f')),
@@ -259,7 +259,7 @@ class UrlParseTestCase(unittest.TestCase):
         self.assertEqual(urllib.parse.urljoin(baseb, relurlb), expectedb)
 
     def test_unparse_parse(self):
-        str_cases = ['Python', './Python','x-newscheme://foo.com/stuff','x://y','x:/y','x:/','/',]
+        str_cases = ['MyFRpy', './MyFRpy','x-newscheme://foo.com/stuff','x://y','x:/y','x:/','/',]
         bytes_cases = [x.encode('ascii') for x in str_cases]
         for u in str_cases + bytes_cases:
             self.assertEqual(urllib.parse.urlunsplit(urllib.parse.urlsplit(u)), u)
@@ -477,7 +477,7 @@ class UrlParseTestCase(unittest.TestCase):
 
     def test_RFC2732(self):
         str_cases = [
-            ('http://Test.python.org:5432/foo/', 'test.python.org', 5432),
+            ('http://Test.myFRpy.org:5432/foo/', 'test.myFRpy.org', 5432),
             ('http://12.34.56.78:5432/foo/', '12.34.56.78', 5432),
             ('http://[::1]:5432/foo/', '::1', 5432),
             ('http://[dead:beef::1]:5432/foo/', 'dead:beef::1', 5432),
@@ -487,7 +487,7 @@ class UrlParseTestCase(unittest.TestCase):
             ('http://[::12.34.56.78]:5432/foo/', '::12.34.56.78', 5432),
             ('http://[::ffff:12.34.56.78]:5432/foo/',
              '::ffff:12.34.56.78', 5432),
-            ('http://Test.python.org/foo/', 'test.python.org', None),
+            ('http://Test.myFRpy.org/foo/', 'test.myFRpy.org', None),
             ('http://12.34.56.78/foo/', '12.34.56.78', None),
             ('http://[::1]/foo/', '::1', None),
             ('http://[dead:beef::1]/foo/', 'dead:beef::1', None),
@@ -497,7 +497,7 @@ class UrlParseTestCase(unittest.TestCase):
             ('http://[::12.34.56.78]/foo/', '::12.34.56.78', None),
             ('http://[::ffff:12.34.56.78]/foo/',
              '::ffff:12.34.56.78', None),
-            ('http://Test.python.org:/foo/', 'test.python.org', None),
+            ('http://Test.myFRpy.org:/foo/', 'test.myFRpy.org', None),
             ('http://12.34.56.78:/foo/', '12.34.56.78', None),
             ('http://[::1]:/foo/', '::1', None),
             ('http://[dead:beef::1]:/foo/', 'dead:beef::1', None),
@@ -527,14 +527,14 @@ class UrlParseTestCase(unittest.TestCase):
 
     def test_urldefrag(self):
         str_cases = [
-            ('http://python.org#frag', 'http://python.org', 'frag'),
-            ('http://python.org', 'http://python.org', ''),
-            ('http://python.org/#frag', 'http://python.org/', 'frag'),
-            ('http://python.org/', 'http://python.org/', ''),
-            ('http://python.org/?q#frag', 'http://python.org/?q', 'frag'),
-            ('http://python.org/?q', 'http://python.org/?q', ''),
-            ('http://python.org/p#frag', 'http://python.org/p', 'frag'),
-            ('http://python.org/p?q', 'http://python.org/p?q', ''),
+            ('http://myFRpy.org#frag', 'http://myFRpy.org', 'frag'),
+            ('http://myFRpy.org', 'http://myFRpy.org', ''),
+            ('http://myFRpy.org/#frag', 'http://myFRpy.org/', 'frag'),
+            ('http://myFRpy.org/', 'http://myFRpy.org/', ''),
+            ('http://myFRpy.org/?q#frag', 'http://myFRpy.org/?q', 'frag'),
+            ('http://myFRpy.org/?q', 'http://myFRpy.org/?q', ''),
+            ('http://myFRpy.org/p#frag', 'http://myFRpy.org/p', 'frag'),
+            ('http://myFRpy.org/p?q', 'http://myFRpy.org/p?q', ''),
             (RFC1808_BASE, 'http://a/b/c/d;p?q', 'f'),
             (RFC2396_BASE, 'http://a/b/c/d;p?q', ''),
         ]
@@ -558,32 +558,32 @@ class UrlParseTestCase(unittest.TestCase):
         self.assertEqual(p.netloc, b'[FE80::822a:a8ff:fe49:470c%tESt]:1234')
 
     def test_urlsplit_attributes(self):
-        url = "HTTP://WWW.PYTHON.ORG/doc/#frag"
+        url = "HTTP://WWW.MYFRPY.ORG/doc/#frag"
         p = urllib.parse.urlsplit(url)
         self.assertEqual(p.scheme, "http")
-        self.assertEqual(p.netloc, "WWW.PYTHON.ORG")
+        self.assertEqual(p.netloc, "WWW.MYFRPY.ORG")
         self.assertEqual(p.path, "/doc/")
         self.assertEqual(p.query, "")
         self.assertEqual(p.fragment, "frag")
         self.assertEqual(p.username, None)
         self.assertEqual(p.password, None)
-        self.assertEqual(p.hostname, "www.python.org")
+        self.assertEqual(p.hostname, "www.myFRpy.org")
         self.assertEqual(p.port, None)
         # geturl() won't return exactly the original URL in this case
         # since the scheme is always case-normalized
         # We handle this by ignoring the first 4 characters of the URL
         self.assertEqual(p.geturl()[4:], url[4:])
 
-        url = "http://User:Pass@www.python.org:080/doc/?query=yes#frag"
+        url = "http://User:Pass@www.myFRpy.org:080/doc/?query=yes#frag"
         p = urllib.parse.urlsplit(url)
         self.assertEqual(p.scheme, "http")
-        self.assertEqual(p.netloc, "User:Pass@www.python.org:080")
+        self.assertEqual(p.netloc, "User:Pass@www.myFRpy.org:080")
         self.assertEqual(p.path, "/doc/")
         self.assertEqual(p.query, "query=yes")
         self.assertEqual(p.fragment, "frag")
         self.assertEqual(p.username, "User")
         self.assertEqual(p.password, "Pass")
-        self.assertEqual(p.hostname, "www.python.org")
+        self.assertEqual(p.hostname, "www.myFRpy.org")
         self.assertEqual(p.port, 80)
         self.assertEqual(p.geturl(), url)
 
@@ -591,138 +591,138 @@ class UrlParseTestCase(unittest.TestCase):
         # "@" characters.  Though not RFC compliant, many ftp sites allow
         # and request email addresses as usernames.
 
-        url = "http://User@example.com:Pass@www.python.org:080/doc/?query=yes#frag"
+        url = "http://User@example.com:Pass@www.myFRpy.org:080/doc/?query=yes#frag"
         p = urllib.parse.urlsplit(url)
         self.assertEqual(p.scheme, "http")
-        self.assertEqual(p.netloc, "User@example.com:Pass@www.python.org:080")
+        self.assertEqual(p.netloc, "User@example.com:Pass@www.myFRpy.org:080")
         self.assertEqual(p.path, "/doc/")
         self.assertEqual(p.query, "query=yes")
         self.assertEqual(p.fragment, "frag")
         self.assertEqual(p.username, "User@example.com")
         self.assertEqual(p.password, "Pass")
-        self.assertEqual(p.hostname, "www.python.org")
+        self.assertEqual(p.hostname, "www.myFRpy.org")
         self.assertEqual(p.port, 80)
         self.assertEqual(p.geturl(), url)
 
         # And check them all again, only with bytes this time
-        url = b"HTTP://WWW.PYTHON.ORG/doc/#frag"
+        url = b"HTTP://WWW.MYFRPY.ORG/doc/#frag"
         p = urllib.parse.urlsplit(url)
         self.assertEqual(p.scheme, b"http")
-        self.assertEqual(p.netloc, b"WWW.PYTHON.ORG")
+        self.assertEqual(p.netloc, b"WWW.MYFRPY.ORG")
         self.assertEqual(p.path, b"/doc/")
         self.assertEqual(p.query, b"")
         self.assertEqual(p.fragment, b"frag")
         self.assertEqual(p.username, None)
         self.assertEqual(p.password, None)
-        self.assertEqual(p.hostname, b"www.python.org")
+        self.assertEqual(p.hostname, b"www.myFRpy.org")
         self.assertEqual(p.port, None)
         self.assertEqual(p.geturl()[4:], url[4:])
 
-        url = b"http://User:Pass@www.python.org:080/doc/?query=yes#frag"
+        url = b"http://User:Pass@www.myFRpy.org:080/doc/?query=yes#frag"
         p = urllib.parse.urlsplit(url)
         self.assertEqual(p.scheme, b"http")
-        self.assertEqual(p.netloc, b"User:Pass@www.python.org:080")
+        self.assertEqual(p.netloc, b"User:Pass@www.myFRpy.org:080")
         self.assertEqual(p.path, b"/doc/")
         self.assertEqual(p.query, b"query=yes")
         self.assertEqual(p.fragment, b"frag")
         self.assertEqual(p.username, b"User")
         self.assertEqual(p.password, b"Pass")
-        self.assertEqual(p.hostname, b"www.python.org")
+        self.assertEqual(p.hostname, b"www.myFRpy.org")
         self.assertEqual(p.port, 80)
         self.assertEqual(p.geturl(), url)
 
-        url = b"http://User@example.com:Pass@www.python.org:080/doc/?query=yes#frag"
+        url = b"http://User@example.com:Pass@www.myFRpy.org:080/doc/?query=yes#frag"
         p = urllib.parse.urlsplit(url)
         self.assertEqual(p.scheme, b"http")
-        self.assertEqual(p.netloc, b"User@example.com:Pass@www.python.org:080")
+        self.assertEqual(p.netloc, b"User@example.com:Pass@www.myFRpy.org:080")
         self.assertEqual(p.path, b"/doc/")
         self.assertEqual(p.query, b"query=yes")
         self.assertEqual(p.fragment, b"frag")
         self.assertEqual(p.username, b"User@example.com")
         self.assertEqual(p.password, b"Pass")
-        self.assertEqual(p.hostname, b"www.python.org")
+        self.assertEqual(p.hostname, b"www.myFRpy.org")
         self.assertEqual(p.port, 80)
         self.assertEqual(p.geturl(), url)
 
         # Verify an illegal port raises ValueError
-        url = b"HTTP://WWW.PYTHON.ORG:65536/doc/#frag"
+        url = b"HTTP://WWW.MYFRPY.ORG:65536/doc/#frag"
         p = urllib.parse.urlsplit(url)
         with self.assertRaisesRegex(ValueError, "out of range"):
             p.port
 
     def test_urlsplit_remove_unsafe_bytes(self):
         # Remove ASCII tabs and newlines from input
-        url = "http\t://www.python\n.org\t/java\nscript:\talert('msg\r\n')/?query\n=\tsomething#frag\nment"
+        url = "http\t://www.myFRpy\n.org\t/java\nscript:\talert('msg\r\n')/?query\n=\tsomething#frag\nment"
         p = urllib.parse.urlsplit(url)
         self.assertEqual(p.scheme, "http")
-        self.assertEqual(p.netloc, "www.python.org")
+        self.assertEqual(p.netloc, "www.myFRpy.org")
         self.assertEqual(p.path, "/javascript:alert('msg')/")
         self.assertEqual(p.query, "query=something")
         self.assertEqual(p.fragment, "fragment")
         self.assertEqual(p.username, None)
         self.assertEqual(p.password, None)
-        self.assertEqual(p.hostname, "www.python.org")
+        self.assertEqual(p.hostname, "www.myFRpy.org")
         self.assertEqual(p.port, None)
-        self.assertEqual(p.geturl(), "http://www.python.org/javascript:alert('msg')/?query=something#fragment")
+        self.assertEqual(p.geturl(), "http://www.myFRpy.org/javascript:alert('msg')/?query=something#fragment")
 
         # Remove ASCII tabs and newlines from input as bytes.
-        url = b"http\t://www.python\n.org\t/java\nscript:\talert('msg\r\n')/?query\n=\tsomething#frag\nment"
+        url = b"http\t://www.myFRpy\n.org\t/java\nscript:\talert('msg\r\n')/?query\n=\tsomething#frag\nment"
         p = urllib.parse.urlsplit(url)
         self.assertEqual(p.scheme, b"http")
-        self.assertEqual(p.netloc, b"www.python.org")
+        self.assertEqual(p.netloc, b"www.myFRpy.org")
         self.assertEqual(p.path, b"/javascript:alert('msg')/")
         self.assertEqual(p.query, b"query=something")
         self.assertEqual(p.fragment, b"fragment")
         self.assertEqual(p.username, None)
         self.assertEqual(p.password, None)
-        self.assertEqual(p.hostname, b"www.python.org")
+        self.assertEqual(p.hostname, b"www.myFRpy.org")
         self.assertEqual(p.port, None)
-        self.assertEqual(p.geturl(), b"http://www.python.org/javascript:alert('msg')/?query=something#fragment")
+        self.assertEqual(p.geturl(), b"http://www.myFRpy.org/javascript:alert('msg')/?query=something#fragment")
 
         # with scheme as cache-key
-        url = "http://www.python.org/java\nscript:\talert('msg\r\n')/?query\n=\tsomething#frag\nment"
+        url = "http://www.myFRpy.org/java\nscript:\talert('msg\r\n')/?query\n=\tsomething#frag\nment"
         scheme = "ht\ntp"
         for _ in range(2):
             p = urllib.parse.urlsplit(url, scheme=scheme)
             self.assertEqual(p.scheme, "http")
-            self.assertEqual(p.geturl(), "http://www.python.org/javascript:alert('msg')/?query=something#fragment")
+            self.assertEqual(p.geturl(), "http://www.myFRpy.org/javascript:alert('msg')/?query=something#fragment")
 
     def test_urlsplit_strip_url(self):
         noise = bytes(range(0, 0x20 + 1))
-        base_url = "http://User:Pass@www.python.org:080/doc/?query=yes#frag"
+        base_url = "http://User:Pass@www.myFRpy.org:080/doc/?query=yes#frag"
 
         url = noise.decode("utf-8") + base_url
         p = urllib.parse.urlsplit(url)
         self.assertEqual(p.scheme, "http")
-        self.assertEqual(p.netloc, "User:Pass@www.python.org:080")
+        self.assertEqual(p.netloc, "User:Pass@www.myFRpy.org:080")
         self.assertEqual(p.path, "/doc/")
         self.assertEqual(p.query, "query=yes")
         self.assertEqual(p.fragment, "frag")
         self.assertEqual(p.username, "User")
         self.assertEqual(p.password, "Pass")
-        self.assertEqual(p.hostname, "www.python.org")
+        self.assertEqual(p.hostname, "www.myFRpy.org")
         self.assertEqual(p.port, 80)
         self.assertEqual(p.geturl(), base_url)
 
         url = noise + base_url.encode("utf-8")
         p = urllib.parse.urlsplit(url)
         self.assertEqual(p.scheme, b"http")
-        self.assertEqual(p.netloc, b"User:Pass@www.python.org:080")
+        self.assertEqual(p.netloc, b"User:Pass@www.myFRpy.org:080")
         self.assertEqual(p.path, b"/doc/")
         self.assertEqual(p.query, b"query=yes")
         self.assertEqual(p.fragment, b"frag")
         self.assertEqual(p.username, b"User")
         self.assertEqual(p.password, b"Pass")
-        self.assertEqual(p.hostname, b"www.python.org")
+        self.assertEqual(p.hostname, b"www.myFRpy.org")
         self.assertEqual(p.port, 80)
         self.assertEqual(p.geturl(), base_url.encode("utf-8"))
 
         # Test that trailing space is preserved as some applications rely on
         # this within query strings.
-        query_spaces_url = "https://www.python.org:88/doc/?query=    "
+        query_spaces_url = "https://www.myFRpy.org:88/doc/?query=    "
         p = urllib.parse.urlsplit(noise.decode("utf-8") + query_spaces_url)
         self.assertEqual(p.scheme, "https")
-        self.assertEqual(p.netloc, "www.python.org:88")
+        self.assertEqual(p.netloc, "www.myFRpy.org:88")
         self.assertEqual(p.path, "/doc/")
         self.assertEqual(p.query, "query=    ")
         self.assertEqual(p.port, 88)
@@ -739,12 +739,12 @@ class UrlParseTestCase(unittest.TestCase):
         self.assertEqual(urllib.parse.urlunsplit(p), "www.pypi.org ")
 
         # with scheme as cache-key
-        url = "//www.python.org/"
+        url = "//www.myFRpy.org/"
         scheme = noise.decode("utf-8") + "https" + noise.decode("utf-8")
         for _ in range(2):
             p = urllib.parse.urlsplit(url, scheme=scheme)
             self.assertEqual(p.scheme, "https")
-            self.assertEqual(p.geturl(), "https://www.python.org/")
+            self.assertEqual(p.geturl(), "https://www.myFRpy.org/")
 
     def test_attributes_bad_port(self):
         """Check handling of invalid ports."""
@@ -838,17 +838,17 @@ class UrlParseTestCase(unittest.TestCase):
         # the same, otherwise it classifies the portion of url as path.
         self.assertEqual(urllib.parse.urlparse("path"),
                 ('','','path','','',''))
-        self.assertEqual(urllib.parse.urlparse("//www.python.org:80"),
-                ('','www.python.org:80','','','',''))
-        self.assertEqual(urllib.parse.urlparse("http://www.python.org:80"),
-                ('http','www.python.org:80','','','',''))
+        self.assertEqual(urllib.parse.urlparse("//www.myFRpy.org:80"),
+                ('','www.myFRpy.org:80','','','',''))
+        self.assertEqual(urllib.parse.urlparse("http://www.myFRpy.org:80"),
+                ('http','www.myFRpy.org:80','','','',''))
         # Repeat for bytes input
         self.assertEqual(urllib.parse.urlparse(b"path"),
                 (b'',b'',b'path',b'',b'',b''))
-        self.assertEqual(urllib.parse.urlparse(b"//www.python.org:80"),
-                (b'',b'www.python.org:80',b'',b'',b'',b''))
-        self.assertEqual(urllib.parse.urlparse(b"http://www.python.org:80"),
-                (b'http',b'www.python.org:80',b'',b'',b'',b''))
+        self.assertEqual(urllib.parse.urlparse(b"//www.myFRpy.org:80"),
+                (b'',b'www.myFRpy.org:80',b'',b'',b'',b''))
+        self.assertEqual(urllib.parse.urlparse(b"http://www.myFRpy.org:80"),
+                (b'http',b'www.myFRpy.org:80',b'',b'',b'',b''))
 
     def test_portseparator(self):
         # Issue 754016 makes changes for port separator ':' from scheme separator
@@ -857,16 +857,16 @@ class UrlParseTestCase(unittest.TestCase):
         self.assertEqual(urllib.parse.urlparse("path:80"), ('path','','80','','',''))
         self.assertEqual(urllib.parse.urlparse("http:"),('http','','','','',''))
         self.assertEqual(urllib.parse.urlparse("https:"),('https','','','','',''))
-        self.assertEqual(urllib.parse.urlparse("http://www.python.org:80"),
-                ('http','www.python.org:80','','','',''))
+        self.assertEqual(urllib.parse.urlparse("http://www.myFRpy.org:80"),
+                ('http','www.myFRpy.org:80','','','',''))
         # As usual, need to check bytes input as well
         self.assertEqual(urllib.parse.urlparse(b"http:80"), (b'http',b'',b'80',b'',b'',b''))
         self.assertEqual(urllib.parse.urlparse(b"https:80"), (b'https',b'',b'80',b'',b'',b''))
         self.assertEqual(urllib.parse.urlparse(b"path:80"), (b'path',b'',b'80',b'',b'',b''))
         self.assertEqual(urllib.parse.urlparse(b"http:"),(b'http',b'',b'',b'',b'',b''))
         self.assertEqual(urllib.parse.urlparse(b"https:"),(b'https',b'',b'',b'',b'',b''))
-        self.assertEqual(urllib.parse.urlparse(b"http://www.python.org:80"),
-                (b'http',b'www.python.org:80',b'',b'',b'',b''))
+        self.assertEqual(urllib.parse.urlparse(b"http://www.myFRpy.org:80"),
+                (b'http',b'www.myFRpy.org:80',b'',b'',b'',b''))
 
     def test_usingsys(self):
         # Issue 3314: sys module is used in the error
@@ -945,25 +945,25 @@ class UrlParseTestCase(unittest.TestCase):
         # Several functions that process either strings or ASCII encoded bytes
         # accept multiple arguments. Check they reject mixed type input
         with self.assertRaisesRegex(TypeError, "Cannot mix str"):
-            urllib.parse.urlparse("www.python.org", b"http")
+            urllib.parse.urlparse("www.myFRpy.org", b"http")
         with self.assertRaisesRegex(TypeError, "Cannot mix str"):
-            urllib.parse.urlparse(b"www.python.org", "http")
+            urllib.parse.urlparse(b"www.myFRpy.org", "http")
         with self.assertRaisesRegex(TypeError, "Cannot mix str"):
-            urllib.parse.urlsplit("www.python.org", b"http")
+            urllib.parse.urlsplit("www.myFRpy.org", b"http")
         with self.assertRaisesRegex(TypeError, "Cannot mix str"):
-            urllib.parse.urlsplit(b"www.python.org", "http")
+            urllib.parse.urlsplit(b"www.myFRpy.org", "http")
         with self.assertRaisesRegex(TypeError, "Cannot mix str"):
-            urllib.parse.urlunparse(( b"http", "www.python.org","","","",""))
+            urllib.parse.urlunparse(( b"http", "www.myFRpy.org","","","",""))
         with self.assertRaisesRegex(TypeError, "Cannot mix str"):
-            urllib.parse.urlunparse(("http", b"www.python.org","","","",""))
+            urllib.parse.urlunparse(("http", b"www.myFRpy.org","","","",""))
         with self.assertRaisesRegex(TypeError, "Cannot mix str"):
-            urllib.parse.urlunsplit((b"http", "www.python.org","","",""))
+            urllib.parse.urlunsplit((b"http", "www.myFRpy.org","","",""))
         with self.assertRaisesRegex(TypeError, "Cannot mix str"):
-            urllib.parse.urlunsplit(("http", b"www.python.org","","",""))
+            urllib.parse.urlunsplit(("http", b"www.myFRpy.org","","",""))
         with self.assertRaisesRegex(TypeError, "Cannot mix str"):
-            urllib.parse.urljoin("http://python.org", b"http://python.org")
+            urllib.parse.urljoin("http://myFRpy.org", b"http://myFRpy.org")
         with self.assertRaisesRegex(TypeError, "Cannot mix str"):
-            urllib.parse.urljoin(b"http://python.org", "http://python.org")
+            urllib.parse.urljoin(b"http://myFRpy.org", "http://myFRpy.org")
 
     def _check_result_type(self, str_type):
         num_args = len(str_type._fields)
@@ -1275,7 +1275,7 @@ class UrlParseTestCase(unittest.TestCase):
 
 class Utility_Tests(unittest.TestCase):
     """Testcase to test the various utility functions in the urllib."""
-    # In Python 2 this test class was in test_urllib.
+    # In MyFRpy 2 this test class was in test_urllib.
 
     def test_splittype(self):
         splittype = urllib.parse._splittype
@@ -1316,16 +1316,16 @@ class Utility_Tests(unittest.TestCase):
 
     def test_splituser(self):
         splituser = urllib.parse._splituser
-        self.assertEqual(splituser('User:Pass@www.python.org:080'),
-                         ('User:Pass', 'www.python.org:080'))
-        self.assertEqual(splituser('@www.python.org:080'),
-                         ('', 'www.python.org:080'))
-        self.assertEqual(splituser('www.python.org:080'),
-                         (None, 'www.python.org:080'))
+        self.assertEqual(splituser('User:Pass@www.myFRpy.org:080'),
+                         ('User:Pass', 'www.myFRpy.org:080'))
+        self.assertEqual(splituser('@www.myFRpy.org:080'),
+                         ('', 'www.myFRpy.org:080'))
+        self.assertEqual(splituser('www.myFRpy.org:080'),
+                         (None, 'www.myFRpy.org:080'))
         self.assertEqual(splituser('User:Pass@'),
                          ('User:Pass', ''))
-        self.assertEqual(splituser('User@example.com:Pass@www.python.org:080'),
-                         ('User@example.com:Pass', 'www.python.org:080'))
+        self.assertEqual(splituser('User@example.com:Pass@www.myFRpy.org:080'),
+                         ('User@example.com:Pass', 'www.myFRpy.org:080'))
 
     def test_splitpasswd(self):
         # Some of the password examples are not sensible, but it is added to
@@ -1373,12 +1373,12 @@ class Utility_Tests(unittest.TestCase):
         # Normal cases are exercised by other tests; ensure that we also
         # catch cases with no port specified (testcase ensuring coverage)
         splitquery = urllib.parse._splitquery
-        self.assertEqual(splitquery('http://python.org/fake?foo=bar'),
-                         ('http://python.org/fake', 'foo=bar'))
-        self.assertEqual(splitquery('http://python.org/fake?foo=bar?'),
-                         ('http://python.org/fake?foo=bar', ''))
-        self.assertEqual(splitquery('http://python.org/fake'),
-                         ('http://python.org/fake', None))
+        self.assertEqual(splitquery('http://myFRpy.org/fake?foo=bar'),
+                         ('http://myFRpy.org/fake', 'foo=bar'))
+        self.assertEqual(splitquery('http://myFRpy.org/fake?foo=bar?'),
+                         ('http://myFRpy.org/fake?foo=bar', ''))
+        self.assertEqual(splitquery('http://myFRpy.org/fake'),
+                         ('http://myFRpy.org/fake', None))
         self.assertEqual(splitquery('?foo=bar'), ('', 'foo=bar'))
 
     def test_splittag(self):
@@ -1413,10 +1413,10 @@ class Utility_Tests(unittest.TestCase):
         self.assertEqual(splitvalue('foo=bar=baz'), ('foo', 'bar=baz'))
 
     def test_to_bytes(self):
-        result = urllib.parse._to_bytes('http://www.python.org')
-        self.assertEqual(result, 'http://www.python.org')
+        result = urllib.parse._to_bytes('http://www.myFRpy.org')
+        self.assertEqual(result, 'http://www.myFRpy.org')
         self.assertRaises(UnicodeError, urllib.parse._to_bytes,
-                          'http://www.python.org/medi\u00e6val')
+                          'http://www.myFRpy.org/medi\u00e6val')
 
     def test_unwrap(self):
         for wrapped_url in ('<URL:scheme://host/path>', '<scheme://host/path>',

@@ -1,7 +1,7 @@
 
 # The cycle GC collector can be executed when any GC-tracked object is
 # allocated, e.g. during a call to PyList_New(), PyDict_New(), ...
-# Moreover, it can invoke arbitrary Python code via a weakref callback.
+# Moreover, it can invoke arbitrary MyFRpy code via a weakref callback.
 # This means that there are many places in the source where an arbitrary
 # mutation could unexpectedly occur.
 

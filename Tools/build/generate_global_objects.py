@@ -10,19 +10,19 @@ INTERNAL = os.path.join(ROOT, 'Include', 'internal')
 
 
 IGNORED = {
-    'ACTION',  # Python/_warnings.c
-    'ATTR',  # Python/_warnings.c and Objects/funcobject.c
+    'ACTION',  # MyFRpy/_warnings.c
+    'ATTR',  # MyFRpy/_warnings.c and Objects/funcobject.c
     'DUNDER',  # Objects/typeobject.c
     'RDUNDER',  # Objects/typeobject.c
     'SPECIAL',  # Objects/weakrefobject.c
     'NAME',  # Objects/typeobject.c
 }
 IDENTIFIERS = [
-    # from ADD() Python/_warnings.c
+    # from ADD() MyFRpy/_warnings.c
     'default',
     'ignore',
 
-    # from GET_WARNINGS_ATTR() in Python/_warnings.c
+    # from GET_WARNINGS_ATTR() in MyFRpy/_warnings.c
     'WarningMessage',
     '_showwarnmsg',
     '_warn_unawaited_coroutine',
@@ -139,7 +139,7 @@ NON_GENERATED_IMMORTAL_OBJECTS = [
 # helpers
 
 def iter_files():
-    for name in ('Modules', 'Objects', 'Parser', 'PC', 'Programs', 'Python'):
+    for name in ('Modules', 'Objects', 'Parser', 'PC', 'Programs', 'MyFRpy'):
         root = os.path.join(ROOT, name)
         for dirname, _, files in os.walk(root):
             for name in files:

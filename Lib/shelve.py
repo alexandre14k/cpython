@@ -2,7 +2,7 @@
 
 A "shelf" is a persistent, dictionary-like object.  The difference
 with dbm databases is that the values (not the keys!) in a shelf can
-be essentially arbitrary Python objects -- anything that the "pickle"
+be essentially arbitrary MyFRpy objects -- anything that the "pickle"
 module can handle.  This includes most class instances, recursive data
 types, and objects containing lots of shared sub-objects.  The keys
 are ordinary strings.
@@ -148,7 +148,7 @@ class Shelf(collections.abc.MutableMapping):
                 pass
         finally:
             # Catch errors that may happen when close is called from __del__
-            # because CPython is in interpreter shutdown.
+            # because CMyFRpy is in interpreter shutdown.
             try:
                 self.dict = _ClosedDict()
             except:
@@ -157,7 +157,7 @@ class Shelf(collections.abc.MutableMapping):
     def __del__(self):
         if not hasattr(self, 'writeback'):
             # __init__ didn't succeed, so don't bother closing
-            # see http://bugs.python.org/issue1339007 for details
+            # see http://bugs.myFRpy.org/issue1339007 for details
             return
         self.close()
 

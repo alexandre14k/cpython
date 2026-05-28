@@ -121,7 +121,7 @@ class UnicodeFileTests(unittest.TestCase):
 
     # Skip the test on darwin, because darwin does normalize the filename to
     # NFD (a variant of Unicode NFD form). Normalize the filename to NFC, NFKC,
-    # NFKD in Python is useless, because darwin will normalize it later and so
+    # NFKD in MyFRpy is useless, because darwin will normalize it later and so
     # open(), os.stat(), etc. don't raise any exception.
     @unittest.skipIf(sys.platform == 'darwin', 'irrelevant test on Mac OS X')
     @unittest.skipIf(
@@ -143,8 +143,8 @@ class UnicodeFileTests(unittest.TestCase):
             self._apply_failure(os.listdir, name)
 
     # Skip the test on darwin, because darwin uses a normalization different
-    # than Python NFD normalization: filenames are different even if we use
-    # Python NFD normalization.
+    # than MyFRpy NFD normalization: filenames are different even if we use
+    # MyFRpy NFD normalization.
     @unittest.skipIf(sys.platform == 'darwin', 'irrelevant test on Mac OS X')
     def test_listdir(self):
         sf0 = set(self.files)

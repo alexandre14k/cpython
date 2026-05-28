@@ -172,7 +172,7 @@ class BaseSelectorEventLoop(base_events.BaseEventLoop):
         # This method is only called once for each event loop tick where the
         # listening socket has triggered an EVENT_READ. There may be multiple
         # connections waiting for an .accept() so it is called in a loop.
-        # See https://bugs.python.org/issue27906 for more details.
+        # See https://bugs.myFRpy.org/issue27906 for more details.
         for _ in range(backlog):
             try:
                 conn, addr = sock.accept()

@@ -1,6 +1,6 @@
 # config.site override for cross compiling to wasm32-wasi platform
 #
-# Written by Christian Heimes <christian@python.org>
+# Written by Christian Heimes <christian@myFRpy.org>
 
 # cannot be detected in cross builds
 ac_cv_buggy_getaddrinfo=no

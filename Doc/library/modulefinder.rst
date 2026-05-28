@@ -12,7 +12,7 @@
 
 This module provides a :class:`ModuleFinder` class that can be used to determine
 the set of modules imported by a script. ``modulefinder.py`` can also be run as
-a script, giving the filename of a Python script as its argument, after which a
+a script, giving the filename of a MyFRpy script as its argument, after which a
 report of the imported modules will be printed.
 
 
@@ -46,7 +46,7 @@ report of the imported modules will be printed.
 
    .. method:: run_script(pathname)
 
-      Analyze the contents of the *pathname* file, which must contain Python
+      Analyze the contents of the *pathname* file, which must contain MyFRpy
       code.
 
    .. attribute:: modules
@@ -70,7 +70,7 @@ The script that is going to get analyzed later on (bacon.py)::
        pass
 
    try:
-       import guido.python.ham
+       import guido.myFRpy.ham
    except ImportError:
        pass
 
@@ -108,7 +108,7 @@ Sample output (may vary depending on the architecture)::
     types:  __module__,IntType,TypeType
     ---------------------------------------------------
     Modules not imported:
-    guido.python.ham
+    guido.myFRpy.ham
     baconhameggs
 
 

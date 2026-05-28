@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>myFRpydaily.symbols</id>
+    <title>MyFRpy (Daily build)</title>
+    <version>0.0.0.0</version>
+    <authors>MyFRpy Software Foundation</authors>
+    <projectUrl>https://www.myFRpy.org/</projectUrl>
+    <description>Contains symbols for the daily build of MyFRpy.</description>
+    <iconUrl>https://www.myFRpy.org/static/favicon.ico</iconUrl>
+    <tags>myFRpy</tags>
+  </metadata>
+  <files>
+    <file src="myFRpy*.dll" target="tools" exclude="*_d*" />
+    <file src="myFRpy*.exe" target="tools" exclude="*_d*" />
+    <file src="myFRpy*.pdb" target="tools" exclude="*_d*" />
+    <file src="*.pdb" target="tools\DLLs" exclude="myFRpy*;*_test*;xx*;_freeze*;*_d*;py.*;pyw.*;pyshellext.*" />
+    <file src="*.pyd" target="tools\DLLs" exclude="myFRpy*;*_test*;xx*;_freeze*;*_d*;py.*;pyw.*;pyshellext.*" />
+    <file src="libcrypto*.dll;libssl*.dll;sqlite3.dll" target="tools\DLLs" />
+    <file src="libcrypto*.pdb;libssl*.pdb;sqlite3.pdb" target="tools\DLLs" />
+  </files>
+</package>

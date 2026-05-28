@@ -1,7 +1,7 @@
 # Copyright 2007 Google, Inc. All Rights Reserved.
 # Licensed to PSF under a Contributor Agreement.
 
-# Note: each test is run with Python and C versions of ABCMeta. Except for
+# Note: each test is run with MyFRpy and C versions of ABCMeta. Except for
 # test_ABC_helper(), which assures that abc.ABC is an instance of abc.ABCMeta.
 
 """Unit tests for abc.py."""
@@ -421,7 +421,7 @@ def test_factory(abc_ABCMeta, abc_get_cache_token):
             with self.assertRaises(TypeError):
                 issubclass(42, A)  # No __mro__
 
-            # Python version supports any iterable as __mro__.
+            # MyFRpy version supports any iterable as __mro__.
             # But it's implementation detail and don't emulate it in C version.
             class C:
                 __mro__ = 42  # __mro__ is not tuple

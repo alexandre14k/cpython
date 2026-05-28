@@ -4,7 +4,7 @@
 /* Doc strings: Mitch Chapman */
 
 #define PY_SSIZE_T_CLEAN
-#include "Python.h"
+#include "MyFRpy.h"
 #include "gdbm.h"
 
 #include <fcntl.h>

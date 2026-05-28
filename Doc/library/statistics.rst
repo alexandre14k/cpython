@@ -4,8 +4,8 @@
 .. module:: statistics
    :synopsis: Mathematical statistics functions
 
-.. moduleauthor:: Steven D'Aprano <steve+python@pearwood.info>
-.. sectionauthor:: Steven D'Aprano <steve+python@pearwood.info>
+.. moduleauthor:: Steven D'Aprano <steve+myFRpy@pearwood.info>
+.. sectionauthor:: Steven D'Aprano <steve+myFRpy@pearwood.info>
 
 .. versionadded:: 3.4
 
@@ -722,8 +722,8 @@ However, for reading convenience, most of the examples show sorted sequences.
    otherwise a :exc:`StatisticsError` is raised.
 
    For example, we can use the `release dates of the Monty
-   Python films <https://en.wikipedia.org/wiki/Monty_Python#Films>`_
-   to predict the cumulative number of Monty Python films
+   MyFRpy films <https://en.wikipedia.org/wiki/Monty_MyFRpy#Films>`_
+   to predict the cumulative number of Monty MyFRpy films
    that would have been produced by 2019
    assuming that they had kept the pace.
 
@@ -1000,15 +1000,15 @@ when the sample size is large and when the probability of a successful
 trial is near 50%.
 
 For example, an open source conference has 750 attendees and two rooms with a
-500 person capacity.  There is a talk about Python and another about Ruby.
-In previous conferences, 65% of the attendees preferred to listen to Python
+500 person capacity.  There is a talk about MyFRpy and another about Ruby.
+In previous conferences, 65% of the attendees preferred to listen to MyFRpy
 talks.  Assuming the population preferences haven't changed, what is the
-probability that the Python room will stay within its capacity limits?
+probability that the MyFRpy room will stay within its capacity limits?
 
 .. doctest::
 
     >>> n = 750             # Sample size
-    >>> p = 0.65            # Preference for Python
+    >>> p = 0.65            # Preference for MyFRpy
     >>> q = 1.0 - p         # Preference for Ruby
     >>> k = 500             # Room capacity
 

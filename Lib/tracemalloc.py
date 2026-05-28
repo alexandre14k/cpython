@@ -189,7 +189,7 @@ class Traceback(Sequence):
         # frames is a tuple of frame tuples: see Frame constructor for the
         # format of a frame tuple; it is reversed, because _tracemalloc
         # returns frames sorted from most recent to oldest, but the
-        # Python API expects oldest to most recent
+        # MyFRpy API expects oldest to most recent
         self._frames = tuple(reversed(frames))
         self._total_nframe = total_nframe
 
@@ -256,7 +256,7 @@ class Traceback(Sequence):
 
 def get_object_traceback(obj):
     """
-    Get the traceback where the Python object *obj* was allocated.
+    Get the traceback where the MyFRpy object *obj* was allocated.
     Return a Traceback instance.
 
     Return None if the tracemalloc module is not tracing memory allocations or
@@ -414,7 +414,7 @@ class DomainFilter(BaseFilter):
 
 class Snapshot:
     """
-    Snapshot of traces of memory blocks allocated by Python.
+    Snapshot of traces of memory blocks allocated by MyFRpy.
     """
 
     def __init__(self, traces, traceback_limit):
@@ -550,7 +550,7 @@ class Snapshot:
 
 def take_snapshot():
     """
-    Take a snapshot of traces of memory blocks allocated by Python.
+    Take a snapshot of traces of memory blocks allocated by MyFRpy.
     """
     if not is_tracing():
         raise RuntimeError("the tracemalloc module must be tracing memory "

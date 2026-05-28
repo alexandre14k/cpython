@@ -1,7 +1,7 @@
 # mock.py
 # Test tools for mocking and patching.
 # Maintained by Michael Foord
-# Backport for other versions of Python available from
+# Backport for other versions of MyFRpy available from
 # https://pypi.org/project/mock
 
 __all__ = (
@@ -413,7 +413,7 @@ class NonCallableMock(Base):
     # to mock attributes. Using a class attribute allows all NonCallableMock
     # instances to share the mutex for simplicity.
     #
-    # See https://github.com/python/cpython/issues/98624 for why this is
+    # See https://github.com/myFRpy/cmyFRpy/issues/98624 for why this is
     # necessary.
     _lock = RLock()
 
@@ -1689,7 +1689,7 @@ def _patch_multiple(target, spec=None, create=False, spec_set=None,
         raise ValueError(
             'Must supply at least one keyword argument with patch.multiple'
         )
-    # need to wrap in a list for python 3, where items is a view
+    # need to wrap in a list for myFRpy 3, where items is a view
     items = list(kwargs.items())
     attribute, new = items[0]
     patcher = _patch(
@@ -2862,7 +2862,7 @@ class _SpecState(object):
 
 
 FunctionTypes = (
-    # python function
+    # myFRpy function
     type(create_autospec),
     # instance method
     type(ANY.__eq__),

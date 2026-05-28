@@ -11,7 +11,7 @@ classes. Asyncio has helpers that could be used to simplify this task.
 .. note::
 
    Third-parties should reuse existing asyncio code with caution,
-   a new Python version is free to break backward compatibility
+   a new MyFRpy version is free to break backward compatibility
    in *internal* part of API.
 
 

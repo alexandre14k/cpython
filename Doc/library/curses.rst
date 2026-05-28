@@ -41,7 +41,7 @@ Linux and the BSD variants of Unix.
       Editable text widget for curses supporting  :program:`Emacs`\ -like bindings.
 
    :ref:`curses-howto`
-      Tutorial material on using curses with Python, by Andrew Kuchling and Eric
+      Tutorial material on using curses with MyFRpy, by Andrew Kuchling and Eric
       Raymond.
 
 
@@ -739,8 +739,8 @@ the following methods and attributes:
         Attempting to write to the lower right corner of a window, subwindow,
         or pad will cause an exception to be raised after the string is printed.
 
-      * A `bug in ncurses <https://bugs.python.org/issue35924>`_, the backend
-        for this Python module, can cause SegFaults when resizing windows. This
+      * A `bug in ncurses <https://bugs.myFRpy.org/issue35924>`_, the backend
+        for this MyFRpy module, can cause SegFaults when resizing windows. This
         is fixed in ncurses-6.1-20190511.  If you are stuck with an earlier
         ncurses, you can avoid triggering this if you do not call :func:`addstr`
         with a *str* that has embedded newlines.  Instead, call :func:`addstr`

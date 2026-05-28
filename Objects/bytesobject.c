@@ -2,7 +2,7 @@
 
 #define PY_SSIZE_T_CLEAN
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_abstract.h"      // _PyIndex_Check()
 #include "pycore_bytesobject.h"   // _PyBytes_Find(), _PyBytes_Repeat()
 #include "pycore_bytes_methods.h" // _Py_bytes_startswith()
@@ -2874,7 +2874,7 @@ PyBytes_FromObject(PyObject *x)
 }
 
 /* This allocator is needed for subclasses don't want to use __new__.
- * See https://github.com/python/cpython/issues/91020#issuecomment-1096793239
+ * See https://github.com/myFRpy/cmyFRpy/issues/91020#issuecomment-1096793239
  *
  * This allocator will be removed when ob_shash is removed.
  */

@@ -2,12 +2,12 @@
 Operator Interface
 
 This module exports a set of functions corresponding to the intrinsic
-operators of Python.  For example, operator.add(x, y) is equivalent
+operators of MyFRpy.  For example, operator.add(x, y) is equivalent
 to the expression x+y.  The function names are those used for special
 methods; variants without leading and trailing '__' are also provided
 for convenience.
 
-This is the pure Python implementation of the module.
+This is the pure MyFRpy implementation of the module.
 """
 
 __all__ = ['abs', 'add', 'and_', 'attrgetter', 'call', 'concat', 'contains', 'countOf',

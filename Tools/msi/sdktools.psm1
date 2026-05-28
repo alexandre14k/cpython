@@ -18,7 +18,7 @@ function Sign-File {
     if (-not $description) {
         $description = $env:SigningDescription;
         if (-not $description) {
-            $description = "Python";
+            $description = "MyFRpy";
         }
     }
     if (-not $certsha1) {

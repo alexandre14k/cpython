@@ -180,7 +180,7 @@ class Tracer(Bdb):
         self.set_list = list(islice(self.expect_set, 1, None, 2))
 
     def trace_dispatch(self, frame, event, arg):
-        # On an 'exception' event, call_exc_trace() in Python/ceval.c discards
+        # On an 'exception' event, call_exc_trace() in MyFRpy/ceval.c discards
         # a BdbException raised by the Tracer instance, so we raise it on the
         # next trace_dispatch() call that occurs unless the set_quit() or
         # set_continue() method has been invoked on the 'exception' event.

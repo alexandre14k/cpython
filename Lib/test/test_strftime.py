@@ -66,7 +66,7 @@ class StrftimeTest(unittest.TestCase):
         self.strftest2(now)
 
         if support.verbose:
-            print("Strftime test, platform: %s, Python version: %s" % \
+            print("Strftime test, platform: %s, MyFRpy version: %s" % \
                   (sys.platform, sys.version.split()[0]))
 
         for j in range(-5, 5):

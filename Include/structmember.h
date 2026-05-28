@@ -5,7 +5,7 @@ extern "C" {
 #endif
 
 
-/* Interface to map C struct members to Python object attributes
+/* Interface to map C struct members to MyFRpy object attributes
  *
  * This header is deprecated: new code should not use stuff from here.
  * New definitions are in descrobject.h.
@@ -15,10 +15,10 @@ extern "C" {
  * So, don't be too eager to convert old code.
  *
  * It uses names not prefixed with Py_.
- * It is also *not* included from Python.h and must be included individually.
+ * It is also *not* included from MyFRpy.h and must be included individually.
  */
 
-#include <stddef.h> /* For offsetof (not always provided by Python.h) */
+#include <stddef.h> /* For offsetof (not always provided by MyFRpy.h) */
 
 /* Types */
 #define T_SHORT     Py_T_SHORT

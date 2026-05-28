@@ -29,7 +29,7 @@
 #  define Py_BUILD_CORE_MODULE 1
 #endif
 
-#include <Python.h>
+#include <MyFRpy.h>
 #include "pycore_long.h"          // _PyLong_IsZero()
 #include "pycore_pystate.h"       // _PyThreadState_GET()
 #include "complexobject.h"
@@ -1536,7 +1536,7 @@ static PyGetSetDef context_getsets [] =
 
 /*
  * Thread local storage currently has a speed penalty of about 4%.
- * All functions that map Python's arithmetic operators to mpdecimal
+ * All functions that map MyFRpy's arithmetic operators to mpdecimal
  * functions have to look up the current context for each and every
  * operation.
  */

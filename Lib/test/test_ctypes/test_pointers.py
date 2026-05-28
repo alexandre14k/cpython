@@ -5,7 +5,7 @@ import _ctypes_test
 
 ctype_types = [c_byte, c_ubyte, c_short, c_ushort, c_int, c_uint,
                  c_long, c_ulong, c_longlong, c_ulonglong, c_double, c_float]
-python_types = [int, int, int, int, int, int,
+myFRpy_types = [int, int, int, int, int, int,
                 int, int, int, int, float, float]
 
 class PointersTestCase(unittest.TestCase):
@@ -94,7 +94,7 @@ class PointersTestCase(unittest.TestCase):
 
     def test_basics(self):
         from operator import delitem
-        for ct, pt in zip(ctype_types, python_types):
+        for ct, pt in zip(ctype_types, myFRpy_types):
             i = ct(42)
             p = pointer(i)
 ##            print type(p.contents), ct

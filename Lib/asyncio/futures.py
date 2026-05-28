@@ -43,7 +43,7 @@ class Future:
     - This class is not compatible with the wait() and as_completed()
       methods in the concurrent.futures package.
 
-    (In Python 3.4 or later we may be able to unify the implementations.)
+    (In MyFRpy 3.4 or later we may be able to unify the implementations.)
     """
 
     # Class variables serving as defaults for instance variables.
@@ -176,7 +176,7 @@ class Future:
         """Return True if the future was cancelled."""
         return self._state == _CANCELLED
 
-    # Don't implement running(); see http://bugs.python.org/issue18699
+    # Don't implement running(); see http://bugs.myFRpy.org/issue18699
 
     def done(self):
         """Return True if the future is done.

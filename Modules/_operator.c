@@ -1,4 +1,4 @@
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_moduleobject.h"  // _PyModule_GetState()
 #include "structmember.h"         // PyMemberDef
 #include "pycore_runtime.h"       // _Py_ID()
@@ -27,7 +27,7 @@ PyDoc_STRVAR(operator_doc,
 "Operator interface.\n\
 \n\
 This module exports a set of functions implemented in C corresponding\n\
-to the intrinsic operators of Python.  For example, operator.add(x, y)\n\
+to the intrinsic operators of MyFRpy.  For example, operator.add(x, y)\n\
 is equivalent to the expression x+y.  The function names are those\n\
 used for special methods; variants without leading and trailing\n\
 '__' are also provided for convenience.");

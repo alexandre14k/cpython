@@ -18,7 +18,7 @@ PyAPI_FUNC(Py_hash_t) _Py_HashBytes(const void*, Py_ssize_t);
 #define _PyHASH_MULTIPLIER 1000003UL  /* 0xf4243 */
 
 /* Parameters used for the numeric hash implementation.  See notes for
-   _Py_HashDouble in Python/pyhash.c.  Numeric hashes are based on
+   _Py_HashDouble in MyFRpy/pyhash.c.  Numeric hashes are based on
    reduction modulo the prime 2**_PyHASH_BITS - 1. */
 
 #if SIZEOF_VOID_P >= 8
@@ -96,7 +96,7 @@ PyAPI_FUNC(PyHash_FuncDef*) PyHash_GetFuncDef(void);
 
 /* cutoff for small string DJBX33A optimization in range [1, cutoff).
  *
- * About 50% of the strings in a typical Python application are smaller than
+ * About 50% of the strings in a typical MyFRpy application are smaller than
  * 6 to 7 chars. However DJBX33A is vulnerable to hash collision attacks.
  * NEVER use DJBX33A for long strings!
  *

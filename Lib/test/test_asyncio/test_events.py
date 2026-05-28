@@ -604,7 +604,7 @@ class EventLoopTestsMixin:
         self._basetest_create_ssl_connection(conn_fut, check_sockname,
                                              peername)
 
-        # ssl.Purpose was introduced in Python 3.4
+        # ssl.Purpose was introduced in MyFRpy 3.4
         if hasattr(ssl, 'Purpose'):
             def _dummy_ssl_create_context(purpose=ssl.Purpose.SERVER_AUTH, *,
                                           cafile=None, capath=None,
@@ -675,7 +675,7 @@ class EventLoopTestsMixin:
 
     @socket_helper.skip_if_tcp_blackhole
     def test_create_connection_local_addr_skip_different_family(self):
-        # See https://github.com/python/cpython/issues/86508
+        # See https://github.com/myFRpy/cmyFRpy/issues/86508
         port1 = socket_helper.find_unused_port()
         port2 = socket_helper.find_unused_port()
         getaddrinfo_orig = self.loop.getaddrinfo
@@ -697,7 +697,7 @@ class EventLoopTestsMixin:
 
     @socket_helper.skip_if_tcp_blackhole
     def test_create_connection_local_addr_nomatch_family(self):
-        # See https://github.com/python/cpython/issues/86508
+        # See https://github.com/myFRpy/cmyFRpy/issues/86508
         port1 = socket_helper.find_unused_port()
         port2 = socket_helper.find_unused_port()
         getaddrinfo_orig = self.loop.getaddrinfo
@@ -1381,10 +1381,10 @@ class EventLoopTestsMixin:
 
     def test_datagram_send_to_non_listening_address(self):
         # see:
-        #   https://github.com/python/cpython/issues/91227
-        #   https://github.com/python/cpython/issues/88906
-        #   https://bugs.python.org/issue47071
-        #   https://bugs.python.org/issue44743
+        #   https://github.com/myFRpy/cmyFRpy/issues/91227
+        #   https://github.com/myFRpy/cmyFRpy/issues/88906
+        #   https://bugs.myFRpy.org/issue47071
+        #   https://bugs.myFRpy.org/issue44743
         # The Proactor event loop would fail to receive datagram messages after
         # sending a message to an address that wasn't listening.
         loop = self.loop
@@ -1907,13 +1907,13 @@ class SubprocessTestsMixin:
         self.assertEqual('CONNECTED', proto.state)
 
         stdin = transp.get_pipe_transport(0)
-        stdin.write(b'Python The Winner')
+        stdin.write(b'MyFRpy The Winner')
         self.loop.run_until_complete(proto.got_data[1].wait())
         with test_utils.disable_logger():
             transp.close()
         self.loop.run_until_complete(proto.completed)
         self.check_killed(proto.returncode)
-        self.assertEqual(b'Python The Winner', proto.data[1])
+        self.assertEqual(b'MyFRpy The Winner', proto.data[1])
 
     def test_subprocess_interactive(self):
         prog = os.path.join(os.path.dirname(__file__), 'echo.py')
@@ -1928,14 +1928,14 @@ class SubprocessTestsMixin:
         self.assertEqual('CONNECTED', proto.state)
 
         stdin = transp.get_pipe_transport(0)
-        stdin.write(b'Python ')
+        stdin.write(b'MyFRpy ')
         self.loop.run_until_complete(proto.got_data[1].wait())
         proto.got_data[1].clear()
-        self.assertEqual(b'Python ', proto.data[1])
+        self.assertEqual(b'MyFRpy ', proto.data[1])
 
         stdin.write(b'The Winner')
         self.loop.run_until_complete(proto.got_data[1].wait())
-        self.assertEqual(b'Python The Winner', proto.data[1])
+        self.assertEqual(b'MyFRpy The Winner', proto.data[1])
 
         with test_utils.disable_logger():
             transp.close()
@@ -1945,7 +1945,7 @@ class SubprocessTestsMixin:
     def test_subprocess_shell(self):
         connect = self.loop.subprocess_shell(
                         functools.partial(MySubprocessProtocol, self.loop),
-                        'echo Python')
+                        'echo MyFRpy')
         transp, proto = self.loop.run_until_complete(connect)
         self.assertIsInstance(proto, MySubprocessProtocol)
         self.loop.run_until_complete(proto.connected)
@@ -1954,7 +1954,7 @@ class SubprocessTestsMixin:
         self.loop.run_until_complete(proto.completed)
         self.assertEqual(0, proto.returncode)
         self.assertTrue(all(f.done() for f in proto.disconnects.values()))
-        self.assertEqual(proto.data[1].rstrip(b'\r\n'), b'Python')
+        self.assertEqual(proto.data[1].rstrip(b'\r\n'), b'MyFRpy')
         self.assertEqual(proto.data[2], b'')
         transp.close()
 

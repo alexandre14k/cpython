@@ -66,7 +66,7 @@ def _extension_in_filetypes(extension):
 
 
 class FiletypesTest(unittest.TestCase):
-    def test_python_source_files(self):
+    def test_myFRpy_source_files(self):
         for extension in util.py_extensions:
             with self.subTest(extension=extension):
                 self.assertTrue(

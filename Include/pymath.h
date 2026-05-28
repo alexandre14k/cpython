@@ -45,7 +45,7 @@
 #endif
 
 /* Py_HUGE_VAL should always be the same as Py_INFINITY.  But historically
- * this was not reliable and Python did not require IEEE floats and C99
+ * this was not reliable and MyFRpy did not require IEEE floats and C99
  * conformity.  Prefer Py_INFINITY for new code.
  */
 #ifndef Py_HUGE_VAL

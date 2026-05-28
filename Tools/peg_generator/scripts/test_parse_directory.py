@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.8
+#!/usr/bin/env myFRpy3.8
 
 import argparse
 import ast
@@ -108,7 +108,7 @@ def parse_directory(directory: str, verbose: bool, excluded_files: List[str], sh
     total_seconds = 0
 
     for file in sorted(glob(os.path.join(escape(directory), f"**/*.py"), recursive=True)):
-        # Only attempt to parse Python files and files that are not excluded
+        # Only attempt to parse MyFRpy files and files that are not excluded
         if any(PurePath(file).match(pattern) for pattern in excluded_files):
             continue
 

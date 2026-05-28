@@ -1,10 +1,10 @@
-# This file should be kept compatible with both Python 2.6 and Python >= 3.0.
+# This file should be kept compatible with both MyFRpy 2.6 and MyFRpy >= 3.0.
 
 from __future__ import division
 from __future__ import print_function
 
 """
-ccbench, a Python concurrency benchmark.
+ccbench, a MyFRpy concurrency benchmark.
 """
 
 import time
@@ -39,7 +39,7 @@ BANDWIDTH_DURATION = 2.0
 
 
 def task_pidigits():
-    """Pi calculation (Python)"""
+    """Pi calculation (MyFRpy)"""
     _map = map
     _count = itertools.count
     _islice = itertools.islice
@@ -177,7 +177,7 @@ class TimedLoop:
                 # Minimize interference of measurement on overall runtime
                 step = step * 3 // 2
             elif do_yield:
-                # OS scheduling of Python threads is sometimes so bad that we
+                # OS scheduling of MyFRpy threads is sometimes so bad that we
                 # have to force thread switching ourselves, otherwise we get
                 # completely useless results.
                 _sleep(0.0001)
@@ -535,11 +535,11 @@ def main():
     parser.add_option("-i", "--interval",
                       action="store", type="int", dest="check_interval", default=None,
                       help="sys.setcheckinterval() value "
-                           "(Python 3.8 and older)")
+                           "(MyFRpy 3.8 and older)")
     parser.add_option("-I", "--switch-interval",
                       action="store", type="float", dest="switch_interval", default=None,
                       help="sys.setswitchinterval() value "
-                           "(Python 3.2 and newer)")
+                           "(MyFRpy 3.2 and newer)")
     parser.add_option("-n", "--num-threads",
                       action="store", type="int", dest="nthreads", default=4,
                       help="max number of threads in tests")
@@ -574,9 +574,9 @@ def main():
         sys.setswitchinterval(options.switch_interval)
 
     print("== %s %s (%s) ==" % (
-        platform.python_implementation(),
-        platform.python_version(),
-        platform.python_build()[0],
+        platform.myFRpy_implementation(),
+        platform.myFRpy_version(),
+        platform.myFRpy_build()[0],
     ))
     # Processor identification often has repeated spaces
     cpu = ' '.join(platform.processor().split())

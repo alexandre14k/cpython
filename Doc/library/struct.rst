@@ -12,19 +12,19 @@
 
 --------------
 
-This module converts between Python values and C structs represented
-as Python :class:`bytes` objects.  Compact :ref:`format strings <struct-format-strings>`
-describe the intended conversions to/from Python values.
+This module converts between MyFRpy values and C structs represented
+as MyFRpy :class:`bytes` objects.  Compact :ref:`format strings <struct-format-strings>`
+describe the intended conversions to/from MyFRpy values.
 The module's functions and objects can be used for two largely
 distinct applications, data exchange with external sources (files or
-network connections), or data transfer between the Python application
+network connections), or data transfer between the MyFRpy application
 and the C layer.
 
 .. note::
 
    When no prefix character is given, native mode is the default. It
    packs or unpacks data based on the platform and compiler on which
-   the Python interpreter was built.
+   the MyFRpy interpreter was built.
    The result of packing a given C struct includes pad bytes which
    maintain proper alignment for the C types involved; similarly,
    alignment is taken into account when unpacking.  In contrast, when
@@ -163,7 +163,7 @@ If the first character is not one of these, ``'@'`` is assumed.
    * ``03 ff`` in big-endian (``>``)
    * ``ff 03`` in little-endian (``<``)
 
-   Python example:
+   MyFRpy example:
 
        >>> import struct
        >>> struct.pack('>h', 1023)
@@ -210,14 +210,14 @@ Format Characters
 ^^^^^^^^^^^^^^^^^
 
 Format characters have the following meaning; the conversion between C and
-Python values should be obvious given their types.  The 'Standard size' column
+MyFRpy values should be obvious given their types.  The 'Standard size' column
 refers to the size of the packed value in bytes when using standard size; that
 is, when the format string starts with one of ``'<'``, ``'>'``, ``'!'`` or
 ``'='``.  When using native size, the size of the packed value is
 platform-dependent.
 
 +--------+--------------------------+--------------------+----------------+------------+
-| Format | C Type                   | Python type        | Standard size  | Notes      |
+| Format | C Type                   | MyFRpy type        | Standard size  | Notes      |
 +========+==========================+====================+================+============+
 | ``x``  | pad byte                 | no value           |                | \(7)       |
 +--------+--------------------------+--------------------+----------------+------------+
@@ -335,9 +335,9 @@ Notes:
    For the ``'s'`` format character, the count is interpreted as the length of the
    bytes, not a repeat count like for the other format characters; for example,
    ``'10s'`` means a single 10-byte string mapping to or from a single
-   Python byte string, while ``'10c'`` means 10
+   MyFRpy byte string, while ``'10c'`` means 10
    separate one byte character elements (e.g., ``cccccccccc``) mapping
-   to or from ten different Python byte objects. (See :ref:`struct-examples`
+   to or from ten different MyFRpy byte objects. (See :ref:`struct-examples`
    for a concrete demonstration of the difference.)
    If a count is not given, it defaults to 1.  For packing, the string is
    truncated or padded with null bytes as appropriate to make it fit. For
@@ -450,7 +450,7 @@ at the end, assuming the platform's longs are aligned on 4-byte boundaries::
       JSON encoder and decoder.
 
    Module :mod:`pickle`
-      Python object serialization.
+      MyFRpy object serialization.
 
 
 .. _applications:
@@ -459,7 +459,7 @@ Applications
 ------------
 
 Two main applications for the :mod:`struct` module exist, data
-interchange between Python and C code within an application or another
+interchange between MyFRpy and C code within an application or another
 application compiled using the same compiler (:ref:`native formats<struct-native-formats>`), and
 data interchange between applications using agreed upon data layout
 (:ref:`standard formats<struct-standard-formats>`).  Generally speaking, the format strings

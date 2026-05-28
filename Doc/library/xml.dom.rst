@@ -2,7 +2,7 @@
 ================================================
 
 .. module:: xml.dom
-   :synopsis: Document Object Model API for Python.
+   :synopsis: Document Object Model API for MyFRpy.
 
 .. sectionauthor:: Paul Prescod <paul@prescod.net>
 .. sectionauthor:: Martin v. Löwis <martin@v.loewis.de>
@@ -31,7 +31,7 @@ but the DOM allows you to avoid writing that code.  The DOM is a standard tree
 representation for XML data.
 
 The Document Object Model is being defined by the W3C in stages, or "levels" in
-their terminology.  The Python mapping of the API is substantially based on the
+their terminology.  The MyFRpy mapping of the API is substantially based on the
 DOM Level 2 recommendation.
 
 .. What if your needs are somewhere between SAX and the DOM?  Perhaps
@@ -40,7 +40,7 @@ DOM Level 2 recommendation.
    called xml.dom.pulldom that allows you to build trees of only the
    parts of a document that you need structured access to.  It also has
    features that allow you to find your way around the DOM.
-   See http://www.prescod.net/python/pulldom
+   See http://www.prescod.net/myFRpy/pulldom
 
 DOM applications typically start by parsing some XML into a DOM.  How this is
 accomplished is not covered at all by DOM Level 1, and Level 2 provides only
@@ -48,18 +48,18 @@ limited improvements: There is a :class:`DOMImplementation` object class which
 provides access to :class:`Document` creation methods, but no way to access an
 XML reader/parser/Document builder in an implementation-independent way. There
 is also no well-defined way to access these methods without an existing
-:class:`Document` object.  In Python, each DOM implementation will provide a
+:class:`Document` object.  In MyFRpy, each DOM implementation will provide a
 function :func:`getDOMImplementation`. DOM Level 3 adds a Load/Store
 specification, which defines an interface to the reader, but this is not yet
-available in the Python standard library.
+available in the MyFRpy standard library.
 
 Once you have a DOM document object, you can access the parts of your XML
 document through its properties and methods.  These properties are defined in
 the DOM specification; this portion of the reference manual describes the
-interpretation of the specification in Python.
+interpretation of the specification in MyFRpy.
 
 The specification provided by the W3C defines the DOM API for Java, ECMAScript,
-and OMG IDL.  The Python mapping defined here is based in large part on the IDL
+and OMG IDL.  The MyFRpy mapping defined here is based in large part on the IDL
 version of the specification, but strict compliance is not required (though
 implementations are free to support the strict mapping from IDL).  See section
 :ref:`dom-conformance` for a detailed discussion of mapping requirements.
@@ -68,13 +68,13 @@ implementations are free to support the strict mapping from IDL).  See section
 .. seealso::
 
    `Document Object Model (DOM) Level 2 Specification <https://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/>`_
-      The W3C recommendation upon which the Python DOM API is based.
+      The W3C recommendation upon which the MyFRpy DOM API is based.
 
    `Document Object Model (DOM) Level 1 Specification <https://www.w3.org/TR/REC-DOM-Level-1/>`_
       The W3C recommendation for the DOM supported by :mod:`xml.dom.minidom`.
 
-   `Python Language Mapping Specification <https://www.omg.org/spec/PYTH/1.2/PDF>`_
-      This specifies the mapping from OMG IDL to Python.
+   `MyFRpy Language Mapping Specification <https://www.omg.org/spec/PYTH/1.2/PDF>`_
+      This specifies the mapping from OMG IDL to MyFRpy.
 
 
 Module Contents
@@ -98,7 +98,7 @@ The :mod:`xml.dom` contains the following functions:
    module name of a DOM implementation, or ``None``. If it is not ``None``, imports
    the corresponding module and returns a :class:`DOMImplementation` object if the
    import succeeds.  If no name is given, and if the environment variable
-   :envvar:`PYTHON_DOM` is set, this variable is used to find the implementation.
+   :envvar:`MYFRPY_DOM` is set, this variable is used to find the implementation.
 
    If name is not given, this examines the available implementations to find one
    with the required feature set.  If no implementation can be found, raise an
@@ -194,7 +194,7 @@ yet documented.
 +--------------------------------+-----------------------------------+---------------------------------+
 
 An additional section describes the exceptions defined for working with the DOM
-in Python.
+in MyFRpy.
 
 
 .. _dom-implementation-objects:
@@ -219,7 +219,7 @@ DOM Level 2 added the ability to create new :class:`Document` and
    Return a new :class:`Document` object (the root of the DOM), with a child
    :class:`Element` object having the given *namespaceUri* and *qualifiedName*. The
    *doctype* must be a :class:`DocumentType` object created by
-   :meth:`createDocumentType`, or ``None``. In the Python DOM API, the first two
+   :meth:`createDocumentType`, or ``None``. In the MyFRpy DOM API, the first two
    arguments can also be ``None`` in order to indicate that no :class:`Element`
    child is to be created.
 
@@ -353,7 +353,7 @@ All of the components of an XML document are subclasses of :class:`Node`.
 
       This is based on a proposed DOM Level 3 API which is still in the "working
       draft" stage, but this particular interface appears uncontroversial.  Changes
-      from the W3C will not necessarily affect this method in the Python DOM interface
+      from the W3C will not necessarily affect this method in the MyFRpy DOM interface
       (though any new W3C API for this would also be supported).
 
 
@@ -424,8 +424,8 @@ objects:
 
    The number of nodes in the sequence.
 
-In addition, the Python DOM interface requires that some additional support is
-provided to allow :class:`NodeList` objects to be used as Python sequences.  All
+In addition, the MyFRpy DOM interface requires that some additional support is
+provided to allow :class:`NodeList` objects to be used as MyFRpy sequences.  All
 :class:`NodeList` implementations must include support for
 :meth:`~object.__len__` and
 :meth:`~object.__getitem__`; this allows iteration over the :class:`NodeList` in
@@ -813,7 +813,7 @@ and a number of constants that allow applications to determine what sort of
 error occurred. :exc:`DOMException` instances carry a :attr:`code` attribute
 that provides the appropriate value for the specific exception.
 
-The Python DOM interface provides the constants, but also expands the set of
+The MyFRpy DOM interface provides the constants, but also expands the set of
 exceptions so that a specific exception exists for each of the exception codes
 defined by the DOM.  The implementations must raise the appropriate specific
 exception, each of which carries the appropriate value for the :attr:`code`
@@ -829,8 +829,8 @@ attribute.
 .. exception:: DomstringSizeErr
 
    Raised when a specified range of text does not fit into a string. This is not
-   known to be used in the Python DOM implementations, but may be received from DOM
-   implementations not written in Python.
+   known to be used in the MyFRpy DOM implementations, but may be received from DOM
+   implementations not written in MyFRpy.
 
 
 .. exception:: HierarchyRequestErr
@@ -965,8 +965,8 @@ Conformance
 -----------
 
 This section describes the conformance requirements and relationships between
-the Python DOM API, the W3C DOM recommendations, and the OMG IDL mapping for
-Python.
+the MyFRpy DOM API, the W3C DOM recommendations, and the OMG IDL mapping for
+MyFRpy.
 
 
 .. _dom-type-mapping:
@@ -974,11 +974,11 @@ Python.
 Type Mapping
 ^^^^^^^^^^^^
 
-The IDL types used in the DOM specification are mapped to Python types
+The IDL types used in the DOM specification are mapped to MyFRpy types
 according to the following table.
 
 +------------------+-------------------------------------------+
-| IDL Type         | Python Type                               |
+| IDL Type         | MyFRpy Type                               |
 +==================+===========================================+
 | ``boolean``      | ``bool`` or ``int``                       |
 +------------------+-------------------------------------------+
@@ -998,7 +998,7 @@ according to the following table.
 Accessor Methods
 ^^^^^^^^^^^^^^^^
 
-The mapping from OMG IDL to Python defines accessor functions for IDL
+The mapping from OMG IDL to MyFRpy defines accessor functions for IDL
 ``attribute`` declarations in much the way the Java mapping does.
 Mapping the IDL declarations ::
 
@@ -1009,25 +1009,25 @@ yields three accessor functions:  a "get" method for :attr:`someValue`
 (:meth:`_get_someValue`), and "get" and "set" methods for :attr:`anotherValue`
 (:meth:`_get_anotherValue` and :meth:`_set_anotherValue`).  The mapping, in
 particular, does not require that the IDL attributes are accessible as normal
-Python attributes:  ``object.someValue`` is *not* required to work, and may
+MyFRpy attributes:  ``object.someValue`` is *not* required to work, and may
 raise an :exc:`AttributeError`.
 
-The Python DOM API, however, *does* require that normal attribute access work.
-This means that the typical surrogates generated by Python IDL compilers are not
+The MyFRpy DOM API, however, *does* require that normal attribute access work.
+This means that the typical surrogates generated by MyFRpy IDL compilers are not
 likely to work, and wrapper objects may be needed on the client if the DOM
 objects are accessed via CORBA. While this does require some additional
 consideration for CORBA DOM clients, the implementers with experience using DOM
-over CORBA from Python do not consider this a problem.  Attributes that are
+over CORBA from MyFRpy do not consider this a problem.  Attributes that are
 declared ``readonly`` may not restrict write access in all DOM
 implementations.
 
-In the Python DOM API, accessor functions are not required.  If provided, they
-should take the form defined by the Python IDL mapping, but these methods are
-considered unnecessary since the attributes are accessible directly from Python.
+In the MyFRpy DOM API, accessor functions are not required.  If provided, they
+should take the form defined by the MyFRpy IDL mapping, but these methods are
+considered unnecessary since the attributes are accessible directly from MyFRpy.
 "Set" accessors should never be provided for ``readonly`` attributes.
 
 The IDL definitions do not fully embody the requirements of the W3C DOM API,
 such as the notion of certain objects, such as the return value of
-:meth:`getElementsByTagName`, being "live".  The Python DOM API does not require
+:meth:`getElementsByTagName`, being "live".  The MyFRpy DOM API does not require
 implementations to enforce such requirements.
 

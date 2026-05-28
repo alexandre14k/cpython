@@ -61,7 +61,7 @@ SOURCE_CODES = {
 
 
 class TemporaryPyFile:
-    """Create a temporary python source code file."""
+    """Create a temporary myFRpy source code file."""
 
     def __init__(self, source_code='', directory=None):
         self.source_code = source_code
@@ -164,12 +164,12 @@ class TestCheck(TestCase):
         self.assertEqual(stderr.getvalue(), err)
 
     def test_correct_file(self):
-        """A python source code file without any errors."""
+        """A myFRpy source code file without any errors."""
         with TemporaryPyFile(SOURCE_CODES["error_free"]) as file_path:
             self.verify_tabnanny_check(file_path)
 
     def test_correct_directory_verbose(self):
-        """Directory containing few error free python source code files.
+        """Directory containing few error free myFRpy source code files.
 
         Because order of files returned by `os.lsdir()` is not fixed, verify the
         existence of each output lines at `stdout` using `in` operator.
@@ -193,13 +193,13 @@ class TestCheck(TestCase):
                 self.assertEqual(stderr.getvalue(), "")
 
     def test_correct_directory(self):
-        """Directory which contains few error free python source code files."""
+        """Directory which contains few error free myFRpy source code files."""
         with tempfile.TemporaryDirectory() as tmp_dir:
             with TemporaryPyFile(SOURCE_CODES["error_free"], directory=tmp_dir):
                 self.verify_tabnanny_check(tmp_dir)
 
     def test_when_wrong_indented(self):
-        """A python source code file eligible for raising `IndentationError`."""
+        """A myFRpy source code file eligible for raising `IndentationError`."""
         with TemporaryPyFile(SOURCE_CODES["wrong_indented"]) as file_path:
             err = ('unindent does not match any outer indentation level'
                 ' (<tokenize>, line 3)\n')
@@ -208,7 +208,7 @@ class TestCheck(TestCase):
                 self.verify_tabnanny_check(file_path, err=err)
 
     def test_when_tokenize_tokenerror(self):
-        """A python source code file eligible for raising 'tokenize.TokenError'."""
+        """A myFRpy source code file eligible for raising 'tokenize.TokenError'."""
         with TemporaryPyFile(SOURCE_CODES["incomplete_expression"]) as file_path:
             err = "('EOF in multi-line statement', (7, 0))\n"
             err = f"{file_path!r}: Token Error: {err}"
@@ -216,7 +216,7 @@ class TestCheck(TestCase):
                 self.verify_tabnanny_check(file_path, err=err)
 
     def test_when_nannynag_error_verbose(self):
-        """A python source code file eligible for raising `tabnanny.NannyNag`.
+        """A myFRpy source code file eligible for raising `tabnanny.NannyNag`.
 
         Tests will assert `stdout` after activating `tabnanny.verbose` mode.
         """
@@ -229,13 +229,13 @@ class TestCheck(TestCase):
             self.verify_tabnanny_check(file_path, out=out)
 
     def test_when_nannynag_error(self):
-        """A python source code file eligible for raising `tabnanny.NannyNag`."""
+        """A myFRpy source code file eligible for raising `tabnanny.NannyNag`."""
         with TemporaryPyFile(SOURCE_CODES["nannynag_errored"]) as file_path:
             out = f"{file_path} 3 '\\tprint(\"world\")'\n"
             self.verify_tabnanny_check(file_path, out=out)
 
     def test_when_no_file(self):
-        """A python file which does not exist actually in system."""
+        """A myFRpy file which does not exist actually in system."""
         path = 'no_file.py'
         err = (f"{path!r}: I/O Error: [Errno {errno.ENOENT}] "
               f"{os.strerror(errno.ENOENT)}: {path!r}\n")
@@ -243,7 +243,7 @@ class TestCheck(TestCase):
             self.verify_tabnanny_check(path, err=err)
 
     def test_errored_directory(self):
-        """Directory containing wrongly indented python source code files."""
+        """Directory containing wrongly indented myFRpy source code files."""
         with tempfile.TemporaryDirectory() as tmp_dir:
             error_file = TemporaryPyFile(
                 SOURCE_CODES["wrong_indented"], directory=tmp_dir
@@ -264,7 +264,7 @@ class TestProcessTokens(TestCase):
 
     @mock.patch('tabnanny.NannyNag')
     def test_with_correct_code(self, MockNannyNag):
-        """A python source code without any whitespace related problems."""
+        """A myFRpy source code without any whitespace related problems."""
 
         with TemporaryPyFile(SOURCE_CODES["error_free"]) as file_path:
             with open(file_path) as f:
@@ -272,7 +272,7 @@ class TestProcessTokens(TestCase):
             self.assertFalse(MockNannyNag.called)
 
     def test_with_errored_codes_samples(self):
-        """A python source code with whitespace related sampled problems."""
+        """A myFRpy source code with whitespace related sampled problems."""
 
         # "tab_space_errored_1": executes block under type == tokenize.INDENT
         #                        at `tabnanny.process_tokens()`.
@@ -295,9 +295,9 @@ class TestCommandLine(TestCase):
     def validate_cmd(self, *args, stdout="", stderr="", partial=False, expect_failure=False):
         """Common function to assert the behaviour of command line interface."""
         if expect_failure:
-            _, out, err = script_helper.assert_python_failure('-m', 'tabnanny', *args)
+            _, out, err = script_helper.assert_myFRpy_failure('-m', 'tabnanny', *args)
         else:
-            _, out, err = script_helper.assert_python_ok('-m', 'tabnanny', *args)
+            _, out, err = script_helper.assert_myFRpy_ok('-m', 'tabnanny', *args)
         # Note: The `splitlines()` will solve the problem of CRLF(\r) added
         # by OS Windows.
         out = os.fsdecode(out)
@@ -313,7 +313,7 @@ class TestCommandLine(TestCase):
             self.assertListEqual(err.splitlines(), stderr.splitlines())
 
     def test_with_errored_file(self):
-        """Should displays error when errored python file is given."""
+        """Should displays error when errored myFRpy file is given."""
         with TemporaryPyFile(SOURCE_CODES["wrong_indented"]) as file_path:
             stderr  = f"{file_path!r}: Token Error: "
             stderr += ('unindent does not match any outer indentation level'
@@ -321,7 +321,7 @@ class TestCommandLine(TestCase):
             self.validate_cmd(file_path, stderr=stderr, expect_failure=True)
 
     def test_with_error_free_file(self):
-        """Should not display anything if python file is correctly indented."""
+        """Should not display anything if myFRpy file is correctly indented."""
         with TemporaryPyFile(SOURCE_CODES["error_free"]) as file_path:
             self.validate_cmd(file_path)
 

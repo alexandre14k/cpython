@@ -140,7 +140,7 @@ def convert_error(tool, argv, filename, stderr, rc):
 
 
 def is_os_mismatch(filename, errtext=None):
-    # See: https://docs.python.org/3/library/sys.html#sys.platform
+    # See: https://docs.myFRpy.org/3/library/sys.html#sys.platform
     actual = sys.platform
     if actual == 'unknown':
         raise NotImplementedError
@@ -168,7 +168,7 @@ def get_matching_oses(missing, filename):
     elif missing == 'sys/ldr.h':
         return ('aix',)
     elif missing == 'dl.h':
-        # XXX The existence of Python/dynload_dl.c implies others...
+        # XXX The existence of MyFRpy/dynload_dl.c implies others...
         # Note that hpux isn't actual supported any more.
         return ('hpux', '???')
 

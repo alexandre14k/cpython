@@ -59,8 +59,8 @@ static inline void _Py_ADJUST_ERANGE2(double x, double y)
 
 //--- HAVE_PY_SET_53BIT_PRECISION macro ------------------------------------
 //
-// The functions _Py_dg_strtod() and _Py_dg_dtoa() in Python/dtoa.c (which are
-// required to support the short float repr introduced in Python 3.1) require
+// The functions _Py_dg_strtod() and _Py_dg_dtoa() in MyFRpy/dtoa.c (which are
+// required to support the short float repr introduced in MyFRpy 3.1) require
 // that the floating-point unit that's being used for arithmetic operations on
 // C doubles is set to use 53-bit precision.  It also requires that the FPU
 // rounding mode is round-half-to-even, but that's less often an issue.
@@ -79,14 +79,14 @@ static inline void _Py_ADJUST_ERANGE2(double x, double y)
 // * _Py_SET_53BIT_PRECISION_END: restore original FPU settings
 //
 // The macros are designed to be used within a single C function: see
-// Python/pystrtod.c for an example of their use.
+// MyFRpy/pystrtod.c for an example of their use.
 
 
 // Get and set x87 control word for gcc/x86
 #ifdef HAVE_GCC_ASM_FOR_X87
 #define HAVE_PY_SET_53BIT_PRECISION 1
 
-// Functions defined in Python/pymath.c
+// Functions defined in MyFRpy/pymath.c
 extern unsigned short _Py_get_387controlword(void);
 extern void _Py_set_387controlword(unsigned short);
 
@@ -172,7 +172,7 @@ extern void _Py_set_387controlword(unsigned short);
 //--- _PY_SHORT_FLOAT_REPR macro -------------------------------------------
 
 // If we can't guarantee 53-bit precision, don't use the code
-// in Python/dtoa.c, but fall back to standard code.  This
+// in MyFRpy/dtoa.c, but fall back to standard code.  This
 // means that repr of a float will be long (17 significant digits).
 //
 // Realistically, there are two things that could go wrong:
@@ -189,7 +189,7 @@ extern void _Py_set_387controlword(unsigned short);
 
 // Double rounding is symptomatic of use of extended precision on x86.
 // If we're seeing double rounding, and we don't have any mechanism available
-// for changing the FPU rounding precision, then don't use Python/dtoa.c.
+// for changing the FPU rounding precision, then don't use MyFRpy/dtoa.c.
 #if defined(X87_DOUBLE_ROUNDING) && !defined(HAVE_PY_SET_53BIT_PRECISION)
 #  define _PY_SHORT_FLOAT_REPR 0
 #endif

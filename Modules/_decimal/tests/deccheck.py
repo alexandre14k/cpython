@@ -26,7 +26,7 @@
 #
 
 #
-# Usage: python deccheck.py [--short|--medium|--long|--all]
+# Usage: myFRpy deccheck.py [--short|--medium|--long|--all]
 #
 
 
@@ -340,7 +340,7 @@ class RestrictedList(list):
 
 class TestSet(object):
     """A TestSet contains the original input operands, converted operands,
-       Python exceptions that occurred either during conversion or during
+       MyFRpy exceptions that occurred either during conversion or during
        execution of the actual function, and the final results.
 
        For safety, most attributes are lists that only support the append
@@ -359,10 +359,10 @@ class TestSet(object):
         self.op = operands               # raw operand tuple
         self.context = context           # context used for the operation
         self.cop = RestrictedList()      # converted C.Decimal operands
-        self.cex = RestrictedList()      # Python exceptions for C.Decimal
+        self.cex = RestrictedList()      # MyFRpy exceptions for C.Decimal
         self.cresults = RestrictedList() # C.Decimal results
         self.pop = RestrictedList()      # converted P.Decimal operands
-        self.pex = RestrictedList()      # Python exceptions for P.Decimal
+        self.pex = RestrictedList()      # MyFRpy exceptions for P.Decimal
         self.presults = RestrictedList() # P.Decimal results
 
         # If the above results are exact, unrounded and not clamped, repeat
@@ -376,7 +376,7 @@ class TestSet(object):
         self.maxcontext.clear_flags()
 
         self.maxop = RestrictedList()       # converted C.Decimal operands
-        self.maxex = RestrictedList()       # Python exceptions for C.Decimal
+        self.maxex = RestrictedList()       # MyFRpy exceptions for C.Decimal
         self.maxresults = RestrictedList()  # C.Decimal results
 
 
@@ -757,7 +757,7 @@ def convert(t, convstr=True):
 
 def callfuncs(t):
     """ t is the testset. At this stage the testset contains operand lists
-        t.cop and t.pop for the C and Python versions of decimal.
+        t.cop and t.pop for the C and MyFRpy versions of decimal.
         For Decimal methods, the first operands are of type C.Decimal and
         P.Decimal respectively. The remaining operands can have various types.
         For Context methods, all operands can have any type.
@@ -830,7 +830,7 @@ def verify(t, stat):
             t.cop: C.Decimal operands (see convert for details)
             t.pop: P.Decimal operands (see convert for details)
             t.rc: C result
-            t.rp: Python result
+            t.rp: MyFRpy result
 
         t.rc and t.rp can have various types.
     """
@@ -871,7 +871,7 @@ def verify(t, stat):
     # The return value lists must be equal.
     if t.cresults != t.presults:
         raise_error(t)
-    # The Python exception lists (TypeError, etc.) must be equal.
+    # The MyFRpy exception lists (TypeError, etc.) must be equal.
     if t.cex != t.pex:
         raise_error(t)
     # The context flags must be equal.
@@ -885,7 +885,7 @@ def verify(t, stat):
         # The return value lists must be equal.
         if t.maxresults != t.cresults:
             raise_error(t)
-        # The Python exception lists (TypeError, etc.) must be equal.
+        # The MyFRpy exception lists (TypeError, etc.) must be equal.
         if t.maxex != t.cex:
             raise_error(t)
         # The context flags must be equal.
@@ -1122,7 +1122,7 @@ def test_quantize_api(method, prec, exprange, restricted_range, itr, stat):
 
 
 def check_untested(funcdict, c_cls, p_cls):
-    """Determine untested, C-only and Python-only attributes.
+    """Determine untested, C-only and MyFRpy-only attributes.
        Uncomment print lines for debugging."""
     c_attr = set(dir(c_cls))
     p_attr = set(dir(p_cls))

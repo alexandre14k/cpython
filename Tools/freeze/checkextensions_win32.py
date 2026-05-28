@@ -81,7 +81,7 @@ def checkextensions(unknown, extra_inis, prefix):
 
 def get_extension_defn(moduleName, mapFileName, prefix):
     if win32api is None: return None
-    os.environ['PYTHONPREFIX'] = prefix
+    os.environ['MYFRPYPREFIX'] = prefix
     dsp = win32api.GetProfileVal(moduleName, "dsp", "", mapFileName)
     if dsp=="":
         return None
@@ -164,7 +164,7 @@ def write_extension_table(fname, modules):
 
 
 ext_src_header = """\
-#include "Python.h"
+#include "MyFRpy.h"
 """
 
 ext_tab_header = """\

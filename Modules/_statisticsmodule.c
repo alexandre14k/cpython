@@ -1,6 +1,6 @@
 /* statistics accelerator C extension: _statistics module. */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "clinic/_statisticsmodule.c.h"
 
 /*[clinic input]

@@ -242,7 +242,7 @@ class TclTest(unittest.TestCase):
     def testLoadWithUNC(self):
         # Build a UNC path from the regular path.
         # Something like
-        #   \\%COMPUTERNAME%\c$\python27\python.exe
+        #   \\%COMPUTERNAME%\c$\myFRpy27\myFRpy.exe
 
         fullname = os.path.abspath(sys.executable)
         if fullname[1] != ':':
@@ -648,7 +648,7 @@ class TclTest(unittest.TestCase):
         check('{\n')
         check('}\n')
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_new_tcl_obj(self):
         support.check_disallow_instantiation(self, _tkinter.Tcl_Obj)
         support.check_disallow_instantiation(self, _tkinter.TkttType)
@@ -659,14 +659,14 @@ class BigmemTclTest(unittest.TestCase):
     def setUp(self):
         self.interp = Tcl()
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     @unittest.skipUnless(INT_MAX < PY_SSIZE_T_MAX, "needs UINT_MAX < SIZE_MAX")
     @support.bigmemtest(size=INT_MAX + 1, memuse=5, dry_run=False)
     def test_huge_string_call(self, size):
         value = ' ' * size
         self.assertRaises(OverflowError, self.interp.call, 'string', 'index', value, 0)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     @unittest.skipUnless(INT_MAX < PY_SSIZE_T_MAX, "needs UINT_MAX < SIZE_MAX")
     @support.bigmemtest(size=INT_MAX + 1, memuse=2, dry_run=False)
     def test_huge_string_builtins(self, size):
@@ -691,7 +691,7 @@ class BigmemTclTest(unittest.TestCase):
         self.assertRaises(OverflowError, tk.createcommand, value, max)
         self.assertRaises(OverflowError, tk.deletecommand, value)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     @unittest.skipUnless(INT_MAX < PY_SSIZE_T_MAX, "needs UINT_MAX < SIZE_MAX")
     @support.bigmemtest(size=INT_MAX + 1, memuse=6, dry_run=False)
     def test_huge_string_builtins2(self, size):

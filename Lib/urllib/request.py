@@ -31,7 +31,7 @@ install_opener -- Installs a new opener as the default opener.
 
 objects of interest:
 
-OpenerDirector -- Sets up the User Agent as the Python-urllib client and manages
+OpenerDirector -- Sets up the User Agent as the MyFRpy-urllib client and manages
 the Handler classes, while dealing with requests and responses.
 
 Request -- An object that encapsulates the state of a request.  The
@@ -64,7 +64,7 @@ opener = urllib.request.build_opener(proxy_support, authinfo,
 # install it
 urllib.request.install_opener(opener)
 
-f = urllib.request.urlopen('https://www.python.org/')
+f = urllib.request.urlopen('https://www.myFRpy.org/')
 """
 
 # XXX issues:
@@ -421,7 +421,7 @@ class Request:
 
 class OpenerDirector:
     def __init__(self):
-        client_version = "Python-urllib/%s" % __version__
+        client_version = "MyFRpy-urllib/%s" % __version__
         self.addheaders = [('User-agent', client_version)]
         # self.handlers is retained only for backward compatibility
         self.handlers = []
@@ -1702,7 +1702,7 @@ class URLopener:
 
     __tempfiles = None
 
-    version = "Python-urllib/%s" % __version__
+    version = "MyFRpy-urllib/%s" % __version__
 
     # Constructor
     def __init__(self, proxies=None, **x509):

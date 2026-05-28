@@ -4,7 +4,7 @@ Test implementation of the PEP 509: dictionary versioning.
 import unittest
 from test.support import import_helper
 
-# PEP 509 is implemented in CPython but other Python implementations
+# PEP 509 is implemented in CMyFRpy but other MyFRpy implementations
 # don't require to implement it
 _testcapi = import_helper.import_module('_testcapi')
 

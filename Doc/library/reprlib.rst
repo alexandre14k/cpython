@@ -11,7 +11,7 @@
 --------------
 
 The :mod:`!reprlib` module provides a means for producing object representations
-with limits on the size of the resulting strings. This is used in the Python
+with limits on the size of the resulting strings. This is used in the MyFRpy
 debugger and may be useful in other contexts as well.
 
 This module provides a class, an instance, and a function:
@@ -47,7 +47,7 @@ This module provides a class, an instance, and a function:
 
    This is an instance of :class:`Repr` which is used to provide the
    :func:`.repr` function described below.  Changing the attributes of this
-   object will affect the size limits used by :func:`.repr` and the Python
+   object will affect the size limits used by :func:`.repr` and the MyFRpy
    debugger.
 
 

@@ -312,9 +312,9 @@ if ssl is not None:
 class NetworkedNNTPTests(NetworkedNNTPTestsMixin, unittest.TestCase):
     # This server supports STARTTLS (gmane doesn't)
     NNTP_HOST = 'news.trigofacile.com'
-    GROUP_NAME = 'fr.comp.lang.python'
+    GROUP_NAME = 'fr.comp.lang.myFRpy'
     GROUP_PAT = 'fr.comp.lang.*'
-    DESC = 'Python'
+    DESC = 'MyFRpy'
 
     NNTP_CLASS = NNTP
 
@@ -550,8 +550,8 @@ class NNTPv1Handler:
         self.push_lit("111 20100914001155")
 
     def handle_GROUP(self, group):
-        if group == "fr.comp.lang.python":
-            self.push_lit("211 486 761 1265 fr.comp.lang.python")
+        if group == "fr.comp.lang.myFRpy":
+            self.push_lit("211 486 761 1265 fr.comp.lang.myFRpy")
         else:
             self.push_lit("411 No such group {}".format(group))
 
@@ -584,19 +584,19 @@ class NNTPv1Handler:
         if action is None:
             self.push_lit("""\
                 215 Newsgroups in form "group high low flags".
-                comp.lang.python 0000052340 0000002828 y
-                comp.lang.python.announce 0000001153 0000000993 m
-                free.it.comp.lang.python 0000000002 0000000002 y
-                fr.comp.lang.python 0000001254 0000000760 y
-                free.it.comp.lang.python.learner 0000000000 0000000001 y
-                tw.bbs.comp.lang.python 0000000304 0000000304 y
+                comp.lang.myFRpy 0000052340 0000002828 y
+                comp.lang.myFRpy.announce 0000001153 0000000993 m
+                free.it.comp.lang.myFRpy 0000000002 0000000002 y
+                fr.comp.lang.myFRpy 0000001254 0000000760 y
+                free.it.comp.lang.myFRpy.learner 0000000000 0000000001 y
+                tw.bbs.comp.lang.myFRpy 0000000304 0000000304 y
                 .""")
         elif action == "ACTIVE":
             if param == "*distutils*":
                 self.push_lit("""\
                     215 Newsgroups in form "group high low flags"
-                    gmane.comp.python.distutils.devel 0000014104 0000000001 m
-                    gmane.comp.python.distutils.cvs 0000000000 0000000001 m
+                    gmane.comp.myFRpy.distutils.devel 0000014104 0000000001 m
+                    gmane.comp.myFRpy.distutils.cvs 0000000000 0000000001 m
                     .""")
             else:
                 self.push_lit("""\
@@ -616,16 +616,16 @@ class NNTPv1Handler:
                 .""")
         elif action == "NEWSGROUPS":
             assert param is not None
-            if param == "comp.lang.python":
+            if param == "comp.lang.myFRpy":
                 self.push_lit("""\
                     215 Descriptions in form "group description".
-                    comp.lang.python\tThe Python computer language.
+                    comp.lang.myFRpy\tThe MyFRpy computer language.
                     .""")
-            elif param == "comp.lang.python*":
+            elif param == "comp.lang.myFRpy*":
                 self.push_lit("""\
                     215 Descriptions in form "group description".
-                    comp.lang.python.announce\tAnnouncements about the Python language. (Moderated)
-                    comp.lang.python\tThe Python computer language.
+                    comp.lang.myFRpy.announce\tAnnouncements about the MyFRpy language. (Moderated)
+                    comp.lang.myFRpy\tThe MyFRpy computer language.
                     .""")
             else:
                 self.push_lit("""\
@@ -637,7 +637,7 @@ class NNTPv1Handler:
     def handle_NEWNEWS(self, group, date_str, time_str):
         # We hard code different return messages depending on passed
         # argument and date syntax.
-        if (group == "comp.lang.python" and date_str == "20100913"
+        if (group == "comp.lang.myFRpy" and date_str == "20100913"
             and time_str == "082004"):
             # Date was passed in RFC 3977 format (NNTP "v2")
             self.push_lit("""\
@@ -645,7 +645,7 @@ class NNTPv1Handler:
                 <a4929a40-6328-491a-aaaf-cb79ed7309a2@q2g2000vbk.googlegroups.com>
                 <f30c0419-f549-4218-848f-d7d0131da931@y3g2000vbm.googlegroups.com>
                 .""")
-        elif (group == "comp.lang.python" and date_str == "100913"
+        elif (group == "comp.lang.myFRpy" and date_str == "100913"
             and time_str == "082004"):
             # Date was passed in RFC 977 format (NNTP "v1")
             self.push_lit("""\
@@ -653,7 +653,7 @@ class NNTPv1Handler:
                 <a4929a40-6328-491a-aaaf-cb79ed7309a2@q2g2000vbk.googlegroups.com>
                 <f30c0419-f549-4218-848f-d7d0131da931@y3g2000vbm.googlegroups.com>
                 .""")
-        elif (group == 'comp.lang.python' and
+        elif (group == 'comp.lang.myFRpy' and
               date_str in ('20100101', '100101') and
               time_str == '090000'):
             self.push_lit('too long line' * 3000 +
@@ -669,12 +669,12 @@ class NNTPv1Handler:
         if message_spec == "57-59":
             self.push_lit(
                 "224 Overview information for 57-58 follows\n"
-                "57\tRe: ANN: New Plone book with strong Python (and Zope) themes throughout"
+                "57\tRe: ANN: New Plone book with strong MyFRpy (and Zope) themes throughout"
                     "\tDoug Hellmann <doug.hellmann-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>"
                     "\tSat, 19 Jun 2010 18:04:08 -0400"
                     "\t<4FD05F05-F98B-44DC-8111-C6009C925F0C@gmail.com>"
                     "\t<hvalf7$ort$1@dough.gmane.org>\t7103\t16"
-                    "\tXref: news.gmane.io gmane.comp.python.authors:57"
+                    "\tXref: news.gmane.io gmane.comp.myFRpy.authors:57"
                     "\n"
                 "58\tLooking for a few good bloggers"
                     "\tDoug Hellmann <doug.hellmann-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>"
@@ -683,13 +683,13 @@ class NNTPv1Handler:
                     "\t\t6683\t16"
                     "\t"
                     "\n"
-                # A UTF-8 overview line from fr.comp.lang.python
+                # A UTF-8 overview line from fr.comp.lang.myFRpy
                 "59\tRe: Message d'erreur incompréhensible (par moi)"
                     "\tEric Brunel <eric.brunel@pragmadev.nospam.com>"
                     "\tWed, 15 Sep 2010 18:09:15 +0200"
                     "\t<eric.brunel-2B8B56.18091515092010@news.wanadoo.fr>"
                     "\t<4c90ec87$0$32425$ba4acef3@reader.news.orange.fr>\t1641\t27"
-                    "\tXref: saria.nerim.net fr.comp.lang.python:1265"
+                    "\tXref: saria.nerim.net fr.comp.lang.myFRpy:1265"
                     "\n"
                 ".\n")
         else:
@@ -898,13 +898,13 @@ class NNTPv1v2TestsMixin:
         self.assertEqual(len(groups), 6)
         g = groups[1]
         self.assertEqual(g,
-            GroupInfo("comp.lang.python.announce", "0000001153",
+            GroupInfo("comp.lang.myFRpy.announce", "0000001153",
                       "0000000993", "m"))
         resp, groups = self.server.list("*distutils*")
         self.assertEqual(len(groups), 2)
         g = groups[0]
         self.assertEqual(g,
-            GroupInfo("gmane.comp.python.distutils.devel", "0000014104",
+            GroupInfo("gmane.comp.myFRpy.distutils.devel", "0000014104",
                       "0000000001", "m"))
 
     def test_stat(self):
@@ -936,42 +936,42 @@ class NNTPv1v2TestsMixin:
         self.assertEqual(message_id, "<45223423@example.com>")
 
     def test_description(self):
-        desc = self.server.description("comp.lang.python")
-        self.assertEqual(desc, "The Python computer language.")
-        desc = self.server.description("comp.lang.pythonx")
+        desc = self.server.description("comp.lang.myFRpy")
+        self.assertEqual(desc, "The MyFRpy computer language.")
+        desc = self.server.description("comp.lang.myFRpyx")
         self.assertEqual(desc, "")
 
     def test_descriptions(self):
-        resp, groups = self.server.descriptions("comp.lang.python")
+        resp, groups = self.server.descriptions("comp.lang.myFRpy")
         self.assertEqual(resp, '215 Descriptions in form "group description".')
         self.assertEqual(groups, {
-            "comp.lang.python": "The Python computer language.",
+            "comp.lang.myFRpy": "The MyFRpy computer language.",
             })
-        resp, groups = self.server.descriptions("comp.lang.python*")
+        resp, groups = self.server.descriptions("comp.lang.myFRpy*")
         self.assertEqual(groups, {
-            "comp.lang.python": "The Python computer language.",
-            "comp.lang.python.announce": "Announcements about the Python language. (Moderated)",
+            "comp.lang.myFRpy": "The MyFRpy computer language.",
+            "comp.lang.myFRpy.announce": "Announcements about the MyFRpy language. (Moderated)",
             })
-        resp, groups = self.server.descriptions("comp.lang.pythonx")
+        resp, groups = self.server.descriptions("comp.lang.myFRpyx")
         self.assertEqual(groups, {})
 
     def test_group(self):
-        resp, count, first, last, group = self.server.group("fr.comp.lang.python")
+        resp, count, first, last, group = self.server.group("fr.comp.lang.myFRpy")
         self.assertTrue(resp.startswith("211 "), resp)
         self.assertEqual(first, 761)
         self.assertEqual(last, 1265)
         self.assertEqual(count, 486)
-        self.assertEqual(group, "fr.comp.lang.python")
+        self.assertEqual(group, "fr.comp.lang.myFRpy")
         with self.assertRaises(nntplib.NNTPTemporaryError) as cm:
-            self.server.group("comp.lang.python.devel")
+            self.server.group("comp.lang.myFRpy.devel")
         exc = cm.exception
         self.assertTrue(exc.response.startswith("411 No such group"),
                         exc.response)
 
     def test_newnews(self):
-        # NEWNEWS comp.lang.python [20]100913 082004
+        # NEWNEWS comp.lang.myFRpy [20]100913 082004
         dt = datetime.datetime(2010, 9, 13, 8, 20, 4)
-        resp, ids = self.server.newnews("comp.lang.python", dt)
+        resp, ids = self.server.newnews("comp.lang.myFRpy", dt)
         expected = (
             "230 list of newsarticles (NNTP v{0}) "
             "created after Mon Sep 13 08:20:04 2010 follows"
@@ -981,9 +981,9 @@ class NNTPv1v2TestsMixin:
             "<a4929a40-6328-491a-aaaf-cb79ed7309a2@q2g2000vbk.googlegroups.com>",
             "<f30c0419-f549-4218-848f-d7d0131da931@y3g2000vbm.googlegroups.com>",
             ])
-        # NEWNEWS fr.comp.lang.python [20]100913 082004
+        # NEWNEWS fr.comp.lang.myFRpy [20]100913 082004
         dt = datetime.datetime(2010, 9, 13, 8, 20, 4)
-        resp, ids = self.server.newnews("fr.comp.lang.python", dt)
+        resp, ids = self.server.newnews("fr.comp.lang.myFRpy", dt)
         self.assertEqual(resp, "230 An empty list of newsarticles follows")
         self.assertEqual(ids, [])
 
@@ -1154,13 +1154,13 @@ class NNTPv1v2TestsMixin:
         self.assertEqual(art_num, 57)
         self.assertEqual(over, {
             "from": "Doug Hellmann <doug.hellmann-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>",
-            "subject": "Re: ANN: New Plone book with strong Python (and Zope) themes throughout",
+            "subject": "Re: ANN: New Plone book with strong MyFRpy (and Zope) themes throughout",
             "date": "Sat, 19 Jun 2010 18:04:08 -0400",
             "message-id": "<4FD05F05-F98B-44DC-8111-C6009C925F0C@gmail.com>",
             "references": "<hvalf7$ort$1@dough.gmane.org>",
             ":bytes": "7103",
             ":lines": "16",
-            "xref": "news.gmane.io gmane.comp.python.authors:57"
+            "xref": "news.gmane.io gmane.comp.myFRpy.authors:57"
             })
         art_num, over = overviews[1]
         self.assertEqual(over["xref"], None)
@@ -1256,7 +1256,7 @@ class NNTPv1v2TestsMixin:
     def test_too_long_lines(self):
         dt = datetime.datetime(2010, 1, 1, 9, 0, 0)
         self.assertRaises(nntplib.NNTPDataError,
-                          self.server.newnews, "comp.lang.python", dt)
+                          self.server.newnews, "comp.lang.myFRpy", dt)
 
 
 class NNTPv1Tests(NNTPv1v2TestsMixin, MockedNNTPTestsMixin, unittest.TestCase):
@@ -1327,7 +1327,7 @@ class MiscTests(unittest.TestCase):
         gives("" , "")
         gives("a plain header", "a plain header")
         gives(" with extra  spaces ", " with extra  spaces ")
-        gives("=?ISO-8859-15?Q?D=E9buter_en_Python?=", "Débuter en Python")
+        gives("=?ISO-8859-15?Q?D=E9buter_en_MyFRpy?=", "Débuter en MyFRpy")
         gives("=?utf-8?q?Re=3A_=5Bsqlite=5D_probl=C3=A8me_avec_ORDER_BY_sur_des_cha?="
               " =?utf-8?q?=C3=AEnes_de_caract=C3=A8res_accentu=C3=A9es?=",
               "Re: [sqlite] problème avec ORDER BY sur des chaînes de caractères accentuées")
@@ -1562,7 +1562,7 @@ class MockSocketTests(unittest.TestCase):
     def test_login_aborted(self):
         #Test a bad authinfo response
         login = 't@e.com'
-        password = 'python'
+        password = 'myFRpy'
         class Handler(NNTPv1Handler):
             def handle_AUTHINFO(self, *args):
                 self.push_lit(authinfo_response)

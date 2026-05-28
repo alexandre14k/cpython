@@ -14,7 +14,7 @@
 
 This module defines the class :class:`FTP` and a few related items. The
 :class:`FTP` class implements the client side of the FTP protocol.  You can use
-this to write Python programs that perform a variety of automated FTP jobs, such
+this to write MyFRpy programs that perform a variety of automated FTP jobs, such
 as mirroring other FTP servers.  It is also used by the module
 :mod:`urllib.request` to handle URLs that use FTP.  For more information on FTP
 (File Transfer Protocol), see internet :rfc:`959`.

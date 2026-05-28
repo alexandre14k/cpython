@@ -7,7 +7,7 @@ cd ..\..\..\
 
 echo.
 echo # ======================================================================
-echo #                      Building Python (Debug^|x64)
+echo #                      Building MyFRpy (Debug^|x64)
 echo # ======================================================================
 echo.
 
@@ -22,26 +22,26 @@ echo.
 
 echo # ==================== refleak tests =======================
 echo.
-call python.bat -m test -uall -R 3:3 test_decimal
+call myFRpy.bat -m test -uall -R 3:3 test_decimal
 echo.
 echo.
 
 echo # ==================== regular tests =======================
 echo.
-call python.bat -m test -uall test_decimal
+call myFRpy.bat -m test -uall test_decimal
 echo.
 echo.
 
 echo # ==================== deccheck =======================
 echo.
-call python.bat .\Modules\_decimal\tests\deccheck.py
+call myFRpy.bat .\Modules\_decimal\tests\deccheck.py
 echo.
 echo.
 
 
 echo.
 echo # ======================================================================
-echo #                      Building Python (Release^|x64)
+echo #                      Building MyFRpy (Release^|x64)
 echo # ======================================================================
 echo.
 
@@ -56,20 +56,20 @@ echo.
 
 echo # ==================== regular tests =======================
 echo.
-call python.bat -m test -uall test_decimal
+call myFRpy.bat -m test -uall test_decimal
 echo.
 echo.
 
 echo # ==================== deccheck =======================
 echo.
-call python.bat .\Modules\_decimal\tests\deccheck.py
+call myFRpy.bat .\Modules\_decimal\tests\deccheck.py
 echo.
 echo.
 
 
 echo.
 echo # ======================================================================
-echo #                      Building Python (Debug^|Win32)
+echo #                      Building MyFRpy (Debug^|Win32)
 echo # ======================================================================
 echo.
 
@@ -84,26 +84,26 @@ echo.
 
 echo # ==================== refleak tests =======================
 echo.
-call python.bat -m test -uall -R 3:3 test_decimal
+call myFRpy.bat -m test -uall -R 3:3 test_decimal
 echo.
 echo.
 
 echo # ==================== regular tests =======================
 echo.
-call python.bat -m test -uall test_decimal
+call myFRpy.bat -m test -uall test_decimal
 echo.
 echo.
 
 echo # ==================== deccheck =======================
 echo.
-call python.bat .\Modules\_decimal\tests\deccheck.py
+call myFRpy.bat .\Modules\_decimal\tests\deccheck.py
 echo.
 echo.
 
 
 echo.
 echo # ======================================================================
-echo #                      Building Python (Release^|Win32)
+echo #                      Building MyFRpy (Release^|Win32)
 echo # ======================================================================
 echo.
 
@@ -118,12 +118,12 @@ echo.
 
 echo # ==================== regular tests =======================
 echo.
-call python.bat -m test -uall test_decimal
+call myFRpy.bat -m test -uall test_decimal
 echo.
 echo.
 
 echo # ==================== deccheck =======================
 echo.
-call python.bat .\Modules\_decimal\tests\deccheck.py
+call myFRpy.bat .\Modules\_decimal\tests\deccheck.py
 echo.
 echo.

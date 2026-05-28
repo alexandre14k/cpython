@@ -14,10 +14,10 @@ extern "C" {
 /* BEWARE:
 
    Each interface exports both functions and macros.  Extension modules should
-   use the functions, to ensure binary compatibility across Python versions.
-   Because the Python implementation is free to change internal details, and
+   use the functions, to ensure binary compatibility across MyFRpy versions.
+   Because the MyFRpy implementation is free to change internal details, and
    the macros may (or may not) expose details for speed, if you do use the
-   macros you must recompile your extensions with each Python release.
+   macros you must recompile your extensions with each MyFRpy release.
 
    Never mix calls to PyObject_ memory functions with calls to the platform
    malloc/realloc/ calloc/free, or with calls to PyMem_.
@@ -47,17 +47,17 @@ Functions and macros for modules that implement new object types.
    header fields.
 
 Note that objects created with PyObject_{New, NewVar} are allocated using the
-specialized Python allocator (implemented in obmalloc.c), if WITH_PYMALLOC is
+specialized MyFRpy allocator (implemented in obmalloc.c), if WITH_PYMALLOC is
 enabled.  In addition, a special debugging allocator is used if Py_DEBUG
 macro is also defined.
 
 In case a specific form of memory management is needed (for example, if you
 must use the platform malloc heap(s), or shared memory, or C++ local storage or
 operator new), you must first allocate the object with your custom allocator,
-then pass its pointer to PyObject_{Init, InitVar} for filling in its Python-
+then pass its pointer to PyObject_{Init, InitVar} for filling in its MyFRpy-
 specific fields:  reference count, type pointer, possibly others.  You should
-be aware that Python has no control over these objects because they don't
-cooperate with the Python memory manager.  Such objects may not be eligible
+be aware that MyFRpy has no control over these objects because they don't
+cooperate with the MyFRpy memory manager.  Such objects may not be eligible
 for automatic garbage collection and you have to make sure that they are
 released accordingly whenever their destructor gets called (cf. the specific
 form of memory management you're using).
@@ -71,9 +71,9 @@ PyObject_{New, NewVar, Del}.
  * ===========================
  */
 
-/* Functions to call the same malloc/realloc/free as used by Python's
+/* Functions to call the same malloc/realloc/free as used by MyFRpy's
    object allocator.  If WITH_PYMALLOC is enabled, these may differ from
-   the platform malloc/realloc/free.  The Python object allocator is
+   the platform malloc/realloc/free.  The MyFRpy object allocator is
    designed for fast, cache-conscious allocation of many "small" objects,
    and with low hidden memory overhead.
 
@@ -89,7 +89,7 @@ PyObject_{New, NewVar, Del}.
 
    For allocating objects, use PyObject_{New, NewVar} instead whenever
    possible.  The PyObject_{Malloc, Realloc, Free} family is exposed
-   so that you can exploit Python's small-block allocator for non-object
+   so that you can exploit MyFRpy's small-block allocator for non-object
    uses.  If you must use these routines to allocate object memory, make sure
    the object gets initialized via PyObject_{Init, InitVar} after obtaining
    the raw memory.
@@ -133,14 +133,14 @@ PyAPI_FUNC(PyVarObject *) _PyObject_NewVar(PyTypeObject *, Py_ssize_t);
 
 #define PyObject_New(type, typeobj) ((type *)_PyObject_New(typeobj))
 
-// Alias to PyObject_New(). In Python 3.8, PyObject_NEW() called directly
+// Alias to PyObject_New(). In MyFRpy 3.8, PyObject_NEW() called directly
 // PyObject_MALLOC() with _PyObject_SIZE().
 #define PyObject_NEW(type, typeobj) PyObject_New(type, (typeobj))
 
 #define PyObject_NewVar(type, typeobj, n) \
                 ( (type *) _PyObject_NewVar((typeobj), (n)) )
 
-// Alias to PyObject_NewVar(). In Python 3.8, PyObject_NEW_VAR() called
+// Alias to PyObject_NewVar(). In MyFRpy 3.8, PyObject_NEW_VAR() called
 // directly PyObject_MALLOC() with _PyObject_VAR_SIZE().
 #define PyObject_NEW_VAR(type, typeobj, n) PyObject_NewVar(type, (typeobj), (n))
 
@@ -223,9 +223,9 @@ PyAPI_FUNC(int) PyObject_GC_IsFinalized(PyObject *);
     } while (0)
 
 #ifndef Py_LIMITED_API
-#  define Py_CPYTHON_OBJIMPL_H
-#  include "cpython/objimpl.h"
-#  undef Py_CPYTHON_OBJIMPL_H
+#  define Py_CMYFRPY_OBJIMPL_H
+#  include "cmyFRpy/objimpl.h"
+#  undef Py_CMYFRPY_OBJIMPL_H
 #endif
 
 #ifdef __cplusplus

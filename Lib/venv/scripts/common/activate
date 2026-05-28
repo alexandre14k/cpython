@@ -8,10 +8,10 @@ deactivate () {
         export PATH
         unset _OLD_VIRTUAL_PATH
     fi
-    if [ -n "${_OLD_VIRTUAL_PYTHONHOME:-}" ] ; then
-        PYTHONHOME="${_OLD_VIRTUAL_PYTHONHOME:-}"
-        export PYTHONHOME
-        unset _OLD_VIRTUAL_PYTHONHOME
+    if [ -n "${_OLD_VIRTUAL_MYFRPYHOME:-}" ] ; then
+        MYFRPYHOME="${_OLD_VIRTUAL_MYFRPYHOME:-}"
+        export MYFRPYHOME
+        unset _OLD_VIRTUAL_MYFRPYHOME
     fi
 
     # Call hash to forget past commands. Without forgetting
@@ -49,12 +49,12 @@ _OLD_VIRTUAL_PATH="$PATH"
 PATH="$VIRTUAL_ENV/__VENV_BIN_NAME__:$PATH"
 export PATH
 
-# unset PYTHONHOME if set
-# this will fail if PYTHONHOME is set to the empty string (which is bad anyway)
-# could use `if (set -u; : $PYTHONHOME) ;` in bash
-if [ -n "${PYTHONHOME:-}" ] ; then
-    _OLD_VIRTUAL_PYTHONHOME="${PYTHONHOME:-}"
-    unset PYTHONHOME
+# unset MYFRPYHOME if set
+# this will fail if MYFRPYHOME is set to the empty string (which is bad anyway)
+# could use `if (set -u; : $MYFRPYHOME) ;` in bash
+if [ -n "${MYFRPYHOME:-}" ] ; then
+    _OLD_VIRTUAL_MYFRPYHOME="${MYFRPYHOME:-}"
+    unset MYFRPYHOME
 fi
 
 if [ -z "${VIRTUAL_ENV_DISABLE_PROMPT:-}" ] ; then

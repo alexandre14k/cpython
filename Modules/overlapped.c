@@ -1,13 +1,13 @@
 /*
  * Support for overlapped IO
  *
- * Some code borrowed from Modules/_winapi.c of CPython
+ * Some code borrowed from Modules/_winapi.c of CMyFRpy
  */
 
 /* XXX check overflow and DWORD <-> Py_ssize_t conversions
    Check itemsize */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "structmember.h"         // PyMemberDef
 
 #define WINDOWS_LEAN_AND_MEAN
@@ -31,7 +31,7 @@
 
 #define T_HANDLE T_POINTER
 
-/*[python input]
+/*[myFRpy input]
 class pointer_converter(CConverter):
     format_unit = '"F_POINTER"'
 
@@ -65,8 +65,8 @@ class DWORD_converter(unsigned_long_converter):
 
 class BOOL_converter(int_converter):
     type = 'BOOL'
-[python start generated code]*/
-/*[python end generated code: output=da39a3ee5e6b4b0d input=8a07ea3018f4cec8]*/
+[myFRpy start generated code]*/
+/*[myFRpy end generated code: output=da39a3ee5e6b4b0d input=8a07ea3018f4cec8]*/
 
 /*[clinic input]
 module _overlapped
@@ -617,7 +617,7 @@ mark_as_completed(OVERLAPPED *ov)
 }
 
 /*
- * A Python object wrapping an OVERLAPPED structure and other useful data
+ * A MyFRpy object wrapping an OVERLAPPED structure and other useful data
  * for overlapped I/O
  */
 
@@ -772,7 +772,7 @@ Overlapped_dealloc(OverlappedObject *self)
 }
 
 
-/* Convert IPv4 sockaddr to a Python str. */
+/* Convert IPv4 sockaddr to a MyFRpy str. */
 
 static PyObject *
 make_ipv4_addr(const struct sockaddr_in *addr)
@@ -785,7 +785,7 @@ make_ipv4_addr(const struct sockaddr_in *addr)
         return PyUnicode_FromString(buf);
 }
 
-/* Convert IPv6 sockaddr to a Python str. */
+/* Convert IPv6 sockaddr to a MyFRpy str. */
 
 static PyObject *
 make_ipv6_addr(const struct sockaddr_in6 *addr)

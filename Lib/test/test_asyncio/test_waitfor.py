@@ -239,7 +239,7 @@ class AsyncioWaitForTest(unittest.IsolatedAsyncioTestCase):
         with self.assertRaises(asyncio.CancelledError):
             await wait
 
-        # Python issue #23219: cancelling the wait must also cancel the task
+        # MyFRpy issue #23219: cancelling the wait must also cancel the task
         self.assertTrue(task.cancelled())
 
     async def test_cancel_blocking_wait_for(self):

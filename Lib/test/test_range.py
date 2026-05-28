@@ -1,4 +1,4 @@
-# Python test set -- built-in functions
+# MyFRpy test set -- built-in functions
 
 import unittest
 import sys
@@ -6,7 +6,7 @@ import pickle
 import itertools
 from test.support import ALWAYS_EQ
 
-# pure Python implementations (3 args only), for comparison
+# pure MyFRpy implementations (3 args only), for comparison
 def pyrange(start, stop, step):
     if (start - stop) // step < 0:
         # replace stop with next element in the sequence of integers

@@ -7,19 +7,19 @@
 Initialization, Finalization, and Threads
 *****************************************
 
-See also :ref:`Python Initialization Configuration <init-config>`.
+See also :ref:`MyFRpy Initialization Configuration <init-config>`.
 
 .. _pre-init-safe:
 
-Before Python Initialization
+Before MyFRpy Initialization
 ============================
 
-In an application embedding  Python, the :c:func:`Py_Initialize` function must
-be called before using any other Python/C API functions; with the exception of
+In an application embedding  MyFRpy, the :c:func:`Py_Initialize` function must
+be called before using any other MyFRpy/C API functions; with the exception of
 a few functions and the :ref:`global configuration variables
 <global-conf-vars>`.
 
-The following functions can be safely called before Python is initialized:
+The following functions can be safely called before MyFRpy is initialized:
 
 * Configuration functions:
 
@@ -31,7 +31,7 @@ The following functions can be safely called before Python is initialized:
   * :c:func:`PyObject_SetArenaAllocator`
   * :c:func:`Py_SetPath`
   * :c:func:`Py_SetProgramName`
-  * :c:func:`Py_SetPythonHome`
+  * :c:func:`Py_SetMyFRpyHome`
   * :c:func:`Py_SetStandardStreamEncoding`
   * :c:func:`PySys_AddWarnOption`
   * :c:func:`PySys_AddXOption`
@@ -64,7 +64,7 @@ The following functions can be safely called before Python is initialized:
    The following functions **should not be called** before
    :c:func:`Py_Initialize`: :c:func:`Py_EncodeLocale`, :c:func:`Py_GetPath`,
    :c:func:`Py_GetPrefix`, :c:func:`Py_GetExecPrefix`,
-   :c:func:`Py_GetProgramFullPath`, :c:func:`Py_GetPythonHome`,
+   :c:func:`Py_GetProgramFullPath`, :c:func:`Py_GetMyFRpyHome`,
    :c:func:`Py_GetProgramName` and :c:func:`PyEval_InitThreads`.
 
 
@@ -73,7 +73,7 @@ The following functions can be safely called before Python is initialized:
 Global configuration variables
 ==============================
 
-Python has variables for the global configuration to control different features
+MyFRpy has variables for the global configuration to control different features
 and options. By default, these flags are controlled by :ref:`command line
 options <using-on-interface-options>`.
 
@@ -84,7 +84,7 @@ to 1 and ``-bb`` sets :c:data:`Py_BytesWarningFlag` to 2.
 .. c:var:: int Py_BytesWarningFlag
 
    This API is kept for backward compatibility: setting
-   :c:member:`PyConfig.bytes_warning` should be used instead, see :ref:`Python
+   :c:member:`PyConfig.bytes_warning` should be used instead, see :ref:`MyFRpy
    Initialization Configuration <init-config>`.
 
    Issue a warning when comparing :class:`bytes` or :class:`bytearray` with
@@ -98,13 +98,13 @@ to 1 and ``-bb`` sets :c:data:`Py_BytesWarningFlag` to 2.
 .. c:var:: int Py_DebugFlag
 
    This API is kept for backward compatibility: setting
-   :c:member:`PyConfig.parser_debug` should be used instead, see :ref:`Python
+   :c:member:`PyConfig.parser_debug` should be used instead, see :ref:`MyFRpy
    Initialization Configuration <init-config>`.
 
    Turn on parser debugging output (for expert only, depending on compilation
    options).
 
-   Set by the :option:`-d` option and the :envvar:`PYTHONDEBUG` environment
+   Set by the :option:`-d` option and the :envvar:`MYFRPYDEBUG` environment
    variable.
 
    .. deprecated:: 3.12
@@ -112,13 +112,13 @@ to 1 and ``-bb`` sets :c:data:`Py_BytesWarningFlag` to 2.
 .. c:var:: int Py_DontWriteBytecodeFlag
 
    This API is kept for backward compatibility: setting
-   :c:member:`PyConfig.write_bytecode` should be used instead, see :ref:`Python
+   :c:member:`PyConfig.write_bytecode` should be used instead, see :ref:`MyFRpy
    Initialization Configuration <init-config>`.
 
-   If set to non-zero, Python won't try to write ``.pyc`` files on the
+   If set to non-zero, MyFRpy won't try to write ``.pyc`` files on the
    import of source modules.
 
-   Set by the :option:`-B` option and the :envvar:`PYTHONDONTWRITEBYTECODE`
+   Set by the :option:`-B` option and the :envvar:`MYFRPYDONTWRITEBYTECODE`
    environment variable.
 
    .. deprecated:: 3.12
@@ -127,7 +127,7 @@ to 1 and ``-bb`` sets :c:data:`Py_BytesWarningFlag` to 2.
 
    This API is kept for backward compatibility: setting
    :c:member:`PyConfig.pathconfig_warnings` should be used instead, see
-   :ref:`Python Initialization Configuration <init-config>`.
+   :ref:`MyFRpy Initialization Configuration <init-config>`.
 
    Suppress error messages when calculating the module search path in
    :c:func:`Py_GetPath`.
@@ -140,13 +140,13 @@ to 1 and ``-bb`` sets :c:data:`Py_BytesWarningFlag` to 2.
 
    This API is kept for backward compatibility: setting
    :c:member:`PyConfig.hash_seed` and :c:member:`PyConfig.use_hash_seed` should
-   be used instead, see :ref:`Python Initialization Configuration
+   be used instead, see :ref:`MyFRpy Initialization Configuration
    <init-config>`.
 
-   Set to ``1`` if the :envvar:`PYTHONHASHSEED` environment variable is set to
+   Set to ``1`` if the :envvar:`MYFRPYHASHSEED` environment variable is set to
    a non-empty string.
 
-   If the flag is non-zero, read the :envvar:`PYTHONHASHSEED` environment
+   If the flag is non-zero, read the :envvar:`MYFRPYHASHSEED` environment
    variable to initialize the secret hash seed.
 
    .. deprecated:: 3.12
@@ -155,10 +155,10 @@ to 1 and ``-bb`` sets :c:data:`Py_BytesWarningFlag` to 2.
 
    This API is kept for backward compatibility: setting
    :c:member:`PyConfig.use_environment` should be used instead, see
-   :ref:`Python Initialization Configuration <init-config>`.
+   :ref:`MyFRpy Initialization Configuration <init-config>`.
 
-   Ignore all :envvar:`!PYTHON*` environment variables, e.g.
-   :envvar:`PYTHONPATH` and :envvar:`PYTHONHOME`, that might be set.
+   Ignore all :envvar:`!MYFRPY*` environment variables, e.g.
+   :envvar:`MYFRPYPATH` and :envvar:`MYFRPYHOME`, that might be set.
 
    Set by the :option:`-E` and :option:`-I` options.
 
@@ -168,13 +168,13 @@ to 1 and ``-bb`` sets :c:data:`Py_BytesWarningFlag` to 2.
 
    This API is kept for backward compatibility: setting
    :c:member:`PyConfig.inspect` should be used instead, see
-   :ref:`Python Initialization Configuration <init-config>`.
+   :ref:`MyFRpy Initialization Configuration <init-config>`.
 
    When a script is passed as first argument or the :option:`-c` option is used,
    enter interactive mode after executing the script or the command, even when
    :data:`sys.stdin` does not appear to be a terminal.
 
-   Set by the :option:`-i` option and the :envvar:`PYTHONINSPECT` environment
+   Set by the :option:`-i` option and the :envvar:`MYFRPYINSPECT` environment
    variable.
 
    .. deprecated:: 3.12
@@ -183,7 +183,7 @@ to 1 and ``-bb`` sets :c:data:`Py_BytesWarningFlag` to 2.
 
    This API is kept for backward compatibility: setting
    :c:member:`PyConfig.interactive` should be used instead, see
-   :ref:`Python Initialization Configuration <init-config>`.
+   :ref:`MyFRpy Initialization Configuration <init-config>`.
 
    Set by the :option:`-i` option.
 
@@ -193,9 +193,9 @@ to 1 and ``-bb`` sets :c:data:`Py_BytesWarningFlag` to 2.
 
    This API is kept for backward compatibility: setting
    :c:member:`PyConfig.isolated` should be used instead, see
-   :ref:`Python Initialization Configuration <init-config>`.
+   :ref:`MyFRpy Initialization Configuration <init-config>`.
 
-   Run Python in isolated mode. In isolated mode :data:`sys.path` contains
+   Run MyFRpy in isolated mode. In isolated mode :data:`sys.path` contains
    neither the script's directory nor the user's site-packages directory.
 
    Set by the :option:`-I` option.
@@ -208,13 +208,13 @@ to 1 and ``-bb`` sets :c:data:`Py_BytesWarningFlag` to 2.
 
    This API is kept for backward compatibility: setting
    :c:member:`PyPreConfig.legacy_windows_fs_encoding` should be used instead, see
-   :ref:`Python Initialization Configuration <init-config>`.
+   :ref:`MyFRpy Initialization Configuration <init-config>`.
 
    If the flag is non-zero, use the ``mbcs`` encoding with ``replace`` error
    handler, instead of the UTF-8 encoding with ``surrogatepass`` error handler,
    for the :term:`filesystem encoding and error handler`.
 
-   Set to ``1`` if the :envvar:`PYTHONLEGACYWINDOWSFSENCODING` environment
+   Set to ``1`` if the :envvar:`MYFRPYLEGACYWINDOWSFSENCODING` environment
    variable is set to a non-empty string.
 
    See :pep:`529` for more details.
@@ -227,12 +227,12 @@ to 1 and ``-bb`` sets :c:data:`Py_BytesWarningFlag` to 2.
 
    This API is kept for backward compatibility: setting
    :c:member:`PyConfig.legacy_windows_stdio` should be used instead, see
-   :ref:`Python Initialization Configuration <init-config>`.
+   :ref:`MyFRpy Initialization Configuration <init-config>`.
 
    If the flag is non-zero, use :class:`io.FileIO` instead of
    :class:`!io._WindowsConsoleIO` for :mod:`sys` standard streams.
 
-   Set to ``1`` if the :envvar:`PYTHONLEGACYWINDOWSSTDIO` environment
+   Set to ``1`` if the :envvar:`MYFRPYLEGACYWINDOWSSTDIO` environment
    variable is set to a non-empty string.
 
    See :pep:`528` for more details.
@@ -245,7 +245,7 @@ to 1 and ``-bb`` sets :c:data:`Py_BytesWarningFlag` to 2.
 
    This API is kept for backward compatibility: setting
    :c:member:`PyConfig.site_import` should be used instead, see
-   :ref:`Python Initialization Configuration <init-config>`.
+   :ref:`MyFRpy Initialization Configuration <init-config>`.
 
    Disable the import of the module :mod:`site` and the site-dependent
    manipulations of :data:`sys.path` that it entails.  Also disable these
@@ -260,13 +260,13 @@ to 1 and ``-bb`` sets :c:data:`Py_BytesWarningFlag` to 2.
 
    This API is kept for backward compatibility: setting
    :c:member:`PyConfig.user_site_directory` should be used instead, see
-   :ref:`Python Initialization Configuration <init-config>`.
+   :ref:`MyFRpy Initialization Configuration <init-config>`.
 
    Don't add the :data:`user site-packages directory <site.USER_SITE>` to
    :data:`sys.path`.
 
    Set by the :option:`-s` and :option:`-I` options, and the
-   :envvar:`PYTHONNOUSERSITE` environment variable.
+   :envvar:`MYFRPYNOUSERSITE` environment variable.
 
    .. deprecated:: 3.12
 
@@ -274,9 +274,9 @@ to 1 and ``-bb`` sets :c:data:`Py_BytesWarningFlag` to 2.
 
    This API is kept for backward compatibility: setting
    :c:member:`PyConfig.optimization_level` should be used instead, see
-   :ref:`Python Initialization Configuration <init-config>`.
+   :ref:`MyFRpy Initialization Configuration <init-config>`.
 
-   Set by the :option:`-O` option and the :envvar:`PYTHONOPTIMIZE` environment
+   Set by the :option:`-O` option and the :envvar:`MYFRPYOPTIMIZE` environment
    variable.
 
    .. deprecated:: 3.12
@@ -284,7 +284,7 @@ to 1 and ``-bb`` sets :c:data:`Py_BytesWarningFlag` to 2.
 .. c:var:: int Py_QuietFlag
 
    This API is kept for backward compatibility: setting
-   :c:member:`PyConfig.quiet` should be used instead, see :ref:`Python
+   :c:member:`PyConfig.quiet` should be used instead, see :ref:`MyFRpy
    Initialization Configuration <init-config>`.
 
    Don't display the copyright and version messages even in interactive mode.
@@ -298,12 +298,12 @@ to 1 and ``-bb`` sets :c:data:`Py_BytesWarningFlag` to 2.
 .. c:var:: int Py_UnbufferedStdioFlag
 
    This API is kept for backward compatibility: setting
-   :c:member:`PyConfig.buffered_stdio` should be used instead, see :ref:`Python
+   :c:member:`PyConfig.buffered_stdio` should be used instead, see :ref:`MyFRpy
    Initialization Configuration <init-config>`.
 
    Force the stdout and stderr streams to be unbuffered.
 
-   Set by the :option:`-u` option and the :envvar:`PYTHONUNBUFFERED`
+   Set by the :option:`-u` option and the :envvar:`MYFRPYUNBUFFERED`
    environment variable.
 
    .. deprecated:: 3.12
@@ -311,7 +311,7 @@ to 1 and ``-bb`` sets :c:data:`Py_BytesWarningFlag` to 2.
 .. c:var:: int Py_VerboseFlag
 
    This API is kept for backward compatibility: setting
-   :c:member:`PyConfig.verbose` should be used instead, see :ref:`Python
+   :c:member:`PyConfig.verbose` should be used instead, see :ref:`MyFRpy
    Initialization Configuration <init-config>`.
 
    Print a message each time a module is initialized, showing the place
@@ -319,7 +319,7 @@ to 1 and ``-bb`` sets :c:data:`Py_BytesWarningFlag` to 2.
    to ``2``, print a message for each file that is checked for when
    searching for a module. Also provides information on module cleanup at exit.
 
-   Set by the :option:`-v` option and the :envvar:`PYTHONVERBOSE` environment
+   Set by the :option:`-v` option and the :envvar:`MYFRPYVERBOSE` environment
    variable.
 
    .. deprecated:: 3.12
@@ -344,9 +344,9 @@ Initializing and finalizing the interpreter
       single: PySys_SetArgvEx (C function)
       single: Py_FinalizeEx (C function)
 
-   Initialize the Python interpreter.  In an application embedding  Python,
-   this should be called before using any other Python/C API functions; see
-   :ref:`Before Python Initialization <pre-init-safe>` for the few exceptions.
+   Initialize the MyFRpy interpreter.  In an application embedding  MyFRpy,
+   this should be called before using any other MyFRpy/C API functions; see
+   :ref:`Before MyFRpy Initialization <pre-init-safe>` for the few exceptions.
 
    This initializes
    the table of loaded modules (``sys.modules``), and creates the fundamental
@@ -357,26 +357,26 @@ Initializing and finalizing the interpreter
    fatal error if the initialization fails.
 
    Use the :c:func:`Py_InitializeFromConfig` function to customize the
-   :ref:`Python Initialization Configuration <init-config>`.
+   :ref:`MyFRpy Initialization Configuration <init-config>`.
 
    .. note::
       On Windows, changes the console mode from ``O_TEXT`` to ``O_BINARY``, which will
-      also affect non-Python uses of the console using the C Runtime.
+      also affect non-MyFRpy uses of the console using the C Runtime.
 
 
 .. c:function:: void Py_InitializeEx(int initsigs)
 
    This function works like :c:func:`Py_Initialize` if *initsigs* is ``1``. If
    *initsigs* is ``0``, it skips initialization registration of signal handlers, which
-   might be useful when Python is embedded.
+   might be useful when MyFRpy is embedded.
 
    Use the :c:func:`Py_InitializeFromConfig` function to customize the
-   :ref:`Python Initialization Configuration <init-config>`.
+   :ref:`MyFRpy Initialization Configuration <init-config>`.
 
 
 .. c:function:: int Py_IsInitialized()
 
-   Return true (nonzero) when the Python interpreter has been initialized, false
+   Return true (nonzero) when the MyFRpy interpreter has been initialized, false
    (zero) if not.  After :c:func:`Py_FinalizeEx` is called, this returns false until
    :c:func:`Py_Initialize` is called again.
 
@@ -384,34 +384,34 @@ Initializing and finalizing the interpreter
 .. c:function:: int Py_FinalizeEx()
 
    Undo all initializations made by :c:func:`Py_Initialize` and subsequent use of
-   Python/C API functions, and destroy all sub-interpreters (see
+   MyFRpy/C API functions, and destroy all sub-interpreters (see
    :c:func:`Py_NewInterpreter` below) that were created and not yet destroyed since
    the last call to :c:func:`Py_Initialize`.  Ideally, this frees all memory
-   allocated by the Python interpreter.  This is a no-op when called for a second
+   allocated by the MyFRpy interpreter.  This is a no-op when called for a second
    time (without calling :c:func:`Py_Initialize` again first).  Normally the
    return value is ``0``.  If there were errors during finalization
    (flushing buffered data), ``-1`` is returned.
 
    This function is provided for a number of reasons.  An embedding application
-   might want to restart Python without having to restart the application itself.
-   An application that has loaded the Python interpreter from a dynamically
-   loadable library (or DLL) might want to free all memory allocated by Python
+   might want to restart MyFRpy without having to restart the application itself.
+   An application that has loaded the MyFRpy interpreter from a dynamically
+   loadable library (or DLL) might want to free all memory allocated by MyFRpy
    before unloading the DLL. During a hunt for memory leaks in an application a
-   developer might want to free all memory allocated by Python before exiting from
+   developer might want to free all memory allocated by MyFRpy before exiting from
    the application.
 
    **Bugs and caveats:** The destruction of modules and objects in modules is done
    in random order; this may cause destructors (:meth:`~object.__del__` methods) to fail
    when they depend on other objects (even functions) or modules.  Dynamically
-   loaded extension modules loaded by Python are not unloaded.  Small amounts of
-   memory allocated by the Python interpreter may not be freed (if you find a leak,
+   loaded extension modules loaded by MyFRpy are not unloaded.  Small amounts of
+   memory allocated by the MyFRpy interpreter may not be freed (if you find a leak,
    please report it).  Memory tied up in circular references between objects is not
    freed.  Some memory allocated by extension modules may not be freed.  Some
    extensions may not work properly if their initialization routine is called more
    than once; this can happen if an application calls :c:func:`Py_Initialize` and
    :c:func:`Py_FinalizeEx` more than once.
 
-   .. audit-event:: cpython._PySys_ClearAuditHooks "" c.Py_FinalizeEx
+   .. audit-event:: cmyFRpy._PySys_ClearAuditHooks "" c.Py_FinalizeEx
 
    .. versionadded:: 3.6
 
@@ -434,18 +434,18 @@ Process-wide parameters
 
    This API is kept for backward compatibility: setting
    :c:member:`PyConfig.stdio_encoding` and :c:member:`PyConfig.stdio_errors`
-   should be used instead, see :ref:`Python Initialization Configuration
+   should be used instead, see :ref:`MyFRpy Initialization Configuration
    <init-config>`.
 
    This function should be called before :c:func:`Py_Initialize`, if it is
    called at all. It specifies which encoding and error handling to use
    with standard IO, with the same meanings as in :func:`str.encode`.
 
-   It overrides :envvar:`PYTHONIOENCODING` values, and allows embedding code
+   It overrides :envvar:`MYFRPYIOENCODING` values, and allows embedding code
    to control IO encoding when the environment variable does not work.
 
    *encoding* and/or *errors* may be ``NULL`` to use
-   :envvar:`PYTHONIOENCODING` and/or default values (depending on other
+   :envvar:`MYFRPYIOENCODING` and/or default values (depending on other
    settings).
 
    Note that :data:`sys.stderr` always uses the "backslashreplace" error
@@ -470,7 +470,7 @@ Process-wide parameters
       single: Py_GetPath()
 
    This API is kept for backward compatibility: setting
-   :c:member:`PyConfig.program_name` should be used instead, see :ref:`Python
+   :c:member:`PyConfig.program_name` should be used instead, see :ref:`MyFRpy
    Initialization Configuration <init-config>`.
 
    This function should be called before :c:func:`Py_Initialize` is called for
@@ -478,10 +478,10 @@ Process-wide parameters
    of the ``argv[0]`` argument to the :c:func:`main` function of the program
    (converted to wide characters).
    This is used by :c:func:`Py_GetPath` and some other functions below to find
-   the Python run-time libraries relative to the interpreter executable.  The
-   default value is ``'python'``.  The argument should point to a
+   the MyFRpy run-time libraries relative to the interpreter executable.  The
+   default value is ``'myFRpy'``.  The argument should point to a
    zero-terminated wide character string in static storage whose contents will not
-   change for the duration of the program's execution.  No code in the Python
+   change for the duration of the program's execution.  No code in the MyFRpy
    interpreter will change the contents of this storage.
 
    Use :c:func:`Py_DecodeLocale` to decode a bytes string to get a
@@ -510,11 +510,11 @@ Process-wide parameters
    Return the *prefix* for installed platform-independent files. This is derived
    through a number of complicated rules from the program name set with
    :c:func:`Py_SetProgramName` and some environment variables; for example, if the
-   program name is ``'/usr/local/bin/python'``, the prefix is ``'/usr/local'``. The
+   program name is ``'/usr/local/bin/myFRpy'``, the prefix is ``'/usr/local'``. The
    returned string points into static storage; the caller should not modify its
    value.  This corresponds to the :makevar:`prefix` variable in the top-level
    :file:`Makefile` and the :option:`--prefix` argument to the :program:`configure`
-   script at build time.  The value is available to Python code as ``sys.prefix``.
+   script at build time.  The value is available to MyFRpy code as ``sys.prefix``.
    It is only useful on Unix.  See also the next function.
 
    This function should not be called before :c:func:`Py_Initialize`, otherwise
@@ -529,12 +529,12 @@ Process-wide parameters
    Return the *exec-prefix* for installed platform-*dependent* files.  This is
    derived through a number of complicated rules from the program name set with
    :c:func:`Py_SetProgramName` and some environment variables; for example, if the
-   program name is ``'/usr/local/bin/python'``, the exec-prefix is
+   program name is ``'/usr/local/bin/myFRpy'``, the exec-prefix is
    ``'/usr/local'``.  The returned string points into static storage; the caller
    should not modify its value.  This corresponds to the :makevar:`exec_prefix`
    variable in the top-level :file:`Makefile` and the ``--exec-prefix``
    argument to the :program:`configure` script at build  time.  The value is
-   available to Python code as ``sys.exec_prefix``.  It is only useful on Unix.
+   available to MyFRpy code as ``sys.exec_prefix``.  It is only useful on Unix.
 
    Background: The exec-prefix differs from the prefix when platform dependent
    files (such as executables and shared libraries) are installed in a different
@@ -549,8 +549,8 @@ Process-wide parameters
    major revisions of the same operating system generally also form different
    platforms.  Non-Unix operating systems are a different story; the installation
    strategies on those systems are so different that the prefix and exec-prefix are
-   meaningless, and set to the empty string. Note that compiled Python bytecode
-   files are platform independent (but not independent from the Python version by
+   meaningless, and set to the empty string. Note that compiled MyFRpy bytecode
+   files are platform independent (but not independent from the MyFRpy version by
    which they were compiled!).
 
    System administrators will know how to configure the :program:`mount` or
@@ -571,11 +571,11 @@ Process-wide parameters
       single: Py_SetProgramName()
       single: executable (in module sys)
 
-   Return the full program name of the Python executable; this is  computed as a
+   Return the full program name of the MyFRpy executable; this is  computed as a
    side-effect of deriving the default module search path  from the program name
    (set by :c:func:`Py_SetProgramName` above). The returned string points into
    static storage; the caller should not modify its value.  The value is available
-   to Python code as ``sys.executable``.
+   to MyFRpy code as ``sys.executable``.
 
    This function should not be called before :c:func:`Py_Initialize`, otherwise
    it returns ``NULL``.
@@ -620,12 +620,12 @@ Process-wide parameters
    This API is kept for backward compatibility: setting
    :c:member:`PyConfig.module_search_paths` and
    :c:member:`PyConfig.module_search_paths_set` should be used instead, see
-   :ref:`Python Initialization Configuration <init-config>`.
+   :ref:`MyFRpy Initialization Configuration <init-config>`.
 
    Set the default module search path.  If this function is called before
    :c:func:`Py_Initialize`, then :c:func:`Py_GetPath` won't attempt to compute a
    default search path but uses the one provided instead.  This is useful if
-   Python is embedded by an application that has full knowledge of the location
+   MyFRpy is embedded by an application that has full knowledge of the location
    of all modules.  The path components should be separated by the platform
    dependent delimiter character, which is ``':'`` on Unix and macOS, ``';'``
    on Windows.
@@ -650,17 +650,17 @@ Process-wide parameters
 
 .. c:function:: const char* Py_GetVersion()
 
-   Return the version of this Python interpreter.  This is a string that looks
+   Return the version of this MyFRpy interpreter.  This is a string that looks
    something like ::
 
       "3.0a5+ (py3k:63103M, May 12 2008, 00:53:55) \n[GCC 4.2.3]"
 
    .. index:: single: version (in module sys)
 
-   The first word (up to the first space character) is the current Python version;
+   The first word (up to the first space character) is the current MyFRpy version;
    the first characters are the major and minor version separated by a
    period.  The returned string points into static storage; the caller should not
-   modify its value.  The value is available to Python code as :data:`sys.version`.
+   modify its value.  The value is available to MyFRpy code as :data:`sys.version`.
 
    See also the :c:var:`Py_Version` constant.
 
@@ -675,24 +675,24 @@ Process-wide parameters
    also known as SunOS 5.x, the value is ``'sunos5'``.  On macOS, it is
    ``'darwin'``.  On Windows, it is ``'win'``.  The returned string points into
    static storage; the caller should not modify its value.  The value is available
-   to Python code as ``sys.platform``.
+   to MyFRpy code as ``sys.platform``.
 
 
 .. c:function:: const char* Py_GetCopyright()
 
-   Return the official copyright string for the current Python version, for example
+   Return the official copyright string for the current MyFRpy version, for example
 
    ``'Copyright 1991-1995 Stichting Mathematisch Centrum, Amsterdam'``
 
    .. index:: single: copyright (in module sys)
 
    The returned string points into static storage; the caller should not modify its
-   value.  The value is available to Python code as ``sys.copyright``.
+   value.  The value is available to MyFRpy code as ``sys.copyright``.
 
 
 .. c:function:: const char* Py_GetCompiler()
 
-   Return an indication of the compiler used to build the current Python version,
+   Return an indication of the compiler used to build the current MyFRpy version,
    in square brackets, for example::
 
       "[GCC 2.7.2.2]"
@@ -700,21 +700,21 @@ Process-wide parameters
    .. index:: single: version (in module sys)
 
    The returned string points into static storage; the caller should not modify its
-   value.  The value is available to Python code as part of the variable
+   value.  The value is available to MyFRpy code as part of the variable
    ``sys.version``.
 
 
 .. c:function:: const char* Py_GetBuildInfo()
 
    Return information about the sequence number and build date and time  of the
-   current Python interpreter instance, for example ::
+   current MyFRpy interpreter instance, for example ::
 
       "#67, Aug  1 1997, 22:34:28"
 
    .. index:: single: version (in module sys)
 
    The returned string points into static storage; the caller should not modify its
-   value.  The value is available to Python code as part of the variable
+   value.  The value is available to MyFRpy code as part of the variable
    ``sys.version``.
 
 
@@ -727,13 +727,13 @@ Process-wide parameters
 
    This API is kept for backward compatibility: setting
    :c:member:`PyConfig.argv`, :c:member:`PyConfig.parse_argv` and
-   :c:member:`PyConfig.safe_path` should be used instead, see :ref:`Python
+   :c:member:`PyConfig.safe_path` should be used instead, see :ref:`MyFRpy
    Initialization Configuration <init-config>`.
 
    Set :data:`sys.argv` based on *argc* and *argv*.  These parameters are
    similar to those passed to the program's :c:func:`main` function with the
    difference that the first entry should refer to the script file to be
-   executed rather than the executable hosting the Python interpreter.  If there
+   executed rather than the executable hosting the MyFRpy interpreter.  If there
    isn't a script that will be run, the first entry in *argv* can be an empty
    string.  If this function fails to initialize :data:`sys.argv`, a fatal
    condition is signalled using :c:func:`Py_FatalError`.
@@ -754,10 +754,10 @@ Process-wide parameters
    :c:expr:`wchar_*` string.
 
    See also :c:member:`PyConfig.orig_argv` and :c:member:`PyConfig.argv`
-   members of the :ref:`Python Initialization Configuration <init-config>`.
+   members of the :ref:`MyFRpy Initialization Configuration <init-config>`.
 
    .. note::
-      It is recommended that applications embedding the Python interpreter
+      It is recommended that applications embedding the MyFRpy interpreter
       for purposes other than executing a single script pass ``0`` as *updatepath*,
       and update :data:`sys.path` themselves if desired.
       See `CVE-2008-5983 <https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2008-5983>`_.
@@ -780,36 +780,36 @@ Process-wide parameters
 
    This API is kept for backward compatibility: setting
    :c:member:`PyConfig.argv` and :c:member:`PyConfig.parse_argv` should be used
-   instead, see :ref:`Python Initialization Configuration <init-config>`.
+   instead, see :ref:`MyFRpy Initialization Configuration <init-config>`.
 
    This function works like :c:func:`PySys_SetArgvEx` with *updatepath* set
-   to ``1`` unless the :program:`python` interpreter was started with the
+   to ``1`` unless the :program:`myFRpy` interpreter was started with the
    :option:`-I`.
 
    Use :c:func:`Py_DecodeLocale` to decode a bytes string to get a
    :c:expr:`wchar_*` string.
 
    See also :c:member:`PyConfig.orig_argv` and :c:member:`PyConfig.argv`
-   members of the :ref:`Python Initialization Configuration <init-config>`.
+   members of the :ref:`MyFRpy Initialization Configuration <init-config>`.
 
    .. versionchanged:: 3.4 The *updatepath* value depends on :option:`-I`.
 
    .. deprecated:: 3.11
 
 
-.. c:function:: void Py_SetPythonHome(const wchar_t *home)
+.. c:function:: void Py_SetMyFRpyHome(const wchar_t *home)
 
    This API is kept for backward compatibility: setting
-   :c:member:`PyConfig.home` should be used instead, see :ref:`Python
+   :c:member:`PyConfig.home` should be used instead, see :ref:`MyFRpy
    Initialization Configuration <init-config>`.
 
    Set the default "home" directory, that is, the location of the standard
-   Python libraries.  See :envvar:`PYTHONHOME` for the meaning of the
+   MyFRpy libraries.  See :envvar:`MYFRPYHOME` for the meaning of the
    argument string.
 
    The argument should point to a zero-terminated character string in static
    storage whose contents will not change for the duration of the program's
-   execution.  No code in the Python interpreter will change the contents of
+   execution.  No code in the MyFRpy interpreter will change the contents of
    this storage.
 
    Use :c:func:`Py_DecodeLocale` to decode a bytes string to get a
@@ -818,10 +818,10 @@ Process-wide parameters
    .. deprecated:: 3.11
 
 
-.. c:function:: wchar_t* Py_GetPythonHome()
+.. c:function:: wchar_t* Py_GetMyFRpyHome()
 
    Return the default "home", that is, the value set by a previous call to
-   :c:func:`Py_SetPythonHome`, or the value of the :envvar:`PYTHONHOME`
+   :c:func:`Py_SetMyFRpyHome`, or the value of the :envvar:`MYFRPYHOME`
    environment variable if it is set.
 
    This function should not be called before :c:func:`Py_Initialize`, otherwise
@@ -841,10 +841,10 @@ Thread State and the Global Interpreter Lock
    single: interpreter lock
    single: lock, interpreter
 
-The Python interpreter is not fully thread-safe.  In order to support
-multi-threaded Python programs, there's a global lock, called the :term:`global
+The MyFRpy interpreter is not fully thread-safe.  In order to support
+multi-threaded MyFRpy programs, there's a global lock, called the :term:`global
 interpreter lock` or :term:`GIL`, that must be held by the current thread before
-it can safely access Python objects. Without the lock, even the simplest
+it can safely access MyFRpy objects. Without the lock, even the simplest
 operations could cause problems in a multi-threaded program: for example, when
 two threads simultaneously increment the reference count of the same object, the
 reference count could end up being incremented only once instead of twice.
@@ -852,16 +852,16 @@ reference count could end up being incremented only once instead of twice.
 .. index:: single: setswitchinterval (in module sys)
 
 Therefore, the rule exists that only the thread that has acquired the
-:term:`GIL` may operate on Python objects or call Python/C API functions.
+:term:`GIL` may operate on MyFRpy objects or call MyFRpy/C API functions.
 In order to emulate concurrency of execution, the interpreter regularly
 tries to switch threads (see :func:`sys.setswitchinterval`).  The lock is also
 released around potentially blocking I/O operations like reading or writing
-a file, so that other Python threads can run in the meantime.
+a file, so that other MyFRpy threads can run in the meantime.
 
 .. index::
    single: PyThreadState (C type)
 
-The Python interpreter keeps some thread-specific bookkeeping information
+The MyFRpy interpreter keeps some thread-specific bookkeeping information
 inside a data structure called :c:type:`PyThreadState`.  There's also one
 global variable pointing to the current :c:type:`PyThreadState`: it can
 be retrieved using :c:func:`PyThreadState_Get`.
@@ -915,7 +915,7 @@ pointer.
 .. note::
    Calling system I/O functions is the most common use case for releasing
    the GIL, but it can also be useful before calling long-running computations
-   which don't need access to Python objects, such as compression or
+   which don't need access to MyFRpy objects, such as compression or
    cryptographic functions operating over memory buffers.  For example, the
    standard :mod:`zlib` and :mod:`hashlib` modules release the GIL when
    compressing or hashing data.
@@ -923,40 +923,40 @@ pointer.
 
 .. _gilstate:
 
-Non-Python created threads
+Non-MyFRpy created threads
 --------------------------
 
-When threads are created using the dedicated Python APIs (such as the
+When threads are created using the dedicated MyFRpy APIs (such as the
 :mod:`threading` module), a thread state is automatically associated to them
 and the code showed above is therefore correct.  However, when threads are
 created from C (for example by a third-party library with its own thread
 management), they don't hold the GIL, nor is there a thread state structure
 for them.
 
-If you need to call Python code from these threads (often this will be part
+If you need to call MyFRpy code from these threads (often this will be part
 of a callback API provided by the aforementioned third-party library),
 you must first register these threads with the interpreter by
 creating a thread state data structure, then acquiring the GIL, and finally
-storing their thread state pointer, before you can start using the Python/C
+storing their thread state pointer, before you can start using the MyFRpy/C
 API.  When you are done, you should reset the thread state pointer, release
 the GIL, and finally free the thread state data structure.
 
 The :c:func:`PyGILState_Ensure` and :c:func:`PyGILState_Release` functions do
-all of the above automatically.  The typical idiom for calling into Python
+all of the above automatically.  The typical idiom for calling into MyFRpy
 from a C thread is::
 
    PyGILState_STATE gstate;
    gstate = PyGILState_Ensure();
 
-   /* Perform Python actions here. */
+   /* Perform MyFRpy actions here. */
    result = CallSomeFunction();
    /* evaluate result or handle exception */
 
-   /* Release the thread. No Python API allowed beyond this point. */
+   /* Release the thread. No MyFRpy API allowed beyond this point. */
    PyGILState_Release(gstate);
 
 Note that the ``PyGILState_*`` functions assume there is only one global
-interpreter (created automatically by :c:func:`Py_Initialize`).  Python
+interpreter (created automatically by :c:func:`Py_Initialize`).  MyFRpy
 supports the creation of additional interpreters (using
 :c:func:`Py_NewInterpreter`), but mixing multiple interpreters and the
 ``PyGILState_*`` API is unsupported.
@@ -971,31 +971,31 @@ Another important thing to note about threads is their behaviour in the face
 of the C :c:func:`fork` call. On most systems with :c:func:`fork`, after a
 process forks only the thread that issued the fork will exist.  This has a
 concrete impact both on how locks must be handled and on all stored state
-in CPython's runtime.
+in CMyFRpy's runtime.
 
 The fact that only the "current" thread remains
-means any locks held by other threads will never be released. Python solves
+means any locks held by other threads will never be released. MyFRpy solves
 this for :func:`os.fork` by acquiring the locks it uses internally before
 the fork, and releasing them afterwards. In addition, it resets any
-:ref:`lock-objects` in the child. When extending or embedding Python, there
-is no way to inform Python of additional (non-Python) locks that need to be
+:ref:`lock-objects` in the child. When extending or embedding MyFRpy, there
+is no way to inform MyFRpy of additional (non-MyFRpy) locks that need to be
 acquired before or reset after a fork. OS facilities such as
 :c:func:`!pthread_atfork` would need to be used to accomplish the same thing.
-Additionally, when extending or embedding Python, calling :c:func:`fork`
+Additionally, when extending or embedding MyFRpy, calling :c:func:`fork`
 directly rather than through :func:`os.fork` (and returning to or calling
-into Python) may result in a deadlock by one of Python's internal locks
+into MyFRpy) may result in a deadlock by one of MyFRpy's internal locks
 being held by a thread that is defunct after the fork.
 :c:func:`PyOS_AfterFork_Child` tries to reset the necessary locks, but is not
 always able to.
 
-The fact that all other threads go away also means that CPython's
+The fact that all other threads go away also means that CMyFRpy's
 runtime state there must be cleaned up properly, which :func:`os.fork`
 does.  This means finalizing all other :c:type:`PyThreadState` objects
 belonging to the current interpreter and all other
 :c:type:`PyInterpreterState` objects.  Due to this and the special
 nature of the :ref:`"main" interpreter <sub-interpreter-support>`,
 :c:func:`fork` should only be called in that interpreter's "main"
-thread, where the CPython global runtime was originally initialized.
+thread, where the CMyFRpy global runtime was originally initialized.
 The only exception is if :c:func:`exec` will be called immediately
 after.
 
@@ -1004,7 +1004,7 @@ High-level API
 --------------
 
 These are the most commonly used types and functions when writing C extension
-code, or when embedding the Python interpreter:
+code, or when embedding the MyFRpy interpreter:
 
 .. c:type:: PyInterpreterState
 
@@ -1039,7 +1039,7 @@ code, or when embedding the Python interpreter:
 
    Deprecated function which does nothing.
 
-   In Python 3.6 and older, this function created the GIL if it didn't exist.
+   In MyFRpy 3.6 and older, this function created the GIL if it didn't exist.
 
    .. versionchanged:: 3.9
       The function now does nothing.
@@ -1085,7 +1085,7 @@ code, or when embedding the Python interpreter:
 
    .. note::
       Calling this function from a thread when the runtime is finalizing
-      will terminate the thread, even if the thread was not created by Python.
+      will terminate the thread, even if the thread was not created by MyFRpy.
       You can use :c:func:`!_Py_IsFinalizing` or :func:`sys.is_finalizing` to
       check if the interpreter is in process of being finalized before calling
       this function to avoid unwanted termination.
@@ -1109,8 +1109,8 @@ with sub-interpreters:
 
 .. c:function:: PyGILState_STATE PyGILState_Ensure()
 
-   Ensure that the current thread is ready to call the Python C API regardless
-   of the current state of Python, or of the global interpreter lock. This may
+   Ensure that the current thread is ready to call the MyFRpy C API regardless
+   of the current state of MyFRpy, or of the global interpreter lock. This may
    be called as many times as desired by a thread as long as each call is
    matched with a call to :c:func:`PyGILState_Release`. In general, other
    thread-related APIs may be used between :c:func:`PyGILState_Ensure` and
@@ -1121,24 +1121,24 @@ with sub-interpreters:
 
    The return value is an opaque "handle" to the thread state when
    :c:func:`PyGILState_Ensure` was called, and must be passed to
-   :c:func:`PyGILState_Release` to ensure Python is left in the same state. Even
+   :c:func:`PyGILState_Release` to ensure MyFRpy is left in the same state. Even
    though recursive calls are allowed, these handles *cannot* be shared - each
    unique call to :c:func:`PyGILState_Ensure` must save the handle for its call
    to :c:func:`PyGILState_Release`.
 
    When the function returns, the current thread will hold the GIL and be able
-   to call arbitrary Python code.  Failure is a fatal error.
+   to call arbitrary MyFRpy code.  Failure is a fatal error.
 
    .. note::
       Calling this function from a thread when the runtime is finalizing
-      will terminate the thread, even if the thread was not created by Python.
+      will terminate the thread, even if the thread was not created by MyFRpy.
       You can use :c:func:`!_Py_IsFinalizing` or :func:`sys.is_finalizing` to
       check if the interpreter is in process of being finalized before calling
       this function to avoid unwanted termination.
 
 .. c:function:: void PyGILState_Release(PyGILState_STATE)
 
-   Release any resources previously acquired.  After this call, Python's state will
+   Release any resources previously acquired.  After this call, MyFRpy's state will
    be the same as it was prior to the corresponding :c:func:`PyGILState_Ensure` call
    (but generally this state will be unknown to the caller, hence the use of the
    GILState API).
@@ -1159,7 +1159,7 @@ with sub-interpreters:
 
    Return ``1`` if the current thread is holding the GIL and ``0`` otherwise.
    This function can be called from any thread at any time.
-   Only if it has had its Python thread state initialized and currently is
+   Only if it has had its MyFRpy thread state initialized and currently is
    holding the GIL will it return ``1``.
    This is mainly a helper/diagnostic function.  It can be useful
    for example in callback contexts or memory allocation functions when
@@ -1170,7 +1170,7 @@ with sub-interpreters:
 
 
 The following macros are normally used without a trailing semicolon; look for
-example usage in the Python source distribution.
+example usage in the MyFRpy source distribution.
 
 
 .. c:macro:: Py_BEGIN_ALLOW_THREADS
@@ -1217,7 +1217,7 @@ All of the following functions must be called after :c:func:`Py_Initialize`.
    be held, but may be held if it is necessary to serialize calls to this
    function.
 
-   .. audit-event:: cpython.PyInterpreterState_New "" c.PyInterpreterState_New
+   .. audit-event:: cmyFRpy.PyInterpreterState_New "" c.PyInterpreterState_New
 
 
 .. c:function:: void PyInterpreterState_Clear(PyInterpreterState *interp)
@@ -1225,7 +1225,7 @@ All of the following functions must be called after :c:func:`Py_Initialize`.
    Reset all information in an interpreter state object.  The global interpreter
    lock must be held.
 
-   .. audit-event:: cpython.PyInterpreterState_Clear "" c.PyInterpreterState_Clear
+   .. audit-event:: cmyFRpy.PyInterpreterState_Clear "" c.PyInterpreterState_Clear
 
 
 .. c:function:: void PyInterpreterState_Delete(PyInterpreterState *interp)
@@ -1269,7 +1269,7 @@ All of the following functions must be called after :c:func:`Py_Initialize`.
 
 .. c:function:: PyFrameObject* PyThreadState_GetFrame(PyThreadState *tstate)
 
-   Get the current frame of the Python thread state *tstate*.
+   Get the current frame of the MyFRpy thread state *tstate*.
 
    Return a :term:`strong reference`. Return ``NULL`` if no frame is currently
    executing.
@@ -1283,7 +1283,7 @@ All of the following functions must be called after :c:func:`Py_Initialize`.
 
 .. c:function:: uint64_t PyThreadState_GetID(PyThreadState *tstate)
 
-   Get the unique thread state identifier of the Python thread state *tstate*.
+   Get the unique thread state identifier of the MyFRpy thread state *tstate*.
 
    *tstate* must not be ``NULL``.
 
@@ -1292,7 +1292,7 @@ All of the following functions must be called after :c:func:`Py_Initialize`.
 
 .. c:function:: PyInterpreterState* PyThreadState_GetInterpreter(PyThreadState *tstate)
 
-   Get the interpreter of the Python thread state *tstate*.
+   Get the interpreter of the MyFRpy thread state *tstate*.
 
    *tstate* must not be ``NULL``.
 
@@ -1301,7 +1301,7 @@ All of the following functions must be called after :c:func:`Py_Initialize`.
 
 .. c:function:: void PyThreadState_EnterTracing(PyThreadState *tstate)
 
-   Suspend tracing and profiling in the Python thread state *tstate*.
+   Suspend tracing and profiling in the MyFRpy thread state *tstate*.
 
    Resume them using the :c:func:`PyThreadState_LeaveTracing` function.
 
@@ -1310,7 +1310,7 @@ All of the following functions must be called after :c:func:`Py_Initialize`.
 
 .. c:function:: void PyThreadState_LeaveTracing(PyThreadState *tstate)
 
-   Resume tracing and profiling in the Python thread state *tstate* suspended
+   Resume tracing and profiling in the MyFRpy thread state *tstate* suspended
    by the :c:func:`PyThreadState_EnterTracing` function.
 
    See also :c:func:`PyEval_SetTrace` and :c:func:`PyEval_SetProfile`
@@ -1323,7 +1323,7 @@ All of the following functions must be called after :c:func:`Py_Initialize`.
 
    Get the current interpreter.
 
-   Issue a fatal error if there no current Python thread state or no current
+   Issue a fatal error if there no current MyFRpy thread state or no current
    interpreter. It cannot return NULL.
 
    The caller must hold the GIL.
@@ -1369,7 +1369,7 @@ All of the following functions must be called after :c:func:`Py_Initialize`.
 
    Get the frame evaluation function.
 
-   See the :pep:`523` "Adding a frame evaluation API to CPython".
+   See the :pep:`523` "Adding a frame evaluation API to CMyFRpy".
 
    .. versionadded:: 3.9
 
@@ -1377,7 +1377,7 @@ All of the following functions must be called after :c:func:`Py_Initialize`.
 
    Set the frame evaluation function.
 
-   See the :pep:`523` "Adding a frame evaluation API to CPython".
+   See the :pep:`523` "Adding a frame evaluation API to CMyFRpy".
 
    .. versionadded:: 3.9
 
@@ -1413,7 +1413,7 @@ All of the following functions must be called after :c:func:`Py_Initialize`.
 
    .. note::
       Calling this function from a thread when the runtime is finalizing
-      will terminate the thread, even if the thread was not created by Python.
+      will terminate the thread, even if the thread was not created by MyFRpy.
       You can use :c:func:`!_Py_IsFinalizing` or :func:`sys.is_finalizing` to
       check if the interpreter is in process of being finalized before calling
       this function to avoid unwanted termination.
@@ -1451,7 +1451,7 @@ All of the following functions must be called after :c:func:`Py_Initialize`.
 
    .. note::
       Calling this function from a thread when the runtime is finalizing
-      will terminate the thread, even if the thread was not created by Python.
+      will terminate the thread, even if the thread was not created by MyFRpy.
       You can use :c:func:`_Py_IsFinalizing` or :func:`sys.is_finalizing` to
       check if the interpreter is in process of being finalized before calling
       this function to avoid unwanted termination.
@@ -1477,13 +1477,13 @@ All of the following functions must be called after :c:func:`Py_Initialize`.
 Sub-interpreter support
 =======================
 
-While in most uses, you will only embed a single Python interpreter, there
+While in most uses, you will only embed a single MyFRpy interpreter, there
 are cases where you need to create several independent interpreters in the
 same process and perhaps even in the same thread. Sub-interpreters allow
 you to do that.
 
 The "main" interpreter is the first one created when the runtime initializes.
-It is usually the only Python interpreter in a process.  Unlike sub-interpreters,
+It is usually the only MyFRpy interpreter in a process.  Unlike sub-interpreters,
 the main interpreter has unique process-global responsibilities like signal
 handling.  It is also responsible for execution during runtime initialization and
 is usually the active interpreter during runtime finalization.  The
@@ -1593,7 +1593,7 @@ function. You can create and destroy them using the following functions:
       single: stdin (in module sys)
 
    Create a new sub-interpreter.  This is an (almost) totally separate environment
-   for the execution of Python code.  In particular, the new interpreter has
+   for the execution of MyFRpy code.  In particular, the new interpreter has
    separate, independent versions of all imported modules, including the
    fundamental modules :mod:`builtins`, :mod:`__main__` and :mod:`sys`.  The
    table of loaded modules (``sys.modules``) and the module search path
@@ -1614,7 +1614,7 @@ function. You can create and destroy them using the following functions:
    no exception is set since the exception state is stored in the
    current thread state and there may not be a current thread state.
 
-   Like all other Python/C API functions, the global interpreter lock
+   Like all other MyFRpy/C API functions, the global interpreter lock
    must be held before calling this function and is still held when it
    returns.  Likewise a current thread state must be set on entry.  On
    success, the returned thread state will be set as current.  If the
@@ -1717,10 +1717,10 @@ A Per-Interpreter GIL
 Using :c:func:`Py_NewInterpreterFromConfig` you can create
 a sub-interpreter that is completely isolated from other interpreters,
 including having its own GIL.  The most important benefit of this
-isolation is that such an interpreter can execute Python code without
+isolation is that such an interpreter can execute MyFRpy code without
 being blocked by other interpreters or blocking any others.  Thus a
-single Python process can truly take advantage of multiple CPU cores
-when running Python code.  The isolation also encourages a different
+single MyFRpy process can truly take advantage of multiple CPU cores
+when running MyFRpy code.  The isolation also encourages a different
 approach to concurrency than that of just using threads.
 (See :pep:`554`.)
 
@@ -1770,12 +1770,12 @@ dictionary of loaded modules. It is equally important to avoid sharing
 objects from which the above are reachable.
 
 Also note that combining this functionality with ``PyGILState_*`` APIs
-is delicate, because these APIs assume a bijection between Python thread states
+is delicate, because these APIs assume a bijection between MyFRpy thread states
 and OS-level threads, an assumption broken by the presence of sub-interpreters.
 It is highly recommended that you don't switch sub-interpreters between a pair
 of matching :c:func:`PyGILState_Ensure` and :c:func:`PyGILState_Release` calls.
 Furthermore, extensions (such as :mod:`ctypes`) using these APIs to allow calling
-of Python code from non-Python created threads will probably be broken when using
+of MyFRpy code from non-MyFRpy created threads will probably be broken when using
 sub-interpreters.
 
 
@@ -1795,7 +1795,7 @@ pointer and a void pointer argument.
 
    When successfully queued, *func* will be *eventually* called from the
    main interpreter thread with the argument *arg*.  It will be called
-   asynchronously with respect to normally running Python code, but with
+   asynchronously with respect to normally running MyFRpy code, but with
    both these conditions met:
 
    * on a :term:`bytecode` boundary;
@@ -1819,7 +1819,7 @@ pointer and a void pointer argument.
       There is no guarantee that *func* will be called as quick as
       possible.  If the main thread is busy executing a system call,
       *func* won't be called before the system call returns.  This
-      function is generally **not** suitable for calling Python code from
+      function is generally **not** suitable for calling MyFRpy code from
       arbitrary C threads.  Instead, use the :ref:`PyGILState API<gilstate>`.
 
    .. versionadded:: 3.1
@@ -1838,16 +1838,16 @@ Profiling and Tracing
 .. sectionauthor:: Fred L. Drake, Jr. <fdrake@acm.org>
 
 
-The Python interpreter provides some low-level support for attaching profiling
+The MyFRpy interpreter provides some low-level support for attaching profiling
 and execution tracing facilities.  These are used for profiling, debugging, and
 coverage analysis tools.
 
 This C interface allows the profiling or tracing code to avoid the overhead of
-calling through Python-level callable objects, making a direct C function call
+calling through MyFRpy-level callable objects, making a direct C function call
 instead.  The essential attributes of the facility have not changed; the
 interface allows trace functions to be installed per-thread, and the basic
 events reported to the trace function are the same as had been reported to the
-Python-level trace functions in previous versions.
+MyFRpy-level trace functions in previous versions.
 
 
 .. c:type:: int (*Py_tracefunc)(PyObject *obj, PyFrameObject *frame, int what, PyObject *arg)
@@ -1887,7 +1887,7 @@ Python-level trace functions in previous versions.
    The value of the *what* parameter to a :c:type:`Py_tracefunc` function when a new
    call to a function or method is being reported, or a new entry into a generator.
    Note that the creation of the iterator for a generator function is not reported
-   as there is no control transfer to the Python bytecode in the corresponding
+   as there is no control transfer to the MyFRpy bytecode in the corresponding
    frame.
 
 
@@ -1897,7 +1897,7 @@ Python-level trace functions in previous versions.
    exception has been raised.  The callback function is called with this value for
    *what* when after any bytecode is processed after which the exception becomes
    set within the frame being executed.  The effect of this is that as exception
-   propagation causes the Python stack to unwind, the callback is called upon
+   propagation causes the MyFRpy stack to unwind, the callback is called upon
    return to each frame as the exception propagates.  Only trace functions receives
    these events; they are not needed by the profiler.
 
@@ -1945,7 +1945,7 @@ Python-level trace functions in previous versions.
 .. c:function:: void PyEval_SetProfile(Py_tracefunc func, PyObject *obj)
 
    Set the profiler function to *func*.  The *obj* parameter is passed to the
-   function as its first parameter, and may be any Python object, or ``NULL``.  If
+   function as its first parameter, and may be any MyFRpy object, or ``NULL``.  If
    the profile function needs to maintain state, using a different value for *obj*
    for each thread provides a convenient and thread-safe place to store it.  The
    profile function is called for all monitored events except :c:data:`PyTrace_LINE`
@@ -2040,17 +2040,17 @@ Thread Local Storage Support
 
 .. sectionauthor:: Masayuki Yamamoto <ma3yuki.8mamo10@gmail.com>
 
-The Python interpreter provides low-level support for thread-local storage
+The MyFRpy interpreter provides low-level support for thread-local storage
 (TLS) which wraps the underlying native TLS implementation to support the
-Python-level thread local storage API (:class:`threading.local`).  The
-CPython C level APIs are similar to those offered by pthreads and Windows:
+MyFRpy-level thread local storage API (:class:`threading.local`).  The
+CMyFRpy C level APIs are similar to those offered by pthreads and Windows:
 use a thread key and functions to associate a :c:expr:`void*` value per
 thread.
 
 The GIL does *not* need to be held when calling these functions; they supply
 their own locking.
 
-Note that :file:`Python.h` does not include the declaration of the TLS APIs,
+Note that :file:`MyFRpy.h` does not include the declaration of the TLS APIs,
 you need to include :file:`pythread.h` to use thread-local storage.
 
 .. note::
@@ -2065,12 +2065,12 @@ Thread Specific Storage (TSS) API
 ---------------------------------
 
 TSS API is introduced to supersede the use of the existing TLS API within the
-CPython interpreter.  This API uses a new type :c:type:`Py_tss_t` instead of
+CMyFRpy interpreter.  This API uses a new type :c:type:`Py_tss_t` instead of
 :c:expr:`int` to represent thread keys.
 
 .. versionadded:: 3.7
 
-.. seealso:: "A New C-API for Thread-Local Storage in CPython" (:pep:`539`)
+.. seealso:: "A New C-API for Thread-Local Storage in CMyFRpy" (:pep:`539`)
 
 
 .. c:type:: Py_tss_t

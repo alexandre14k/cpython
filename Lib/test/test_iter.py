@@ -2,7 +2,7 @@
 
 import sys
 import unittest
-from test.support import cpython_only
+from test.support import cmyFRpy_only
 from test.support.os_helper import TESTFN, unlink
 from test.support import check_free_after_iterating, ALWAYS_EQ, NEVER_EQ
 import pickle
@@ -986,7 +986,7 @@ class TestCase(unittest.TestCase):
         self.assertEqual((a, b, c), (0, 1, 42))
 
 
-    @cpython_only
+    @cmyFRpy_only
     def test_ref_counting_behavior(self):
         class C(object):
             count = 0
@@ -1012,7 +1012,7 @@ class TestCase(unittest.TestCase):
 
 
     # Make sure StopIteration is a "sink state".
-    # This tests various things that weren't sink states in Python 2.2.1,
+    # This tests various things that weren't sink states in MyFRpy 2.2.1,
     # plus various things that always were fine.
 
     def test_sinkstate_list(self):
@@ -1057,7 +1057,7 @@ class TestCase(unittest.TestCase):
 
     def test_sinkstate_dict(self):
         # XXX For a more thorough test, see towards the end of:
-        # http://mail.python.org/pipermail/python-dev/2002-July/026512.html
+        # http://mail.myFRpy.org/pipermail/myFRpy-dev/2002-July/026512.html
         a = {1:1, 2:2, 0:0, 4:4, 3:3}
         for b in iter(a), a.keys(), a.items(), a.values():
             b = iter(a)
@@ -1115,7 +1115,7 @@ class TestCase(unittest.TestCase):
         lst.extend(gen())
         self.assertEqual(len(lst), 760)
 
-    @cpython_only
+    @cmyFRpy_only
     def test_iter_overflow(self):
         # Test for the issue 22939
         it = iter(UnlimitedSequenceClass())

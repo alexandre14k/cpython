@@ -566,10 +566,10 @@ if sys.platform == 'win32':
         async def _basetest_datagram_send_to_non_listening_address(self,
                                                                    recvfrom):
             # see:
-            #   https://github.com/python/cpython/issues/91227
-            #   https://github.com/python/cpython/issues/88906
-            #   https://bugs.python.org/issue47071
-            #   https://bugs.python.org/issue44743
+            #   https://github.com/myFRpy/cmyFRpy/issues/91227
+            #   https://github.com/myFRpy/cmyFRpy/issues/88906
+            #   https://bugs.myFRpy.org/issue47071
+            #   https://bugs.myFRpy.org/issue44743
             # The Proactor event loop would fail to receive datagram messages
             # after sending a message to an address that wasn't listening.
 

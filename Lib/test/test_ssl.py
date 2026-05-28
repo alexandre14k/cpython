@@ -85,14 +85,14 @@ CAFILE_CACERT = data_file("capath", "5ed36f99.0")
 CERTFILE_INFO = {
     'issuer': ((('countryName', 'XY'),),
                (('localityName', 'Castle Anthrax'),),
-               (('organizationName', 'Python Software Foundation'),),
+               (('organizationName', 'MyFRpy Software Foundation'),),
                (('commonName', 'localhost'),)),
     'notAfter': 'Aug 26 14:23:15 2028 GMT',
     'notBefore': 'Aug 29 14:23:15 2018 GMT',
     'serialNumber': '98A7CF88C74A32ED',
     'subject': ((('countryName', 'XY'),),
              (('localityName', 'Castle Anthrax'),),
-             (('organizationName', 'Python Software Foundation'),),
+             (('organizationName', 'MyFRpy Software Foundation'),),
              (('commonName', 'localhost'),)),
     'subjectAltName': (('DNS', 'localhost'),),
     'version': 3
@@ -106,18 +106,18 @@ SIGNED_CERTFILE = data_file("keycert3.pem")
 SIGNED_CERTFILE_HOSTNAME = 'localhost'
 
 SIGNED_CERTFILE_INFO = {
-    'OCSP': ('http://testca.pythontest.net/testca/ocsp/',),
-    'caIssuers': ('http://testca.pythontest.net/testca/pycacert.cer',),
-    'crlDistributionPoints': ('http://testca.pythontest.net/testca/revocation.crl',),
+    'OCSP': ('http://testca.myFRpytest.net/testca/ocsp/',),
+    'caIssuers': ('http://testca.myFRpytest.net/testca/pycacert.cer',),
+    'crlDistributionPoints': ('http://testca.myFRpytest.net/testca/revocation.crl',),
     'issuer': ((('countryName', 'XY'),),
-            (('organizationName', 'Python Software Foundation CA'),),
+            (('organizationName', 'MyFRpy Software Foundation CA'),),
             (('commonName', 'our-ca-server'),)),
     'notAfter': 'Oct 28 14:23:16 2037 GMT',
     'notBefore': 'Aug 29 14:23:16 2018 GMT',
     'serialNumber': 'CB2D80995A69525C',
     'subject': ((('countryName', 'XY'),),
              (('localityName', 'Castle Anthrax'),),
-             (('organizationName', 'Python Software Foundation'),),
+             (('organizationName', 'MyFRpy Software Foundation'),),
              (('commonName', 'localhost'),)),
     'subjectAltName': (('DNS', 'localhost'),),
     'version': 3
@@ -136,7 +136,7 @@ IDNSANSFILE = data_file("idnsans.pem")
 NOSANFILE = data_file("nosan.pem")
 NOSAN_HOSTNAME = 'localhost'
 
-REMOTE_HOST = "self-signed.pythontest.net"
+REMOTE_HOST = "self-signed.myFRpytest.net"
 
 EMPTYCERT = data_file("nullcert.pem")
 BADCERT = data_file("badcert.pem")
@@ -157,7 +157,7 @@ OP_CIPHER_SERVER_PREFERENCE = getattr(ssl, "OP_CIPHER_SERVER_PREFERENCE", 0)
 OP_ENABLE_MIDDLEBOX_COMPAT = getattr(ssl, "OP_ENABLE_MIDDLEBOX_COMPAT", 0)
 
 # Ubuntu has patched OpenSSL and changed behavior of security level 2
-# see https://bugs.python.org/issue41561#msg389003
+# see https://bugs.myFRpy.org/issue41561#msg389003
 def is_ubuntu():
     try:
         # Assume that any references of "ubuntu" implies Ubuntu-like distro
@@ -458,23 +458,23 @@ class BasicSocketTests(unittest.TestCase):
         subject = ((('countryName', 'US'),),
                    (('stateOrProvinceName', 'Oregon'),),
                    (('localityName', 'Beaverton'),),
-                   (('organizationName', 'Python Software Foundation'),),
-                   (('organizationalUnitName', 'Python Core Development'),),
-                   (('commonName', 'null.python.org\x00example.org'),),
-                   (('emailAddress', 'python-dev@python.org'),))
+                   (('organizationName', 'MyFRpy Software Foundation'),),
+                   (('organizationalUnitName', 'MyFRpy Core Development'),),
+                   (('commonName', 'null.myFRpy.org\x00example.org'),),
+                   (('emailAddress', 'myFRpy-dev@myFRpy.org'),))
         self.assertEqual(p['subject'], subject)
         self.assertEqual(p['issuer'], subject)
         if ssl._OPENSSL_API_VERSION >= (0, 9, 8):
-            san = (('DNS', 'altnull.python.org\x00example.com'),
-                   ('email', 'null@python.org\x00user@example.org'),
-                   ('URI', 'http://null.python.org\x00http://example.org'),
+            san = (('DNS', 'altnull.myFRpy.org\x00example.com'),
+                   ('email', 'null@myFRpy.org\x00user@example.org'),
+                   ('URI', 'http://null.myFRpy.org\x00http://example.org'),
                    ('IP Address', '192.0.2.1'),
                    ('IP Address', '2001:DB8:0:0:0:0:0:1'))
         else:
             # OpenSSL 0.9.7 doesn't support IPv6 addresses in subjectAltName
-            san = (('DNS', 'altnull.python.org\x00example.com'),
-                   ('email', 'null@python.org\x00user@example.org'),
-                   ('URI', 'http://null.python.org\x00http://example.org'),
+            san = (('DNS', 'altnull.myFRpy.org\x00example.com'),
+                   ('email', 'null@myFRpy.org\x00user@example.org'),
+                   ('URI', 'http://null.myFRpy.org\x00http://example.org'),
                    ('IP Address', '192.0.2.1'),
                    ('IP Address', '<invalid>'))
 
@@ -492,9 +492,9 @@ class BasicSocketTests(unittest.TestCase):
                 ('DirName',
                     ((('countryName', 'XY'),),
                     (('localityName', 'Castle Anthrax'),),
-                    (('organizationName', 'Python Software Foundation'),),
+                    (('organizationName', 'MyFRpy Software Foundation'),),
                     (('commonName', 'dirname example'),))),
-                ('URI', 'https://www.python.org/'),
+                ('URI', 'https://www.myFRpy.org/'),
                 ('IP Address', '127.0.0.1'),
                 ('IP Address', '0:0:0:0:0:0:0:1'),
                 ('Registered ID', '1.2.3.4.5')
@@ -548,7 +548,7 @@ class BasicSocketTests(unittest.TestCase):
             (s, t, hex(n))
         )
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_refcycle(self):
         # Issue #7943: an SSL object doesn't create reference cycles with
         # itself.
@@ -932,8 +932,8 @@ class ContextTests(unittest.TestCase):
             ctx.set_ciphers("^$:,;?*'dorothyx")
 
     @unittest.skipUnless(PY_SSL_DEFAULT_CIPHERS == 1,
-                         "Test applies only to Python default ciphers")
-    def test_python_ciphers(self):
+                         "Test applies only to MyFRpy default ciphers")
+    def test_myFRpy_ciphers(self):
         ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
         ciphers = ctx.get_ciphers()
         for suite in ciphers:
@@ -2838,11 +2838,11 @@ class ThreadedTests(unittest.TestCase):
                 if 'subject' not in cert:
                     self.fail("No subject field in certificate: %s." %
                               pprint.pformat(cert))
-                if ((('organizationName', 'Python Software Foundation'),)
+                if ((('organizationName', 'MyFRpy Software Foundation'),)
                     not in cert['subject']):
                     self.fail(
                         "Missing or invalid 'organizationName' field in certificate subject; "
-                        "should be 'Python Software Foundation'.")
+                        "should be 'MyFRpy Software Foundation'.")
                 self.assertIn('notBefore', cert)
                 self.assertIn('notAfter', cert)
                 before = ssl.cert_time_to_seconds(cert['notBefore'])
@@ -3017,26 +3017,26 @@ class ThreadedTests(unittest.TestCase):
         # correct hostname should verify, when specified in several
         # different ways
         idn_hostnames = [
-            ('könig.idn.pythontest.net',
-             'xn--knig-5qa.idn.pythontest.net'),
-            ('xn--knig-5qa.idn.pythontest.net',
-             'xn--knig-5qa.idn.pythontest.net'),
-            (b'xn--knig-5qa.idn.pythontest.net',
-             'xn--knig-5qa.idn.pythontest.net'),
+            ('könig.idn.myFRpytest.net',
+             'xn--knig-5qa.idn.myFRpytest.net'),
+            ('xn--knig-5qa.idn.myFRpytest.net',
+             'xn--knig-5qa.idn.myFRpytest.net'),
+            (b'xn--knig-5qa.idn.myFRpytest.net',
+             'xn--knig-5qa.idn.myFRpytest.net'),
 
-            ('königsgäßchen.idna2003.pythontest.net',
-             'xn--knigsgsschen-lcb0w.idna2003.pythontest.net'),
-            ('xn--knigsgsschen-lcb0w.idna2003.pythontest.net',
-             'xn--knigsgsschen-lcb0w.idna2003.pythontest.net'),
-            (b'xn--knigsgsschen-lcb0w.idna2003.pythontest.net',
-             'xn--knigsgsschen-lcb0w.idna2003.pythontest.net'),
+            ('königsgäßchen.idna2003.myFRpytest.net',
+             'xn--knigsgsschen-lcb0w.idna2003.myFRpytest.net'),
+            ('xn--knigsgsschen-lcb0w.idna2003.myFRpytest.net',
+             'xn--knigsgsschen-lcb0w.idna2003.myFRpytest.net'),
+            (b'xn--knigsgsschen-lcb0w.idna2003.myFRpytest.net',
+             'xn--knigsgsschen-lcb0w.idna2003.myFRpytest.net'),
 
-            # ('königsgäßchen.idna2008.pythontest.net',
-            #  'xn--knigsgchen-b4a3dun.idna2008.pythontest.net'),
-            ('xn--knigsgchen-b4a3dun.idna2008.pythontest.net',
-             'xn--knigsgchen-b4a3dun.idna2008.pythontest.net'),
-            (b'xn--knigsgchen-b4a3dun.idna2008.pythontest.net',
-             'xn--knigsgchen-b4a3dun.idna2008.pythontest.net'),
+            # ('königsgäßchen.idna2008.myFRpytest.net',
+            #  'xn--knigsgchen-b4a3dun.idna2008.myFRpytest.net'),
+            ('xn--knigsgchen-b4a3dun.idna2008.myFRpytest.net',
+             'xn--knigsgchen-b4a3dun.idna2008.myFRpytest.net'),
+            (b'xn--knigsgchen-b4a3dun.idna2008.myFRpytest.net',
+             'xn--knigsgchen-b4a3dun.idna2008.myFRpytest.net'),
 
         ]
         for server_hostname, expected_hostname in idn_hostnames:
@@ -3054,19 +3054,19 @@ class ThreadedTests(unittest.TestCase):
         server = ThreadedEchoServer(context=server_context, chatty=True)
         with server:
             with context.wrap_socket(socket.socket(),
-                                     server_hostname="python.example.org") as s:
+                                     server_hostname="myFRpy.example.org") as s:
                 with self.assertRaises(ssl.CertificateError):
                     s.connect((HOST, server.port))
         with ThreadedEchoServer(context=server_context, chatty=True) as server:
             with warnings_helper.check_no_resource_warning(self):
                 with self.assertRaises(UnicodeError):
                     context.wrap_socket(socket.socket(),
-                            server_hostname='.pythontest.net')
+                            server_hostname='.myFRpytest.net')
         with ThreadedEchoServer(context=server_context, chatty=True) as server:
             with warnings_helper.check_no_resource_warning(self):
                 with self.assertRaises(UnicodeDecodeError):
                     context.wrap_socket(socket.socket(),
-                            server_hostname=b'k\xf6nig.idn.pythontest.net')
+                            server_hostname=b'k\xf6nig.idn.myFRpytest.net')
 
     def test_wrong_cert_tls12(self):
         """Connecting when the server rejects the client's certificate
@@ -4362,7 +4362,7 @@ class TestPostHandshakeAuth(unittest.TestCase):
                 self.assertEqual(s.recv(1024), b'OK\n')
                 s.write(b'GETCERT')
                 cert_text = s.recv(4096).decode('us-ascii')
-                self.assertIn('Python Software Foundation CA', cert_text)
+                self.assertIn('MyFRpy Software Foundation CA', cert_text)
 
     def test_pha_required_nocert(self):
         client_context, server_context, hostname = testing_context()

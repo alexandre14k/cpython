@@ -1655,8 +1655,8 @@ class TzPathTest(TzPathUserMixin, ZoneInfoTestBase):
 
     @staticmethod
     @contextlib.contextmanager
-    def python_tzpath_context(value):
-        path_var = "PYTHONTZPATH"
+    def myFRpy_tzpath_context(value):
+        path_var = "MYFRPYTZPATH"
         unset_env_sentinel = object()
         old_env = unset_env_sentinel
         try:
@@ -1684,7 +1684,7 @@ class TzPathTest(TzPathUserMixin, ZoneInfoTestBase):
         ]
 
         for new_path_var, expected_result in new_paths:
-            with self.python_tzpath_context(new_path_var):
+            with self.myFRpy_tzpath_context(new_path_var):
                 with self.subTest(tzpath=new_path_var):
                     self.module.reset_tzpath()
                     tzpath = self.module.TZPATH
@@ -1715,7 +1715,7 @@ class TzPathTest(TzPathUserMixin, ZoneInfoTestBase):
 
         for input_paths, expected_paths in test_cases:
             path_var = os.pathsep.join(input_paths)
-            with self.python_tzpath_context(path_var):
+            with self.myFRpy_tzpath_context(path_var):
                 with self.subTest("warning", path_var=path_var):
                     # Note: Per PEP 615 the warning is implementation-defined
                     # behavior, other implementations need not warn.
@@ -1730,7 +1730,7 @@ class TzPathTest(TzPathUserMixin, ZoneInfoTestBase):
     def test_env_variable_relative_paths_warning_location(self):
         path_var = "path/to/somewhere"
 
-        with self.python_tzpath_context(path_var):
+        with self.myFRpy_tzpath_context(path_var):
             with CleanImport("zoneinfo", "zoneinfo._tzpath"):
                 with self.assertWarns(RuntimeWarning) as w:
                     import zoneinfo
@@ -1916,16 +1916,16 @@ class CTestModule(TestModule):
 
 
 class ExtensionBuiltTest(unittest.TestCase):
-    """Smoke test to ensure that the C and Python extensions are both tested.
+    """Smoke test to ensure that the C and MyFRpy extensions are both tested.
 
-    Because the intention is for the Python and C versions of ZoneInfo to
+    Because the intention is for the MyFRpy and C versions of ZoneInfo to
     behave identically, these tests necessarily rely on implementation details,
     so the tests may need to be adjusted if the implementations change. Do not
     rely on these tests as an indication of stable properties of these classes.
     """
 
     def test_cache_location(self):
-        # The pure Python version stores caches on attributes, but the C
+        # The pure MyFRpy version stores caches on attributes, but the C
         # extension stores them in C globals (at least for now)
         self.assertFalse(hasattr(c_zoneinfo.ZoneInfo, "_weak_cache"))
         self.assertTrue(hasattr(py_zoneinfo.ZoneInfo, "_weak_cache"))

@@ -15,7 +15,7 @@ class BdbQuit(Exception):
 
 
 class Bdb:
-    """Generic Python debugger base class.
+    """Generic MyFRpy debugger base class.
 
     This class takes care of details of the trace facility;
     a derived class should implement user interaction.
@@ -79,7 +79,7 @@ class Bdb:
             c_return: A C function has returned.
             c_exception: A C function has raised an exception.
 
-        For the Python events, specialized functions (see the dispatch_*()
+        For the MyFRpy events, specialized functions (see the dispatch_*()
         methods) are called.  For the C events, no action is taken.
 
         The arg parameter depends on the previous event.

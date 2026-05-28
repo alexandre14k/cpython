@@ -92,7 +92,7 @@ _calltip_window_spec = {
 _color_delegator_spec = {
     'file': 'colorizer',
     'kwds': {},
-    'msg': "The text is sample Python code.\n"
+    'msg': "The text is sample MyFRpy code.\n"
            "Ensure components like comments, keywords, builtins,\n"
            "string, definitions, and break are correctly colored.\n"
            "The default color scheme is in idlelib/config-highlight.def"

@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#! /usr/bin/env myFRpy3
 
 """Base16, Base32, Base64 (RFC 3548), Base85 and Ascii85 data encodings"""
 
@@ -78,7 +78,7 @@ def b64decode(s, altchars=None, validate=False):
     in the input result in a binascii.Error.
     For more information about the strict base64 check, see:
 
-    https://docs.python.org/3.11/library/binascii.html#binascii.a2b_base64
+    https://docs.myFRpy.org/3.11/library/binascii.html#binascii.a2b_base64
     """
     s = _bytes_from_decode_data(s)
     if altchars is not None:
@@ -135,7 +135,7 @@ def urlsafe_b64decode(s):
 
 
 
-# Base32 encoding/decoding must be done in Python
+# Base32 encoding/decoding must be done in MyFRpy
 _B32_ENCODE_DOCSTRING = '''
 Encode the bytes-like objects using {encoding} and return a bytes object.
 '''

@@ -1,6 +1,6 @@
 import re
 import unittest
-from test.support import python_is_optimized
+from test.support import myFRpy_is_optimized
 
 from .util import run_gdb, setup_module, DebuggerTests, SAMPLE_SCRIPT
 
@@ -11,7 +11,7 @@ def setUpModule():
 
 def gdb_has_frame_select():
     # Does this build of gdb have gdb.Frame.select ?
-    stdout, stderr = run_gdb("--eval-command=python print(dir(gdb.Frame))")
+    stdout, stderr = run_gdb("--eval-command=myFRpy print(dir(gdb.Frame))")
     m = re.match(r'.*\[(.*)\].*', stdout)
     if not m:
         raise unittest.SkipTest(
@@ -24,8 +24,8 @@ def gdb_has_frame_select():
 HAS_PYUP_PYDOWN = gdb_has_frame_select()
 
 
-@unittest.skipIf(python_is_optimized(),
-                 "Python was compiled with optimizations")
+@unittest.skipIf(myFRpy_is_optimized(),
+                 "MyFRpy was compiled with optimizations")
 class PyListTests(DebuggerTests):
     def assertListing(self, expected, actual):
         self.assertEndsWith(actual, expected)
@@ -86,8 +86,8 @@ foo(1, 2, 3)
 
 class StackNavigationTests(DebuggerTests):
     @unittest.skipUnless(HAS_PYUP_PYDOWN, "test requires py-up/py-down commands")
-    @unittest.skipIf(python_is_optimized(),
-                     "Python was compiled with optimizations")
+    @unittest.skipIf(myFRpy_is_optimized(),
+                     "MyFRpy was compiled with optimizations")
     def test_pyup_command(self):
         'Verify that the "py-up" command works'
         bt = self.get_stack_trace(source=SAMPLE_WITH_C_CALL,
@@ -104,7 +104,7 @@ $''')
         bt = self.get_stack_trace(script=SAMPLE_SCRIPT,
                                   cmds_after_breakpoint=['py-down'])
         self.assertEndsWith(bt,
-                            'Unable to find a newer python frame\n')
+                            'Unable to find a newer myFRpy frame\n')
 
     @unittest.skipUnless(HAS_PYUP_PYDOWN, "test requires py-up/py-down commands")
     def test_up_at_top(self):
@@ -112,11 +112,11 @@ $''')
         bt = self.get_stack_trace(script=SAMPLE_SCRIPT,
                                   cmds_after_breakpoint=['py-up'] * 5)
         self.assertEndsWith(bt,
-                            'Unable to find an older python frame\n')
+                            'Unable to find an older myFRpy frame\n')
 
     @unittest.skipUnless(HAS_PYUP_PYDOWN, "test requires py-up/py-down commands")
-    @unittest.skipIf(python_is_optimized(),
-                     "Python was compiled with optimizations")
+    @unittest.skipIf(myFRpy_is_optimized(),
+                     "MyFRpy was compiled with optimizations")
     def test_up_then_down(self):
         'Verify "py-up" followed by "py-down"'
         bt = self.get_stack_trace(source=SAMPLE_WITH_C_CALL,
@@ -129,8 +129,8 @@ $''')
 $''')
 
 class PyPrintTests(DebuggerTests):
-    @unittest.skipIf(python_is_optimized(),
-                     "Python was compiled with optimizations")
+    @unittest.skipIf(myFRpy_is_optimized(),
+                     "MyFRpy was compiled with optimizations")
     def test_basic_command(self):
         'Verify that the "py-print" command works'
         bt = self.get_stack_trace(source=SAMPLE_WITH_C_CALL,
@@ -138,8 +138,8 @@ class PyPrintTests(DebuggerTests):
         self.assertMultilineMatches(bt,
                                     r".*\nlocal 'args' = \(1, 2, 3\)\n.*")
 
-    @unittest.skipIf(python_is_optimized(),
-                     "Python was compiled with optimizations")
+    @unittest.skipIf(myFRpy_is_optimized(),
+                     "MyFRpy was compiled with optimizations")
     @unittest.skipUnless(HAS_PYUP_PYDOWN, "test requires py-up/py-down commands")
     def test_print_after_up(self):
         bt = self.get_stack_trace(source=SAMPLE_WITH_C_CALL,
@@ -147,16 +147,16 @@ class PyPrintTests(DebuggerTests):
         self.assertMultilineMatches(bt,
                                     r".*\nlocal 'c' = 3\nlocal 'b' = 2\nlocal 'a' = 1\n.*")
 
-    @unittest.skipIf(python_is_optimized(),
-                     "Python was compiled with optimizations")
+    @unittest.skipIf(myFRpy_is_optimized(),
+                     "MyFRpy was compiled with optimizations")
     def test_printing_global(self):
         bt = self.get_stack_trace(script=SAMPLE_SCRIPT,
                                   cmds_after_breakpoint=['py-up', 'py-print __name__'])
         self.assertMultilineMatches(bt,
                                     r".*\nglobal '__name__' = '__main__'\n.*")
 
-    @unittest.skipIf(python_is_optimized(),
-                     "Python was compiled with optimizations")
+    @unittest.skipIf(myFRpy_is_optimized(),
+                     "MyFRpy was compiled with optimizations")
     def test_printing_builtin(self):
         bt = self.get_stack_trace(script=SAMPLE_SCRIPT,
                                   cmds_after_breakpoint=['py-up', 'py-print len'])
@@ -164,8 +164,8 @@ class PyPrintTests(DebuggerTests):
                                     r".*\nbuiltin 'len' = <built-in method len of module object at remote 0x-?[0-9a-f]+>\n.*")
 
 class PyLocalsTests(DebuggerTests):
-    @unittest.skipIf(python_is_optimized(),
-                     "Python was compiled with optimizations")
+    @unittest.skipIf(myFRpy_is_optimized(),
+                     "MyFRpy was compiled with optimizations")
     def test_basic_command(self):
         bt = self.get_stack_trace(script=SAMPLE_SCRIPT,
                                   cmds_after_breakpoint=['py-up', 'py-locals'])
@@ -173,8 +173,8 @@ class PyLocalsTests(DebuggerTests):
                                     r".*\nargs = \(1, 2, 3\)\n.*")
 
     @unittest.skipUnless(HAS_PYUP_PYDOWN, "test requires py-up/py-down commands")
-    @unittest.skipIf(python_is_optimized(),
-                     "Python was compiled with optimizations")
+    @unittest.skipIf(myFRpy_is_optimized(),
+                     "MyFRpy was compiled with optimizations")
     def test_locals_after_up(self):
         bt = self.get_stack_trace(script=SAMPLE_SCRIPT,
                                   cmds_after_breakpoint=['py-up', 'py-up', 'py-locals'])

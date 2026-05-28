@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env myFRpy3
 """
 Check the output of running Sphinx in nit-picky mode (missing references).
 """

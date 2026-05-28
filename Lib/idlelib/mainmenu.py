@@ -4,7 +4,7 @@ There is additional configuration information in the EditorWindow class (and
 subclasses): the menus are created there based on the menu_specs (class)
 variable, and menus not created are silently skipped in the code here.  This
 makes it possible, for example, to define a Debug menu which is only present in
-the PythonShell window, and a Format menu which is only present in the Editor
+the MyFRpyShell window, and a Format menu which is only present in the Editor
 windows.
 
 """
@@ -77,7 +77,7 @@ menudefs = [
    ('R_un Module', '<<run-module>>'),
    ('Run... _Customized', '<<run-custom>>'),
    ('C_heck Module', '<<check-module>>'),
-   ('Python Shell', '<<open-python-shell>>'),
+   ('MyFRpy Shell', '<<open-myFRpy-shell>>'),
    ]),
 
  ('shell', [
@@ -112,7 +112,7 @@ menudefs = [
    ('_About IDLE', '<<about-idle>>'),
    None,
    ('_IDLE Doc', '<<help>>'),
-   ('Python _Docs', '<<python-docs>>'),
+   ('MyFRpy _Docs', '<<myFRpy-docs>>'),
    ]),
 ]
 

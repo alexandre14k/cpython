@@ -653,7 +653,7 @@ parse_field(SubString *str, SubString *field_name, SubString *format_spec,
 
 /* MarkupIterator breaks the string into pieces of either literal
    text, or things inside {} that need to be marked up.  it is
-   designed to make it easy to wrap a Python iterator around it, for
+   designed to make it easy to wrap a MyFRpy iterator around it, for
    use with the Formatter class */
 
 typedef struct {
@@ -971,7 +971,7 @@ do_string_format_map(PyObject *self, PyObject *obj)
 /* This is used to implement string.Formatter.vparse().  It exists so
    Formatter can share code with the built in unicode.format() method.
    It's really just a wrapper around MarkupIterator that is callable
-   from Python. */
+   from MyFRpy. */
 
 typedef struct {
     PyObject_HEAD
@@ -1132,7 +1132,7 @@ formatter_parser(PyObject *ignored, PyObject *self)
 
 
 /* This is used to implement string.Formatter.vparse().  It parses the
-   field name into attribute and item values.  It's a Python-callable
+   field name into attribute and item values.  It's a MyFRpy-callable
    wrapper around FieldNameIterator */
 
 typedef struct {

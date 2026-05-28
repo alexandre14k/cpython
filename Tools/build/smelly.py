@@ -1,5 +1,5 @@
-#!/usr/bin/env python
-# Script checking that all symbols exported by libpython start with Py or _Py
+#!/usr/bin/env myFRpy
+# Script checking that all symbols exported by libmyFRpy start with Py or _Py
 
 import os.path
 import subprocess
@@ -56,7 +56,7 @@ def get_exported_symbols(library, dynamic=False):
 
 def get_smelly_symbols(stdout):
     smelly_symbols = []
-    python_symbols = []
+    myFRpy_symbols = []
     local_symbols = []
 
     for line in stdout.splitlines():
@@ -73,7 +73,7 @@ def get_smelly_symbols(stdout):
         result = '%s (type: %s)' % (symbol, symtype)
 
         if symbol.startswith(ALLOWED_PREFIXES):
-            python_symbols.append(result)
+            myFRpy_symbols.append(result)
             continue
 
         if is_local_symbol_type(symtype):
@@ -85,15 +85,15 @@ def get_smelly_symbols(stdout):
 
     if local_symbols:
         print(f"Ignore {len(local_symbols)} local symbols")
-    return smelly_symbols, python_symbols
+    return smelly_symbols, myFRpy_symbols
 
 
 def check_library(library, dynamic=False):
     nm_output = get_exported_symbols(library, dynamic)
-    smelly_symbols, python_symbols = get_smelly_symbols(nm_output)
+    smelly_symbols, myFRpy_symbols = get_smelly_symbols(nm_output)
 
     if not smelly_symbols:
-        print(f"OK: no smelly symbol found ({len(python_symbols)} Python symbols)")
+        print(f"OK: no smelly symbol found ({len(myFRpy_symbols)} MyFRpy symbols)")
         return 0
 
     print()
@@ -156,7 +156,7 @@ def main():
         print()
         nsymbol += check_library(LDLIBRARY, dynamic=True)
 
-    # Check extension modules like _ssl.cpython-310d-x86_64-linux-gnu.so
+    # Check extension modules like _ssl.cmyFRpy-310d-x86_64-linux-gnu.so
     nsymbol += check_extensions()
 
     if nsymbol:

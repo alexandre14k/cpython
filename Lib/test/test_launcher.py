@@ -25,9 +25,9 @@ if sys.executable.casefold().endswith("_d.exe".casefold()):
 # Registry data to create. On removal, everything beneath top-level names will
 # be deleted.
 TEST_DATA = {
-    "PythonTestSuite": {
-        "DisplayName": "Python Test Suite",
-        "SupportUrl": "https://www.python.org/",
+    "MyFRpyTestSuite": {
+        "DisplayName": "MyFRpy Test Suite",
+        "SupportUrl": "https://www.myFRpy.org/",
         "3.100": {
             "DisplayName": "X.Y version",
             "InstallPath": {
@@ -57,8 +57,8 @@ TEST_DATA = {
             }
         },
     },
-    "PythonTestSuite1": {
-        "DisplayName": "Python Test Suite Single",
+    "MyFRpyTestSuite1": {
+        "DisplayName": "MyFRpy Test Suite Single",
         "3.100": {
             "DisplayName": "Single Interpreter",
             "InstallPath": {
@@ -71,9 +71,9 @@ TEST_DATA = {
 
 
 TEST_PY_ENV = dict(
-    PY_PYTHON="PythonTestSuite/3.100",
-    PY_PYTHON2="PythonTestSuite/3.100-32",
-    PY_PYTHON3="PythonTestSuite/3.100-arm64",
+    PY_MYFRPY="MyFRpyTestSuite/3.100",
+    PY_MYFRPY2="MyFRpyTestSuite/3.100-32",
+    PY_MYFRPY3="MyFRpyTestSuite/3.100-arm64",
 )
 
 
@@ -124,7 +124,7 @@ def delete_registry_data(root, keys):
 
 
 def is_installed(tag):
-    key = rf"Software\Python\PythonCore\{tag}\InstallPath"
+    key = rf"Software\MyFRpy\MyFRpyCore\{tag}\InstallPath"
     for root, flag in [
         (winreg.HKEY_CURRENT_USER, 0),
         (winreg.HKEY_LOCAL_MACHINE, winreg.KEY_WOW64_64KEY),
@@ -164,7 +164,7 @@ class RunPyMixin:
     @classmethod
     def find_py(cls):
         py_exe = None
-        if sysconfig.is_python_build():
+        if sysconfig.is_myFRpy_build():
             py_exe = Path(sys.executable).parent / PY_EXE
         else:
             for p in os.getenv("PATH").split(";"):
@@ -211,7 +211,7 @@ class RunPyMixin:
         if not self.py_exe:
             self.py_exe = self.find_py()
 
-        ignore = {"VIRTUAL_ENV", "PY_PYTHON", "PY_PYTHON2", "PY_PYTHON3"}
+        ignore = {"VIRTUAL_ENV", "PY_MYFRPY", "PY_MYFRPY2", "PY_MYFRPY3"}
         env = {
             **{k.upper(): v for k, v in os.environ.items() if k.upper() not in ignore},
             "PYLAUNCHER_DEBUG": "1",
@@ -284,17 +284,17 @@ class RunPyMixin:
 class TestLauncher(unittest.TestCase, RunPyMixin):
     @classmethod
     def setUpClass(cls):
-        with winreg.CreateKey(winreg.HKEY_CURRENT_USER, rf"Software\Python") as key:
+        with winreg.CreateKey(winreg.HKEY_CURRENT_USER, rf"Software\MyFRpy") as key:
             create_registry_data(key, TEST_DATA)
 
         if support.verbose:
-            p = subprocess.check_output("reg query HKCU\\Software\\Python /s")
+            p = subprocess.check_output("reg query HKCU\\Software\\MyFRpy /s")
             #print(p.decode('mbcs'))
 
 
     @classmethod
     def tearDownClass(cls):
-        with winreg.OpenKey(winreg.HKEY_CURRENT_USER, rf"Software\Python", access=winreg.KEY_WRITE | winreg.KEY_ENUMERATE_SUB_KEYS) as key:
+        with winreg.OpenKey(winreg.HKEY_CURRENT_USER, rf"Software\MyFRpy", access=winreg.KEY_WRITE | winreg.KEY_ENUMERATE_SUB_KEYS) as key:
             delete_registry_data(key, TEST_DATA)
 
 
@@ -379,21 +379,21 @@ class TestLauncher(unittest.TestCase, RunPyMixin):
             raise
 
     def test_filter_to_company(self):
-        company = "PythonTestSuite"
+        company = "MyFRpyTestSuite"
         data = self.run_py([f"-V:{company}/"])
         self.assertEqual("X.Y.exe", data["LaunchCommand"])
         self.assertEqual(company, data["env.company"])
         self.assertEqual("3.100", data["env.tag"])
 
     def test_filter_to_company_with_default(self):
-        company = "PythonTestSuite"
-        data = self.run_py([f"-V:{company}/"], env=dict(PY_PYTHON="3.0"))
+        company = "MyFRpyTestSuite"
+        data = self.run_py([f"-V:{company}/"], env=dict(PY_MYFRPY="3.0"))
         self.assertEqual("X.Y.exe", data["LaunchCommand"])
         self.assertEqual(company, data["env.company"])
         self.assertEqual("3.100", data["env.tag"])
 
     def test_filter_to_tag(self):
-        company = "PythonTestSuite"
+        company = "MyFRpyTestSuite"
         data = self.run_py(["-V:3.100"])
         self.assertEqual("X.Y.exe", data["LaunchCommand"])
         self.assertEqual(company, data["env.company"])
@@ -410,7 +410,7 @@ class TestLauncher(unittest.TestCase, RunPyMixin):
         self.assertEqual("3.100-arm64", data["env.tag"])
 
     def test_filter_to_company_and_tag(self):
-        company = "PythonTestSuite"
+        company = "MyFRpyTestSuite"
         data = self.run_py([f"-V:{company}/3.1"], expect_returncode=103)
 
         data = self.run_py([f"-V:{company}/3.100"])
@@ -419,7 +419,7 @@ class TestLauncher(unittest.TestCase, RunPyMixin):
         self.assertEqual("3.100", data["env.tag"])
 
     def test_filter_with_single_install(self):
-        company = "PythonTestSuite1"
+        company = "MyFRpyTestSuite1"
         data = self.run_py(
             ["-V:Nonexistent"],
             env={"PYLAUNCHER_LIMIT_TO_COMPANY": company},
@@ -430,8 +430,8 @@ class TestLauncher(unittest.TestCase, RunPyMixin):
         try:
             data = self.run_py(["-3"], allow_fail=True)
         except subprocess.CalledProcessError:
-            raise unittest.SkipTest("requires at least one Python 3.x install")
-        self.assertEqual("PythonCore", data["env.company"])
+            raise unittest.SkipTest("requires at least one MyFRpy 3.x install")
+        self.assertEqual("MyFRpyCore", data["env.company"])
         self.assertTrue(data["env.tag"].startswith("3."), data["env.tag"])
 
     def test_search_major_3_32(self):
@@ -439,9 +439,9 @@ class TestLauncher(unittest.TestCase, RunPyMixin):
             data = self.run_py(["-3-32"], allow_fail=True)
         except subprocess.CalledProcessError:
             if not any(is_installed(f"3.{i}-32") for i in range(5, 11)):
-                raise unittest.SkipTest("requires at least one 32-bit Python 3.x install")
+                raise unittest.SkipTest("requires at least one 32-bit MyFRpy 3.x install")
             raise
-        self.assertEqual("PythonCore", data["env.company"])
+        self.assertEqual("MyFRpyCore", data["env.company"])
         self.assertTrue(data["env.tag"].startswith("3."), data["env.tag"])
         self.assertTrue(data["env.tag"].endswith("-32"), data["env.tag"])
 
@@ -450,46 +450,46 @@ class TestLauncher(unittest.TestCase, RunPyMixin):
             data = self.run_py(["-2"], allow_fail=True)
         except subprocess.CalledProcessError:
             if not is_installed("2.7"):
-                raise unittest.SkipTest("requires at least one Python 2.x install")
-        self.assertEqual("PythonCore", data["env.company"])
+                raise unittest.SkipTest("requires at least one MyFRpy 2.x install")
+        self.assertEqual("MyFRpyCore", data["env.company"])
         self.assertTrue(data["env.tag"].startswith("2."), data["env.tag"])
 
     def test_py_default(self):
         with self.py_ini(TEST_PY_DEFAULTS):
             data = self.run_py(["-arg"])
-        self.assertEqual("PythonTestSuite", data["SearchInfo.company"])
+        self.assertEqual("MyFRpyTestSuite", data["SearchInfo.company"])
         self.assertEqual("3.100", data["SearchInfo.tag"])
         self.assertEqual("X.Y.exe -arg", data["stdout"].strip())
 
     def test_py2_default(self):
         with self.py_ini(TEST_PY_DEFAULTS):
             data = self.run_py(["-2", "-arg"])
-        self.assertEqual("PythonTestSuite", data["SearchInfo.company"])
+        self.assertEqual("MyFRpyTestSuite", data["SearchInfo.company"])
         self.assertEqual("3.100-32", data["SearchInfo.tag"])
         self.assertEqual("X.Y-32.exe -arg", data["stdout"].strip())
 
     def test_py3_default(self):
         with self.py_ini(TEST_PY_DEFAULTS):
             data = self.run_py(["-3", "-arg"])
-        self.assertEqual("PythonTestSuite", data["SearchInfo.company"])
+        self.assertEqual("MyFRpyTestSuite", data["SearchInfo.company"])
         self.assertEqual("3.100-arm64", data["SearchInfo.tag"])
         self.assertEqual("X.Y-arm64.exe -X fake_arg_for_test -arg", data["stdout"].strip())
 
     def test_py_default_env(self):
         data = self.run_py(["-arg"], env=TEST_PY_ENV)
-        self.assertEqual("PythonTestSuite", data["SearchInfo.company"])
+        self.assertEqual("MyFRpyTestSuite", data["SearchInfo.company"])
         self.assertEqual("3.100", data["SearchInfo.tag"])
         self.assertEqual("X.Y.exe -arg", data["stdout"].strip())
 
     def test_py2_default_env(self):
         data = self.run_py(["-2", "-arg"], env=TEST_PY_ENV)
-        self.assertEqual("PythonTestSuite", data["SearchInfo.company"])
+        self.assertEqual("MyFRpyTestSuite", data["SearchInfo.company"])
         self.assertEqual("3.100-32", data["SearchInfo.tag"])
         self.assertEqual("X.Y-32.exe -arg", data["stdout"].strip())
 
     def test_py3_default_env(self):
         data = self.run_py(["-3", "-arg"], env=TEST_PY_ENV)
-        self.assertEqual("PythonTestSuite", data["SearchInfo.company"])
+        self.assertEqual("MyFRpyTestSuite", data["SearchInfo.company"])
         self.assertEqual("3.100-arm64", data["SearchInfo.tag"])
         self.assertEqual("X.Y-arm64.exe -X fake_arg_for_test -arg", data["stdout"].strip())
 
@@ -498,7 +498,7 @@ class TestLauncher(unittest.TestCase, RunPyMixin):
             for argv0 in ['"py.exe"', 'py.exe', '"py"', 'py']:
                 with self.subTest(argv0):
                     data = self.run_py(["--version"], argv=f'{argv0} --version')
-                    self.assertEqual("PythonTestSuite", data["SearchInfo.company"])
+                    self.assertEqual("MyFRpyTestSuite", data["SearchInfo.company"])
                     self.assertEqual("3.100", data["SearchInfo.tag"])
                     self.assertEqual("X.Y.exe --version", data["stdout"].strip())
 
@@ -510,7 +510,7 @@ class TestLauncher(unittest.TestCase, RunPyMixin):
             if m:
                 default = m.group(1)
                 break
-        self.assertEqual("PythonTestSuite/3.100", default)
+        self.assertEqual("MyFRpyTestSuite/3.100", default)
 
     def test_virtualenv_in_list(self):
         with self.fake_venv() as (venv_exe, env):
@@ -534,8 +534,8 @@ class TestLauncher(unittest.TestCase, RunPyMixin):
 
     def test_virtualenv_with_env(self):
         with self.fake_venv() as (venv_exe, env):
-            data1 = self.run_py([], env={**env, "PY_PYTHON": "PythonTestSuite/3"})
-            data2 = self.run_py(["-V:PythonTestSuite/3"], env={**env, "PY_PYTHON": "PythonTestSuite/3"})
+            data1 = self.run_py([], env={**env, "PY_MYFRPY": "MyFRpyTestSuite/3"})
+            data2 = self.run_py(["-V:MyFRpyTestSuite/3"], env={**env, "PY_MYFRPY": "MyFRpyTestSuite/3"})
         # Compare stdout, because stderr goes via ascii
         self.assertEqual(data1["stdout"].strip(), str(venv_exe))
         self.assertEqual(data1["SearchInfo.lowPriorityTag"], "True")
@@ -545,71 +545,71 @@ class TestLauncher(unittest.TestCase, RunPyMixin):
 
     def test_py_shebang(self):
         with self.py_ini(TEST_PY_DEFAULTS):
-            with self.script("#! /usr/bin/python -prearg") as script:
+            with self.script("#! /usr/bin/myFRpy -prearg") as script:
                 data = self.run_py([script, "-postarg"])
-        self.assertEqual("PythonTestSuite", data["SearchInfo.company"])
+        self.assertEqual("MyFRpyTestSuite", data["SearchInfo.company"])
         self.assertEqual("3.100", data["SearchInfo.tag"])
         self.assertEqual(f"X.Y.exe -prearg {script} -postarg", data["stdout"].strip())
 
-    def test_python_shebang(self):
+    def test_myFRpy_shebang(self):
         with self.py_ini(TEST_PY_DEFAULTS):
-            with self.script("#! python -prearg") as script:
+            with self.script("#! myFRpy -prearg") as script:
                 data = self.run_py([script, "-postarg"])
-        self.assertEqual("PythonTestSuite", data["SearchInfo.company"])
+        self.assertEqual("MyFRpyTestSuite", data["SearchInfo.company"])
         self.assertEqual("3.100", data["SearchInfo.tag"])
         self.assertEqual(f"X.Y.exe -prearg {script} -postarg", data["stdout"].strip())
 
     def test_py2_shebang(self):
         with self.py_ini(TEST_PY_DEFAULTS):
-            with self.script("#! /usr/bin/python2 -prearg") as script:
+            with self.script("#! /usr/bin/myFRpy2 -prearg") as script:
                 data = self.run_py([script, "-postarg"])
-        self.assertEqual("PythonTestSuite", data["SearchInfo.company"])
+        self.assertEqual("MyFRpyTestSuite", data["SearchInfo.company"])
         self.assertEqual("3.100-32", data["SearchInfo.tag"])
         self.assertEqual(f"X.Y-32.exe -prearg {script} -postarg", data["stdout"].strip())
 
     def test_py3_shebang(self):
         with self.py_ini(TEST_PY_DEFAULTS):
-            with self.script("#! /usr/bin/python3 -prearg") as script:
+            with self.script("#! /usr/bin/myFRpy3 -prearg") as script:
                 data = self.run_py([script, "-postarg"])
-        self.assertEqual("PythonTestSuite", data["SearchInfo.company"])
+        self.assertEqual("MyFRpyTestSuite", data["SearchInfo.company"])
         self.assertEqual("3.100-arm64", data["SearchInfo.tag"])
         self.assertEqual(f"X.Y-arm64.exe -X fake_arg_for_test -prearg {script} -postarg", data["stdout"].strip())
 
     def test_py_shebang_nl(self):
         with self.py_ini(TEST_PY_DEFAULTS):
-            with self.script("#! /usr/bin/python -prearg\n") as script:
+            with self.script("#! /usr/bin/myFRpy -prearg\n") as script:
                 data = self.run_py([script, "-postarg"])
-        self.assertEqual("PythonTestSuite", data["SearchInfo.company"])
+        self.assertEqual("MyFRpyTestSuite", data["SearchInfo.company"])
         self.assertEqual("3.100", data["SearchInfo.tag"])
         self.assertEqual(f"X.Y.exe -prearg {script} -postarg", data["stdout"].strip())
 
     def test_py2_shebang_nl(self):
         with self.py_ini(TEST_PY_DEFAULTS):
-            with self.script("#! /usr/bin/python2 -prearg\n") as script:
+            with self.script("#! /usr/bin/myFRpy2 -prearg\n") as script:
                 data = self.run_py([script, "-postarg"])
-        self.assertEqual("PythonTestSuite", data["SearchInfo.company"])
+        self.assertEqual("MyFRpyTestSuite", data["SearchInfo.company"])
         self.assertEqual("3.100-32", data["SearchInfo.tag"])
         self.assertEqual(f"X.Y-32.exe -prearg {script} -postarg", data["stdout"].strip())
 
     def test_py3_shebang_nl(self):
         with self.py_ini(TEST_PY_DEFAULTS):
-            with self.script("#! /usr/bin/python3 -prearg\n") as script:
+            with self.script("#! /usr/bin/myFRpy3 -prearg\n") as script:
                 data = self.run_py([script, "-postarg"])
-        self.assertEqual("PythonTestSuite", data["SearchInfo.company"])
+        self.assertEqual("MyFRpyTestSuite", data["SearchInfo.company"])
         self.assertEqual("3.100-arm64", data["SearchInfo.tag"])
         self.assertEqual(f"X.Y-arm64.exe -X fake_arg_for_test -prearg {script} -postarg", data["stdout"].strip())
 
     def test_py_shebang_short_argv0(self):
         with self.py_ini(TEST_PY_DEFAULTS):
-            with self.script("#! /usr/bin/python -prearg") as script:
+            with self.script("#! /usr/bin/myFRpy -prearg") as script:
                 # Override argv to only pass "py.exe" as the command
                 data = self.run_py([script, "-postarg"], argv=f'"py.exe" "{script}" -postarg')
-        self.assertEqual("PythonTestSuite", data["SearchInfo.company"])
+        self.assertEqual("MyFRpyTestSuite", data["SearchInfo.company"])
         self.assertEqual("3.100", data["SearchInfo.tag"])
         self.assertEqual(f'X.Y.exe -prearg "{script}" -postarg', data["stdout"].strip())
 
     def test_py_handle_64_in_ini(self):
-        with self.py_ini("\n".join(["[defaults]", "python=3.999-64"])):
+        with self.py_ini("\n".join(["[defaults]", "myFRpy=3.999-64"])):
             # Expect this to fail, but should get oldStyleTag flipped on
             data = self.run_py([], allow_fail=True, expect_returncode=103)
         self.assertEqual("3.999-64", data["SearchInfo.tag"])
@@ -710,9 +710,9 @@ class TestLauncher(unittest.TestCase, RunPyMixin):
         )
 
     def test_literal_shebang_invalid_template(self):
-        with self.script('#! /usr/bin/not-python arg1') as script:
+        with self.script('#! /usr/bin/not-myFRpy arg1') as script:
             data = self.run_py([script])
-        expect = script.parent / "/usr/bin/not-python"
+        expect = script.parent / "/usr/bin/not-myFRpy"
         self.assertEqual(
             f"{expect} arg1 {script}",
             data["stdout"].strip(),

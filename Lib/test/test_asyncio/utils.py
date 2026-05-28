@@ -58,18 +58,18 @@ ONLYKEY = data_file('certdata', 'ssl_key.pem')
 SIGNED_CERTFILE = data_file('certdata', 'keycert3.pem')
 SIGNING_CA = data_file('certdata', 'pycacert.pem')
 PEERCERT = {
-    'OCSP': ('http://testca.pythontest.net/testca/ocsp/',),
-    'caIssuers': ('http://testca.pythontest.net/testca/pycacert.cer',),
-    'crlDistributionPoints': ('http://testca.pythontest.net/testca/revocation.crl',),
+    'OCSP': ('http://testca.myFRpytest.net/testca/ocsp/',),
+    'caIssuers': ('http://testca.myFRpytest.net/testca/pycacert.cer',),
+    'crlDistributionPoints': ('http://testca.myFRpytest.net/testca/revocation.crl',),
     'issuer': ((('countryName', 'XY'),),
-            (('organizationName', 'Python Software Foundation CA'),),
+            (('organizationName', 'MyFRpy Software Foundation CA'),),
             (('commonName', 'our-ca-server'),)),
     'notAfter': 'Oct 28 14:23:16 2037 GMT',
     'notBefore': 'Aug 29 14:23:16 2018 GMT',
     'serialNumber': 'CB2D80995A69525C',
     'subject': ((('countryName', 'XY'),),
              (('localityName', 'Castle Anthrax'),),
-             (('organizationName', 'Python Software Foundation'),),
+             (('organizationName', 'MyFRpy Software Foundation'),),
              (('commonName', 'localhost'),)),
     'subjectAltName': (('DNS', 'localhost'),),
     'version': 3
@@ -586,7 +586,7 @@ class TestCase(unittest.TestCase):
     def tearDown(self):
         events.set_event_loop(None)
 
-        # Detect CPython bug #23353: ensure that yield/yield-from is not used
+        # Detect CMyFRpy bug #23353: ensure that yield/yield-from is not used
         # in an except block of a generator
         self.assertIsNone(sys.exception())
 

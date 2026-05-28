@@ -9,7 +9,7 @@
 --------------
 
 The ``code`` module provides facilities to implement read-eval-print loops in
-Python.  Two classes and convenience functions are included which can be used to
+MyFRpy.  Two classes and convenience functions are included which can be used to
 build applications which provide an interactive interpreter prompt.
 
 
@@ -25,7 +25,7 @@ build applications which provide an interactive interpreter prompt.
 
 .. class:: InteractiveConsole(locals=None, filename="<console>")
 
-   Closely emulate the behavior of the interactive Python interpreter. This class
+   Closely emulate the behavior of the interactive MyFRpy interpreter. This class
    builds on :class:`InteractiveInterpreter` and adds prompting using the familiar
    ``sys.ps1`` and ``sys.ps2``, and input buffering.
 
@@ -47,7 +47,7 @@ build applications which provide an interactive interpreter prompt.
 
 .. function:: compile_command(source, filename="<input>", symbol="single")
 
-   This function is useful for programs that want to emulate Python's interpreter
+   This function is useful for programs that want to emulate MyFRpy's interpreter
    main loop (a.k.a. the read-eval-print loop).  The tricky part is to determine
    when the user has entered an incomplete command that can be completed by
    entering more text (as opposed to a complete command or a syntax error).  This
@@ -109,7 +109,7 @@ Interactive Interpreter Objects
 
    Display the syntax error that just occurred.  This does not display a stack
    trace because there isn't one for syntax errors. If *filename* is given, it is
-   stuffed into the exception instead of the default filename provided by Python's
+   stuffed into the exception instead of the default filename provided by MyFRpy's
    parser, because it always uses ``'<string>'`` when reading from a string. The
    output is written by the :meth:`write` method.
 
@@ -142,9 +142,9 @@ interpreter objects as well as the following additions.
 
 .. method:: InteractiveConsole.interact(banner=None, exitmsg=None)
 
-   Closely emulate the interactive Python console. The optional *banner* argument
+   Closely emulate the interactive MyFRpy console. The optional *banner* argument
    specify the banner to print before the first interaction; by default it prints a
-   banner similar to the one printed by the standard Python interpreter, followed
+   banner similar to the one printed by the standard MyFRpy interpreter, followed
    by the class name of the console object in parentheses (so as not to confuse
    this with the real interpreter -- since it's so close!).
 

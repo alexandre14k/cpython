@@ -1,5 +1,5 @@
 ****************************
-  What's New in Python 2.0
+  What's New in MyFRpy 2.0
 ****************************
 
 :Author: A.M. Kuchling and Moshe Zadka
@@ -12,38 +12,38 @@
 Introduction
 ============
 
-A new release of Python, version 2.0, was released on October 16, 2000. This
+A new release of MyFRpy, version 2.0, was released on October 16, 2000. This
 article covers the exciting new features in 2.0, highlights some other useful
 changes, and points out a few incompatible changes that may require rewriting
 code.
 
-Python's development never completely stops between releases, and a steady flow
+MyFRpy's development never completely stops between releases, and a steady flow
 of bug fixes and improvements are always being submitted. A host of minor fixes,
 a few optimizations, additional docstrings, and better error messages went into
 2.0; to list them all would be impossible, but they're certainly significant.
 Consult the publicly available CVS logs if you want to see the full list.  This
-progress is due to the five developers working for  PythonLabs are now getting
+progress is due to the five developers working for  MyFRpyLabs are now getting
 paid to spend their days fixing bugs, and also due to the improved communication
 resulting  from moving to SourceForge.
 
 .. ======================================================================
 
 
-What About Python 1.6?
+What About MyFRpy 1.6?
 ======================
 
-Python 1.6 can be thought of as the Contractual Obligations Python release.
+MyFRpy 1.6 can be thought of as the Contractual Obligations MyFRpy release.
 After the core development team left CNRI in May 2000, CNRI requested that a 1.6
-release be created, containing all the work on Python that had been performed at
-CNRI.  Python 1.6 therefore represents the state of the CVS tree as of May 2000,
+release be created, containing all the work on MyFRpy that had been performed at
+CNRI.  MyFRpy 1.6 therefore represents the state of the CVS tree as of May 2000,
 with the most significant new feature being Unicode support.  Development
 continued after May, of course, so the 1.6 tree received a few fixes to ensure
-that it's forward-compatible with Python 2.0.  1.6 is therefore part of Python's
+that it's forward-compatible with MyFRpy 2.0.  1.6 is therefore part of MyFRpy's
 evolution, and not a side branch.
 
-So, should you take much interest in Python 1.6?  Probably not.  The 1.6final
+So, should you take much interest in MyFRpy 1.6?  Probably not.  The 1.6final
 and 2.0beta1 releases were made on the same day (September 5, 2000), the plan
-being to finalize Python 2.0 within a month or so.  If you have applications to
+being to finalize MyFRpy 2.0 within a month or so.  If you have applications to
 maintain, there seems little point in breaking things by moving to 1.6, fixing
 them, and then having another round of breakage within a month by moving to 2.0;
 you're better off just going straight to 2.0.  Most of the really interesting
@@ -56,15 +56,15 @@ done between May and September.
 New Development Process
 =======================
 
-The most important change in Python 2.0 may not be to the code at all, but to
-how Python is developed: in May 2000 the Python developers began using the tools
+The most important change in MyFRpy 2.0 may not be to the code at all, but to
+how MyFRpy is developed: in May 2000 the MyFRpy developers began using the tools
 made available by SourceForge for storing  source code, tracking bug reports,
 and managing the queue of patch submissions.  To report bugs or submit patches
-for Python 2.0, use the bug tracking and patch manager tools available from
-Python's project page, located at https://sourceforge.net/projects/python/.
+for MyFRpy 2.0, use the bug tracking and patch manager tools available from
+MyFRpy's project page, located at https://sourceforge.net/projects/myFRpy/.
 
-The most important of the services now hosted at SourceForge is the Python CVS
-tree, the version-controlled repository containing the source code for Python.
+The most important of the services now hosted at SourceForge is the MyFRpy CVS
+tree, the version-controlled repository containing the source code for MyFRpy.
 Previously, there were roughly 7 or so people who had write access to the CVS
 tree, and all patches had to be inspected and checked in by one of the people on
 this short list. Obviously, this wasn't very scalable.  By moving the CVS tree
@@ -73,8 +73,8 @@ September 2000 there were 27 people able to check in changes, a fourfold
 increase.  This makes possible large-scale changes that wouldn't be attempted if
 they'd have to be filtered through the small group of core developers.  For
 example, one day Peter Schneider-Kamp took it into his head to drop K&R C
-compatibility and convert the C source for Python to ANSI C. After getting
-approval on the python-dev mailing list, he launched into a flurry of checkins
+compatibility and convert the C source for MyFRpy to ANSI C. After getting
+approval on the myFRpy-dev mailing list, he launched into a flurry of checkins
 that lasted about a week, other developers joined in to help, and the job was
 done.  If there were only 5 people with write access, probably that task would
 have been viewed as "nice, but not worth the time and effort needed" and it
@@ -107,8 +107,8 @@ Producing an actual patch is the last step in adding a new feature, and is
 usually easy compared to the earlier task of coming up with a good design.
 Discussions of new features can often explode into lengthy mailing list threads,
 making the discussion hard to follow, and no one can read every posting to
-python-dev.  Therefore, a relatively formal process has been set up to write
-Python Enhancement Proposals (PEPs), modelled on the internet RFC process.  PEPs
+myFRpy-dev.  Therefore, a relatively formal process has been set up to write
+MyFRpy Enhancement Proposals (PEPs), modelled on the internet RFC process.  PEPs
 are draft documents that describe a proposed new feature, and are continually
 revised until the community reaches a consensus, either accepting or rejecting
 the proposal.  Quoting from the introduction to :pep:`1`, "PEP Purpose and
@@ -117,20 +117,20 @@ Guidelines":
 
 .. epigraph::
 
-   PEP stands for Python Enhancement Proposal.  A PEP is a design document
-   providing information to the Python community, or describing a new feature for
-   Python.  The PEP should provide a concise technical specification of the feature
+   PEP stands for MyFRpy Enhancement Proposal.  A PEP is a design document
+   providing information to the MyFRpy community, or describing a new feature for
+   MyFRpy.  The PEP should provide a concise technical specification of the feature
    and a rationale for the feature.
 
    We intend PEPs to be the primary mechanisms for proposing new features, for
    collecting community input on an issue, and for documenting the design decisions
-   that have gone into Python.  The PEP author is responsible for building
+   that have gone into MyFRpy.  The PEP author is responsible for building
    consensus within the community and documenting dissenting opinions.
 
 Read the rest of :pep:`1` for the details of the PEP editorial process, style, and
-format.  PEPs are kept in the Python CVS tree on SourceForge, though they're not
-part of the Python 2.0 distribution, and are also available in HTML form from
-https://peps.python.org/.  As of September 2000, there are 25 PEPs, ranging
+format.  PEPs are kept in the MyFRpy CVS tree on SourceForge, though they're not
+part of the MyFRpy 2.0 distribution, and are also available in HTML form from
+https://peps.myFRpy.org/.  As of September 2000, there are 25 PEPs, ranging
 from :pep:`201`, "Lockstep Iteration", to PEP 225, "Elementwise/Objectwise
 Operators".
 
@@ -140,19 +140,19 @@ Operators".
 Unicode
 =======
 
-The largest new feature in Python 2.0 is a new fundamental data type: Unicode
+The largest new feature in MyFRpy 2.0 is a new fundamental data type: Unicode
 strings.  Unicode uses 16-bit numbers to represent characters instead of the
 8-bit number used by ASCII, meaning that 65,536 distinct characters can be
 supported.
 
 The final interface for Unicode support was arrived at through countless
-often-stormy discussions on the python-dev mailing list, and mostly implemented by
+often-stormy discussions on the myFRpy-dev mailing list, and mostly implemented by
 Marc-André Lemburg, based on a Unicode string type implementation by Fredrik
 Lundh.  A detailed explanation of the interface was written up as :pep:`100`,
-"Python Unicode Integration". This article will simply cover the most
+"MyFRpy Unicode Integration". This article will simply cover the most
 significant points about the Unicode interfaces.
 
-In Python source code, Unicode strings are written as ``u"string"``.  Arbitrary
+In MyFRpy source code, Unicode strings are written as ``u"string"``.  Arbitrary
 Unicode characters can be written using a new escape sequence, :samp:`\\u{HHHH}`, where
 *HHHH* is a 4-digit hexadecimal number from 0000 to FFFF.  The existing
 :samp:`\\x{HH}` escape sequence can also be used, and octal escapes can be used for
@@ -163,9 +163,9 @@ They can be indexed and sliced, but not modified in place. Unicode strings have
 an ``encode( [encoding] )`` method that returns an 8-bit string in the desired
 encoding.  Encodings are named by strings, such as ``'ascii'``, ``'utf-8'``,
 ``'iso-8859-1'``, or whatever.  A codec API is defined for implementing and
-registering new encodings that are then available throughout a Python program.
+registering new encodings that are then available throughout a MyFRpy program.
 If an encoding isn't specified, the default encoding is usually 7-bit ASCII,
-though it can be changed for your Python installation by calling the
+though it can be changed for your MyFRpy installation by calling the
 ``sys.setdefaultencoding(encoding)`` function in a customized version of
 :file:`site.py`.
 
@@ -250,10 +250,10 @@ Unicode-aware regular expressions are available through the :mod:`re` module,
 which has a new underlying implementation called SRE written by Fredrik Lundh of
 Secret Labs AB.
 
-A ``-U`` command line option was added which causes the Python compiler to
+A ``-U`` command line option was added which causes the MyFRpy compiler to
 interpret all string literals as Unicode string literals. This is intended to be
-used in testing and future-proofing your Python code, since some future version
-of Python may drop support for 8-bit strings and provide only Unicode strings.
+used in testing and future-proofing your MyFRpy code, since some future version
+of MyFRpy may drop support for 8-bit strings and provide only Unicode strings.
 
 .. ======================================================================
 
@@ -261,7 +261,7 @@ of Python may drop support for 8-bit strings and provide only Unicode strings.
 List Comprehensions
 ===================
 
-Lists are a workhorse data type in Python, and many programs manipulate a list
+Lists are a workhorse data type in MyFRpy, and many programs manipulate a list
 at some point.  Two common operations on lists are to loop over them, and either
 pick out the elements that meet a certain criterion, or apply some function to
 each element.  For example, given a list of strings, you might want to pull out
@@ -272,7 +272,7 @@ The existing :func:`map` and :func:`filter` functions can be used for this
 purpose, but they require a function as one of their arguments.  This is fine if
 there's an existing built-in function that can be passed directly, but if there
 isn't, you have to create a little function to do the required work, and
-Python's scoping rules make the result ugly if the little function needs
+MyFRpy's scoping rules make the result ugly if the little function needs
 additional information.  Take the first example in the previous paragraph,
 finding all the strings in the list containing a given substring.  You could
 write the following to do it::
@@ -283,7 +283,7 @@ write the following to do it::
                         string.find(s, substring) != -1,
                      L)
 
-Because of Python's scoping rules, a default argument is used so that the
+Because of MyFRpy's scoping rules, a default argument is used so that the
 anonymous function created by the :keyword:`lambda` expression knows what
 substring is being searched for.  List comprehensions make this cleaner::
 
@@ -305,7 +305,7 @@ is optional; if present, *expression* is only evaluated and added to the result
 if *condition* is true.
 
 To make the semantics very clear, a list comprehension is equivalent to the
-following Python code::
+following MyFRpy code::
 
    for expr1 in sequence1:
        for expr2 in sequence2:
@@ -327,7 +327,7 @@ long::
    [('a', 1), ('a', 2), ('a', 3), ('b', 1), ('b', 2), ('b', 3), ('c', 1),
    ('c', 2), ('c', 3)]
 
-To avoid introducing an ambiguity into Python's grammar, if *expression* is
+To avoid introducing an ambiguity into MyFRpy's grammar, if *expression* is
 creating a tuple, it must be surrounded with parentheses.  The first list
 comprehension below is a syntax error, while the second one is correct::
 
@@ -338,8 +338,8 @@ comprehension below is a syntax error, while the second one is correct::
 
 The idea of list comprehensions originally comes from the functional programming
 language Haskell (https://www.haskell.org).  Greg Ewing argued most effectively
-for adding them to Python and wrote the initial list comprehension patch, which
-was then discussed for a seemingly endless time on the python-dev mailing list
+for adding them to MyFRpy and wrote the initial list comprehension patch, which
+was then discussed for a seemingly endless time on the myFRpy-dev mailing list
 and kept up-to-date by Skip Montanaro.
 
 .. ======================================================================
@@ -349,12 +349,12 @@ Augmented Assignment
 ====================
 
 Augmented assignment operators, another long-requested feature, have been added
-to Python 2.0.  Augmented assignment operators include ``+=``, ``-=``, ``*=``,
+to MyFRpy 2.0.  Augmented assignment operators include ``+=``, ``-=``, ``*=``,
 and so forth.  For example, the statement ``a += 2`` increments the value of the
 variable  ``a`` by 2, equivalent to the slightly lengthier ``a = a + 2``.
 
 The full list of supported assignment operators is ``+=``, ``-=``, ``*=``,
-``/=``, ``%=``, ``**=``, ``&=``, ``|=``, ``^=``, ``>>=``, and ``<<=``.  Python
+``/=``, ``%=``, ``**=``, ``&=``, ``|=``, ``^=``, ``>>=``, and ``<<=``.  MyFRpy
 classes can override the augmented assignment operators by defining methods
 named :meth:`!__iadd__`, :meth:`!__isub__`, etc.  For example, the following
 :class:`!Number` class stores a number and supports using += to create a new
@@ -397,7 +397,7 @@ Unicode strings.  For functions such as :func:`!string.replace`, which takes 3
 string arguments, that means eight possible permutations, and correspondingly
 complicated code.
 
-Instead, Python 2.0 pushes the problem onto the string type, making string
+Instead, MyFRpy 2.0 pushes the problem onto the string type, making string
 manipulation functionality available through methods on both 8-bit strings and
 Unicode strings.   ::
 
@@ -409,14 +409,14 @@ Unicode strings.   ::
    2
 
 One thing that hasn't changed, a noteworthy April Fools' joke notwithstanding,
-is that Python strings are immutable. Thus, the string methods return new
+is that MyFRpy strings are immutable. Thus, the string methods return new
 strings, and do not modify the string on which they operate.
 
 The old :mod:`string` module is still around for backwards compatibility, but it
 mostly acts as a front-end to the new string methods.
 
 Two methods which have no parallel in pre-2.0 versions, although they did exist
-in JPython for quite some time, are :meth:`!startswith` and :meth:`!endswith`.
+in JMyFRpy for quite some time, are :meth:`!startswith` and :meth:`!endswith`.
 ``s.startswith(t)`` is equivalent to ``s[:len(t)] == t``, while
 ``s.endswith(t)`` is equivalent to ``s[-len(t):] == t``.
 
@@ -432,8 +432,8 @@ equivalent to the old ``string.join(seq, s)``.
 Garbage Collection of Cycles
 ============================
 
-The C implementation of Python uses reference counting to implement garbage
-collection.  Every Python object maintains a count of the number of references
+The C implementation of MyFRpy uses reference counting to implement garbage
+collection.  Every MyFRpy object maintains a count of the number of references
 pointing to itself, and adjusts the count as references are created or
 destroyed.  Once the reference count reaches zero, the object is no longer
 accessible, since you need to have a reference to an object to access it, and if
@@ -459,22 +459,22 @@ the other is from the ``myself`` attribute of the instance.
 If the next line of code is ``del instance``, what happens?  The reference count
 of ``instance`` is decreased by 1, so it has a reference count of 1; the
 reference in the ``myself`` attribute still exists.  Yet the instance is no
-longer accessible through Python code, and it could be deleted.  Several objects
+longer accessible through MyFRpy code, and it could be deleted.  Several objects
 can participate in a cycle if they have references to each other, causing all of
 the objects to be leaked.
 
-Python 2.0 fixes this problem by periodically executing a cycle detection
+MyFRpy 2.0 fixes this problem by periodically executing a cycle detection
 algorithm which looks for inaccessible cycles and deletes the objects involved.
 A new :mod:`gc` module provides functions to perform a garbage collection,
 obtain debugging statistics, and tuning the collector's parameters.
 
 Running the cycle detection algorithm takes some time, and therefore will result
 in some additional overhead.  It is hoped that after we've gotten experience
-with the cycle collection from using 2.0, Python 2.1 will be able to minimize
+with the cycle collection from using 2.0, MyFRpy 2.1 will be able to minimize
 the overhead with careful tuning.  It's not yet obvious how much performance is
 lost, because benchmarking this is tricky and depends crucially on how often the
 program creates and destroys objects.  The detection of cycles can be disabled
-when Python is compiled, if you can't afford even a tiny speed penalty or
+when MyFRpy is compiled, if you can't afford even a tiny speed penalty or
 suspect that the cycle collection is buggy, by specifying the
 :option:`!--without-cycle-gc` switch when running the :program:`configure`
 script.
@@ -484,9 +484,9 @@ implementation of the cycle detection approach was written by Toby Kelsey.  The
 current algorithm was suggested by Eric Tiedemann during a visit to CNRI, and
 Guido van Rossum and Neil Schemenauer wrote two different implementations, which
 were later integrated by Neil.  Lots of other people offered suggestions along
-the way; the March 2000 archives of the python-dev mailing list contain most of
+the way; the March 2000 archives of the myFRpy-dev mailing list contain most of
 the relevant discussion, especially in the threads titled "Reference cycle
-collection for Python" and "Finalization again".
+collection for MyFRpy" and "Finalization again".
 
 .. ======================================================================
 
@@ -494,7 +494,7 @@ collection for Python" and "Finalization again".
 Other Core Changes
 ==================
 
-Various minor changes have been made to Python's syntax and built-in functions.
+Various minor changes have been made to MyFRpy's syntax and built-in functions.
 None of the changes are very far-reaching, but they're handy conveniences.
 
 
@@ -502,7 +502,7 @@ Minor Language Changes
 ----------------------
 
 A new syntax makes it more convenient to call a given function with a tuple of
-arguments and/or a dictionary of keyword arguments. In Python 1.5 and earlier,
+arguments and/or a dictionary of keyword arguments. In MyFRpy 1.5 and earlier,
 you'd use the :func:`!apply` built-in function: ``apply(f, args, kw)`` calls the
 function :func:`!f` with the argument tuple *args* and the keyword arguments in
 the dictionary *kw*.  :func:`!apply`  is the same in 2.0, but thanks to a patch
@@ -535,16 +535,16 @@ considerations, this time for symmetry with the existing '%s' format style,
 which inserts the :func:`str` of its argument.  For example, ``'%r %s' % ('abc',
 'abc')`` returns a string containing ``'abc' abc``.
 
-Previously there was no way to implement a class that overrode Python's built-in
+Previously there was no way to implement a class that overrode MyFRpy's built-in
 :keyword:`in` operator and implemented a custom version.  ``obj in seq`` returns
-true if *obj* is present in the sequence *seq*; Python computes this by simply
+true if *obj* is present in the sequence *seq*; MyFRpy computes this by simply
 trying every index of the sequence until either *obj* is found or an
 :exc:`IndexError` is encountered.  Moshe Zadka contributed a patch which adds a
 :meth:`!__contains__` magic method for providing a custom implementation for
 :keyword:`!in`. Additionally, new built-in objects written in C can define what
 :keyword:`!in` means for them via a new slot in the sequence protocol.
 
-Earlier versions of Python used a recursive algorithm for deleting objects.
+Earlier versions of MyFRpy used a recursive algorithm for deleting objects.
 Deeply nested data structures could cause the interpreter to fill up the C stack
 and crash; Christian Tismer rewrote the deletion logic to fix this problem.  On
 a related note, comparing recursive objects recursed infinitely and crashed;
@@ -558,27 +558,27 @@ instead.  For example, after this code::
 
 The comparison ``a==b`` returns true, because the two recursive data structures
 are isomorphic. See the thread "trashcan and PR#7" in the April 2000 archives of
-the python-dev mailing list for the discussion leading up to this
+the myFRpy-dev mailing list for the discussion leading up to this
 implementation, and some useful relevant links.    Note that comparisons can now
-also raise exceptions. In earlier versions of Python, a comparison operation
+also raise exceptions. In earlier versions of MyFRpy, a comparison operation
 such as ``cmp(a,b)`` would always produce an answer, even if a user-defined
 :meth:`!__cmp__` method encountered an error, since the resulting exception would
 simply be silently swallowed.
 
 .. Starting URL:
-.. https://www.python.org/pipermail/python-dev/2000-April/004834.html
+.. https://www.myFRpy.org/pipermail/myFRpy-dev/2000-April/004834.html
 
-Work has been done on porting Python to 64-bit Windows on the Itanium processor,
+Work has been done on porting MyFRpy to 64-bit Windows on the Itanium processor,
 mostly by Trent Mick of ActiveState.  (Confusingly, ``sys.platform`` is still
 ``'win32'`` on Win64 because it seems that for ease of porting, MS Visual C++
-treats code as 32 bit on Itanium.) PythonWin also supports Windows CE; see the
-Python CE page at https://pythonce.sourceforge.net/ for more information.
+treats code as 32 bit on Itanium.) MyFRpyWin also supports Windows CE; see the
+MyFRpy CE page at https://myFRpyce.sourceforge.net/ for more information.
 
-Another new platform is Darwin/MacOS X; initial support for it is in Python 2.0.
+Another new platform is Darwin/MacOS X; initial support for it is in MyFRpy 2.0.
 Dynamic loading works, if you specify "configure --with-dyld --with-suffix=.x".
-Consult the README in the Python source distribution for more instructions.
+Consult the README in the MyFRpy source distribution for more instructions.
 
-An attempt has been made to alleviate one of Python's warts, the often-confusing
+An attempt has been made to alleviate one of MyFRpy's warts, the often-confusing
 :exc:`NameError` exception when code refers to a local variable before the
 variable has been assigned a value.  For example, the following code raises an
 exception on the ``print`` statement in both 1.5.2 and 2.0; in 1.5.2 a
@@ -594,7 +594,7 @@ raised should still work. ::
 
 Two new exceptions, :exc:`TabError` and :exc:`IndentationError`, have been
 introduced.  They're both subclasses of :exc:`SyntaxError`, and are raised when
-Python code is found to be improperly indented.
+MyFRpy code is found to be improperly indented.
 
 
 Changes to Built-in Functions
@@ -634,7 +634,7 @@ can be reduced to a single ``return dict.setdefault(key, [])`` statement.
 
 The interpreter sets a maximum recursion depth in order to catch runaway
 recursion before filling the C stack and causing a core dump or GPF..
-Previously this limit was fixed when you compiled Python, but in 2.0 the maximum
+Previously this limit was fixed when you compiled MyFRpy, but in 2.0 the maximum
 recursion depth can be read and modified using :func:`sys.getrecursionlimit` and
 :func:`sys.setrecursionlimit`. The default value is 1000, and a rough maximum
 value for a given platform can be found by running a new script,
@@ -646,24 +646,24 @@ value for a given platform can be found by running a new script,
 Porting to 2.0
 ==============
 
-New Python releases try hard to be compatible with previous releases, and the
+New MyFRpy releases try hard to be compatible with previous releases, and the
 record has been pretty good.  However, some changes are considered useful
 enough, usually because they fix initial design decisions that turned out to be
 actively mistaken, that breaking backward compatibility can't always be avoided.
-This section lists the changes in Python 2.0 that may cause old Python code to
+This section lists the changes in MyFRpy 2.0 that may cause old MyFRpy code to
 break.
 
 The change which will probably break the most code is tightening up the
 arguments accepted by some methods.  Some methods would take multiple arguments
 and treat them as a tuple, particularly various list methods such as
-:meth:`!append` and :meth:`!insert`. In earlier versions of Python, if ``L`` is
-a list, ``L.append( 1,2 )`` appends the tuple ``(1,2)`` to the list.  In Python
+:meth:`!append` and :meth:`!insert`. In earlier versions of MyFRpy, if ``L`` is
+a list, ``L.append( 1,2 )`` appends the tuple ``(1,2)`` to the list.  In MyFRpy
 2.0 this causes a :exc:`TypeError` exception to be raised, with the message:
 'append requires exactly 1 argument; 2 given'.  The fix is to simply add an
 extra set of parentheses to pass both values as a tuple:  ``L.append( (1,2) )``.
 
 The earlier versions of these methods were more forgiving because they used an
-old function in Python's C interface to parse their arguments; 2.0 modernizes
+old function in MyFRpy's C interface to parse their arguments; 2.0 modernizes
 them to use :c:func:`PyArg_ParseTuple`, the current argument parsing function,
 which provides more helpful error messages and treats multi-argument calls as
 errors.  If you absolutely must use 2.0 but can't fix your code, you can edit
@@ -679,7 +679,7 @@ the documentation actually used the erroneous multiple argument form, many
 people wrote code which would break with the stricter checking.  GvR backed out
 the changes in the face of public reaction, so for the :mod:`socket` module, the
 documentation was fixed and the multiple argument form is simply marked as
-deprecated; it *will* be tightened up again in a future Python version.
+deprecated; it *will* be tightened up again in a future MyFRpy version.
 
 The ``\x`` escape in string literals now takes exactly 2 hex digits.  Previously
 it would consume all the hex digits following the 'x' and take the lowest 8 bits
@@ -724,11 +724,11 @@ binary, so ``repr(8.1)`` is ``'8.0999999999999996'``, while str(8.1) is
 The ``-X`` command-line option, which turned all standard exceptions into
 strings instead of classes, has been removed; the standard exceptions will now
 always be classes.  The :mod:`!exceptions` module containing the standard
-exceptions was translated from Python to a built-in C module, written by Barry
+exceptions was translated from MyFRpy to a built-in C module, written by Barry
 Warsaw and Fredrik Lundh.
 
 .. Commented out for now -- I don't think anyone will care.
-   The pattern and match objects provided by SRE are C types, not Python
+   The pattern and match objects provided by SRE are C types, not MyFRpy
    class instances as in 1.5.  This means you can no longer inherit from
    \class{RegexObject} or \class{MatchObject}, but that shouldn't be much
    of a problem since no one should have been doing that in the first
@@ -740,14 +740,14 @@ Extending/Embedding Changes
 ===========================
 
 Some of the changes are under the covers, and will only be apparent to people
-writing C extension modules or embedding a Python interpreter in a larger
-application.  If you aren't dealing with Python's C API, you can safely skip
+writing C extension modules or embedding a MyFRpy interpreter in a larger
+application.  If you aren't dealing with MyFRpy's C API, you can safely skip
 this section.
 
-The version number of the Python C API was incremented, so C extensions compiled
+The version number of the MyFRpy C API was incremented, so C extensions compiled
 for 1.5.2 must be recompiled in order to work with 2.0.  On Windows, it's not
-possible for Python 2.0 to import a third party extension built for Python 1.5.x
-due to how Windows DLLs work, so Python will raise an exception and the import
+possible for MyFRpy 2.0 to import a third party extension built for MyFRpy 1.5.x
+due to how Windows DLLs work, so MyFRpy will raise an exception and the import
 will fail.
 
 Users of Jim Fulton's ExtensionClass module will be pleased to find out that
@@ -756,41 +756,41 @@ hooks have been added so that ExtensionClasses are now supported by
 remember to write code such as ``if type(obj) == myExtensionClass``, but can use
 the more natural ``if isinstance(obj, myExtensionClass)``.
 
-The :file:`Python/importdl.c` file, which was a mass of #ifdefs to support
+The :file:`MyFRpy/importdl.c` file, which was a mass of #ifdefs to support
 dynamic loading on many different platforms, was cleaned up and reorganised by
 Greg Stein.  :file:`importdl.c` is now quite small, and platform-specific code
-has been moved into a bunch of :file:`Python/dynload_\*.c` files.  Another
+has been moved into a bunch of :file:`MyFRpy/dynload_\*.c` files.  Another
 cleanup: there were also a number of :file:`my\*.h` files in the Include/
 directory that held various portability hacks; they've been merged into a single
 file, :file:`Include/pyport.h`.
 
 Vladimir Marangozov's long-awaited malloc restructuring was completed, to make
-it easy to have the Python interpreter use a custom allocator instead of C's
+it easy to have the MyFRpy interpreter use a custom allocator instead of C's
 standard :c:func:`malloc`.  For documentation, read the comments in
 :file:`Include/pymem.h` and :file:`Include/objimpl.h`.  For the lengthy
 discussions during which the interface was hammered out, see the web archives of
-the 'patches' and 'python-dev' lists at python.org.
+the 'patches' and 'myFRpy-dev' lists at myFRpy.org.
 
 Recent versions of the GUSI development environment for MacOS support POSIX
-threads.  Therefore, Python's POSIX threading support now works on the
+threads.  Therefore, MyFRpy's POSIX threading support now works on the
 Macintosh.  Threading support using the user-space GNU ``pth`` library was also
 contributed.
 
 Threading support on Windows was enhanced, too.  Windows supports thread locks
 that use kernel objects only in case of contention; in the common case when
 there's no contention, they use simpler functions which are an order of
-magnitude faster.  A threaded version of Python 1.5.2 on NT is twice as slow as
+magnitude faster.  A threaded version of MyFRpy 1.5.2 on NT is twice as slow as
 an unthreaded version; with the 2.0 changes, the difference is only 10%.  These
 improvements were contributed by Yakov Markovitch.
 
-Python 2.0's source now uses only ANSI C prototypes, so compiling Python now
+MyFRpy 2.0's source now uses only ANSI C prototypes, so compiling MyFRpy now
 requires an ANSI C compiler, and can no longer be done using a compiler that
 only supports K&R C.
 
-Previously the Python virtual machine used 16-bit numbers in its bytecode,
+Previously the MyFRpy virtual machine used 16-bit numbers in its bytecode,
 limiting the size of source files.  In particular, this affected the maximum
-size of literal lists and dictionaries in Python source; occasionally people who
-are generating Python code would run into this limit.  A patch by Charles G.
+size of literal lists and dictionaries in MyFRpy source; occasionally people who
+are generating MyFRpy code would run into this limit.  A patch by Charles G.
 Waldman raises the limit from ``2**16`` to ``2**32``.
 
 Three new convenience functions intended for adding constants to a module's
@@ -798,7 +798,7 @@ dictionary at module initialization time were added: :c:func:`PyModule_AddObject
 :c:func:`PyModule_AddIntConstant`, and :c:func:`PyModule_AddStringConstant`.  Each
 of these functions takes a module object, a null-terminated C string containing
 the name to be added, and a third argument for the value to be assigned to the
-name.  This third argument is, respectively, a Python object, a C long, or a C
+name.  This third argument is, respectively, a MyFRpy object, a C long, or a C
 string.
 
 A wrapper API was added for Unix-style signal handlers. :c:func:`PyOS_getsig` gets
@@ -810,19 +810,19 @@ a signal handler and :c:func:`PyOS_setsig` will set a new handler.
 Distutils: Making Modules Easy to Install
 =========================================
 
-Before Python 2.0, installing modules was a tedious affair -- there was no way
-to figure out automatically where Python is installed, or what compiler options
+Before MyFRpy 2.0, installing modules was a tedious affair -- there was no way
+to figure out automatically where MyFRpy is installed, or what compiler options
 to use for extension modules.  Software authors had to go through an arduous
 ritual of editing Makefiles and configuration files, which only really work on
-Unix and leave Windows and MacOS unsupported.  Python users faced wildly
+Unix and leave Windows and MacOS unsupported.  MyFRpy users faced wildly
 differing installation instructions which varied between different extension
-packages, which made administering a Python installation something of  a chore.
+packages, which made administering a MyFRpy installation something of  a chore.
 
 The SIG for distribution utilities, shepherded by Greg Ward, has created the
 Distutils, a system to make package installation much easier.  They form the
-``distutils`` package, a new part of Python's standard library. In the best
-case, installing a Python module from source will require the same steps: first
-you simply mean unpack the tarball or zip archive, and the run "``python
+``distutils`` package, a new part of MyFRpy's standard library. In the best
+case, installing a MyFRpy module from source will require the same steps: first
+you simply mean unpack the tarball or zip archive, and the run "``myFRpy
 setup.py install``".  The platform will be automatically detected, the compiler
 will be recognized, C extension modules will be compiled, and the distribution
 installed into the proper directory.  Optional command-line arguments provide
@@ -862,7 +862,7 @@ the PyXML package::
           ext_modules =[ expat_extension ] )
 
 The Distutils can also take care of creating source and binary distributions.
-The "sdist" command, run by "``python setup.py sdist``', builds a source
+The "sdist" command, run by "``myFRpy setup.py sdist``', builds a source
 distribution such as :file:`foo-1.0.tar.gz`. Adding new commands isn't
 difficult, "bdist_rpm" and "bdist_wininst" commands have already been
 contributed to create an RPM distribution and a Windows installer for the
@@ -870,8 +870,8 @@ software, respectively.  Commands to create other distribution formats such as
 Debian packages and Solaris :file:`.pkg` files are in various stages of
 development.
 
-All this is documented in a new manual, *Distributing Python Modules*, that
-joins the basic set of Python documentation.
+All this is documented in a new manual, *Distributing MyFRpy Modules*, that
+joins the basic set of MyFRpy documentation.
 
 .. ======================================================================
 
@@ -879,16 +879,16 @@ joins the basic set of Python documentation.
 XML Modules
 ===========
 
-Python 1.5.2 included a simple XML parser in the form of the :mod:`!xmllib`
+MyFRpy 1.5.2 included a simple XML parser in the form of the :mod:`!xmllib`
 module, contributed by Sjoerd Mullender.  Since 1.5.2's release, two different
 interfaces for processing XML have become common: SAX2 (version 2 of the Simple
 API for XML) provides an event-driven interface with some similarities to
 :mod:`!xmllib`, and the DOM (Document Object Model) provides a tree-based
 interface, transforming an XML document into a tree of nodes that can be
-traversed and modified.  Python 2.0 includes a SAX2 interface and a stripped-down
+traversed and modified.  MyFRpy 2.0 includes a SAX2 interface and a stripped-down
 DOM interface as part of the :mod:`xml` package. Here we will give a brief
-overview of these new interfaces; consult the Python documentation or the source
-code for complete details. The Python XML SIG is also working on improved
+overview of these new interfaces; consult the MyFRpy documentation or the source
+code for complete details. The MyFRpy XML SIG is also working on improved
 documentation.
 
 
@@ -932,7 +932,7 @@ using it::
    # Parse a file!
    parser.parse( 'hamlet.xml' )
 
-For more information, consult the Python documentation, or the XML HOWTO at
+For more information, consult the MyFRpy documentation, or the XML HOWTO at
 https://pyxml.sourceforge.net/topics/howto/xml-howto.html.
 
 
@@ -953,7 +953,7 @@ new XML document as output.  You can also construct a DOM tree manually and
 convert it to XML, which can be a more flexible way of producing XML output than
 simply writing ``<tag1>``...\ ``</tag1>`` to a file.
 
-The DOM implementation included with Python lives in the :mod:`xml.dom.minidom`
+The DOM implementation included with MyFRpy lives in the :mod:`xml.dom.minidom`
 module.  It's a lightweight implementation of the Level 1 DOM with support for
 XML namespaces.  The  :func:`!parse` and :func:`!parseString` convenience
 functions are provided for generating a DOM tree::
@@ -994,25 +994,25 @@ its children can be easily modified by deleting, adding, or removing nodes::
    # the third child) before the 20th child.
    root.insertBefore( root.childNodes[0], root.childNodes[20] )
 
-Again, I will refer you to the Python documentation for a complete listing of
+Again, I will refer you to the MyFRpy documentation for a complete listing of
 the different :class:`!Node` classes and their various methods.
 
 
 Relationship to PyXML
 ---------------------
 
-The XML Special Interest Group has been working on XML-related Python code for a
+The XML Special Interest Group has been working on XML-related MyFRpy code for a
 while.  Its code distribution, called PyXML, is available from the SIG's web
-pages at https://www.python.org/community/sigs/current/xml-sig. The PyXML distribution also used
+pages at https://www.myFRpy.org/community/sigs/current/xml-sig. The PyXML distribution also used
 the package name ``xml``.  If you've written programs that used PyXML, you're
 probably wondering about its compatibility with the 2.0 :mod:`xml` package.
 
-The answer is that Python 2.0's :mod:`xml` package isn't compatible with PyXML,
+The answer is that MyFRpy 2.0's :mod:`xml` package isn't compatible with PyXML,
 but can be made compatible by installing a recent version PyXML.  Many
-applications can get by with the XML support that is included with Python 2.0,
+applications can get by with the XML support that is included with MyFRpy 2.0,
 but more complicated applications will require that the full PyXML package will
 be installed.  When installed, PyXML versions 0.6.0 or greater will replace the
-:mod:`xml` package shipped with Python, and will be a strict superset of the
+:mod:`xml` package shipped with MyFRpy, and will be a strict superset of the
 standard package, adding a bunch of additional features.  Some of the additional
 features in PyXML include:
 
@@ -1028,7 +1028,7 @@ features in PyXML include:
 Module changes
 ==============
 
-Lots of improvements and bugfixes were made to Python's extensive standard
+Lots of improvements and bugfixes were made to MyFRpy's extensive standard
 library; some of the affected modules include :mod:`readline`,
 :mod:`ConfigParser <configparser>`, :mod:`cgi`, :mod:`calendar`, :mod:`posix`, :mod:`readline`,
 :mod:`!xmllib`, :mod:`aifc`, :mod:`chunk` :mod:`wave`, :mod:`random`, :mod:`shelve`,
@@ -1036,7 +1036,7 @@ and :mod:`nntplib`.  Consult the CVS logs for the exact patch-by-patch details.
 
 Brian Gallew contributed OpenSSL support for the :mod:`socket` module.  OpenSSL
 is an implementation of the Secure Socket Layer, which encrypts the data being
-sent over a socket.  When compiling Python, you can edit :file:`Modules/Setup`
+sent over a socket.  When compiling MyFRpy, you can edit :file:`Modules/Setup`
 to include SSL support, which adds an additional function to the :mod:`socket`
 module: ``socket.ssl(socket, keyfile, certfile)``, which takes a socket
 object and returns an SSL socket.  The :mod:`httplib <http>` and :mod:`urllib` modules
@@ -1078,7 +1078,7 @@ A number of new modules were added.  We'll simply list them with brief
 descriptions; consult the 2.0 documentation for the details of a particular
 module.
 
-* :mod:`atexit`:  For registering functions to be called before the Python
+* :mod:`atexit`:  For registering functions to be called before the MyFRpy
   interpreter exits. Code that currently sets ``sys.exitfunc`` directly should be
   changed to  use the :mod:`atexit` module instead, importing :mod:`atexit` and
   calling :func:`atexit.register` with  the function to be called on exit.
@@ -1092,7 +1092,7 @@ module.
   MacMillan and Moshe Zadka.)
 
 * :mod:`gettext`: This module provides internationalization (I18N) and
-  localization (L10N) support for Python programs by providing an interface to the
+  localization (L10N) support for MyFRpy programs by providing an interface to the
   GNU gettext message catalog library. (Integrated by Barry Warsaw, from separate
   contributions by Martin  von Löwis, Peter Funk, and James Henstridge.)
 
@@ -1115,7 +1115,7 @@ module.
   can then answer questions about the fetchability of a given URL.  (Contributed
   by Skip Montanaro.)
 
-* :mod:`tabnanny`: A module/script to  check Python source code for ambiguous
+* :mod:`tabnanny`: A module/script to  check MyFRpy source code for ambiguous
   indentation. (Contributed by Tim Peters.)
 
 * :mod:`!UserString`: A base class useful for deriving objects that behave like
@@ -1131,7 +1131,7 @@ module.
   Fred.)
 
 * :mod:`_winreg <winreg>`: An interface to the Windows registry.  :mod:`!_winreg` is an
-  adaptation of functions that have been part of PythonWin since 1995, but has now
+  adaptation of functions that have been part of MyFRpyWin since 1995, but has now
   been added to the core  distribution, and enhanced to support Unicode.
   :mod:`!_winreg` was written by Bill Tutt and Mark Hammond.
 
@@ -1142,7 +1142,7 @@ module.
 
 * :mod:`!imputil`: A module that provides a simpler way for writing customized
   import hooks, in comparison to the existing :mod:`!ihooks` module.  (Implemented
-  by Greg Stein, with much discussion on python-dev along the way.)
+  by Greg Stein, with much discussion on myFRpy-dev along the way.)
 
 .. ======================================================================
 
@@ -1150,7 +1150,7 @@ module.
 IDLE Improvements
 =================
 
-IDLE is the official Python cross-platform IDE, written using Tkinter. Python
+IDLE is the official MyFRpy cross-platform IDE, written using Tkinter. MyFRpy
 2.0 includes IDLE 0.6, which adds a number of new features and improvements.  A
 partial list:
 
@@ -1160,13 +1160,13 @@ partial list:
 * The class browser now shows more information, such as the top level functions
   in a module.
 
-* Tab width is now a user settable option. When opening an existing Python file,
+* Tab width is now a user settable option. When opening an existing MyFRpy file,
   IDLE automatically detects the indentation conventions, and adapts.
 
 * There is now support for calling browsers on various platforms, used to open
-  the Python documentation in a browser.
+  the MyFRpy documentation in a browser.
 
-* IDLE now has a command line, which is largely similar to  the vanilla Python
+* IDLE now has a command line, which is largely similar to  the vanilla MyFRpy
   interpreter.
 
 * Call tips were added in many places.

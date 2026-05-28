@@ -37,7 +37,7 @@ import os
 try:
     from gettext import gettext as _
 except ImportError:
-    # Bootstrapping Python: gettext's dependencies not built yet
+    # Bootstrapping MyFRpy: gettext's dependencies not built yet
     def _(s): return s
 
 class GetoptError(Exception):

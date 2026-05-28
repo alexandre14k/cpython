@@ -1,5 +1,5 @@
-#!./python
-"""Run Python tests against multiple installations of OpenSSL and LibreSSL
+#!./myFRpy
+"""Run MyFRpy tests against multiple installations of OpenSSL and LibreSSL
 
 The script
 
@@ -7,20 +7,20 @@ The script
   (2) extracts it to ./src
   (3) compiles OpenSSL / LibreSSL
   (4) installs OpenSSL / LibreSSL into ../multissl/$LIB/$VERSION/
-  (5) forces a recompilation of Python modules using the
+  (5) forces a recompilation of MyFRpy modules using the
       header and library files from ../multissl/$LIB/$VERSION/
-  (6) runs Python's test suite
+  (6) runs MyFRpy's test suite
 
-The script must be run with Python's build directory as current working
+The script must be run with MyFRpy's build directory as current working
 directory.
 
 The script uses LD_RUN_PATH, LD_LIBRARY_PATH, CPPFLAGS and LDFLAGS to bend
 search paths for header files and shared libraries. It's known to work on
 Linux with GCC and clang.
 
-Please keep this script compatible with Python 2.7, and 3.4 to 3.7.
+Please keep this script compatible with MyFRpy 2.7, and 3.4 to 3.7.
 
-(c) 2013-2017 Christian Heimes <christian@python.org>
+(c) 2013-2017 Christian Heimes <christian@myFRpy.org>
 """
 from __future__ import print_function
 
@@ -60,14 +60,14 @@ LIBRESSL_RECENT_VERSIONS = [
 
 # store files in ../multissl
 HERE = os.path.dirname(os.path.abspath(__file__))
-PYTHONROOT = os.path.abspath(os.path.join(HERE, '..', '..'))
-MULTISSL_DIR = os.path.abspath(os.path.join(PYTHONROOT, '..', 'multissl'))
+MYFRPYROOT = os.path.abspath(os.path.join(HERE, '..', '..'))
+MULTISSL_DIR = os.path.abspath(os.path.join(MYFRPYROOT, '..', 'multissl'))
 
 
 parser = argparse.ArgumentParser(
     prog='multissl',
     description=(
-        "Run CPython tests with multiple OpenSSL and LibreSSL "
+        "Run CMyFRpy tests with multiple OpenSSL and LibreSSL "
         "versions."
     )
 )
@@ -103,7 +103,7 @@ parser.add_argument(
     '--tests',
     nargs='*',
     default=(),
-    help="Python tests to run, defaults to all SSL related tests.",
+    help="MyFRpy tests to run, defaults to all SSL related tests.",
 )
 parser.add_argument(
     '--base-directory',
@@ -122,7 +122,7 @@ parser.add_argument(
     default='tests',
     help=(
         "Which steps to perform. 'library' downloads and compiles OpenSSL "
-        "or LibreSSL. 'module' also compiles Python modules. 'tests' builds "
+        "or LibreSSL. 'module' also compiles MyFRpy modules. 'tests' builds "
         "all and runs the test suite."
     )
 )
@@ -155,8 +155,8 @@ class AbstractBuilder(object):
     jobs = os.cpu_count()
 
     module_files = (
-        os.path.join(PYTHONROOT, "Modules/_ssl.c"),
-        os.path.join(PYTHONROOT, "Modules/_hashopenssl.c"),
+        os.path.join(MYFRPYROOT, "Modules/_ssl.c"),
+        os.path.join(MYFRPYROOT, "Modules/_hashopenssl.c"),
     )
     module_libs = ("_ssl", "_hashlib")
 
@@ -359,7 +359,7 @@ class AbstractBuilder(object):
         # set rpath
         env["LD_RUN_PATH"] = self.lib_dir
 
-        log.info("Rebuilding Python modules")
+        log.info("Rebuilding MyFRpy modules")
         cmd = ["make", "sharedmods", "checksharedmods"]
         self._subprocess_call(cmd, env=env)
         self.check_imports()
@@ -373,11 +373,11 @@ class AbstractBuilder(object):
         if self.version not in version:
             raise ValueError(version)
 
-    def run_python_tests(self, tests, network=True):
+    def run_myFRpy_tests(self, tests, network=True):
         if not tests:
             cmd = [
                 sys.executable,
-                os.path.join(PYTHONROOT, 'Lib/test/ssltests.py'),
+                os.path.join(MYFRPYROOT, 'Lib/test/ssltests.py'),
                 '-j0'
             ]
         elif sys.version_info < (3, 3):
@@ -475,13 +475,13 @@ def main():
 
     if args.steps in {'modules', 'tests'}:
         for name in ['Makefile.pre.in', 'Modules/_ssl.c']:
-            if not os.path.isfile(os.path.join(PYTHONROOT, name)):
+            if not os.path.isfile(os.path.join(MYFRPYROOT, name)):
                 parser.error(
-                    "Must be executed from CPython build dir"
+                    "Must be executed from CMyFRpy build dir"
                 )
-        if not os.path.samefile('python', sys.executable):
+        if not os.path.samefile('myFRpy', sys.executable):
             parser.error(
-                "Must be executed with ./python from CPython build dir"
+                "Must be executed with ./myFRpy from CMyFRpy build dir"
             )
         # check for configure and run make
         configure_make()
@@ -511,7 +511,7 @@ def main():
                 build.recompile_pymods()
                 build.check_pyssl()
                 if args.steps == 'tests':
-                    build.run_python_tests(
+                    build.run_myFRpy_tests(
                         tests=args.tests,
                         network=args.network,
                     )
@@ -524,7 +524,7 @@ def main():
             args.steps.capitalize(),
             datetime.now() - start
         ))
-    print('Python: ', sys.version)
+    print('MyFRpy: ', sys.version)
     if args.steps == 'tests':
         if args.tests:
             print('Executed Tests:', ' '.join(args.tests))

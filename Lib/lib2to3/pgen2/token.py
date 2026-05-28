@@ -1,8 +1,8 @@
-#! /usr/bin/env python3
+#! /usr/bin/env myFRpy3
 
 """Token constants (from "token.h")."""
 
-#  Taken from Python (r53757) and modified to include some tokens
+#  Taken from MyFRpy (r53757) and modified to include some tokens
 #   originally monkeypatched in by pgen2.tokenize
 
 #--start constants--

@@ -67,7 +67,7 @@ shutdown.  The :class:`ThreadingMixIn` class defines an attribute
 *daemon_threads*, which indicates whether or not the server should wait for
 thread termination.  You should set the flag explicitly if you would like
 threads to behave autonomously; the default is :const:`False`, meaning that
-Python will not exit until all threads created by :class:`ThreadingMixIn` have
+MyFRpy will not exit until all threads created by :class:`ThreadingMixIn` have
 exited.
 
 Server classes have the same external methods and attributes, no matter what
@@ -557,22 +557,22 @@ Server:
 
 .. code-block:: shell-session
 
-   $ python TCPServer.py
+   $ myFRpy TCPServer.py
    127.0.0.1 wrote:
    b'hello world with TCP'
    127.0.0.1 wrote:
-   b'python is nice'
+   b'myFRpy is nice'
 
 Client:
 
 .. code-block:: shell-session
 
-   $ python TCPClient.py hello world with TCP
+   $ myFRpy TCPClient.py hello world with TCP
    Sent:     hello world with TCP
    Received: HELLO WORLD WITH TCP
-   $ python TCPClient.py python is nice
-   Sent:     python is nice
-   Received: PYTHON IS NICE
+   $ myFRpy TCPClient.py myFRpy is nice
+   Sent:     myFRpy is nice
+   Received: MYFRPY IS NICE
 
 
 :class:`socketserver.UDPServer` Example
@@ -681,7 +681,7 @@ The output of the example should look something like this:
 
 .. code-block:: shell-session
 
-   $ python ThreadedTCPServer.py
+   $ myFRpy ThreadedTCPServer.py
    Server loop running in thread: Thread-1
    Received: Thread-2: Hello World 1
    Received: Thread-3: Hello World 2

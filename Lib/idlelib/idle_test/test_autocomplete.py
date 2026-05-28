@@ -266,7 +266,7 @@ class AutoCompleteTest(unittest.TestCase):
             # This will be patch and used in fetch_completions.
             if path == '.':
                 return ['foo', 'bar', '.hidden']
-            return ['monty', 'python', '.hidden']
+            return ['monty', 'myFRpy', '.hidden']
 
         with patch.object(os, 'listdir', _listdir):
             s, b = acp.fetch_completions('', ac.FILES)
@@ -274,8 +274,8 @@ class AutoCompleteTest(unittest.TestCase):
             self.assertEqual(b, ['.hidden', 'bar', 'foo'])
 
             s, b = acp.fetch_completions('~', ac.FILES)
-            self.assertEqual(s, ['monty', 'python'])
-            self.assertEqual(b, ['.hidden', 'monty', 'python'])
+            self.assertEqual(s, ['monty', 'myFRpy'])
+            self.assertEqual(b, ['.hidden', 'monty', 'myFRpy'])
 
     def test_get_entity(self):
         # Test that a name is in the namespace of sys.modules and

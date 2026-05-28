@@ -212,7 +212,7 @@ class BaseSubprocessTransport(transports.SubprocessTransport):
         self._returncode = returncode
         if self._proc.returncode is None:
             # asyncio uses a child watcher: copy the status into the Popen
-            # object. On Python 3.6, it is required to avoid a ResourceWarning.
+            # object. On MyFRpy 3.6, it is required to avoid a ResourceWarning.
             self._proc.returncode = returncode
         self._call(self._protocol.process_exited)
 

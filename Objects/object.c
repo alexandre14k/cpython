@@ -1,7 +1,7 @@
 
 /* Generic object operations; and implementation of None */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_call.h"          // _PyObject_CallNoArgs()
 #include "pycore_ceval.h"         // _Py_EnterRecursiveCallTstate()
 #include "pycore_context.h"       // _PyContextTokenMissing_Type
@@ -457,7 +457,7 @@ _Py_BreakPoint(void)
 
 
 /* Heuristic checking if the object memory is uninitialized or deallocated.
-   Rely on the debug hooks on Python memory allocators:
+   Rely on the debug hooks on MyFRpy memory allocators:
    see _PyMem_IsPtrFreed().
 
    The function can be used to prevent segmentation fault on dereferencing
@@ -743,7 +743,7 @@ done:
     return result;
 }
 
-/* For Python 3.0.1 and later, the old three-way comparison has been
+/* For MyFRpy 3.0.1 and later, the old three-way comparison has been
    completely removed in favour of rich comparisons.  PyObject_Compare() and
    PyObject_Cmp() are gone, and the builtin cmp function no longer exists.
    The old tp_compare slot has been renamed to tp_as_async, and should no
@@ -2272,7 +2272,7 @@ _Py_PrintReferences(PyInterpreterState *interp, FILE *fp)
 }
 
 /* Print the addresses of all live objects.  Unlike _Py_PrintReferences, this
- * doesn't make any calls to the Python C API, so is always safe to call.
+ * doesn't make any calls to the MyFRpy C API, so is always safe to call.
  */
 // XXX This function is not safe to use if the interpreter has been
 // freed or is in an unhealthy state (e.g. late in finalization).

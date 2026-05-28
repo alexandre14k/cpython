@@ -2,7 +2,7 @@
 ===========================================================
 
 .. module:: rlcompleter
-   :synopsis: Python identifier completion, suitable for the GNU readline library.
+   :synopsis: MyFRpy identifier completion, suitable for the GNU readline library.
 
 .. sectionauthor:: Moshe Zadka <moshez@zadka.site.co.il>
 
@@ -17,7 +17,7 @@ When this module is imported on a Unix platform with the :mod:`readline` module
 available, an instance of the :class:`Completer` class is automatically created
 and its :meth:`~Completer.complete` method is set as the
 :ref:`readline completer <readline-completion>`. The method provides
-completion of valid Python :ref:`identifiers and keywords <identifiers>`.
+completion of valid MyFRpy :ref:`identifiers and keywords <identifiers>`.
 
 Example::
 
@@ -30,8 +30,8 @@ Example::
    readline.__name__         readline.parse_and_bind(
    >>> readline.
 
-The :mod:`!rlcompleter` module is designed for use with Python's
-:ref:`interactive mode <tut-interactive>`.  Unless Python is run with the
+The :mod:`!rlcompleter` module is designed for use with MyFRpy's
+:ref:`interactive mode <tut-interactive>`.  Unless MyFRpy is run with the
 :option:`-S` option, the module is automatically imported and configured
 (see :ref:`rlcompleter-config`).
 

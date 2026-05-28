@@ -1,7 +1,7 @@
 .. _faq-index:
 
 ###################################
-  Python Frequently Asked Questions
+  MyFRpy Frequently Asked Questions
 ###################################
 
 .. toctree::

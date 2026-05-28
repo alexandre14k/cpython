@@ -24,7 +24,7 @@
 #ifndef PYSQLITE_MODULE_H
 #define PYSQLITE_MODULE_H
 #define PY_SSIZE_T_CLEAN
-#include "Python.h"
+#include "MyFRpy.h"
 
 #define LEGACY_TRANSACTION_CONTROL -1
 
@@ -45,7 +45,7 @@ typedef struct {
 
 
     /* A dictionary, mapping column types (INTEGER, VARCHAR, etc.) to converter
-     * functions, that convert the SQL value to the appropriate Python value.
+     * functions, that convert the SQL value to the appropriate MyFRpy value.
      * The key is uppercase.
      */
     PyObject *converters;

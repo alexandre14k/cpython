@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.8
+#!/usr/bin/env myFRpy3.8
 
 """pegen -- PEG Generator.
 
@@ -45,16 +45,16 @@ def generate_c_code(
         sys.exit(1)
 
 
-def generate_python_code(
+def generate_myFRpy_code(
     args: argparse.Namespace,
 ) -> Tuple[Grammar, Parser, Tokenizer, ParserGenerator]:
-    from pegen.build import build_python_parser_and_generator
+    from pegen.build import build_myFRpy_parser_and_generator
 
     verbose = args.verbose
     verbose_tokenizer = verbose >= 3
     verbose_parser = verbose == 2 or verbose >= 4
     try:
-        grammar, parser, tokenizer, gen = build_python_parser_and_generator(
+        grammar, parser, tokenizer, gen = build_myFRpy_parser_and_generator(
             args.grammar_filename,
             args.output,
             verbose_tokenizer,
@@ -83,7 +83,7 @@ argparser.add_argument(
 )
 subparsers = argparser.add_subparsers(help="target language for the generated code")
 
-c_parser = subparsers.add_parser("c", help="Generate C code for inclusion into CPython")
+c_parser = subparsers.add_parser("c", help="Generate C code for inclusion into CMyFRpy")
 c_parser.set_defaults(func=generate_c_code)
 c_parser.add_argument("grammar_filename", help="Grammar description")
 c_parser.add_argument("tokens_filename", help="Tokens description")
@@ -104,17 +104,17 @@ c_parser.add_argument(
     help="Suppress code emission for rule actions",
 )
 
-python_parser = subparsers.add_parser("python", help="Generate Python code")
-python_parser.set_defaults(func=generate_python_code)
-python_parser.add_argument("grammar_filename", help="Grammar description")
-python_parser.add_argument(
+myFRpy_parser = subparsers.add_parser("myFRpy", help="Generate MyFRpy code")
+myFRpy_parser.set_defaults(func=generate_myFRpy_code)
+myFRpy_parser.add_argument("grammar_filename", help="Grammar description")
+myFRpy_parser.add_argument(
     "-o",
     "--output",
     metavar="OUT",
     default="parse.py",
     help="Where to write the generated parser",
 )
-python_parser.add_argument(
+myFRpy_parser.add_argument(
     "--skip-actions",
     action="store_true",
     help="Suppress code emission for rule actions",
@@ -126,7 +126,7 @@ def main() -> None:
 
     args = argparser.parse_args()
     if "func" not in args:
-        argparser.error("Must specify the target language mode ('c' or 'python')")
+        argparser.error("Must specify the target language mode ('c' or 'myFRpy')")
 
     t0 = time.time()
     grammar, parser, tokenizer, gen = args.func(args)
@@ -183,6 +183,6 @@ def main() -> None:
 
 if __name__ == "__main__":
     if sys.version_info < (3, 8):
-        print("ERROR: using pegen requires at least Python 3.8!", file=sys.stderr)
+        print("ERROR: using pegen requires at least MyFRpy 3.8!", file=sys.stderr)
         sys.exit(1)
     main()

@@ -32,7 +32,7 @@ in 1967.
    .. image:: turtle-star.*
       :align: center
 
-In Python, turtle graphics provides a representation of a physical "turtle"
+In MyFRpy, turtle graphics provides a representation of a physical "turtle"
 (a little robot with a pen) that draws on a sheet of paper on the floor.
 
 It's an effective and well-proven way for learners to encounter
@@ -58,7 +58,7 @@ basics of turtle drawing.
 Starting a turtle environment
 -----------------------------
 
-In a Python shell, import all the objects of the ``turtle`` module::
+In a MyFRpy shell, import all the objects of the ``turtle`` module::
 
     from turtle import *
 
@@ -229,7 +229,7 @@ immediately above, for example::
         t.right(angle)
         t.fd(steps)
 
-Another step is also required though - as soon as the script ends, Python
+Another step is also required though - as soon as the script ends, MyFRpy
 will also close the turtle's window. Add::
 
     t.mainloop()
@@ -251,7 +251,7 @@ multiple turtles on screen at once.
 
 In this approach, the various turtle commands are methods of objects (mostly of
 ``Turtle`` objects). You *can* use the object-oriented approach in the shell,
-but it would be more typical in a Python script.
+but it would be more typical in a MyFRpy script.
 
 The example above then becomes::
 
@@ -2456,7 +2456,7 @@ How to use help
 ---------------
 
 The public methods of the Screen and Turtle classes are documented extensively
-via docstrings.  So these can be used as online-help via the Python help
+via docstrings.  So these can be used as online-help via the MyFRpy help
 facilities:
 
 - When using IDLE, tooltips show the signatures and first lines of the
@@ -2542,10 +2542,10 @@ Screen and Turtle.
 
    :param filename: a string, used as filename
 
-   Create and write docstring-dictionary to a Python script with the given
+   Create and write docstring-dictionary to a MyFRpy script with the given
    filename.  This function has to be called explicitly (it is not used by the
    turtle graphics classes).  The docstring dictionary will be written to the
-   Python script :file:`{filename}.py`.  It is intended to serve as a template
+   MyFRpy script :file:`{filename}.py`.  It is intended to serve as a template
    for translation of the docstrings into different languages.
 
 If you (or your students) want to use :mod:`turtle` with online help in your
@@ -2593,7 +2593,7 @@ The built in configuration would correspond to the following ``turtle.cfg``:
    language = english
    exampleturtle = turtle
    examplescreen = screen
-   title = Python Turtle Graphics
+   title = MyFRpy Turtle Graphics
    using_IDLE = False
 
 Short explanation of selected entries:
@@ -2638,11 +2638,11 @@ not from within the demo-viewer).
 The :mod:`turtledemo` package includes a set of demo scripts.  These
 scripts can be run and viewed using the supplied demo viewer as follows::
 
-   python -m turtledemo
+   myFRpy -m turtledemo
 
 Alternatively, you can run the demo scripts individually.  For example, ::
 
-   python -m turtledemo.bytedesign
+   myFRpy -m turtledemo.bytedesign
 
 The :mod:`turtledemo` package directory contains:
 
@@ -2726,14 +2726,14 @@ The demo scripts are:
 Have fun!
 
 
-Changes since Python 2.6
+Changes since MyFRpy 2.6
 ========================
 
 - The methods :func:`Turtle.tracer <tracer>`, :func:`Turtle.window_width <window_width>` and
   :func:`Turtle.window_height <window_height>` have been eliminated.
   Methods with these names and functionality are now available only
   as methods of :class:`Screen`. The functions derived from these remain
-  available. (In fact already in Python 2.6 these methods were merely
+  available. (In fact already in MyFRpy 2.6 these methods were merely
   duplications of the corresponding
   :class:`TurtleScreen`/:class:`Screen` methods.)
 
@@ -2745,9 +2745,9 @@ Changes since Python 2.6
 - A method :func:`Turtle.filling <filling>` has been added. It returns a boolean
   value: ``True`` if a filling process is under way, ``False`` otherwise.
   This behaviour corresponds to a ``fill()`` call without arguments in
-  Python 2.6.
+  MyFRpy 2.6.
 
-Changes since Python 3.0
+Changes since MyFRpy 3.0
 ========================
 
 - The :class:`Turtle` methods :func:`shearfactor`, :func:`shapetransform` and

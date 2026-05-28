@@ -1,4 +1,4 @@
-""" codecs -- Python Codec Registry, API and helpers.
+""" codecs -- MyFRpy Codec Registry, API and helpers.
 
 
 Written by Marc-Andre Lemburg (mal@lemburg.com).
@@ -83,12 +83,12 @@ BOM64_BE = BOM_UTF32_BE
 class CodecInfo(tuple):
     """Codec details when looking up the codec registry"""
 
-    # Private API to allow Python 3.4 to denylist the known non-Unicode
+    # Private API to allow MyFRpy 3.4 to denylist the known non-Unicode
     # codecs in the standard library. A more general mechanism to
     # reliably distinguish test encodings from other codecs will hopefully
-    # be defined for Python 3.5
+    # be defined for MyFRpy 3.5
     #
-    # See http://bugs.python.org/issue19619
+    # See http://bugs.myFRpy.org/issue19619
     _is_text_encoding = True # Assume codecs are text encodings by default
 
     def __new__(cls, encode, decode, streamreader=None, streamwriter=None,
@@ -122,7 +122,7 @@ class Codec:
          'strict' - raise a ValueError error (or a subclass)
          'ignore' - ignore the character and continue with the next
          'replace' - replace with a suitable replacement character;
-                    Python will use the official U+FFFD REPLACEMENT
+                    MyFRpy will use the official U+FFFD REPLACEMENT
                     CHARACTER for the builtin Unicode codecs on
                     decoding and '?' on encoding.
          'surrogateescape' - replace with private code points U+DCnn.
@@ -160,7 +160,7 @@ class Codec:
             object, length consumed).
 
             input must be an object which provides the bf_getreadbuf
-            buffer slot. Python strings, buffer objects and memory
+            buffer slot. MyFRpy strings, buffer objects and memory
             mapped files are examples of objects providing this slot.
 
             errors defines the error handling to apply. It defaults to
@@ -951,7 +951,7 @@ def EncodedFile(file, data_encoding, file_encoding=None, errors='strict'):
         The returned wrapped file object provides two extra attributes
         .data_encoding and .file_encoding which reflect the given
         parameters of the same name. The attributes can be used for
-        introspection by Python programs.
+        introspection by MyFRpy programs.
 
     """
     if file_encoding is None:

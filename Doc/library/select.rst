@@ -142,7 +142,7 @@ The module defines the following:
       single: socket() (in module socket)
       single: popen() (in module os)
 
-   Among the acceptable object types in the iterables are Python :term:`file
+   Among the acceptable object types in the iterables are MyFRpy :term:`file
    objects <file object>` (e.g. ``sys.stdin``, or objects returned by
    :func:`open` or :func:`os.popen`), socket objects returned by
    :func:`socket.socket`.  You may also define a :dfn:`wrapper` class yourself,

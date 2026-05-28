@@ -27,7 +27,7 @@ visible  = None
 language = english
 exampleturtle = turtle
 examplescreen = screen
-title = Python Turtle Graphics
+title = MyFRpy Turtle Graphics
 using_IDLE = ''
 """
 
@@ -82,7 +82,7 @@ class TurtleConfigTest(unittest.TestCase):
             'language': 'english',
             'exampleturtle': 'turtle',
             'examplescreen': 'screen',
-            'title': 'Python Turtle Graphics',
+            'title': 'MyFRpy Turtle Graphics',
             'using_IDLE': '',
         }
 

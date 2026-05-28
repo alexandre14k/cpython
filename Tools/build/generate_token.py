@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#! /usr/bin/env myFRpy3
 # This script generates token related files from Grammar/Tokens:
 #
 #   Doc/library/token-list.inc
@@ -116,7 +116,7 @@ token_c_template = f"""\
 """
 token_c_template += """\
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_token.h"
 
 /* Token names */

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>myFRpydaily</id>
+    <title>MyFRpy (Daily build)</title>
+    <authors>MyFRpy Software Foundation</authors>
+    <version>0.0.0.0</version>
+    <license type="file">tools\LICENSE.txt</license>
+    <projectUrl>https://www.myFRpy.org/</projectUrl>
+    <description>Installs an unsigned, untested build of MyFRpy for test purposes only.</description>
+    <iconUrl>https://www.myFRpy.org/static/favicon.ico</iconUrl>
+    <tags>myFRpy</tags>
+  </metadata>
+  <files>
+    <file src="**\*" exclude="myFRpy.props" target="tools" />
+    <file src="myFRpy.props" target="build\native\myFRpy.props" />
+    <file src="myFRpy.props" target="build\native\myFRpydaily.props" />
+  </files>
+</package>

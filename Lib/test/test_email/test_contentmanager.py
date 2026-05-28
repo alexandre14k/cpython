@@ -372,7 +372,7 @@ class TestRawDataManager(TestEmailBase):
 
     def test_set_text_long_line_minimal_non_ascii_heuristics(self):
         m = self._make_message()
-        content = ("j'ai un problème de python. il est sorti de son"
+        content = ("j'ai un problème de myFRpy. il est sorti de son"
                    " vivarium.  et là il est monté sur moi et il commence"
                    " à m'éto.\n")
         raw_data_manager.set_content(m, content)
@@ -380,7 +380,7 @@ class TestRawDataManager(TestEmailBase):
             Content-Type: text/plain; charset="utf-8"
             Content-Transfer-Encoding: quoted-printable
 
-            j'ai un probl=C3=A8me de python. il est sorti de son vivari=
+            j'ai un probl=C3=A8me de myFRpy. il est sorti de son vivari=
             um.  et l=C3=A0 il est mont=C3=A9 sur moi et il commence =
             =C3=A0 m'=C3=A9to.
             """).encode('utf-8'))
@@ -390,7 +390,7 @@ class TestRawDataManager(TestEmailBase):
     def test_set_text_11_lines_long_line_minimal_non_ascii_heuristics(self):
         m = self._make_message()
         content = '\n'*10 + (
-                  "j'ai un problème de python. il est sorti de son"
+                  "j'ai un problème de myFRpy. il est sorti de son"
                   " vivarium.  et là il est monté sur moi et il commence"
                   " à m'éto.\n")
         raw_data_manager.set_content(m, content)
@@ -398,7 +398,7 @@ class TestRawDataManager(TestEmailBase):
             Content-Type: text/plain; charset="utf-8"
             Content-Transfer-Encoding: quoted-printable
             """ + '\n'*10 + """
-            j'ai un probl=C3=A8me de python. il est sorti de son vivari=
+            j'ai un probl=C3=A8me de myFRpy. il est sorti de son vivari=
             um.  et l=C3=A0 il est mont=C3=A9 sur moi et il commence =
             =C3=A0 m'=C3=A9to.
             """).encode('utf-8'))
@@ -500,7 +500,7 @@ class TestRawDataManager(TestEmailBase):
         m = self._make_message()
         m['Subject'] = "Forwarded message"
         content = self._make_message()
-        content['To'] = 'python@vivarium.org'
+        content['To'] = 'myFRpy@vivarium.org'
         content['From'] = 'police@monty.org'
         content['Subject'] = "get back in your box"
         content.set_content("Or face the comfy chair.")
@@ -510,7 +510,7 @@ class TestRawDataManager(TestEmailBase):
             Content-Type: message/rfc822
             Content-Transfer-Encoding: 8bit
 
-            To: python@vivarium.org
+            To: myFRpy@vivarium.org
             From: police@monty.org
             Subject: get back in your box
             Content-Type: text/plain; charset="utf-8"
@@ -532,7 +532,7 @@ class TestRawDataManager(TestEmailBase):
         content['To'] = 'police@monty.org'
         content['From'] = 'victim@monty.org'
         content['Subject'] = "Help"
-        content.set_content("j'ai un problème de python. il est sorti de son"
+        content.set_content("j'ai un problème de myFRpy. il est sorti de son"
                             " vivarium.")
         raw_data_manager.set_content(m, content)
         self.assertEqual(bytes(m), textwrap.dedent("""\
@@ -547,7 +547,7 @@ class TestRawDataManager(TestEmailBase):
             Content-Transfer-Encoding: 8bit
             MIME-Version: 1.0
 
-            j'ai un problème de python. il est sorti de son vivarium.
+            j'ai un problème de myFRpy. il est sorti de son vivarium.
             """).encode('utf-8'))
         # The choice of base64 for the body encoding is because generator
         # doesn't bother with heuristics and uses it unconditionally for utf-8

@@ -1,4 +1,4 @@
-# Parse Makefiles and Python Setup(.in) files.
+# Parse Makefiles and MyFRpy Setup(.in) files.
 
 import re
 
@@ -38,7 +38,7 @@ def getmakevars(filename):
     return variables
 
 
-# Parse a Python Setup(.in) file.
+# Parse a MyFRpy Setup(.in) file.
 # Return two dictionaries, the first mapping modules to their
 # definitions, the second mapping variable names to their values.
 # May raise IOError.
@@ -84,7 +84,7 @@ def test():
     import sys
     import os
     if not sys.argv[1:]:
-        print('usage: python parsesetup.py Makefile*|Setup* ...')
+        print('usage: myFRpy parsesetup.py Makefile*|Setup* ...')
         sys.exit(2)
     for arg in sys.argv[1:]:
         base = os.path.basename(arg)

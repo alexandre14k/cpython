@@ -3,7 +3,7 @@
 /* XXX There should be overflow checks here, but it's hard to check
    for any kind of float exception without losing portability. */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_dtoa.h"          // _Py_dg_dtoa()
 #include "pycore_floatobject.h"   // _PyFloat_FormatAdvancedWriter()
 #include "pycore_initconfig.h"    // _PyStatus_OK()
@@ -337,7 +337,7 @@ PyFloat_AsDouble(PyObject *op)
         if (PyErr_WarnFormat(PyExc_DeprecationWarning, 1,
                 "%.50s.__float__ returned non-float (type %.50s).  "
                 "The ability to return an instance of a strict subclass of float "
-                "is deprecated, and may be removed in a future version of Python.",
+                "is deprecated, and may be removed in a future version of MyFRpy.",
                 Py_TYPE(op)->tp_name, Py_TYPE(res)->tp_name)) {
             Py_DECREF(res);
             return -1;
@@ -401,7 +401,7 @@ float_repr(PyFloatObject *v)
 
 /* Comparison is pretty much a nightmare.  When comparing float to float,
  * we do it as straightforwardly (and long-windedly) as conceivable, so
- * that, e.g., Python x == y delivers the same result as the platform
+ * that, e.g., MyFRpy x == y delivers the same result as the platform
  * C x == y when x and/or y is a NaN.
  * When mixing float with an integer type, there's no good *uniform* approach.
  * Converting the double to an integer obviously doesn't work, since we
@@ -951,12 +951,12 @@ float___ceil___impl(PyObject *self)
 
 /* double_round: rounds a finite double to the closest multiple of
    10**-ndigits; here ndigits is within reasonable bounds (typically, -308 <=
-   ndigits <= 323).  Returns a Python float, or sets a Python error and
+   ndigits <= 323).  Returns a MyFRpy float, or sets a MyFRpy error and
    returns NULL on failure (OverflowError and memory errors are possible). */
 
 #if _PY_SHORT_FLOAT_REPR == 1
 /* version of double_round that uses the correctly-rounded string<->double
-   conversions from Python/dtoa.c */
+   conversions from MyFRpy/dtoa.c */
 
 static PyObject *
 double_round(double x, int ndigits) {
@@ -1063,7 +1063,7 @@ double_round(double x, int ndigits) {
 
 #endif  // _PY_SHORT_FLOAT_REPR == 0
 
-/* round a Python float v to the closest multiple of 10**-ndigits */
+/* round a MyFRpy float v to the closest multiple of 10**-ndigits */
 
 /*[clinic input]
 float.__round__
@@ -1742,7 +1742,7 @@ float.__getformat__
 
 You probably don't want to use this function.
 
-It exists mainly to be used in Python's test suite.
+It exists mainly to be used in MyFRpy's test suite.
 
 This function returns whichever of 'unknown', 'IEEE, big-endian' or 'IEEE,
 little-endian' best describes the format of floating point numbers used by the

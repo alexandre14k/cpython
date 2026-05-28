@@ -1,4 +1,4 @@
-""" Python character mapping codec test
+""" MyFRpy character mapping codec test
 
 This uses the test codec in testcodec.py and thus also tests the
 encodings package lookup scheme.

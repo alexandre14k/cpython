@@ -1,7 +1,7 @@
 import unittest
 import weakref
 
-from test.support import check_syntax_error, cpython_only
+from test.support import check_syntax_error, cmyFRpy_only
 from test.support import gc_collect
 
 
@@ -371,7 +371,7 @@ class ScopeTests(unittest.TestCase):
         self.assertEqual(makeReturner2(a=11)()['a'], 11)
 
     def testScopeOfGlobalStmt(self):
-        # Examples posted by Samuele Pedroni to python-dev on 3/1/2001
+        # Examples posted by Samuele Pedroni to myFRpy-dev on 3/1/2001
 
         exec("""if 1:
             # I
@@ -521,7 +521,7 @@ class ScopeTests(unittest.TestCase):
     def testLocalsClass(self):
         # This test verifies that calling locals() does not pollute
         # the local namespace of the class with free variables.  Old
-        # versions of Python had a bug, where a free variable being
+        # versions of MyFRpy had a bug, where a free variable being
         # passed through a class namespace would be inserted into
         # locals() by locals() or exec or a trace function.
         #
@@ -551,7 +551,7 @@ class ScopeTests(unittest.TestCase):
         self.assertNotIn("x", varnames)
         self.assertIn("y", varnames)
 
-    @cpython_only
+    @cmyFRpy_only
     def testLocalsClass_WithTrace(self):
         # Issue23728: after the trace function returns, the locals()
         # dictionary is used to update all variables, this used to
@@ -581,7 +581,7 @@ class ScopeTests(unittest.TestCase):
         inst = f(3)()
         self.assertEqual(inst.a, inst.m())
 
-    @cpython_only
+    @cmyFRpy_only
     def testInteractionWithTraceFunc(self):
 
         import sys
@@ -781,7 +781,7 @@ class ScopeTests(unittest.TestCase):
         self.assertFalse(hasattr(X, "x"))
         self.assertEqual(x, 42)
 
-    @cpython_only
+    @cmyFRpy_only
     def testCellLeak(self):
         # Issue 17927.
         #

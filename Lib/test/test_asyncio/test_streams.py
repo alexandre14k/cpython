@@ -862,7 +862,7 @@ os.close(fd)
         self.assertIs(protocol._loop, self.loop)
 
     def test_multiple_drain(self):
-        # See https://github.com/python/cpython/issues/74116
+        # See https://github.com/myFRpy/cmyFRpy/issues/74116
         drained = 0
 
         async def drainer(stream):
@@ -881,7 +881,7 @@ os.close(fd)
         self.loop.run_until_complete(main())
 
     def test_drain_raises(self):
-        # See http://bugs.python.org/issue25441
+        # See http://bugs.myFRpy.org/issue25441
 
         # This test should not use asyncio for the mock server; the
         # whole point of the test is to test for a bug in drain()
@@ -1055,7 +1055,7 @@ os.close(fd)
         self.assertEqual(messages, [])
 
     def test_eof_feed_when_closing_writer(self):
-        # See http://bugs.python.org/issue35065
+        # See http://bugs.myFRpy.org/issue35065
         messages = []
         self.loop.set_exception_handler(lambda loop, ctx: messages.append(ctx))
 

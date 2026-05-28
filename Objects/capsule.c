@@ -1,6 +1,6 @@
 /* Wrap void * pointers to be passed between C modules */
 
-#include "Python.h"
+#include "MyFRpy.h"
 
 /* Internal structure of PyCapsule */
 typedef struct {
@@ -281,14 +281,14 @@ capsule_repr(PyObject *o)
 
 
 PyDoc_STRVAR(PyCapsule_Type__doc__,
-"Capsule objects let you wrap a C \"void *\" pointer in a Python\n\
-object.  They're a way of passing data through the Python interpreter\n\
+"Capsule objects let you wrap a C \"void *\" pointer in a MyFRpy\n\
+object.  They're a way of passing data through the MyFRpy interpreter\n\
 without creating your own custom type.\n\
 \n\
 Capsules are used for communication between extension modules.\n\
 They provide a way for an extension module to export a C interface\n\
 to other extension modules, so that extension modules can use the\n\
-Python import mechanism to link to one another.\n\
+MyFRpy import mechanism to link to one another.\n\
 ");
 
 PyTypeObject PyCapsule_Type = {

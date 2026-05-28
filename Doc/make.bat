@@ -5,47 +5,47 @@ pushd %~dp0
 
 set this=%~n0
 
-call ..\PCbuild\find_python.bat %PYTHON%
+call ..\PCbuild\find_myFRpy.bat %MYFRPY%
 
-if not defined PYTHON set PYTHON=py
+if not defined MYFRPY set MYFRPY=py
 
 if not defined SPHINXBUILD (
-    %PYTHON% -c "import sphinx" > nul 2> nul
+    %MYFRPY% -c "import sphinx" > nul 2> nul
     if errorlevel 1 (
-        echo Installing sphinx with %PYTHON%
-        %PYTHON% -m pip install -r requirements.txt
+        echo Installing sphinx with %MYFRPY%
+        %MYFRPY% -m pip install -r requirements.txt
         if errorlevel 1 exit /B
     )
-    set SPHINXBUILD=%PYTHON% -c "import sphinx.cmd.build, sys; sys.exit(sphinx.cmd.build.main())"
+    set SPHINXBUILD=%MYFRPY% -c "import sphinx.cmd.build, sys; sys.exit(sphinx.cmd.build.main())"
 )
 
-%PYTHON% -c "import python_docs_theme" > nul 2> nul
+%MYFRPY% -c "import myFRpy_docs_theme" > nul 2> nul
 if errorlevel 1 (
-    echo Installing python-docs-theme with %PYTHON%
-    %PYTHON% -m pip install python-docs-theme
+    echo Installing myFRpy-docs-theme with %MYFRPY%
+    %MYFRPY% -m pip install myFRpy-docs-theme
     if errorlevel 1 exit /B
 )
 
 if not defined BLURB (
-    %PYTHON% -c "import blurb" > nul 2> nul
+    %MYFRPY% -c "import blurb" > nul 2> nul
     if errorlevel 1 (
-        echo Installing blurb with %PYTHON%
+        echo Installing blurb with %MYFRPY%
         rem Should have been installed with Sphinx earlier
-        %PYTHON% -m pip install blurb
+        %MYFRPY% -m pip install blurb
         if errorlevel 1 exit /B
     )
-    set BLURB=%PYTHON% -m blurb
+    set BLURB=%MYFRPY% -m blurb
 )
 
 if not defined SPHINXLINT (
-    %PYTHON% -c "import sphinxlint" > nul 2> nul
+    %MYFRPY% -c "import sphinxlint" > nul 2> nul
     if errorlevel 1 (
-        echo Installing sphinx-lint with %PYTHON%
+        echo Installing sphinx-lint with %MYFRPY%
         rem Should have been installed with Sphinx earlier
-        %PYTHON% -m pip install sphinx-lint
+        %MYFRPY% -m pip install sphinx-lint
         if errorlevel 1 exit /B
     )
-    set SPHINXLINT=%PYTHON% -m sphinxlint
+    set SPHINXLINT=%MYFRPY% -m sphinxlint
 )
 
 if "%1" NEQ "htmlhelp" goto :skiphhcsearch
@@ -66,7 +66,7 @@ if not exist "%HTMLHELP%" (
 )
 :skiphhcsearch
 
-if not defined DISTVERSION for /f "usebackq" %%v in (`%PYTHON% tools/extensions/patchlevel.py`) do set DISTVERSION=%%v
+if not defined DISTVERSION for /f "usebackq" %%v in (`%MYFRPY% tools/extensions/patchlevel.py`) do set DISTVERSION=%%v
 
 if not defined BUILDDIR set BUILDDIR=build
 
@@ -152,7 +152,7 @@ if "%1" EQU "htmlhelp" (
 cmd /S /C "%SPHINXBUILD% %SPHINXOPTS% -b%1 -dbuild\doctrees . "%BUILDDIR%\%1" %2 %3 %4 %5 %6 %7 %8 %9"
 
 if "%1" EQU "htmlhelp" (
-    "%HTMLHELP%" "%BUILDDIR%\htmlhelp\python%DISTVERSION:.=%.hhp"
+    "%HTMLHELP%" "%BUILDDIR%\htmlhelp\myFRpy%DISTVERSION:.=%.hhp"
     rem hhc.exe seems to always exit with code 1, reset to 0 for less than 2
     if not errorlevel 2 cmd /C exit /b 0
 )

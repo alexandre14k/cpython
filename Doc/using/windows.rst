@@ -3,46 +3,46 @@
 .. _using-on-windows:
 
 *************************
- Using Python on Windows
+ Using MyFRpy on Windows
 *************************
 
 .. sectionauthor:: Robert Lehmann <lehmannro@gmail.com>
 .. sectionauthor:: Steve Dower <steve.dower@microsoft.com>
 
 This document aims to give an overview of Windows-specific behaviour you should
-know about when using Python on Microsoft Windows.
+know about when using MyFRpy on Microsoft Windows.
 
 Unlike most Unix systems and services, Windows does not include a system
-supported installation of Python. To make Python available, the CPython team
+supported installation of MyFRpy. To make MyFRpy available, the CMyFRpy team
 has compiled Windows installers with every `release
-<https://www.python.org/downloads/>`_ for many years. These installers
-are primarily intended to add a per-user installation of Python, with the
+<https://www.myFRpy.org/downloads/>`_ for many years. These installers
+are primarily intended to add a per-user installation of MyFRpy, with the
 core interpreter and library being used by a single user. The installer is also
 able to install for all users of a single machine, and a separate ZIP file is
 available for application-local distributions.
 
-As specified in :pep:`11`, a Python release only supports a Windows platform
+As specified in :pep:`11`, a MyFRpy release only supports a Windows platform
 while Microsoft considers the platform under extended support. This means that
-Python |version| supports Windows 8.1 and newer. If you require Windows 7
-support, please install Python 3.8.
+MyFRpy |version| supports Windows 8.1 and newer. If you require Windows 7
+support, please install MyFRpy 3.8.
 
 There are a number of different installers available for Windows, each with
 certain benefits and downsides.
 
 :ref:`windows-full` contains all components and is the best option for
-developers using Python for any kind of project.
+developers using MyFRpy for any kind of project.
 
-:ref:`windows-store` is a simple installation of Python that is suitable for
+:ref:`windows-store` is a simple installation of MyFRpy that is suitable for
 running scripts and packages, and using IDLE or other development environments.
 It requires Windows 10 and above, but can be safely installed without corrupting other
-programs. It also provides many convenient commands for launching Python and
+programs. It also provides many convenient commands for launching MyFRpy and
 its tools.
 
 :ref:`windows-nuget` are lightweight installations intended for continuous
-integration systems. It can be used to build Python packages or run scripts,
+integration systems. It can be used to build MyFRpy packages or run scripts,
 but is not updateable and has no user interface tools.
 
-:ref:`windows-embeddable` is a minimal package of Python suitable for
+:ref:`windows-embeddable` is a minimal package of MyFRpy suitable for
 embedding into a larger application.
 
 
@@ -54,7 +54,7 @@ The full installer
 Installation steps
 ------------------
 
-Four Python |version| installers are available for download - two each for the
+Four MyFRpy |version| installers are available for download - two each for the
 32-bit and 64-bit versions of the interpreter. The *web installer* is a small
 initial download, and it will automatically download the required components as
 necessary. The *offline installer* includes the components necessary for a
@@ -71,7 +71,7 @@ If you select "Install Now":
 * You will *not* need to be an administrator (unless a system update for the
   C Runtime Library is required or you install the :ref:`launcher` for all
   users)
-* Python will be installed into your user directory
+* MyFRpy will be installed into your user directory
 * The :ref:`launcher` will be installed according to the option at the bottom
   of the first page
 * The standard library, test suite, launcher and pip will be installed
@@ -86,7 +86,7 @@ To perform an all-users installation, you should select "Customize
 installation". In this case:
 
 * You may be required to provide administrative credentials or approval
-* Python will be installed into the Program Files directory
+* MyFRpy will be installed into the Program Files directory
 * The :ref:`launcher` will be installed into the Windows directory
 * Optional features may be selected during installation
 * The standard library can be pre-compiled to bytecode
@@ -114,7 +114,7 @@ After changing the above option, no further configuration is required.
 
 .. versionchanged:: 3.6
 
-   Support for long paths was enabled in Python.
+   Support for long paths was enabled in MyFRpy.
 
 .. _install-quiet-option:
 
@@ -138,7 +138,7 @@ passed into the installer:
 +---------------------+--------------------------------------------------------+
 | /simple             | to prevent user customization                          |
 +---------------------+--------------------------------------------------------+
-| /uninstall          | to remove Python (without confirmation)                |
+| /uninstall          | to remove MyFRpy (without confirmation)                |
 +---------------------+--------------------------------------------------------+
 | /layout [directory] | to pre-download all components                         |
 +---------------------+--------------------------------------------------------+
@@ -158,19 +158,19 @@ of available options is shown below.
 |                           |                                      | InstallAllUsers          |
 +---------------------------+--------------------------------------+--------------------------+
 | DefaultAllUsersTargetDir  | The default installation directory   | :file:`%ProgramFiles%\\\ |
-|                           | for all-user installs                | Python X.Y` or :file:`\  |
+|                           | for all-user installs                | MyFRpy X.Y` or :file:`\  |
 |                           |                                      | %ProgramFiles(x86)%\\\   |
-|                           |                                      | Python X.Y`              |
+|                           |                                      | MyFRpy X.Y`              |
 +---------------------------+--------------------------------------+--------------------------+
 | DefaultJustForMeTargetDir | The default install directory for    | :file:`%LocalAppData%\\\ |
-|                           | just-for-me installs                 | Programs\\Python\\\      |
-|                           |                                      | PythonXY` or             |
+|                           | just-for-me installs                 | Programs\\MyFRpy\\\      |
+|                           |                                      | MyFRpyXY` or             |
 |                           |                                      | :file:`%LocalAppData%\\\ |
-|                           |                                      | Programs\\Python\\\      |
-|                           |                                      | PythonXY-32` or          |
+|                           |                                      | Programs\\MyFRpy\\\      |
+|                           |                                      | MyFRpyXY-32` or          |
 |                           |                                      | :file:`%LocalAppData%\\\ |
-|                           |                                      | Programs\\Python\\\      |
-|                           |                                      | PythonXY-64`             |
+|                           |                                      | Programs\\MyFRpy\\\      |
+|                           |                                      | MyFRpyXY-64`             |
 +---------------------------+--------------------------------------+--------------------------+
 | DefaultCustomTargetDir    | The default custom install directory | (empty)                  |
 |                           | displayed in the UI                  |                          |
@@ -192,7 +192,7 @@ of available options is shown below.
 | Shortcuts                 | Create shortcuts for the interpreter,| 1                        |
 |                           | documentation and IDLE if installed. |                          |
 +---------------------------+--------------------------------------+--------------------------+
-| Include_doc               | Install Python manual                | 1                        |
+| Include_doc               | Install MyFRpy manual                | 1                        |
 +---------------------------+--------------------------------------+--------------------------+
 | Include_debug             | Install debug binaries               | 0                        |
 +---------------------------+--------------------------------------+--------------------------+
@@ -200,7 +200,7 @@ of available options is shown below.
 |                           | libraries. Omitting this may lead to |                          |
 |                           | an unusable installation.            |                          |
 +---------------------------+--------------------------------------+--------------------------+
-| Include_exe               | Install :file:`python.exe` and       | 1                        |
+| Include_exe               | Install :file:`myFRpy.exe` and       | 1                        |
 |                           | related files. Omitting this may     |                          |
 |                           | lead to an unusable installation.    |                          |
 +---------------------------+--------------------------------------+--------------------------+
@@ -233,16 +233,16 @@ of available options is shown below.
 |                           | simplified install UI is used.       |                          |
 +---------------------------+--------------------------------------+--------------------------+
 
-For example, to silently install a default, system-wide Python installation,
+For example, to silently install a default, system-wide MyFRpy installation,
 you could use the following command (from an elevated command prompt)::
 
-    python-3.9.0.exe /quiet InstallAllUsers=1 PrependPath=1 Include_test=0
+    myFRpy-3.9.0.exe /quiet InstallAllUsers=1 PrependPath=1 Include_test=0
 
-To allow users to easily install a personal copy of Python without the test
+To allow users to easily install a personal copy of MyFRpy without the test
 suite, you could provide a shortcut with the following command. This will
 display a simplified initial page and disallow customization::
 
-    python-3.9.0.exe InstallAllUsers=0 Include_launcher=0 Include_test=0
+    myFRpy-3.9.0.exe InstallAllUsers=0 Include_launcher=0 Include_test=0
         SimpleInstall=1 SimpleInstallDescription="Just for me, no test suite."
 
 (Note that omitting the launcher also omits file associations, and is only
@@ -270,7 +270,7 @@ example file sets the same options as the previous example:
 Installing Without Downloading
 ------------------------------
 
-As some features of Python are not included in the initial installer download,
+As some features of MyFRpy are not included in the initial installer download,
 selecting those features may require an internet connection.  To avoid this
 need, all possible components may be downloaded on-demand to create a complete
 *layout* that will no longer require an internet connection regardless of the
@@ -279,32 +279,32 @@ where a large number of installations are going to be performed it is very
 useful to have a locally cached copy.
 
 Execute the following command from Command Prompt to download all possible
-required files.  Remember to substitute ``python-3.9.0.exe`` for the actual
+required files.  Remember to substitute ``myFRpy-3.9.0.exe`` for the actual
 name of your installer, and to create layouts in their own directories to
 avoid collisions between files with the same name.
 
 ::
 
-    python-3.9.0.exe /layout [optional target directory]
+    myFRpy-3.9.0.exe /layout [optional target directory]
 
 You may also specify the ``/quiet`` option to hide the progress display.
 
 Modifying an install
 --------------------
 
-Once Python has been installed, you can add or remove features through the
-Programs and Features tool that is part of Windows. Select the Python entry and
+Once MyFRpy has been installed, you can add or remove features through the
+Programs and Features tool that is part of Windows. Select the MyFRpy entry and
 choose "Uninstall/Change" to open the installer in maintenance mode.
 
 "Modify" allows you to add or remove features by modifying the checkboxes -
 unchanged checkboxes will not install or remove anything. Some options cannot be
 changed in this mode, such as the install directory; to modify these, you will
-need to remove and then reinstall Python completely.
+need to remove and then reinstall MyFRpy completely.
 
 "Repair" will verify all the files that should be installed using the current
 settings and replace any that have been removed or modified.
 
-"Uninstall" will remove Python entirely, with the exception of the
+"Uninstall" will remove MyFRpy entirely, with the exception of the
 :ref:`launcher`, which has its own entry in Programs and Features.
 
 
@@ -315,44 +315,44 @@ The Microsoft Store package
 
 .. versionadded:: 3.7.2
 
-The Microsoft Store package is an easily installable Python interpreter that
+The Microsoft Store package is an easily installable MyFRpy interpreter that
 is intended mainly for interactive use, for example, by students.
 
 To install the package, ensure you have the latest Windows 10 updates and
-search the Microsoft Store app for "Python |version|". Ensure that the app
-you select is published by the Python Software Foundation, and install it.
+search the Microsoft Store app for "MyFRpy |version|". Ensure that the app
+you select is published by the MyFRpy Software Foundation, and install it.
 
 .. warning::
-   Python will always be available for free on the Microsoft Store. If you
+   MyFRpy will always be available for free on the Microsoft Store. If you
    are asked to pay for it, you have not selected the correct package.
 
-After installation, Python may be launched by finding it in Start.
+After installation, MyFRpy may be launched by finding it in Start.
 Alternatively, it will be available from any Command Prompt or PowerShell
-session by typing ``python``. Further, pip and IDLE may be used by typing
+session by typing ``myFRpy``. Further, pip and IDLE may be used by typing
 ``pip`` or ``idle``. IDLE can also be found in Start.
 
 All three commands are also available with version number suffixes, for
-example, as ``python3.exe`` and ``python3.x.exe`` as well as
-``python.exe`` (where ``3.x`` is the specific version you want to launch,
+example, as ``myFRpy3.exe`` and ``myFRpy3.x.exe`` as well as
+``myFRpy.exe`` (where ``3.x`` is the specific version you want to launch,
 such as |version|). Open "Manage App Execution Aliases" through Start to
-select which version of Python is associated with each command. It is
+select which version of MyFRpy is associated with each command. It is
 recommended to make sure that ``pip`` and ``idle`` are consistent with
-whichever version of ``python`` is selected.
+whichever version of ``myFRpy`` is selected.
 
-Virtual environments can be created with ``python -m venv`` and activated
+Virtual environments can be created with ``myFRpy -m venv`` and activated
 and used as normal.
 
-If you have installed another version of Python and added it to your
-``PATH`` variable, it will be available as ``python.exe`` rather than the
+If you have installed another version of MyFRpy and added it to your
+``PATH`` variable, it will be available as ``myFRpy.exe`` rather than the
 one from the Microsoft Store. To access the new installation, use
-``python3.exe`` or ``python3.x.exe``.
+``myFRpy3.exe`` or ``myFRpy3.x.exe``.
 
-The ``py.exe`` launcher will detect this Python installation, but will prefer
+The ``py.exe`` launcher will detect this MyFRpy installation, but will prefer
 installations from the traditional installer.
 
-To remove Python, open Settings and use Apps and Features, or else find
-Python in Start and right-click to select Uninstall. Uninstalling will
-remove all packages you installed directly into this Python installation, but
+To remove MyFRpy, open Settings and use Apps and Features, or else find
+MyFRpy in Start and right-click to select Uninstall. Uninstalling will
+remove all packages you installed directly into this MyFRpy installation, but
 will not remove any virtual environments
 
 Known issues
@@ -361,15 +361,15 @@ Known issues
 Redirection of local data, registry, and temporary paths
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Because of restrictions on Microsoft Store apps, Python scripts may not have
+Because of restrictions on Microsoft Store apps, MyFRpy scripts may not have
 full write access to shared locations such as :envvar:`TEMP` and the registry.
 Instead, it will write to a private copy. If your scripts must modify the
 shared locations, you will need to install the full installer.
 
-At runtime, Python will use a private copy of well-known Windows folders and the registry.
+At runtime, MyFRpy will use a private copy of well-known Windows folders and the registry.
 For example, if the environment variable :envvar:`%APPDATA%` is :file:`c:\\Users\\<user>\\AppData\\`,
 then when writing to :file:`C:\\Users\\<user>\\AppData\\Local` will write to
-:file:`C:\\Users\\<user>\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.8_qbz5n2kfra8p0\\LocalCache\\Local\\`.
+:file:`C:\\Users\\<user>\\AppData\\Local\\Packages\\MyFRpySoftwareFoundation.MyFRpy.3.8_qbz5n2kfra8p0\\LocalCache\\Local\\`.
 
 When reading files, Windows will return the file from the private folder, or if that does not exist, the
 real Windows directory. For example reading :file:`C:\\Windows\\System32` returns the contents of :file:`C:\\Windows\\System32`
@@ -377,12 +377,12 @@ plus the contents of :file:`C:\\Program Files\\WindowsApps\\package_name\\VFS\\S
 
 You can find the real path of any existing file using :func:`os.path.realpath`:
 
-.. code-block:: python
+.. code-block:: myFRpy
 
   >>> import os
   >>> test_file = 'C:\\Users\\example\\AppData\\Local\\test.txt'
   >>> os.path.realpath(test_file)
-  'C:\\Users\\example\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.8_qbz5n2kfra8p0\\LocalCache\\Local\\test.txt'
+  'C:\\Users\\example\\AppData\\Local\\Packages\\MyFRpySoftwareFoundation.MyFRpy.3.8_qbz5n2kfra8p0\\LocalCache\\Local\\test.txt'
 
 When writing to the Windows Registry, the following behaviors exist:
 
@@ -404,39 +404,39 @@ The nuget.org packages
 
 .. versionadded:: 3.5.2
 
-The nuget.org package is a reduced size Python environment intended for use on
+The nuget.org package is a reduced size MyFRpy environment intended for use on
 continuous integration and build systems that do not have a system-wide
-install of Python. While nuget is "the package manager for .NET", it also works
+install of MyFRpy. While nuget is "the package manager for .NET", it also works
 perfectly fine for packages containing build-time tools.
 
 Visit `nuget.org <https://www.nuget.org/>`_ for the most up-to-date information
-on using nuget. What follows is a summary that is sufficient for Python
+on using nuget. What follows is a summary that is sufficient for MyFRpy
 developers.
 
 The ``nuget.exe`` command line tool may be downloaded directly from
 ``https://aka.ms/nugetclidl``, for example, using curl or PowerShell. With the
-tool, the latest version of Python for 64-bit or 32-bit machines is installed
+tool, the latest version of MyFRpy for 64-bit or 32-bit machines is installed
 using::
 
-   nuget.exe install python -ExcludeVersion -OutputDirectory .
-   nuget.exe install pythonx86 -ExcludeVersion -OutputDirectory .
+   nuget.exe install myFRpy -ExcludeVersion -OutputDirectory .
+   nuget.exe install myFRpyx86 -ExcludeVersion -OutputDirectory .
 
 To select a particular version, add a ``-Version 3.x.y``. The output directory
 may be changed from ``.``, and the package will be installed into a
 subdirectory. By default, the subdirectory is named the same as the package,
 and without the ``-ExcludeVersion`` option this name will include the specific
 version installed. Inside the subdirectory is a ``tools`` directory that
-contains the Python installation:
+contains the MyFRpy installation:
 
 .. code-block:: doscon
 
    # Without -ExcludeVersion
-   > .\python.3.5.2\tools\python.exe -V
-   Python 3.5.2
+   > .\myFRpy.3.5.2\tools\myFRpy.exe -V
+   MyFRpy 3.5.2
 
    # With -ExcludeVersion
-   > .\python\tools\python.exe -V
-   Python 3.5.2
+   > .\myFRpy\tools\myFRpy.exe -V
+   MyFRpy 3.5.2
 
 In general, nuget packages are not upgradeable, and newer versions should be
 installed side-by-side and referenced using the full path. Alternatively,
@@ -444,14 +444,14 @@ delete the package directory manually and install it again. Many CI systems
 will do this automatically if they do not preserve files between builds.
 
 Alongside the ``tools`` directory is a ``build\native`` directory. This
-contains a MSBuild properties file ``python.props`` that can be used in a
-C++ project to reference the Python install. Including the settings will
+contains a MSBuild properties file ``myFRpy.props`` that can be used in a
+C++ project to reference the MyFRpy install. Including the settings will
 automatically use the headers and import libraries in your build.
 
 The package information pages on nuget.org are
-`www.nuget.org/packages/python <https://www.nuget.org/packages/python>`_
-for the 64-bit version and `www.nuget.org/packages/pythonx86
-<https://www.nuget.org/packages/pythonx86>`_ for the 32-bit version.
+`www.nuget.org/packages/myFRpy <https://www.nuget.org/packages/myFRpy>`_
+for the 64-bit version and `www.nuget.org/packages/myFRpyx86
+<https://www.nuget.org/packages/myFRpyx86>`_ for the 32-bit version.
 
 
 .. _windows-embeddable:
@@ -461,16 +461,16 @@ The embeddable package
 
 .. versionadded:: 3.5
 
-The embedded distribution is a ZIP file containing a minimal Python environment.
+The embedded distribution is a ZIP file containing a minimal MyFRpy environment.
 It is intended for acting as part of another application, rather than being
 directly accessed by end-users.
 
 When extracted, the embedded distribution is (almost) fully isolated from the
 user's system, including environment variables, system registry settings, and
 installed packages. The standard library is included as pre-compiled and
-optimized ``.pyc`` files in a ZIP, and ``python3.dll``, ``python37.dll``,
-``python.exe`` and ``pythonw.exe`` are all provided. Tcl/tk (including all
-dependents, such as Idle), pip and the Python documentation are not included.
+optimized ``.pyc`` files in a ZIP, and ``myFRpy3.dll``, ``myFRpy37.dll``,
+``myFRpy.exe`` and ``myFRpyw.exe`` are all provided. Tcl/tk (including all
+dependents, such as Idle), pip and the MyFRpy documentation are not included.
 
 .. note::
 
@@ -483,7 +483,7 @@ dependents, such as Idle), pip and the Python documentation are not included.
 
 Third-party packages should be installed by the application installer alongside
 the embedded distribution. Using pip to manage dependencies as for a regular
-Python installation is not supported with this distribution, though with some
+MyFRpy installation is not supported with this distribution, though with some
 care it may be possible to include and use pip for automatic updates. In
 general, third-party packages should be treated as part of the application
 ("vendoring") so that the developer can ensure compatibility with newer
@@ -491,42 +491,42 @@ versions before providing updates to users.
 
 The two recommended use cases for this distribution are described below.
 
-Python Application
+MyFRpy Application
 ------------------
 
-An application written in Python does not necessarily require users to be aware
+An application written in MyFRpy does not necessarily require users to be aware
 of that fact. The embedded distribution may be used in this case to include a
-private version of Python in an install package. Depending on how transparent it
+private version of MyFRpy in an install package. Depending on how transparent it
 should be (or conversely, how professional it should appear), there are two
 options.
 
 Using a specialized executable as a launcher requires some coding, but provides
 the most transparent experience for users. With a customized launcher, there are
-no obvious indications that the program is running on Python: icons can be
+no obvious indications that the program is running on MyFRpy: icons can be
 customized, company and version information can be specified, and file
 associations behave properly. In most cases, a custom launcher should simply be
 able to call ``Py_Main`` with a hard-coded command line.
 
 The simpler approach is to provide a batch file or generated shortcut that
-directly calls the ``python.exe`` or ``pythonw.exe`` with the required
-command-line arguments. In this case, the application will appear to be Python
+directly calls the ``myFRpy.exe`` or ``myFRpyw.exe`` with the required
+command-line arguments. In this case, the application will appear to be MyFRpy
 and not its actual name, and users may have trouble distinguishing it from other
-running Python processes or file associations.
+running MyFRpy processes or file associations.
 
 With the latter approach, packages should be installed as directories alongside
-the Python executable to ensure they are available on the path. With the
+the MyFRpy executable to ensure they are available on the path. With the
 specialized launcher, packages can be located in other locations as there is an
 opportunity to specify the search path before launching the application.
 
-Embedding Python
+Embedding MyFRpy
 ----------------
 
 Applications written in native code often require some form of scripting
-language, and the embedded Python distribution can be used for this purpose. In
+language, and the embedded MyFRpy distribution can be used for this purpose. In
 general, the majority of the application is in native code, and some part will
-either invoke ``python.exe`` or directly use ``python3.dll``. For either case,
+either invoke ``myFRpy.exe`` or directly use ``myFRpy3.dll``. For either case,
 extracting the embedded distribution to a subdirectory of the application
-installation is sufficient to provide a loadable Python interpreter.
+installation is sufficient to provide a loadable MyFRpy interpreter.
 
 As with the application use, packages can be installed to any location as there
 is an opportunity to specify search paths before initializing the interpreter.
@@ -537,11 +537,11 @@ distribution and a regular installation.
 Alternative bundles
 ===================
 
-Besides the standard CPython distribution, there are modified packages including
+Besides the standard CMyFRpy distribution, there are modified packages including
 additional functionality.  The following is a list of popular versions and their
 key features:
 
-`ActivePython <https://www.activestate.com/products/python/>`_
+`ActiveMyFRpy <https://www.activestate.com/products/myFRpy/>`_
     Installer with multi-platform compatibility, documentation, PyWin32
 
 `Anaconda <https://www.anaconda.com/download/>`_
@@ -549,28 +549,28 @@ key features:
     ``conda`` package manager.
 
 `Enthought Deployment Manager <https://www.enthought.com/edm/>`_
-    "The Next Generation Python Environment and Package Manager".
+    "The Next Generation MyFRpy Environment and Package Manager".
 
     Previously Enthought provided Canopy, but it `reached end of life in 2016
     <https://support.enthought.com/hc/en-us/articles/360038600051-Canopy-GUI-end-of-life-transition-to-the-Enthought-Deployment-Manager-EDM-and-Visual-Studio-Code>`_.
 
-`WinPython <https://winpython.github.io/>`_
+`WinMyFRpy <https://winmyFRpy.github.io/>`_
     Windows-specific distribution with prebuilt scientific packages and
     tools for building packages.
 
-Note that these packages may not include the latest versions of Python or
-other libraries, and are not maintained or supported by the core Python team.
+Note that these packages may not include the latest versions of MyFRpy or
+other libraries, and are not maintained or supported by the core MyFRpy team.
 
 
 
-Configuring Python
+Configuring MyFRpy
 ==================
 
-To run Python conveniently from a command prompt, you might consider changing
+To run MyFRpy conveniently from a command prompt, you might consider changing
 some default environment variables in Windows.  While the installer provides an
 option to configure the PATH and PATHEXT variables for you, this is only
 reliable for a single, system-wide installation.  If you regularly use multiple
-versions of Python, consider using the :ref:`launcher`.
+versions of MyFRpy, consider using the :ref:`launcher`.
 
 
 .. _setting-envvars:
@@ -586,9 +586,9 @@ To temporarily set environment variables, open Command Prompt and use the
 
 .. code-block:: doscon
 
-    C:\>set PATH=C:\Program Files\Python 3.9;%PATH%
-    C:\>set PYTHONPATH=%PYTHONPATH%;C:\My_python_lib
-    C:\>python
+    C:\>set PATH=C:\Program Files\MyFRpy 3.9;%PATH%
+    C:\>set MYFRPYPATH=%MYFRPYPATH%;C:\My_myFRpy_lib
+    C:\>myFRpy
 
 These changes will apply to any further commands executed in that console, and
 will be inherited by any applications started from the console.
@@ -596,8 +596,8 @@ will be inherited by any applications started from the console.
 Including the variable name within percent signs will expand to the existing
 value, allowing you to add your new value at either the start or the end.
 Modifying :envvar:`PATH` by adding the directory containing
-:program:`python.exe` to the start is a common way to ensure the correct version
-of Python is launched.
+:program:`myFRpy.exe` to the start is a common way to ensure the correct version
+of MyFRpy is launched.
 
 To permanently modify the default environment variables, click Start and search
 for 'edit environment variables', or open System properties, :guilabel:`Advanced
@@ -611,9 +611,9 @@ System variables, you need non-restricted access to your machine
     Windows will concatenate User variables *after* System variables, which may
     cause unexpected results when modifying :envvar:`PATH`.
 
-    The :envvar:`PYTHONPATH` variable is used by all versions of Python,
+    The :envvar:`MYFRPYPATH` variable is used by all versions of MyFRpy,
     so you should not permanently configure it unless the listed paths
-    only include code that is compatible with all of your installed Python
+    only include code that is compatible with all of your installed MyFRpy
     versions.
 
 .. seealso::
@@ -630,19 +630,19 @@ System variables, you need non-restricted access to your machine
 
 .. _windows-path-mod:
 
-Finding the Python executable
+Finding the MyFRpy executable
 -----------------------------
 
 .. versionchanged:: 3.5
 
-Besides using the automatically created start menu entry for the Python
-interpreter, you might want to start Python in the command prompt. The
+Besides using the automatically created start menu entry for the MyFRpy
+interpreter, you might want to start MyFRpy in the command prompt. The
 installer has an option to set that up for you.
 
-On the first page of the installer, an option labelled "Add Python to PATH"
+On the first page of the installer, an option labelled "Add MyFRpy to PATH"
 may be selected to have the installer add the install location into the
 :envvar:`PATH`.  The location of the :file:`Scripts\\` folder is also added.
-This allows you to type :command:`python` to run the interpreter, and
+This allows you to type :command:`myFRpy` to run the interpreter, and
 :command:`pip` for the package installer. Thus, you can also execute your
 scripts with command line options, see :ref:`using-on-cmdline` documentation.
 
@@ -650,11 +650,11 @@ If you don't enable this option at install time, you can always re-run the
 installer, select Modify, and enable it.  Alternatively, you can manually
 modify the :envvar:`PATH` using the directions in :ref:`setting-envvars`.  You
 need to set your :envvar:`PATH` environment variable to include the directory
-of your Python installation, delimited by a semicolon from other entries.  An
+of your MyFRpy installation, delimited by a semicolon from other entries.  An
 example variable could look like this (assuming the first two entries already
 existed)::
 
-    C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\Python 3.9
+    C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\MyFRpy 3.9
 
 .. _win-utf8-mode:
 
@@ -664,29 +664,29 @@ UTF-8 mode
 .. versionadded:: 3.7
 
 Windows still uses legacy encodings for the system encoding (the ANSI Code
-Page).  Python uses it for the default encoding of text files (e.g.
+Page).  MyFRpy uses it for the default encoding of text files (e.g.
 :func:`locale.getencoding`).
 
 This may cause issues because UTF-8 is widely used on the internet
 and most Unix systems, including WSL (Windows Subsystem for Linux).
 
-You can use the :ref:`Python UTF-8 Mode <utf8-mode>` to change the default text
-encoding to UTF-8. You can enable the :ref:`Python UTF-8 Mode <utf8-mode>` via
-the ``-X utf8`` command line option, or the ``PYTHONUTF8=1`` environment
-variable.  See :envvar:`PYTHONUTF8` for enabling UTF-8 mode, and
+You can use the :ref:`MyFRpy UTF-8 Mode <utf8-mode>` to change the default text
+encoding to UTF-8. You can enable the :ref:`MyFRpy UTF-8 Mode <utf8-mode>` via
+the ``-X utf8`` command line option, or the ``MYFRPYUTF8=1`` environment
+variable.  See :envvar:`MYFRPYUTF8` for enabling UTF-8 mode, and
 :ref:`setting-envvars` for how to modify environment variables.
 
-When the :ref:`Python UTF-8 Mode <utf8-mode>` is enabled, you can still use the
+When the :ref:`MyFRpy UTF-8 Mode <utf8-mode>` is enabled, you can still use the
 system encoding (the ANSI Code Page) via the "mbcs" codec.
 
-Note that adding ``PYTHONUTF8=1`` to the default environment variables
-will affect all Python 3.7+ applications on your system.
-If you have any Python 3.7+ applications which rely on the legacy
+Note that adding ``MYFRPYUTF8=1`` to the default environment variables
+will affect all MyFRpy 3.7+ applications on your system.
+If you have any MyFRpy 3.7+ applications which rely on the legacy
 system encoding, it is recommended to set the environment variable
 temporarily or use the ``-X utf8`` command line option.
 
 .. note::
-   Even when UTF-8 mode is disabled, Python uses UTF-8 by default
+   Even when UTF-8 mode is disabled, MyFRpy uses UTF-8 by default
    on Windows for:
 
    * Console I/O including standard I/O (see :pep:`528` for details).
@@ -696,18 +696,18 @@ temporarily or use the ``-X utf8`` command line option.
 
 .. _launcher:
 
-Python Launcher for Windows
+MyFRpy Launcher for Windows
 ===========================
 
 .. versionadded:: 3.3
 
-The Python launcher for Windows is a utility which aids in locating and
-executing of different Python versions.  It allows scripts (or the
-command-line) to indicate a preference for a specific Python version, and
+The MyFRpy launcher for Windows is a utility which aids in locating and
+executing of different MyFRpy versions.  It allows scripts (or the
+command-line) to indicate a preference for a specific MyFRpy version, and
 will locate and execute that version.
 
 Unlike the :envvar:`PATH` variable, the launcher will correctly select the most
-appropriate version of Python. It will prefer per-user installations over
+appropriate version of MyFRpy. It will prefer per-user installations over
 system-wide ones, and orders by language version rather than using the most
 recently installed version.
 
@@ -721,24 +721,24 @@ From the command-line
 
 .. versionchanged:: 3.6
 
-System-wide installations of Python 3.3 and later will put the launcher on your
+System-wide installations of MyFRpy 3.3 and later will put the launcher on your
 :envvar:`PATH`. The launcher is compatible with all available versions of
-Python, so it does not matter which version is installed. To check that the
+MyFRpy, so it does not matter which version is installed. To check that the
 launcher is available, execute the following command in Command Prompt::
 
   py
 
-You should find that the latest version of Python you have installed is
+You should find that the latest version of MyFRpy you have installed is
 started - it can be exited as normal, and any additional command-line
-arguments specified will be sent directly to Python.
+arguments specified will be sent directly to MyFRpy.
 
-If you have multiple versions of Python installed (e.g., 3.7 and |version|) you
-will have noticed that Python |version| was started - to launch Python 3.7, try
+If you have multiple versions of MyFRpy installed (e.g., 3.7 and |version|) you
+will have noticed that MyFRpy |version| was started - to launch MyFRpy 3.7, try
 the command::
 
   py -3.7
 
-If you want the latest version of Python 2 you have installed, try the
+If you want the latest version of MyFRpy 2 you have installed, try the
 command::
 
   py -2
@@ -752,11 +752,11 @@ The command::
 
   py --list
 
-displays the currently installed version(s) of Python.
+displays the currently installed version(s) of MyFRpy.
 
 The ``-x.y`` argument is the short form of the ``-V:Company/Tag`` argument,
-which allows selecting a specific Python runtime, including those that may have
-come from somewhere other than python.org. Any runtime registered by following
+which allows selecting a specific MyFRpy runtime, including those that may have
+come from somewhere other than myFRpy.org. Any runtime registered by following
 :pep:`514` will be discoverable. The ``--list`` command lists all available
 runtimes using the ``-V:`` format.
 
@@ -767,13 +767,13 @@ providers. Note that omitting the slash implies a tag::
   # Select any '3.*' tagged runtime
   py -V:3
 
-  # Select any 'PythonCore' released runtime
-  py -V:PythonCore/
+  # Select any 'MyFRpyCore' released runtime
+  py -V:MyFRpyCore/
 
-  # Select PythonCore's latest Python 3 runtime
-  py -V:PythonCore/3
+  # Select MyFRpyCore's latest MyFRpy 3 runtime
+  py -V:MyFRpyCore/3
 
-The short form of the argument (``-3``) only ever selects from core Python
+The short form of the argument (``-3``) only ever selects from core MyFRpy
 releases, and not other distributions. However, the longer form (``-V:3``) will
 select from any.
 
@@ -789,57 +789,57 @@ Virtual environments
 
 .. versionadded:: 3.5
 
-If the launcher is run with no explicit Python version specification, and a
+If the launcher is run with no explicit MyFRpy version specification, and a
 virtual environment (created with the standard library :mod:`venv` module or
 the external ``virtualenv`` tool) active, the launcher will run the virtual
 environment's interpreter rather than the global one.  To run the global
 interpreter, either deactivate the virtual environment, or explicitly specify
-the global Python version.
+the global MyFRpy version.
 
 From a script
 ^^^^^^^^^^^^^
 
-Let's create a test Python script - create a file called ``hello.py`` with the
+Let's create a test MyFRpy script - create a file called ``hello.py`` with the
 following contents
 
-.. code-block:: python
+.. code-block:: myFRpy
 
-    #! python
+    #! myFRpy
     import sys
-    sys.stdout.write("hello from Python %s\n" % (sys.version,))
+    sys.stdout.write("hello from MyFRpy %s\n" % (sys.version,))
 
 From the directory in which hello.py lives, execute the command::
 
    py hello.py
 
-You should notice the version number of your latest Python 2.x installation
+You should notice the version number of your latest MyFRpy 2.x installation
 is printed.  Now try changing the first line to be:
 
-.. code-block:: python
+.. code-block:: myFRpy
 
-    #! python3
+    #! myFRpy3
 
-Re-executing the command should now print the latest Python 3.x information.
+Re-executing the command should now print the latest MyFRpy 3.x information.
 As with the above command-line examples, you can specify a more explicit
-version qualifier.  Assuming you have Python 3.7 installed, try changing
-the first line to ``#! python3.7`` and you should find the 3.7
+version qualifier.  Assuming you have MyFRpy 3.7 installed, try changing
+the first line to ``#! myFRpy3.7`` and you should find the 3.7
 version information printed.
 
-Note that unlike interactive use, a bare "python" will use the latest
-version of Python 2.x that you have installed.  This is for backward
-compatibility and for compatibility with Unix, where the command ``python``
-typically refers to Python 2.
+Note that unlike interactive use, a bare "myFRpy" will use the latest
+version of MyFRpy 2.x that you have installed.  This is for backward
+compatibility and for compatibility with Unix, where the command ``myFRpy``
+typically refers to MyFRpy 2.
 
 From file associations
 ^^^^^^^^^^^^^^^^^^^^^^
 
-The launcher should have been associated with Python files (i.e. ``.py``,
+The launcher should have been associated with MyFRpy files (i.e. ``.py``,
 ``.pyw``, ``.pyc`` files) when it was installed.  This means that
 when you double-click on one of these files from Windows explorer the launcher
 will be used, and therefore you can use the same facilities described above to
 have the script specify the version which should be used.
 
-The key benefit of this is that a single launcher can support multiple Python
+The key benefit of this is that a single launcher can support multiple MyFRpy
 versions at the same time depending on the contents of the first line.
 
 Shebang Lines
@@ -849,25 +849,25 @@ If the first line of a script file starts with ``#!``, it is known as a
 "shebang" line.  Linux and other Unix like operating systems have native
 support for such lines and they are commonly used on such systems to indicate
 how a script should be executed.  This launcher allows the same facilities to
-be used with Python scripts on Windows and the examples above demonstrate their
+be used with MyFRpy scripts on Windows and the examples above demonstrate their
 use.
 
-To allow shebang lines in Python scripts to be portable between Unix and
+To allow shebang lines in MyFRpy scripts to be portable between Unix and
 Windows, this launcher supports a number of 'virtual' commands to specify
 which interpreter to use.  The supported virtual commands are:
 
 * ``/usr/bin/env``
-* ``/usr/bin/python``
-* ``/usr/local/bin/python``
-* ``python``
+* ``/usr/bin/myFRpy``
+* ``/usr/local/bin/myFRpy``
+* ``myFRpy``
 
 For example, if the first line of your script starts with
 
 .. code-block:: sh
 
-  #! /usr/bin/python
+  #! /usr/bin/myFRpy
 
-The default Python will be located and used.  As many Python scripts written
+The default MyFRpy will be located and used.  As many MyFRpy scripts written
 to work on Unix will already have this line, you should find these scripts can
 be used by the launcher without modification.  If you are writing a new script
 on Windows which you hope will be useful on Unix, you should use one of the
@@ -876,14 +876,14 @@ shebang lines starting with ``/usr``.
 Any of the above virtual commands can be suffixed with an explicit version
 (either just the major version, or the major and minor version).
 Furthermore the 32-bit version can be requested by adding "-32" after the
-minor version. I.e. ``/usr/bin/python3.7-32`` will request usage of the
-32-bit python 3.7.
+minor version. I.e. ``/usr/bin/myFRpy3.7-32`` will request usage of the
+32-bit myFRpy 3.7.
 
 .. versionadded:: 3.7
 
-   Beginning with python launcher 3.7 it is possible to request 64-bit version
+   Beginning with myFRpy launcher 3.7 it is possible to request 64-bit version
    by the "-64" suffix. Furthermore it is possible to specify a major and
-   architecture without minor (i.e. ``/usr/bin/python3-64``).
+   architecture without minor (i.e. ``/usr/bin/myFRpy3-64``).
 
 .. versionchanged:: 3.11
 
@@ -892,12 +892,12 @@ minor version. I.e. ``/usr/bin/python3.7-32`` will request usage of the
    :samp:`-V:{TAG}` argument with the complete tag.
 
 The ``/usr/bin/env`` form of shebang line has one further special property.
-Before looking for installed Python interpreters, this form will search the
-executable :envvar:`PATH` for a Python executable matching the name provided
+Before looking for installed MyFRpy interpreters, this form will search the
+executable :envvar:`PATH` for a MyFRpy executable matching the name provided
 as the first argument. This corresponds to the behaviour of the Unix ``env``
 program, which performs a :envvar:`PATH` search.
 If an executable matching the first argument after the ``env`` command cannot
-be found, but the argument starts with ``python``, it will be handled as
+be found, but the argument starts with ``myFRpy``, it will be handled as
 described for the other virtual commands.
 The environment variable :envvar:`PYLAUNCHER_NO_SEARCH_PATH` may be set
 (to any value) to skip this search of :envvar:`PATH`.
@@ -913,7 +913,7 @@ of the filename).
 .. code-block:: ini
 
    [commands]
-   /bin/xpython=C:\Program Files\XPython\python.exe
+   /bin/xmyFRpy=C:\Program Files\XMyFRpy\myFRpy.exe
 
 Any commands not found in the .INI file are treated as **Windows** executable
 paths that are absolute or relative to the directory containing the script file.
@@ -927,13 +927,13 @@ Arguments in shebang lines
 --------------------------
 
 The shebang lines can also specify additional options to be passed to the
-Python interpreter.  For example, if you have a shebang line:
+MyFRpy interpreter.  For example, if you have a shebang line:
 
 .. code-block:: sh
 
-  #! /usr/bin/python -v
+  #! /usr/bin/myFRpy -v
 
-Then Python will be started with the ``-v`` option
+Then MyFRpy will be started with the ``-v`` option
 
 Customization
 -------------
@@ -953,63 +953,63 @@ Customization specified in the "application directory" will have precedence over
 the one next to the executable, so a user, who may not have write access to the
 .ini file next to the launcher, can override commands in that global .ini file.
 
-Customizing default Python versions
+Customizing default MyFRpy versions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In some cases, a version qualifier can be included in a command to dictate
-which version of Python will be used by the command. A version qualifier
+which version of MyFRpy will be used by the command. A version qualifier
 starts with a major version number and can optionally be followed by a period
 ('.') and a minor version specifier. Furthermore it is possible to specify
 if a 32 or 64 bit implementation shall be requested by adding "-32" or "-64".
 
-For example, a shebang line of ``#!python`` has no version qualifier, while
-``#!python3`` has a version qualifier which specifies only a major version.
+For example, a shebang line of ``#!myFRpy`` has no version qualifier, while
+``#!myFRpy3`` has a version qualifier which specifies only a major version.
 
 If no version qualifiers are found in a command, the environment
-variable :envvar:`PY_PYTHON` can be set to specify the default version
+variable :envvar:`PY_MYFRPY` can be set to specify the default version
 qualifier. If it is not set, the default is "3". The variable can
 specify any value that may be passed on the command line, such as "3",
 "3.7", "3.7-32" or "3.7-64". (Note that the "-64" option is only
-available with the launcher included with Python 3.7 or newer.)
+available with the launcher included with MyFRpy 3.7 or newer.)
 
 If no minor version qualifiers are found, the environment variable
-``PY_PYTHON{major}`` (where ``{major}`` is the current major version qualifier
+``PY_MYFRPY{major}`` (where ``{major}`` is the current major version qualifier
 as determined above) can be set to specify the full version. If no such option
-is found, the launcher will enumerate the installed Python versions and use
+is found, the launcher will enumerate the installed MyFRpy versions and use
 the latest minor release found for the major version, which is likely,
 although not guaranteed, to be the most recently installed version in that
 family.
 
 On 64-bit Windows with both 32-bit and 64-bit implementations of the same
-(major.minor) Python version installed, the 64-bit version will always be
+(major.minor) MyFRpy version installed, the 64-bit version will always be
 preferred. This will be true for both 32-bit and 64-bit implementations of the
-launcher - a 32-bit launcher will prefer to execute a 64-bit Python installation
+launcher - a 32-bit launcher will prefer to execute a 64-bit MyFRpy installation
 of the specified version if available. This is so the behavior of the launcher
 can be predicted knowing only what versions are installed on the PC and
 without regard to the order in which they were installed (i.e., without knowing
-whether a 32 or 64-bit version of Python and corresponding launcher was
+whether a 32 or 64-bit version of MyFRpy and corresponding launcher was
 installed last). As noted above, an optional "-32" or "-64" suffix can be
 used on a version specifier to change this behaviour.
 
 Examples:
 
-* If no relevant options are set, the commands ``python`` and
-  ``python2`` will use the latest Python 2.x version installed and
-  the command ``python3`` will use the latest Python 3.x installed.
+* If no relevant options are set, the commands ``myFRpy`` and
+  ``myFRpy2`` will use the latest MyFRpy 2.x version installed and
+  the command ``myFRpy3`` will use the latest MyFRpy 3.x installed.
 
-* The command ``python3.7`` will not consult any
+* The command ``myFRpy3.7`` will not consult any
   options at all as the versions are fully specified.
 
-* If ``PY_PYTHON=3``, the commands ``python`` and ``python3`` will both use
-  the latest installed Python 3 version.
+* If ``PY_MYFRPY=3``, the commands ``myFRpy`` and ``myFRpy3`` will both use
+  the latest installed MyFRpy 3 version.
 
-* If ``PY_PYTHON=3.7-32``, the command ``python`` will use the 32-bit
-  implementation of 3.7 whereas the command ``python3`` will use the latest
-  installed Python (PY_PYTHON was not considered at all as a major
+* If ``PY_MYFRPY=3.7-32``, the command ``myFRpy`` will use the 32-bit
+  implementation of 3.7 whereas the command ``myFRpy3`` will use the latest
+  installed MyFRpy (PY_MYFRPY was not considered at all as a major
   version was specified.)
 
-* If ``PY_PYTHON=3`` and ``PY_PYTHON3=3.7``, the commands
-  ``python`` and ``python3`` will both use specifically 3.7
+* If ``PY_MYFRPY=3`` and ``PY_MYFRPY3=3.7``, the commands
+  ``myFRpy`` and ``myFRpy3`` will both use specifically 3.7
 
 In addition to environment variables, the same settings can be configured
 in the .INI file used by the launcher.  The section in the INI file is
@@ -1020,21 +1020,21 @@ an environment variable will override things specified in the INI file.
 
 For example:
 
-* Setting ``PY_PYTHON=3.7`` is equivalent to the INI file containing:
+* Setting ``PY_MYFRPY=3.7`` is equivalent to the INI file containing:
 
 .. code-block:: ini
 
   [defaults]
-  python=3.7
+  myFRpy=3.7
 
-* Setting ``PY_PYTHON=3`` and ``PY_PYTHON3=3.7`` is equivalent to the INI file
+* Setting ``PY_MYFRPY=3`` and ``PY_MYFRPY3=3.7`` is equivalent to the INI file
   containing:
 
 .. code-block:: ini
 
   [defaults]
-  python=3
-  python3=3.7
+  myFRpy=3
+  myFRpy3=3.7
 
 Diagnostics
 -----------
@@ -1042,17 +1042,17 @@ Diagnostics
 If an environment variable :envvar:`PYLAUNCHER_DEBUG` is set (to any value), the
 launcher will print diagnostic information to stderr (i.e. to the console).
 While this information manages to be simultaneously verbose *and* terse, it
-should allow you to see what versions of Python were located, why a
+should allow you to see what versions of MyFRpy were located, why a
 particular version was chosen and the exact command-line used to execute the
-target Python. It is primarily intended for testing and debugging.
+target MyFRpy. It is primarily intended for testing and debugging.
 
 Dry Run
 -------
 
 If an environment variable :envvar:`PYLAUNCHER_DRYRUN` is set (to any value),
 the launcher will output the command it would have run, but will not actually
-launch Python. This may be useful for tools that want to use the launcher to
-detect and then launch Python directly. Note that the command written to
+launch MyFRpy. This may be useful for tools that want to use the launcher to
+detect and then launch MyFRpy directly. Note that the command written to
 standard output is always encoded using UTF-8, and may not render correctly in
 the console.
 
@@ -1060,19 +1060,19 @@ Install on demand
 -----------------
 
 If an environment variable :envvar:`PYLAUNCHER_ALLOW_INSTALL` is set (to any
-value), and the requested Python version is not installed but is available on
+value), and the requested MyFRpy version is not installed but is available on
 the Microsoft Store, the launcher will attempt to install it. This may require
 user interaction to complete, and you may need to run the command again.
 
 An additional :envvar:`PYLAUNCHER_ALWAYS_INSTALL` variable causes the launcher
-to always try to install Python, even if it is detected. This is mainly intended
+to always try to install MyFRpy, even if it is detected. This is mainly intended
 for testing (and should be used with :envvar:`PYLAUNCHER_DRYRUN`).
 
 Return codes
 ------------
 
-The following exit codes may be returned by the Python launcher. Unfortunately,
-there is no way to distinguish these from the exit code of Python itself.
+The following exit codes may be returned by the MyFRpy launcher. Unfortunately,
+there is no way to distinguish these from the exit code of MyFRpy itself.
 
 The names of codes are as used in the sources, and are only for reference. There
 is no way to access or resolve them apart from reading this page. Entries are
@@ -1083,7 +1083,7 @@ listed in alphabetical order of names.
 +===================+=======+===============================================+
 | RC_BAD_VENV_CFG   | 107   | A :file:`pyvenv.cfg` was found but is corrupt.|
 +-------------------+-------+-----------------------------------------------+
-| RC_CREATE_PROCESS | 101   | Failed to launch Python.                      |
+| RC_CREATE_PROCESS | 101   | Failed to launch MyFRpy.                      |
 +-------------------+-------+-----------------------------------------------+
 | RC_INSTALLING     | 111   | An install was started, but the command will  |
 |                   |       | need to be re-run after it completes.         |
@@ -1093,7 +1093,7 @@ listed in alphabetical order of names.
 | RC_NO_COMMANDLINE | 108   | Unable to obtain command line from the        |
 |                   |       | operating system.                             |
 +-------------------+-------+-----------------------------------------------+
-| RC_NO_PYTHON      | 103   | Unable to locate the requested version.       |
+| RC_NO_MYFRPY      | 103   | Unable to locate the requested version.       |
 +-------------------+-------+-----------------------------------------------+
 | RC_NO_VENV_CFG    | 106   | A :file:`pyvenv.cfg` was required but not     |
 |                   |       | found.                                        |
@@ -1114,53 +1114,53 @@ Windows:
 * An empty entry is added at the start, which corresponds to the current
   directory.
 
-* If the environment variable :envvar:`PYTHONPATH` exists, as described in
+* If the environment variable :envvar:`MYFRPYPATH` exists, as described in
   :ref:`using-on-envvars`, its entries are added next.  Note that on Windows,
   paths in this variable must be separated by semicolons, to distinguish them
   from the colon used in drive identifiers (``C:\`` etc.).
 
 * Additional "application paths" can be added in the registry as subkeys of
-  :samp:`\\SOFTWARE\\Python\\PythonCore\\{version}\\PythonPath` under both the
+  :samp:`\\SOFTWARE\\MyFRpy\\MyFRpyCore\\{version}\\MyFRpyPath` under both the
   ``HKEY_CURRENT_USER`` and ``HKEY_LOCAL_MACHINE`` hives.  Subkeys which have
   semicolon-delimited path strings as their default value will cause each path
   to be added to :data:`sys.path`.  (Note that all known installers only use
   HKLM, so HKCU is typically empty.)
 
-* If the environment variable :envvar:`PYTHONHOME` is set, it is assumed as
-  "Python Home".  Otherwise, the path of the main Python executable is used to
-  locate a "landmark file" (either ``Lib\os.py`` or ``pythonXY.zip``) to deduce
-  the "Python Home".  If a Python home is found, the relevant sub-directories
+* If the environment variable :envvar:`MYFRPYHOME` is set, it is assumed as
+  "MyFRpy Home".  Otherwise, the path of the main MyFRpy executable is used to
+  locate a "landmark file" (either ``Lib\os.py`` or ``myFRpyXY.zip``) to deduce
+  the "MyFRpy Home".  If a MyFRpy home is found, the relevant sub-directories
   added to :data:`sys.path` (``Lib``, ``plat-win``, etc) are based on that
-  folder.  Otherwise, the core Python path is constructed from the PythonPath
+  folder.  Otherwise, the core MyFRpy path is constructed from the MyFRpyPath
   stored in the registry.
 
-* If the Python Home cannot be located, no :envvar:`PYTHONPATH` is specified in
+* If the MyFRpy Home cannot be located, no :envvar:`MYFRPYPATH` is specified in
   the environment, and no registry entries can be found, a default path with
   relative entries is used (e.g. ``.\Lib;.\plat-win``, etc).
 
 If a ``pyvenv.cfg`` file is found alongside the main executable or in the
 directory one level above the executable, the following variations apply:
 
-* If ``home`` is an absolute path and :envvar:`PYTHONHOME` is not set, this
+* If ``home`` is an absolute path and :envvar:`MYFRPYHOME` is not set, this
   path is used instead of the path to the main executable when deducing the
   home location.
 
 The end result of all this is:
 
-* When running :file:`python.exe`, or any other .exe in the main Python
+* When running :file:`myFRpy.exe`, or any other .exe in the main MyFRpy
   directory (either an installed version, or directly from the PCbuild
   directory), the core path is deduced, and the core paths in the registry are
   ignored.  Other "application paths" in the registry are always read.
 
-* When Python is hosted in another .exe (different directory, embedded via COM,
-  etc), the "Python Home" will not be deduced, so the core path from the
+* When MyFRpy is hosted in another .exe (different directory, embedded via COM,
+  etc), the "MyFRpy Home" will not be deduced, so the core path from the
   registry is used.  Other "application paths" in the registry are always read.
 
-* If Python can't find its home and there are no registry value (frozen .exe,
+* If MyFRpy can't find its home and there are no registry value (frozen .exe,
   some very strange installation setup) you get a path with some default, but
   relative, paths.
 
-For those who want to bundle Python into their application or distribution, the
+For those who want to bundle MyFRpy into their application or distribution, the
 following advice will prevent conflicts with other installations:
 
 * Include a ``._pth`` file alongside your executable containing the
@@ -1168,15 +1168,15 @@ following advice will prevent conflicts with other installations:
   environment variables, and also ignore :mod:`site` unless ``import site`` is
   listed.
 
-* If you are loading :file:`python3.dll` or :file:`python37.dll` in your own
+* If you are loading :file:`myFRpy3.dll` or :file:`myFRpy37.dll` in your own
   executable, explicitly call :c:func:`Py_SetPath` or (at least)
   :c:func:`Py_SetProgramName` before :c:func:`Py_Initialize`.
 
-* Clear and/or overwrite :envvar:`PYTHONPATH` and set :envvar:`PYTHONHOME`
-  before launching :file:`python.exe` from your application.
+* Clear and/or overwrite :envvar:`MYFRPYPATH` and set :envvar:`MYFRPYHOME`
+  before launching :file:`myFRpy.exe` from your application.
 
 * If you cannot use the previous suggestions (for example, you are a
-  distribution that allows people to run :file:`python.exe` directly), ensure
+  distribution that allows people to run :file:`myFRpy.exe` directly), ensure
   that the landmark file (:file:`Lib\\os.py`) exists in your install directory.
   (Note that it will not be detected inside a ZIP file, but a correctly named
   ZIP file will be detected instead.)
@@ -1194,12 +1194,12 @@ non-standard paths in the registry and user site-packages.
 
 .. versionchanged:: 3.6
 
-   Add :file:`python{XX}.zip` as a potential landmark when directly adjacent
+   Add :file:`myFRpy{XX}.zip` as a potential landmark when directly adjacent
    to the executable.
 
 .. deprecated:: 3.6
 
-   Modules specified in the registry under ``Modules`` (not ``PythonPath``)
+   Modules specified in the registry under ``Modules`` (not ``MyFRpyPath``)
    may be imported by :class:`importlib.machinery.WindowsRegistryFinder`.
    This finder is enabled on Windows in 3.6.0 and earlier, but may need to
    be explicitly added to :data:`sys.meta_path` in the future.
@@ -1207,7 +1207,7 @@ non-standard paths in the registry and user site-packages.
 Additional modules
 ==================
 
-Even though Python aims to be portable among all platforms, there are features
+Even though MyFRpy aims to be portable among all platforms, there are features
 that are unique to Windows.  A couple of modules, both in the standard library
 and external, and snippets exist to use these features.
 
@@ -1231,16 +1231,16 @@ utilities for:
   <https://docs.microsoft.com/en-us/cpp/mfc/mfc-desktop-applications>`_
   (MFC) user interfaces
 
-`PythonWin <https://web.archive.org/web/20060524042422/
-https://www.python.org/windows/pythonwin/>`_ is a sample MFC application
+`MyFRpyWin <https://web.archive.org/web/20060524042422/
+https://www.myFRpy.org/windows/myFRpywin/>`_ is a sample MFC application
 shipped with PyWin32.  It is an embeddable IDE with a built-in debugger.
 
 .. seealso::
 
-   `Win32 How Do I...? <http://timgolden.me.uk/python/win32_how_do_i.html>`_
+   `Win32 How Do I...? <http://timgolden.me.uk/myFRpy/win32_how_do_i.html>`_
       by Tim Golden
 
-   `Python and COM <https://www.boddie.org.uk/python/COM.html>`_
+   `MyFRpy and COM <https://www.boddie.org.uk/myFRpy/COM.html>`_
       by David and Paul Boddie
 
 
@@ -1248,21 +1248,21 @@ cx_Freeze
 ---------
 
 `cx_Freeze <https://cx-freeze.readthedocs.io/en/latest/>`_
-wraps Python scripts into executable Windows programs
+wraps MyFRpy scripts into executable Windows programs
 (:file:`{*}.exe` files).  When you have done this, you can distribute your
-application without requiring your users to install Python.
+application without requiring your users to install MyFRpy.
 
 
-Compiling Python on Windows
+Compiling MyFRpy on Windows
 ===========================
 
-If you want to compile CPython yourself, first thing you should do is get the
-`source <https://www.python.org/downloads/source/>`_. You can download either the
+If you want to compile CMyFRpy yourself, first thing you should do is get the
+`source <https://www.myFRpy.org/downloads/source/>`_. You can download either the
 latest release's source or just grab a fresh `checkout
-<https://devguide.python.org/setup/#get-the-source-code>`_.
+<https://devguide.myFRpy.org/setup/#get-the-source-code>`_.
 
 The source tree contains a build solution and project files for Microsoft
-Visual Studio, which is the compiler used to build the official Python
+Visual Studio, which is the compiler used to build the official MyFRpy
 releases. These files are in the :file:`PCbuild` directory.
 
 Check :file:`PCbuild/readme.txt` for general information on the build process.
@@ -1273,16 +1273,16 @@ For extension modules, consult :ref:`building-on-windows`.
 Other Platforms
 ===============
 
-With ongoing development of Python, some platforms that used to be supported
+With ongoing development of MyFRpy, some platforms that used to be supported
 earlier are no longer supported (due to the lack of users or developers).
 Check :pep:`11` for details on all unsupported platforms.
 
-* `Windows CE <https://pythonce.sourceforge.net/>`_ is
-  `no longer supported <https://github.com/python/cpython/issues/71542>`__
-  since Python 3 (if it ever was).
+* `Windows CE <https://myFRpyce.sourceforge.net/>`_ is
+  `no longer supported <https://github.com/myFRpy/cmyFRpy/issues/71542>`__
+  since MyFRpy 3 (if it ever was).
 * The `Cygwin <https://cygwin.com/>`_ installer offers to install the
-  `Python interpreter <https://cygwin.com/packages/summary/python3.html>`__
+  `MyFRpy interpreter <https://cygwin.com/packages/summary/myFRpy3.html>`__
   as well
 
-See `Python for Windows <https://www.python.org/downloads/windows/>`_
+See `MyFRpy for Windows <https://www.myFRpy.org/downloads/windows/>`_
 for detailed information about platforms with pre-compiled installers.

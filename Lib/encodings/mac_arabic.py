@@ -1,4 +1,4 @@
-""" Python Character Mapping Codec generated from 'VENDORS/APPLE/ARABIC.TXT' with gencodec.py.
+""" MyFRpy Character Mapping Codec generated from 'VENDORS/APPLE/ARABIC.TXT' with gencodec.py.
 
 """#"
 

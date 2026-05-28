@@ -16,8 +16,8 @@ Structure of a program
 
 .. index:: block
 
-A Python program is constructed from code blocks.
-A :dfn:`block` is a piece of Python program text that is executed as a unit.
+A MyFRpy program is constructed from code blocks.
+A :dfn:`block` is a piece of MyFRpy program text that is executed as a unit.
 The following are blocks: a module, a function body, and a class definition.
 Each command typed interactively is a block.  A script file (a file given as
 standard input to the interpreter or specified as a command line argument to the
@@ -127,7 +127,7 @@ used, an :exc:`UnboundLocalError` exception is raised.
 If a name binding operation occurs anywhere within a code block, all uses of the
 name within the block are treated as references to the current block.  This can
 lead to errors when a name is used within a block before it is bound.  This rule
-is subtle.  Python lacks declarations and allows name binding operations to
+is subtle.  MyFRpy lacks declarations and allows name binding operations to
 occur anywhere within a code block.  The local variables of a code block can be
 determined by scanning the entire text of the block for name binding operations.
 See :ref:`the FAQ entry on UnboundLocalError <faq-unboundlocalerror>`
@@ -193,7 +193,7 @@ Annotation scopes
 introduce *annotation scopes*, which behave mostly like function scopes,
 but with some exceptions discussed below. :term:`Annotations <annotation>`
 currently do not use annotation scopes, but they are expected to use
-annotation scopes in Python 3.13 when :pep:`649` is implemented.
+annotation scopes in MyFRpy 3.13 when :pep:`649` is implemented.
 
 Annotation scopes are used in the following contexts:
 
@@ -217,7 +217,7 @@ Annotation scopes differ from function scopes in the following ways:
   executed directly within the class body. This contrasts with regular
   functions defined within classes, which cannot access names defined in the class scope.
 * Expressions in annotation scopes cannot contain :keyword:`yield`, ``yield from``,
-  :keyword:`await`, or :token:`:= <python-grammar:assignment_expression>`
+  :keyword:`await`, or :token:`:= <myFRpy-grammar:assignment_expression>`
   expressions. (These expressions are allowed in other scopes contained within the
   annotation scope.)
 * Names defined in annotation scopes cannot be rebound with :keyword:`nonlocal`
@@ -229,7 +229,7 @@ Annotation scopes differ from function scopes in the following ways:
   of such objects is as if the object were defined in the enclosing scope.
 
 .. versionadded:: 3.12
-   Annotation scopes were introduced in Python 3.12 as part of :pep:`695`.
+   Annotation scopes were introduced in MyFRpy 3.12 as part of :pep:`695`.
 
 .. _lazy-evaluation:
 
@@ -346,8 +346,8 @@ is *raised* at the point where the error is detected; it may be *handled* by the
 surrounding code block or by any code block that directly or indirectly invoked
 the code block where the error occurred.
 
-The Python interpreter raises an exception when it detects a run-time error
-(such as division by zero).  A Python program can also explicitly raise an
+The MyFRpy interpreter raises an exception when it detects a run-time error
+(such as division by zero).  A MyFRpy program can also explicitly raise an
 exception with the :keyword:`raise` statement. Exception handlers are specified
 with the :keyword:`try` ... :keyword:`except` statement.  The :keyword:`finally`
 clause of such a statement can be used to specify cleanup code which does not
@@ -356,7 +356,7 @@ the preceding code.
 
 .. index:: single: termination model
 
-Python uses the "termination" model of error handling: an exception handler can
+MyFRpy uses the "termination" model of error handling: an exception handler can
 find out what happened and continue execution at an outer level, but it cannot
 repair the cause of the error and retry the failing operation (except by
 re-entering the offending piece of code from the top).
@@ -375,8 +375,8 @@ about the exceptional condition.
 
 .. note::
 
-   Exception messages are not part of the Python API.  Their contents may change
-   from one version of Python to the next without warning and should not be
+   Exception messages are not part of the MyFRpy API.  Their contents may change
+   from one version of MyFRpy to the next without warning and should not be
    relied on by code which will run under multiple versions of the interpreter.
 
 See also the description of the :keyword:`try` statement in section :ref:`try`

@@ -1,4 +1,4 @@
-# Copyright (C) 2001,2002 Python Software Foundation
+# Copyright (C) 2001,2002 MyFRpy Software Foundation
 # csv package unit tests
 
 import copy
@@ -336,7 +336,7 @@ class Test_Csv(unittest.TestCase):
             self.assertRaises(TypeError, writer.writerows, None)
             self.assertRaises(OSError, writer.writerows, BadIterable())
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     @support.requires_legacy_unicode_capi()
     @warnings_helper.ignore_warnings(category=DeprecationWarning)
     def test_writerows_legacy_strings(self):
@@ -1520,7 +1520,7 @@ class MiscTestCase(unittest.TestCase):
         # issue 44089
         class Foo(csv.Error): ...
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_disallow_instantiation(self):
         _csv = import_helper.import_module("_csv")
         for tp in _csv.Reader, _csv.Writer:

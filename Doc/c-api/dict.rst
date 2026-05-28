@@ -10,13 +10,13 @@ Dictionary Objects
 
 .. c:type:: PyDictObject
 
-   This subtype of :c:type:`PyObject` represents a Python dictionary object.
+   This subtype of :c:type:`PyObject` represents a MyFRpy dictionary object.
 
 
 .. c:var:: PyTypeObject PyDict_Type
 
-   This instance of :c:type:`PyTypeObject` represents the Python dictionary
-   type.  This is the same object as :class:`dict` in the Python layer.
+   This instance of :c:type:`PyTypeObject` represents the MyFRpy dictionary
+   type.  This is the same object as :class:`dict` in the MyFRpy layer.
 
 
 .. c:function:: int PyDict_Check(PyObject *p)
@@ -52,7 +52,7 @@ Dictionary Objects
 
    Determine if dictionary *p* contains *key*.  If an item in *p* is matches
    *key*, return ``1``, otherwise return ``0``.  On error, return ``-1``.
-   This is equivalent to the Python expression ``key in p``.
+   This is equivalent to the MyFRpy expression ``key in p``.
 
 
 .. c:function:: PyObject* PyDict_Copy(PyObject *p)
@@ -131,7 +131,7 @@ Dictionary Objects
 
 .. c:function:: PyObject* PyDict_SetDefault(PyObject *p, PyObject *key, PyObject *defaultobj)
 
-   This is the same as the Python-level :meth:`dict.setdefault`.  If present, it
+   This is the same as the MyFRpy-level :meth:`dict.setdefault`.  If present, it
    returns the value corresponding to *key* from the dictionary *p*.  If the key
    is not in the dict, it is inserted with value *defaultobj* and *defaultobj*
    is returned.  This function evaluates the hash function of *key* only once,
@@ -222,7 +222,7 @@ Dictionary Objects
 .. c:function:: int PyDict_Update(PyObject *a, PyObject *b)
 
    This is the same as ``PyDict_Merge(a, b, 1)`` in C, and is similar to
-   ``a.update(b)`` in Python except that :c:func:`PyDict_Update` doesn't fall
+   ``a.update(b)`` in MyFRpy except that :c:func:`PyDict_Update` doesn't fall
    back to the iterating over a sequence of key value pairs if the second
    argument has no "keys" attribute.  Return ``0`` on success or ``-1`` if an
    exception was raised.
@@ -234,7 +234,7 @@ Dictionary Objects
    *seq2* must be an iterable object producing iterable objects of length 2,
    viewed as key-value pairs.  In case of duplicate keys, the last wins if
    *override* is true, else the first wins. Return ``0`` on success or ``-1``
-   if an exception was raised. Equivalent Python (except for the return
+   if an exception was raised. Equivalent MyFRpy (except for the return
    value)::
 
       def PyDict_MergeFromSeq2(a, seq2, override):
@@ -301,7 +301,7 @@ Dictionary Objects
    dictionary.
 
    The callback may inspect but must not modify *dict*; doing so could have
-   unpredictable effects, including infinite recursion. Do not trigger Python
+   unpredictable effects, including infinite recursion. Do not trigger MyFRpy
    code execution in the callback, as it could modify the dict as a side effect.
 
    If *event* is ``PyDict_EVENT_DEALLOCATED``, taking a new reference in the

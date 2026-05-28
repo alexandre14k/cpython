@@ -14,8 +14,8 @@ from idlelib.config import idleConf
 class FormatParagraph:
     """Format a paragraph, comment block, or selection to a max width.
 
-    Does basic, standard text formatting, and also understands Python
-    comment blocks. Thus, for editing Python source code, this
+    Does basic, standard text formatting, and also understands MyFRpy
+    comment blocks. Thus, for editing MyFRpy source code, this
     extension is really only suitable for reformatting these comment
     blocks or triple-quoted strings.
 

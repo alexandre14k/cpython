@@ -2,7 +2,7 @@
 
 /* XXX The functional organization of this file is terrible */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_bitutils.h"      // _Py_popcount32()
 #include "pycore_initconfig.h"    // _PyStatus_OK()
 #include "pycore_long.h"          // _Py_SmallInts
@@ -69,7 +69,7 @@ maybe_small_long(PyLongObject *v)
 
 /* For int multiplication, use the O(N**2) school algorithm unless
  * both operands contain more than KARATSUBA_CUTOFF digits (this
- * being an internal Python int digit, in base BASE).
+ * being an internal MyFRpy int digit, in base BASE).
  */
 #define KARATSUBA_CUTOFF 70
 #define KARATSUBA_SQUARE_CUTOFF (2 * KARATSUBA_CUTOFF)
@@ -335,7 +335,7 @@ PyLong_FromLong(long ival)
         if (IS_SMALL_UINT(ival)) { \
             return get_small_int((sdigit)(ival)); \
         } \
-        /* Count the number of Python digits. */ \
+        /* Count the number of MyFRpy digits. */ \
         Py_ssize_t ndigits = 0; \
         INT_TYPE t = (ival); \
         while (t) { \
@@ -540,7 +540,7 @@ PyLong_AsLong(PyObject *obj)
         /* XXX: could be cute and give a different
            message for overflow == -1 */
         PyErr_SetString(PyExc_OverflowError,
-                        "Python int too large to convert to C long");
+                        "MyFRpy int too large to convert to C long");
     }
     return result;
 }
@@ -557,7 +557,7 @@ _PyLong_AsInt(PyObject *obj)
         /* XXX: could be cute and give a different
            message for overflow == -1 */
         PyErr_SetString(PyExc_OverflowError,
-                        "Python int too large to convert to C int");
+                        "MyFRpy int too large to convert to C int");
         return -1;
     }
     return (int)result;
@@ -608,7 +608,7 @@ PyLong_AsSsize_t(PyObject *vv) {
 
   overflow:
     PyErr_SetString(PyExc_OverflowError,
-                    "Python int too large to convert to C ssize_t");
+                    "MyFRpy int too large to convert to C ssize_t");
     return -1;
 }
 
@@ -660,7 +660,7 @@ PyLong_AsUnsignedLong(PyObject *vv)
     return x;
 overflow:
     PyErr_SetString(PyExc_OverflowError,
-                    "Python int too large to convert "
+                    "MyFRpy int too large to convert "
                     "to C unsigned long");
     return (unsigned long) -1;
 }
@@ -700,7 +700,7 @@ PyLong_AsSize_t(PyObject *vv)
         x = (x << PyLong_SHIFT) | v->long_value.ob_digit[i];
         if ((x >> PyLong_SHIFT) != prev) {
             PyErr_SetString(PyExc_OverflowError,
-                "Python int too large to convert to C size_t");
+                "MyFRpy int too large to convert to C size_t");
             return (size_t) -1;
         }
     }
@@ -819,7 +819,7 @@ _PyLong_FromByteArray(const unsigned char* bytes, size_t n,
     int incr;                           /* direction to move pstartbyte */
     const unsigned char* pendbyte;      /* MSB of bytes */
     size_t numsignificantbytes;         /* number of bytes that matter */
-    Py_ssize_t ndigits;                 /* number of Python int digits */
+    Py_ssize_t ndigits;                 /* number of MyFRpy int digits */
     PyLongObject* v;                    /* result */
     Py_ssize_t idigit = 0;              /* next free index in v->long_value.ob_digit */
 
@@ -863,8 +863,8 @@ _PyLong_FromByteArray(const unsigned char* bytes, size_t n,
             ++numsignificantbytes;
     }
 
-    /* How many Python int digits do we need?  We have
-       8*numsignificantbytes bits, and each Python int digit has
+    /* How many MyFRpy int digits do we need?  We have
+       8*numsignificantbytes bits, and each MyFRpy int digit has
        PyLong_SHIFT bits, so it's the ceiling of the quotient. */
     /* catch overflow before it happens */
     if (numsignificantbytes > (PY_SSIZE_T_MAX - PyLong_SHIFT) / 8) {
@@ -879,7 +879,7 @@ _PyLong_FromByteArray(const unsigned char* bytes, size_t n,
 
     /* Copy the bits over.  The tricky parts are computing 2's-comp on
        the fly for signed numbers, and dealing with the mismatch between
-       8-bit bytes and (probably) 15-bit Python digits.*/
+       8-bit bytes and (probably) 15-bit MyFRpy digits.*/
     {
         size_t i;
         twodigits carry = 1;                    /* for 2's-comp calculation */
@@ -901,7 +901,7 @@ _PyLong_FromByteArray(const unsigned char* bytes, size_t n,
             accum |= thisbyte << accumbits;
             accumbits += 8;
             if (accumbits >= PyLong_SHIFT) {
-                /* There's enough to fill a Python digit. */
+                /* There's enough to fill a MyFRpy digit. */
                 assert(idigit < ndigits);
                 v->long_value.ob_digit[idigit] = (digit)(accum & PyLong_MASK);
                 ++idigit;
@@ -965,8 +965,8 @@ _PyLong_AsByteArray(PyLongObject* v,
         pincr = -1;
     }
 
-    /* Copy over all the Python digits.
-       It's crucial that every Python digit except for the MSD contribute
+    /* Copy over all the MyFRpy digits.
+       It's crucial that every MyFRpy digit except for the MSD contribute
        exactly PyLong_SHIFT bits to the total, so first assert that the int is
        normalized. */
     assert(ndigits == 0 || v->long_value.ob_digit[ndigits - 1] != 0);
@@ -1181,7 +1181,7 @@ PyLong_FromSsize_t(Py_ssize_t ival)
         abs_ival = (size_t)ival;
     }
 
-    /* Count the number of Python digits. */
+    /* Count the number of MyFRpy digits. */
     t = abs_ival;
     while (t) {
         ++ndigits;
@@ -1420,7 +1420,7 @@ _PyLong_UnsignedShort_Converter(PyObject *obj, void *ptr)
         return 0;
     if (uval > USHRT_MAX) {
         PyErr_SetString(PyExc_OverflowError,
-                        "Python int too large for C unsigned short");
+                        "MyFRpy int too large for C unsigned short");
         return 0;
     }
 
@@ -1442,7 +1442,7 @@ _PyLong_UnsignedInt_Converter(PyObject *obj, void *ptr)
         return 0;
     if (uval > UINT_MAX) {
         PyErr_SetString(PyExc_OverflowError,
-                        "Python int too large for C unsigned int");
+                        "MyFRpy int too large for C unsigned int");
         return 0;
     }
 
@@ -1609,14 +1609,14 @@ v_rshift(digit *z, digit *a, Py_ssize_t m, int d)
    generated by the compiler despite us working with 30-bit digit values.
    See the thread for full context:
 
-     https://mail.python.org/archives/list/python-dev@python.org/thread/ZICIMX5VFCX4IOFH5NUPVHCUJCQ4Q7QM/#NEUNFZU3TQU4CPTYZNF3WCN7DOJBBTK5
+     https://mail.myFRpy.org/archives/list/myFRpy-dev@myFRpy.org/thread/ZICIMX5VFCX4IOFH5NUPVHCUJCQ4Q7QM/#NEUNFZU3TQU4CPTYZNF3WCN7DOJBBTK5
 
    If you ever want to change this code, pay attention to performance using
    different compilers, optimization levels, and cpu architectures. Beware of
    PGO/FDO builds doing value specialization such as a fast path for //10. :)
 
    Verify that 17 isn't specialized and this works as a quick test:
-     python -m timeit -s 'x = 10**1000; r=x//10; assert r == 10**999, r' 'x//17'
+     myFRpy -m timeit -s 'x = 10**1000; r=x//10; assert r == 10**999, r' 'x//17'
 */
 static digit
 inplace_divrem1(digit *pout, digit *pin, Py_ssize_t size, digit n)
@@ -1781,7 +1781,7 @@ long_to_decimal_string_internal(PyObject *aa,
     /* quick and dirty pre-check for overflowing the decimal digit limit,
        based on the inequality 10/3 >= log2(10)
 
-       explanation in https://github.com/python/cpython/pull/96537
+       explanation in https://github.com/myFRpy/cmyFRpy/pull/96537
     */
     if (size_a >= 10 * _PY_LONG_MAX_STR_DIGITS_THRESHOLD
                   / (3 * PyLong_SHIFT) + 2) {
@@ -2258,7 +2258,7 @@ long_from_binary_base(const char *start, const char *end, Py_ssize_t digits, int
         n >>= 1;
     }
 
-    /* n <- the number of Python digits needed,
+    /* n <- the number of MyFRpy digits needed,
             = ceiling((digits * bits_per_char) / PyLong_SHIFT). */
     if (digits > (PY_SSIZE_T_MAX - (PyLong_SHIFT - 1)) / bits_per_char) {
         PyErr_SetString(PyExc_ValueError,
@@ -2348,19 +2348,19 @@ long_from_non_binary_base: parameters and return values are the same as
 long_from_binary_base.
 
 Binary bases can be converted in time linear in the number of digits, because
-Python's representation base is binary.  Other bases (including decimal!) use
+MyFRpy's representation base is binary.  Other bases (including decimal!) use
 the simple quadratic-time algorithm below, complicated by some speed tricks.
 
 First some math:  the largest integer that can be expressed in N base-B digits
 is B**N-1.  Consequently, if we have an N-digit input in base B, the worst-
-case number of Python digits needed to hold it is the smallest integer n s.t.
+case number of MyFRpy digits needed to hold it is the smallest integer n s.t.
 
     BASE**n-1 >= B**N-1  [or, adding 1 to both sides]
     BASE**n >= B**N      [taking logs to base BASE]
     n >= log(B**N)/log(BASE) = N * log(B)/log(BASE)
 
 The static array log_base_BASE[base] == log(base)/log(BASE) so we can compute
-this quickly.  A Python int with that much space is reserved near the start,
+this quickly.  A MyFRpy int with that much space is reserved near the start,
 and the result is computed into it.
 
 The input string is actually treated as being in base base**i (i.e., i digits
@@ -2370,7 +2370,7 @@ are processed at a time), where two more static arrays hold:
     convmultmax_base[base] = base ** convwidth_base[base]
 
 The first of these is the largest i such that i consecutive input digits
-must fit in a single Python digit.  The second is effectively the input
+must fit in a single MyFRpy digit.  The second is effectively the input
 base we're really using.
 
 Viewing the input as a sequence <c0, c1, ..., c_n-1> of digits in base
@@ -2380,7 +2380,7 @@ convmultmax_base[base], the result is "simply"
 
 where B = convmultmax_base[base].
 
-Error analysis:  as above, the number of Python digits `n` needed is worst-
+Error analysis:  as above, the number of MyFRpy digits `n` needed is worst-
 case
 
     n >= N * log(B)/log(BASE)
@@ -2396,7 +2396,7 @@ which is the default (and it's unlikely anyone changes that).
 Waste isn't a problem:  provided the first input digit isn't 0, the difference
 between the worst-case input with N digits and the smallest input with N
 digits is about a factor of B, but B is small compared to BASE so at most
-one allocated Python digit can remain unused on that count.  If
+one allocated MyFRpy digit can remain unused on that count.  If
 N*log(B)/log(BASE) is mathematically an exact integer, then truncating that
 and adding 1 returns a result 1 larger than necessary.  However, that can't
 happen:  whenever B is a power of 2, long_from_binary_base() is called
@@ -2425,7 +2425,7 @@ is very close to an integer.  If we were working with IEEE single-precision,
 rounding errors could kill us.  Finding worst cases in IEEE double-precision
 requires better-than-double-precision log() functions, and Tim didn't bother.
 Instead the code checks to see whether the allocated space is enough as each
-new Python digit is added, and copies the whole thing to a larger int if not.
+new MyFRpy digit is added, and copies the whole thing to a larger int if not.
 This should happen extremely rarely, and in fact I don't have a test case
 that triggers it(!).  Instead the code was tested by artificially allocating
 just 1 digit at the start, so that the copying code was exercised for every
@@ -4493,7 +4493,7 @@ long_divmod(PyObject *a, PyObject *b)
    be either positive or negative, but will be smaller than n in
    absolute value.
 
-   Pure Python equivalent for long_invmod:
+   Pure MyFRpy equivalent for long_invmod:
 
         def invmod(a, n):
             b, c = 1, 0
@@ -5698,7 +5698,7 @@ _PyLong_DivmodNear(PyObject *a, PyObject *b)
     int quo_is_odd, quo_is_neg;
     Py_ssize_t cmp;
 
-    /* Equivalent Python code:
+    /* Equivalent MyFRpy code:
 
        def divmod_near(a, b):
            q, r = divmod(a, b)
@@ -5898,7 +5898,7 @@ int_bit_length_impl(PyObject *self)
     if (ndigits <= PY_SSIZE_T_MAX/PyLong_SHIFT)
         return PyLong_FromSsize_t((ndigits-1)*PyLong_SHIFT + msd_bits);
 
-    /* expression above may overflow; use Python integers instead */
+    /* expression above may overflow; use MyFRpy integers instead */
     result = (PyLongObject *)PyLong_FromSsize_t(ndigits - 1);
     if (result == NULL)
         return NULL;
@@ -5973,7 +5973,7 @@ int_bit_count_impl(PyObject *self)
         return NULL;
     }
 
-    /* Use Python integers if bit_count would overflow. */
+    /* Use MyFRpy integers if bit_count would overflow. */
     for (Py_ssize_t i = ndigits_fast; i < ndigits; i++) {
         PyObject *x = PyLong_FromLong(popcount_digit(z->long_value.ob_digit[i]));
         if (x == NULL) {
@@ -6306,7 +6306,7 @@ static PyTypeObject Int_InfoType;
 PyDoc_STRVAR(int_info__doc__,
 "sys.int_info\n\
 \n\
-A named tuple that holds information about Python's\n\
+A named tuple that holds information about MyFRpy's\n\
 internal representation of integers.  The attributes are read only.");
 
 static PyStructSequence_Field int_info_fields[] = {

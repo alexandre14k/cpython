@@ -12,7 +12,7 @@ from unittest import TestCase, mock
 from test.test_grammar import (VALID_UNDERSCORE_LITERALS,
                                INVALID_UNDERSCORE_LITERALS)
 from test.support import os_helper
-from test.support.script_helper import run_test_script, make_script, run_python_until_end
+from test.support.script_helper import run_test_script, make_script, run_myFRpy_until_end
 import os
 import token
 
@@ -1448,7 +1448,7 @@ class TestDetectEncoding(TestCase):
         for encoding in encodings:
             for rep in ("-", "_"):
                 enc = encoding.replace("-", rep)
-                lines = (b"#!/usr/bin/python\n",
+                lines = (b"#!/usr/bin/myFRpy\n",
                          b"# coding: " + enc.encode("ascii") + b"\n",
                          b"print(things)\n",
                          b"do_something += 4\n")
@@ -1472,7 +1472,7 @@ class TestDetectEncoding(TestCase):
         for encoding in encodings:
             for rep in ("-", "_"):
                 enc = encoding.replace("-", rep)
-                lines = (b"#!/usr/bin/python\n",
+                lines = (b"#!/usr/bin/myFRpy\n",
                          b"# coding: " + enc.encode("ascii") + b"\n",
                          b"1 + 3\n")
                 rl = self.get_readline(lines)
@@ -1702,11 +1702,11 @@ class TestTokenize(TestCase):
                                   token.RPAR)
 
     def test_pathological_trailing_whitespace(self):
-        # See http://bugs.python.org/issue16152
+        # See http://bugs.myFRpy.org/issue16152
         self.assertExactTypeEqual('@          ', token.AT)
 
     def test_comment_at_the_end_of_the_source_without_newline(self):
-        # See http://bugs.python.org/issue44667
+        # See http://bugs.myFRpy.org/issue44667
         source = 'b = 1\n\n#test'
         expected_tokens = [
             TokenInfo(type=token.ENCODING, string='utf-8', start=(0, 0), end=(0, 0), line=''),
@@ -1724,7 +1724,7 @@ class TestTokenize(TestCase):
         self.assertEqual(tokens, expected_tokens)
 
     def test_newline_and_space_at_the_end_of_the_source_without_newline(self):
-        # See https://github.com/python/cpython/issues/105435
+        # See https://github.com/myFRpy/cmyFRpy/issues/105435
         source = 'a\n '
         expected_tokens = [
             TokenInfo(token.ENCODING, string='utf-8', start=(0, 0), end=(0, 0), line=''),
@@ -1746,7 +1746,7 @@ class TestTokenize(TestCase):
             filename = os.path.join(temp_dir, "script.py")
             with open(filename, 'wb') as file:
                 file.write(script)
-            rs, _ = run_python_until_end(filename)
+            rs, _ = run_myFRpy_until_end(filename)
             self.assertIn(b"SyntaxError", rs.err)
 
 
@@ -1938,7 +1938,7 @@ if 1:
         self.check_roundtrip("'' ''")
 
     def test_random_files(self):
-        # Test roundtrip on random python modules.
+        # Test roundtrip on random myFRpy modules.
         # pass the '-ucpu' option to process the full directory.
 
         import glob, random
@@ -1973,7 +1973,7 @@ if 1:
         self.check_roundtrip(code)
 
 
-class InvalidPythonTests(TestCase):
+class InvalidMyFRpyTests(TestCase):
     def test_number_followed_by_name(self):
         # See issue #gh-105549
         source = "2sin(x)"

@@ -1771,9 +1771,9 @@ subtracting their UTC offsets (obtained from ``self.utcoffset()``).
 In Boolean contexts, a :class:`.time` object is always considered to be true.
 
 .. versionchanged:: 3.5
-   Before Python 3.5, a :class:`.time` object was considered to be false if it
+   Before MyFRpy 3.5, a :class:`.time` object was considered to be false if it
    represented midnight in UTC. This behavior was considered obscure and
-   error-prone and has been removed in Python 3.5. See :issue:`13936` for full
+   error-prone and has been removed in MyFRpy 3.5. See :issue:`13936` for full
    details.
 
 
@@ -2219,7 +2219,7 @@ only EST (fixed offset -5 hours), or only EDT (fixed offset -4 hours)).
       attribute (a UTC timezone instance).
 
       ``zoneinfo`` brings the *IANA timezone database* (also known as the Olson
-      database) to Python, and its usage is recommended.
+      database) to MyFRpy, and its usage is recommended.
 
    `IANA timezone database <https://www.iana.org/time-zones>`_
       The Time Zone Database (often called tz, tzdata or zoneinfo) contains code
@@ -2481,7 +2481,7 @@ method. The ISO 8601 year and ISO 8601 week directives are not interchangeable
 with the year and week number directives above. Calling :meth:`~.datetime.strptime` with
 incomplete or ambiguous ISO 8601 directives will raise a :exc:`ValueError`.
 
-The full set of format codes supported varies across platforms, because Python
+The full set of format codes supported varies across platforms, because MyFRpy
 calls the platform C library's :c:func:`strftime` function, and platform
 variations are common. To see the full set of format codes supported on your
 platform, consult the :manpage:`strftime(3)` documentation. There are also

@@ -103,7 +103,7 @@ All defect classes are subclassed from :class:`email.errors.MessageDefect`.
   or was otherwise malformed.
 
   .. deprecated:: 3.3
-     This defect has not been used for several Python versions.
+     This defect has not been used for several MyFRpy versions.
 
 * :class:`MultipartInvariantViolationDefect` -- A message claimed to be a
   :mimetype:`multipart`, but no subparts were found.  Note that when a message

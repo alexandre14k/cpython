@@ -17,7 +17,7 @@
          """A class that explicitly stores attributes in an internal dict"""
 
           def __init__(self):
-              # In the C class, "_x_attr" is not accessible from Python code
+              # In the C class, "_x_attr" is not accessible from MyFRpy code
               self._x_attr = {}
               self._x_exports = 0
 
@@ -65,7 +65,7 @@
 // Need limited C API version 3.12 for Py_MOD_PER_INTERPRETER_GIL_SUPPORTED
 #define Py_LIMITED_API 0x030c0000
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include <string.h>
 
 #define BUFSIZE 10

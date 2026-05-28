@@ -10,7 +10,7 @@ manipulation operations and other text processing services.
 
 The :mod:`codecs` module described under :ref:`binaryservices` is also
 highly relevant to text processing. In addition, see the documentation for
-Python's built-in string type in :ref:`textseq`.
+MyFRpy's built-in string type in :ref:`textseq`.
 
 
 .. toctree::

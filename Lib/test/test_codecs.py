@@ -1543,14 +1543,14 @@ class NameprepTest(unittest.TestCase):
 
 class IDNACodecTest(unittest.TestCase):
     def test_builtin_decode(self):
-        self.assertEqual(str(b"python.org", "idna"), "python.org")
-        self.assertEqual(str(b"python.org.", "idna"), "python.org.")
+        self.assertEqual(str(b"myFRpy.org", "idna"), "myFRpy.org")
+        self.assertEqual(str(b"myFRpy.org.", "idna"), "myFRpy.org.")
         self.assertEqual(str(b"xn--pythn-mua.org", "idna"), "pyth\xf6n.org")
         self.assertEqual(str(b"xn--pythn-mua.org.", "idna"), "pyth\xf6n.org.")
 
     def test_builtin_encode(self):
-        self.assertEqual("python.org".encode("idna"), b"python.org")
-        self.assertEqual("python.org.".encode("idna"), b"python.org.")
+        self.assertEqual("myFRpy.org".encode("idna"), b"myFRpy.org")
+        self.assertEqual("myFRpy.org.".encode("idna"), b"myFRpy.org.")
         self.assertEqual("pyth\xf6n.org".encode("idna"), b"xn--pythn-mua.org")
         self.assertEqual("pyth\xf6n.org.".encode("idna"), b"xn--pythn-mua.org.")
 
@@ -1567,12 +1567,12 @@ class IDNACodecTest(unittest.TestCase):
 
     def test_incremental_decode(self):
         self.assertEqual(
-            "".join(codecs.iterdecode((bytes([c]) for c in b"python.org"), "idna")),
-            "python.org"
+            "".join(codecs.iterdecode((bytes([c]) for c in b"myFRpy.org"), "idna")),
+            "myFRpy.org"
         )
         self.assertEqual(
-            "".join(codecs.iterdecode((bytes([c]) for c in b"python.org."), "idna")),
-            "python.org."
+            "".join(codecs.iterdecode((bytes([c]) for c in b"myFRpy.org."), "idna")),
+            "myFRpy.org."
         )
         self.assertEqual(
             "".join(codecs.iterdecode((bytes([c]) for c in b"xn--pythn-mua.org."), "idna")),
@@ -1597,12 +1597,12 @@ class IDNACodecTest(unittest.TestCase):
 
     def test_incremental_encode(self):
         self.assertEqual(
-            b"".join(codecs.iterencode("python.org", "idna")),
-            b"python.org"
+            b"".join(codecs.iterencode("myFRpy.org", "idna")),
+            b"myFRpy.org"
         )
         self.assertEqual(
-            b"".join(codecs.iterencode("python.org.", "idna")),
-            b"python.org."
+            b"".join(codecs.iterencode("myFRpy.org.", "idna")),
+            b"myFRpy.org."
         )
         self.assertEqual(
             b"".join(codecs.iterencode("pyth\xf6n.org.", "idna")),
@@ -1625,13 +1625,13 @@ class IDNACodecTest(unittest.TestCase):
 
     def test_errors(self):
         """Only supports "strict" error handler"""
-        "python.org".encode("idna", "strict")
-        b"python.org".decode("idna", "strict")
+        "myFRpy.org".encode("idna", "strict")
+        b"myFRpy.org".decode("idna", "strict")
         for errors in ("ignore", "replace", "backslashreplace",
                 "surrogateescape"):
-            self.assertRaises(Exception, "python.org".encode, "idna", errors)
+            self.assertRaises(Exception, "myFRpy.org".encode, "idna", errors)
             self.assertRaises(Exception,
-                b"python.org".decode, "idna", errors)
+                b"myFRpy.org".decode, "idna", errors)
 
 
 class CodecsModuleTest(unittest.TestCase):
@@ -2041,7 +2041,7 @@ class BasicUnicodeTest(unittest.TestCase, MixInCheckStateHandling):
                         self.assertEqual(decodedresult, s,
                                          "encoding=%r" % encoding)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     @unittest.skipIf(_testcapi is None, 'need _testcapi module')
     def test_basics_capi(self):
         s = "abc123"  # all codecs should be able to encode these
@@ -2891,7 +2891,7 @@ class TransformCodecTest(unittest.TestCase):
             codecs.decode(b"hello", "hex_codec")
         self.assertEqual(msg, failure.exception.__notes__[0])
 
-    # Ensure codec aliases from http://bugs.python.org/issue7475 work
+    # Ensure codec aliases from http://bugs.myFRpy.org/issue7475 work
     def test_aliases(self):
         for codec_name, aliases in transform_aliases.items():
             expected_name = codecs.lookup(codec_name).name
@@ -3019,7 +3019,7 @@ class ExceptionNotesTest(unittest.TestCase):
         msg_re = r"^\('a', 'b', 'c'\)$"
         self.check_note(RuntimeError('a', 'b', 'c'), msg_re)
 
-    # http://bugs.python.org/issue19609
+    # http://bugs.myFRpy.org/issue19609
     def test_codec_lookup_failure(self):
         msg = "^unknown encoding: {}$".format(self.codec_name)
         with self.assertRaisesRegex(LookupError, msg):
@@ -3564,7 +3564,7 @@ class Rot13Test(unittest.TestCase):
 class Rot13UtilTest(unittest.TestCase):
     """Test the ROT-13 codec via rot13 function,
     i.e. the user has done something like:
-    $ echo "Hello World" | python -m encodings.rot_13
+    $ echo "Hello World" | myFRpy -m encodings.rot_13
     """
     def test_rot13_func(self):
         from encodings.rot_13 import rot13

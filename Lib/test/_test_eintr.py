@@ -33,7 +33,7 @@ CLOCK_RES = 0.020
 
 @contextlib.contextmanager
 def kill_on_error(proc):
-    """Context manager killing the subprocess if a Python exception is raised."""
+    """Context manager killing the subprocess if a MyFRpy exception is raised."""
     with proc:
         try:
             yield proc
@@ -352,7 +352,7 @@ class SocketEINTRTest(EINTRBaseTest):
             do_open_close_writer(filename)
             self.assertEqual(proc.wait(), 0)
 
-    def python_open(self, path):
+    def myFRpy_open(self, path):
         fp = open(path, 'w')
         fp.close()
 
@@ -360,7 +360,7 @@ class SocketEINTRTest(EINTRBaseTest):
                      "hangs under macOS; see bpo-25234, bpo-35363")
     def test_open(self):
         self._test_open("fp = open(path, 'r')\nfp.close()",
-                        self.python_open)
+                        self.myFRpy_open)
 
     def os_open(self, path):
         fd = os.open(path, os.O_WRONLY)
@@ -525,7 +525,7 @@ class FNTLEINTRTest(EINTRBaseTest):
                 self.check_elapsed_time(dt)
             proc.wait()
 
-    # Issue 35633: See https://bugs.python.org/issue35633#msg333662
+    # Issue 35633: See https://bugs.myFRpy.org/issue35633#msg333662
     # skip test rather than accept PermissionError from all platforms
     @unittest.skipIf(platform.system() == "AIX", "AIX returns PermissionError")
     def test_lockf(self):

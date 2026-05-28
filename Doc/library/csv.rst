@@ -39,7 +39,7 @@ using the :class:`DictReader` and :class:`DictWriter` classes.
 .. seealso::
 
    :pep:`305` - CSV File API
-      The Python Enhancement Proposal which proposed this addition to Python.
+      The MyFRpy Enhancement Proposal which proposed this addition to MyFRpy.
 
 
 .. _csv-contents:

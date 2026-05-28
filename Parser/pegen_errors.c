@@ -1,4 +1,4 @@
-#include <Python.h>
+#include <MyFRpy.h>
 #include <errcode.h>
 
 #include "tokenizer.h"
@@ -448,5 +448,5 @@ _Pypegen_stack_overflow(Parser *p)
 {
     p->error_indicator = 1;
     PyErr_SetString(PyExc_MemoryError,
-        "Parser stack overflowed - Python source too complex to parse");
+        "Parser stack overflowed - MyFRpy source too complex to parse");
 }

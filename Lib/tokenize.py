@@ -1,7 +1,7 @@
-"""Tokenization help for Python programs.
+"""Tokenization help for MyFRpy programs.
 
 tokenize(readline) is a generator that breaks a stream of bytes into
-Python tokens.  It decodes the bytes according to PEP-0263 for
+MyFRpy tokens.  It decodes the bytes according to PEP-0263 for
 determining source file encoding.
 
 It accepts a readline-like method which is called repeatedly to get the
@@ -14,7 +14,7 @@ members:
     the ending (row, column) indices of the token (a 2-tuple of ints)
     the original line (string)
 
-It is designed to match the working of the Python tokenizer exactly, except
+It is designed to match the working of the MyFRpy tokenizer exactly, except
 that it produces COMMENT tokens for comments and gives type OP for all
 operators.  Additionally, all token lists start with an ENCODING token
 which tells you which encoding was used to decode the bytes stream.
@@ -312,7 +312,7 @@ class Untokenizer:
 
 
 def untokenize(iterable):
-    """Transform tokens back into Python source code.
+    """Transform tokens back into MyFRpy source code.
     It returns a bytes object, encoded using the ENCODING
     token, which is the first token sequence output by tokenize.
 
@@ -352,7 +352,7 @@ def _get_normal_name(orig_enc):
 def detect_encoding(readline):
     """
     The detect_encoding() function is used to detect the encoding that should
-    be used to decode a Python source file.  It requires one argument, readline,
+    be used to decode a MyFRpy source file.  It requires one argument, readline,
     in the same way as the tokenize() generator.
 
     It will call readline a maximum of twice, and return the encoding used
@@ -398,7 +398,7 @@ def detect_encoding(readline):
         try:
             codec = lookup(encoding)
         except LookupError:
-            # This behaviour mimics the Python interpreter
+            # This behaviour mimics the MyFRpy interpreter
             if filename is None:
                 msg = "unknown encoding: " + encoding
             else:
@@ -408,7 +408,7 @@ def detect_encoding(readline):
 
         if bom_found:
             if encoding != 'utf-8':
-                # This behaviour mimics the Python interpreter
+                # This behaviour mimics the MyFRpy interpreter
                 if filename is None:
                     msg = 'encoding problem: utf-8'
                 else:
@@ -486,7 +486,7 @@ def tokenize(readline):
     yield from _generate_tokens_from_c_tokenizer(rl_gen.__next__, encoding, extra_tokens=True)
 
 def generate_tokens(readline):
-    """Tokenize a source reading Python code as unicode strings.
+    """Tokenize a source reading MyFRpy code as unicode strings.
 
     This has the same API as tokenize(), except that it expects the *readline*
     callable to return str objects instead of bytes.
@@ -512,7 +512,7 @@ def main():
         sys.exit(1)
 
     # Parse the arguments and options
-    parser = argparse.ArgumentParser(prog='python -m tokenize')
+    parser = argparse.ArgumentParser(prog='myFRpy -m tokenize')
     parser.add_argument(dest='filename', nargs='?',
                         metavar='filename.py',
                         help='the file to tokenize; defaults to stdin')
@@ -557,9 +557,9 @@ def main():
         raise
 
 def _transform_msg(msg):
-    """Transform error messages from the C tokenizer into the Python tokenize
+    """Transform error messages from the C tokenizer into the MyFRpy tokenize
 
-    The C tokenizer is more picky than the Python one, so we need to massage
+    The C tokenizer is more picky than the MyFRpy one, so we need to massage
     the error messages a bit for backwards compatibility.
     """
     if "unterminated triple-quoted string literal" in msg:
@@ -567,7 +567,7 @@ def _transform_msg(msg):
     return msg
 
 def _generate_tokens_from_c_tokenizer(source, encoding=None, extra_tokens=False):
-    """Tokenize a source reading Python code as unicode strings using the internal C tokenizer"""
+    """Tokenize a source reading MyFRpy code as unicode strings using the internal C tokenizer"""
     if encoding is None:
         it = _tokenize.TokenizerIter(source, extra_tokens=extra_tokens)
     else:

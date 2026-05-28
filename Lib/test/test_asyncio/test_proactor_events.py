@@ -77,7 +77,7 @@ class ProactorSocketTransportTests(test_utils.TestCase):
         self.loop._proactor.recv_into.assert_called_with(self.sock, called_buf)
         self.protocol.data_received.assert_called_with(buf)
         # assert_called_with maps bytearray and bytes to the same thing so check manually
-        # regression test for https://github.com/python/cpython/issues/99941
+        # regression test for https://github.com/myFRpy/cmyFRpy/issues/99941
         self.assertIsInstance(self.protocol.data_received.call_args.args[0], bytes)
 
     @unittest.skipIf(sys.flags.optimize, "Assertions are disabled in optimized mode")
@@ -293,7 +293,7 @@ class ProactorSocketTransportTests(test_utils.TestCase):
         tr._closing = True
         tr._force_close(None)
         test_utils.run_briefly(self.loop)
-        # See https://github.com/python/cpython/issues/89237
+        # See https://github.com/myFRpy/cmyFRpy/issues/89237
         # `protocol.connection_lost` should be called even if
         # the transport was closed forcefully otherwise
         # the resources held by protocol will never be freed

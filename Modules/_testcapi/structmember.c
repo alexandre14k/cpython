@@ -5,7 +5,7 @@
 
 // This defines two classes that contain all the simple member types, one
 // using "new" Py_-prefixed API, and the other using "old" <structmember.h>.
-// They should behave identically in Python.
+// They should behave identically in MyFRpy.
 
 typedef struct {
     char bool_member;

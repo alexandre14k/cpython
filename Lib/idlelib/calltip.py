@@ -108,7 +108,7 @@ class Calltip:
     def fetch_tip(self, expression):
         """Return the argument list and docstring of a function or class.
 
-        If there is a Python subprocess, get the calltip there.  Otherwise,
+        If there is a MyFRpy subprocess, get the calltip there.  Otherwise,
         either this fetch_tip() is running in the subprocess or it was
         called in an IDLE running without the subprocess.
 
@@ -154,7 +154,7 @@ _invalid_method = "invalid method signature"
 def get_argspec(ob):
     '''Return a string describing the signature of a callable object, or ''.
 
-    For Python-coded functions and methods, the first line is introspected.
+    For MyFRpy-coded functions and methods, the first line is introspected.
     Delete 'self' parameter for classes (.__init__) and bound methods.
     The next lines are the first lines of the doc string up to the first
     empty line or _MAX_LINES.    For builtins, this typically includes

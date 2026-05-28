@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env myFRpy3
 
 """Unpack a MIME message into a directory of files."""
 

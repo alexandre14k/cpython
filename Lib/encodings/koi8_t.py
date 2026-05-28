@@ -1,4 +1,4 @@
-""" Python Character Mapping Codec koi8_t
+""" MyFRpy Character Mapping Codec koi8_t
 """
 # http://ru.wikipedia.org/wiki/КОИ-8
 # http://www.opensource.apple.com/source/libiconv/libiconv-4/libiconv/tests/KOI8-T.TXT

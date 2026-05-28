@@ -1,7 +1,7 @@
 """Internationalization and localization support.
 
 This module provides internationalization (I18N) and localization (L10N)
-support for your Python programs by providing an interface to the GNU gettext
+support for your MyFRpy programs by providing an interface to the GNU gettext
 message catalog library.
 
 I18N refers to the operation by which a program is made aware of multiple
@@ -18,16 +18,16 @@ internationalized, to the local language and cultural habits.
 # gettext.py implementation.
 #
 # Peter Funk, who wrote fintl.py, a fairly complete wrapper around intlmodule,
-# which also included a pure-Python implementation to read .mo files if
+# which also included a pure-MyFRpy implementation to read .mo files if
 # intlmodule wasn't available.
 #
 # James Henstridge, who also wrote a gettext.py module, which has some
 # interesting, but currently unsupported experimental features: the notion of
 # a Catalog class and instances, and the ability to add to a catalog file via
-# a Python API.
+# a MyFRpy API.
 #
 # Barry Warsaw integrated these modules, wrote the .install() API and code,
-# and conformed all C and Python code to Python's coding standards.
+# and conformed all C and MyFRpy code to MyFRpy's coding standards.
 #
 # Francois Pinard and Marc-Andre Lemburg also contributed valuably to this
 # module.
@@ -145,7 +145,7 @@ def _parse(tokens, priority=-1):
         # Break chained comparisons
         if i in (3, 4) and j in (3, 4):  # '==', '!=', '<', '>', '<=', '>='
             result = '(%s)' % result
-        # Replace some C operators by their Python equivalents
+        # Replace some C operators by their MyFRpy equivalents
         op = _c2py_ops.get(nexttok, nexttok)
         right, nexttok = _parse(tokens, i + 1)
         result = '%s %s %s' % (result, op, right)
@@ -187,7 +187,7 @@ def _as_int(n):
 
 def c2py(plural):
     """Gets a C expression as used in PO files for plural forms and returns a
-    Python function that implements an equivalent expression.
+    MyFRpy function that implements an equivalent expression.
     """
 
     if len(plural) > 1000:
@@ -202,7 +202,7 @@ def c2py(plural):
             if c == '(':
                 depth += 1
                 if depth > 20:
-                    # Python compiler limit is about 90.
+                    # MyFRpy compiler limit is about 90.
                     # The most complex example has 2.
                     raise ValueError('plural form expression is too complex')
             elif c == ')':

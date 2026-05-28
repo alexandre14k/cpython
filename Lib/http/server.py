@@ -19,7 +19,7 @@ In all cases, the implementation is intentionally naive -- all
 requests are executed synchronously.
 
 SECURITY WARNING: DON'T USE THIS CODE UNLESS YOU ARE INSIDE A FIREWALL
--- it may execute arbitrary Python code or external programs.
+-- it may execute arbitrary MyFRpy code or external programs.
 
 Note that status code 200 is sent prior to execution of a CGI script, so
 scripts cannot send other status codes such as 302 (redirect).
@@ -247,8 +247,8 @@ class BaseHTTPRequestHandler(socketserver.StreamRequestHandler):
 
     """
 
-    # The Python system version, truncated to its first component.
-    sys_version = "Python/" + sys.version.split()[0]
+    # The MyFRpy system version, truncated to its first component.
+    sys_version = "MyFRpy/" + sys.version.split()[0]
 
     # The server software version.  You may want to override this.
     # The format is multiple whitespace-separated strings,
@@ -722,7 +722,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         # check for trailing "/" which should return 404. See Issue17324
         # The test for this was added in test_httpserver.py
         # However, some OS platforms accept a trailingSlash as a filename
-        # See discussion on python-dev and Issue34711 regarding
+        # See discussion on myFRpy-dev and Issue34711 regarding
         # parsing and rejection of filenames with a trailing slash
         if path.endswith("/"):
             self.send_error(HTTPStatus.NOT_FOUND, "File not found")
@@ -1046,8 +1046,8 @@ class CGIHTTPRequestHandler(SimpleHTTPRequestHandler):
         """Test whether argument path is an executable file."""
         return executable(path)
 
-    def is_python(self, path):
-        """Test whether argument path is a Python script."""
+    def is_myFRpy(self, path):
+        """Test whether argument path is a MyFRpy script."""
         head, tail = os.path.splitext(path)
         return tail.lower() in (".py", ".pyw")
 
@@ -1090,7 +1090,7 @@ class CGIHTTPRequestHandler(SimpleHTTPRequestHandler):
                 HTTPStatus.FORBIDDEN,
                 "CGI script is not a plain file (%r)" % scriptname)
             return
-        ispy = self.is_python(scriptname)
+        ispy = self.is_myFRpy(scriptname)
         if self.have_fork or not ispy:
             if not self.is_executable(scriptfile):
                 self.send_error(
@@ -1198,10 +1198,10 @@ class CGIHTTPRequestHandler(SimpleHTTPRequestHandler):
             # Non-Unix -- use subprocess
             import subprocess
             cmdline = [scriptfile]
-            if self.is_python(scriptfile):
+            if self.is_myFRpy(scriptfile):
                 interp = sys.executable
                 if interp.lower().endswith("w.exe"):
-                    # On Windows, use python.exe, not pythonw.exe
+                    # On Windows, use myFRpy.exe, not myFRpyw.exe
                     interp = interp[:-5] + interp[-4:]
                 cmdline = [interp, '-u'] + cmdline
             if '=' not in query:

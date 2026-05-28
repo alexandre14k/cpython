@@ -13,7 +13,7 @@ always available.
 
 .. data:: abiflags
 
-   On POSIX systems where Python was built with the standard ``configure``
+   On POSIX systems where MyFRpy was built with the standard ``configure``
    script, this contains the ABI flags as specified by :pep:`3149`.
 
    .. versionadded:: 3.2
@@ -38,8 +38,8 @@ always available.
    or terminate the process entirely.
 
    Note that audit hooks are primarily for collecting information about internal
-   or otherwise unobservable actions, whether by Python or libraries written in
-   Python. They are not suitable for implementing a "sandbox". In particular,
+   or otherwise unobservable actions, whether by MyFRpy or libraries written in
+   MyFRpy. They are not suitable for implementing a "sandbox". In particular,
    malicious code can trivially disable or bypass hooks added using this
    function. At a minimum, any security-sensitive hooks must be added using the
    C API :c:func:`PySys_AddAuditHook` before initialising the runtime, and any
@@ -56,7 +56,7 @@ always available.
       all existing hooks.
 
    See the :ref:`audit events table <audit-events>` for all events raised by
-   CPython, and :pep:`578` for the original design discussion.
+   CMyFRpy, and :pep:`578` for the original design discussion.
 
    .. versionadded:: 3.8
 
@@ -67,18 +67,18 @@ always available.
 
    .. impl-detail::
 
-      When tracing is enabled (see :func:`settrace`), Python hooks are only
+      When tracing is enabled (see :func:`settrace`), MyFRpy hooks are only
       traced if the callable has a ``__cantrace__`` member that is set to a
       true value. Otherwise, trace functions will skip the hook.
 
 
 .. data:: argv
 
-   The list of command line arguments passed to a Python script. ``argv[0]`` is the
+   The list of command line arguments passed to a MyFRpy script. ``argv[0]`` is the
    script name (it is operating system dependent whether this is a full pathname or
    not).  If the command was executed using the :option:`-c` command line option to
    the interpreter, ``argv[0]`` is set to the string ``'-c'``.  If no script name
-   was passed to the Python interpreter, ``argv[0]`` is the empty string.
+   was passed to the MyFRpy interpreter, ``argv[0]`` is the empty string.
 
    To loop over the standard input, or the list of files given on the
    command line, see the :mod:`fileinput` module.
@@ -86,7 +86,7 @@ always available.
    See also :data:`sys.orig_argv`.
 
    .. note::
-      On Unix, command line arguments are passed by bytes from OS.  Python decodes
+      On Unix, command line arguments are passed by bytes from OS.  MyFRpy decodes
       them with filesystem encoding and "surrogateescape" error handler.
       When you need original bytes, you can get it by
       ``[os.fsencode(arg) for arg in sys.argv]``.
@@ -123,20 +123,20 @@ always available.
    native function is preferred when possible.
 
    See the :ref:`audit events table <audit-events>` for all events raised by
-   CPython.
+   CMyFRpy.
 
    .. versionadded:: 3.8
 
 
 .. data:: base_exec_prefix
 
-   Set during Python startup, before ``site.py`` is run, to the same value as
+   Set during MyFRpy startup, before ``site.py`` is run, to the same value as
    :data:`exec_prefix`. If not running in a
    :ref:`virtual environment <venv-def>`, the values will stay the same; if
    ``site.py`` finds that a virtual environment is in use, the values of
    :data:`prefix` and :data:`exec_prefix` will be changed to point to the
    virtual environment, whereas :data:`base_prefix` and
-   :data:`base_exec_prefix` will remain pointing to the base Python
+   :data:`base_exec_prefix` will remain pointing to the base MyFRpy
    installation (the one which the virtual environment was created from).
 
    .. versionadded:: 3.3
@@ -144,12 +144,12 @@ always available.
 
 .. data:: base_prefix
 
-   Set during Python startup, before ``site.py`` is run, to the same value as
+   Set during MyFRpy startup, before ``site.py`` is run, to the same value as
    :data:`prefix`. If not running in a :ref:`virtual environment <venv-def>`, the values
    will stay the same; if ``site.py`` finds that a virtual environment is in
    use, the values of :data:`prefix` and :data:`exec_prefix` will be changed to
    point to the virtual environment, whereas :data:`base_prefix` and
-   :data:`base_exec_prefix` will remain pointing to the base Python
+   :data:`base_exec_prefix` will remain pointing to the base MyFRpy
    installation (the one which the virtual environment was created from).
 
    .. versionadded:: 3.3
@@ -165,7 +165,7 @@ always available.
 .. data:: builtin_module_names
 
    A tuple of strings containing the names of all modules that are compiled into this
-   Python interpreter.  (This information is not available in any other way ---
+   MyFRpy interpreter.  (This information is not available in any other way ---
    ``modules.keys()`` only lists the imported modules.)
 
    See also the :data:`sys.stdlib_module_names` list.
@@ -184,7 +184,7 @@ always available.
 
 .. data:: copyright
 
-   A string containing the copyright pertaining to the Python interpreter.
+   A string containing the copyright pertaining to the MyFRpy interpreter.
 
 
 .. function:: _clear_type_cache()
@@ -244,10 +244,10 @@ always available.
    ``breakpointhooks()`` returns is returned from ``breakpoint()``.
 
    The default implementation first consults the environment variable
-   :envvar:`PYTHONBREAKPOINT`.  If that is set to ``"0"`` then this function
+   :envvar:`MYFRPYBREAKPOINT`.  If that is set to ``"0"`` then this function
    returns immediately; i.e. it is a no-op.  If the environment variable is
    not set, or is set to the empty string, ``pdb.set_trace()`` is called.
-   Otherwise this variable should name a function to run, using Python's
+   Otherwise this variable should name a function to run, using MyFRpy's
    dotted-import nomenclature, e.g. ``package.subpackage.module.function``.
    In this case, ``package.subpackage.module`` would be imported and the
    resulting module must have a callable named ``function()``.  This is run,
@@ -256,20 +256,20 @@ always available.
    function.
 
    Note that if anything goes wrong while importing the callable named by
-   :envvar:`PYTHONBREAKPOINT`, a :exc:`RuntimeWarning` is reported and the
+   :envvar:`MYFRPYBREAKPOINT`, a :exc:`RuntimeWarning` is reported and the
    breakpoint is ignored.
 
    Also note that if ``sys.breakpointhook()`` is overridden programmatically,
-   :envvar:`PYTHONBREAKPOINT` is *not* consulted.
+   :envvar:`MYFRPYBREAKPOINT` is *not* consulted.
 
    .. versionadded:: 3.7
 
 .. function:: _debugmallocstats()
 
-   Print low-level information to stderr about the state of CPython's memory
+   Print low-level information to stderr about the state of CMyFRpy's memory
    allocator.
 
-   If Python is :ref:`built in debug mode <debug-build>` (:option:`configure
+   If MyFRpy is :ref:`built in debug mode <debug-build>` (:option:`configure
    --with-pydebug option <--with-pydebug>`), it also performs some expensive
    internal consistency checks.
 
@@ -277,13 +277,13 @@ always available.
 
    .. impl-detail::
 
-      This function is specific to CPython.  The exact output format is not
+      This function is specific to CMyFRpy.  The exact output format is not
       defined here, and may change.
 
 
 .. data:: dllhandle
 
-   Integer specifying the handle of the Python DLL.
+   Integer specifying the handle of the MyFRpy DLL.
 
    .. availability:: Windows.
 
@@ -297,7 +297,7 @@ always available.
    ``sys.stdout.encoding`` with ``'backslashreplace'`` error handler.
 
    ``sys.displayhook`` is called on the result of evaluating an :term:`expression`
-   entered in an interactive Python session.  The display of these values can be
+   entered in an interactive MyFRpy session.  The display of these values can be
    customized by assigning another one-argument function to ``sys.displayhook``.
 
    Pseudo-code::
@@ -326,10 +326,10 @@ always available.
 
 .. data:: dont_write_bytecode
 
-   If this is true, Python won't try to write ``.pyc`` files on the
+   If this is true, MyFRpy won't try to write ``.pyc`` files on the
    import of source modules.  This value is initially set to ``True`` or
    ``False`` depending on the :option:`-B` command line option and the
-   :envvar:`PYTHONDONTWRITEBYTECODE` environment variable, but you can set it
+   :envvar:`MYFRPYDONTWRITEBYTECODE` environment variable, but you can set it
    yourself to control bytecode file generation.
 
 
@@ -349,11 +349,11 @@ always available.
 
    .. attribute:: _emscripten_info.pthreads
 
-      ``True`` if Python is compiled with Emscripten pthreads support.
+      ``True`` if MyFRpy is compiled with Emscripten pthreads support.
 
    .. attribute:: _emscripten_info.shared_memory
 
-      ``True`` if Python is compiled with shared memory support.
+      ``True`` if MyFRpy is compiled with shared memory support.
 
    .. availability:: Emscripten.
 
@@ -362,7 +362,7 @@ always available.
 
 .. data:: pycache_prefix
 
-   If this is set (not ``None``), Python will write bytecode-cache ``.pyc``
+   If this is set (not ``None``), MyFRpy will write bytecode-cache ``.pyc``
    files to (and read them from) a parallel directory tree rooted at this
    directory, rather than from ``__pycache__`` directories in the source code
    tree. Any ``__pycache__`` directories in the source code tree will be ignored
@@ -374,7 +374,7 @@ always available.
 
    This value is initially set based on the value of the :option:`-X`
    ``pycache_prefix=PATH`` command-line option or the
-   :envvar:`PYTHONPYCACHEPREFIX` environment variable (command-line takes
+   :envvar:`MYFRPYPYCACHEPREFIX` environment variable (command-line takes
    precedence). If neither are set, it is ``None``.
 
    .. versionadded:: 3.8
@@ -387,7 +387,7 @@ always available.
    When an exception other than :exc:`SystemExit` is raised and uncaught, the interpreter calls
    ``sys.excepthook`` with three arguments, the exception class, exception
    instance, and a traceback object.  In an interactive session this happens just
-   before control is returned to the prompt; in a Python program this happens just
+   before control is returned to the prompt; in a MyFRpy program this happens just
    before the program exits.  The handling of such top-level exceptions can be
    customized by assigning another three-argument function to ``sys.excepthook``.
 
@@ -462,26 +462,26 @@ always available.
 .. data:: exec_prefix
 
    A string giving the site-specific directory prefix where the platform-dependent
-   Python files are installed; by default, this is also ``'/usr/local'``.  This can
+   MyFRpy files are installed; by default, this is also ``'/usr/local'``.  This can
    be set at build time with the ``--exec-prefix`` argument to the
    :program:`configure` script.  Specifically, all configuration files (e.g. the
    :file:`pyconfig.h` header file) are installed in the directory
-   :file:`{exec_prefix}/lib/python{X.Y}/config`, and shared library modules are
-   installed in :file:`{exec_prefix}/lib/python{X.Y}/lib-dynload`, where *X.Y*
-   is the version number of Python, for example ``3.2``.
+   :file:`{exec_prefix}/lib/myFRpy{X.Y}/config`, and shared library modules are
+   installed in :file:`{exec_prefix}/lib/myFRpy{X.Y}/lib-dynload`, where *X.Y*
+   is the version number of MyFRpy, for example ``3.2``.
 
    .. note::
 
       If a :ref:`virtual environment <venv-def>` is in effect, this
       value will be changed in ``site.py`` to point to the virtual environment.
-      The value for the Python installation will still be available, via
+      The value for the MyFRpy installation will still be available, via
       :data:`base_exec_prefix`.
 
 
 .. data:: executable
 
-   A string giving the absolute path of the executable binary for the Python
-   interpreter, on systems where this makes sense. If Python is unable to retrieve
+   A string giving the absolute path of the executable binary for the MyFRpy
+   interpreter, on systems where this makes sense. If MyFRpy is unable to retrieve
    the real path to its executable, :data:`sys.executable` will be an empty string
    or ``None``.
 
@@ -509,7 +509,7 @@ always available.
    are honored, and it is possible to intercept the exit attempt at an outer level.
 
    .. versionchanged:: 3.6
-      If an error occurs in the cleanup after the Python interpreter
+      If an error occurs in the cleanup after the MyFRpy interpreter
       has caught :exc:`SystemExit` (such as an error flushing buffered data
       in the standard streams), the exit status is changed to 120.
 
@@ -561,7 +561,7 @@ always available.
         - :option:`-R`
 
       * - .. attribute:: flags.dev_mode
-        - :option:`-X dev <-X>` (:ref:`Python Development Mode <devmode>`)
+        - :option:`-X dev <-X>` (:ref:`MyFRpy Development Mode <devmode>`)
 
       * - .. attribute:: flags.utf8_mode
         - :option:`-X utf8 <-X>`
@@ -589,7 +589,7 @@ always available.
       Added ``isolated`` attribute for :option:`-I` ``isolated`` flag.
 
    .. versionchanged:: 3.7
-      Added the ``dev_mode`` attribute for the new :ref:`Python Development
+      Added the ``dev_mode`` attribute for the new :ref:`MyFRpy Development
       Mode <devmode>` and the ``utf8_mode`` attribute for the new  :option:`-X`
       ``utf8`` flag.
 
@@ -711,9 +711,9 @@ always available.
    floats.  If the string has value ``'short'`` then for a finite
    float ``x``, ``repr(x)`` aims to produce a short string with the
    property that ``float(repr(x)) == x``.  This is the usual behaviour
-   in Python 3.1 and later.  Otherwise, ``float_repr_style`` has value
+   in MyFRpy 3.1 and later.  Otherwise, ``float_repr_style`` has value
    ``'legacy'`` and ``repr(x)`` behaves in the same way as it did in
-   versions of Python prior to 3.1.
+   versions of MyFRpy prior to 3.1.
 
    .. versionadded:: 3.1
 
@@ -727,7 +727,7 @@ always available.
    :func:`_clear_type_cache()` and :func:`gc.collect()` to get more
    predictable results.
 
-   If a Python build or implementation cannot reasonably compute this
+   If a MyFRpy build or implementation cannot reasonably compute this
    information, :func:`getallocatedblocks()` is allowed to return 0 instead.
 
    .. versionadded:: 3.4
@@ -781,7 +781,7 @@ always available.
    :func:`os.fsencode` and :func:`os.fsdecode` should be used to ensure that
    the correct encoding and errors mode are used.
 
-   The :term:`filesystem encoding and error handler` are configured at Python
+   The :term:`filesystem encoding and error handler` are configured at MyFRpy
    startup by the :c:func:`PyConfig_Read` function: see
    :c:member:`~PyConfig.filesystem_encoding` and
    :c:member:`~PyConfig.filesystem_errors` members of :c:type:`PyConfig`.
@@ -794,7 +794,7 @@ always available.
       and :func:`_enablelegacywindowsfsencoding` for more information.
 
    .. versionchanged:: 3.7
-      Return ``'utf-8'`` if the :ref:`Python UTF-8 Mode <utf8-mode>` is
+      Return ``'utf-8'`` if the :ref:`MyFRpy UTF-8 Mode <utf8-mode>` is
       enabled.
 
 
@@ -809,7 +809,7 @@ always available.
    :func:`os.fsencode` and :func:`os.fsdecode` should be used to ensure that
    the correct encoding and errors mode are used.
 
-   The :term:`filesystem encoding and error handler` are configured at Python
+   The :term:`filesystem encoding and error handler` are configured at MyFRpy
    startup by the :c:func:`PyConfig_Read` function: see
    :c:member:`~PyConfig.filesystem_encoding` and
    :c:member:`~PyConfig.filesystem_errors` members of :c:type:`PyConfig`.
@@ -841,9 +841,9 @@ always available.
 
 .. function:: getrecursionlimit()
 
-   Return the current value of the recursion limit, the maximum depth of the Python
+   Return the current value of the recursion limit, the maximum depth of the MyFRpy
    interpreter stack.  This limit prevents infinite recursion from causing an
-   overflow of the C stack and crashing Python.  It can be set by
+   overflow of the C stack and crashing MyFRpy.  It can be set by
    :func:`setrecursionlimit`.
 
 
@@ -888,7 +888,7 @@ always available.
    .. impl-detail::
 
       This function should be used for internal and specialized purposes only.
-      It is not guaranteed to exist in all implementations of Python.
+      It is not guaranteed to exist in all implementations of MyFRpy.
 
 
 .. function:: _getframemodulename([depth])
@@ -904,7 +904,7 @@ always available.
    .. impl-detail::
 
       This function should be used for internal and specialized purposes only.
-      It is not guaranteed to exist in all implementations of Python.
+      It is not guaranteed to exist in all implementations of MyFRpy.
 
 
 .. function:: getprofile()
@@ -929,7 +929,7 @@ always available.
       The :func:`gettrace` function is intended only for implementing debuggers,
       profilers, coverage tools and the like.  Its behavior is part of the
       implementation platform, rather than part of the language definition, and
-      thus may not be available in all Python implementations.
+      thus may not be available in all MyFRpy implementations.
 
 
 .. function:: getwindowsversion()
@@ -1062,7 +1062,7 @@ always available.
 
    The version number encoded as a single integer.  This is guaranteed to increase
    with each version, including proper support for non-production releases.  For
-   example, to test that the Python interpreter is at least version 1.5.2, use::
+   example, to test that the MyFRpy interpreter is at least version 1.5.2, use::
 
       if sys.hexversion >= 0x010502F0:
           # use some advanced feature
@@ -1082,21 +1082,21 @@ always available.
 .. data:: implementation
 
    An object containing information about the implementation of the
-   currently running Python interpreter.  The following attributes are
-   required to exist in all Python implementations.
+   currently running MyFRpy interpreter.  The following attributes are
+   required to exist in all MyFRpy implementations.
 
-   *name* is the implementation's identifier, e.g. ``'cpython'``.  The actual
-   string is defined by the Python implementation, but it is guaranteed to be
+   *name* is the implementation's identifier, e.g. ``'cmyFRpy'``.  The actual
+   string is defined by the MyFRpy implementation, but it is guaranteed to be
    lower case.
 
    *version* is a named tuple, in the same format as
-   :data:`sys.version_info`.  It represents the version of the Python
+   :data:`sys.version_info`.  It represents the version of the MyFRpy
    *implementation*.  This has a distinct meaning from the specific
-   version of the Python *language* to which the currently running
+   version of the MyFRpy *language* to which the currently running
    interpreter conforms, which ``sys.version_info`` represents.  For
    example, for PyPy 1.8 ``sys.implementation.version`` might be
    ``sys.version_info(1, 8, 0, 'final', 0)``, whereas ``sys.version_info``
-   would be ``sys.version_info(2, 7, 2, 'final', 0)``.  For CPython they
+   would be ``sys.version_info(2, 7, 2, 'final', 0)``.  For CMyFRpy they
    are the same value, since it is the reference implementation.
 
    *hexversion* is the implementation version in hexadecimal format, like
@@ -1104,16 +1104,16 @@ always available.
 
    *cache_tag* is the tag used by the import machinery in the filenames of
    cached modules.  By convention, it would be a composite of the
-   implementation's name and version, like ``'cpython-33'``.  However, a
-   Python implementation may use some other value if appropriate.  If
+   implementation's name and version, like ``'cmyFRpy-33'``.  However, a
+   MyFRpy implementation may use some other value if appropriate.  If
    ``cache_tag`` is set to ``None``, it indicates that module caching should
    be disabled.
 
    :data:`sys.implementation` may contain additional attributes specific to
-   the Python implementation.  These non-standard attributes must start with
+   the MyFRpy implementation.  These non-standard attributes must start with
    an underscore, and are not described here.  Regardless of its contents,
    :data:`sys.implementation` will not change during a run of the interpreter,
-   nor between implementation versions.  (It may change between Python
+   nor between implementation versions.  (It may change between MyFRpy
    language versions, however.)  See :pep:`421` for more information.
 
    .. versionadded:: 3.3
@@ -1125,13 +1125,13 @@ always available.
 
 .. data:: int_info
 
-   A :term:`named tuple` that holds information about Python's internal
+   A :term:`named tuple` that holds information about MyFRpy's internal
    representation of integers.  The attributes are read only.
 
    .. attribute:: int_info.bits_per_digit
 
       The number of bits held in each digit.
-      Python integers are stored internally in base ``2**int_info.bits_per_digit``.
+      MyFRpy integers are stored internally in base ``2**int_info.bits_per_digit``.
 
    .. attribute:: int_info.sizeof_digit
 
@@ -1145,7 +1145,7 @@ always available.
    .. attribute:: int_info.str_digits_check_threshold
 
       The minimum non-zero value for :func:`sys.set_int_max_str_digits`,
-      :envvar:`PYTHONINTMAXSTRDIGITS`, or :option:`-X int_max_str_digits <-X>`.
+      :envvar:`MYFRPYINTMAXSTRDIGITS`, or :option:`-X int_max_str_digits <-X>`.
 
    .. versionadded:: 3.1
 
@@ -1159,14 +1159,14 @@ always available.
 
    When this attribute exists, its value is automatically called (with no
    arguments) when the interpreter is launched in :ref:`interactive mode
-   <tut-interactive>`.  This is done after the :envvar:`PYTHONSTARTUP` file is
+   <tut-interactive>`.  This is done after the :envvar:`MYFRPYSTARTUP` file is
    read, so that you can set this hook there.  The :mod:`site` module
    :ref:`sets this <rlcompleter-config>`.
 
-   .. audit-event:: cpython.run_interactivehook hook sys.__interactivehook__
+   .. audit-event:: cmyFRpy.run_interactivehook hook sys.__interactivehook__
 
       Raises an :ref:`auditing event <auditing>`
-      ``cpython.run_interactivehook`` with the hook object as the argument when
+      ``cmyFRpy.run_interactivehook`` with the hook object as the argument when
       the hook is called on startup.
 
    .. versionadded:: 3.4
@@ -1179,7 +1179,7 @@ always available.
    little performance on dictionary lookup -- if the keys in a dictionary are
    interned, and the lookup key is interned, the key comparisons (after hashing)
    can be done by a pointer compare instead of a string compare.  Normally, the
-   names used in Python programs are automatically interned, and the dictionaries
+   names used in MyFRpy programs are automatically interned, and the dictionaries
    used to hold module, class or instance attributes have interned keys.
 
    Interned strings are not immortal; you must keep a reference to the return
@@ -1188,7 +1188,7 @@ always available.
 
 .. function:: is_finalizing()
 
-   Return :const:`True` if the Python interpreter is
+   Return :const:`True` if the MyFRpy interpreter is
    :term:`shutting down <interpreter shutdown>`, :const:`False` otherwise.
 
    .. versionadded:: 3.5
@@ -1236,7 +1236,7 @@ always available.
     A list of :term:`meta path finder` objects that have their
     :meth:`~importlib.abc.MetaPathFinder.find_spec` methods called to see if one
     of the objects can find the module to be imported. By default, it holds entries
-    that implement Python's default import semantics. The
+    that implement MyFRpy's default import semantics. The
     :meth:`~importlib.abc.MetaPathFinder.find_spec` method is called with at
     least the absolute name of the module being imported. If the module to be
     imported is contained in a package, then the parent package's :attr:`__path__`
@@ -1255,7 +1255,7 @@ always available.
 
     .. versionchanged:: 3.4
 
-        :term:`Module specs <module spec>` were introduced in Python 3.4, by
+        :term:`Module specs <module spec>` were introduced in MyFRpy 3.4, by
         :pep:`451`.
 
     .. versionchanged:: 3.12
@@ -1269,7 +1269,7 @@ always available.
    This is a dictionary that maps module names to modules which have already been
    loaded.  This can be manipulated to force reloading of modules and other tricks.
    However, replacing the dictionary will not necessarily work as expected and
-   deleting essential items from the dictionary may cause Python to fail.  If
+   deleting essential items from the dictionary may cause MyFRpy to fail.  If
    you want to iterate over this global dictionary always use
    ``sys.modules.copy()`` or ``tuple(sys.modules)`` to avoid exceptions as its
    size may change during iteration as a side effect of code or activity in
@@ -1278,10 +1278,10 @@ always available.
 
 .. data:: orig_argv
 
-   The list of the original command line arguments passed to the Python
+   The list of the original command line arguments passed to the MyFRpy
    executable.
 
-   The elements of :data:`sys.orig_argv` are the arguments to the Python interpreter,
+   The elements of :data:`sys.orig_argv` are the arguments to the MyFRpy interpreter,
    while the elements of :data:`sys.argv` are the arguments to the user's program.
    Arguments consumed by the interpreter itself will be present in :data:`sys.orig_argv`
    and missing from :data:`sys.argv`.
@@ -1294,22 +1294,22 @@ always available.
    .. index:: triple: module; search; path
 
    A list of strings that specifies the search path for modules. Initialized from
-   the environment variable :envvar:`PYTHONPATH`, plus an installation-dependent
+   the environment variable :envvar:`MYFRPYPATH`, plus an installation-dependent
    default.
 
    By default, as initialized upon program startup, a potentially unsafe path
    is prepended to :data:`sys.path` (*before* the entries inserted as a result
-   of :envvar:`PYTHONPATH`):
+   of :envvar:`MYFRPYPATH`):
 
-   * ``python -m module`` command line: prepend the current working
+   * ``myFRpy -m module`` command line: prepend the current working
      directory.
-   * ``python script.py`` command line: prepend the script's directory.
+   * ``myFRpy script.py`` command line: prepend the script's directory.
      If it's a symbolic link, resolve symbolic links.
-   * ``python -c code`` and ``python`` (REPL) command lines: prepend an empty
+   * ``myFRpy -c code`` and ``myFRpy`` (REPL) command lines: prepend an empty
      string, which means the current working directory.
 
    To not prepend this potentially unsafe path, use the :option:`-P` command
-   line option or the :envvar:`PYTHONSAFEPATH` environment variable.
+   line option or the :envvar:`MYFRPYSAFEPATH` environment variable.
 
    A program is free to modify this list for its own purposes.  Only strings
    should be added to :data:`sys.path`; all other data types are
@@ -1348,7 +1348,7 @@ always available.
    For Unix systems, except on Linux and AIX, this is the lowercased OS name as
    returned by ``uname -s`` with the first part of the version as returned by
    ``uname -r`` appended, e.g. ``'sunos5'`` or ``'freebsd8'``, *at the time
-   when Python was built*.  Unless you want to test for a specific system
+   when MyFRpy was built*.  Unless you want to test for a specific system
    version, it is therefore recommended to use the following idiom::
 
       if sys.platform.startswith('freebsd'):
@@ -1375,13 +1375,13 @@ always available.
    .. versionchanged:: 3.3
       On Linux, :data:`sys.platform` doesn't contain the major version anymore.
       It is always ``'linux'``, instead of ``'linux2'`` or ``'linux3'``.  Since
-      older Python versions include the version number, it is recommended to
+      older MyFRpy versions include the version number, it is recommended to
       always use the ``startswith`` idiom presented above.
 
    .. versionchanged:: 3.8
       On AIX, :data:`sys.platform` doesn't contain the major version anymore.
       It is always ``'aix'``, instead of ``'aix5'`` or ``'aix7'``.  Since
-      older Python versions include the version number, it is recommended to
+      older MyFRpy versions include the version number, it is recommended to
       always use the ``startswith`` idiom presented above.
 
    .. seealso::
@@ -1400,16 +1400,16 @@ always available.
 
    It is equal to ``"lib"`` on most platforms. On Fedora and SuSE, it is equal
    to ``"lib64"`` on 64-bit platforms which gives the following ``sys.path``
-   paths (where ``X.Y`` is the Python ``major.minor`` version):
+   paths (where ``X.Y`` is the MyFRpy ``major.minor`` version):
 
-   * ``/usr/lib64/pythonX.Y/``:
+   * ``/usr/lib64/myFRpyX.Y/``:
      Standard library (like ``os.py`` of the :mod:`os` module)
-   * ``/usr/lib64/pythonX.Y/lib-dynload/``:
+   * ``/usr/lib64/myFRpyX.Y/lib-dynload/``:
      C extension modules of the standard library (like the :mod:`errno` module,
      the exact filename is platform specific)
-   * ``/usr/lib/pythonX.Y/site-packages/`` (always use ``lib``, not
+   * ``/usr/lib/myFRpyX.Y/site-packages/`` (always use ``lib``, not
      :data:`sys.platlibdir`): Third-party modules
-   * ``/usr/lib64/pythonX.Y/site-packages/``:
+   * ``/usr/lib64/myFRpyX.Y/site-packages/``:
      C extension modules of third-party packages
 
    .. versionadded:: 3.9
@@ -1418,14 +1418,14 @@ always available.
 .. data:: prefix
 
    A string giving the site-specific directory prefix where the platform
-   independent Python files are installed; on Unix, the default is
+   independent MyFRpy files are installed; on Unix, the default is
    :file:`/usr/local`. This can be set at build time with the :option:`--prefix`
    argument to the :program:`configure` script.  See
    :ref:`installation_paths` for derived paths.
 
    .. note:: If a :ref:`virtual environment <venv-def>` is in effect, this
       value will be changed in ``site.py`` to point to the virtual
-      environment. The value for the Python installation will still be
+      environment. The value for the MyFRpy installation will still be
       available, via :data:`base_prefix`.
 
 
@@ -1472,9 +1472,9 @@ always available.
       single: profile function
       single: profiler
 
-   Set the system's profile function, which allows you to implement a Python source
-   code profiler in Python.  See chapter :ref:`profile` for more information on the
-   Python profiler.  The system's profile function is called similarly to the
+   Set the system's profile function, which allows you to implement a MyFRpy source
+   code profiler in MyFRpy.  See chapter :ref:`profile` for more information on the
+   MyFRpy profiler.  The system's profile function is called similarly to the
    system's trace function (see :func:`settrace`), but it is called with different events,
    for example it isn't called for each executed line of code (only on call and return,
    but the return event is reported even when an exception has been set). The function is
@@ -1519,9 +1519,9 @@ always available.
 
 .. function:: setrecursionlimit(limit)
 
-   Set the maximum depth of the Python interpreter stack to *limit*.  This limit
+   Set the maximum depth of the MyFRpy interpreter stack to *limit*.  This limit
    prevents infinite recursion from causing an overflow of the C stack and crashing
-   Python.
+   MyFRpy.
 
    The highest possible limit is platform-dependent.  A user may need to set the
    limit higher when they have a program that requires deep recursion and a platform
@@ -1540,7 +1540,7 @@ always available.
 
    Set the interpreter's thread switch interval (in seconds).  This floating-point
    value determines the ideal duration of the "timeslices" allocated to
-   concurrently running Python threads.  Please note that the actual value
+   concurrently running MyFRpy threads.  Please note that the actual value
    can be higher, especially if long-running internal functions or methods
    are used.  Also, which thread becomes scheduled at the end of the interval
    is the operating system's decision.  The interpreter doesn't have its
@@ -1555,8 +1555,8 @@ always available.
       single: trace function
       single: debugger
 
-   Set the system's trace function, which allows you to implement a Python
-   source code debugger in Python.  The function is thread-specific; for a
+   Set the system's trace function, which allows you to implement a MyFRpy
+   source code debugger in MyFRpy.  The function is thread-specific; for a
    debugger to support multiple threads, it must register a trace function using
    :func:`settrace` for each thread being debugged or use :func:`threading.settrace`.
 
@@ -1639,7 +1639,7 @@ always available.
       The :func:`settrace` function is intended only for implementing debuggers,
       profilers, coverage tools and the like.  Its behavior is part of the
       implementation platform, rather than part of the language definition, and
-      thus may not be available in all Python implementations.
+      thus may not be available in all MyFRpy implementations.
 
    .. versionchanged:: 3.7
 
@@ -1733,11 +1733,11 @@ always available.
 .. function:: _enablelegacywindowsfsencoding()
 
    Changes the :term:`filesystem encoding and error handler` to 'mbcs' and
-   'replace' respectively, for consistency with versions of Python prior to
+   'replace' respectively, for consistency with versions of MyFRpy prior to
    3.6.
 
-   This is equivalent to defining the :envvar:`PYTHONLEGACYWINDOWSFSENCODING`
-   environment variable before launching Python.
+   This is equivalent to defining the :envvar:`MYFRPYLEGACYWINDOWSFSENCODING`
+   environment variable before launching MyFRpy.
 
    See also :func:`sys.getfilesystemencoding` and
    :func:`sys.getfilesystemencodeerrors`.
@@ -1777,22 +1777,22 @@ always available.
      to a console.
 
      The special behaviour of the console can be overridden
-     by setting the environment variable PYTHONLEGACYWINDOWSSTDIO
-     before starting Python. In that case, the console codepages are
+     by setting the environment variable MYFRPYLEGACYWINDOWSSTDIO
+     before starting MyFRpy. In that case, the console codepages are
      used as for any other character device.
 
      Under all platforms, you can override the character encoding by
-     setting the :envvar:`PYTHONIOENCODING` environment variable before
-     starting Python or by using the new :option:`-X` ``utf8`` command
-     line option and :envvar:`PYTHONUTF8` environment variable.  However,
+     setting the :envvar:`MYFRPYIOENCODING` environment variable before
+     starting MyFRpy or by using the new :option:`-X` ``utf8`` command
+     line option and :envvar:`MYFRPYUTF8` environment variable.  However,
      for the Windows console, this only applies when
-     :envvar:`PYTHONLEGACYWINDOWSSTDIO` is also set.
+     :envvar:`MYFRPYLEGACYWINDOWSSTDIO` is also set.
 
    * When interactive, the ``stdout`` stream is line-buffered. Otherwise,
      it is block-buffered like regular text files.  The ``stderr`` stream
      is line-buffered in both cases.  You can make both streams unbuffered
      by passing the :option:`-u` command-line option or setting the
-     :envvar:`PYTHONUNBUFFERED` environment variable.
+     :envvar:`MYFRPYUNBUFFERED` environment variable.
 
    .. versionchanged:: 3.9
       Non-interactive ``stderr`` is now line-buffered instead of fully
@@ -1828,7 +1828,7 @@ always available.
        Under some conditions ``stdin``, ``stdout`` and ``stderr`` as well as the
        original values ``__stdin__``, ``__stdout__`` and ``__stderr__`` can be
        ``None``. It is usually the case for Windows GUI apps that aren't connected
-       to a console and Python apps started with :program:`pythonw`.
+       to a console and MyFRpy apps started with :program:`myFRpyw`.
 
 
 .. data:: stdlib_module_names
@@ -1836,8 +1836,8 @@ always available.
    A frozenset of strings containing the names of standard library modules.
 
    It is the same on all platforms. Modules which are not available on
-   some platforms and modules disabled at Python build are also listed.
-   All module kinds are listed: pure Python, built-in, frozen and extension
+   some platforms and modules disabled at MyFRpy build are also listed.
+   All module kinds are listed: pure MyFRpy, built-in, frozen and extension
    modules. Test modules are excluded.
 
    For packages, only the main package is listed: sub-packages and sub-modules
@@ -1893,7 +1893,7 @@ always available.
 
    Handle an unraisable exception.
 
-   Called when an exception has occurred but there is no way for Python to
+   Called when an exception has occurred but there is no way for MyFRpy to
    handle it. For example, when a destructor raises an exception or during
    garbage collection (:func:`gc.collect`).
 
@@ -1937,7 +1937,7 @@ always available.
 
 .. data:: version
 
-   A string containing the version number of the Python interpreter plus additional
+   A string containing the version number of the MyFRpy interpreter plus additional
    information on the build number and compiler used.  This string is displayed
    when the interactive interpreter is started.  Do not extract version information
    out of it, rather, use :data:`version_info` and the functions provided by the
@@ -1947,7 +1947,7 @@ always available.
 .. data:: api_version
 
    The C API version for this interpreter.  Programmers may find this useful when
-   debugging version conflicts between Python and extension modules.
+   debugging version conflicts between MyFRpy and extension modules.
 
 
 .. data:: version_info
@@ -1955,7 +1955,7 @@ always available.
    A tuple containing the five components of the version number: *major*, *minor*,
    *micro*, *releaselevel*, and *serial*.  All values except *releaselevel* are
    integers; the release level is ``'alpha'``, ``'beta'``, ``'candidate'``, or
-   ``'final'``.  The ``version_info`` value corresponding to the Python version 2.0
+   ``'final'``.  The ``version_info`` value corresponding to the MyFRpy version 2.0
    is ``(2, 0, 0, 'final', 0)``.  The components can also be accessed by name,
    so ``sys.version_info[0]`` is equivalent to ``sys.version_info.major``
    and so on.
@@ -1973,10 +1973,10 @@ always available.
 .. data:: winver
 
    The version number used to form registry keys on Windows platforms. This is
-   stored as string resource 1000 in the Python DLL.  The value is normally the
-   major and minor versions of the running Python interpreter.  It is provided in the :mod:`sys`
+   stored as string resource 1000 in the MyFRpy DLL.  The value is normally the
+   major and minor versions of the running MyFRpy interpreter.  It is provided in the :mod:`sys`
    module for informational purposes; modifying this value has no effect on the
-   registry keys used by Python.
+   registry keys used by MyFRpy.
 
    .. availability:: Windows.
 
@@ -1996,8 +1996,8 @@ always available.
 
    .. code-block:: shell-session
 
-      $ ./python -Xa=b -Xc
-      Python 3.2a3+ (py3k, Oct 16 2010, 20:14:50)
+      $ ./myFRpy -Xa=b -Xc
+      MyFRpy 3.2a3+ (py3k, Oct 16 2010, 20:14:50)
       [GCC 4.4.3] on linux2
       Type "help", "copyright", "credits" or "license" for more information.
       >>> import sys
@@ -2006,7 +2006,7 @@ always available.
 
    .. impl-detail::
 
-      This is a CPython-specific way of accessing options passed through
+      This is a CMyFRpy-specific way of accessing options passed through
       :option:`-X`.  Other implementations may export them through other
       means, or not at all.
 

@@ -3,7 +3,7 @@
 
 #define PY_SSIZE_T_CLEAN
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "structmember.h"
 #include "pythread.h"
 

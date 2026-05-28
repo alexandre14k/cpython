@@ -5,7 +5,7 @@
 Weak Reference Objects
 ----------------------
 
-Python supports *weak references* as first-class objects.  There are two
+MyFRpy supports *weak references* as first-class objects.  There are two
 specific object types which directly implement weak references.  The first is a
 simple reference object, and the second acts as a proxy for the original object
 as much as it can.

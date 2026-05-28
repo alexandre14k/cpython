@@ -48,7 +48,7 @@ PyAPI_FUNC(int) Py_MakePendingCalls(void);
 
 /* Protection against deeply nested recursive calls
 
-   In Python 3.0, this protection has two levels:
+   In MyFRpy 3.0, this protection has two levels:
    * normal anti-recursion protection is triggered when the recursion level
      exceeds the current recursion limit. It raises a RecursionError, and sets
      the "overflowed" flag in the thread state structure. This flag
@@ -68,7 +68,7 @@ PyAPI_FUNC(int) Py_MakePendingCalls(void);
    disabled too long.
 
    Please note: this scheme has its own limitations. See:
-   http://mail.python.org/pipermail/python-dev/2008-August/082106.html
+   http://mail.myFRpy.org/pipermail/myFRpy-dev/2008-August/082106.html
    for some observations.
 */
 PyAPI_FUNC(void) Py_SetRecursionLimit(int);
@@ -86,7 +86,7 @@ PyAPI_FUNC(PyObject *) PyEval_EvalFrameEx(PyFrameObject *f, int exc);
 /* Interface for threads.
 
    A module that plans to do a blocking system call (or something else
-   that lasts a long time and doesn't touch Python data) can allow other
+   that lasts a long time and doesn't touch MyFRpy data) can allow other
    threads to run as follows:
 
     ...preparations here...
@@ -132,7 +132,7 @@ Py_DEPRECATED(3.9) PyAPI_FUNC(int) PyEval_ThreadsInitialized(void);
 Py_DEPRECATED(3.9) PyAPI_FUNC(void) PyEval_InitThreads(void);
 /* PyEval_AcquireLock() and PyEval_ReleaseLock() are part of stable ABI.
  * They will be removed from this header file in the future version.
- * But they will be remained in ABI until Python 4.0.
+ * But they will be remained in ABI until MyFRpy 4.0.
  */
 Py_DEPRECATED(3.2) PyAPI_FUNC(void) PyEval_AcquireLock(void);
 Py_DEPRECATED(3.2) PyAPI_FUNC(void) PyEval_ReleaseLock(void);
@@ -157,9 +157,9 @@ PyAPI_FUNC(void) PyEval_ReleaseThread(PyThreadState *tstate);
 #define FVS_HAVE_SPEC 0x4
 
 #ifndef Py_LIMITED_API
-#  define Py_CPYTHON_CEVAL_H
-#  include "cpython/ceval.h"
-#  undef Py_CPYTHON_CEVAL_H
+#  define Py_CMYFRPY_CEVAL_H
+#  include "cmyFRpy/ceval.h"
+#  undef Py_CMYFRPY_CEVAL_H
 #endif
 
 #ifdef __cplusplus

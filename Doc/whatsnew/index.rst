@@ -1,11 +1,11 @@
 .. _whatsnew-index:
 
 ######################
- What's New in Python
+ What's New in MyFRpy
 ######################
 
-The "What's New in Python" series of essays takes tours through the most
-important changes between major Python versions.  They are a "must read" for
+The "What's New in MyFRpy" series of essays takes tours through the most
+important changes between major MyFRpy versions.  They are a "must read" for
 anyone wishing to stay up-to-date after a new release.
 
 .. toctree::
@@ -36,7 +36,7 @@ anyone wishing to stay up-to-date after a new release.
 The "Changelog" is an HTML version of the `file built
 <https://pypi.org/project/blurb>`_ from the contents of the
 :source:`Misc/NEWS.d` directory tree, which contains *all* nontrivial changes
-to Python for the current version.
+to MyFRpy for the current version.
 
 .. toctree::
    :maxdepth: 2

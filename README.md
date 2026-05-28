@@ -1,11 +1,11 @@
-# myFRpy — A Python 3.12–based Interpreter
+# myFRpy — A MyFRpy 3.12–based Interpreter
 ========================================
 
-myFRpy is a customized fork of the Python 3.12 interpreter, adapted for
+myFRpy is a customized fork of the MyFRpy 3.12 interpreter, adapted for
 Linux-only environments and simplified for experimentation, research, or
 lightweight embedding.
 
-The original CPython README is preserved for reference in
+The original CMyFRpy README is preserved for reference in
 [README.old.rst](README.old.rst).
 
 # General Information
@@ -40,7 +40,7 @@ To build myFRpy from source on Linux or other Unix-like systems::
 
 First on a new setup press `c` to clean the environment and configure it.
 
-Then edit press `p` to regen after grammar `python.gram` has changed.
+Then edit press `p` to regen after grammar `myFRpy.gram` has changed.
 
 Third press `b` to make. This creates the interpreter as ``myFRpy``.
 
@@ -61,8 +61,8 @@ Refer to your distribution’s package manager for installation.
 # License
 -------
 
-myFRpy is distributed under a modified version of the Python Software
-Foundation License. The original CPython license is preserved in
+myFRpy is distributed under a modified version of the MyFRpy Software
+Foundation License. The original CMyFRpy license is preserved in
 [LICENSE.old](LICENSE.old) for reference.
 
 See [LICENSE](LICENSE) for the license governing this fork.

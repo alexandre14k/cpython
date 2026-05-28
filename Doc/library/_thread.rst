@@ -72,7 +72,7 @@ This module defines the following constants and functions:
    If given, *signum* is the number of the signal to simulate.
    If *signum* is not given, :const:`signal.SIGINT` is simulated.
 
-   If the given signal isn't handled by Python (it was set to
+   If the given signal isn't handled by MyFRpy (it was set to
    :const:`signal.SIG_DFL` or :const:`signal.SIG_IGN`), this function does
    nothing.
 

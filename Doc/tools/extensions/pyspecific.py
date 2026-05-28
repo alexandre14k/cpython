@@ -3,10 +3,10 @@
     pyspecific.py
     ~~~~~~~~~~~~~
 
-    Sphinx extension with Python doc-specific markup.
+    Sphinx extension with MyFRpy doc-specific markup.
 
     :copyright: 2008-2014 by Georg Brandl.
-    :license: Python license.
+    :license: MyFRpy license.
 """
 
 import re
@@ -21,7 +21,7 @@ from docutils.parsers.rst import Directive
 from docutils.utils import new_document
 from sphinx import addnodes
 from sphinx.builders import Builder
-from sphinx.domains.python import PyFunction, PyMethod
+from sphinx.domains.myFRpy import PyFunction, PyMethod
 from sphinx.errors import NoUri
 from sphinx.locale import _ as sphinx_gettext
 from sphinx.util import logging
@@ -37,9 +37,9 @@ except ImportError:
     from sphinx.util import status_iterator
 
 
-ISSUE_URI = 'https://bugs.python.org/issue?@action=redirect&bpo=%s'
-GH_ISSUE_URI = 'https://github.com/python/cpython/issues/%s'
-SOURCE_URI = 'https://github.com/python/cpython/tree/3.12/%s'
+ISSUE_URI = 'https://bugs.myFRpy.org/issue?@action=redirect&bpo=%s'
+GH_ISSUE_URI = 'https://github.com/myFRpy/cmyFRpy/issues/%s'
+SOURCE_URI = 'https://github.com/myFRpy/cmyFRpy/tree/3.12/%s'
 
 # monkey-patch reST parser to disable alphabetic and roman enumerated lists
 from docutils.parsers.rst.states import Body
@@ -54,7 +54,7 @@ from sphinx.domains import std
 
 std.token_re = re.compile(r'`((~?[\w-]*:)?\w+)`')
 
-# Support for marking up and linking to bugs.python.org issues
+# Support for marking up and linking to bugs.myFRpy.org issues
 
 def issue_role(typ, rawtext, text, lineno, inliner, options={}, content=[]):
     issue = utils.unescape(text)
@@ -85,7 +85,7 @@ def gh_issue_role(typ, rawtext, text, lineno, inliner, options={}, content=[]):
     return [refnode], []
 
 
-# Support for linking to Python source files easily
+# Support for linking to MyFRpy source files easily
 
 def source_role(typ, rawtext, text, lineno, inliner, options={}, content=[]):
     has_t, title, target = split_explicit_title(text)
@@ -103,7 +103,7 @@ class ImplementationDetail(Directive):
     final_argument_whitespace = True
 
     # This text is copied to templates/dummy.html
-    label_text = sphinx_gettext('CPython implementation detail:')
+    label_text = sphinx_gettext('CMyFRpy implementation detail:')
 
     def run(self):
         self.assert_has_content()
@@ -351,7 +351,7 @@ class PyDecoratorFunction(PyDecoratorMixin, PyFunction):
         return PyFunction.run(self)
 
 
-# TODO: Use sphinx.domains.python.PyDecoratorMethod when possible
+# TODO: Use sphinx.domains.myFRpy.PyDecoratorMethod when possible
 class PyDecoratorMethod(PyDecoratorMixin, PyMethod):
     def run(self):
         self.name = 'py:method'
@@ -696,7 +696,7 @@ def patch_pairindextypes(app, _env) -> None:
 
     # allow translating deprecated index entries
     try:
-        from sphinx.domains.python import pairindextypes
+        from sphinx.domains.myFRpy import pairindextypes
     except ImportError:
         pass
     else:

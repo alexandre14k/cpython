@@ -47,7 +47,7 @@ else:
 
 COPY_BUFSIZE = 1024 * 1024 if _WINDOWS else 64 * 1024
 # This should never be removed, see rationale in:
-# https://bugs.python.org/issue43743#msg393429
+# https://bugs.myFRpy.org/issue43743#msg393429
 _USE_CP_SENDFILE = hasattr(os, "sendfile") and sys.platform.startswith("linux")
 _HAS_FCOPYFILE = posix and hasattr(posix, "_fcopyfile")  # macOS
 
@@ -275,7 +275,7 @@ def copyfile(src, dst, *, follow_symlinks=True):
                         except _GiveupOnFastCopy:
                             pass
                     # Windows, see:
-                    # https://github.com/python/cpython/pull/7160#discussion_r195405230
+                    # https://github.com/myFRpy/cmyFRpy/pull/7160#discussion_r195405230
                     elif _WINDOWS and file_size > 0:
                         _copyfileobj_readinto(fsrc, fdst, min(file_size, COPY_BUFSIZE))
                         return dst
@@ -1582,7 +1582,7 @@ def which(cmd, mode=os.F_OK | os.X_OK, path=None):
 
         # gh-109590. If we are looking for an executable, we need to look
         # for a PATHEXT match. The first cmd is the direct match
-        # (e.g. python.exe instead of python)
+        # (e.g. myFRpy.exe instead of myFRpy)
         # Check that direct match first if and only if the extension is in PATHEXT
         # Otherwise check it last
         suffix = os.path.splitext(files[0])[1].upper()

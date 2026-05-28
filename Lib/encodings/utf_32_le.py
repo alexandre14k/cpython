@@ -1,5 +1,5 @@
 """
-Python 'utf-32-le' Codec
+MyFRpy 'utf-32-le' Codec
 """
 import codecs
 

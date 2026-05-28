@@ -1,7 +1,7 @@
 
 /* Module object implementation */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_call.h"          // _PyObject_CallNoArgs()
 #include "pycore_interp.h"        // PyInterpreterState.importlib
 #include "pycore_object.h"        // _PyType_AllocNoTrack
@@ -138,13 +138,13 @@ PyModule_New(const char *name)
 static int
 check_api_version(const char *name, int module_api_version)
 {
-    if (module_api_version != PYTHON_API_VERSION && module_api_version != PYTHON_ABI_VERSION) {
+    if (module_api_version != MYFRPY_API_VERSION && module_api_version != MYFRPY_ABI_VERSION) {
         int err;
         err = PyErr_WarnFormat(PyExc_RuntimeWarning, 1,
-            "Python C API version mismatch for module %.100s: "
-            "This Python has API version %d, module %.100s has version %d.",
+            "MyFRpy C API version mismatch for module %.100s: "
+            "This MyFRpy has API version %d, module %.100s has version %d.",
              name,
-             PYTHON_API_VERSION, name, module_api_version);
+             MYFRPY_API_VERSION, name, module_api_version);
         if (err)
             return 0;
     }
@@ -184,7 +184,7 @@ PyModule_Create2(PyModuleDef* module, int module_api_version)
 {
     if (!_PyImport_IsInitialized(_PyInterpreterState_GET())) {
         PyErr_SetString(PyExc_SystemError,
-                        "Python import machinery not initialized");
+                        "MyFRpy import machinery not initialized");
         return NULL;
     }
     return _PyModule_CreateInitialized(module, module_api_version);

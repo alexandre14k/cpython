@@ -14,21 +14,21 @@ extern "C" {
 /* BEWARE:
 
    Each interface exports both functions and macros.  Extension modules should
-   use the functions, to ensure binary compatibility across Python versions.
-   Because the Python implementation is free to change internal details, and
+   use the functions, to ensure binary compatibility across MyFRpy versions.
+   Because the MyFRpy implementation is free to change internal details, and
    the macros may (or may not) expose details for speed, if you do use the
-   macros you must recompile your extensions with each Python release.
+   macros you must recompile your extensions with each MyFRpy release.
 
    Never mix calls to PyMem_ with calls to the platform malloc/realloc/
    calloc/free.  For example, on Windows different DLLs may end up using
    different heaps, and if you use PyMem_Malloc you'll get the memory from the
-   heap used by the Python DLL; it could be a disaster if you free()'ed that
-   directly in your own extension.  Using PyMem_Free instead ensures Python
+   heap used by the MyFRpy DLL; it could be a disaster if you free()'ed that
+   directly in your own extension.  Using PyMem_Free instead ensures MyFRpy
    can return the memory to the proper heap.  As another example, in
-   a debug build (Py_DEBUG macro), Python wraps all calls to all PyMem_ and
+   a debug build (Py_DEBUG macro), MyFRpy wraps all calls to all PyMem_ and
    PyObject_ memory functions in special debugging wrappers that add additional
    debugging info to dynamic memory blocks.  The system routines have no idea
-   what to do with that stuff, and the Python wrappers have no idea what to do
+   what to do with that stuff, and the MyFRpy wrappers have no idea what to do
    with raw blocks obtained directly by the system routines then.
 
    The GIL must be held when using these APIs.
@@ -92,9 +92,9 @@ PyAPI_FUNC(void) PyMem_Free(void *ptr);
 
 
 #ifndef Py_LIMITED_API
-#  define Py_CPYTHON_PYMEM_H
-#  include "cpython/pymem.h"
-#  undef Py_CPYTHON_PYMEM_H
+#  define Py_CMYFRPY_PYMEM_H
+#  include "cmyFRpy/pymem.h"
+#  undef Py_CMYFRPY_PYMEM_H
 #endif
 
 #ifdef __cplusplus

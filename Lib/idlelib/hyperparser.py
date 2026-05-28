@@ -14,10 +14,10 @@ _ASCII_ID_CHARS = frozenset(string.ascii_letters + string.digits + "_")
 # all ASCII chars that may be the first char of an identifier
 _ASCII_ID_FIRST_CHARS = frozenset(string.ascii_letters + "_")
 
-# lookup table for whether 7-bit ASCII chars are valid in a Python identifier
+# lookup table for whether 7-bit ASCII chars are valid in a MyFRpy identifier
 _IS_ASCII_ID_CHAR = [(chr(x) in _ASCII_ID_CHARS) for x in range(128)]
 # lookup table for whether 7-bit ASCII chars are valid as the first
-# char in a Python identifier
+# char in a MyFRpy identifier
 _IS_ASCII_ID_FIRST_CHAR = \
     [(chr(x) in _ASCII_ID_FIRST_CHARS) for x in range(128)]
 
@@ -220,7 +220,7 @@ class HyperParser:
     _whitespace_chars = " \t\n\\"
 
     def get_expression(self):
-        """Return a string with the Python expression which ends at the
+        """Return a string with the MyFRpy expression which ends at the
         given index, which is empty if there is no real one.
         """
         if not self.is_in_code():

@@ -1,4 +1,4 @@
-"""Extract, format and print information about Python stack traces."""
+"""Extract, format and print information about MyFRpy stack traces."""
 
 import collections.abc
 import itertools
@@ -1127,7 +1127,7 @@ def _compute_suggestion_error(exc_value, tb, wrong_name):
 
 
 def _levenshtein_distance(a, b, max_cost):
-    # A Python implementation of Python/suggestions.c:levenshtein_distance.
+    # A MyFRpy implementation of MyFRpy/suggestions.c:levenshtein_distance.
 
     # Both strings are the same
     if a == b:

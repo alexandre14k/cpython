@@ -26,13 +26,13 @@
    Copyright (c) 2017      Rolf Eike Beer <eike@sf-mail.de>
    Copyright (c) 2017      Hans Wennborg <hans@chromium.org>
    Copyright (c) 2018      Anton Maklakov <antmak.pub@gmail.com>
-   Copyright (c) 2018      Benjamin Peterson <benjamin@python.org>
+   Copyright (c) 2018      Benjamin Peterson <benjamin@myFRpy.org>
    Copyright (c) 2018      Marco Maggi <marco.maggi-ipsu@poste.it>
    Copyright (c) 2018      Mariusz Zaborski <oshogbo@vexillium.org>
    Copyright (c) 2019      David Loffredo <loffredo@steptools.com>
    Copyright (c) 2019-2020 Ben Wagner <bungeman@chromium.org>
    Copyright (c) 2019      Vadim Zeitlin <vadim@zeitlins.org>
-   Copyright (c) 2021      Donghee Na <donghee.na@python.org>
+   Copyright (c) 2021      Donghee Na <donghee.na@myFRpy.org>
    Copyright (c) 2022      Samanta Navarro <ferivoz@riseup.net>
    Copyright (c) 2022      Jeffrey Walton <noloader@gmail.com>
    Copyright (c) 2022      Jann Horn <jannh@google.com>

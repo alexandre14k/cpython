@@ -12,7 +12,7 @@ import sysconfig
 import test.support
 from test import support
 from test.support import os_helper
-from test.support.script_helper import assert_python_ok, assert_python_failure
+from test.support.script_helper import assert_myFRpy_ok, assert_myFRpy_failure
 from test.support import threading_helper
 from test.support import import_helper
 import textwrap
@@ -180,7 +180,7 @@ class ExceptHookTest(unittest.TestCase):
                          "value, str found" in stderr.getvalue())
 
     # FIXME: testing the code for a lost or replaced excepthook in
-    # Python/pythonrun.c::PyErr_PrintEx() is tricky.
+    # MyFRpy/myFRpyrun.c::PyErr_PrintEx() is tricky.
 
 
 class SysModuleTest(unittest.TestCase):
@@ -197,7 +197,7 @@ class SysModuleTest(unittest.TestCase):
             sys.exit()
         self.assertIsNone(cm.exception.code)
 
-        rc, out, err = assert_python_ok('-c', 'import sys; sys.exit()')
+        rc, out, err = assert_myFRpy_ok('-c', 'import sys; sys.exit()')
         self.assertEqual(rc, 0)
         self.assertEqual(out, b'')
         self.assertEqual(err, b'')
@@ -224,13 +224,13 @@ class SysModuleTest(unittest.TestCase):
         self.assertEqual(cm.exception.code, (17, 23))
 
         # test that the exit machinery handles SystemExits properly
-        rc, out, err = assert_python_failure('-c', 'raise SystemExit(47)')
+        rc, out, err = assert_myFRpy_failure('-c', 'raise SystemExit(47)')
         self.assertEqual(rc, 47)
         self.assertEqual(out, b'')
         self.assertEqual(err, b'')
 
         def check_exit_message(code, expected, **env_vars):
-            rc, out, err = assert_python_failure('-c', code, **env_vars)
+            rc, out, err = assert_myFRpy_failure('-c', code, **env_vars)
             self.assertEqual(rc, 1)
             self.assertEqual(out, b'')
             self.assertTrue(err.startswith(expected),
@@ -252,7 +252,7 @@ class SysModuleTest(unittest.TestCase):
         # instead of the default encoding (utf8)
         check_exit_message(
             r'import sys; sys.exit("h\xe9")',
-            b"h\xe9", PYTHONIOENCODING='latin-1')
+            b"h\xe9", MYFRPYIOENCODING='latin-1')
 
     def test_getdefaultencoding(self):
         self.assertRaises(TypeError, sys.getdefaultencoding, 42)
@@ -320,7 +320,7 @@ class SysModuleTest(unittest.TestCase):
         finally:
             sys.setrecursionlimit(old_limit)
 
-    @test.support.cpython_only
+    @test.support.cmyFRpy_only
     def test_setrecursionlimit_to_depth(self):
         # Issue #25274: Setting a low recursion limit must be blocked if the
         # current recursion depth is already higher than limit.
@@ -391,7 +391,7 @@ class SysModuleTest(unittest.TestCase):
     @test.support.refcount_test
     def test_refcount(self):
         # n here must be a global in order for this test to pass while
-        # tracing with a python function.  Tracing calls PyFrame_FastToLocals
+        # tracing with a myFRpy function.  Tracing calls PyFrame_FastToLocals
         # which will add a copy of any locals to the frame object, causing
         # the reference count to increase by 2 instead of 1.
         global n
@@ -433,7 +433,7 @@ class SysModuleTest(unittest.TestCase):
             self.assertIs(f, f2)
         self.assertIsNone(sys._getframemodulename(i))
 
-    # sys._current_frames() is a CPython-only gimmick.
+    # sys._current_frames() is a CMyFRpy-only gimmick.
     @threading_helper.reap_threads
     @threading_helper.requires_working_threading()
     def test_current_frames(self):
@@ -777,7 +777,7 @@ class SysModuleTest(unittest.TestCase):
         test.support.get_attribute(sys, "getwindowsversion")
         self.assert_raise_on_new_sys_type(sys.getwindowsversion())
 
-    @test.support.cpython_only
+    @test.support.cmyFRpy_only
     def test_clear_type_cache(self):
         sys._clear_type_cache()
 
@@ -788,20 +788,20 @@ class SysModuleTest(unittest.TestCase):
         # Test character: cent sign, encoded as 0x4A (ASCII J) in CP424,
         # not representable in ASCII.
 
-        env["PYTHONIOENCODING"] = "cp424"
+        env["MYFRPYIOENCODING"] = "cp424"
         p = subprocess.Popen([sys.executable, "-c", 'print(chr(0xa2))'],
                              stdout = subprocess.PIPE, env=env)
         out = p.communicate()[0].strip()
         expected = ("\xa2" + os.linesep).encode("cp424")
         self.assertEqual(out, expected)
 
-        env["PYTHONIOENCODING"] = "ascii:replace"
+        env["MYFRPYIOENCODING"] = "ascii:replace"
         p = subprocess.Popen([sys.executable, "-c", 'print(chr(0xa2))'],
                              stdout = subprocess.PIPE, env=env)
         out = p.communicate()[0].strip()
         self.assertEqual(out, b'?')
 
-        env["PYTHONIOENCODING"] = "ascii"
+        env["MYFRPYIOENCODING"] = "ascii"
         p = subprocess.Popen([sys.executable, "-c", 'print(chr(0xa2))'],
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                              env=env)
@@ -810,7 +810,7 @@ class SysModuleTest(unittest.TestCase):
         self.assertIn(b'UnicodeEncodeError:', err)
         self.assertIn(rb"'\xa2'", err)
 
-        env["PYTHONIOENCODING"] = "ascii:"
+        env["MYFRPYIOENCODING"] = "ascii:"
         p = subprocess.Popen([sys.executable, "-c", 'print(chr(0xa2))'],
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                              env=env)
@@ -819,7 +819,7 @@ class SysModuleTest(unittest.TestCase):
         self.assertIn(b'UnicodeEncodeError:', err)
         self.assertIn(rb"'\xa2'", err)
 
-        env["PYTHONIOENCODING"] = ":surrogateescape"
+        env["MYFRPYIOENCODING"] = ":surrogateescape"
         p = subprocess.Popen([sys.executable, "-c", 'print(chr(0xdcbd))'],
                              stdout=subprocess.PIPE, env=env)
         out = p.communicate()[0].strip()
@@ -833,7 +833,7 @@ class SysModuleTest(unittest.TestCase):
     def test_ioencoding_nonascii(self):
         env = dict(os.environ)
 
-        env["PYTHONIOENCODING"] = ""
+        env["MYFRPYIOENCODING"] = ""
         p = subprocess.Popen([sys.executable, "-c",
                                 'print(%a)' % os_helper.FS_NONASCII],
                                 stdout=subprocess.PIPE, env=env)
@@ -848,16 +848,16 @@ class SysModuleTest(unittest.TestCase):
         self.assertEqual(os.path.abspath(sys.executable), sys.executable)
 
         # Issue #7774: Ensure that sys.executable is an empty string if argv[0]
-        # has been set to a non existent program name and Python is unable to
+        # has been set to a non existent program name and MyFRpy is unable to
         # retrieve the real program name
 
         # For a normal installation, it should work without 'cwd'
         # argument. For test runs in the build directory, see #7774.
-        python_dir = os.path.dirname(os.path.realpath(sys.executable))
+        myFRpy_dir = os.path.dirname(os.path.realpath(sys.executable))
         p = subprocess.Popen(
             ["nonexistent", "-c",
              'import sys; print(sys.executable.encode("ascii", "backslashreplace"))'],
-            executable=sys.executable, stdout=subprocess.PIPE, cwd=python_dir)
+            executable=sys.executable, stdout=subprocess.PIPE, cwd=myFRpy_dir)
         stdout = p.communicate()[0]
         executable = stdout.strip().decode("ASCII")
         p.wait()
@@ -881,7 +881,7 @@ class SysModuleTest(unittest.TestCase):
         # Force the POSIX locale
         env = os.environ.copy()
         env["LC_ALL"] = locale
-        env["PYTHONCOERCECLOCALE"] = "0"
+        env["MYFRPYCOERCECLOCALE"] = "0"
         code = '\n'.join((
             'import sys',
             'def dump(name):',
@@ -895,9 +895,9 @@ class SysModuleTest(unittest.TestCase):
         if isolated:
             args.append("-I")
         if encoding is not None:
-            env['PYTHONIOENCODING'] = encoding
+            env['MYFRPYIOENCODING'] = encoding
         else:
-            env.pop('PYTHONIOENCODING', None)
+            env.pop('MYFRPYIOENCODING', None)
         p = subprocess.Popen(args,
                               stdout=subprocess.PIPE,
                               stderr=subprocess.STDOUT,
@@ -974,12 +974,12 @@ class SysModuleTest(unittest.TestCase):
         self.assertEqual(sys.implementation.name,
                          sys.implementation.name.lower())
 
-    @test.support.cpython_only
+    @test.support.cmyFRpy_only
     def test_debugmallocstats(self):
         # Test sys._debugmallocstats()
-        from test.support.script_helper import assert_python_ok
+        from test.support.script_helper import assert_myFRpy_ok
         args = ['-c', 'import sys; sys._debugmallocstats()']
-        ret, out, err = assert_python_ok(*args)
+        ret, out, err = assert_myFRpy_ok(*args)
 
         # Output of sys._debugmallocstats() depends on configure flags.
         # The sysconfig vars are not available on Windows.
@@ -1023,7 +1023,7 @@ class SysModuleTest(unittest.TestCase):
             # return 0 or something greater.
             self.assertGreaterEqual(a, 0)
         try:
-            # While we could imagine a Python session where the number of
+            # While we could imagine a MyFRpy session where the number of
             # multiple buffer objects would exceed the sharing of references,
             # it is unlikely to happen in a normal test run.
             self.assertLess(a, sys.gettotalrefcount())
@@ -1052,10 +1052,10 @@ class SysModuleTest(unittest.TestCase):
                     self.print(self.is_finalizing(), flush=True)
 
             # Keep a reference in the __main__ module namespace, so the
-            # AtExit destructor will be called at Python exit
+            # AtExit destructor will be called at MyFRpy exit
             ref = AtExit()
         """
-        rc, stdout, stderr = assert_python_ok('-c', code)
+        rc, stdout, stderr = assert_myFRpy_ok('-c', code)
         self.assertEqual(stdout.rstrip(), b'True')
 
     def test_issue20602(self):
@@ -1068,7 +1068,7 @@ class SysModuleTest(unittest.TestCase):
                     print(sys.float_info)
             a = A()
             """
-        rc, out, err = assert_python_ok('-c', code)
+        rc, out, err = assert_myFRpy_ok('-c', code)
         out = out.splitlines()
         self.assertIn(b'sys.flags', out[0])
         self.assertIn(b'sys.float_info', out[1])
@@ -1085,7 +1085,7 @@ class SysModuleTest(unittest.TestCase):
 
             sys.x = C()
             """
-        rc, stdout, stderr = assert_python_ok('-c', code)
+        rc, stdout, stderr = assert_myFRpy_ok('-c', code)
         self.assertEqual(rc, 0)
         self.assertEqual(stdout.rstrip(), b"")
         self.assertEqual(stderr.rstrip(), b"")
@@ -1140,7 +1140,7 @@ class SysModuleTest(unittest.TestCase):
         code = ('import sys',
                 'sys._enablelegacywindowsfsencoding()',
                 'print(sys.getfilesystemencoding(), sys.getfilesystemencodeerrors())')
-        rc, out, err = assert_python_ok('-c', '; '.join(code))
+        rc, out, err = assert_myFRpy_ok('-c', '; '.join(code))
         out = out.decode('ascii', 'replace').rstrip()
         self.assertEqual(out, 'mbcs replace')
 
@@ -1175,7 +1175,7 @@ class SysModuleTest(unittest.TestCase):
                          os.path.normpath(expected))
 
 
-@test.support.cpython_only
+@test.support.cmyFRpy_only
 class UnraisableHookTest(unittest.TestCase):
     def write_unraisable_exc(self, exc, err_msg, obj):
         import _testcapi
@@ -1321,7 +1321,7 @@ class UnraisableHookTest(unittest.TestCase):
         self.assertIn('Exception: hook_func failed\n', err)
 
 
-@test.support.cpython_only
+@test.support.cmyFRpy_only
 class SizeofTest(unittest.TestCase):
 
     def setUp(self):
@@ -1680,8 +1680,8 @@ class SizeofTest(unittest.TestCase):
             __slots__ = 'a', 'b', 'c'
         check(OD(x=[]), OrderedDict(x=[]), '3P')
 
-    def test_pythontypes(self):
-        # check all types defined in Python/
+    def test_myFRpytypes(self):
+        # check all types defined in MyFRpy/
         size = test.support.calcobjsize
         vsize = test.support.calcvobjsize
         check = self.check_sizeof
@@ -1738,7 +1738,7 @@ class SizeofTest(unittest.TestCase):
             sys.stderr = MyStderr()
             1/0
         ''')
-        rc, out, err = assert_python_failure('-c', code)
+        rc, out, err = assert_myFRpy_failure('-c', code)
         self.assertEqual(out, b"")
         self.assertEqual(err, b"")
 

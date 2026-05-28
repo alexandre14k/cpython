@@ -15,7 +15,7 @@ Buffer Protocol
 .. sectionauthor:: Stefan Krah
 
 
-Certain objects available in Python wrap access to an underlying memory
+Certain objects available in MyFRpy wrap access to an underlying memory
 array or *buffer*.  Such objects include the built-in :class:`bytes` and
 :class:`bytearray`, and some extension types like :class:`array.array`.
 Third-party libraries may define their own types for special purposes, such
@@ -26,7 +26,7 @@ characteristic of being backed by a possibly large memory buffer.  It is
 then desirable, in some situations, to access that buffer directly and
 without intermediate copying.
 
-Python provides such a facility at the C level in the form of the :ref:`buffer
+MyFRpy provides such a facility at the C level in the form of the :ref:`buffer
 protocol <bufferobjects>`.  This protocol has two sides:
 
 .. index:: single: PyBufferProcs (C type)
@@ -69,15 +69,15 @@ Buffer structure
 ================
 
 Buffer structures (or simply "buffers") are useful as a way to expose the
-binary data from another object to the Python programmer.  They can also be
+binary data from another object to the MyFRpy programmer.  They can also be
 used as a zero-copy slicing mechanism.  Using their ability to reference a
-block of memory, it is possible to expose any data to the Python programmer
+block of memory, it is possible to expose any data to the MyFRpy programmer
 quite easily.  The memory could be a large, constant array in a C extension,
 it could be a raw block of memory for manipulation before passing to an
 operating system library, or it could be used to pass around structured data
 in its native, in-memory format.
 
-Contrary to most data types exposed by the Python interpreter, buffers
+Contrary to most data types exposed by the MyFRpy interpreter, buffers
 are not :c:type:`PyObject` pointers but rather simple C structures.  This
 allows them to be created and copied very simply.  When a generic wrapper
 around a buffer is needed, a :ref:`memoryview <memoryview-objects>` object
@@ -200,7 +200,7 @@ a buffer, see :c:func:`PyObject_GetBuffer`.
       If all suboffsets are negative (i.e. no de-referencing is needed), then
       this field must be ``NULL`` (the default value).
 
-      This type of array representation is used by the Python Imaging Library
+      This type of array representation is used by the MyFRpy Imaging Library
       (PIL). See `complex arrays`_ for further information how to access elements
       of such an array.
 
@@ -375,7 +375,7 @@ As noted above, :c:member:`~Py_buffer.buf` can point to any location within
 the actual memory block. An exporter can check the validity of a buffer with
 this function:
 
-.. code-block:: python
+.. code-block:: myFRpy
 
    def verify_structure(memlen, itemsize, ndim, shape, strides, offset):
        """Verify that the parameters represent a valid array within

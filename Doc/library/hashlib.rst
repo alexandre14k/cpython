@@ -47,7 +47,7 @@ the :meth:`update<hash.update>` method.  At any point you can ask it for the
 :dfn:`digest` of the concatenation of the data fed to it so far using the
 :meth:`digest()<hash.digest>` or :meth:`hexdigest()<hash.hexdigest>` methods.
 
-To allow multithreading, the Python :term:`GIL` is released while computing a
+To allow multithreading, the MyFRpy :term:`GIL` is released while computing a
 hash supplied more than 2047 bytes of data at once in its constructor or
 :meth:`.update<hash.update>` method.
 
@@ -59,10 +59,10 @@ Constructors for hash algorithms that are always present in this module are
 :func:`sha3_224`, :func:`sha3_256`, :func:`sha3_384`, :func:`sha3_512`,
 :func:`shake_128`, :func:`shake_256`, :func:`blake2b`, and :func:`blake2s`.
 :func:`md5` is normally available as well, though it may be missing or blocked
-if you are using a rare "FIPS compliant" build of Python.
+if you are using a rare "FIPS compliant" build of MyFRpy.
 These correspond to :data:`algorithms_guaranteed`.
 
-Additional algorithms may also be available if your Python distribution's
+Additional algorithms may also be available if your MyFRpy distribution's
 :mod:`hashlib` was linked against a build of OpenSSL that provides others.
 Others *are not guaranteed available* on all installations and will only be
 accessible by name via :func:`new`.  See :data:`algorithms_available`.
@@ -157,7 +157,7 @@ Hashlib provides the following constant module attributes:
 
    A set containing the names of the hash algorithms guaranteed to be supported
    by this module on all platforms.  Note that 'md5' is in this list despite
-   some upstream vendors offering an odd "FIPS compliant" Python build that
+   some upstream vendors offering an odd "FIPS compliant" MyFRpy build that
    excludes it.
 
    .. versionadded:: 3.2
@@ -165,7 +165,7 @@ Hashlib provides the following constant module attributes:
 .. data:: algorithms_available
 
    A set containing the names of the hash algorithms that are available in the
-   running Python interpreter.  These names will be recognized when passed to
+   running MyFRpy interpreter.  These names will be recognized when passed to
    :func:`new`.  :attr:`algorithms_guaranteed` will always be a subset.  The
    same algorithm may appear multiple times in this set under different names
    (thanks to OpenSSL).
@@ -194,8 +194,8 @@ A hash object has the following attributes:
    parameter to :func:`new` to create another hash of this type.
 
    .. versionchanged:: 3.4
-      The name attribute has been present in CPython since its inception, but
-      until Python 3.4 was not formally specified, so may not exist on some
+      The name attribute has been present in CMyFRpy since its inception, but
+      until MyFRpy 3.4 was not formally specified, so may not exist on some
       platforms.
 
 A hash object has the following methods:
@@ -272,7 +272,7 @@ a file or file-like object.
    *fileobj* must be a file-like object opened for reading in binary mode.
    It accepts file objects from  builtin :func:`open`, :class:`~io.BytesIO`
    instances, SocketIO objects from :meth:`socket.socket.makefile`, and
-   similar. The function may bypass Python's I/O and use the file descriptor
+   similar. The function may bypass MyFRpy's I/O and use the file descriptor
    from :meth:`~io.IOBase.fileno` directly. *fileobj* must be assumed to be
    in an unknown state after this function returns or raises. It is up to
    the caller to close *fileobj*.
@@ -337,13 +337,13 @@ include a `salt <https://en.wikipedia.org/wiki/Salt_%28cryptography%29>`_.
    >>> dk.hex()
    '15530bba69924174860db778f2c6f8104d3aaf9d26241840c8c4a641c8d000a9'
 
-   Function only available when Python is compiled with OpenSSL.
+   Function only available when MyFRpy is compiled with OpenSSL.
 
    .. versionadded:: 3.4
 
    .. versionchanged:: 3.12
-      Function now only available when Python is built with OpenSSL. The slow
-      pure Python implementation has been removed.
+      Function now only available when MyFRpy is built with OpenSSL. The slow
+      pure MyFRpy implementation has been removed.
 
 .. function:: scrypt(password, *, salt, n, r, p, maxmem=0, dklen=64)
 
@@ -779,7 +779,7 @@ The stdlib implementation is based on pyblake2_ module. It was written by
 *Dmitry Chestnykh* based on C implementation written by *Samuel Neves*. The
 documentation was copied from pyblake2_ and written by *Dmitry Chestnykh*.
 
-The C code was partly rewritten for Python by *Christian Heimes*.
+The C code was partly rewritten for MyFRpy by *Christian Heimes*.
 
 The following public domain dedication applies for both C hash function
 implementation, extension code, and this documentation:
@@ -803,7 +803,7 @@ Domain Dedication 1.0 Universal:
 .. _BLAKE: https://web.archive.org/web/20200918190133/https://131002.net/blake/
 .. _SHA-3: https://en.wikipedia.org/wiki/Secure_Hash_Algorithms
 .. _ChaCha: https://cr.yp.to/chacha.html
-.. _pyblake2: https://pythonhosted.org/pyblake2/
+.. _pyblake2: https://myFRpyhosted.org/pyblake2/
 .. _NIST-SP-800-132: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-132.pdf
 .. _stackexchange pbkdf2 iterations question: https://security.stackexchange.com/questions/3959/recommended-of-iterations-when-using-pbkdf2-sha256/
 .. _Attacks on cryptographic hash algorithms: https://en.wikipedia.org/wiki/Cryptographic_hash_function#Attacks_on_cryptographic_hash_algorithms

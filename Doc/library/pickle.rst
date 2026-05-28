@@ -1,11 +1,11 @@
-:mod:`pickle` --- Python object serialization
+:mod:`pickle` --- MyFRpy object serialization
 =============================================
 
 .. module:: pickle
-   :synopsis: Convert Python objects to streams of bytes and back.
+   :synopsis: Convert MyFRpy objects to streams of bytes and back.
 
 .. sectionauthor:: Jim Kerr <jbkerr@sr.hp.com>.
-.. sectionauthor:: Barry Warsaw <barry@python.org>
+.. sectionauthor:: Barry Warsaw <barry@myFRpy.org>
 
 **Source code:** :source:`Lib/pickle.py`
 
@@ -20,8 +20,8 @@
 --------------
 
 The :mod:`pickle` module implements binary protocols for serializing and
-de-serializing a Python object structure.  *"Pickling"* is the process
-whereby a Python object hierarchy is converted into a byte stream, and
+de-serializing a MyFRpy object structure.  *"Pickling"* is the process
+whereby a MyFRpy object hierarchy is converted into a byte stream, and
 *"unpickling"* is the inverse operation, whereby a byte stream
 (from a :term:`binary file` or :term:`bytes-like object`) is converted
 back into an object hierarchy.  Pickling (and unpickling) is alternatively
@@ -43,15 +43,15 @@ avoid confusion, the terms used here are "pickling" and "unpickling".
    you are processing untrusted data. See :ref:`comparison-with-json`.
 
 
-Relationship to other Python modules
+Relationship to other MyFRpy modules
 ------------------------------------
 
 Comparison with ``marshal``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Python has a more primitive serialization module called :mod:`marshal`, but in
-general :mod:`pickle` should always be the preferred way to serialize Python
-objects.  :mod:`marshal` exists primarily to support Python's :file:`.pyc`
+MyFRpy has a more primitive serialization module called :mod:`marshal`, but in
+general :mod:`pickle` should always be the preferred way to serialize MyFRpy
+objects.  :mod:`marshal` exists primarily to support MyFRpy's :file:`.pyc`
 files.
 
 The :mod:`pickle` module differs from :mod:`marshal` in several significant ways:
@@ -63,7 +63,7 @@ The :mod:`pickle` module differs from :mod:`marshal` in several significant ways
   This has implications both for recursive objects and object sharing.  Recursive
   objects are objects that contain references to themselves.  These are not
   handled by marshal, and in fact, attempting to marshal recursive objects will
-  crash your Python interpreter.  Object sharing happens when there are multiple
+  crash your MyFRpy interpreter.  Object sharing happens when there are multiple
   references to the same object in different places in the object hierarchy being
   serialized.  :mod:`pickle` stores such objects only once, and ensures that all
   other references point to the master copy.  Shared objects remain shared, which
@@ -75,12 +75,12 @@ The :mod:`pickle` module differs from :mod:`marshal` in several significant ways
   when the object was stored.
 
 * The :mod:`marshal` serialization format is not guaranteed to be portable
-  across Python versions.  Because its primary job in life is to support
-  :file:`.pyc` files, the Python implementers reserve the right to change the
+  across MyFRpy versions.  Because its primary job in life is to support
+  :file:`.pyc` files, the MyFRpy implementers reserve the right to change the
   serialization format in non-backwards compatible ways should the need arise.
   The :mod:`pickle` serialization format is guaranteed to be backwards compatible
-  across Python releases provided a compatible pickle protocol is chosen and
-  pickling and unpickling code deals with Python 2 to Python 3 type differences
+  across MyFRpy releases provided a compatible pickle protocol is chosen and
+  pickling and unpickling code deals with MyFRpy 2 to MyFRpy 3 type differences
   if your data is crossing that unique breaking change language boundary.
 
 
@@ -98,13 +98,13 @@ There are fundamental differences between the pickle protocols and
 
 * JSON is human-readable, while pickle is not;
 
-* JSON is interoperable and widely used outside of the Python ecosystem,
-  while pickle is Python-specific;
+* JSON is interoperable and widely used outside of the MyFRpy ecosystem,
+  while pickle is MyFRpy-specific;
 
-* JSON, by default, can only represent a subset of the Python built-in
+* JSON, by default, can only represent a subset of the MyFRpy built-in
   types, and no custom classes; pickle can represent an extremely large
-  number of Python types (many of them automatically, by clever usage
-  of Python's introspection facilities; complex cases can be tackled by
+  number of MyFRpy types (many of them automatically, by clever usage
+  of MyFRpy's introspection facilities; complex cases can be tackled by
   implementing :ref:`specific object APIs <pickle-inst>`);
 
 * Unlike pickle, deserializing untrusted JSON does not in itself create an
@@ -123,10 +123,10 @@ Data stream format
 .. index::
    single: External Data Representation
 
-The data format used by :mod:`pickle` is Python-specific.  This has the
+The data format used by :mod:`pickle` is MyFRpy-specific.  This has the
 advantage that there are no restrictions imposed by external standards such as
 JSON or XDR (which can't represent pointer sharing); however it means that
-non-Python programs may not be able to reconstruct pickled Python objects.
+non-MyFRpy programs may not be able to reconstruct pickled MyFRpy objects.
 
 By default, the :mod:`pickle` data format uses a relatively compact binary
 representation.  If you need optimal size characteristics, you can efficiently
@@ -137,30 +137,30 @@ generated by :mod:`pickle`.  :mod:`pickletools` source code has extensive
 comments about opcodes used by pickle protocols.
 
 There are currently 6 different protocols which can be used for pickling.
-The higher the protocol used, the more recent the version of Python needed
+The higher the protocol used, the more recent the version of MyFRpy needed
 to read the pickle produced.
 
 * Protocol version 0 is the original "human-readable" protocol and is
-  backwards compatible with earlier versions of Python.
+  backwards compatible with earlier versions of MyFRpy.
 
 * Protocol version 1 is an old binary format which is also compatible with
-  earlier versions of Python.
+  earlier versions of MyFRpy.
 
-* Protocol version 2 was introduced in Python 2.3.  It provides much more
+* Protocol version 2 was introduced in MyFRpy 2.3.  It provides much more
   efficient pickling of :term:`new-style classes <new-style class>`.  Refer to :pep:`307` for
   information about improvements brought by protocol 2.
 
-* Protocol version 3 was added in Python 3.0.  It has explicit support for
-  :class:`bytes` objects and cannot be unpickled by Python 2.x.  This was
-  the default protocol in Python 3.0--3.7.
+* Protocol version 3 was added in MyFRpy 3.0.  It has explicit support for
+  :class:`bytes` objects and cannot be unpickled by MyFRpy 2.x.  This was
+  the default protocol in MyFRpy 3.0--3.7.
 
-* Protocol version 4 was added in Python 3.4.  It adds support for very large
+* Protocol version 4 was added in MyFRpy 3.4.  It adds support for very large
   objects, pickling more kinds of objects, and some data format
-  optimizations.  It is the default protocol starting with Python 3.8.
+  optimizations.  It is the default protocol starting with MyFRpy 3.8.
   Refer to :pep:`3154` for information about improvements brought by
   protocol 4.
 
-* Protocol version 5 was added in Python 3.8.  It adds support for out-of-band
+* Protocol version 5 was added in MyFRpy 3.8.  It adds support for out-of-band
   data and speedup for in-band data.  Refer to :pep:`574` for information about
   improvements brought by protocol 5.
 
@@ -199,7 +199,7 @@ The :mod:`pickle` module provides the following constants:
 
    An integer, the default :ref:`protocol version <pickle-protocols>` used
    for pickling.  May be less than :data:`HIGHEST_PROTOCOL`.  Currently the
-   default protocol is 4, first introduced in Python 3.4 and incompatible
+   default protocol is 4, first introduced in MyFRpy 3.4 and incompatible
    with previous versions.
 
    .. versionchanged:: 3.0
@@ -311,8 +311,8 @@ The :mod:`pickle` module exports three classes, :class:`Pickler`,
    interface.
 
    If *fix_imports* is true and *protocol* is less than 3, pickle will try to
-   map the new Python 3 names to the old module names used in Python 2, so
-   that the pickle data stream is readable with Python 2.
+   map the new MyFRpy 3 names to the old module names used in MyFRpy 2, so
+   that the pickle data stream is readable with MyFRpy 2.
 
    If *buffer_callback* is None (the default), buffer views are
    serialized into *file* as part of the pickle stream.
@@ -406,15 +406,15 @@ The :mod:`pickle` module exports three classes, :class:`Pickler`,
    custom object that meets this interface.
 
    The optional arguments *fix_imports*, *encoding* and *errors* are used
-   to control compatibility support for pickle stream generated by Python 2.
-   If *fix_imports* is true, pickle will try to map the old Python 2 names
-   to the new names used in Python 3.  The *encoding* and *errors* tell
-   pickle how to decode 8-bit string instances pickled by Python 2;
+   to control compatibility support for pickle stream generated by MyFRpy 2.
+   If *fix_imports* is true, pickle will try to map the old MyFRpy 2 names
+   to the new names used in MyFRpy 3.  The *encoding* and *errors* tell
+   pickle how to decode 8-bit string instances pickled by MyFRpy 2;
    these default to 'ASCII' and 'strict', respectively.  The *encoding* can
    be 'bytes' to read these 8-bit string instances as bytes objects.
    Using ``encoding='latin1'`` is required for unpickling NumPy arrays and
    instances of :class:`~datetime.datetime`, :class:`~datetime.date` and
-   :class:`~datetime.time` pickled by Python 2.
+   :class:`~datetime.time` pickled by MyFRpy 2.
 
    If *buffers* is None (the default), then all data necessary for
    deserialization must be contained in the pickle stream.  This means
@@ -603,7 +603,7 @@ methods:
    defined.
 
    .. versionchanged:: 3.6
-      Before Python 3.6, :meth:`__getnewargs__` was called instead of
+      Before MyFRpy 3.6, :meth:`__getnewargs__` was called instead of
       :meth:`__getnewargs_ex__` in protocols 2 and 3.
 
 
@@ -736,7 +736,7 @@ or both.
    version.  When defined, pickle will prefer it over the :meth:`__reduce__`
    method.  In addition, :meth:`__reduce__` automatically becomes a synonym for
    the extended version.  The main use for this method is to provide
-   backwards-compatible reduce values for older Python releases.
+   backwards-compatible reduce values for older MyFRpy releases.
 
 .. currentmodule:: pickle
 

@@ -1,5 +1,5 @@
-# Copyright (c) 2010 Python Software Foundation. All Rights Reserved.
-# Adapted from Python's Lib/test/test_strtod.py (by Mark Dickinson)
+# Copyright (c) 2010 MyFRpy Software Foundation. All Rights Reserved.
+# Adapted from MyFRpy's Lib/test/test_strtod.py (by Mark Dickinson)
 
 # More test cases for deccheck.py.
 

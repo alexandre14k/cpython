@@ -1,4 +1,4 @@
-""" Python Character Mapping Codec generated from 'hp_roman8.txt' with gencodec.py.
+""" MyFRpy Character Mapping Codec generated from 'hp_roman8.txt' with gencodec.py.
 
     Based on data from ftp://dkuug.dk/i18n/charmaps/HP-ROMAN8 (Keld Simonsen)
 

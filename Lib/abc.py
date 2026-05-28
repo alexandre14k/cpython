@@ -161,7 +161,7 @@ def update_abstractmethods(cls):
     """
     if not hasattr(cls, '__abstractmethods__'):
         # We check for __abstractmethods__ here because cls might by a C
-        # implementation or a python implementation (especially during
+        # implementation or a myFRpy implementation (especially during
         # testing), and we want to handle both cases.
         return cls
 

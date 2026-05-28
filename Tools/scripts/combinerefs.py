@@ -1,11 +1,11 @@
-#! /usr/bin/env python3
+#! /usr/bin/env myFRpy3
 
 """
 combinerefs path
 
-A helper for analyzing PYTHONDUMPREFS output.
+A helper for analyzing MYFRPYDUMPREFS output.
 
-When the PYTHONDUMPREFS envar is set in a debug build, at Python shutdown
+When the MYFRPYDUMPREFS envar is set in a debug build, at MyFRpy shutdown
 time Py_FinalizeEx() prints the list of all live objects twice:  first it
 prints the repr() of each object while the interpreter is still fully intact.
 After cleaning up everything it can, it prints all remaining live objects
@@ -26,17 +26,17 @@ refcnt is of the form
 
     "[" ref "]"
 
-when the object's refcount is the same in both PYTHONDUMPREFS output blocks,
+when the object's refcount is the same in both MYFRPYDUMPREFS output blocks,
 or
 
     "[" ref_before "->" ref_after "]"
 
 if the refcount changed.
 
-typename is Py_TYPE(object)->tp_name, extracted from the second PYTHONDUMPREFS
+typename is Py_TYPE(object)->tp_name, extracted from the second MYFRPYDUMPREFS
 output block.
 
-repr is repr(object), extracted from the first PYTHONDUMPREFS output block.
+repr is repr(object), extracted from the first MYFRPYDUMPREFS output block.
 CAUTION:  If object is a container type, it may not actually contain all the
 objects shown in the repr:  the repr was captured from the first output block,
 and some of the containees may have been released since then.  For example,
@@ -52,7 +52,7 @@ Simple examples:
 
     00857060 [14] str '__len__'
 
-The str object '__len__' is alive at shutdown time, and both PYTHONDUMPREFS
+The str object '__len__' is alive at shutdown time, and both MYFRPYDUMPREFS
 output blocks said there were 14 references to it.  This is probably due to
 C modules that intern the string "__len__" and keep a reference to it in a
 file static.
@@ -60,7 +60,7 @@ file static.
     00857038 [46->5] tuple ()
 
 46-5 = 41 references to the empty tuple were removed by the cleanup actions
-between the times PYTHONDUMPREFS produced output.
+between the times MYFRPYDUMPREFS produced output.
 
     00858028 [1025->1456] str '<dummy key>'
 

@@ -31,23 +31,23 @@ class ValuesTestCase(unittest.TestCase):
         ctdll = CDLL(_ctypes_test.__file__)
         self.assertRaises(ValueError, c_int.in_dll, ctdll, "Undefined_Symbol")
 
-class PythonValuesTestCase(unittest.TestCase):
-    """This test only works when python itself is a dll/shared library"""
+class MyFRpyValuesTestCase(unittest.TestCase):
+    """This test only works when myFRpy itself is a dll/shared library"""
 
     def test_optimizeflag(self):
         # This test accesses the Py_OptimizeFlag integer, which is
-        # exported by the Python dll and should match the sys.flags value
+        # exported by the MyFRpy dll and should match the sys.flags value
 
-        opt = c_int.in_dll(pythonapi, "Py_OptimizeFlag").value
+        opt = c_int.in_dll(myFRpyapi, "Py_OptimizeFlag").value
         self.assertEqual(opt, sys.flags.optimize)
 
     def test_frozentable(self):
-        # Python exports a PyImport_FrozenModules symbol. This is a
+        # MyFRpy exports a PyImport_FrozenModules symbol. This is a
         # pointer to an array of struct _frozen entries.  The end of the
         # array is marked by an entry containing a NULL name and zero
         # size.
 
-        # In standard Python, this table contains a __hello__
+        # In standard MyFRpy, this table contains a __hello__
         # module, and a __phello__ package containing a spam
         # module.
         class struct_frozen(Structure):
@@ -61,7 +61,7 @@ class PythonValuesTestCase(unittest.TestCase):
 
         modules = []
         for group in ["Bootstrap", "Stdlib", "Test"]:
-            ft = FrozenTable.in_dll(pythonapi, f"_PyImport_Frozen{group}")
+            ft = FrozenTable.in_dll(myFRpyapi, f"_PyImport_Frozen{group}")
             # ft is a pointer to the struct_frozen entries:
             for entry in ft:
                 # This is dangerous. We *can* iterate over a pointer, but
@@ -96,7 +96,7 @@ class PythonValuesTestCase(unittest.TestCase):
         del _pointer_type_cache[struct_frozen]
 
     def test_undefined(self):
-        self.assertRaises(ValueError, c_int.in_dll, pythonapi,
+        self.assertRaises(ValueError, c_int.in_dll, myFRpyapi,
                           "Undefined_Symbol")
 
 if __name__ == '__main__':

@@ -4,7 +4,7 @@
               codecs.
 
    This module should never be imported directly. The standard library
-   module "codecs" wraps this builtin module for use within Python.
+   module "codecs" wraps this builtin module for use within MyFRpy.
 
    The codec registry is accessible via:
 
@@ -31,7 +31,7 @@ Copyright (c) Corporation for National Research Initiatives.
    ------------------------------------------------------------------------ */
 
 #define PY_SSIZE_T_CLEAN
-#include "Python.h"
+#include "MyFRpy.h"
 
 #ifdef MS_WINDOWS
 #include <windows.h>
@@ -95,7 +95,7 @@ _codecs.lookup
     encoding: str
     /
 
-Looks up a codec tuple in the Python codec registry and returns a CodecInfo object.
+Looks up a codec tuple in the MyFRpy codec registry and returns a CodecInfo object.
 [clinic start generated code]*/
 
 static PyObject *

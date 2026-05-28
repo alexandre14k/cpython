@@ -14,7 +14,7 @@
 
             <Component Id="doc_reg" Directory="Doc" Guid="*">
                 <RegistryKey Root="HKMU" Key="[REGISTRYKEY]">                                                 
-                    <RegistryValue Key="Help\Main Python Documentation" Type="string" Value="[#Doc_html_index.html]" KeyPath="yes" />
+                    <RegistryValue Key="Help\Main MyFRpy Documentation" Type="string" Value="[#Doc_html_index.html]" KeyPath="yes" />
                 </RegistryKey>                                                                                
             </Component>
 
@@ -30,7 +30,7 @@
                 <RegistryKey Root="HKMU" Key="[OPTIONALFEATURESREGISTRYKEY]">
                     <RegistryValue Name="$(var.OptionalFeatureName)_shortcut" Type="string" Value="$(var.Version)" KeyPath="yes" />
                 </RegistryKey>
-                <Shortcut Id="python.html"
+                <Shortcut Id="myFRpy.html"
                           Target="[#Doc_html_index.html]"
                           Name="!(loc.ShortcutName)"
                           Description="!(loc.ShortcutDescription)"

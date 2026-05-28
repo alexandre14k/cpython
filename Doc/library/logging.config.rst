@@ -203,7 +203,7 @@ Security considerations
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 The logging configuration functionality tries to offer convenience, and in part this
-is done by offering the ability to convert text in configuration files into Python
+is done by offering the ability to convert text in configuration files into MyFRpy
 objects used in logging configuration - for example, as described in
 :ref:`logging-config-dict-userdef`. However, these same mechanisms (importing
 callables from user-defined modules and calling them with parameters from the
@@ -437,7 +437,7 @@ So, for example, consider the following YAML snippet:
         handlers: [h1, h2]
 
 (Note: YAML used here because it's a little more readable than the
-equivalent Python source form for the dictionary.)
+equivalent MyFRpy source form for the dictionary.)
 
 The ids for loggers are the logger names which would be used
 programmatically to obtain a reference to those loggers, e.g.
@@ -495,7 +495,7 @@ The above YAML snippet defines three formatters.  The first, with id
 specified format string.  The second, with id ``default``, has a
 longer format and also defines the time format explicitly, and will
 result in a :class:`logging.Formatter` initialized with those two format
-strings.  Shown in Python source form, the ``brief`` and ``default``
+strings.  Shown in MyFRpy source form, the ``brief`` and ``default``
 formatters have configuration sub-dictionaries::
 
     {
@@ -603,7 +603,7 @@ Access to external objects
 
 There are times where a configuration needs to refer to objects
 external to the configuration, for example ``sys.stderr``.  If the
-configuration dict is constructed using Python code, this is
+configuration dict is constructed using MyFRpy code, this is
 straightforward, but a problem arises when the configuration is
 provided via a text file (e.g. JSON, YAML).  In a text file, there is
 no standard way to distinguish ``sys.stderr`` from the literal string
@@ -710,7 +710,7 @@ mechanism: if so, you can replace the :attr:`importer` attribute of the
 :class:`DictConfigurator` or its superclass, the
 :class:`BaseConfigurator` class. However, you need to be
 careful because of the way functions are accessed from classes via
-descriptors. If you are using a Python callable to do your imports, and you
+descriptors. If you are using a MyFRpy callable to do your imports, and you
 want to define it at class level rather than instance level, you need to wrap
 it with :func:`staticmethod`. For example::
 
@@ -910,7 +910,7 @@ for the handler class. If not provided, it defaults to ``{}``.
    class=FileHandler
    level=DEBUG
    formatter=form02
-   args=('python.log', 'w')
+   args=('myFRpy.log', 'w')
 
    [handler_hand03]
    class=handlers.SocketHandler
@@ -934,7 +934,7 @@ for the handler class. If not provided, it defaults to ``{}``.
    class=handlers.NTEventLogHandler
    level=CRITICAL
    formatter=form06
-   args=('Python Application', '', 'Application')
+   args=('MyFRpy Application', '', 'Application')
 
    [handler_hand07]
    class=handlers.SMTPHandler

@@ -38,7 +38,7 @@ PyAPI_FUNC(int) PyDict_Update(PyObject *mp, PyObject *other);
 
 /* PyDict_Merge updates/merges from a mapping object (an object that
    supports PyMapping_Keys() and PyObject_GetItem()).  If override is true,
-   the last occurrence of a key wins, else the first.  The Python
+   the last occurrence of a key wins, else the first.  The MyFRpy
    dict.update(other) is equivalent to PyDict_Merge(dict, other, 1).
 */
 PyAPI_FUNC(int) PyDict_Merge(PyObject *mp,
@@ -47,7 +47,7 @@ PyAPI_FUNC(int) PyDict_Merge(PyObject *mp,
 
 /* PyDict_MergeFromSeq2 updates/merges from an iterable object producing
    iterable objects of length 2.  If override is true, the last occurrence
-   of a key wins, else the first.  The Python dict constructor dict(seq2)
+   of a key wins, else the first.  The MyFRpy dict constructor dict(seq2)
    is equivalent to dict={}; PyDict_MergeFromSeq(dict, seq2, 1).
 */
 PyAPI_FUNC(int) PyDict_MergeFromSeq2(PyObject *d,
@@ -86,9 +86,9 @@ PyAPI_DATA(PyTypeObject) PyDictRevIterValue_Type;
 
 
 #ifndef Py_LIMITED_API
-#  define Py_CPYTHON_DICTOBJECT_H
-#  include "cpython/dictobject.h"
-#  undef Py_CPYTHON_DICTOBJECT_H
+#  define Py_CMYFRPY_DICTOBJECT_H
+#  include "cmyFRpy/dictobject.h"
+#  undef Py_CMYFRPY_DICTOBJECT_H
 #endif
 
 #ifdef __cplusplus

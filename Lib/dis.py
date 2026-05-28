@@ -1,4 +1,4 @@
-"""Disassembler of Python byte code into mnemonics."""
+"""Disassembler of MyFRpy byte code into mnemonics."""
 
 import sys
 import types

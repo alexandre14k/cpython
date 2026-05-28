@@ -160,7 +160,7 @@ def init_database(name, schema,
     si.SetProperty(PID_REVNUMBER, gen_uuid())
     si.SetProperty(PID_WORDCOUNT, 2) # long file names, compressed, original media
     si.SetProperty(PID_PAGECOUNT, 200)
-    si.SetProperty(PID_APPNAME, "Python MSI Library")
+    si.SetProperty(PID_APPNAME, "MyFRpy MSI Library")
     # XXX more properties
     si.Persist()
     add_data(db, "Property", [

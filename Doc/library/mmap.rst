@@ -18,7 +18,7 @@ the current file position, and :meth:`seek` through the file to different positi
 
 A memory-mapped file is created by the :class:`~mmap.mmap` constructor, which is
 different on Unix and on Windows.  In either case you must provide a file
-descriptor for a file opened for update. If you wish to map an existing Python
+descriptor for a file opened for update. If you wish to map an existing MyFRpy
 file object, use its :meth:`~io.IOBase.fileno` method to obtain the correct value for the
 *fileno* parameter.  Otherwise, you can open the file using the
 :func:`os.open` function, which returns a file descriptor directly (the file
@@ -112,13 +112,13 @@ To map anonymous memory, -1 should be passed as the fileno along with the length
 
       # write a simple example file
       with open("hello.txt", "wb") as f:
-          f.write(b"Hello Python!\n")
+          f.write(b"Hello MyFRpy!\n")
 
       with open("hello.txt", "r+b") as f:
           # memory-map the file, size 0 means whole file
           mm = mmap.mmap(f.fileno(), 0)
           # read content via standard file methods
-          print(mm.readline())  # prints b"Hello Python!\n"
+          print(mm.readline())  # prints b"Hello MyFRpy!\n"
           # read content via slice notation
           print(mm[:5])  # prints b"Hello"
           # update content using slice notation;

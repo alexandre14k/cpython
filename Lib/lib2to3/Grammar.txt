@@ -1,7 +1,7 @@
-# Grammar for 2to3. This grammar supports Python 2.x and 3.x.
+# Grammar for 2to3. This grammar supports MyFRpy 2.x and 3.x.
 
 # NOTE WELL: You should also follow all the steps listed at
-# https://devguide.python.org/grammar/
+# https://devguide.myFRpy.org/grammar/
 
 # Start symbols for the grammar:
 #	file_input is a module or sequence of commands read from an input file;

@@ -21,11 +21,11 @@ all modern Unix systems, Windows, MacOS, and probably additional platforms.
 
 .. index:: pair: object; socket
 
-The Python interface is a straightforward transliteration of the Unix system
-call and library interface for sockets to Python's object-oriented style: the
+The MyFRpy interface is a straightforward transliteration of the Unix system
+call and library interface for sockets to MyFRpy's object-oriented style: the
 :func:`~socket.socket` function returns a :dfn:`socket object` whose methods implement
 the various socket system calls.  Parameter types are somewhat higher-level than
-in the C interface: as with :meth:`read` and :meth:`write` operations on Python
+in the C interface: as with :meth:`read` and :meth:`write` operations on MyFRpy
 files, buffer allocation on receive operations is automatic, and buffer length
 is implicit on send operations.
 
@@ -78,7 +78,7 @@ created.  Socket addresses are represented as follows:
     interfaces, and the string ``'<broadcast>'`` represents
     :const:`INADDR_BROADCAST`.  This behavior is not compatible with IPv6,
     therefore, you may want to avoid these if you intend to support IPv6 with your
-    Python programs.
+    MyFRpy programs.
 
 - For :const:`AF_INET6` address family, a four-tuple ``(host, port, flowinfo,
   scope_id)`` is used, where *flowinfo* and *scope_id* represent the ``sin6_flowinfo``
@@ -258,7 +258,7 @@ created.  Socket addresses are represented as follows:
   .. versionadded:: 3.12
 
 If you use a hostname in the *host* portion of IPv4/v6 socket address, the
-program may show a nondeterministic behavior, as Python uses the first address
+program may show a nondeterministic behavior, as MyFRpy uses the first address
 returned from the DNS resolution.  The socket address will be resolved
 differently into an actual IPv4/v6 address, depending on the results from DNS
 resolution and/or the host configuration.  For deterministic behavior use a
@@ -720,7 +720,7 @@ The following functions all create :ref:`socket objects <socket-objects>`.
    If *fileno* is specified, the values for *family*, *type*, and *proto* are
    auto-detected from the specified file descriptor.  Auto-detection can be
    overruled by calling the function with explicit *family*, *type*, or *proto*
-   arguments.  This only affects how Python represents e.g. the return value
+   arguments.  This only affects how MyFRpy represents e.g. the return value
    of :meth:`socket.getpeername` but not the actual OS resource.  Unlike
    :func:`socket.fromfd`, *fileno* will return the same socket and not a
    duplicate. This may help close a detached socket using
@@ -890,7 +890,7 @@ The following functions all create :ref:`socket objects <socket-objects>`.
 
 .. data:: SocketType
 
-   This is a Python type object that represents the socket object type. It is the
+   This is a MyFRpy type object that represents the socket object type. It is the
    same as ``type(socket(...))``.
 
 
@@ -1000,7 +1000,7 @@ The :mod:`socket` module also offers various network-related services:
 
 .. function:: gethostname()
 
-   Return a string containing the hostname of the machine where  the Python
+   Return a string containing the hostname of the machine where  the MyFRpy
    interpreter is currently executing.
 
    .. audit-event:: socket.gethostname "" socket.gethostname
@@ -2038,7 +2038,7 @@ The :meth:`~socket.connect` operation is also subject to the timeout
 setting, and in general it is recommended to call :meth:`~socket.settimeout`
 before calling :meth:`~socket.connect` or pass a timeout parameter to
 :meth:`create_connection`.  However, the system network stack may also
-return a connection timeout error of its own regardless of any Python socket
+return a connection timeout error of its own regardless of any MyFRpy socket
 timeout setting.
 
 Timeouts and the ``accept`` method

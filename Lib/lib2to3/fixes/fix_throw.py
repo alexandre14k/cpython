@@ -28,7 +28,7 @@ class FixThrow(fixer_base.BaseFix):
 
         exc = results["exc"].clone()
         if exc.type is token.STRING:
-            self.cannot_convert(node, "Python 3 does not support string exceptions")
+            self.cannot_convert(node, "MyFRpy 3 does not support string exceptions")
             return
 
         # Leave "g.throw(E)" alone

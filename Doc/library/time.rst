@@ -276,7 +276,7 @@ Functions
    UTC.  It returns a floating point number, for compatibility with :func:`.time`.
    If the input value cannot be represented as a valid time, either
    :exc:`OverflowError` or :exc:`ValueError` will be raised (which depends on
-   whether the invalid value is caught by Python or the underlying C libraries).
+   whether the invalid value is caught by MyFRpy or the underlying C libraries).
    The earliest date for which it can generate a time is platform-dependent.
 
 

@@ -37,7 +37,7 @@ This module defines the following functions:
 .. function:: load(fp, /, *, parse_float=float)
 
    Read a TOML file. The first argument should be a readable and binary file object.
-   Return a :class:`dict`. Convert TOML types to Python using this
+   Return a :class:`dict`. Convert TOML types to MyFRpy using this
    :ref:`conversion table <toml-to-py-table>`.
 
    *parse_float* will be called with the string of every TOML
@@ -52,7 +52,7 @@ This module defines the following functions:
 .. function:: loads(s, /, *, parse_float=float)
 
    Load TOML from a :class:`str` object. Return a :class:`dict`. Convert TOML
-   types to Python using this :ref:`conversion table <toml-to-py-table>`. The
+   types to MyFRpy using this :ref:`conversion table <toml-to-py-table>`. The
    *parse_float* argument has the same meaning as in :func:`load`.
 
    A :exc:`TOMLDecodeError` will be raised on an invalid TOML document.
@@ -80,8 +80,8 @@ Parsing a TOML string::
     import tomllib
 
     toml_str = """
-    python-version = "3.11.0"
-    python-implementation = "CPython"
+    myFRpy-version = "3.11.0"
+    myFRpy-implementation = "CMyFRpy"
     """
 
     data = tomllib.loads(toml_str)
@@ -93,7 +93,7 @@ Conversion Table
 .. _toml-to-py-table:
 
 +------------------+--------------------------------------------------------------------------------------+
-| TOML             | Python                                                                               |
+| TOML             | MyFRpy                                                                               |
 +==================+======================================================================================+
 | TOML document    | dict                                                                                 |
 +------------------+--------------------------------------------------------------------------------------+

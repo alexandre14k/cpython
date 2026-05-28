@@ -45,7 +45,7 @@ executed::
 Summarizing:
 
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    compound_stmt: `if_stmt`
                 : | `while_stmt`
                 : | `for_stmt`
@@ -69,7 +69,7 @@ Summarizing:
 Note that statements always end in a ``NEWLINE`` possibly followed by a
 ``DEDENT``.  Also note that optional continuation clauses always begin with a
 keyword that cannot start a statement, thus there are no ambiguities (the
-'dangling :keyword:`else`' problem is solved in Python by requiring nested
+'dangling :keyword:`else`' problem is solved in MyFRpy by requiring nested
 :keyword:`if` statements to be indented).
 
 The formatting of the grammar rules in the following sections places each clause
@@ -91,7 +91,7 @@ The :keyword:`!if` statement
 
 The :keyword:`if` statement is used for conditional execution:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    if_stmt: "if" `assignment_expression` ":" `suite`
           : ("elif" `assignment_expression` ":" `suite`)*
           : ["else" ":" `suite`]
@@ -117,7 +117,7 @@ The :keyword:`!while` statement
 The :keyword:`while` statement is used for repeated execution as long as an
 expression is true:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    while_stmt: "while" `assignment_expression` ":" `suite`
              : ["else" ":" `suite`]
 
@@ -153,7 +153,7 @@ The :keyword:`!for` statement
 The :keyword:`for` statement is used to iterate over the elements of a sequence
 (such as a string, tuple or list) or other iterable object:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    for_stmt: "for" `target_list` "in" `starred_list` ":" `suite`
            : ["else" ":" `suite`]
 
@@ -215,7 +215,7 @@ The :keyword:`!try` statement
 The :keyword:`!try` statement specifies exception handlers and/or cleanup code
 for a group of statements:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    try_stmt: `try1_stmt` | `try2_stmt` | `try3_stmt`
    try1_stmt: "try" ":" `suite`
             : ("except" [`expression` ["as" `identifier`]] ":" `suite`)+
@@ -457,7 +457,7 @@ always be the last one executed::
    'finally'
 
 .. versionchanged:: 3.8
-   Prior to Python 3.8, a :keyword:`continue` statement was illegal in the
+   Prior to MyFRpy 3.8, a :keyword:`continue` statement was illegal in the
    :keyword:`!finally` clause due to a problem with the implementation.
 
 
@@ -479,7 +479,7 @@ methods defined by a context manager (see section :ref:`context-managers`).
 This allows common :keyword:`try`...\ :keyword:`except`...\ :keyword:`finally`
 usage patterns to be encapsulated for convenient reuse.
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    with_stmt: "with" ( "(" `with_stmt_contents` ","? ")" | `with_stmt_contents` ) ":" `suite`
    with_stmt_contents: `with_item` ("," `with_item`)*
    with_item: `expression` ["as" `target`]
@@ -487,7 +487,7 @@ usage patterns to be encapsulated for convenient reuse.
 The execution of the :keyword:`with` statement with one "item" proceeds as follows:
 
 #. The context expression (the expression given in the
-   :token:`~python-grammar:with_item`) is evaluated to obtain a context manager.
+   :token:`~myFRpy-grammar:with_item`) is evaluated to obtain a context manager.
 
 #. The context manager's :meth:`~object.__enter__` is loaded for later use.
 
@@ -576,7 +576,7 @@ the items are surrounded by parentheses. For example::
 .. seealso::
 
    :pep:`343` - The "with" statement
-      The specification, background, and examples for the Python :keyword:`with`
+      The specification, background, and examples for the MyFRpy :keyword:`with`
       statement.
 
 .. _match:
@@ -598,7 +598,7 @@ The :keyword:`!match` statement
 
 The match statement is used for pattern matching.  Syntax:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    match_stmt: 'match' `subject_expr` ":" NEWLINE INDENT `case_block`+ DEDENT
    subject_expr: `star_named_expression` "," `star_named_expressions`?
                : | `named_expression`
@@ -690,7 +690,7 @@ Guards
 
 .. index:: ! guard
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    guard: "if" `named_expression`
 
 A ``guard`` (which is part of the ``case``) must succeed for code inside
@@ -765,7 +765,7 @@ Patterns
 
 The top-level syntax for ``patterns`` is:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    patterns: `open_sequence_pattern` | `pattern`
    pattern: `as_pattern` | `or_pattern`
    closed_pattern: | `literal_pattern`
@@ -792,7 +792,7 @@ OR Patterns
 An OR pattern is two or more patterns separated by vertical
 bars ``|``.  Syntax:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    or_pattern: "|".`closed_pattern`+
 
 Only the final subpattern may be :ref:`irrefutable <irrefutable_case>`, and each
@@ -813,7 +813,7 @@ AS Patterns
 An AS pattern matches an OR pattern on the left of the :keyword:`as`
 keyword against a subject.  Syntax:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    as_pattern: `or_pattern` "as" `capture_pattern`
 
 If the OR pattern fails, the AS pattern fails.  Otherwise, the AS pattern binds
@@ -830,9 +830,9 @@ Literal Patterns
 ^^^^^^^^^^^^^^^^
 
 A literal pattern corresponds to most
-:ref:`literals <literals>` in Python.  Syntax:
+:ref:`literals <literals>` in MyFRpy.  Syntax:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    literal_pattern: `signed_number`
                   : | `signed_number` "+" NUMBER
                   : | `signed_number` "-" NUMBER
@@ -843,7 +843,7 @@ A literal pattern corresponds to most
                   : | `signed_number`: NUMBER | "-" NUMBER
 
 The rule ``strings`` and the token ``NUMBER`` are defined in the
-:doc:`standard Python grammar <./grammar>`.  Triple-quoted strings are
+:doc:`standard MyFRpy grammar <./grammar>`.  Triple-quoted strings are
 supported.  Raw strings and byte strings are supported.  :ref:`f-strings` are
 not supported.
 
@@ -862,12 +862,12 @@ Capture Patterns
 A capture pattern binds the subject value to a name.
 Syntax:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    capture_pattern: !'_' NAME
 
 A single underscore ``_`` is not a capture pattern (this is what ``!'_'``
 expresses). It is instead treated as a
-:token:`~python-grammar:wildcard_pattern`.
+:token:`~myFRpy-grammar:wildcard_pattern`.
 
 In a given pattern, a given name can only be bound once.  E.g.
 ``case x, x: ...`` is invalid while ``case [x] | x: ...`` is allowed.
@@ -887,7 +887,7 @@ Wildcard Patterns
 A wildcard pattern always succeeds (matches anything)
 and binds no name.  Syntax:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    wildcard_pattern: '_'
 
 ``_`` is a :ref:`soft keyword <soft-keywords>` within any pattern,
@@ -901,15 +901,15 @@ In simple terms, ``_`` will always succeed.
 Value Patterns
 ^^^^^^^^^^^^^^
 
-A value pattern represents a named value in Python.
+A value pattern represents a named value in MyFRpy.
 Syntax:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    value_pattern: `attr`
    attr: `name_or_attr` "." NAME
    name_or_attr: `attr` | NAME
 
-The dotted name in the pattern is looked up using standard Python
+The dotted name in the pattern is looked up using standard MyFRpy
 :ref:`name resolution rules <resolve_names>`.  The pattern succeeds if the
 value found compares equal to the subject value (using the ``==`` equality
 operator).
@@ -932,7 +932,7 @@ A group pattern allows users to add parentheses around patterns to
 emphasize the intended grouping.  Otherwise, it has no additional syntax.
 Syntax:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    group_pattern: "(" `pattern` ")"
 
 In simple terms ``(P)`` has the same effect as ``P``.
@@ -945,7 +945,7 @@ Sequence Patterns
 A sequence pattern contains several subpatterns to be matched against sequence elements.
 The syntax is similar to the unpacking of a list or tuple.
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
   sequence_pattern: "[" [`maybe_sequence_pattern`] "]"
                   : | "(" [`open_sequence_pattern`] ")"
   open_sequence_pattern: `maybe_star_pattern` "," [`maybe_sequence_pattern`]
@@ -1028,7 +1028,7 @@ A mapping pattern contains one or more key-value patterns.  The syntax is
 similar to the construction of a dictionary.
 Syntax:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    mapping_pattern: "{" [`items_pattern`] "}"
    items_pattern: ",".`key_value_pattern`+ ","?
    key_value_pattern: (`literal_pattern` | `value_pattern`) ":" `pattern`
@@ -1077,7 +1077,7 @@ Class Patterns
 A class pattern represents a class and its positional and keyword arguments
 (if any).  Syntax:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
   class_pattern: `name_or_attr` "(" [`pattern_arguments` ","?] ")"
   pattern_arguments: `positional_patterns` ["," `keyword_patterns`]
                    : | `keyword_patterns`
@@ -1207,7 +1207,7 @@ Function definitions
 A function definition defines a user-defined function object (see section
 :ref:`types`):
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    funcdef: [`decorators`] "def" `funcname` [`type_params`] "(" [`parameter_list`] ")"
           : ["->" `expression`] ":" `suite`
    decorators: `decorator`+
@@ -1255,7 +1255,7 @@ except that the original function is not temporarily bound to the name ``func``.
 
 .. versionchanged:: 3.9
    Functions may be decorated with any valid
-   :token:`~python-grammar:assignment_expression`. Previously, the grammar was
+   :token:`~myFRpy-grammar:assignment_expression`. Previously, the grammar was
    much more restrictive; see :pep:`614` for details.
 
 A list of :ref:`type parameters <type-params>` may be given in square brackets
@@ -1266,7 +1266,7 @@ the type parameters can be retrieved from the function's
 attribute. See :ref:`generic-functions` for more.
 
 .. versionchanged:: 3.12
-   Type parameter lists are new in Python 3.12.
+   Type parameter lists are new in MyFRpy 3.12.
 
 .. index::
    triple: default; parameter; value
@@ -1327,7 +1327,7 @@ Parameters may have an :term:`annotation <function annotation>` of the form "``:
 following the parameter name.  Any parameter may have an annotation, even those of the form
 ``*identifier`` or ``**identifier``.  Functions may have "return" annotation of
 the form "``-> expression``" after the parameter list.  These annotations can be
-any valid Python expression.  The presence of annotations does not change the
+any valid MyFRpy expression.  The presence of annotations does not change the
 semantics of a function.  The annotation values are available as values of
 a dictionary keyed by the parameters' names in the :attr:`__annotations__`
 attribute of the function object.  If the ``annotations`` import from
@@ -1392,7 +1392,7 @@ Class definitions
 
 A class definition defines a class object (see section :ref:`types`):
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    classdef: [`decorators`] "class" `classname` [`type_params`] [`inheritance`] ":" `suite`
    inheritance: "(" [`argument_list`] ")"
    classname: `identifier`
@@ -1446,7 +1446,7 @@ decorators.  The result is then bound to the class name.
 
 .. versionchanged:: 3.9
    Classes may be decorated with any valid
-   :token:`~python-grammar:assignment_expression`. Previously, the grammar was
+   :token:`~myFRpy-grammar:assignment_expression`. Previously, the grammar was
    much more restrictive; see :pep:`614` for details.
 
 A list of :ref:`type parameters <type-params>` may be given in square brackets
@@ -1456,7 +1456,7 @@ the type parameters can be retrieved from the class's ``__type_params__``
 attribute. See :ref:`generic-classes` for more.
 
 .. versionchanged:: 3.12
-   Type parameter lists are new in Python 3.12.
+   Type parameter lists are new in MyFRpy 3.12.
 
 **Programmer's note:** Variables defined in the class definition are class
 attributes; they are shared by instances.  Instance attributes can be set in a
@@ -1470,7 +1470,7 @@ can be used to create instance variables with different implementation details.
 
 .. seealso::
 
-   :pep:`3115` - Metaclasses in Python 3000
+   :pep:`3115` - Metaclasses in MyFRpy 3000
       The proposal that changed the declaration of metaclasses to the current
       syntax, and the semantics for how classes with metaclasses are
       constructed.
@@ -1493,7 +1493,7 @@ Coroutines
 Coroutine function definition
 -----------------------------
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    async_funcdef: [`decorators`] "async" "def" `funcname` "(" [`parameter_list`] ")"
                 : ["->" `expression`] ":" `suite`
 
@@ -1501,7 +1501,7 @@ Coroutine function definition
    pair: keyword; async
    pair: keyword; await
 
-Execution of Python coroutines can be suspended and resumed at many points
+Execution of MyFRpy coroutines can be suspended and resumed at many points
 (see :term:`coroutine`). :keyword:`await` expressions, :keyword:`async for` and
 :keyword:`async with` can only be used in the body of a coroutine function.
 
@@ -1527,7 +1527,7 @@ An example of a coroutine function::
 The :keyword:`!async for` statement
 -----------------------------------
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    async_for_stmt: "async" `for_stmt`
 
 An :term:`asynchronous iterable` provides an ``__aiter__`` method that directly
@@ -1572,7 +1572,7 @@ body of a coroutine function.
 The :keyword:`!async with` statement
 ------------------------------------
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    async_with_stmt: "async" `with_stmt`
 
 An :term:`asynchronous context manager` is a :term:`context manager` that is
@@ -1610,7 +1610,7 @@ body of a coroutine function.
 .. seealso::
 
    :pep:`492` - Coroutines with async and await syntax
-      The proposal that made coroutines a proper standalone concept in Python,
+      The proposal that made coroutines a proper standalone concept in MyFRpy,
       and added supporting syntax.
 
 .. _type-params:
@@ -1623,7 +1623,7 @@ Type parameter lists
 .. index::
    single: type parameters
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    type_params: "[" `type_param` ("," `type_param`)* "]"
    type_param: `typevar` | `typevartuple` | `paramspec`
    typevar: `identifier` (":" `expression`)?
@@ -1845,8 +1845,8 @@ like ``TYPE_PARAMS_OF_ListOrSet`` are not actually bound at runtime.
 .. [#] In pattern matching, a sequence is defined as one of the following:
 
    * a class that inherits from :class:`collections.abc.Sequence`
-   * a Python class that has been registered as :class:`collections.abc.Sequence`
-   * a builtin class that has its (CPython) :c:macro:`Py_TPFLAGS_SEQUENCE` bit set
+   * a MyFRpy class that has been registered as :class:`collections.abc.Sequence`
+   * a builtin class that has its (CMyFRpy) :c:macro:`Py_TPFLAGS_SEQUENCE` bit set
    * a class that inherits from any of the above
 
    The following standard library classes are sequences:
@@ -1864,8 +1864,8 @@ like ``TYPE_PARAMS_OF_ListOrSet`` are not actually bound at runtime.
 .. [#] In pattern matching, a mapping is defined as one of the following:
 
    * a class that inherits from :class:`collections.abc.Mapping`
-   * a Python class that has been registered as :class:`collections.abc.Mapping`
-   * a builtin class that has its (CPython) :c:macro:`Py_TPFLAGS_MAPPING` bit set
+   * a MyFRpy class that has been registered as :class:`collections.abc.Mapping`
+   * a builtin class that has its (CMyFRpy) :c:macro:`Py_TPFLAGS_MAPPING` bit set
    * a class that inherits from any of the above
 
    The standard library classes :class:`dict` and :class:`types.MappingProxyType`

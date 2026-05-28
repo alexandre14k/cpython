@@ -1,4 +1,4 @@
-# Run tests for functions in Python/fileutils.c.
+# Run tests for functions in MyFRpy/fileutils.c.
 
 import os
 import os.path

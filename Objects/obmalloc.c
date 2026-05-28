@@ -1,6 +1,6 @@
-/* Python's malloc wrappers (see pymem.h) */
+/* MyFRpy's malloc wrappers (see pymem.h) */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_code.h"          // stats
 #include "pycore_pystate.h"       // _PyInterpreterState_GET
 
@@ -273,7 +273,7 @@ int
 _PyMem_GetAllocatorName(const char *name, PyMemAllocatorName *allocator)
 {
     if (name == NULL || *name == '\0') {
-        /* PYTHONMALLOC is empty or is not set or ignored (-E/-I command line
+        /* MYFRPYMALLOC is empty or is not set or ignored (-E/-I command line
            nameions): use default memory allocators */
         *allocator = PYMEM_ALLOCATOR_DEFAULT;
     }
@@ -653,7 +653,7 @@ PyMem_RawMalloc(size_t size)
 {
     /*
      * Limit ourselves to PY_SSIZE_T_MAX bytes to prevent security holes.
-     * Most python internals blindly use a signed Py_ssize_t to track
+     * Most myFRpy internals blindly use a signed Py_ssize_t to track
      * things without checking for overflows or negatives.
      * As size_t is unsigned, checking for size < 0 is not required.
      */
@@ -1148,7 +1148,7 @@ new_arena(OMState *state)
 
     int debug_stats = _PyRuntime.obmalloc.dump_debug_stats;
     if (debug_stats == -1) {
-        const char *opt = Py_GETENV("PYTHONMALLOCSTATS");
+        const char *opt = Py_GETENV("MYFRPYMALLOCSTATS");
         debug_stats = (opt != NULL && *opt != '\0');
         _PyRuntime.obmalloc.dump_debug_stats = debug_stats;
     }
@@ -1314,7 +1314,7 @@ to get the correct result:  AO.address is 0 in this case, so the macro
 correctly reports that P is not controlled by obmalloc (despite that P lies in
 slice AO.address : AO.address + ARENA_SIZE).
 
-Note:  The third (AO.address != 0) clause was added in Python 2.5.  Before
+Note:  The third (AO.address != 0) clause was added in MyFRpy 2.5.  Before
 2.5, arenas were never free()'ed, and an arenaindex < maxarena always
 corresponded to a currently-allocated arena, so the "P is not controlled by
 obmalloc, AO corresponds to an unused arena_object, and P < ARENA_SIZE" case
@@ -1335,7 +1335,7 @@ static bool _Py_NO_SANITIZE_ADDRESS
 address_in_range(OMState *state, void *p, poolp pool)
 {
     // Since address_in_range may be reading from memory which was not allocated
-    // by Python, it is important that pool->arenaindex is read only once, as
+    // by MyFRpy, it is important that pool->arenaindex is read only once, as
     // another thread may be concurrently modifying the value without holding
     // the GIL. The following dance forces the compiler to read pool->arenaindex
     // only once.
@@ -1858,7 +1858,7 @@ _PyObject_Free(void *ctx, void *p)
 
 /* pymalloc realloc.
 
-   If nbytes==0, then as the Python docs promise, we do not treat this like
+   If nbytes==0, then as the MyFRpy docs promise, we do not treat this like
    free(p), and return a non-NULL result.
 
    Return 1 if pymalloc reallocated memory and wrote the new pointer into
@@ -2269,7 +2269,7 @@ _PyMem_DebugCheckGIL(const char *func)
 {
     if (!PyGILState_Check()) {
         _Py_FatalErrorFunc(func,
-                           "Python memory allocator called "
+                           "MyFRpy memory allocator called "
                            "without holding the GIL");
     }
 }

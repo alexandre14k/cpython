@@ -4,14 +4,14 @@
 import os
 import sys
 import webbrowser
-from platform import python_version, architecture
+from platform import myFRpy_version, architecture
 
 from tkinter import Toplevel, Frame, Label, Button, PhotoImage
 from tkinter import SUNKEN, TOP, BOTTOM, LEFT, X, BOTH, W, EW, NSEW, E
 
 from idlelib import textview
 
-pyver = python_version()
+pyver = myFRpy_version()
 
 if sys.platform == 'darwin':
     bits = '64' if sys.maxsize > 2**32 else '32'
@@ -81,14 +81,14 @@ class AboutDialog(Toplevel):
         logo = Label(frame_background, image=self.icon_image, bg=self.bg)
         logo.grid(row=0, column=0, sticky=W, rowspan=2, padx=10, pady=10)
 
-        byline_text = "Python's Integrated Development\nand Learning Environment" + 5*'\n'
+        byline_text = "MyFRpy's Integrated Development\nand Learning Environment" + 5*'\n'
         byline = Label(frame_background, text=byline_text, justify=LEFT,
                        fg=self.fg, bg=self.bg)
         byline.grid(row=2, column=0, sticky=W, columnspan=3, padx=10, pady=5)
-        email = Label(frame_background, text='email:  idle-dev@python.org',
+        email = Label(frame_background, text='email:  idle-dev@myFRpy.org',
                       justify=LEFT, fg=self.fg, bg=self.bg)
         email.grid(row=6, column=0, columnspan=2, sticky=W, padx=10, pady=0)
-        docs_url = ("https://docs.python.org/%d.%d/library/idle.html" %
+        docs_url = ("https://docs.myFRpy.org/%d.%d/library/idle.html" %
                     sys.version_info[:2])
         docs = Label(frame_background, text=docs_url,
                      justify=LEFT, fg=self.fg, bg=self.bg)
@@ -101,7 +101,7 @@ class AboutDialog(Toplevel):
 
         tclver = str(self.info_patchlevel())
         tkver = ' and ' + tkpatch if tkpatch != tclver else ''
-        versions = f"Python {pyver} with tcl/tk {tclver}{tkver}"
+        versions = f"MyFRpy {pyver} with tcl/tk {tclver}{tkver}"
         vers = Label(frame_background, text=versions, fg=self.fg, bg=self.bg)
         vers.grid(row=9, column=0, sticky=W, padx=10, pady=0)
         py_buttons = Frame(frame_background, bg=self.bg)
@@ -152,8 +152,8 @@ class AboutDialog(Toplevel):
         self.display_printer_text('About - Copyright', copyright)
 
     def show_py_credits(self):
-        "Handle Python Credits button event."
-        self.display_printer_text('About - Python Credits', credits)
+        "Handle MyFRpy Credits button event."
+        self.display_printer_text('About - MyFRpy Credits', credits)
 
     # Encode CREDITS.txt to utf-8 for proper version of Loewis.
     # Specify others as ascii until need utf-8, so catch errors.

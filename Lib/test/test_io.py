@@ -13,7 +13,7 @@
 ################################################################################
 # ATTENTION TEST WRITERS!!!
 ################################################################################
-# When writing tests for io, it's important to test both the C and Python
+# When writing tests for io, it's important to test both the C and MyFRpy
 # implementations. This is usually done by writing a base test that refers to
 # the type it is testing as an attribute. Then it provides custom subclasses to
 # test both implementations. This file has lots of examples.
@@ -38,7 +38,7 @@ from collections import deque, UserList
 from itertools import cycle, count
 from test import support
 from test.support.script_helper import (
-    assert_python_ok, assert_python_failure, run_python_until_end)
+    assert_myFRpy_ok, assert_myFRpy_failure, run_myFRpy_until_end)
 from test.support import import_helper
 from test.support import os_helper
 from test.support import threading_helper
@@ -48,7 +48,7 @@ from test.support.os_helper import FakePath
 
 import codecs
 import io  # C implementation of io
-import _pyio as pyio # Python implementation of io
+import _pyio as pyio # MyFRpy implementation of io
 
 try:
     import ctypes
@@ -265,7 +265,7 @@ class PyMockUnseekableIO(MockUnseekableIO, pyio.BytesIO):
 
 class MockCharPseudoDevFileIO(MockFileIO):
     # GH-95782
-    # ftruncate() does not work on these special files (and CPython then raises
+    # ftruncate() does not work on these special files (and CMyFRpy then raises
     # appropriate exceptions), so truncate() does not have to be accounted for
     # here.
     def __init__(self, data):
@@ -1067,7 +1067,7 @@ class CIOTest(IOTest):
         support.gc_collect()
         self.assertIsNone(wr(), wr)
 
-@support.cpython_only
+@support.cmyFRpy_only
 class TestIOCTypes(unittest.TestCase):
     def setUp(self):
         _io = import_helper.import_module("_io")
@@ -1160,19 +1160,19 @@ class PyIOTest(IOTest):
     pass
 
 
-@support.cpython_only
+@support.cmyFRpy_only
 class APIMismatchTest(unittest.TestCase):
 
     def test_RawIOBase_io_in_pyio_match(self):
         """Test that pyio RawIOBase class has all c RawIOBase methods"""
         mismatch = support.detect_api_mismatch(pyio.RawIOBase, io.RawIOBase,
                                                ignore=('__weakref__',))
-        self.assertEqual(mismatch, set(), msg='Python RawIOBase does not have all C RawIOBase methods')
+        self.assertEqual(mismatch, set(), msg='MyFRpy RawIOBase does not have all C RawIOBase methods')
 
     def test_RawIOBase_pyio_in_io_match(self):
         """Test that c RawIOBase class has all pyio RawIOBase methods"""
         mismatch = support.detect_api_mismatch(io.RawIOBase, pyio.RawIOBase)
-        self.assertEqual(mismatch, set(), msg='C RawIOBase does not have all Python RawIOBase methods')
+        self.assertEqual(mismatch, set(), msg='C RawIOBase does not have all MyFRpy RawIOBase methods')
 
 
 class CommonBufferedTests:
@@ -1350,7 +1350,7 @@ class CommonBufferedTests:
 
 class SizeofTest:
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_sizeof(self):
         bufsize1 = 4096
         bufsize2 = 8192
@@ -1361,7 +1361,7 @@ class SizeofTest:
         bufio = self.tp(rawio, buffer_size=bufsize2)
         self.assertEqual(sys.getsizeof(bufio), size + bufsize2)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_buffer_freeing(self) :
         bufsize = 4096
         rawio = self.MockRawIO()
@@ -1740,7 +1740,7 @@ class CBufferedReaderTest(BufferedReaderTest, SizeofTest):
 
     def test_garbage_collection(self):
         # C BufferedReader objects are collected.
-        # The Python version has __del__, so it ends into gc.garbage instead
+        # The MyFRpy version has __del__, so it ends into gc.garbage instead
         self.addCleanup(os_helper.unlink, os_helper.TESTFN)
         with warnings_helper.check_warnings(('', ResourceWarning)):
             rawio = self.FileIO(os_helper.TESTFN, "w+b")
@@ -1972,7 +1972,7 @@ class BufferedWriterTest(unittest.TestCase, CommonBufferedTests):
     def test_truncate_after_write(self):
         # Ensure that truncate preserves the file position after
         # writes longer than the buffer size.
-        # Issue: https://bugs.python.org/issue32228
+        # Issue: https://bugs.myFRpy.org/issue32228
         self.addCleanup(os_helper.unlink, os_helper.TESTFN)
         with self.open(os_helper.TESTFN, "wb") as f:
             # Fill with some buffer
@@ -2007,7 +2007,7 @@ class BufferedWriterTest(unittest.TestCase, CommonBufferedTests):
             # exercise situations where the GIL is released before
             # writing the buffer to the raw streams. This is in addition
             # to concurrency issues due to switching threads in the middle
-            # of Python code.
+            # of MyFRpy code.
             with self.open(os_helper.TESTFN, self.write_mode, buffering=0) as raw:
                 bufio = self.tp(raw, 8)
                 errors = []
@@ -2102,7 +2102,7 @@ class CBufferedWriterTest(BufferedWriterTest, SizeofTest):
     def test_garbage_collection(self):
         # C BufferedWriter objects are collected, and collecting them flushes
         # all data to disk.
-        # The Python version has __del__, so it ends into gc.garbage instead
+        # The MyFRpy version has __del__, so it ends into gc.garbage instead
         self.addCleanup(os_helper.unlink, os_helper.TESTFN)
         with warnings_helper.check_warnings(('', ResourceWarning)):
             rawio = self.FileIO(os_helper.TESTFN, "w+b")
@@ -2570,7 +2570,7 @@ class BufferedRandomTest(BufferedReaderTest, BufferedWriterTest):
             with self.tp(raw, 3) as f:
                 f.write(b"1")
                 # XXX: read(100) returns different numbers of bytes
-                # in Python and C implementations.
+                # in MyFRpy and C implementations.
                 self.assertEqual(f.read1(100)[:3], b'bcd')
                 f.flush()
                 self.assertEqual(raw.getvalue(), b'1bcdef')
@@ -2828,7 +2828,7 @@ class TextIOWrapperTest(unittest.TestCase):
     def test_non_text_encoding_codecs_are_rejected(self):
         # Ensure the constructor complains if passed a codec that isn't
         # marked as a text encoding
-        # http://bugs.python.org/issue20404
+        # http://bugs.myFRpy.org/issue20404
         r = self.BytesIO()
         b = self.BufferedWriter(r)
         with self.assertRaisesRegex(LookupError, "is not a text encoding"):
@@ -3733,7 +3733,7 @@ class TextIOWrapperTest(unittest.TestCase):
                     print("ok")
             c = C()
             """.format(iomod=iomod, kwargs=kwargs)
-        return assert_python_ok("-c", code)
+        return assert_myFRpy_ok("-c", code)
 
     def test_create_at_shutdown_without_encoding(self):
         rc, out, err = self._check_create_at_shutdown()
@@ -4006,7 +4006,7 @@ class CTextIOWrapperTest(TextIOWrapperTest):
     def test_garbage_collection(self):
         # C TextIOWrapper objects are collected, and collecting them flushes
         # all data to disk.
-        # The Python version has __del__, so it ends in gc.garbage instead.
+        # The MyFRpy version has __del__, so it ends in gc.garbage instead.
         with warnings_helper.check_warnings(('', ResourceWarning)):
             rawio = self.FileIO(os_helper.TESTFN, "wb")
             b = self.BufferedWriter(rawio)
@@ -4190,7 +4190,7 @@ class IncrementalNewlineDecoderTest(unittest.TestCase):
         self.assertEqual(decoder.decode(b"\r\r\n"), "\r\r\n")
 
 class CIncrementalNewlineDecoderTest(IncrementalNewlineDecoderTest):
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_uninitialized(self):
         uninitialized = self.IncrementalNewlineDecoder.__new__(
             self.IncrementalNewlineDecoder)
@@ -4240,7 +4240,7 @@ class MiscIOTest(unittest.TestCase):
         g.close()
 
     def test_removed_u_mode(self):
-        # bpo-37330: The "U" mode has been removed in Python 3.11
+        # bpo-37330: The "U" mode has been removed in MyFRpy 3.11
         for mode in ("U", "rU", "r+U"):
             with self.assertRaises(ValueError) as cm:
                 self.open(os_helper.TESTFN, mode)
@@ -4541,7 +4541,7 @@ class MiscIOTest(unittest.TestCase):
 
             sys.exit(10)
         ''')
-        proc = assert_python_failure('-X', 'dev', '-c', code)
+        proc = assert_myFRpy_failure('-X', 'dev', '-c', code)
         self.assertEqual(proc.rc, 10, proc)
 
     def test_check_encoding_warning(self):
@@ -4559,7 +4559,7 @@ class MiscIOTest(unittest.TestCase):
 
             pathlib.Path({filename!r}).read_text()  # line 8
         ''')
-        proc = assert_python_ok('-X', 'warn_default_encoding', '-c', code)
+        proc = assert_myFRpy_ok('-X', 'warn_default_encoding', '-c', code)
         warnings = proc.err.splitlines()
         self.assertEqual(len(warnings), 2)
         self.assertTrue(
@@ -4572,10 +4572,10 @@ class MiscIOTest(unittest.TestCase):
         # based on sys.flags.utf8_mode
         code = "import io; print(io.text_encoding(None))"
 
-        proc = assert_python_ok('-X', 'utf8=0', '-c', code)
+        proc = assert_myFRpy_ok('-X', 'utf8=0', '-c', code)
         self.assertEqual(b"locale", proc.out.strip())
 
-        proc = assert_python_ok('-X', 'utf8=1', '-c', code)
+        proc = assert_myFRpy_ok('-X', 'utf8=1', '-c', code)
         self.assertEqual(b"utf-8", proc.out.strip())
 
 
@@ -4611,7 +4611,7 @@ class CMiscIOTest(MiscIOTest):
 
             crash = SuppressCrashReport()
             crash.__enter__()
-            # don't call __exit__(): the crash occurs at Python shutdown
+            # don't call __exit__(): the crash occurs at MyFRpy shutdown
 
             thread = threading.Thread(target=run)
             thread.daemon = True
@@ -4621,11 +4621,11 @@ class CMiscIOTest(MiscIOTest):
             file.write('!')
             file.flush()
             """.format_map(locals())
-        res, _ = run_python_until_end("-c", code)
+        res, _ = run_myFRpy_until_end("-c", code)
         err = res.err.decode()
         if res.rc != 0:
             # Failure: should be a fatal error
-            pattern = (r"Fatal Python error: _enter_buffered_busy: "
+            pattern = (r"Fatal MyFRpy error: _enter_buffered_busy: "
                        r"could not acquire lock "
                        r"for <(_io\.)?BufferedWriter name='<{stream_name}>'> "
                        r"at interpreter shutdown, possibly due to "
@@ -4682,7 +4682,7 @@ class SignalsTest(unittest.TestCase):
         #   to have the same fileno (since the file descriptor was
         #   actively closed).  When wio.__del__ is finally called, it
         #   will close the other's test file...  To trigger this with
-        #   CPython, try adding "global wio" in this function.
+        #   CMyFRpy, try adding "global wio" in this function.
 
         # - This happens only for streams created by the _pyio module,
         #   because a wio.close() that fails still consider that the

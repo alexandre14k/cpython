@@ -61,7 +61,7 @@ except ImportError:
 
 requires_blake2 = unittest.skipUnless(_blake2, 'requires _blake2')
 
-# bpo-46913: Don't test the _sha3 extension on a Python UBSAN build
+# bpo-46913: Don't test the _sha3 extension on a MyFRpy UBSAN build
 # TODO(gh-99108): Revisit this after _sha3 uses HACL*.
 SKIP_SHA3 = support.check_sanitizer(ub=True)
 requires_sha3 = unittest.skipUnless(not SKIP_SHA3, 'requires _sha3')
@@ -76,7 +76,7 @@ def hexstr(s):
     return r
 
 
-URL = "http://www.pythontest.net/hashlib/{}.txt"
+URL = "http://www.myFRpytest.net/hashlib/{}.txt"
 
 def read_vectors(hash_name):
     url = URL.format(hash_name)
@@ -968,7 +968,7 @@ class HashLibTestCase(unittest.TestCase):
         if fips_mode is not None:
             self.assertIsInstance(fips_mode, int)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_disallow_instantiation(self):
         for algorithm, constructors in self.constructors_to_test.items():
             if algorithm.startswith(("sha3_", "shake", "blake")):

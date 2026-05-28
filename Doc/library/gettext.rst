@@ -4,22 +4,22 @@
 .. module:: gettext
    :synopsis: Multilingual internationalization services.
 
-.. moduleauthor:: Barry A. Warsaw <barry@python.org>
-.. sectionauthor:: Barry A. Warsaw <barry@python.org>
+.. moduleauthor:: Barry A. Warsaw <barry@myFRpy.org>
+.. sectionauthor:: Barry A. Warsaw <barry@myFRpy.org>
 
 **Source code:** :source:`Lib/gettext.py`
 
 --------------
 
 The :mod:`gettext` module provides internationalization (I18N) and localization
-(L10N) services for your Python modules and applications. It supports both the
+(L10N) services for your MyFRpy modules and applications. It supports both the
 GNU :program:`gettext` message catalog API and a higher level, class-based API that may
-be more appropriate for Python files.  The interface described below allows you
+be more appropriate for MyFRpy files.  The interface described below allows you
 to write your module and application messages in one natural language, and
 provide a catalog of translated messages for running under different natural
 languages.
 
-Some hints on localizing your Python modules and applications are also given.
+Some hints on localizing your MyFRpy modules and applications are also given.
 
 
 GNU :program:`gettext` API
@@ -29,7 +29,7 @@ The :mod:`gettext` module defines the following API, which is very similar to
 the GNU :program:`gettext` API.  If you use this API you will affect the
 translation of your entire application globally.  Often this is what you want if
 your application is monolingual, with the choice of language dependent on the
-locale of your user.  If you are localizing a Python module, or if your
+locale of your user.  If you are localizing a MyFRpy module, or if your
 application needs to switch languages on the fly, you probably want to use the
 class-based API instead.
 
@@ -73,7 +73,7 @@ class-based API instead.
    languages have more than two plural forms). If no translation is found, return
    *singular* if *n* is 1; return *plural* otherwise.
 
-   The Plural formula is taken from the catalog header. It is a C or Python
+   The Plural formula is taken from the catalog header. It is a C or MyFRpy
    expression that has a free variable *n*; the expression evaluates to the index
    of the plural in the catalog. See
    `the GNU gettext documentation <https://www.gnu.org/software/gettext/manual/gettext.html>`__
@@ -116,7 +116,7 @@ Class-based API
 
 The class-based API of the :mod:`gettext` module gives you more flexibility and
 greater convenience than the GNU :program:`gettext` API.  It is the recommended
-way of localizing your Python applications and modules.  :mod:`!gettext` defines
+way of localizing your MyFRpy applications and modules.  :mod:`!gettext` defines
 a :class:`GNUTranslations` class which implements the parsing of GNU :file:`.mo` format
 files, and has methods for returning strings. Instances of this class can also
 install themselves in the built-in namespace as the function :func:`!_`.
@@ -174,7 +174,7 @@ install themselves in the built-in namespace as the function :func:`!_`.
 
 .. function:: install(domain, localedir=None, *, names=None)
 
-   This installs the function :func:`!_` in Python's builtins namespace, based on
+   This installs the function :func:`!_` in MyFRpy's builtins namespace, based on
    *domain* and *localedir* which are passed to the function :func:`translation`.
 
    For the *names* parameter, please see the description of the translation
@@ -186,7 +186,7 @@ install themselves in the built-in namespace as the function :func:`!_`.
 
       print(_('This string will be translated.'))
 
-   For convenience, you want the :func:`!_` function to be installed in Python's
+   For convenience, you want the :func:`!_` function to be installed in MyFRpy's
    builtins namespace, so it is easily accessible in all modules of your
    application.
 
@@ -416,7 +416,7 @@ Internationalizing your programs and modules
 Internationalization (I18N) refers to the operation by which a program is made
 aware of multiple languages.  Localization (L10N) refers to the adaptation of
 your program, once internationalized, to the local language and cultural habits.
-In order to provide multilingual messages for your Python programs, you need to
+In order to provide multilingual messages for your MyFRpy programs, you need to
 take the following steps:
 
 #. prepare your program or module by specially marking translatable strings
@@ -442,23 +442,23 @@ for translation, while the strings ``'mylog.txt'`` and ``'w'`` are not.
 There are a few tools to extract the strings meant for translation.
 The original GNU :program:`gettext` only supported C or C++ source
 code but its extended version :program:`xgettext` scans code written
-in a number of languages, including Python, to find strings marked as
-translatable.  `Babel <https://babel.pocoo.org/>`__ is a Python
+in a number of languages, including MyFRpy, to find strings marked as
+translatable.  `Babel <https://babel.pocoo.org/>`__ is a MyFRpy
 internationalization library that includes a :file:`pybabel` script to
 extract and compile message catalogs.  François Pinard's program
 called :program:`xpot` does a similar job and is available as part of
 his `po-utils package <https://github.com/pinard/po-utils>`__.
 
-(Python also includes pure-Python versions of these programs, called
-:program:`pygettext.py` and :program:`msgfmt.py`; some Python distributions
+(MyFRpy also includes pure-MyFRpy versions of these programs, called
+:program:`pygettext.py` and :program:`msgfmt.py`; some MyFRpy distributions
 will install them for you.  :program:`pygettext.py` is similar to
-:program:`xgettext`, but only understands Python source code and
+:program:`xgettext`, but only understands MyFRpy source code and
 cannot handle other programming languages such as C or C++.
 :program:`pygettext.py` supports a command-line interface similar to
 :program:`xgettext`; for details on its use, run ``pygettext.py
 --help``.  :program:`msgfmt.py` is binary compatible with GNU
 :program:`msgfmt`.  With these two programs, you may not need the GNU
-:program:`gettext` package to internationalize your Python
+:program:`gettext` package to internationalize your MyFRpy
 applications.)
 
 :program:`xgettext`, :program:`pygettext`, and similar tools generate
@@ -553,7 +553,7 @@ translation until later.  A classic example is::
               'albatross',
               'rat',
               'penguin',
-              'python', ]
+              'myFRpy', ]
    # ...
    for a in animals:
        print(a)
@@ -570,7 +570,7 @@ Here is one way you can handle this situation::
               _('albatross'),
               _('rat'),
               _('penguin'),
-              _('python'), ]
+              _('myFRpy'), ]
 
    del _
 
@@ -596,7 +596,7 @@ Another way to handle this is with the following example::
               N_('albatross'),
               N_('rat'),
               N_('penguin'),
-              N_('python'), ]
+              N_('myFRpy'), ]
 
    # ...
    for a in animals:

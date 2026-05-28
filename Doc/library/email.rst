@@ -4,7 +4,7 @@
 .. module:: email
    :synopsis: Package supporting the parsing, manipulating, and generating
               email messages.
-.. moduleauthor:: Barry A. Warsaw <barry@python.org>,
+.. moduleauthor:: Barry A. Warsaw <barry@myFRpy.org>,
                   R. David Murray <rdmurray@bitdance.com>
 .. sectionauthor:: R. David Murray <rdmurray@bitdance.com>
 

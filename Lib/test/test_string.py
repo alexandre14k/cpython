@@ -281,7 +281,7 @@ class TestTemplate(unittest.TestCase):
         s = Template('$who likes $100')
         raises(ValueError, s.substitute, dict(who='tim'))
         # Template.idpattern should match to only ASCII characters.
-        # https://bugs.python.org/issue31672
+        # https://bugs.myFRpy.org/issue31672
         s = Template("$who likes $\u0131")  # (DOTLESS I)
         raises(ValueError, s.substitute, dict(who='tim'))
         s = Template("$who likes $\u0130")  # (LATIN CAPITAL LETTER I WITH DOT ABOVE)

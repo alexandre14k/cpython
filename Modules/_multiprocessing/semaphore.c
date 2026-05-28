@@ -23,13 +23,13 @@ typedef struct {
     char *name;
 } SemLockObject;
 
-/*[python input]
+/*[myFRpy input]
 class SEM_HANDLE_converter(CConverter):
     type = "SEM_HANDLE"
     format_unit = '"F_SEM_HANDLE"'
 
-[python start generated code]*/
-/*[python end generated code: output=da39a3ee5e6b4b0d input=3e0ad43e482d8716]*/
+[myFRpy start generated code]*/
+/*[myFRpy end generated code: output=da39a3ee5e6b4b0d input=3e0ad43e482d8716]*/
 
 /*[clinic input]
 module _multiprocessing

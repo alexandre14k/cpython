@@ -1,6 +1,6 @@
-# Python test set -- part 6, built-in types
+# MyFRpy test set -- part 6, built-in types
 
-from test.support import run_with_locale, cpython_only, MISSING_C_DOCSTRINGS
+from test.support import run_with_locale, cmyFRpy_only, MISSING_C_DOCSTRINGS
 import collections.abc
 from collections import namedtuple
 import copy
@@ -455,7 +455,7 @@ class TypesTests(unittest.TestCase):
         test( 1.0, '+f', '+1.000000')
         test(-1.0, '+f', '-1.000000')
 
-        # Python versions <= 3.0 switched from 'f' to 'g' formatting for
+        # MyFRpy versions <= 3.0 switched from 'f' to 'g' formatting for
         # values larger than 1e50.  No longer.
         f = 1.1234e90
         for fmt in 'f', 'F':
@@ -573,7 +573,7 @@ class TypesTests(unittest.TestCase):
         # mini-language parser.
 
         # Check that we can't ask for too many digits. This is
-        # probably a CPython specific test. It tries to put the width
+        # probably a CMyFRpy specific test. It tries to put the width
         # into a C long.
         self.assertRaises(ValueError, format, 0, '1'*10000 + 'd')
 
@@ -1034,7 +1034,7 @@ class UnionTests(unittest.TestCase):
         with self.assertRaises((TypeError, ZeroDivisionError)):
             str | _SpecialForm()
 
-    @cpython_only
+    @cmyFRpy_only
     def test_or_type_operator_reference_cycle(self):
         if not hasattr(sys, 'gettotalrefcount'):
             self.skipTest('Cannot get total reference count.')

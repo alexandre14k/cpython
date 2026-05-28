@@ -7,7 +7,7 @@ import subprocess
 
 from test import support
 from test.support import os_helper
-from test.support.script_helper import assert_python_ok
+from test.support.script_helper import assert_myFRpy_ok
 
 
 @support.requires_subprocess()
@@ -101,7 +101,7 @@ class TestTool(unittest.TestCase):
 
     def test_infile_stdout(self):
         infile = self._create_infile()
-        rc, out, err = assert_python_ok('-m', 'json.tool', infile)
+        rc, out, err = assert_myFRpy_ok('-m', 'json.tool', infile)
         self.assertEqual(rc, 0)
         self.assertEqual(out.splitlines(), self.expect.encode().splitlines())
         self.assertEqual(err, b'')
@@ -115,7 +115,7 @@ class TestTool(unittest.TestCase):
         ''').encode()
 
         infile = self._create_infile(data)
-        rc, out, err = assert_python_ok('-m', 'json.tool', infile)
+        rc, out, err = assert_myFRpy_ok('-m', 'json.tool', infile)
 
         self.assertEqual(rc, 0)
         self.assertEqual(out.splitlines(), expect.splitlines())
@@ -124,7 +124,7 @@ class TestTool(unittest.TestCase):
     def test_infile_outfile(self):
         infile = self._create_infile()
         outfile = os_helper.TESTFN + '.out'
-        rc, out, err = assert_python_ok('-m', 'json.tool', infile, outfile)
+        rc, out, err = assert_myFRpy_ok('-m', 'json.tool', infile, outfile)
         self.addCleanup(os.remove, outfile)
         with open(outfile, "r", encoding="utf-8") as fp:
             self.assertEqual(fp.read(), self.expect)
@@ -134,7 +134,7 @@ class TestTool(unittest.TestCase):
 
     def test_writing_in_place(self):
         infile = self._create_infile()
-        rc, out, err = assert_python_ok('-m', 'json.tool', infile, infile)
+        rc, out, err = assert_myFRpy_ok('-m', 'json.tool', infile, infile)
         with open(infile, "r", encoding="utf-8") as fp:
             self.assertEqual(fp.read(), self.expect)
         self.assertEqual(rc, 0)
@@ -148,14 +148,14 @@ class TestTool(unittest.TestCase):
         self.assertEqual(process.stderr, '')
 
     def test_help_flag(self):
-        rc, out, err = assert_python_ok('-m', 'json.tool', '-h')
+        rc, out, err = assert_myFRpy_ok('-m', 'json.tool', '-h')
         self.assertEqual(rc, 0)
         self.assertTrue(out.startswith(b'usage: '))
         self.assertEqual(err, b'')
 
     def test_sort_keys_flag(self):
         infile = self._create_infile()
-        rc, out, err = assert_python_ok('-m', 'json.tool', '--sort-keys', infile)
+        rc, out, err = assert_myFRpy_ok('-m', 'json.tool', '--sort-keys', infile)
         self.assertEqual(rc, 0)
         self.assertEqual(out.splitlines(),
                          self.expect_without_sort_keys.encode().splitlines())
@@ -202,7 +202,7 @@ class TestTool(unittest.TestCase):
         infile = self._create_infile('{"key":"💩"}')
         outfile = os_helper.TESTFN + '.out'
         self.addCleanup(os.remove, outfile)
-        assert_python_ok('-m', 'json.tool', '--no-ensure-ascii', infile, outfile)
+        assert_myFRpy_ok('-m', 'json.tool', '--no-ensure-ascii', infile, outfile)
         with open(outfile, "rb") as f:
             lines = f.read().splitlines()
         # asserting utf-8 encoded output file
@@ -213,7 +213,7 @@ class TestTool(unittest.TestCase):
         infile = self._create_infile('{"key":"💩"}')
         outfile = os_helper.TESTFN + '.out'
         self.addCleanup(os.remove, outfile)
-        assert_python_ok('-m', 'json.tool', infile, outfile)
+        assert_myFRpy_ok('-m', 'json.tool', infile, outfile)
         with open(outfile, "rb") as f:
             lines = f.read().splitlines()
         # asserting an ascii encoded output file

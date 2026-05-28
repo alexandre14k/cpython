@@ -9,7 +9,7 @@ from test.support import os_helper
 
 if not hasattr(sys.stdin, 'newlines'):
     raise unittest.SkipTest(
-        "This Python does not have universal newline support")
+        "This MyFRpy does not have universal newline support")
 
 FATX = 'x' * (2**14)
 

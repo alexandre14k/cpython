@@ -4,8 +4,8 @@
 .. module:: textwrap
    :synopsis: Text wrapping and filling
 
-.. moduleauthor:: Greg Ward <gward@python.net>
-.. sectionauthor:: Greg Ward <gward@python.net>
+.. moduleauthor:: Greg Ward <gward@myFRpy.net>
+.. sectionauthor:: Greg Ward <gward@myFRpy.net>
 
 **Source code:** :source:`Lib/textwrap.py`
 

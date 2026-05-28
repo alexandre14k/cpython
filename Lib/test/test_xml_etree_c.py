@@ -118,7 +118,7 @@ class MiscTests(unittest.TestCase):
         elem.tail = X()
         elem.__setstate__({'tag': 42})  # shouldn't cause an assertion failure
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_uninitialized_parser(self):
         # The interpreter shouldn't crash in case of calling methods or
         # accessing attributes of uninitialized XMLParser objects.
@@ -181,7 +181,7 @@ class MiscTests(unittest.TestCase):
         r = e.get(X())
         self.assertIsNone(r)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_immutable_types(self):
         root = cET.fromstring('<a></a>')
         dataset = (
@@ -195,7 +195,7 @@ class MiscTests(unittest.TestCase):
                 with self.assertRaisesRegex(TypeError, "immutable"):
                     tp.foo = 1
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_disallow_instantiation(self):
         root = cET.fromstring('<a></a>')
         iter_type = type(root.iter())
@@ -211,7 +211,7 @@ class TestAliasWorking(unittest.TestCase):
 
 
 @unittest.skipUnless(cET, 'requires _elementtree')
-@support.cpython_only
+@support.cmyFRpy_only
 class TestAcceleratorImported(unittest.TestCase):
     # Test that the C accelerator was imported, as expected
     def test_correct_import_cET(self):
@@ -222,14 +222,14 @@ class TestAcceleratorImported(unittest.TestCase):
         self.assertEqual(cET_alias.SubElement.__module__, '_elementtree')
 
     def test_parser_comes_from_C(self):
-        # The type of methods defined in Python code is types.FunctionType,
+        # The type of methods defined in MyFRpy code is types.FunctionType,
         # while the type of methods defined inside _elementtree is
         # <class 'wrapper_descriptor'>
         self.assertNotIsInstance(cET.Element.__init__, types.FunctionType)
 
 
 @unittest.skipUnless(cET, 'requires _elementtree')
-@support.cpython_only
+@support.cmyFRpy_only
 class SizeofTest(unittest.TestCase):
     def setUp(self):
         self.elementsize = support.calcobjsize('5P')

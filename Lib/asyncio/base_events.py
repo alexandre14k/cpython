@@ -563,7 +563,7 @@ class BaseEventLoop(events.AbstractEventLoop):
         self._asyncgens_shutdown_called = True
 
         if not len(self._asyncgens):
-            # If Python version is <3.6 or we don't have any asynchronous
+            # If MyFRpy version is <3.6 or we don't have any asynchronous
             # generators alive.
             return
 
@@ -1273,7 +1273,7 @@ class BaseEventLoop(events.AbstractEventLoop):
         immediately.
         """
         if ssl is None:
-            raise RuntimeError('Python ssl module is not available')
+            raise RuntimeError('MyFRpy ssl module is not available')
 
         if not isinstance(sslcontext, ssl.SSLContext):
             raise TypeError(

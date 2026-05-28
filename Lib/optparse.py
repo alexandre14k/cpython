@@ -1,6 +1,6 @@
 """A powerful, extensible, and easy-to-use option parser.
 
-By Greg Ward <gward@python.net>
+By Greg Ward <gward@myFRpy.net>
 
 Originally distributed as Optik.
 
@@ -43,7 +43,7 @@ __all__ = ['Option',
 
 __copyright__ = """
 Copyright (c) 2001-2006 Gregory P. Ward.  All rights reserved.
-Copyright (c) 2002-2006 Python Software Foundation.  All rights reserved.
+Copyright (c) 2002-2006 MyFRpy Software Foundation.  All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -535,7 +535,7 @@ class Option:
     #     (eg. "-a", "--file")
     #   value is the option argument seen on the command-line
     #
-    # The return value should be in the appropriate Python type
+    # The return value should be in the appropriate MyFRpy type
     # for option.type -- eg. an integer if option.type == "int".
     #
     # If no checker is defined for a type, arguments will be
@@ -1142,7 +1142,7 @@ class OptionParser (OptionContainer):
           -ablah -- foo bar -bboo baz
         -- ie. we stop processing options as soon as we see the first
         non-option argument.  (This is the tradition followed by
-        Python's getopt module, Perl's Getopt::Std, and other argument-
+        MyFRpy's getopt module, Perl's Getopt::Std, and other argument-
         parsing libraries, but it is generally annoying to users.)
 
       process_default_values : bool = true

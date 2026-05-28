@@ -14,7 +14,7 @@ Objects are never allocated statically or on the stack; they must be
 accessed through special macros and functions only.  (Type objects are
 exceptions to the first rule; the standard types are represented by
 statically initialized type objects, although work on type/class unification
-for Python 2.2 made it possible to have heap-allocated type objects too).
+for MyFRpy 2.2 made it possible to have heap-allocated type objects too).
 
 An object has a 'reference count' that is increased or decreased when a
 pointer to the object is copied or deleted; when the reference count
@@ -159,8 +159,8 @@ check by comparing the reference count field to the immortality reference count.
 #define Py_INVALID_SIZE (Py_ssize_t)-1
 
 /* Nothing is actually declared to be a PyObject, but every pointer to
- * a Python object can be cast to a PyObject*.  This is inheritance built
- * by hand.  Similarly every pointer to a variable-size Python object can,
+ * a MyFRpy object can be cast to a PyObject*.  This is inheritance built
+ * by hand.  Similarly every pointer to a variable-size MyFRpy object can,
  * in addition, be cast to PyVarObject*.
  */
 struct _object {
@@ -202,7 +202,7 @@ typedef struct {
 #define _PyVarObject_CAST(op) _Py_CAST(PyVarObject*, (op))
 
 
-// Test if the 'x' object is the 'y' object, the same as "x is y" in Python.
+// Test if the 'x' object is the 'y' object, the same as "x is y" in MyFRpy.
 PyAPI_FUNC(int) Py_Is(PyObject *x, PyObject *y);
 #define Py_Is(x, y) ((x) == (y))
 
@@ -423,7 +423,7 @@ PyAPI_FUNC(int) PyObject_Not(PyObject *);
 PyAPI_FUNC(int) PyCallable_Check(PyObject *);
 PyAPI_FUNC(void) PyObject_ClearWeakRefs(PyObject *);
 
-/* PyObject_Dir(obj) acts like Python builtins.dir(obj), returning a
+/* PyObject_Dir(obj) acts like MyFRpy builtins.dir(obj), returning a
    list of strings.  PyObject_Dir(NULL) is like builtins.dir(),
    returning the names of the current locals.  In this case, if there are
    no current locals, NULL is returned, and PyErr_Occurred() is false.
@@ -453,7 +453,7 @@ Arbitration of the flag bit positions will need to be coordinated among
 all extension writers who publicly release their extensions (this will
 be fewer than you might expect!).
 
-Most flags were removed as of Python 3.0 to make room for new flags.  (Some
+Most flags were removed as of MyFRpy 3.0 to make room for new flags.  (Some
 flags are not for backwards compatibility but to indicate the presence of an
 optional feature; these flags remain of course.)
 
@@ -503,7 +503,7 @@ given type object has a specified feature.
 #if !defined(Py_LIMITED_API) || Py_LIMITED_API+0 >= 0x030C0000
 #define Py_TPFLAGS_HAVE_VECTORCALL (1UL << 11)
 #ifndef Py_LIMITED_API
-// Backwards compatibility alias for API that was provisional in Python 3.8
+// Backwards compatibility alias for API that was provisional in MyFRpy 3.8
 #define _Py_TPFLAGS_HAVE_VECTORCALL Py_TPFLAGS_HAVE_VECTORCALL
 #endif
 #endif
@@ -517,7 +517,7 @@ given type object has a specified feature.
 /* Objects support garbage collection (see objimpl.h) */
 #define Py_TPFLAGS_HAVE_GC (1UL << 14)
 
-/* These two bits are preserved for Stackless Python, next after this is 17 */
+/* These two bits are preserved for Stackless MyFRpy, next after this is 17 */
 #ifdef STACKLESS
 #define Py_TPFLAGS_HAVE_STACKLESS_EXTENSION (3UL << 15)
 #else
@@ -556,13 +556,13 @@ given type object has a specified feature.
                 0)
 
 /* NOTE: Some of the following flags reuse lower bits (removed as part of the
- * Python 3.0 transition). */
+ * MyFRpy 3.0 transition). */
 
 /* The following flags are kept for compatibility; in previous
  * versions they indicated presence of newer tp_* fields on the
  * type struct.
  * Starting with 3.8, binary compatibility of C extensions across
- * feature releases of Python is not supported anymore (except when
+ * feature releases of MyFRpy is not supported anymore (except when
  * using the stable ABI, in which all classes are created dynamically,
  * using the interpreter's memory layout.)
  * Note that older extensions using the stable ABI set these flags,
@@ -590,7 +590,7 @@ we ignore the possibility.  Provided a C int is at least 32 bits (which
 is implicitly assumed in many parts of this code), that's enough for
 about 2**31 references to an object.
 
-XXX The following became out of date in Python 2.2, but I'm not sure
+XXX The following became out of date in MyFRpy 2.2, but I'm not sure
 XXX what the full truth is now.  Certainly, heap-allocated type objects
 XXX can and should be deallocated.
 Type objects should never be deallocated; the type pointer in an object
@@ -610,8 +610,8 @@ PyAPI_FUNC(void) _Py_DECREF_DecRefTotal(void);
 PyAPI_FUNC(void) _Py_Dealloc(PyObject *);
 
 /*
-These are provided as conveniences to Python runtime embedders, so that
-they can have object code that is not dependent on Python compilation flags.
+These are provided as conveniences to MyFRpy runtime embedders, so that
+they can have object code that is not dependent on MyFRpy compilation flags.
 */
 PyAPI_FUNC(void) Py_IncRef(PyObject *);
 PyAPI_FUNC(void) Py_DecRef(PyObject *);
@@ -625,8 +625,8 @@ static inline Py_ALWAYS_INLINE void Py_INCREF(PyObject *op)
 {
 #if defined(Py_LIMITED_API) && (Py_LIMITED_API+0 >= 0x030c0000 || defined(Py_REF_DEBUG))
     // Stable ABI implements Py_INCREF() as a function call on limited C API
-    // version 3.12 and newer, and on Python built in debug mode. _Py_IncRef()
-    // was added to Python 3.10.0a7, use Py_IncRef() on older Python versions.
+    // version 3.12 and newer, and on MyFRpy built in debug mode. _Py_IncRef()
+    // was added to MyFRpy 3.10.0a7, use Py_IncRef() on older MyFRpy versions.
     // Py_IncRef() accepts NULL whereas _Py_IncRef() doesn't.
 #  if Py_LIMITED_API+0 >= 0x030a00A7
     _Py_IncRef(op);
@@ -634,7 +634,7 @@ static inline Py_ALWAYS_INLINE void Py_INCREF(PyObject *op)
     Py_IncRef(op);
 #  endif
 #else
-    // Non-limited C API and limited C API for Python 3.9 and older access
+    // Non-limited C API and limited C API for MyFRpy 3.9 and older access
     // directly PyObject.ob_refcnt.
 #if SIZEOF_VOID_P > 4
     // Portable saturated add, branching on the carry flag and set low bits
@@ -663,8 +663,8 @@ static inline Py_ALWAYS_INLINE void Py_INCREF(PyObject *op)
 
 #if defined(Py_LIMITED_API) && (Py_LIMITED_API+0 >= 0x030c0000 || defined(Py_REF_DEBUG))
 // Stable ABI implements Py_DECREF() as a function call on limited C API
-// version 3.12 and newer, and on Python built in debug mode. _Py_DecRef() was
-// added to Python 3.10.0a7, use Py_DecRef() on older Python versions.
+// version 3.12 and newer, and on MyFRpy built in debug mode. _Py_DecRef() was
+// added to MyFRpy 3.10.0a7, use Py_DecRef() on older MyFRpy versions.
 // Py_DecRef() accepts NULL whereas _Py_IncRef() doesn't.
 static inline void Py_DECREF(PyObject *op) {
 #  if Py_LIMITED_API+0 >= 0x030a00A7
@@ -695,7 +695,7 @@ static inline void Py_DECREF(const char *filename, int lineno, PyObject *op)
 #else
 static inline Py_ALWAYS_INLINE void Py_DECREF(PyObject *op)
 {
-    // Non-limited C API and limited C API for Python 3.9 and older access
+    // Non-limited C API and limited C API for MyFRpy 3.9 and older access
     // directly PyObject.ob_refcnt.
     if (_Py_IsImmortal(op)) {
         return;
@@ -722,7 +722,7 @@ static inline Py_ALWAYS_INLINE void Py_DECREF(PyObject *op)
  * `containee` is non-NULL with a refcount of 1.  Its refcount falls to
  * 0 on the first line, which can trigger an arbitrary amount of code,
  * possibly including finalizers (like __del__ methods or weakref callbacks)
- * coded in Python, which in turn can release the GIL and allow other threads
+ * coded in MyFRpy, which in turn can release the GIL and allow other threads
  * to run, etc.  Such code may even invoke methods of `self` again, or cause
  * cyclic gc to trigger, but-- oops! --self->containee still points to the
  * object being torn down, and it may be in an insane state while being torn
@@ -738,9 +738,9 @@ static inline Py_ALWAYS_INLINE void Py_DECREF(PyObject *op)
  * `op` points to a valid object.
  *
  * There are cases where it's safe to use the naive code, but they're brittle.
- * For example, if `op` points to a Python integer, you know that destroying
+ * For example, if `op` points to a MyFRpy integer, you know that destroying
  * one of those can't cause problems -- but in part that relies on that
- * Python integers aren't currently weakly referencable.  Best practice is
+ * MyFRpy integers aren't currently weakly referencable.  Best practice is
  * to use Py_CLEAR() even if you can't think of a reason for why you need to.
  *
  * gh-98724: Use a temporary variable to only evaluate the macro argument once,
@@ -842,7 +842,7 @@ Don't forget to apply Py_INCREF() when returning this value!!!
 PyAPI_DATA(PyObject) _Py_NoneStruct; /* Don't use this directly */
 #define Py_None (&_Py_NoneStruct)
 
-// Test if an object is the None singleton, the same as "x is None" in Python.
+// Test if an object is the None singleton, the same as "x is None" in MyFRpy.
 PyAPI_FUNC(int) Py_IsNone(PyObject *x);
 #define Py_IsNone(x) Py_Is((x), Py_None)
 
@@ -949,9 +949,9 @@ times.
 */
 
 #ifndef Py_LIMITED_API
-#  define Py_CPYTHON_OBJECT_H
-#  include "cpython/object.h"
-#  undef Py_CPYTHON_OBJECT_H
+#  define Py_CMYFRPY_OBJECT_H
+#  include "cmyFRpy/object.h"
+#  undef Py_CMYFRPY_OBJECT_H
 #endif
 
 

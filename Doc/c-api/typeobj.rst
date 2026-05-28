@@ -5,11 +5,11 @@
 Type Objects
 ============
 
-Perhaps one of the most important structures of the Python object system is the
+Perhaps one of the most important structures of the MyFRpy object system is the
 structure that defines a new type: the :c:type:`PyTypeObject` structure.  Type
 objects can be handled using any of the ``PyObject_*`` or
 ``PyType_*`` functions, but do not offer much that's interesting to most
-Python applications. These objects are fundamental to how objects behave, so
+MyFRpy applications. These objects are fundamental to how objects behave, so
 they are very important to the interpreter itself and to any extension module
 that implements new types.
 
@@ -543,7 +543,7 @@ type objects) *must* have the :c:member:`~PyVarObject.ob_size` field.
    This could be used for various debugging purposes; currently the only uses
    are the :func:`sys.getobjects` function and to print the objects that are
    still alive at the end of a run when the environment variable
-   :envvar:`PYTHONDUMPREFS` is set.
+   :envvar:`MYFRPYDUMPREFS` is set.
 
    **Inheritance:**
 
@@ -733,15 +733,15 @@ and :c:data:`PyType_Type` effectively act as defaults.)
    .. versionchanged:: 3.8
 
       Before version 3.8, this slot was named ``tp_print``.
-      In Python 2.x, it was used for printing to a file.
-      In Python 3.0 to 3.7, it was unused.
+      In MyFRpy 2.x, it was used for printing to a file.
+      In MyFRpy 3.0 to 3.7, it was unused.
 
    .. versionchanged:: 3.12
 
       Before version 3.12, it was not recommended for
       :ref:`mutable heap types <heap-types>` to implement the vectorcall
       protocol.
-      When a user sets :attr:`~object.__call__` in Python code, only *tp_call* is
+      When a user sets :attr:`~object.__call__` in MyFRpy code, only *tp_call* is
       updated, likely making it inconsistent with the vectorcall function.
       Since 3.12, setting ``__call__`` will disable vectorcall optimization
       by clearing the :c:macro:`Py_TPFLAGS_HAVE_VECTORCALL` flag.
@@ -761,7 +761,7 @@ and :c:data:`PyType_Type` effectively act as defaults.)
 
    This field is deprecated.  When it is defined, it should point to a function
    that acts the same as the :c:member:`~PyTypeObject.tp_getattro` function, but taking a C string
-   instead of a Python string object to give the attribute name.
+   instead of a MyFRpy string object to give the attribute name.
 
    **Inheritance:**
 
@@ -778,7 +778,7 @@ and :c:data:`PyType_Type` effectively act as defaults.)
 
    This field is deprecated.  When it is defined, it should point to a function
    that acts the same as the :c:member:`~PyTypeObject.tp_setattro` function, but taking a C string
-   instead of a Python string object to give the attribute name.
+   instead of a MyFRpy string object to give the attribute name.
 
    **Inheritance:**
 
@@ -890,10 +890,10 @@ and :c:data:`PyType_Type` effectively act as defaults.)
 
    This field can be set explicitly to :c:func:`PyObject_HashNotImplemented` to
    block inheritance of the hash method from a parent type. This is interpreted
-   as the equivalent of ``__hash__ = None`` at the Python level, causing
+   as the equivalent of ``__hash__ = None`` at the MyFRpy level, causing
    ``isinstance(o, collections.Hashable)`` to correctly return ``False``. Note
    that the converse is also true - setting ``__hash__ = None`` on a class at
-   the Python level will result in the ``tp_hash`` slot being set to
+   the MyFRpy level will result in the ``tp_hash`` slot being set to
    :c:func:`PyObject_HashNotImplemented`.
 
    **Inheritance:**
@@ -1186,7 +1186,7 @@ and :c:data:`PyType_Type` effectively act as defaults.)
 
       When setting this flag, be sure that all superclasses either
       use this memory layout, or are not variable-sized.
-      Python does not check this.
+      MyFRpy does not check this.
 
       .. versionadded:: 3.12
 
@@ -1343,7 +1343,7 @@ and :c:data:`PyType_Type` effectively act as defaults.)
 
       .. warning::
          This flag is present in header files, but is an internal feature and should
-         not be used. It will be removed in a future version of CPython
+         not be used. It will be removed in a future version of CMyFRpy
 
 
 .. c:member:: const char* PyTypeObject.tp_doc
@@ -1364,12 +1364,12 @@ and :c:data:`PyType_Type` effectively act as defaults.)
 
       int tp_traverse(PyObject *self, visitproc visit, void *arg);
 
-   More information about Python's garbage collection scheme can be found
+   More information about MyFRpy's garbage collection scheme can be found
    in section :ref:`supporting-cycle-detection`.
 
    The :c:member:`~PyTypeObject.tp_traverse` pointer is used by the garbage collector to detect
    reference cycles. A typical implementation of a :c:member:`~PyTypeObject.tp_traverse` function
-   simply calls :c:func:`Py_VISIT` on each of the instance's members that are Python
+   simply calls :c:func:`Py_VISIT` on each of the instance's members that are MyFRpy
    objects that the instance owns. For example, this is function :c:func:`!local_traverse` from the
    :mod:`!_thread` extension module::
 
@@ -1384,7 +1384,7 @@ and :c:data:`PyType_Type` effectively act as defaults.)
 
    Note that :c:func:`Py_VISIT` is called only on those members that can participate
    in reference cycles.  Although there is also a ``self->key`` member, it can only
-   be ``NULL`` or a Python string and therefore cannot be part of a reference cycle.
+   be ``NULL`` or a MyFRpy string and therefore cannot be part of a reference cycle.
 
    On the other hand, even if you know a member can never be part of a cycle, as a
    debugging aid you may want to visit it anyway just so the :mod:`gc` module's
@@ -1416,8 +1416,8 @@ and :c:data:`PyType_Type` effectively act as defaults.)
    .. versionchanged:: 3.9
 
       Heap-allocated types are expected to visit ``Py_TYPE(self)`` in
-      ``tp_traverse``.  In earlier versions of Python, due to
-      `bug 40217 <https://bugs.python.org/issue40217>`_, doing this
+      ``tp_traverse``.  In earlier versions of MyFRpy, due to
+      `bug 40217 <https://bugs.myFRpy.org/issue40217>`_, doing this
       may lead to crashes in subclasses.
 
    **Inheritance:**
@@ -1448,7 +1448,7 @@ and :c:data:`PyType_Type` effectively act as defaults.)
    rarely a good reason to avoid implementing :c:member:`~PyTypeObject.tp_clear`.
 
    Implementations of :c:member:`~PyTypeObject.tp_clear` should drop the instance's references to
-   those of its members that may be Python objects, and set its pointers to those
+   those of its members that may be MyFRpy objects, and set its pointers to those
    members to ``NULL``, as in the following example::
 
       static int
@@ -1467,7 +1467,7 @@ and :c:data:`PyType_Type` effectively act as defaults.)
    after the pointer to the contained object is set to ``NULL``.  This is because
    releasing the reference may cause the contained object to become trash,
    triggering a chain of reclamation activity that may include invoking arbitrary
-   Python code (due to finalizers, or weakref callbacks, associated with the
+   MyFRpy code (due to finalizers, or weakref callbacks, associated with the
    contained object). If it's possible for such code to reference *self* again,
    it's important that the pointer to the contained object be ``NULL`` at that time,
    so that *self* knows the contained object can no longer be used.  The
@@ -1480,12 +1480,12 @@ and :c:data:`PyType_Type` effectively act as defaults.)
    called directly.
 
    Because the goal of :c:member:`~PyTypeObject.tp_clear` functions is to break reference cycles,
-   it's not necessary to clear contained objects like Python strings or Python
+   it's not necessary to clear contained objects like MyFRpy strings or MyFRpy
    integers, which can't participate in reference cycles. On the other hand, it may
-   be convenient to clear all contained Python objects, and write the type's
+   be convenient to clear all contained MyFRpy objects, and write the type's
    :c:member:`~PyTypeObject.tp_dealloc` function to invoke :c:member:`~PyTypeObject.tp_clear`.
 
-   More information about Python's garbage collection scheme can be found in
+   More information about MyFRpy's garbage collection scheme can be found in
    section :ref:`supporting-cycle-detection`.
 
    **Inheritance:**
@@ -1711,7 +1711,7 @@ and :c:data:`PyType_Type` effectively act as defaults.)
 
    **Default:**
 
-   This field defaults to ``&PyBaseObject_Type`` (which to Python
+   This field defaults to ``&PyBaseObject_Type`` (which to MyFRpy
    programmers is known as the type :class:`object`).
 
 
@@ -1910,7 +1910,7 @@ and :c:data:`PyType_Type` effectively act as defaults.)
    deferred to :c:member:`~PyTypeObject.tp_init`.
 
    Set the :c:macro:`Py_TPFLAGS_DISALLOW_INSTANTIATION` flag to disallow creating
-   instances of the type in Python.
+   instances of the type in MyFRpy.
 
    **Inheritance:**
 
@@ -1981,7 +1981,7 @@ and :c:data:`PyType_Type` effectively act as defaults.)
    Tuple of base types.
 
    This field should be set to ``NULL`` and treated as read-only.
-   Python will fill it in when the type is :c:func:`initialized <PyType_Ready>`.
+   MyFRpy will fill it in when the type is :c:func:`initialized <PyType_Ready>`.
 
    For dynamically created classes, the ``Py_tp_bases``
    :c:type:`slot <PyType_Slot>` can be used instead of the *bases* argument
@@ -1991,7 +1991,7 @@ and :c:data:`PyType_Type` effectively act as defaults.)
    .. warning::
 
       Multiple inheritance does not work well for statically defined types.
-      If you set ``tp_bases`` to a tuple, Python will not raise an error,
+      If you set ``tp_bases`` to a tuple, MyFRpy will not raise an error,
       but some slots will only be inherited from the first base.
 
    **Inheritance:**
@@ -2005,7 +2005,7 @@ and :c:data:`PyType_Type` effectively act as defaults.)
    and ending with :class:`object`, in Method Resolution Order.
 
    This field should be set to ``NULL`` and treated as read-only.
-   Python will fill it in when the type is :c:func:`initialized <PyType_Ready>`.
+   MyFRpy will fill it in when the type is :c:func:`initialized <PyType_Ready>`.
 
    **Inheritance:**
 
@@ -2026,7 +2026,7 @@ and :c:data:`PyType_Type` effectively act as defaults.)
 
    A collection of subclasses.  Internal use only.  May be an invalid pointer.
 
-   To get a list of subclasses, call the Python method
+   To get a list of subclasses, call the MyFRpy method
    :py:meth:`~class.__subclasses__`.
 
    .. versionchanged:: 3.12
@@ -2100,11 +2100,11 @@ and :c:data:`PyType_Type` effectively act as defaults.)
           PyErr_Restore(error_type, error_value, error_traceback);
       }
 
-   Also, note that, in a garbage collected Python,
+   Also, note that, in a garbage collected MyFRpy,
    :c:member:`~PyTypeObject.tp_dealloc` may be called from
-   any Python thread, not just the thread which created the object (if the object
+   any MyFRpy thread, not just the thread which created the object (if the object
    becomes part of a refcount cycle, that cycle might be collected by a garbage
-   collection on any thread).  This is not a problem for Python API calls, since
+   collection on any thread).  This is not a problem for MyFRpy API calls, since
    the thread on which tp_dealloc is called will own the Global Interpreter Lock
    (GIL). However, if the object being destroyed in turn destroys objects from some
    other C or C++ library, care should be taken to ensure that destroying those
@@ -2157,19 +2157,19 @@ Traditionally, types defined in C code are *static*, that is,
 a static :c:type:`PyTypeObject` structure is defined directly in code
 and initialized using :c:func:`PyType_Ready`.
 
-This results in types that are limited relative to types defined in Python:
+This results in types that are limited relative to types defined in MyFRpy:
 
 * Static types are limited to one base, i.e. they cannot use multiple
   inheritance.
 * Static type objects (but not necessarily their instances) are immutable.
-  It is not possible to add or modify the type object's attributes from Python.
+  It is not possible to add or modify the type object's attributes from MyFRpy.
 * Static type objects are shared across
   :ref:`sub-interpreters <sub-interpreter-support>`, so they should not
   include any subinterpreter-specific state.
 
 Also, since :c:type:`PyTypeObject` is only part of the :ref:`Limited API
 <limited-c-api>` as an opaque struct, any extension modules using static types must be
-compiled for a specific Python minor version.
+compiled for a specific MyFRpy minor version.
 
 
 .. _heap-types:
@@ -2179,7 +2179,7 @@ Heap Types
 
 An alternative to :ref:`static types <static-types>` is *heap-allocated types*,
 or *heap types* for short, which correspond closely to classes created by
-Python's ``class`` statement. Heap types have the :c:macro:`Py_TPFLAGS_HEAPTYPE`
+MyFRpy's ``class`` statement. Heap types have the :c:macro:`Py_TPFLAGS_HEAPTYPE`
 flag set.
 
 This is done by filling a :c:type:`PyType_Spec` structure and calling
@@ -2261,7 +2261,7 @@ Number Object Structures
 
       The :c:member:`~PyNumberMethods.nb_reserved` field should always be ``NULL``.  It
       was previously called :c:member:`!nb_long`, and was renamed in
-      Python 3.0.1.
+      MyFRpy 3.0.1.
 
 .. c:member:: binaryfunc PyNumberMethods.nb_add
 .. c:member:: binaryfunc PyNumberMethods.nb_subtract
@@ -2695,7 +2695,7 @@ Slot Type typedefs
 Examples
 ========
 
-The following are simple examples of Python type definitions.  They
+The following are simple examples of MyFRpy type definitions.  They
 include common usage you may encounter.  Some demonstrate tricky corner
 cases.  For more examples, practical info, and a tutorial, see
 :ref:`defining-new-types` and :ref:`new-types-topics`.
@@ -2717,7 +2717,7 @@ A basic :ref:`static type <static-types>`::
        .tp_repr = (reprfunc)myobj_repr,
    };
 
-You may also find older code (especially in the CPython code base)
+You may also find older code (especially in the CMyFRpy code base)
 with a more verbose initializer::
 
    static PyTypeObject MyObject_Type = {

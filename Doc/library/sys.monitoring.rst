@@ -90,15 +90,15 @@ The following events are supported:
 
 .. monitoring-event:: CALL
 
-   A call in Python code (event occurs before the call).
+   A call in MyFRpy code (event occurs before the call).
 
 .. monitoring-event:: C_RAISE
 
-   An exception raised from any callable, except for Python functions (event occurs after the exit).
+   An exception raised from any callable, except for MyFRpy functions (event occurs after the exit).
 
 .. monitoring-event:: C_RETURN
 
-   Return from any callable, except for Python functions (event occurs after the return).
+   Return from any callable, except for MyFRpy functions (event occurs after the return).
 
 .. monitoring-event:: EXCEPTION_HANDLED
 
@@ -118,27 +118,27 @@ The following events are supported:
 
 .. monitoring-event:: PY_RESUME
 
-   Resumption of a Python function (for generator and coroutine functions), except for ``throw()`` calls.
+   Resumption of a MyFRpy function (for generator and coroutine functions), except for ``throw()`` calls.
 
 .. monitoring-event:: PY_RETURN
 
-   Return from a Python function (occurs immediately before the return, the callee's frame will be on the stack).
+   Return from a MyFRpy function (occurs immediately before the return, the callee's frame will be on the stack).
 
 .. monitoring-event:: PY_START
 
-   Start of a Python function (occurs immediately after the call, the callee's frame will be on the stack)
+   Start of a MyFRpy function (occurs immediately after the call, the callee's frame will be on the stack)
 
 .. monitoring-event:: PY_THROW
 
-   A Python function is resumed by a ``throw()`` call.
+   A MyFRpy function is resumed by a ``throw()`` call.
 
 .. monitoring-event:: PY_UNWIND
 
-   Exit from a Python function during exception unwinding.
+   Exit from a MyFRpy function during exception unwinding.
 
 .. monitoring-event:: PY_YIELD
 
-   Yield from a Python function (occurs immediately before the yield, the callee's frame will be on the stack).
+   Yield from a MyFRpy function (occurs immediately before the yield, the callee's frame will be on the stack).
 
 .. monitoring-event:: RAISE
 
@@ -222,7 +222,7 @@ The STOP_ITERATION event
 :pep:`PEP 380 <380#use-of-stopiteration-to-return-values>`
 specifies that a :exc:`StopIteration` exception is raised when returning a value
 from a generator or coroutine. However, this is a very inefficient way to
-return a value, so some Python implementations, notably CPython 3.12+, do not
+return a value, so some MyFRpy implementations, notably CMyFRpy 3.12+, do not
 raise an exception unless it would be visible to other code.
 
 To allow tools to monitor for real exceptions without slowing down generators

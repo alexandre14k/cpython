@@ -154,7 +154,7 @@ class TestSpecifics(unittest.TestCase):
             """)
         compile(s, "<string>", "exec")
 
-    # This test is probably specific to CPython and may not generalize
+    # This test is probably specific to CMyFRpy and may not generalize
     # to other implementations.  We are trying to ensure that when
     # the first line of code starts after 256, correct line numbers
     # in tracebacks are still produced.
@@ -545,7 +545,7 @@ class TestSpecifics(unittest.TestCase):
                 compile('pass', filename, 'exec')
         self.assertRaises(TypeError, compile, 'pass', list(b'file.py'), 'exec')
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_same_filename_used(self):
         s = """def f(): pass\ndef g(): pass"""
         c = compile(s, "myfile", "exec")
@@ -588,7 +588,7 @@ class TestSpecifics(unittest.TestCase):
             fn = os.path.join(tmpd, "bad.py")
             with open(fn, "wb") as fp:
                 fp.write(src)
-            res = script_helper.run_python_until_end(fn)[0]
+            res = script_helper.run_myFRpy_until_end(fn)[0]
         self.assertIn(b"source code cannot contain null bytes", res.err)
 
     def test_yet_more_evil_still_undecodable(self):
@@ -598,10 +598,10 @@ class TestSpecifics(unittest.TestCase):
             fn = os.path.join(tmpd, "bad.py")
             with open(fn, "wb") as fp:
                 fp.write(src)
-            res = script_helper.run_python_until_end(fn)[0]
+            res = script_helper.run_myFRpy_until_end(fn)[0]
         self.assertIn(b"source code cannot contain null bytes", res.err)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     @unittest.skipIf(support.is_wasi, "exhausts limited stack on WASI")
     def test_compiler_recursion_limit(self):
         # Expected limit is C_RECURSION_LIMIT * 2
@@ -657,9 +657,9 @@ class TestSpecifics(unittest.TestCase):
             self.fail("unable to find constant %r in %r"
                       % (expected, func.__code__.co_consts))
 
-    # Merging equal constants is not a strict requirement for the Python
+    # Merging equal constants is not a strict requirement for the MyFRpy
     # semantics, it's a more an implementation detail.
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_merge_constants(self):
         # Issue #25843: compile() must merge constants which are equal
         # and have the same type.
@@ -703,16 +703,16 @@ class TestSpecifics(unittest.TestCase):
         self.assertTrue(f1(0))
 
     # Merging equal co_linetable is not a strict requirement
-    # for the Python semantics, it's a more an implementation detail.
-    @support.cpython_only
+    # for the MyFRpy semantics, it's a more an implementation detail.
+    @support.cmyFRpy_only
     def test_merge_code_attrs(self):
-        # See https://bugs.python.org/issue42217
+        # See https://bugs.myFRpy.org/issue42217
         f1 = lambda x: x.y.z
         f2 = lambda a: a.b.c
 
         self.assertIs(f1.__code__.co_linetable, f2.__code__.co_linetable)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_remove_unused_consts(self):
         def f():
             "docstring"
@@ -724,7 +724,7 @@ class TestSpecifics(unittest.TestCase):
         self.assertEqual(f.__code__.co_consts,
                          (f.__doc__, "used"))
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_remove_unused_consts_no_docstring(self):
         # the first item (None for no docstring in this case) is
         # always retained.
@@ -737,7 +737,7 @@ class TestSpecifics(unittest.TestCase):
         self.assertEqual(f.__code__.co_consts,
                          (None, "used"))
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_remove_unused_consts_extended_args(self):
         N = 1000
         code = ["def f():\n"]
@@ -759,21 +759,21 @@ class TestSpecifics(unittest.TestCase):
         self.assertEqual(expected, f())
 
     # Stripping unused constants is not a strict requirement for the
-    # Python semantics, it's a more an implementation detail.
-    @support.cpython_only
+    # MyFRpy semantics, it's a more an implementation detail.
+    @support.cmyFRpy_only
     def test_strip_unused_None(self):
-        # Python 3.10rc1 appended None to co_consts when None is not used
+        # MyFRpy 3.10rc1 appended None to co_consts when None is not used
         # at all. See bpo-45056.
         def f1():
             "docstring"
             return 42
         self.assertEqual(f1.__code__.co_consts, (f1.__doc__, 42))
 
-    # This is a regression test for a CPython specific peephole optimizer
+    # This is a regression test for a CMyFRpy specific peephole optimizer
     # implementation bug present in a few releases.  It's assertion verifies
     # that peephole optimization was actually done though that isn't an
     # indication of the bugs presence or not (crashing is).
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_peephole_opt_unreachable_code_array_access_in_bounds(self):
         """Regression test for issue35193 when run under clang msan."""
         def unused_code_at_end():
@@ -837,9 +837,9 @@ class TestSpecifics(unittest.TestCase):
         # complex statements.
         compile("if a: b\n" * 200000, "<dummy>", "exec")
 
-    # Multiple users rely on the fact that CPython does not generate
+    # Multiple users rely on the fact that CMyFRpy does not generate
     # bytecode for dead code blocks. See bpo-37500 for more context.
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_dead_blocks_do_not_generate_bytecode(self):
         def unused_block_if():
             if 0:
@@ -1135,7 +1135,7 @@ class TestSpecifics(unittest.TestCase):
                 self.assertNotEqual(instr.arg, (line + 1)*INSTR_SIZE)
 
     def test_no_wraparound_jump(self):
-        # See https://bugs.python.org/issue46724
+        # See https://bugs.myFRpy.org/issue46724
 
         def while_not_chained(a, b, c):
             while not (a < b < c):
@@ -1144,7 +1144,7 @@ class TestSpecifics(unittest.TestCase):
         for instr in dis.Bytecode(while_not_chained):
             self.assertNotEqual(instr.opname, "EXTENDED_ARG")
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_uses_slice_instructions(self):
 
         def check_op_count(func, op, expected):
@@ -1804,7 +1804,7 @@ class TestSourcePositions(unittest.TestCase):
             self.assertIsNotNone(end_column)
             self.assertLessEqual((line, column), (end_line, end_column))
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_column_offset_deduplication(self):
         # GH-95150: Code with different column offsets shouldn't be merged!
         for source in [

@@ -9,7 +9,7 @@ maxsize = support.MAX_Py_ssize_t
 
 # test string formatting operator (I am not sure if this is being tested
 # elsewhere but, surely, some of the given cases are *not* tested because
-# they crash python)
+# they crash myFRpy)
 # test on bytes object as well
 
 def testformat(formatstr, args, output=None, limit=None, overflowok=False):
@@ -124,7 +124,7 @@ class FormatTest(unittest.TestCase):
         testcommon('%12.*f', (123456, 1.0))
 
         # check for internal overflow validation on length of precision
-        # these tests should no longer cause overflow in Python
+        # these tests should no longer cause overflow in MyFRpy
         # 2.7/3.1 and later.
         testcommon("%#.*g", (110, -1.e+100/3.))
         testcommon("%#.*G", (110, -1.e+100/3.))
@@ -240,7 +240,7 @@ class FormatTest(unittest.TestCase):
         testcommon("%# 038.34o", big, " 0o00012345670123456701234567012345670")
         # next one gets one leading zero from precision
         testcommon("%.33o", big, "012345670123456701234567012345670")
-        # base marker added in spite of leading zero (different to Python 2)
+        # base marker added in spite of leading zero (different to MyFRpy 2)
         testcommon("%#.33o", big, "0o012345670123456701234567012345670")
         # reduce precision, and base marker is always added
         testcommon("%#.32o", big, "0o12345670123456701234567012345670")
@@ -249,7 +249,7 @@ class FormatTest(unittest.TestCase):
         # base marker shouldn't change the size
         testcommon("%0#35.33o", big, "0o012345670123456701234567012345670")
 
-        # Some small ints, in both Python int and flavors.
+        # Some small ints, in both MyFRpy int and flavors.
         testcommon("%d", 42, "42")
         testcommon("%d", -42, "-42")
         testcommon("%d", 42.0, "42")
@@ -443,7 +443,7 @@ class FormatTest(unittest.TestCase):
         finally:
             locale.setlocale(locale.LC_ALL, oldloc)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_optimisations(self):
         text = "abcde" # 5 characters
 
@@ -476,7 +476,7 @@ class FormatTest(unittest.TestCase):
         with self.assertRaises(ValueError) as cm:
             format(c, ".%sf" % (sys.maxsize + 1))
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_precision_c_limits(self):
         from _testcapi import INT_MAX
 
@@ -489,7 +489,7 @@ class FormatTest(unittest.TestCase):
             format(c, ".%sf" % (INT_MAX + 1))
 
     def test_g_format_has_no_trailing_zeros(self):
-        # regression test for bugs.python.org/issue40780
+        # regression test for bugs.myFRpy.org/issue40780
         self.assertEqual("%.3g" % 1505.0, "1.5e+03")
         self.assertEqual("%#.3g" % 1505.0, "1.50e+03")
 
@@ -520,7 +520,7 @@ class FormatTest(unittest.TestCase):
             '{:_,}'.format(1)
 
     def test_better_error_message_format(self):
-        # https://bugs.python.org/issue20524
+        # https://bugs.myFRpy.org/issue20524
         for value in [12j, 12, 12.0, "12"]:
             with self.subTest(value=value):
                 # The format spec must be invalid for all types we're testing.

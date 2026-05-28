@@ -10,13 +10,13 @@ Byte Array Objects
 
 .. c:type:: PyByteArrayObject
 
-   This subtype of :c:type:`PyObject` represents a Python bytearray object.
+   This subtype of :c:type:`PyObject` represents a MyFRpy bytearray object.
 
 
 .. c:var:: PyTypeObject PyByteArray_Type
 
-   This instance of :c:type:`PyTypeObject` represents the Python bytearray type;
-   it is the same object as :class:`bytearray` in the Python layer.
+   This instance of :c:type:`PyTypeObject` represents the MyFRpy bytearray type;
+   it is the same object as :class:`bytearray` in the MyFRpy layer.
 
 
 Type check macros

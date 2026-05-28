@@ -1,4 +1,4 @@
-"""Access to Python's configuration information."""
+"""Access to MyFRpy's configuration information."""
 
 import os
 import sys
@@ -14,36 +14,36 @@ __all__ = [
     'get_path_names',
     'get_paths',
     'get_platform',
-    'get_python_version',
+    'get_myFRpy_version',
     'get_scheme_names',
     'parse_config_h',
 ]
 
-# Keys for get_config_var() that are never converted to Python integers.
+# Keys for get_config_var() that are never converted to MyFRpy integers.
 _ALWAYS_STR = {
     'MACOSX_DEPLOYMENT_TARGET',
 }
 
 _INSTALL_SCHEMES = {
     'posix_prefix': {
-        'stdlib': '{installed_base}/{platlibdir}/python{py_version_short}',
-        'platstdlib': '{platbase}/{platlibdir}/python{py_version_short}',
-        'purelib': '{base}/lib/python{py_version_short}/site-packages',
-        'platlib': '{platbase}/{platlibdir}/python{py_version_short}/site-packages',
+        'stdlib': '{installed_base}/{platlibdir}/myFRpy{py_version_short}',
+        'platstdlib': '{platbase}/{platlibdir}/myFRpy{py_version_short}',
+        'purelib': '{base}/lib/myFRpy{py_version_short}/site-packages',
+        'platlib': '{platbase}/{platlibdir}/myFRpy{py_version_short}/site-packages',
         'include':
-            '{installed_base}/include/python{py_version_short}{abiflags}',
+            '{installed_base}/include/myFRpy{py_version_short}{abiflags}',
         'platinclude':
-            '{installed_platbase}/include/python{py_version_short}{abiflags}',
+            '{installed_platbase}/include/myFRpy{py_version_short}{abiflags}',
         'scripts': '{base}/bin',
         'data': '{base}',
         },
     'posix_home': {
-        'stdlib': '{installed_base}/lib/python',
-        'platstdlib': '{base}/lib/python',
-        'purelib': '{base}/lib/python',
-        'platlib': '{base}/lib/python',
-        'include': '{installed_base}/include/python',
-        'platinclude': '{installed_base}/include/python',
+        'stdlib': '{installed_base}/lib/myFRpy',
+        'platstdlib': '{base}/lib/myFRpy',
+        'purelib': '{base}/lib/myFRpy',
+        'platlib': '{base}/lib/myFRpy',
+        'include': '{installed_base}/include/myFRpy',
+        'platinclude': '{installed_base}/include/myFRpy',
         'scripts': '{base}/bin',
         'data': '{base}',
         },
@@ -75,14 +75,14 @@ _INSTALL_SCHEMES = {
     # Downstream distributors who patch posix_prefix/nt scheme are encouraged to
     # leave the following schemes unchanged
     'posix_venv': {
-        'stdlib': '{installed_base}/{platlibdir}/python{py_version_short}',
-        'platstdlib': '{platbase}/{platlibdir}/python{py_version_short}',
-        'purelib': '{base}/lib/python{py_version_short}/site-packages',
-        'platlib': '{platbase}/{platlibdir}/python{py_version_short}/site-packages',
+        'stdlib': '{installed_base}/{platlibdir}/myFRpy{py_version_short}',
+        'platstdlib': '{platbase}/{platlibdir}/myFRpy{py_version_short}',
+        'purelib': '{base}/lib/myFRpy{py_version_short}/site-packages',
+        'platlib': '{platbase}/{platlibdir}/myFRpy{py_version_short}/site-packages',
         'include':
-            '{installed_base}/include/python{py_version_short}{abiflags}',
+            '{installed_base}/include/myFRpy{py_version_short}{abiflags}',
         'platinclude':
-            '{installed_platbase}/include/python{py_version_short}{abiflags}',
+            '{installed_platbase}/include/myFRpy{py_version_short}{abiflags}',
         'scripts': '{base}/bin',
         'data': '{base}',
         },
@@ -108,7 +108,7 @@ else:
 # NOTE: site.py has copy of this function.
 # Sync it when modify this function.
 def _getuserbase():
-    env_base = os.environ.get("PYTHONUSERBASE", None)
+    env_base = os.environ.get("MYFRPYUSERBASE", None)
     if env_base:
         return env_base
 
@@ -121,7 +121,7 @@ def _getuserbase():
 
     if os.name == "nt":
         base = os.environ.get("APPDATA") or "~"
-        return joinuser(base, "Python")
+        return joinuser(base, "MyFRpy")
 
     if sys.platform == "darwin" and sys._framework:
         return joinuser("~", "Library", sys._framework,
@@ -135,29 +135,29 @@ if _HAS_USER_BASE:
     _INSTALL_SCHEMES |= {
         # NOTE: When modifying "purelib" scheme, update site._get_path() too.
         'nt_user': {
-            'stdlib': '{userbase}/Python{py_version_nodot_plat}',
-            'platstdlib': '{userbase}/Python{py_version_nodot_plat}',
-            'purelib': '{userbase}/Python{py_version_nodot_plat}/site-packages',
-            'platlib': '{userbase}/Python{py_version_nodot_plat}/site-packages',
-            'include': '{userbase}/Python{py_version_nodot_plat}/Include',
-            'scripts': '{userbase}/Python{py_version_nodot_plat}/Scripts',
+            'stdlib': '{userbase}/MyFRpy{py_version_nodot_plat}',
+            'platstdlib': '{userbase}/MyFRpy{py_version_nodot_plat}',
+            'purelib': '{userbase}/MyFRpy{py_version_nodot_plat}/site-packages',
+            'platlib': '{userbase}/MyFRpy{py_version_nodot_plat}/site-packages',
+            'include': '{userbase}/MyFRpy{py_version_nodot_plat}/Include',
+            'scripts': '{userbase}/MyFRpy{py_version_nodot_plat}/Scripts',
             'data': '{userbase}',
             },
         'posix_user': {
-            'stdlib': '{userbase}/{platlibdir}/python{py_version_short}',
-            'platstdlib': '{userbase}/{platlibdir}/python{py_version_short}',
-            'purelib': '{userbase}/lib/python{py_version_short}/site-packages',
-            'platlib': '{userbase}/lib/python{py_version_short}/site-packages',
-            'include': '{userbase}/include/python{py_version_short}',
+            'stdlib': '{userbase}/{platlibdir}/myFRpy{py_version_short}',
+            'platstdlib': '{userbase}/{platlibdir}/myFRpy{py_version_short}',
+            'purelib': '{userbase}/lib/myFRpy{py_version_short}/site-packages',
+            'platlib': '{userbase}/lib/myFRpy{py_version_short}/site-packages',
+            'include': '{userbase}/include/myFRpy{py_version_short}',
             'scripts': '{userbase}/bin',
             'data': '{userbase}',
             },
         'osx_framework_user': {
-            'stdlib': '{userbase}/lib/python',
-            'platstdlib': '{userbase}/lib/python',
-            'purelib': '{userbase}/lib/python/site-packages',
-            'platlib': '{userbase}/lib/python/site-packages',
-            'include': '{userbase}/include/python{py_version_short}',
+            'stdlib': '{userbase}/lib/myFRpy',
+            'platstdlib': '{userbase}/lib/myFRpy',
+            'purelib': '{userbase}/lib/myFRpy/site-packages',
+            'platlib': '{userbase}/lib/myFRpy/site-packages',
+            'include': '{userbase}/include/myFRpy{py_version_short}',
             'scripts': '{userbase}/bin',
             'data': '{userbase}',
             },
@@ -196,13 +196,13 @@ def _safe_realpath(path):
 if sys.executable:
     _PROJECT_BASE = os.path.dirname(_safe_realpath(sys.executable))
 else:
-    # sys.executable can be empty if argv[0] has been changed and Python is
+    # sys.executable can be empty if argv[0] has been changed and MyFRpy is
     # unable to retrieve the real program name
     _PROJECT_BASE = _safe_realpath(os.getcwd())
 
 # In a virtual environment, `sys._home` gives us the target directory
 # `_PROJECT_BASE` for the executable that created it when the virtual
-# python is an actual executable ('venv --copies' or Windows).
+# myFRpy is an actual executable ('venv --copies' or Windows).
 _sys_home = getattr(sys, '_home', None)
 if _sys_home:
     _PROJECT_BASE = _sys_home
@@ -218,10 +218,10 @@ if os.name == 'nt':
         _PROJECT_BASE = _BASE_PREFIX
 
 # set for cross builds
-if "_PYTHON_PROJECT_BASE" in os.environ:
-    _PROJECT_BASE = _safe_realpath(os.environ["_PYTHON_PROJECT_BASE"])
+if "_MYFRPY_PROJECT_BASE" in os.environ:
+    _PROJECT_BASE = _safe_realpath(os.environ["_MYFRPY_PROJECT_BASE"])
 
-def is_python_build(check_home=None):
+def is_myFRpy_build(check_home=None):
     if check_home is not None:
         import warnings
         warnings.warn("check_home argument is deprecated and ignored.",
@@ -231,13 +231,13 @@ def is_python_build(check_home=None):
             return True
     return False
 
-_PYTHON_BUILD = is_python_build()
+_MYFRPY_BUILD = is_myFRpy_build()
 
-if _PYTHON_BUILD:
+if _MYFRPY_BUILD:
     for scheme in ('posix_prefix', 'posix_home'):
-        # On POSIX-y platforms, Python will:
+        # On POSIX-y platforms, MyFRpy will:
         # - Build from .h files in 'headers' (which is only added to the
-        #   scheme when building CPython)
+        #   scheme when building CMyFRpy)
         # - Install .h files to 'include'
         scheme = _INSTALL_SCHEMES[scheme]
         scheme['headers'] = scheme['include']
@@ -431,7 +431,7 @@ def _parse_makefile(filename, vars=None, keep_unresolved=True):
                 # This is disabled when called from distutils.sysconfig
                 if keep_unresolved:
                     done[name] = value
-                # bogus variable reference (e.g. "prefix=$/opt/python");
+                # bogus variable reference (e.g. "prefix=$/opt/myFRpy");
                 # just drop it since we can't deal
                 variables.remove(name)
 
@@ -447,7 +447,7 @@ def _parse_makefile(filename, vars=None, keep_unresolved=True):
 
 def get_makefile_filename():
     """Return the path of the Makefile."""
-    if _PYTHON_BUILD:
+    if _MYFRPY_BUILD:
         return os.path.join(_PROJECT_BASE, "Makefile")
     if hasattr(sys, 'abiflags'):
         config_dir_name = f'config-{_PY_VERSION_SHORT}{sys.abiflags}'
@@ -461,13 +461,13 @@ def get_makefile_filename():
 def _get_sysconfigdata_name():
     multiarch = getattr(sys.implementation, '_multiarch', '')
     return os.environ.get(
-        '_PYTHON_SYSCONFIGDATA_NAME',
+        '_MYFRPY_SYSCONFIGDATA_NAME',
         f'_sysconfigdata_{sys.abiflags}_{sys.platform}_{multiarch}',
     )
 
 
 def _generate_posix_vars():
-    """Generate the Python module containing build-time variables."""
+    """Generate the MyFRpy module containing build-time variables."""
     import pprint
     vars = {}
     # load the installed Makefile:
@@ -475,7 +475,7 @@ def _generate_posix_vars():
     try:
         _parse_makefile(makefile, vars)
     except OSError as e:
-        msg = f"invalid Python installation: unable to open {makefile}"
+        msg = f"invalid MyFRpy installation: unable to open {makefile}"
         if hasattr(e, "strerror"):
             msg = f"{msg} ({e.strerror})"
         raise OSError(msg)
@@ -485,14 +485,14 @@ def _generate_posix_vars():
         with open(config_h, encoding="utf-8") as f:
             parse_config_h(f, vars)
     except OSError as e:
-        msg = f"invalid Python installation: unable to open {config_h}"
+        msg = f"invalid MyFRpy installation: unable to open {config_h}"
         if hasattr(e, "strerror"):
             msg = f"{msg} ({e.strerror})"
         raise OSError(msg)
     # On AIX, there are wrong paths to the linker scripts in the Makefile
-    # -- these paths are relative to the Python source, but when installed
+    # -- these paths are relative to the MyFRpy source, but when installed
     # the scripts are in another directory.
-    if _PYTHON_BUILD:
+    if _MYFRPY_BUILD:
         vars['BLDSHARED'] = vars['LDSHARED']
 
     # There's a chicken-and-egg situation on OS X with regards to the
@@ -596,7 +596,7 @@ def parse_config_h(fp, vars=None):
 
 def get_config_h_filename():
     """Return the path of pyconfig.h."""
-    if _PYTHON_BUILD:
+    if _MYFRPY_BUILD:
         if os.name == "nt":
             inc_dir = os.path.join(_PROJECT_BASE, "PC")
         else:
@@ -677,7 +677,7 @@ def _init_config_vars():
     # Always convert srcdir to an absolute path
     srcdir = _CONFIG_VARS.get('srcdir', _PROJECT_BASE)
     if os.name == 'posix':
-        if _PYTHON_BUILD:
+        if _MYFRPY_BUILD:
             # If srcdir is a relative path (typically '.' or '..')
             # then it should be interpreted relative to the directory
             # containing Makefile.
@@ -705,7 +705,7 @@ def get_config_vars(*args):
     """With no arguments, return a dictionary of all configuration
     variables relevant for the current platform.
 
-    On Unix, this means every variable defined in Python's installed Makefile;
+    On Unix, this means every variable defined in MyFRpy's installed Makefile;
     On Windows it's a much smaller set.
 
     With arguments, return a list of values that result from looking up
@@ -775,8 +775,8 @@ def get_platform():
         return sys.platform
 
     # Set for cross builds explicitly
-    if "_PYTHON_HOST_PLATFORM" in os.environ:
-        return os.environ["_PYTHON_HOST_PLATFORM"]
+    if "_MYFRPY_HOST_PLATFORM" in os.environ:
+        return os.environ["_MYFRPY_HOST_PLATFORM"]
 
     # Try to distinguish various flavours of Unix
     osname, host, release, version, machine = os.uname()
@@ -821,7 +821,7 @@ def get_platform():
     return f"{osname}-{release}-{machine}"
 
 
-def get_python_version():
+def get_myFRpy_version():
     return _PY_VERSION_SHORT
 
 
@@ -864,7 +864,7 @@ def _main():
         _generate_posix_vars()
         return
     print(f'Platform: "{get_platform()}"')
-    print(f'Python version: "{get_python_version()}"')
+    print(f'MyFRpy version: "{get_myFRpy_version()}"')
     print(f'Current installation scheme: "{get_default_scheme()}"')
     print()
     _print_dict('Paths', get_paths())

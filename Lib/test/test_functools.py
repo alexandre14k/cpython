@@ -951,7 +951,7 @@ class TestCmpToKeyC(TestCmpToKey, unittest.TestCase):
     if c_functools:
         cmp_to_key = c_functools.cmp_to_key
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_disallow_instantiation(self):
         # Ensure that the type disallows instantiation (bpo-43916)
         support.check_disallow_instantiation(
@@ -1535,7 +1535,7 @@ class TestLRU:
     def test_lru_with_exceptions(self):
         # Verify that user_function exceptions get passed through without
         # creating a hard-to-read chained exception.
-        # http://bugs.python.org/issue13177
+        # http://bugs.myFRpy.org/issue13177
         for maxsize in (None, 128):
             @self.module.lru_cache(maxsize)
             def func(i):
@@ -1964,7 +1964,7 @@ class TestSingleDispatch(unittest.TestCase):
             self.assertEqual(g.__doc__, "Simple test")
 
     @unittest.skipUnless(decimal, 'requires _decimal')
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_c_classes(self):
         @functools.singledispatch
         def g(obj):

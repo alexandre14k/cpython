@@ -373,7 +373,7 @@ def emit_comparative_execution_counts(
         )
 
 def get_defines():
-    spec_path = os.path.join(os.path.dirname(__file__), "../../Python/specialize.c")
+    spec_path = os.path.join(os.path.dirname(__file__), "../../MyFRpy/specialize.c")
     with open(spec_path) as spec_src:
         defines = parse_kinds(spec_src)
     return defines

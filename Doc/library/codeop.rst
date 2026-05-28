@@ -1,17 +1,17 @@
-:mod:`codeop` --- Compile Python code
+:mod:`codeop` --- Compile MyFRpy code
 =====================================
 
 .. module:: codeop
-   :synopsis: Compile (possibly incomplete) Python code.
+   :synopsis: Compile (possibly incomplete) MyFRpy code.
 
 .. sectionauthor:: Moshe Zadka <moshez@zadka.site.co.il>
-.. sectionauthor:: Michael Hudson <mwh@python.net>
+.. sectionauthor:: Michael Hudson <mwh@myFRpy.net>
 
 **Source code:** :source:`Lib/codeop.py`
 
 --------------
 
-The :mod:`codeop` module provides utilities upon which the Python
+The :mod:`codeop` module provides utilities upon which the MyFRpy
 read-eval-print loop can be emulated, as is done in the :mod:`code` module.  As
 a result, you probably don't want to use the module directly; if you want to
 include such a loop in your program you probably want to use the :mod:`code`
@@ -19,7 +19,7 @@ module instead.
 
 There are two parts to this job:
 
-#. Being able to tell if a line of input completes a Python statement: in
+#. Being able to tell if a line of input completes a MyFRpy statement: in
    short, telling whether to print '``>>>``' or '``...``' next.
 
 #. Remembering which future statements the user has entered, so subsequent
@@ -32,14 +32,14 @@ To do just the former:
 
 .. function:: compile_command(source, filename="<input>", symbol="single")
 
-   Tries to compile *source*, which should be a string of Python code and return a
-   code object if *source* is valid Python code.  In that case, the filename
+   Tries to compile *source*, which should be a string of MyFRpy code and return a
+   code object if *source* is valid MyFRpy code.  In that case, the filename
    attribute of the code object will be *filename*, which defaults to
-   ``'<input>'``.  Returns ``None`` if *source* is *not* valid Python code, but is a
-   prefix of valid Python code.
+   ``'<input>'``.  Returns ``None`` if *source* is *not* valid MyFRpy code, but is a
+   prefix of valid MyFRpy code.
 
    If there is a problem with *source*, an exception will be raised.
-   :exc:`SyntaxError` is raised if there is invalid Python syntax, and
+   :exc:`SyntaxError` is raised if there is invalid MyFRpy syntax, and
    :exc:`OverflowError` or :exc:`ValueError` if there is an invalid literal.
 
    The *symbol* argument determines whether *source* is compiled as a statement

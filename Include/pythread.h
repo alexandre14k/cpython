@@ -7,7 +7,7 @@ typedef void *PyThread_type_lock;
 extern "C" {
 #endif
 
-/* Return status codes for Python lock acquisition.  Chosen for maximum
+/* Return status codes for MyFRpy lock acquisition.  Chosen for maximum
  * backwards compatibility, ie failure -> 0, success -> 1.  */
 typedef enum PyLockStatus {
     PY_LOCK_FAILURE = 0,
@@ -124,9 +124,9 @@ PyAPI_FUNC(void *) PyThread_tss_get(Py_tss_t *key);
 #endif  /* New in 3.7 */
 
 #ifndef Py_LIMITED_API
-#  define Py_CPYTHON_PYTHREAD_H
-#  include "cpython/pythread.h"
-#  undef Py_CPYTHON_PYTHREAD_H
+#  define Py_CMYFRPY_PYTHREAD_H
+#  include "cmyFRpy/pythread.h"
+#  undef Py_CMYFRPY_PYTHREAD_H
 #endif
 
 #ifdef __cplusplus

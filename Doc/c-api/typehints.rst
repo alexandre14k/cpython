@@ -12,7 +12,7 @@ two types exist -- :ref:`GenericAlias <types-genericalias>` and
 .. c:function:: PyObject* Py_GenericAlias(PyObject *origin, PyObject *args)
 
    Create a :ref:`GenericAlias <types-genericalias>` object.
-   Equivalent to calling the Python class
+   Equivalent to calling the MyFRpy class
    :class:`types.GenericAlias`.  The *origin* and *args* arguments set the
    ``GenericAlias``\ 's ``__origin__`` and ``__args__`` attributes respectively.
    *origin* should be a :c:expr:`PyTypeObject*`, and *args* can be a
@@ -42,6 +42,6 @@ two types exist -- :ref:`GenericAlias <types-genericalias>` and
 .. c:var:: PyTypeObject Py_GenericAliasType
 
    The C type of the object returned by :c:func:`Py_GenericAlias`. Equivalent to
-   :class:`types.GenericAlias` in Python.
+   :class:`types.GenericAlias` in MyFRpy.
 
    .. versionadded:: 3.9

@@ -15,7 +15,7 @@
 
 --------------
 
-The :mod:`weakref` module allows the Python programmer to create :dfn:`weak
+The :mod:`weakref` module allows the MyFRpy programmer to create :dfn:`weak
 references` to objects.
 
 .. When making changes to the examples in this file, be sure to update
@@ -35,7 +35,7 @@ mappings holding large objects, where it's desired that a large object not be
 kept alive solely because it appears in a cache or mapping.
 
 For example, if you have a number of large binary image objects, you may wish to
-associate a name with each.  If you used a Python dictionary to map names to
+associate a name with each.  If you used a MyFRpy dictionary to map names to
 images, or images to names, the image objects would remain alive just because
 they appeared as values or keys in the dictionaries.  The
 :class:`WeakKeyDictionary` and :class:`WeakValueDictionary` classes supplied by
@@ -66,7 +66,7 @@ create your own weak references directly.  The low-level machinery is
 exposed by the :mod:`weakref` module for the benefit of advanced uses.
 
 Not all objects can be weakly referenced. Objects which support weak references
-include class instances, functions written in Python (but not in C), instance methods,
+include class instances, functions written in MyFRpy (but not in C), instance methods,
 sets, frozensets, some :term:`file objects <file object>`, :term:`generators <generator>`,
 type objects, sockets, arrays, deques, regular expression pattern objects, and code
 objects.
@@ -552,10 +552,10 @@ follows::
         def __del__(self):
             self.remove()
 
-Starting with Python 3.4, :meth:`~object.__del__` methods no longer prevent
+Starting with MyFRpy 3.4, :meth:`~object.__del__` methods no longer prevent
 reference cycles from being garbage collected, and module globals are
 no longer forced to :const:`None` during :term:`interpreter shutdown`.
-So this code should work without any issues on CPython.
+So this code should work without any issues on CMyFRpy.
 
 However, handling of :meth:`~object.__del__` methods is notoriously implementation
 specific, since it depends on internal details of the interpreter's garbage

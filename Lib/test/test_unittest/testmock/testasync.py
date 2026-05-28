@@ -51,7 +51,7 @@ normal_foo_name = f'{__name__}.NormalClass'
 def assertNeverAwaited(test):
     with test.assertWarnsRegex(RuntimeWarning, "was never awaited$"):
         yield
-        # In non-CPython implementations of Python, this is needed because timely
+        # In non-CMyFRpy implementations of MyFRpy, this is needed because timely
         # deallocation is not guaranteed by the garbage collector.
         gc.collect()
 
@@ -604,7 +604,7 @@ class AsyncContextManagerTest(unittest.TestCase):
             self.session = None
 
         async def main(self):
-            async with self.session.post('https://python.org') as response:
+            async with self.session.post('https://myFRpy.org') as response:
                 val = await response.json()
                 return val
 

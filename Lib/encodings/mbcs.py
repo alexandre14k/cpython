@@ -1,4 +1,4 @@
-""" Python 'mbcs' Codec for Windows
+""" MyFRpy 'mbcs' Codec for Windows
 
 
 Cloned by Mark Hammond (mhammond@skippinet.com.au) from ascii.py,

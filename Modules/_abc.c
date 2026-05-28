@@ -3,7 +3,7 @@
 #  define Py_BUILD_CORE_MODULE 1
 #endif
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_moduleobject.h"  // _PyModule_GetState()
 #include "pycore_object.h"        // _PyType_GetSubclasses()
 #include "pycore_runtime.h"       // _Py_ID()

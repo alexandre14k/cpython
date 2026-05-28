@@ -1,4 +1,4 @@
-from test.support import requires_IEEE_754, cpython_only, import_helper
+from test.support import requires_IEEE_754, cmyFRpy_only, import_helper
 from test.test_math import parse_testfile, test_file
 import test.test_math as test_math
 import unittest
@@ -426,7 +426,7 @@ class CMathTests(unittest.TestCase):
     def test_polar(self):
         self.check_polar(polar)
 
-    @cpython_only
+    @cmyFRpy_only
     def test_polar_errno(self):
         # Issue #24489: check a previously set C errno doesn't disturb polar()
         _testcapi = import_helper.import_module('_testcapi')

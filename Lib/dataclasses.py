@@ -219,7 +219,7 @@ _POST_INIT_NAME = '__post_init__'
 
 # String regex that string annotations for ClassVar or InitVar must match.
 # Allows "identifier.identifier[" or "identifier[".
-# https://bugs.python.org/issue33453 for details.
+# https://bugs.myFRpy.org/issue33453 for details.
 _MODULE_IDENTIFIER_RE = re.compile(r'^(?:\s*(\w+)\s*\.)?\s*(\w+)')
 
 # Atomic immutable types which don't require any recursive handling and for which deepcopy
@@ -341,7 +341,7 @@ class Field:
     # This is used to support the PEP 487 __set_name__ protocol in the
     # case where we're using a field that contains a descriptor as a
     # default value.  For details on __set_name__, see
-    # https://peps.python.org/pep-0487/#implementation-details.
+    # https://peps.myFRpy.org/pep-0487/#implementation-details.
     #
     # Note that in _process_class, this Field object is overwritten
     # with the default value, so the end result is a descriptor that
@@ -785,13 +785,13 @@ def _get_field(cls, a_name, a_type, default_kw_only):
 
     # In addition to checking for actual types here, also check for
     # string annotations.  get_type_hints() won't always work for us
-    # (see https://github.com/python/typing/issues/508 for example),
+    # (see https://github.com/myFRpy/typing/issues/508 for example),
     # plus it's expensive and would require an eval for every string
     # annotation.  So, make a best effort to see if this is a ClassVar
     # or InitVar using regex's and checking that the thing referenced
     # is actually of the correct type.
 
-    # For the complete discussion, see https://bugs.python.org/issue33453
+    # For the complete discussion, see https://bugs.myFRpy.org/issue33453
 
     # If typing has not been imported, then it's impossible for any
     # annotation to be a ClassVar.  So, only look for ClassVar if
@@ -914,7 +914,7 @@ _hash_action = {(False, False, False, False): None,
                 (True,  True,  True,  False): _hash_add,
                 (True,  True,  True,  True ): _hash_exception,
                 }
-# See https://bugs.python.org/issue32929#msg312829 for an if-statement
+# See https://bugs.myFRpy.org/issue32929#msg312829 for an if-statement
 # version of this table.
 
 
@@ -1034,7 +1034,7 @@ def _process_class(cls, init, repr, eq, order, unsafe_hash, frozen,
     setattr(cls, _FIELDS, fields)
 
     # Was this class defined with an explicit __hash__?  Note that if
-    # __eq__ is defined in this class, then python will automatically
+    # __eq__ is defined in this class, then myFRpy will automatically
     # set __hash__ to None.  This is a heuristic, as it's possible
     # that such a __hash__ == None was not auto-generated, but it
     # close enough.
@@ -1084,7 +1084,7 @@ def _process_class(cls, init, repr, eq, order, unsafe_hash, frozen,
 
     if eq:
         # Create __eq__ method.  There's no need for a __ne__ method,
-        # since python will call __eq__ and negate it.
+        # since myFRpy will call __eq__ and negate it.
         flds = [f for f in field_list if f.compare]
         self_tuple = _tuple_str('self', flds)
         other_tuple = _tuple_str('other', flds)

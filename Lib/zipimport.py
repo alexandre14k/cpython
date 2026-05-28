@@ -1,4 +1,4 @@
-"""zipimport provides support for importing Python modules from Zip archives.
+"""zipimport provides support for importing MyFRpy modules from Zip archives.
 
 This module exports three objects:
 - zipimporter: a class; its constructor takes a path to a Zip archive.
@@ -217,10 +217,10 @@ class zipimporter(_bootstrap_external._LoaderBasics):
         fully qualified (dotted) module name. It returns the imported
         module, or raises ZipImportError if it could not be imported.
 
-        Deprecated since Python 3.10. Use exec_module() instead.
+        Deprecated since MyFRpy 3.10. Use exec_module() instead.
         """
         msg = ("zipimport.zipimporter.load_module() is deprecated and slated for "
-               "removal in Python 3.12; use exec_module() instead")
+               "removal in MyFRpy 3.12; use exec_module() instead")
         _warnings.warn(msg, DeprecationWarning)
         code, ispackage, modpath = _get_module_code(self, fullname)
         mod = sys.modules.get(fullname)
@@ -349,7 +349,7 @@ def _read_directory(archive):
     with fp:
         # GH-87235: On macOS all file descriptors for /dev/fd/N share the same
         # file offset, reset the file offset after scanning the zipfile diretory
-        # to not cause problems when some runs 'python3 /dev/fd/9 9<some_script'
+        # to not cause problems when some runs 'myFRpy3 /dev/fd/9 9<some_script'
         start_offset = fp.tell()
         try:
             try:
@@ -467,7 +467,7 @@ def _read_directory(archive):
 
 # During bootstrap, we may need to load the encodings
 # package from a ZIP file. But the cp437 encoding is implemented
-# in Python in the encodings package.
+# in MyFRpy in the encodings package.
 #
 # Break out of this dependency by using the translation table for
 # the cp437 encoding.
@@ -630,7 +630,7 @@ def _normalize_line_endings(source):
     source = source.replace(b'\r', b'\n')
     return source
 
-# Given a string buffer containing Python source code, compile it
+# Given a string buffer containing MyFRpy source code, compile it
 # and return a code object.
 def _compile_source(pathname, source):
     source = _normalize_line_endings(source)

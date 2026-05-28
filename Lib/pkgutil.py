@@ -58,7 +58,7 @@ def walk_packages(path=None, prefix='', onerror=None):
 
     Examples:
 
-    # list all modules python can access
+    # list all modules myFRpy can access
     walk_packages()
 
     # list all submodules of ctypes
@@ -460,7 +460,7 @@ def resolve_name(name):
     Resolve a name to an object.
 
     It is expected that `name` will be a string in one of the following
-    formats, where W is shorthand for a valid Python identifier and dot stands
+    formats, where W is shorthand for a valid MyFRpy identifier and dot stands
     for a literal period in these pseudo-regexes:
 
     W(.W)*
@@ -489,7 +489,7 @@ def resolve_name(name):
     """
     global _NAME_PATTERN
     if _NAME_PATTERN is None:
-        # Lazy import to speedup Python startup time
+        # Lazy import to speedup MyFRpy startup time
         import re
         dotted_words = r'(?!\d)(\w+)(\.(?!\d)(\w+))*'
         _NAME_PATTERN = re.compile(f'^(?P<pkg>{dotted_words})'

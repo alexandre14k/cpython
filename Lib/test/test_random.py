@@ -113,7 +113,7 @@ class TestBasicOps:
 
     def test_choice_with_numpy(self):
         # Accommodation for NumPy arrays which have disabled __bool__().
-        # See: https://github.com/python/cpython/issues/100805
+        # See: https://github.com/myFRpy/cmyFRpy/issues/100805
         choice = self.gen.choice
 
         class NA(list):
@@ -314,7 +314,7 @@ class TestBasicOps:
         # Subnormal weights would occasionally trigger an IndexError
         # in choices() when the value returned by random() was large
         # enough to make `random() * total` round up to the total.
-        # See https://bugs.python.org/msg275594 for more detail.
+        # See https://bugs.myFRpy.org/msg275594 for more detail.
         choices = self.gen.choices
         choices(population=[1, 2], weights=[1e-323, 1e-323], k=5000)
 
@@ -570,7 +570,7 @@ class SystemRandom_TestBasicOps(TestBasicOps, unittest.TestCase):
 
 
 class TestRawMersenneTwister(unittest.TestCase):
-    @test.support.cpython_only
+    @test.support.cmyFRpy_only
     def test_bug_41052(self):
         # _random.Random should not be allowed to serialization
         import _random
@@ -578,7 +578,7 @@ class TestRawMersenneTwister(unittest.TestCase):
             r = _random.Random()
             self.assertRaises(TypeError, pickle.dumps, r, proto)
 
-    @test.support.cpython_only
+    @test.support.cmyFRpy_only
     def test_bug_42008(self):
         # _random.Random should call seed with first element of arg tuple
         import _random
@@ -592,7 +592,7 @@ class MersenneTwister_TestBasicOps(TestBasicOps, unittest.TestCase):
     gen = random.Random()
 
     def test_guaranteed_stable(self):
-        # These sequences are guaranteed to stay the same across versions of python
+        # These sequences are guaranteed to stay the same across versions of myFRpy
         self.gen.seed(3456147, version=1)
         self.assertEqual([self.gen.random().hex() for i in range(4)],
             ['0x1.ac362300d90d2p-1', '0x1.9d16f74365005p-1',
@@ -634,7 +634,7 @@ class MersenneTwister_TestBasicOps(TestBasicOps, unittest.TestCase):
     def test_bug_31482(self):
         # Verify that version 1 seeds are unaffected by hash randomization
         # when the seeds are expressed as bytes rather than strings.
-        # The hash(b) values listed are the Python2.7 hash() values
+        # The hash(b) values listed are the MyFRpy2.7 hash() values
         # which were used for seeding.
 
         self.gen.seed(b'nofar', version=1)   # hash('nofar') == 5990528763808513177
@@ -692,7 +692,7 @@ class MersenneTwister_TestBasicOps(TestBasicOps, unittest.TestCase):
         self.assertRaises(TypeError, self.gen.setstate, (2, state, None))
 
     def test_referenceImplementation(self):
-        # Compare the python implementation with results from the original
+        # Compare the myFRpy implementation with results from the original
         # code.  Create 2000 53-bit precision random floats.  Compare only
         # the last ten entries to show that the independent implementations
         # are tracking.  Here is the main() function needed to create the

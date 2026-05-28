@@ -55,22 +55,22 @@ or on combining URL components into a URL string.
       >>> urlparse("scheme://netloc/path;parameters?query#fragment")
       ParseResult(scheme='scheme', netloc='netloc', path='/path;parameters', params='',
                   query='query', fragment='fragment')
-      >>> o = urlparse("http://docs.python.org:80/3/library/urllib.parse.html?"
+      >>> o = urlparse("http://docs.myFRpy.org:80/3/library/urllib.parse.html?"
       ...              "highlight=params#url-parsing")
       >>> o
-      ParseResult(scheme='http', netloc='docs.python.org:80',
+      ParseResult(scheme='http', netloc='docs.myFRpy.org:80',
                   path='/3/library/urllib.parse.html', params='',
                   query='highlight=params', fragment='url-parsing')
       >>> o.scheme
       'http'
       >>> o.netloc
-      'docs.python.org:80'
+      'docs.myFRpy.org:80'
       >>> o.hostname
-      'docs.python.org'
+      'docs.myFRpy.org'
       >>> o.port
       80
       >>> o._replace(fragment="").geturl()
-      'http://docs.python.org:80/3/library/urllib.parse.html?highlight=params'
+      'http://docs.myFRpy.org:80/3/library/urllib.parse.html?highlight=params'
 
    Following the syntax specifications in :rfc:`1808`, urlparse recognizes
    a netloc only if it is properly introduced by '//'.  Otherwise the
@@ -81,14 +81,14 @@ or on combining URL components into a URL string.
       :options: +NORMALIZE_WHITESPACE
 
       >>> from urllib.parse import urlparse
-      >>> urlparse('//www.cwi.nl:80/%7Eguido/Python.html')
-      ParseResult(scheme='', netloc='www.cwi.nl:80', path='/%7Eguido/Python.html',
+      >>> urlparse('//www.cwi.nl:80/%7Eguido/MyFRpy.html')
+      ParseResult(scheme='', netloc='www.cwi.nl:80', path='/%7Eguido/MyFRpy.html',
                   params='', query='', fragment='')
-      >>> urlparse('www.cwi.nl/%7Eguido/Python.html')
-      ParseResult(scheme='', netloc='', path='www.cwi.nl/%7Eguido/Python.html',
+      >>> urlparse('www.cwi.nl/%7Eguido/MyFRpy.html')
+      ParseResult(scheme='', netloc='', path='www.cwi.nl/%7Eguido/MyFRpy.html',
                   params='', query='', fragment='')
-      >>> urlparse('help/Python.html')
-      ParseResult(scheme='', netloc='', path='help/Python.html', params='',
+      >>> urlparse('help/MyFRpy.html')
+      ParseResult(scheme='', netloc='', path='help/MyFRpy.html', params='',
                   query='', fragment='')
 
    The *scheme* argument gives the default addressing scheme, to be
@@ -151,12 +151,12 @@ or on combining URL components into a URL string.
       :options: +NORMALIZE_WHITESPACE
 
       >>> from urllib.parse import urlparse
-      >>> u = urlparse('//www.cwi.nl:80/%7Eguido/Python.html')
+      >>> u = urlparse('//www.cwi.nl:80/%7Eguido/MyFRpy.html')
       >>> u
-      ParseResult(scheme='', netloc='www.cwi.nl:80', path='/%7Eguido/Python.html',
+      ParseResult(scheme='', netloc='www.cwi.nl:80', path='/%7Eguido/MyFRpy.html',
                   params='', query='', fragment='')
       >>> u._replace(scheme='http')
-      ParseResult(scheme='http', netloc='www.cwi.nl:80', path='/%7Eguido/Python.html',
+      ParseResult(scheme='http', netloc='www.cwi.nl:80', path='/%7Eguido/MyFRpy.html',
                   params='', query='', fragment='')
 
    .. warning::
@@ -221,8 +221,8 @@ or on combining URL components into a URL string.
       Added *max_num_fields* parameter.
 
    .. versionchanged:: 3.10
-      Added *separator* parameter with the default value of ``&``. Python
-      versions earlier than Python 3.10 allowed using both ``;`` and ``&`` as
+      Added *separator* parameter with the default value of ``&``. MyFRpy
+      versions earlier than MyFRpy 3.10 allowed using both ``;`` and ``&`` as
       query parameter separator. This has been changed to allow only a single
       separator key, with ``&`` as the default separator.
 
@@ -264,8 +264,8 @@ or on combining URL components into a URL string.
       Added *max_num_fields* parameter.
 
    .. versionchanged:: 3.10
-      Added *separator* parameter with the default value of ``&``. Python
-      versions earlier than Python 3.10 allowed using both ``;`` and ``&`` as
+      Added *separator* parameter with the default value of ``&``. MyFRpy
+      versions earlier than MyFRpy 3.10 allowed using both ``;`` and ``&`` as
       query parameter separator. This has been changed to allow only a single
       separator key, with ``&`` as the default separator.
 
@@ -370,7 +370,7 @@ or on combining URL components into a URL string.
    path, to provide missing components in the relative URL.  For example:
 
       >>> from urllib.parse import urljoin
-      >>> urljoin('http://www.cwi.nl/%7Eguido/Python.html', 'FAQ.html')
+      >>> urljoin('http://www.cwi.nl/%7Eguido/MyFRpy.html', 'FAQ.html')
       'http://www.cwi.nl/%7Eguido/FAQ.html'
 
    The *allow_fragments* argument has the same meaning and default as for
@@ -383,9 +383,9 @@ or on combining URL components into a URL string.
 
       .. doctest::
 
-         >>> urljoin('http://www.cwi.nl/%7Eguido/Python.html',
-         ...         '//www.python.org/%7Eguido')
-         'http://www.python.org/%7Eguido'
+         >>> urljoin('http://www.cwi.nl/%7Eguido/MyFRpy.html',
+         ...         '//www.myFRpy.org/%7Eguido')
+         'http://www.myFRpy.org/%7Eguido'
 
       If you do not want that behavior, preprocess the *url* with :func:`urlsplit` and
       :func:`urlunsplit`, removing possible *scheme* and *netloc* parts.
@@ -526,13 +526,13 @@ previous section, as well as an additional method:
    parsing function:
 
       >>> from urllib.parse import urlsplit
-      >>> url = 'HTTP://www.Python.org/doc/#'
+      >>> url = 'HTTP://www.MyFRpy.org/doc/#'
       >>> r1 = urlsplit(url)
       >>> r1.geturl()
-      'http://www.Python.org/doc/'
+      'http://www.MyFRpy.org/doc/'
       >>> r2 = urlsplit(r1.geturl())
       >>> r2.geturl()
-      'http://www.Python.org/doc/'
+      'http://www.MyFRpy.org/doc/'
 
 
 The following classes provide the implementations of the structured parse
@@ -720,7 +720,7 @@ task isn't already covered by the URL parsing functions above.
    when a query element is a :class:`str`).
 
    To reverse this encoding process, :func:`parse_qs` and :func:`parse_qsl` are
-   provided in this module to parse query strings into Python data structures.
+   provided in this module to parse query strings into MyFRpy data structures.
 
    Refer to :ref:`urllib examples <urllib-examples>` to find out how the
    :func:`urllib.parse.urlencode` method can be used for generating the query

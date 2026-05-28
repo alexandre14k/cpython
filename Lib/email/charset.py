@@ -1,6 +1,6 @@
-# Copyright (C) 2001-2007 Python Software Foundation
+# Copyright (C) 2001-2007 MyFRpy Software Foundation
 # Author: Ben Gertzfield, Barry Warsaw
-# Contact: email-sig@python.org
+# Contact: email-sig@myFRpy.org
 
 __all__ = [
     'Charset',
@@ -144,7 +144,7 @@ def add_codec(charset, codecname):
     """Add a codec that map characters in the given charset to/from Unicode.
 
     charset is the canonical name of a character set.  codecname is the name
-    of a Python codec, as appropriate for the second argument to the unicode()
+    of a MyFRpy codec, as appropriate for the second argument to the unicode()
     built-in, or to the encode() method of a Unicode string.
     """
     CODEC_MAP[charset] = codecname
@@ -195,11 +195,11 @@ class Charset:
                     charset output will be converted to.  Otherwise, it will
                     be None.
 
-    input_codec: The name of the Python codec used to convert the
+    input_codec: The name of the MyFRpy codec used to convert the
                  input_charset to Unicode.  If no conversion codec is
                  necessary, this attribute will be None.
 
-    output_codec: The name of the Python codec used to convert Unicode
+    output_codec: The name of the MyFRpy codec used to convert Unicode
                   to the output_charset.  If no conversion codec is necessary,
                   this attribute will have the same value as the input_codec.
     """

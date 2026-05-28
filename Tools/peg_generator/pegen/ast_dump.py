@@ -1,7 +1,7 @@
 """
 Copy-parse of ast.dump, removing the `isinstance` checks. This is needed,
 because testing pegen requires generating a C extension module, which contains
-a copy of the symbols defined in Python-ast.c. Thus, the isinstance check would
+a copy of the symbols defined in MyFRpy-ast.c. Thus, the isinstance check would
 always fail. We rely on string comparison of the base classes instead.
 TODO: Remove the above-described hack.
 """

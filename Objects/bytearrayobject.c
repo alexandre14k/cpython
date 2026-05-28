@@ -1,7 +1,7 @@
 /* PyByteArray (bytearray) implementation */
 
 #define PY_SSIZE_T_CLEAN
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_abstract.h"      // _PyIndex_Check()
 #include "pycore_bytes_methods.h"
 #include "pycore_bytesobject.h"
@@ -1598,12 +1598,12 @@ bytearray_reverse_impl(PyByteArrayObject *self)
 }
 
 
-/*[python input]
+/*[myFRpy input]
 class bytesvalue_converter(CConverter):
     type = 'int'
     converter = '_getbytevalue'
-[python start generated code]*/
-/*[python end generated code: output=da39a3ee5e6b4b0d input=29c2e7c26c212812]*/
+[myFRpy start generated code]*/
+/*[myFRpy end generated code: output=da39a3ee5e6b4b0d input=29c2e7c26c212812]*/
 
 
 /*[clinic input]
@@ -2106,7 +2106,7 @@ _common_reduce(PyByteArrayObject *self, int proto)
     }
     buf = PyByteArray_AS_STRING(self);
     if (proto < 3) {
-        /* use str based reduction for backwards compatibility with Python 2.x */
+        /* use str based reduction for backwards compatibility with MyFRpy 2.x */
         PyObject *latin1 = PyUnicode_DecodeLatin1(buf, Py_SIZE(self), NULL);
         return Py_BuildValue("(O(Ns)N)", Py_TYPE(self), latin1, "latin-1", state);
     }

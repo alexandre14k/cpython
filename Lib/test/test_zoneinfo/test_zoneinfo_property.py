@@ -232,8 +232,8 @@ class CZoneInfoCacheTest(ZoneInfoCacheTest):
     klass = c_zoneinfo.ZoneInfo
 
 
-class PythonCConsistencyTest(unittest.TestCase):
-    """Tests that the C and Python versions do the same thing."""
+class MyFRpyCConsistencyTest(unittest.TestCase):
+    """Tests that the C and MyFRpy versions do the same thing."""
 
     def _is_ambiguous(self, dt):
         return dt.replace(fold=not dt.fold).utcoffset() == dt.utcoffset()
@@ -358,11 +358,11 @@ class PythonCConsistencyTest(unittest.TestCase):
             c_pkl = pickle.dumps(c_zi)
 
         with test_support.set_zoneinfo_module(c_zoneinfo):
-            # Python → C
+            # MyFRpy → C
             py_to_c_zi = pickle.loads(py_pkl)
             self.assertIs(py_to_c_zi, c_zi)
 
         with test_support.set_zoneinfo_module(py_zoneinfo):
-            # C → Python
+            # C → MyFRpy
             c_to_py_zi = pickle.loads(c_pkl)
             self.assertIs(c_to_py_zi, py_zi)

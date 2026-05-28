@@ -5,7 +5,7 @@ import sys
 import unittest
 from textwrap import dedent
 
-from test.support.script_helper import assert_python_ok
+from test.support.script_helper import assert_myFRpy_ok
 from test.test_tools import skip_if_missing, toolsdir
 from test.support.os_helper import temp_cwd, temp_dir
 
@@ -59,7 +59,7 @@ class Test_pygettext(unittest.TestCase):
         with temp_cwd(None) as cwd:
             with open(filename, 'w', encoding='utf-8') as fp:
                 fp.write(module_content)
-            assert_python_ok(self.script, '-D', filename)
+            assert_myFRpy_ok(self.script, '-D', filename)
             with open('messages.pot', encoding='utf-8') as fp:
                 data = fp.read()
         return self.get_msgids(data)
@@ -69,7 +69,7 @@ class Test_pygettext(unittest.TestCase):
            http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
         """
         with temp_cwd(None) as cwd:
-            assert_python_ok(self.script)
+            assert_myFRpy_ok(self.script)
             with open('messages.pot', encoding='utf-8') as fp:
                 data = fp.read()
             header = self.get_header(data)
@@ -96,7 +96,7 @@ class Test_pygettext(unittest.TestCase):
         """ Match the date format from xgettext for POT-Creation-Date """
         from datetime import datetime
         with temp_cwd(None) as cwd:
-            assert_python_ok(self.script)
+            assert_myFRpy_ok(self.script)
             with open('messages.pot', encoding='utf-8') as fp:
                 data = fp.read()
             header = self.get_header(data)
@@ -330,7 +330,7 @@ class Test_pygettext(unittest.TestCase):
             with open(os.path.join(sdir, 'CVS', 'pymod3.py'), 'w',
                       encoding='utf-8') as sfile:
                 sfile.write(f'_({text3!r})')
-            assert_python_ok(self.script, sdir)
+            assert_myFRpy_ok(self.script, sdir)
             with open('messages.pot', encoding='utf-8') as fp:
                 data = fp.read()
             self.assertIn(f'msgid "{text1}"', data)

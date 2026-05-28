@@ -11,22 +11,22 @@
 --------------
 
 The tracemalloc module is a debug tool to trace memory blocks allocated by
-Python. It provides the following information:
+MyFRpy. It provides the following information:
 
 * Traceback where an object was allocated
 * Statistics on allocated memory blocks per filename and per line number:
   total size, number and average size of allocated memory blocks
 * Compute the differences between two snapshots to detect memory leaks
 
-To trace most memory blocks allocated by Python, the module should be started
-as early as possible by setting the :envvar:`PYTHONTRACEMALLOC` environment
+To trace most memory blocks allocated by MyFRpy, the module should be started
+as early as possible by setting the :envvar:`MYFRPYTRACEMALLOC` environment
 variable to ``1``, or by using :option:`-X` ``tracemalloc`` command line
 option. The :func:`tracemalloc.start` function can be called at runtime to
-start tracing Python memory allocations.
+start tracing MyFRpy memory allocations.
 
 By default, a trace of an allocated memory block only stores the most recent
 frame (1 frame). To store 25 frames at startup: set the
-:envvar:`PYTHONTRACEMALLOC` environment variable to ``25``, or use the
+:envvar:`MYFRPYTRACEMALLOC` environment variable to ``25``, or use the
 :option:`-X` ``tracemalloc=25`` command line option.
 
 
@@ -52,21 +52,21 @@ Display the 10 files allocating the most memory::
         print(stat)
 
 
-Example of output of the Python test suite::
+Example of output of the MyFRpy test suite::
 
     [ Top 10 ]
     <frozen importlib._bootstrap>:716: size=4855 KiB, count=39328, average=126 B
     <frozen importlib._bootstrap>:284: size=521 KiB, count=3199, average=167 B
-    /usr/lib/python3.4/collections/__init__.py:368: size=244 KiB, count=2315, average=108 B
-    /usr/lib/python3.4/unittest/case.py:381: size=185 KiB, count=779, average=243 B
-    /usr/lib/python3.4/unittest/case.py:402: size=154 KiB, count=378, average=416 B
-    /usr/lib/python3.4/abc.py:133: size=88.7 KiB, count=347, average=262 B
+    /usr/lib/myFRpy3.4/collections/__init__.py:368: size=244 KiB, count=2315, average=108 B
+    /usr/lib/myFRpy3.4/unittest/case.py:381: size=185 KiB, count=779, average=243 B
+    /usr/lib/myFRpy3.4/unittest/case.py:402: size=154 KiB, count=378, average=416 B
+    /usr/lib/myFRpy3.4/abc.py:133: size=88.7 KiB, count=347, average=262 B
     <frozen importlib._bootstrap>:1446: size=70.4 KiB, count=911, average=79 B
     <frozen importlib._bootstrap>:1454: size=52.0 KiB, count=25, average=2131 B
     <string>:5: size=49.7 KiB, count=148, average=344 B
-    /usr/lib/python3.4/sysconfig.py:411: size=48.0 KiB, count=1, average=48.0 KiB
+    /usr/lib/myFRpy3.4/sysconfig.py:411: size=48.0 KiB, count=1, average=48.0 KiB
 
-We can see that Python loaded ``4855 KiB`` data (bytecode and constants) from
+We can see that MyFRpy loaded ``4855 KiB`` data (bytecode and constants) from
 modules and that the :mod:`collections` module allocated ``244 KiB`` to build
 :class:`~collections.namedtuple` types.
 
@@ -92,24 +92,24 @@ Take two snapshots and display the differences::
     for stat in top_stats[:10]:
         print(stat)
 
-Example of output before/after running some tests of the Python test suite::
+Example of output before/after running some tests of the MyFRpy test suite::
 
     [ Top 10 differences ]
     <frozen importlib._bootstrap>:716: size=8173 KiB (+4428 KiB), count=71332 (+39369), average=117 B
-    /usr/lib/python3.4/linecache.py:127: size=940 KiB (+940 KiB), count=8106 (+8106), average=119 B
-    /usr/lib/python3.4/unittest/case.py:571: size=298 KiB (+298 KiB), count=589 (+589), average=519 B
+    /usr/lib/myFRpy3.4/linecache.py:127: size=940 KiB (+940 KiB), count=8106 (+8106), average=119 B
+    /usr/lib/myFRpy3.4/unittest/case.py:571: size=298 KiB (+298 KiB), count=589 (+589), average=519 B
     <frozen importlib._bootstrap>:284: size=1005 KiB (+166 KiB), count=7423 (+1526), average=139 B
-    /usr/lib/python3.4/mimetypes.py:217: size=112 KiB (+112 KiB), count=1334 (+1334), average=86 B
-    /usr/lib/python3.4/http/server.py:848: size=96.0 KiB (+96.0 KiB), count=1 (+1), average=96.0 KiB
-    /usr/lib/python3.4/inspect.py:1465: size=83.5 KiB (+83.5 KiB), count=109 (+109), average=784 B
-    /usr/lib/python3.4/unittest/mock.py:491: size=77.7 KiB (+77.7 KiB), count=143 (+143), average=557 B
-    /usr/lib/python3.4/urllib/parse.py:476: size=71.8 KiB (+71.8 KiB), count=969 (+969), average=76 B
-    /usr/lib/python3.4/contextlib.py:38: size=67.2 KiB (+67.2 KiB), count=126 (+126), average=546 B
+    /usr/lib/myFRpy3.4/mimetypes.py:217: size=112 KiB (+112 KiB), count=1334 (+1334), average=86 B
+    /usr/lib/myFRpy3.4/http/server.py:848: size=96.0 KiB (+96.0 KiB), count=1 (+1), average=96.0 KiB
+    /usr/lib/myFRpy3.4/inspect.py:1465: size=83.5 KiB (+83.5 KiB), count=109 (+109), average=784 B
+    /usr/lib/myFRpy3.4/unittest/mock.py:491: size=77.7 KiB (+77.7 KiB), count=143 (+143), average=557 B
+    /usr/lib/myFRpy3.4/urllib/parse.py:476: size=71.8 KiB (+71.8 KiB), count=969 (+969), average=76 B
+    /usr/lib/myFRpy3.4/contextlib.py:38: size=67.2 KiB (+67.2 KiB), count=126 (+126), average=546 B
 
-We can see that Python has loaded ``8173 KiB`` of module data (bytecode and
+We can see that MyFRpy has loaded ``8173 KiB`` of module data (bytecode and
 constants), and that this is ``4428 KiB`` more than had been loaded before the
 tests, when the previous snapshot was taken. Similarly, the :mod:`linecache`
-module has cached ``940 KiB`` of Python source code to format tracebacks, all
+module has cached ``940 KiB`` of MyFRpy source code to format tracebacks, all
 of it since the previous snapshot.
 
 If the system has little free memory, snapshots can be written on disk using
@@ -138,7 +138,7 @@ Code to display the traceback of the biggest memory block::
     for line in stat.traceback.format():
         print(line)
 
-Example of output of the Python test suite (traceback limited to 25 frames)::
+Example of output of the MyFRpy test suite (traceback limited to 25 frames)::
 
     903 memory blocks: 870.1 KiB
       File "<frozen importlib._bootstrap>", line 716
@@ -148,7 +148,7 @@ Example of output of the Python test suite (traceback limited to 25 frames)::
       File "<frozen importlib._bootstrap>", line 619
       File "<frozen importlib._bootstrap>", line 1581
       File "<frozen importlib._bootstrap>", line 1614
-      File "/usr/lib/python3.4/doctest.py", line 101
+      File "/usr/lib/myFRpy3.4/doctest.py", line 101
         import pdb
       File "<frozen importlib._bootstrap>", line 284
       File "<frozen importlib._bootstrap>", line 938
@@ -156,23 +156,23 @@ Example of output of the Python test suite (traceback limited to 25 frames)::
       File "<frozen importlib._bootstrap>", line 619
       File "<frozen importlib._bootstrap>", line 1581
       File "<frozen importlib._bootstrap>", line 1614
-      File "/usr/lib/python3.4/test/support/__init__.py", line 1728
+      File "/usr/lib/myFRpy3.4/test/support/__init__.py", line 1728
         import doctest
-      File "/usr/lib/python3.4/test/test_pickletools.py", line 21
+      File "/usr/lib/myFRpy3.4/test/test_pickletools.py", line 21
         support.run_doctest(pickletools)
-      File "/usr/lib/python3.4/test/regrtest.py", line 1276
+      File "/usr/lib/myFRpy3.4/test/regrtest.py", line 1276
         test_runner()
-      File "/usr/lib/python3.4/test/regrtest.py", line 976
+      File "/usr/lib/myFRpy3.4/test/regrtest.py", line 976
         display_failure=not verbose)
-      File "/usr/lib/python3.4/test/regrtest.py", line 761
+      File "/usr/lib/myFRpy3.4/test/regrtest.py", line 761
         match_tests=ns.match_tests)
-      File "/usr/lib/python3.4/test/regrtest.py", line 1563
+      File "/usr/lib/myFRpy3.4/test/regrtest.py", line 1563
         main()
-      File "/usr/lib/python3.4/test/__main__.py", line 3
+      File "/usr/lib/myFRpy3.4/test/__main__.py", line 3
         regrtest.main_in_temp_cwd()
-      File "/usr/lib/python3.4/runpy.py", line 73
+      File "/usr/lib/myFRpy3.4/runpy.py", line 73
         exec(code, run_globals)
-      File "/usr/lib/python3.4/runpy.py", line 160
+      File "/usr/lib/myFRpy3.4/runpy.py", line 160
         "__main__", fname, loader, pkg_name)
 
 We can see that the most memory was allocated in the :mod:`importlib` module to
@@ -222,7 +222,7 @@ ignoring ``<frozen importlib._bootstrap>`` and ``<unknown>`` files::
     snapshot = tracemalloc.take_snapshot()
     display_top(snapshot)
 
-Example of output of the Python test suite::
+Example of output of the MyFRpy test suite::
 
     Top 10 lines
     #1: Lib/base64.py:414: 419.8 KiB
@@ -299,14 +299,14 @@ Functions
 
 .. function:: clear_traces()
 
-   Clear traces of memory blocks allocated by Python.
+   Clear traces of memory blocks allocated by MyFRpy.
 
    See also :func:`stop`.
 
 
 .. function:: get_object_traceback(obj)
 
-   Get the traceback where the Python object *obj* was allocated.
+   Get the traceback where the MyFRpy object *obj* was allocated.
    Return a :class:`Traceback` instance, or ``None`` if the :mod:`tracemalloc`
    module is not tracing memory allocations or did not trace the allocation of
    the object.
@@ -357,7 +357,7 @@ Functions
 
 .. function:: is_tracing()
 
-    ``True`` if the :mod:`tracemalloc` module is tracing Python memory
+    ``True`` if the :mod:`tracemalloc` module is tracing MyFRpy memory
     allocations, ``False`` otherwise.
 
     See also :func:`start` and :func:`stop` functions.
@@ -365,7 +365,7 @@ Functions
 
 .. function:: start(nframe: int=1)
 
-   Start tracing Python memory allocations: install hooks on Python memory
+   Start tracing MyFRpy memory allocations: install hooks on MyFRpy memory
    allocators. Collected tracebacks of traces will be limited to *nframe*
    frames. By default, a trace of a memory block only stores the most recent
    frame: the limit is ``1``. *nframe* must be greater or equal to ``1``.
@@ -381,8 +381,8 @@ Functions
    :mod:`tracemalloc` module. Use the :func:`get_tracemalloc_memory` function
    to measure how much memory is used by the :mod:`tracemalloc` module.
 
-   The :envvar:`PYTHONTRACEMALLOC` environment variable
-   (``PYTHONTRACEMALLOC=NFRAME``) and the :option:`-X` ``tracemalloc=NFRAME``
+   The :envvar:`MYFRPYTRACEMALLOC` environment variable
+   (``MYFRPYTRACEMALLOC=NFRAME``) and the :option:`-X` ``tracemalloc=NFRAME``
    command line option can be used to start tracing at startup.
 
    See also :func:`stop`, :func:`is_tracing` and :func:`get_traceback_limit`
@@ -391,9 +391,9 @@ Functions
 
 .. function:: stop()
 
-   Stop tracing Python memory allocations: uninstall hooks on Python memory
+   Stop tracing MyFRpy memory allocations: uninstall hooks on MyFRpy memory
    allocators. Also clears all previously collected traces of memory blocks
-   allocated by Python.
+   allocated by MyFRpy.
 
    Call :func:`take_snapshot` function to take a snapshot of traces before
    clearing them.
@@ -404,7 +404,7 @@ Functions
 
 .. function:: take_snapshot()
 
-   Take a snapshot of traces of memory blocks allocated by Python. Return a new
+   Take a snapshot of traces of memory blocks allocated by MyFRpy. Return a new
    :class:`Snapshot` instance.
 
    The snapshot does not include memory blocks allocated before the
@@ -473,7 +473,7 @@ Filter
       Address space of a memory block (``int`` or ``None``).
 
       tracemalloc uses the domain ``0`` to trace memory allocations made by
-      Python. C extensions can use other domains to trace other resources.
+      MyFRpy. C extensions can use other domains to trace other resources.
 
    .. attribute:: inclusive
 
@@ -527,7 +527,7 @@ Snapshot
 
 .. class:: Snapshot
 
-   Snapshot of traces of memory blocks allocated by Python.
+   Snapshot of traces of memory blocks allocated by MyFRpy.
 
    The :func:`take_snapshot` function creates a snapshot instance.
 
@@ -604,7 +604,7 @@ Snapshot
 
    .. attribute:: traces
 
-      Traces of all memory blocks allocated by Python: sequence of
+      Traces of all memory blocks allocated by MyFRpy: sequence of
       :class:`Trace` instances.
 
       The sequence has an undefined order. Use the :meth:`Snapshot.statistics`
@@ -693,7 +693,7 @@ Trace
       Address space of a memory block (``int``). Read-only property.
 
       tracemalloc uses the domain ``0`` to trace memory allocations made by
-      Python. C extensions can use other domains to trace other resources.
+      MyFRpy. C extensions can use other domains to trace other resources.
 
    .. attribute:: size
 

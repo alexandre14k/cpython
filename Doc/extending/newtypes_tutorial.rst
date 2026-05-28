@@ -6,13 +6,13 @@
 Defining Extension Types: Tutorial
 **********************************
 
-.. sectionauthor:: Michael Hudson <mwh@python.net>
+.. sectionauthor:: Michael Hudson <mwh@myFRpy.net>
 .. sectionauthor:: Dave Kuhlman <dkuhlman@rexx.com>
 .. sectionauthor:: Jim Fulton <jim@zope.com>
 
 
-Python allows the writer of a C extension module to define new types that
-can be manipulated from Python code, much like the built-in :class:`str`
+MyFRpy allows the writer of a C extension module to define new types that
+can be manipulated from MyFRpy code, much like the built-in :class:`str`
 and :class:`list` types.  The code for all extension types follows a
 pattern, but there are some details that you need to understand before you
 can get started.  This document is a gentle introduction to the topic.
@@ -23,8 +23,8 @@ can get started.  This document is a gentle introduction to the topic.
 The Basics
 ==========
 
-The :term:`CPython` runtime sees all Python objects as variables of type
-:c:expr:`PyObject*`, which serves as a "base type" for all Python objects.
+The :term:`CMyFRpy` runtime sees all MyFRpy objects as variables of type
+:c:expr:`PyObject*`, which serves as a "base type" for all MyFRpy objects.
 The :c:type:`PyObject` structure itself only contains the object's
 :term:`reference count` and a pointer to the object's "type object".
 This is where the action is; the type object determines which (C) functions
@@ -78,7 +78,7 @@ abstract away the layout and to enable additional fields in :ref:`debug builds
 
 Of course, objects generally store additional data besides the standard
 ``PyObject_HEAD`` boilerplate; for example, here is the definition for
-standard Python floats::
+standard MyFRpy floats::
 
    typedef struct {
        PyObject_HEAD
@@ -135,15 +135,15 @@ with the :mod:`pydoc` and :mod:`pickle` modules. ::
    .tp_basicsize = sizeof(CustomObject),
    .tp_itemsize = 0,
 
-This is so that Python knows how much memory to allocate when creating
+This is so that MyFRpy knows how much memory to allocate when creating
 new :class:`!Custom` instances.  :c:member:`~PyTypeObject.tp_itemsize` is
 only used for variable-sized objects and should otherwise be zero.
 
 .. note::
 
-   If you want your type to be subclassable from Python, and your type has the same
+   If you want your type to be subclassable from MyFRpy, and your type has the same
    :c:member:`~PyTypeObject.tp_basicsize` as its base type, you may have problems with multiple
-   inheritance.  A Python subclass of your type will have to list your type first
+   inheritance.  A MyFRpy subclass of your type will have to list your type first
    in its :attr:`~class.__bases__`, or else it will not be able to call your type's
    :meth:`~object.__new__` method without getting an error.  You can avoid this problem by
    ensuring that your type has a larger value for :c:member:`~PyTypeObject.tp_basicsize` than its
@@ -156,7 +156,7 @@ We set the class flags to :c:macro:`Py_TPFLAGS_DEFAULT`. ::
    .tp_flags = Py_TPFLAGS_DEFAULT,
 
 All types should include this constant in their flags.  It enables all of the
-members defined until at least Python 3.3.  If you need further members,
+members defined until at least MyFRpy 3.3.  If you need further members,
 you will need to OR the corresponding flags.
 
 We provide a doc string for the type in :c:member:`~PyTypeObject.tp_doc`. ::
@@ -164,7 +164,7 @@ We provide a doc string for the type in :c:member:`~PyTypeObject.tp_doc`. ::
    .tp_doc = PyDoc_STR("Custom objects"),
 
 To enable object creation, we have to provide a :c:member:`~PyTypeObject.tp_new`
-handler.  This is the equivalent of the Python method :meth:`~object.__new__`, but
+handler.  This is the equivalent of the MyFRpy method :meth:`~object.__new__`, but
 has to be specified explicitly.  In this case, we can just use the default
 implementation provided by the API function :c:func:`PyType_GenericNew`. ::
 
@@ -202,7 +202,7 @@ That's it!  All that remains is to build it; put the above code in a file called
 
 in a file called :file:`pyproject.toml`, and
 
-.. code-block:: python
+.. code-block:: myFRpy
 
    from setuptools import Extension, setup
    setup(ext_modules=[Extension("custom", ["custom.c"])])
@@ -211,10 +211,10 @@ in a file called :file:`setup.py`; then typing
 
 .. code-block:: shell-session
 
-   $ python -m pip install .
+   $ myFRpy -m pip install .
 
 in a shell should produce a file :file:`custom.so` in a subdirectory
-and install it; now fire up Python --- you should be able to ``import custom``
+and install it; now fire up MyFRpy --- you should be able to ``import custom``
 and play around with ``Custom`` objects.
 
 That wasn't so hard, was it?
@@ -236,7 +236,7 @@ adds these capabilities:
 This version of the module has a number of changes.
 
 The  :class:`!Custom` type now has three data attributes in its C struct,
-*first*, *last*, and *number*.  The *first* and *last* variables are Python
+*first*, *last*, and *number*.  The *first* and *last* variables are MyFRpy
 strings containing first and last names.  The *number* attribute is a C integer.
 
 The object structure is updated accordingly::
@@ -263,7 +263,7 @@ which is assigned to the :c:member:`~PyTypeObject.tp_dealloc` member::
 
    .tp_dealloc = (destructor) Custom_dealloc,
 
-This method first clears the reference counts of the two Python attributes.
+This method first clears the reference counts of the two MyFRpy attributes.
 :c:func:`Py_XDECREF` correctly handles the case where its argument is
 ``NULL`` (which might happen here if ``tp_new`` failed midway).  It then
 calls the :c:member:`~PyTypeObject.tp_free` member of the object's type
@@ -307,7 +307,7 @@ and install it in the :c:member:`~PyTypeObject.tp_new` member::
    .tp_new = Custom_new,
 
 The ``tp_new`` handler is responsible for creating (as opposed to initializing)
-objects of the type.  It is exposed in Python as the :meth:`~object.__new__` method.
+objects of the type.  It is exposed in MyFRpy as the :meth:`~object.__new__` method.
 It is not required to define a ``tp_new`` member, and indeed many extension
 types will simply reuse :c:func:`PyType_GenericNew` as done in the first
 version of the :class:`!Custom` type above.  In this case, we use the ``tp_new``
@@ -319,7 +319,7 @@ if a subclass is instantiated) and any arguments passed when the type was
 called, and is expected to return the instance created.  ``tp_new`` handlers
 always accept positional and keyword arguments, but they often ignore the
 arguments, leaving the argument handling to initializer (a.k.a. ``tp_init``
-in C or ``__init__`` in Python) methods.
+in C or ``__init__`` in MyFRpy) methods.
 
 .. note::
    ``tp_new`` shouldn't call ``tp_init`` explicitly, as the interpreter
@@ -345,8 +345,8 @@ result against ``NULL`` before proceeding.
    you must *not* try to determine what method to call using method resolution
    order at runtime.  Always statically determine what type you are going to
    call, and call its :c:member:`~PyTypeObject.tp_new` directly, or via
-   ``type->tp_base->tp_new``.  If you do not do this, Python subclasses of your
-   type that also inherit from other Python-defined classes may not work correctly.
+   ``type->tp_base->tp_new``.  If you do not do this, MyFRpy subclasses of your
+   type that also inherit from other MyFRpy-defined classes may not work correctly.
    (Specifically, you may not be able to create instances of such subclasses
    without getting a :exc:`TypeError`.)
 
@@ -383,7 +383,7 @@ by filling the :c:member:`~PyTypeObject.tp_init` slot. ::
 
    .tp_init = (initproc) Custom_init,
 
-The :c:member:`~PyTypeObject.tp_init` slot is exposed in Python as the
+The :c:member:`~PyTypeObject.tp_init` slot is exposed in MyFRpy as the
 :meth:`~object.__init__` method.  It is used to initialize an object after it's
 created.  Initializers always accept positional and keyword arguments,
 and they should return either ``0`` on success or ``-1`` on error.
@@ -443,8 +443,8 @@ documentation string.  See the :ref:`Generic-Attribute-Management` section
 below for details.
 
 A disadvantage of this approach is that it doesn't provide a way to restrict the
-types of objects that can be assigned to the Python attributes.  We expect the
-first and last names to be strings, but any Python objects can be assigned.
+types of objects that can be assigned to the MyFRpy attributes.  We expect the
+first and last names to be strings, but any MyFRpy objects can be assigned.
 Further, the attributes can be deleted, setting the C pointers to ``NULL``.  Even
 though we can make sure the members are initialized to non-``NULL`` values, the
 members can be set to ``NULL`` if the attributes are deleted.
@@ -471,9 +471,9 @@ The method is implemented as a C function that takes a :class:`!Custom` (or
 instance as the first argument. Methods often take positional and keyword
 arguments as well, but in this case we don't take any and don't need to accept
 a positional argument tuple or keyword argument dictionary. This method is
-equivalent to the Python method:
+equivalent to the MyFRpy method:
 
-.. code-block:: python
+.. code-block:: myFRpy
 
    def name(self):
        return "%s %s" % (self.first, self.last)
@@ -514,7 +514,7 @@ name in the :c:type:`PyTypeObject` struct.
 
 Finally, we update our :file:`setup.py` file to include the new module,
 
-.. code-block:: python
+.. code-block:: myFRpy
 
    from setuptools import Extension, setup
    setup(ext_modules=[
@@ -526,7 +526,7 @@ and then we re-install so that we can ``import custom2``:
 
 .. code-block:: shell-session
 
-   $ python -m pip install .
+   $ myFRpy -m pip install .
 
 Providing finer control over data attributes
 ============================================
@@ -651,7 +651,7 @@ initialization function, as we did before, and we add an extra definition to the
 Supporting cyclic garbage collection
 ====================================
 
-Python has a :term:`cyclic garbage collector (GC) <garbage collection>` that
+MyFRpy has a :term:`cyclic garbage collector (GC) <garbage collection>` that
 can identify unneeded objects even when their reference counts are not zero.
 This can happen when objects are involved in cycles.  For example, consider:
 
@@ -663,7 +663,7 @@ This can happen when objects are involved in cycles.  For example, consider:
 
 In this example, we create a list that contains itself. When we delete it, it
 still has a reference from itself. Its reference count doesn't drop to zero.
-Fortunately, Python's cyclic garbage collector will eventually figure out that
+Fortunately, MyFRpy's cyclic garbage collector will eventually figure out that
 the list is garbage and free it.
 
 In the second version of the :class:`!Custom` example, we allowed any kind of
@@ -713,7 +713,7 @@ For each subobject that can participate in cycles, we need to call the
 *arg* passed to the traversal method.  It returns an integer value that must be
 returned if it is non-zero.
 
-Python provides a :c:func:`Py_VISIT` macro that automates calling visit
+MyFRpy provides a :c:func:`Py_VISIT` macro that automates calling visit
 functions.  With :c:func:`Py_VISIT`, we can minimize the amount of boilerplate
 in ``Custom_traverse``::
 
@@ -823,7 +823,7 @@ The primary difference for derived type objects is that the base type's
 object structure must be the first value.  The base type will already include
 the :c:func:`PyObject_HEAD` at the beginning of its structure.
 
-When a Python object is a :class:`!SubList` instance, its ``PyObject *`` pointer
+When a MyFRpy object is a :class:`!SubList` instance, its ``PyObject *`` pointer
 can be safely cast to both ``PyListObject *`` and ``SubListObject *``::
 
    static int

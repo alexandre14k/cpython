@@ -13,7 +13,7 @@ import unittest
 from unittest import mock
 from unittest.mock import Mock, patch
 
-"""A test python script for the debug tests."""
+"""A test myFRpy script for the debug tests."""
 TEST_CODE = dedent("""
     i = 1
     i += 2

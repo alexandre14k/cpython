@@ -3,7 +3,7 @@ from pickle import dump
 import sys
 from test.support import captured_stdout, requires_resource
 from test.support.os_helper import (TESTFN, rmtree, unlink)
-from test.support.script_helper import assert_python_ok, assert_python_failure
+from test.support.script_helper import assert_myFRpy_ok, assert_myFRpy_failure
 import textwrap
 import unittest
 
@@ -468,7 +468,7 @@ class TestCoverageCommandLineOutput(unittest.TestCase):
         unlink(tracecoverpath)
 
         argv = '-m trace --count'.split() + [self.codefile]
-        status, stdout, stderr = assert_python_ok(*argv)
+        status, stdout, stderr = assert_myFRpy_ok(*argv)
         self.assertEqual(stderr, b'')
         self.assertFalse(os.path.exists(tracecoverpath))
         self.assertTrue(os.path.exists(self.coverfile))
@@ -482,7 +482,7 @@ class TestCoverageCommandLineOutput(unittest.TestCase):
 
     def test_cover_files_written_with_highlight(self):
         argv = '-m trace --count --missing'.split() + [self.codefile]
-        status, stdout, stderr = assert_python_ok(*argv)
+        status, stdout, stderr = assert_myFRpy_ok(*argv)
         self.assertTrue(os.path.exists(self.coverfile))
         with open(self.coverfile, encoding='iso-8859-15') as f:
             self.assertEqual(f.read(), textwrap.dedent('''\
@@ -504,7 +504,7 @@ class TestCommandLine(unittest.TestCase):
             (b'--summary can only be used with --count or --report', '-sT'),
             (b'unrecognized arguments: -y', '-y'))
         for message, *args in _errors:
-            *_, stderr = assert_python_failure('-m', 'trace', *args)
+            *_, stderr = assert_myFRpy_failure('-m', 'trace', *args)
             self.assertIn(message, stderr)
 
     def test_listfuncs_flag_success(self):
@@ -513,8 +513,8 @@ class TestCommandLine(unittest.TestCase):
         with open(filename, 'w', encoding='utf-8') as fd:
             self.addCleanup(unlink, filename)
             fd.write("a = 1\n")
-            status, stdout, stderr = assert_python_ok('-m', 'trace', '-l', filename,
-                                                      PYTHONIOENCODING='utf-8')
+            status, stdout, stderr = assert_myFRpy_ok('-m', 'trace', '-l', filename,
+                                                      MYFRPYIOENCODING='utf-8')
             self.assertIn(b'functions called:', stdout)
             expected = f'filename: {filename}, modulename: {modulename}, funcname: <module>'
             self.assertIn(expected.encode(), stdout)
@@ -525,9 +525,9 @@ class TestCommandLine(unittest.TestCase):
             fd.write("import sys\n")
             fd.write("print(type(sys.argv))\n")
 
-        status, direct_stdout, stderr = assert_python_ok(TESTFN)
-        status, trace_stdout, stderr = assert_python_ok('-m', 'trace', '-l', TESTFN,
-                                                        PYTHONIOENCODING='utf-8')
+        status, direct_stdout, stderr = assert_myFRpy_ok(TESTFN)
+        status, trace_stdout, stderr = assert_myFRpy_ok('-m', 'trace', '-l', TESTFN,
+                                                        MYFRPYIOENCODING='utf-8')
         self.assertIn(direct_stdout.strip(), trace_stdout)
 
     def test_count_and_summary(self):
@@ -547,16 +547,16 @@ class TestCommandLine(unittest.TestCase):
                 for i in range(10):
                     f()
             """))
-        status, stdout, _ = assert_python_ok('-m', 'trace', '-cs', filename,
-                                             PYTHONIOENCODING='utf-8')
+        status, stdout, _ = assert_myFRpy_ok('-m', 'trace', '-cs', filename,
+                                             MYFRPYIOENCODING='utf-8')
         stdout = stdout.decode()
         self.assertEqual(status, 0)
         self.assertIn('lines   cov%   module   (path)', stdout)
         self.assertIn(f'6   100%   {modulename}   ({filename})', stdout)
 
     def test_run_as_module(self):
-        assert_python_ok('-m', 'trace', '-l', '--module', 'timeit', '-n', '1')
-        assert_python_failure('-m', 'trace', '-l', '--module', 'not_a_module_zzz')
+        assert_myFRpy_ok('-m', 'trace', '-l', '--module', 'timeit', '-n', '1')
+        assert_myFRpy_failure('-m', 'trace', '-l', '--module', 'not_a_module_zzz')
 
 
 if __name__ == '__main__':

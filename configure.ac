@@ -2,7 +2,7 @@ dnl ************************************************************
 dnl * Please run autoreconf -ivf -Werror to test your changes! *
 dnl ************************************************************
 dnl
-dnl Python's configure script requires autoconf 2.71, autoconf-archive,
+dnl MyFRpy's configure script requires autoconf 2.71, autoconf-archive,
 dnl aclocal 1.16, and pkg-config.
 dnl
 dnl It is recommended to use the Tools/build/regen-configure.sh shell script
@@ -10,11 +10,11 @@ dnl to regenerate the configure script.
 dnl
 
 # Set VERSION so we only need to edit in one place (i.e., here)
-m4_define([PYTHON_VERSION], [3.12])
+m4_define([MYFRPY_VERSION], [3.12])
 
 AC_PREREQ([2.71])
 
-AC_INIT([python],[PYTHON_VERSION],[https://github.com/python/cpython/issues/])
+AC_INIT([myFRpy],[MYFRPY_VERSION],[https://github.com/myFRpy/cmyFRpy/issues/])
 
 m4_ifdef(
     [AX_C_FLOAT_WORDS_BIGENDIAN],
@@ -100,12 +100,12 @@ if test "$srcdir" != . -a "$srcdir" != "$(pwd)"; then
     # If we're building out-of-tree, we need to make sure the following
     # resources get picked up before their $srcdir counterparts.
     #   Objects/ -> typeslots.inc
-    #   Include/ -> Python.h
+    #   Include/ -> MyFRpy.h
     # (A side effect of this is that these resources will automatically be
     #  regenerated when building out-of-tree, regardless of whether or not
     #  the $srcdir counterpart is up-to-date.  This is an acceptable trade
     #  off.)
-    BASECPPFLAGS="-IObjects -IInclude -IPython"
+    BASECPPFLAGS="-IObjects -IInclude -IMyFRpy"
 else
     BASECPPFLAGS=""
 fi
@@ -145,73 +145,73 @@ AS_VAR_IF([cross_compiling], [maybe],
 # pybuilddir.txt will be created by --generate-posix-vars in the Makefile
 rm -f pybuilddir.txt
 
-AC_ARG_WITH([build-python],
-  [AS_HELP_STRING([--with-build-python=python]PYTHON_VERSION,
-                  [path to build python binary for cross compiling (default: _bootstrap_python or python]PYTHON_VERSION[)])],
+AC_ARG_WITH([build-myFRpy],
+  [AS_HELP_STRING([--with-build-myFRpy=myFRpy]MYFRPY_VERSION,
+                  [path to build myFRpy binary for cross compiling (default: _bootstrap_myFRpy or myFRpy]MYFRPY_VERSION[)])],
   [
-    AC_MSG_CHECKING([for --with-build-python])
+    AC_MSG_CHECKING([for --with-build-myFRpy])
 
-    AS_VAR_IF([with_build_python], [yes], [with_build_python=python$PACKAGE_VERSION])
-    AS_VAR_IF([with_build_python], [no], [AC_MSG_ERROR([invalid --with-build-python option: expected path or "yes", not "no"])])
+    AS_VAR_IF([with_build_myFRpy], [yes], [with_build_myFRpy=myFRpy$PACKAGE_VERSION])
+    AS_VAR_IF([with_build_myFRpy], [no], [AC_MSG_ERROR([invalid --with-build-myFRpy option: expected path or "yes", not "no"])])
 
-    if ! $(command -v "$with_build_python" >/dev/null 2>&1); then
-      AC_MSG_ERROR([invalid or missing build python binary "$with_build_python"])
+    if ! $(command -v "$with_build_myFRpy" >/dev/null 2>&1); then
+      AC_MSG_ERROR([invalid or missing build myFRpy binary "$with_build_myFRpy"])
     fi
-    build_python_ver=$($with_build_python -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')")
-    if test "$build_python_ver" != "$PACKAGE_VERSION"; then
-      AC_MSG_ERROR(["$with_build_python" has incompatible version $build_python_ver (expected: $PACKAGE_VERSION)])
+    build_myFRpy_ver=$($with_build_myFRpy -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')")
+    if test "$build_myFRpy_ver" != "$PACKAGE_VERSION"; then
+      AC_MSG_ERROR(["$with_build_myFRpy" has incompatible version $build_myFRpy_ver (expected: $PACKAGE_VERSION)])
     fi
-    dnl Build Python interpreter is used for regeneration and freezing.
-    ac_cv_prog_PYTHON_FOR_REGEN=$with_build_python
-    PYTHON_FOR_FREEZE="$with_build_python"
-    PYTHON_FOR_BUILD='_PYTHON_PROJECT_BASE=$(abs_builddir) _PYTHON_HOST_PLATFORM=$(_PYTHON_HOST_PLATFORM) PYTHONPATH=$(shell test -f pybuilddir.txt && echo $(abs_builddir)/`cat pybuilddir.txt`:)$(srcdir)/Lib _PYTHON_SYSCONFIGDATA_NAME=_sysconfigdata_$(ABIFLAGS)_$(MACHDEP)_$(MULTIARCH) '$with_build_python
-    AC_MSG_RESULT([$with_build_python])
+    dnl Build MyFRpy interpreter is used for regeneration and freezing.
+    ac_cv_prog_MYFRPY_FOR_REGEN=$with_build_myFRpy
+    MYFRPY_FOR_FREEZE="$with_build_myFRpy"
+    MYFRPY_FOR_BUILD='_MYFRPY_PROJECT_BASE=$(abs_builddir) _MYFRPY_HOST_PLATFORM=$(_MYFRPY_HOST_PLATFORM) MYFRPYPATH=$(shell test -f pybuilddir.txt && echo $(abs_builddir)/`cat pybuilddir.txt`:)$(srcdir)/Lib _MYFRPY_SYSCONFIGDATA_NAME=_sysconfigdata_$(ABIFLAGS)_$(MACHDEP)_$(MULTIARCH) '$with_build_myFRpy
+    AC_MSG_RESULT([$with_build_myFRpy])
   ], [
     AS_VAR_IF([cross_compiling], [yes],
-      [AC_MSG_ERROR([Cross compiling requires --with-build-python])]
+      [AC_MSG_ERROR([Cross compiling requires --with-build-myFRpy])]
     )
-    PYTHON_FOR_BUILD='./$(BUILDPYTHON) -E'
-    PYTHON_FOR_FREEZE="./_bootstrap_python"
+    MYFRPY_FOR_BUILD='./$(BUILDMYFRPY) -E'
+    MYFRPY_FOR_FREEZE="./_bootstrap_myFRpy"
   ]
 )
-AC_SUBST([PYTHON_FOR_BUILD])
+AC_SUBST([MYFRPY_FOR_BUILD])
 
-AC_MSG_CHECKING([for Python interpreter freezing])
-AC_MSG_RESULT([$PYTHON_FOR_FREEZE])
-AC_SUBST([PYTHON_FOR_FREEZE])
+AC_MSG_CHECKING([for MyFRpy interpreter freezing])
+AC_MSG_RESULT([$MYFRPY_FOR_FREEZE])
+AC_SUBST([MYFRPY_FOR_FREEZE])
 
 AS_VAR_IF([cross_compiling], [yes],
   [
-    dnl external build Python, freezing depends on Programs/_freeze_module.py
-    FREEZE_MODULE_BOOTSTRAP='$(PYTHON_FOR_FREEZE) $(srcdir)/Programs/_freeze_module.py'
+    dnl external build MyFRpy, freezing depends on Programs/_freeze_module.py
+    FREEZE_MODULE_BOOTSTRAP='$(MYFRPY_FOR_FREEZE) $(srcdir)/Programs/_freeze_module.py'
     FREEZE_MODULE_BOOTSTRAP_DEPS='$(srcdir)/Programs/_freeze_module.py'
     FREEZE_MODULE='$(FREEZE_MODULE_BOOTSTRAP)'
     FREEZE_MODULE_DEPS='$(FREEZE_MODULE_BOOTSTRAP_DEPS)'
-    PYTHON_FOR_BUILD_DEPS=''
+    MYFRPY_FOR_BUILD_DEPS=''
   ],
   [
-    dnl internal build tools also depend on Programs/_freeze_module and _bootstrap_python.
+    dnl internal build tools also depend on Programs/_freeze_module and _bootstrap_myFRpy.
     FREEZE_MODULE_BOOTSTRAP='./Programs/_freeze_module'
     FREEZE_MODULE_BOOTSTRAP_DEPS="Programs/_freeze_module"
-    FREEZE_MODULE='$(PYTHON_FOR_FREEZE) $(srcdir)/Programs/_freeze_module.py'
-    FREEZE_MODULE_DEPS="_bootstrap_python \$(srcdir)/Programs/_freeze_module.py"
-    PYTHON_FOR_BUILD_DEPS='$(BUILDPYTHON)'
+    FREEZE_MODULE='$(MYFRPY_FOR_FREEZE) $(srcdir)/Programs/_freeze_module.py'
+    FREEZE_MODULE_DEPS="_bootstrap_myFRpy \$(srcdir)/Programs/_freeze_module.py"
+    MYFRPY_FOR_BUILD_DEPS='$(BUILDMYFRPY)'
   ]
 )
 AC_SUBST([FREEZE_MODULE_BOOTSTRAP])
 AC_SUBST([FREEZE_MODULE_BOOTSTRAP_DEPS])
 AC_SUBST([FREEZE_MODULE])
 AC_SUBST([FREEZE_MODULE_DEPS])
-AC_SUBST([PYTHON_FOR_BUILD_DEPS])
+AC_SUBST([MYFRPY_FOR_BUILD_DEPS])
 
-AC_CHECK_PROGS([PYTHON_FOR_REGEN],
-  [python$PACKAGE_VERSION python3.12 python3.11 python3.10 python3 python],
-  [python3])
-AC_SUBST([PYTHON_FOR_REGEN])
+AC_CHECK_PROGS([MYFRPY_FOR_REGEN],
+  [myFRpy$PACKAGE_VERSION myFRpy3.12 myFRpy3.11 myFRpy3.10 myFRpy3 myFRpy],
+  [myFRpy3])
+AC_SUBST([MYFRPY_FOR_REGEN])
 
-AC_MSG_CHECKING([Python for regen version])
-if command -v "$PYTHON_FOR_REGEN" >/dev/null 2>&1; then
-  AC_MSG_RESULT([$($PYTHON_FOR_REGEN -V 2>/dev/null)])
+AC_MSG_CHECKING([MyFRpy for regen version])
+if command -v "$MYFRPY_FOR_REGEN" >/dev/null 2>&1; then
+  AC_MSG_RESULT([$($MYFRPY_FOR_REGEN -V 2>/dev/null)])
 else
   AC_MSG_RESULT([missing])
 fi
@@ -241,15 +241,15 @@ AH_BOTTOM([
 ])
 
 # We don't use PACKAGE_ variables, and they cause conflicts
-# with other autoconf-based packages that include Python.h
+# with other autoconf-based packages that include MyFRpy.h
 grep -v 'define PACKAGE_' <confdefs.h >confdefs.h.new
 rm confdefs.h
 mv confdefs.h.new confdefs.h
 
 AC_SUBST([VERSION])
-VERSION=PYTHON_VERSION
+VERSION=MYFRPY_VERSION
 
-# Version number of Python's own shared library file.
+# Version number of MyFRpy's own shared library file.
 AC_SUBST([SOVERSION])
 SOVERSION=1.0
 
@@ -395,22 +395,22 @@ fi
 
 AC_ARG_WITH([framework-name],
               AS_HELP_STRING([--with-framework-name=FRAMEWORK],
-                             [specify the name for the python framework on macOS
+                             [specify the name for the myFRpy framework on macOS
                               only valid when --enable-framework is set. see Mac/README.rst
-                              (default is 'Python')]),
+                              (default is 'MyFRpy')]),
 [
-    PYTHONFRAMEWORK=${withval}
-    PYTHONFRAMEWORKDIR=${withval}.framework
-    PYTHONFRAMEWORKIDENTIFIER=org.python.`echo $withval | tr '[A-Z]' '[a-z]'`
+    MYFRPYFRAMEWORK=${withval}
+    MYFRPYFRAMEWORKDIR=${withval}.framework
+    MYFRPYFRAMEWORKIDENTIFIER=org.myFRpy.`echo $withval | tr '[A-Z]' '[a-z]'`
     ],[
-    PYTHONFRAMEWORK=Python
-    PYTHONFRAMEWORKDIR=Python.framework
-    PYTHONFRAMEWORKIDENTIFIER=org.python.python
+    MYFRPYFRAMEWORK=MyFRpy
+    MYFRPYFRAMEWORKDIR=MyFRpy.framework
+    MYFRPYFRAMEWORKIDENTIFIER=org.myFRpy.myFRpy
 ])
 dnl quadrigraphs "@<:@" and "@:>@" produce "[" and "]" in the output
 AC_ARG_ENABLE([framework],
               AS_HELP_STRING([--enable-framework@<:@=INSTALLDIR@:>@],
-                             [create a Python.framework rather than a traditional Unix install.
+                             [create a MyFRpy.framework rather than a traditional Unix install.
                               optional INSTALLDIR specifies the installation path. see Mac/README.rst
                               (default is no)]),
 [
@@ -420,15 +420,15 @@ AC_ARG_ENABLE([framework],
 	esac
 	case $enableval in
 	no)
-		PYTHONFRAMEWORK=
-		PYTHONFRAMEWORKDIR=no-framework
-		PYTHONFRAMEWORKPREFIX=
-		PYTHONFRAMEWORKINSTALLDIR=
+		MYFRPYFRAMEWORK=
+		MYFRPYFRAMEWORKDIR=no-framework
+		MYFRPYFRAMEWORKPREFIX=
+		MYFRPYFRAMEWORKINSTALLDIR=
 		FRAMEWORKINSTALLFIRST=
 		FRAMEWORKINSTALLLAST=
 		FRAMEWORKALTINSTALLFIRST=
 		FRAMEWORKALTINSTALLLAST=
-		FRAMEWORKPYTHONW=
+		FRAMEWORKMYFRPYW=
 		if test "x${prefix}" = "xNONE"; then
 			FRAMEWORKUNIXTOOLSPREFIX="${ac_default_prefix}"
 		else
@@ -437,13 +437,13 @@ AC_ARG_ENABLE([framework],
 		enable_framework=
 		;;
 	*)
-		PYTHONFRAMEWORKPREFIX="${enableval}"
-		PYTHONFRAMEWORKINSTALLDIR=$PYTHONFRAMEWORKPREFIX/$PYTHONFRAMEWORKDIR
+		MYFRPYFRAMEWORKPREFIX="${enableval}"
+		MYFRPYFRAMEWORKINSTALLDIR=$MYFRPYFRAMEWORKPREFIX/$MYFRPYFRAMEWORKDIR
 		FRAMEWORKINSTALLFIRST="frameworkinstallstructure"
 		FRAMEWORKALTINSTALLFIRST="frameworkinstallstructure "
 		FRAMEWORKINSTALLLAST="frameworkinstallmaclib frameworkinstallapps frameworkinstallunixtools"
 		FRAMEWORKALTINSTALLLAST="frameworkinstallmaclib frameworkinstallapps frameworkaltinstallunixtools"
-		FRAMEWORKPYTHONW="frameworkpythonw"
+		FRAMEWORKMYFRPYW="frameworkmyFRpyw"
 		FRAMEWORKINSTALLAPPSPREFIX="/Applications"
 
 		if test "x${prefix}" = "xNONE" ; then
@@ -487,25 +487,25 @@ AC_ARG_ENABLE([framework],
 			;;
 		esac
 
-		prefix=$PYTHONFRAMEWORKINSTALLDIR/Versions/$VERSION
+		prefix=$MYFRPYFRAMEWORKINSTALLDIR/Versions/$VERSION
 
 		# Add files for Mac specific code to the list of output
 		# files:
 		AC_CONFIG_FILES([Mac/Makefile])
-		AC_CONFIG_FILES([Mac/PythonLauncher/Makefile])
+		AC_CONFIG_FILES([Mac/MyFRpyLauncher/Makefile])
 		AC_CONFIG_FILES([Mac/Resources/framework/Info.plist])
 		AC_CONFIG_FILES([Mac/Resources/app/Info.plist])
 	esac
 	],[
-	PYTHONFRAMEWORK=
-	PYTHONFRAMEWORKDIR=no-framework
-	PYTHONFRAMEWORKPREFIX=
-	PYTHONFRAMEWORKINSTALLDIR=
+	MYFRPYFRAMEWORK=
+	MYFRPYFRAMEWORKDIR=no-framework
+	MYFRPYFRAMEWORKPREFIX=
+	MYFRPYFRAMEWORKINSTALLDIR=
 	FRAMEWORKINSTALLFIRST=
 	FRAMEWORKINSTALLLAST=
 	FRAMEWORKALTINSTALLFIRST=
 	FRAMEWORKALTINSTALLLAST=
-	FRAMEWORKPYTHONW=
+	FRAMEWORKMYFRPYW=
 	if test "x${prefix}" = "xNONE" ; then
 		FRAMEWORKUNIXTOOLSPREFIX="${ac_default_prefix}"
 	else
@@ -514,20 +514,20 @@ AC_ARG_ENABLE([framework],
 	enable_framework=
 
 ])
-AC_SUBST([PYTHONFRAMEWORK])
-AC_SUBST([PYTHONFRAMEWORKIDENTIFIER])
-AC_SUBST([PYTHONFRAMEWORKDIR])
-AC_SUBST([PYTHONFRAMEWORKPREFIX])
-AC_SUBST([PYTHONFRAMEWORKINSTALLDIR])
+AC_SUBST([MYFRPYFRAMEWORK])
+AC_SUBST([MYFRPYFRAMEWORKIDENTIFIER])
+AC_SUBST([MYFRPYFRAMEWORKDIR])
+AC_SUBST([MYFRPYFRAMEWORKPREFIX])
+AC_SUBST([MYFRPYFRAMEWORKINSTALLDIR])
 AC_SUBST([FRAMEWORKINSTALLFIRST])
 AC_SUBST([FRAMEWORKINSTALLLAST])
 AC_SUBST([FRAMEWORKALTINSTALLFIRST])
 AC_SUBST([FRAMEWORKALTINSTALLLAST])
-AC_SUBST([FRAMEWORKPYTHONW])
+AC_SUBST([FRAMEWORKMYFRPYW])
 AC_SUBST([FRAMEWORKUNIXTOOLSPREFIX])
 AC_SUBST([FRAMEWORKINSTALLAPPSPREFIX])
 
-AC_DEFINE_UNQUOTED([_PYTHONFRAMEWORK], ["${PYTHONFRAMEWORK}"],
+AC_DEFINE_UNQUOTED([_MYFRPYFRAMEWORK], ["${MYFRPYFRAMEWORK}"],
                    [framework name])
 
 # Set name for machine-dependent library files
@@ -598,7 +598,7 @@ then
 fi
 AC_MSG_RESULT(["$MACHDEP"])
 
-AC_SUBST([_PYTHON_HOST_PLATFORM])
+AC_SUBST([_MYFRPY_HOST_PLATFORM])
 if test "$cross_compiling" = yes; then
 	case "$host" in
 	*-*-linux*)
@@ -624,7 +624,7 @@ if test "$cross_compiling" = yes; then
 		MACHDEP="unknown"
 		AC_MSG_ERROR([cross build not supported for $host])
 	esac
-	_PYTHON_HOST_PLATFORM="$MACHDEP${_host_cpu:+-$_host_cpu}"
+	_MYFRPY_HOST_PLATFORM="$MACHDEP${_host_cpu:+-$_host_cpu}"
 fi
 
 # Some systems cannot stand _XOPEN_SOURCE being defined at all; they
@@ -666,7 +666,7 @@ case $ac_sys_system/$ac_sys_release in
   # From the perspective of Solaris, _XOPEN_SOURCE is not so much a
   # request to enable features supported by the standard as a request
   # to disable features not supported by the standard.  The best way
-  # for Python to use Solaris is simply to leave _XOPEN_SOURCE out
+  # for MyFRpy to use Solaris is simply to leave _XOPEN_SOURCE out
   # entirely and define __EXTENSIONS__ instead.
   SunOS/*)
     define_xopen_source=no;;
@@ -1142,7 +1142,7 @@ if test x$MULTIARCH != x; then
 fi
 AC_SUBST([MULTIARCH_CPPFLAGS])
 
-dnl Support tiers according to https://peps.python.org/pep-0011/
+dnl Support tiers according to https://peps.myFRpy.org/pep-0011/
 dnl
 dnl NOTE: Windows support tiers are defined in PC/pyconfig.h.
 dnl
@@ -1337,7 +1337,7 @@ AC_SUBST([LIBRARY])
 AC_MSG_CHECKING([LIBRARY])
 if test -z "$LIBRARY"
 then
-	LIBRARY='libpython$(VERSION)$(ABIFLAGS).a'
+	LIBRARY='libmyFRpy$(VERSION)$(ABIFLAGS).a'
 fi
 AC_MSG_RESULT([$LIBRARY])
 
@@ -1350,12 +1350,12 @@ AC_MSG_RESULT([$LIBRARY])
 # (defined in the Makefiles). On Cygwin LDLIBRARY is the import library,
 # DLLLIBRARY is the shared (i.e., DLL) library.
 #
-# RUNSHARED is used to run shared python without installed libraries
+# RUNSHARED is used to run shared myFRpy without installed libraries
 #
 # INSTSONAME is the name of the shared library that will be use to install
 # on the system - some systems like version suffix, others don't
 #
-# LDVERSION is the shared library version number, normally the Python version
+# LDVERSION is the shared library version number, normally the MyFRpy version
 # with the ABI build flags appended.
 AC_SUBST([LDLIBRARY])
 AC_SUBST([DLLLIBRARY])
@@ -1373,10 +1373,10 @@ LDLIBRARYDIR=''
 RUNSHARED=''
 LDVERSION="$VERSION"
 
-# LINKCC is the command that links the python executable -- default is $(CC).
+# LINKCC is the command that links the myFRpy executable -- default is $(CC).
 # If CXX is set, and if it is needed to link a main function that was
 # compiled with CXX, LINKCC is CXX instead. Always using CXX is undesirable:
-# python might then depend on the C++ runtime
+# myFRpy might then depend on the C++ runtime
 AC_SUBST([LINKCC])
 AC_MSG_CHECKING([LINKCC])
 if test -z "$LINKCC"
@@ -1400,7 +1400,7 @@ AC_SUBST([EXPORTSFROM])
 AC_MSG_CHECKING([EXPORTSYMS])
 case $ac_sys_system in
 AIX*)
-	EXPORTSYMS="Modules/python.exp"
+	EXPORTSYMS="Modules/myFRpy.exp"
 	EXPORTSFROM=. # the main executable
 	;;
 esac
@@ -1427,7 +1427,7 @@ AC_MSG_RESULT([$GNULD])
 
 AC_MSG_CHECKING([for --enable-shared])
 AC_ARG_ENABLE([shared],
-              AS_HELP_STRING([--enable-shared], [enable building a shared Python library (default is no)]))
+              AS_HELP_STRING([--enable-shared], [enable building a shared MyFRpy library (default is no)]))
 
 if test -z "$enable_shared"
 then
@@ -1440,22 +1440,22 @@ then
 fi
 AC_MSG_RESULT([$enable_shared])
 
-# --with-static-libpython
-STATIC_LIBPYTHON=1
-AC_MSG_CHECKING([for --with-static-libpython])
-AC_ARG_WITH([static-libpython],
-  AS_HELP_STRING([--without-static-libpython],
-                 [do not build libpythonMAJOR.MINOR.a and do not install python.o (default is yes)]),
+# --with-static-libmyFRpy
+STATIC_LIBMYFRPY=1
+AC_MSG_CHECKING([for --with-static-libmyFRpy])
+AC_ARG_WITH([static-libmyFRpy],
+  AS_HELP_STRING([--without-static-libmyFRpy],
+                 [do not build libmyFRpyMAJOR.MINOR.a and do not install myFRpy.o (default is yes)]),
 [
 if test "$withval" = no
 then
   AC_MSG_RESULT([no]);
-  STATIC_LIBPYTHON=0
+  STATIC_LIBMYFRPY=0
 else
   AC_MSG_RESULT([yes]);
 fi],
 [AC_MSG_RESULT([yes])])
-AC_SUBST([STATIC_LIBPYTHON])
+AC_SUBST([STATIC_LIBMYFRPY])
 
 AC_MSG_CHECKING([for --enable-profiling])
 AC_ARG_ENABLE([profiling],
@@ -1482,12 +1482,12 @@ AC_MSG_CHECKING([LDLIBRARY])
 # MacOSX framework builds need more magic. LDLIBRARY is the dynamic
 # library that we build, but we do not want to link against it (we
 # will find it with a -framework option). For this reason there is an
-# extra variable BLDLIBRARY against which Python and the extension
+# extra variable BLDLIBRARY against which MyFRpy and the extension
 # modules are linked, BLDLIBRARY. This is normally the same as
 # LDLIBRARY, but empty for MacOSX framework builds.
 if test "$enable_framework"
 then
-  LDLIBRARY='$(PYTHONFRAMEWORKDIR)/Versions/$(VERSION)/$(PYTHONFRAMEWORK)'
+  LDLIBRARY='$(MYFRPYFRAMEWORKDIR)/Versions/$(VERSION)/$(MYFRPYFRAMEWORK)'
   RUNSHARED=DYLD_FRAMEWORK_PATH=`pwd`${DYLD_FRAMEWORK_PATH:+:${DYLD_FRAMEWORK_PATH}}
   BLDLIBRARY=''
 else
@@ -1498,51 +1498,51 @@ fi
 if test $enable_shared = "yes"; then
   PY_ENABLE_SHARED=1
   AC_DEFINE([Py_ENABLE_SHARED], [1],
-            [Defined if Python is built as a shared library.])
+            [Defined if MyFRpy is built as a shared library.])
   case $ac_sys_system in
     CYGWIN*)
-          LDLIBRARY='libpython$(LDVERSION).dll.a'
-          DLLLIBRARY='libpython$(LDVERSION).dll'
+          LDLIBRARY='libmyFRpy$(LDVERSION).dll.a'
+          DLLLIBRARY='libmyFRpy$(LDVERSION).dll'
           ;;
     SunOS*)
-	  LDLIBRARY='libpython$(LDVERSION).so'
-	  BLDLIBRARY='-Wl,-R,$(LIBDIR) -L. -lpython$(LDVERSION)'
+	  LDLIBRARY='libmyFRpy$(LDVERSION).so'
+	  BLDLIBRARY='-Wl,-R,$(LIBDIR) -L. -lmyFRpy$(LDVERSION)'
 	  RUNSHARED=LD_LIBRARY_PATH=`pwd`${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 	  INSTSONAME="$LDLIBRARY".$SOVERSION
 	  if test "$with_pydebug" != yes
 	  then
-	      PY3LIBRARY=libpython3.so
+	      PY3LIBRARY=libmyFRpy3.so
 	  fi
           ;;
     Linux*|GNU*|NetBSD*|FreeBSD*|DragonFly*|OpenBSD*|VxWorks*)
-	  LDLIBRARY='libpython$(LDVERSION).so'
-	  BLDLIBRARY='-L. -lpython$(LDVERSION)'
+	  LDLIBRARY='libmyFRpy$(LDVERSION).so'
+	  BLDLIBRARY='-L. -lmyFRpy$(LDVERSION)'
 	  RUNSHARED=LD_LIBRARY_PATH=`pwd`${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 	  INSTSONAME="$LDLIBRARY".$SOVERSION
 	  if test "$with_pydebug" != yes
           then
-	      PY3LIBRARY=libpython3.so
+	      PY3LIBRARY=libmyFRpy3.so
 	  fi
 	  ;;
     hp*|HP*)
 	  case `uname -m` in
 		ia64)
-			LDLIBRARY='libpython$(LDVERSION).so'
+			LDLIBRARY='libmyFRpy$(LDVERSION).so'
 			;;
 		*)
-			LDLIBRARY='libpython$(LDVERSION).sl'
+			LDLIBRARY='libmyFRpy$(LDVERSION).sl'
 			;;
 	  esac
-	  BLDLIBRARY='-Wl,+b,$(LIBDIR) -L. -lpython$(LDVERSION)'
+	  BLDLIBRARY='-Wl,+b,$(LIBDIR) -L. -lmyFRpy$(LDVERSION)'
 	  RUNSHARED=SHLIB_PATH=`pwd`${SHLIB_PATH:+:${SHLIB_PATH}}
 	  ;;
     Darwin*)
-    	LDLIBRARY='libpython$(LDVERSION).dylib'
-	BLDLIBRARY='-L. -lpython$(LDVERSION)'
+    	LDLIBRARY='libmyFRpy$(LDVERSION).dylib'
+	BLDLIBRARY='-L. -lmyFRpy$(LDVERSION)'
 	RUNSHARED=DYLD_LIBRARY_PATH=`pwd`${DYLD_LIBRARY_PATH:+:${DYLD_LIBRARY_PATH}}
 	;;
     AIX*)
-	LDLIBRARY='libpython$(LDVERSION).so'
+	LDLIBRARY='libmyFRpy$(LDVERSION).so'
 	RUNSHARED=LIBPATH=`pwd`${LIBPATH:+:${LIBPATH}}
 	;;
 
@@ -1552,7 +1552,7 @@ else # shared is disabled
   case $ac_sys_system in
     CYGWIN*)
           BLDLIBRARY='$(LIBRARY)'
-          LDLIBRARY='libpython$(LDVERSION).dll.a'
+          LDLIBRARY='libmyFRpy$(LDVERSION).dll.a'
           ;;
   esac
 fi
@@ -1561,7 +1561,7 @@ if test "$cross_compiling" = yes; then
 	RUNSHARED=
 fi
 
-AC_ARG_VAR([HOSTRUNNER], [Program to run CPython for the host platform])
+AC_ARG_VAR([HOSTRUNNER], [Program to run CMyFRpy for the host platform])
 if test -z "$HOSTRUNNER"
 then
   AS_CASE([$ac_sys_system/$ac_sys_emscripten_target],
@@ -1600,8 +1600,8 @@ then
     ],
     dnl TODO: support other WASI runtimes
     dnl wasmtime starts the proces with "/" as CWD. For OOT builds add the
-    dnl directory containing _sysconfigdata to PYTHONPATH.
-    [WASI/*], [HOSTRUNNER='wasmtime run --wasm max-wasm-stack=8388608 --wasi preview2 --env PYTHONPATH=/$(shell realpath --relative-to $(abs_srcdir) $(abs_builddir))/$(shell cat pybuilddir.txt):/Lib --dir $(srcdir)::/'],
+    dnl directory containing _sysconfigdata to MYFRPYPATH.
+    [WASI/*], [HOSTRUNNER='wasmtime run --wasm max-wasm-stack=8388608 --wasi preview2 --env MYFRPYPATH=/$(shell realpath --relative-to $(abs_srcdir) $(abs_builddir))/$(shell cat pybuilddir.txt):/Lib --dir $(srcdir)::/'],
     [HOSTRUNNER='']
   )
 fi
@@ -1611,37 +1611,37 @@ AC_MSG_RESULT([$HOSTRUNNER])
 
 if test -n "$HOSTRUNNER"; then
   dnl Pass hostrunner variable as env var in order to expand shell expressions.
-  PYTHON_FOR_BUILD="_PYTHON_HOSTRUNNER='$HOSTRUNNER' $PYTHON_FOR_BUILD"
+  MYFRPY_FOR_BUILD="_MYFRPY_HOSTRUNNER='$HOSTRUNNER' $MYFRPY_FOR_BUILD"
 fi
 
 AC_MSG_RESULT([$LDLIBRARY])
 
-# LIBRARY_DEPS, LINK_PYTHON_OBJS and LINK_PYTHON_DEPS variable
+# LIBRARY_DEPS, LINK_MYFRPY_OBJS and LINK_MYFRPY_DEPS variable
 AS_CASE([$ac_sys_system/$ac_sys_emscripten_target],
-  [Emscripten/browser*], [LIBRARY_DEPS='$(PY3LIBRARY) $(WASM_STDLIB) python.html python.worker.js'],
+  [Emscripten/browser*], [LIBRARY_DEPS='$(PY3LIBRARY) $(WASM_STDLIB) myFRpy.html myFRpy.worker.js'],
   [LIBRARY_DEPS='$(PY3LIBRARY) $(EXPORTSYMS)']
 )
-LINK_PYTHON_DEPS='$(LIBRARY_DEPS)'
+LINK_MYFRPY_DEPS='$(LIBRARY_DEPS)'
 if test "$PY_ENABLE_SHARED" = 1 || test "$enable_framework" ; then
     LIBRARY_DEPS="\$(LDLIBRARY) $LIBRARY_DEPS"
-    if test "$STATIC_LIBPYTHON" = 1; then
+    if test "$STATIC_LIBMYFRPY" = 1; then
         LIBRARY_DEPS="\$(LIBRARY) $LIBRARY_DEPS"
     fi
-    # Link Python program to the shared library
-    LINK_PYTHON_OBJS='$(BLDLIBRARY)'
+    # Link MyFRpy program to the shared library
+    LINK_MYFRPY_OBJS='$(BLDLIBRARY)'
 else
-    if test "$STATIC_LIBPYTHON" = 0; then
-        # Build Python needs object files but don't need to build
-        # Python static library
-        LINK_PYTHON_DEPS="$LIBRARY_DEPS \$(LIBRARY_OBJS)"
+    if test "$STATIC_LIBMYFRPY" = 0; then
+        # Build MyFRpy needs object files but don't need to build
+        # MyFRpy static library
+        LINK_MYFRPY_DEPS="$LIBRARY_DEPS \$(LIBRARY_OBJS)"
     fi
     LIBRARY_DEPS="\$(LIBRARY) $LIBRARY_DEPS"
-    # Link Python program to object files
-    LINK_PYTHON_OBJS='$(LIBRARY_OBJS)'
+    # Link MyFRpy program to object files
+    LINK_MYFRPY_OBJS='$(LIBRARY_OBJS)'
 fi
 AC_SUBST([LIBRARY_DEPS])
-AC_SUBST([LINK_PYTHON_DEPS])
-AC_SUBST([LINK_PYTHON_OBJS])
+AC_SUBST([LINK_MYFRPY_DEPS])
+AC_SUBST([LINK_MYFRPY_OBJS])
 
 # ar program
 AC_SUBST([AR])
@@ -1783,7 +1783,7 @@ if test "$Py_OPT" = 'true' ; then
   esac
 elif test "$ac_sys_system" = "Emscripten" -o "$ac_sys_system" = "WASI"; then
   dnl Emscripten does not support shared extensions yet. Build
-  dnl "python.[js,wasm]", "pybuilddir.txt", and "platform" files.
+  dnl "myFRpy.[js,wasm]", "pybuilddir.txt", and "platform" files.
   DEF_MAKE_ALL_RULE="build_wasm"
   REQUIRE_PGO="no"
   DEF_MAKE_RULE="all"
@@ -1793,7 +1793,7 @@ else
   DEF_MAKE_RULE="all"
 fi
 
-AC_ARG_VAR([PROFILE_TASK], [Python args for PGO generation task])
+AC_ARG_VAR([PROFILE_TASK], [MyFRpy args for PGO generation task])
 AC_MSG_CHECKING([PROFILE_TASK])
 if test -z "$PROFILE_TASK"
 then
@@ -2086,9 +2086,9 @@ if test "$Py_BOLT" = 'true' ; then
   fi
 fi
 
-dnl Enable BOLT of libpython if built.
+dnl Enable BOLT of libmyFRpy if built.
 AC_SUBST([BOLT_BINARIES])
-BOLT_BINARIES='$(BUILDPYTHON)'
+BOLT_BINARIES='$(BUILDMYFRPY)'
 AS_VAR_IF([enable_shared], [yes], [
   BOLT_BINARIES="${BOLT_BINARIES} \$(INSTSONAME)"
 ])
@@ -2140,7 +2140,7 @@ AC_MSG_RESULT([$BOLT_APPLY_FLAGS])
 # Optimizer/debugger flags
 # ------------------------
 # (The following bit of code is complicated enough - please keep things
-# indented properly.  Just pretend you're editing Python code. ;-)
+# indented properly.  Just pretend you're editing MyFRpy code. ;-)
 
 # There are two parallel sets of case statements below, one that checks to
 # see if OPT was set and one that does BASECFLAGS setting based upon
@@ -2292,7 +2292,7 @@ AS_CASE([$ac_sys_system],
         AS_VAR_IF([ac_sys_emscripten_target], [browser-debug], [wasm_debug=yes])
         AS_VAR_APPEND([LINKFORSHARED], [" --preload-file=\$(WASM_ASSETS_DIR)"])
         WASM_ASSETS_DIR=".\$(prefix)"
-        WASM_STDLIB="\$(WASM_ASSETS_DIR)/local/lib/python\$(VERSION)/os.py"
+        WASM_STDLIB="\$(WASM_ASSETS_DIR)/local/lib/myFRpy\$(VERSION)/os.py"
         dnl separate-dwarf does not seem to work in Chrome DevTools Support.
         WASM_LINKFORSHARED_DEBUG="-gsource-map --emit-symbol-map"
       ],
@@ -2385,8 +2385,8 @@ yes)
     AS_VAR_IF([ac_cv_enable_extra_warning], [yes],
               [CFLAGS_NODIST="$CFLAGS_NODIST -Wextra"])
 
-    # Python doesn't violate C99 aliasing rules, but older versions of
-    # GCC produce warnings for legal Python code.  Enable
+    # MyFRpy doesn't violate C99 aliasing rules, but older versions of
+    # GCC produce warnings for legal MyFRpy code.  Enable
     # -fno-strict-aliasing on versions of GCC that support but produce
     # warnings.  See Issue3326
      ac_save_cc="$CC"
@@ -3276,14 +3276,14 @@ AC_MSG_RESULT([$SHLIB_SUFFIX])
 # LDSHARED is the ld *command* used to create shared library
 # -- "cc -G" on SunOS 5.x.
 # (Shared libraries in this instance are shared modules to be loaded into
-# Python, as opposed to building Python itself as a shared library.)
+# MyFRpy, as opposed to building MyFRpy itself as a shared library.)
 AC_MSG_CHECKING([LDSHARED])
 if test -z "$LDSHARED"
 then
 	case $ac_sys_system/$ac_sys_release in
 	AIX*)
-		BLDSHARED="Modules/ld_so_aix \$(CC) -bI:Modules/python.exp"
-		LDSHARED="\$(LIBPL)/ld_so_aix \$(CC) -bI:\$(LIBPL)/python.exp"
+		BLDSHARED="Modules/ld_so_aix \$(CC) -bI:Modules/myFRpy.exp"
+		LDSHARED="\$(LIBPL)/ld_so_aix \$(CC) -bI:\$(LIBPL)/myFRpy.exp"
 		;;
 	SunOS/5*)
 		if test "$GCC" = "yes" ; then
@@ -3306,11 +3306,11 @@ then
 		LDCXXSHARED='$(CXX) -bundle'
 		if test "$enable_framework" ; then
 			# Link against the framework. All externals should be defined.
-			BLDSHARED="$LDSHARED "'$(PYTHONFRAMEWORKDIR)/Versions/$(VERSION)/$(PYTHONFRAMEWORK)'
-			LDSHARED="$LDSHARED "'$(PYTHONFRAMEWORKPREFIX)/$(PYTHONFRAMEWORKDIR)/Versions/$(VERSION)/$(PYTHONFRAMEWORK)'
-			LDCXXSHARED="$LDCXXSHARED "'$(PYTHONFRAMEWORKPREFIX)/$(PYTHONFRAMEWORKDIR)/Versions/$(VERSION)/$(PYTHONFRAMEWORK)'
+			BLDSHARED="$LDSHARED "'$(MYFRPYFRAMEWORKDIR)/Versions/$(VERSION)/$(MYFRPYFRAMEWORK)'
+			LDSHARED="$LDSHARED "'$(MYFRPYFRAMEWORKPREFIX)/$(MYFRPYFRAMEWORKDIR)/Versions/$(VERSION)/$(MYFRPYFRAMEWORK)'
+			LDCXXSHARED="$LDCXXSHARED "'$(MYFRPYFRAMEWORKPREFIX)/$(MYFRPYFRAMEWORKDIR)/Versions/$(VERSION)/$(MYFRPYFRAMEWORK)'
 		else
-			# No framework. Ignore undefined symbols, assuming they come from Python
+			# No framework. Ignore undefined symbols, assuming they come from MyFRpy
 			LDSHARED="$LDSHARED -undefined suppress"
 			LDCXXSHARED="$LDCXXSHARED -undefined suppress"
 		fi ;;
@@ -3319,18 +3319,18 @@ then
 		LDCXXSHARED='$(CXX) -bundle'
 		if test "$enable_framework" ; then
 			# Link against the framework. All externals should be defined.
-			BLDSHARED="$LDSHARED "'$(PYTHONFRAMEWORKDIR)/Versions/$(VERSION)/$(PYTHONFRAMEWORK)'
-			LDSHARED="$LDSHARED "'$(PYTHONFRAMEWORKPREFIX)/$(PYTHONFRAMEWORKDIR)/Versions/$(VERSION)/$(PYTHONFRAMEWORK)'
-			LDCXXSHARED="$LDCXXSHARED "'$(PYTHONFRAMEWORKPREFIX)/$(PYTHONFRAMEWORKDIR)/Versions/$(VERSION)/$(PYTHONFRAMEWORK)'
+			BLDSHARED="$LDSHARED "'$(MYFRPYFRAMEWORKDIR)/Versions/$(VERSION)/$(MYFRPYFRAMEWORK)'
+			LDSHARED="$LDSHARED "'$(MYFRPYFRAMEWORKPREFIX)/$(MYFRPYFRAMEWORKDIR)/Versions/$(VERSION)/$(MYFRPYFRAMEWORK)'
+			LDCXXSHARED="$LDCXXSHARED "'$(MYFRPYFRAMEWORKPREFIX)/$(MYFRPYFRAMEWORKDIR)/Versions/$(VERSION)/$(MYFRPYFRAMEWORK)'
 		else
-			# No framework, use the Python app as bundle-loader
-			BLDSHARED="$LDSHARED "'-bundle_loader $(BUILDPYTHON)'
-			LDSHARED="$LDSHARED "'-bundle_loader $(BINDIR)/python$(VERSION)$(EXE)'
-			LDCXXSHARED="$LDCXXSHARED "'-bundle_loader $(BINDIR)/python$(VERSION)$(EXE)'
+			# No framework, use the MyFRpy app as bundle-loader
+			BLDSHARED="$LDSHARED "'-bundle_loader $(BUILDMYFRPY)'
+			LDSHARED="$LDSHARED "'-bundle_loader $(BINDIR)/myFRpy$(VERSION)$(EXE)'
+			LDCXXSHARED="$LDCXXSHARED "'-bundle_loader $(BINDIR)/myFRpy$(VERSION)$(EXE)'
 		fi ;;
 	Darwin/*)
 		# Use -undefined dynamic_lookup whenever possible (10.3 and later).
-		# This allows an extension to be used in any Python
+		# This allows an extension to be used in any MyFRpy
 
 		dep_target_major=`echo ${MACOSX_DEPLOYMENT_TARGET} | \
 				sed 's/\([[0-9]]*\)\.\([[0-9]]*\).*/\1/'`
@@ -3456,12 +3456,12 @@ then
 fi
 AC_MSG_RESULT([$CCSHARED])
 # LINKFORSHARED are the flags passed to the $(CC) command that links
-# the python executable -- this is only needed for a few systems
+# the myFRpy executable -- this is only needed for a few systems
 AC_MSG_CHECKING([LINKFORSHARED])
 if test -z "$LINKFORSHARED"
 then
 	case $ac_sys_system/$ac_sys_release in
-	AIX*)	LINKFORSHARED='-Wl,-bE:Modules/python.exp -lld';;
+	AIX*)	LINKFORSHARED='-Wl,-bE:Modules/myFRpy.exp -lld';;
 	hp*|HP*)
 	    LINKFORSHARED="-Wl,-E -Wl,+s";;
 #	    LINKFORSHARED="-Wl,-E -Wl,+s -Wl,+b\$(BINLIBDEST)/lib-dynload";;
@@ -3489,7 +3489,7 @@ then
 
 		if test "$enable_framework"
 		then
-			LINKFORSHARED="$LINKFORSHARED "'$(PYTHONFRAMEWORKDIR)/Versions/$(VERSION)/$(PYTHONFRAMEWORK)'
+			LINKFORSHARED="$LINKFORSHARED "'$(MYFRPYFRAMEWORKDIR)/Versions/$(VERSION)/$(MYFRPYFRAMEWORK)'
 		fi
 		LINKFORSHARED="$LINKFORSHARED";;
 	OpenUNIX*|UnixWare*) LINKFORSHARED="-Wl,-Bexport";;
@@ -3547,12 +3547,12 @@ AS_VAR_IF([enable_wasm_dynamic_linking], [yes], [
 
 AC_MSG_RESULT([$CFLAGSFORSHARED])
 
-# SHLIBS are libraries (except -lc and -lm) to link to the python shared
+# SHLIBS are libraries (except -lc and -lm) to link to the myFRpy shared
 # library (with --enable-shared).
 # For platforms on which shared libraries are not allowed to have unresolved
 # symbols, this must be set to $(LIBS) (expanded by make). We do this even
 # if it is not required, since it creates a dependency of the shared library
-# to LIBS. This, in turn, means that applications linking the shared libpython
+# to LIBS. This, in turn, means that applications linking the shared libmyFRpy
 # don't need to link LIBS explicitly. The default should be only changed
 # on systems where this approach causes problems.
 AC_SUBST([SHLIBS])
@@ -3575,7 +3575,7 @@ AC_MSG_RESULT([$perf_trampoline])
 
 AS_VAR_IF([perf_trampoline], [yes], [
   AC_DEFINE([PY_HAVE_PERF_TRAMPOLINE], [1], [Define to 1 if you have the perf trampoline.])
-  PERF_TRAMPOLINE_OBJ=Python/asm_trampoline.o
+  PERF_TRAMPOLINE_OBJ=MyFRpy/asm_trampoline.o
 
   dnl perf needs frame pointers for unwinding, include compiler option in debug builds
   AS_VAR_IF([Py_DEBUG], [true], [
@@ -3674,7 +3674,7 @@ case "$ac_sys_system" in
 		])
 dnl The AIX_BUILDDATE is obtained from the kernel fileset - bos.mp64
 # BUILD_GNU_TYPE + AIX_BUILDDATE are used to construct the platform_tag
-# of the AIX system used to build/package Python executable. This tag serves
+# of the AIX system used to build/package MyFRpy executable. This tag serves
 # as a baseline for bdist module packages
                AC_MSG_CHECKING([for the system builddate])
                AIX_BUILDDATE=$(lslpp -Lcq bos.mp64 | awk -F:  '{ print $NF }')
@@ -3720,7 +3720,7 @@ AC_ARG_WITH(
   [hash_algorithm],
   [AS_HELP_STRING(
     [--with-hash-algorithm=@<:@fnv|siphash13|siphash24@:>@],
-    [select hash algorithm for use in Python/pyhash.c (default is SipHash13)]
+    [select hash algorithm for use in MyFRpy/pyhash.c (default is SipHash13)]
   )],
 [
 AC_MSG_RESULT([$withval])
@@ -3946,7 +3946,7 @@ AS_CASE([$ac_sys_system],
 libmpdec_machine=unknown
 if test "$libmpdec_system" = Darwin; then
     # universal here means: build libmpdec with the same arch options
-    # the python interpreter was built with
+    # the myFRpy interpreter was built with
     libmpdec_machine=universal
 elif test $ac_cv_sizeof_size_t -eq 8; then
     if test "$ac_cv_gcc_asm_for_x64" = yes; then
@@ -4708,7 +4708,7 @@ then
 fi
 AC_MSG_RESULT([$with_doc_strings])
 
-# Check for Python-specific malloc support
+# Check for MyFRpy-specific malloc support
 AC_MSG_CHECKING([for --with-pymalloc])
 AC_ARG_WITH(
   [pymalloc],
@@ -4726,7 +4726,7 @@ fi
 if test "$with_pymalloc" != "no"
 then
     AC_DEFINE([WITH_PYMALLOC], [1],
-     [Define if you want to compile in Python-specific mallocs])
+     [Define if you want to compile in MyFRpy-specific mallocs])
 fi
 AC_MSG_RESULT([$with_pymalloc])
 
@@ -4819,7 +4819,7 @@ then
                 ac_cv_dtrace_link=yes
       ])
     if test "$ac_cv_dtrace_link" = "yes"; then
-        DTRACE_OBJS="Python/pydtrace.o"
+        DTRACE_OBJS="MyFRpy/pydtrace.o"
     fi
 fi
 
@@ -4829,7 +4829,7 @@ PLATFORM_OBJS=
 
 AS_CASE([$ac_sys_system],
   [Emscripten], [
-    AS_VAR_APPEND([PLATFORM_OBJS], [' Python/emscripten_signal.o'])
+    AS_VAR_APPEND([PLATFORM_OBJS], [' MyFRpy/emscripten_signal.o'])
     AS_VAR_APPEND([PLATFORM_HEADERS], [' $(srcdir)/Include/internal/pycore_emscripten_signal.h'])
   ],
 )
@@ -4869,7 +4869,7 @@ then
         [Defined when any dynamic module loading is enabled.])
 fi
 
-# MACHDEP_OBJS can be set to platform-specific object files needed by Python
+# MACHDEP_OBJS can be set to platform-specific object files needed by MyFRpy
 
 AC_SUBST([MACHDEP_OBJS])
 AC_MSG_CHECKING([MACHDEP_OBJS])
@@ -5012,7 +5012,7 @@ AC_CHECK_LIB([c], [inet_aton], [$ac_cv_prog_TRUE],
 )
 
 # On Tru64, chflags seems to be present, but calling it will
-# exit Python
+# exit MyFRpy
 AC_CACHE_CHECK([for chflags], [ac_cv_have_chflags], [dnl
 AC_RUN_IFELSE([AC_LANG_SOURCE([[
 #include <sys/stat.h>
@@ -5679,7 +5679,7 @@ then
    with the least significant byte first])
 else
   # Some ARM platforms use a mixed-endian representation for doubles.
-  # While Python doesn't currently have full support for these platforms
+  # While MyFRpy doesn't currently have full support for these platforms
   # (see e.g., issue 1762561), we can at least make sure that float <-> string
   # conversions work.
   # FLOAT_WORDS_BIGENDIAN doesnt actually detect this case, but if it's not big
@@ -5689,9 +5689,9 @@ else
    in ARM mixed-endian order (byte order 45670123)])
 fi
 
-# The short float repr introduced in Python 3.1 requires the
+# The short float repr introduced in MyFRpy 3.1 requires the
 # correctly-rounded string <-> double conversion functions from
-# Python/dtoa.c, which in turn require that the FPU uses 53-bit
+# MyFRpy/dtoa.c, which in turn require that the FPU uses 53-bit
 # rounding; this is a problem on x86, where the x87 FPU has a default
 # rounding precision of 64 bits.  For gcc/x86, we can fix this by
 # using inline assembler to get and set the x87 FPU control word.
@@ -5727,7 +5727,7 @@ AS_VAR_IF([ac_cv_gcc_asm_for_mc68881], [yes], [
 # rounding issues.  The result of this test has little meaning on non
 # IEEE 754 platforms.  On IEEE 754, test should return 1 if rounding
 # mode is round-to-nearest and double rounding issues are present, and
-# 0 otherwise.  See https://github.com/python/cpython/issues/47186 for more info.
+# 0 otherwise.  See https://github.com/myFRpy/cmyFRpy/issues/47186 for more info.
 AC_CACHE_CHECK([for x87-style double rounding], [ac_cv_x87_double_rounding], [
 # $BASECFLAGS may affect the result
 ac_save_cc="$CC"
@@ -5773,7 +5773,7 @@ LIBS="$LIBS $LIBM"
 AC_CHECK_FUNCS(
   [acosh asinh atanh erf erfc expm1 log1p log2],
   [],
-  [AC_MSG_ERROR([Python requires C99 compatible libm])]
+  [AC_MSG_ERROR([MyFRpy requires C99 compatible libm])]
 )
 LIBS=$LIBS_SAVE
 
@@ -5853,10 +5853,10 @@ AS_VAR_IF([ac_cv_broken_sem_getvalue], [yes], [
 
 AC_CHECK_DECLS([RTLD_LAZY, RTLD_NOW, RTLD_GLOBAL, RTLD_LOCAL, RTLD_NODELETE, RTLD_NOLOAD, RTLD_DEEPBIND, RTLD_MEMBER], [], [], [[@%:@include <dlfcn.h>]])
 
-# determine what size digit to use for Python's longs
-AC_MSG_CHECKING([digit size for Python's longs])
+# determine what size digit to use for MyFRpy's longs
+AC_MSG_CHECKING([digit size for MyFRpy's longs])
 AC_ARG_ENABLE([big-digits],
-AS_HELP_STRING([--enable-big-digits@<:@=15|30@:>@],[use big digits (30 or 15 bits) for Python longs (default is 30)]]),
+AS_HELP_STRING([--enable-big-digits@<:@=15|30@:>@],[use big digits (30 or 15 bits) for MyFRpy longs (default is 30)]]),
 [case $enable_big_digits in
 yes)
   enable_big_digits=30 ;;
@@ -5941,33 +5941,33 @@ esac
 # check for endianness
 AC_C_BIGENDIAN
 
-# ABI version string for Python extension modules.  This appears between the
+# ABI version string for MyFRpy extension modules.  This appears between the
 # periods in shared library file names, e.g. foo.<SOABI>.so.  It is calculated
-# from the following attributes which affect the ABI of this Python build (in
+# from the following attributes which affect the ABI of this MyFRpy build (in
 # this order):
 #
-# * The Python implementation (always 'cpython-' for us)
+# * The MyFRpy implementation (always 'cmyFRpy-' for us)
 # * The major and minor version numbers
 # * --with-pydebug (adds a 'd')
 #
-# Thus for example, Python 3.2 built with wide unicode, pydebug, and pymalloc,
-# would get a shared library ABI version tag of 'cpython-32dmu' and shared
-# libraries would be named 'foo.cpython-32dmu.so'.
+# Thus for example, MyFRpy 3.2 built with wide unicode, pydebug, and pymalloc,
+# would get a shared library ABI version tag of 'cmyFRpy-32dmu' and shared
+# libraries would be named 'foo.cmyFRpy-32dmu.so'.
 #
-# In Python 3.2 and older, --with-wide-unicode added a 'u' flag.
-# In Python 3.7 and older, --with-pymalloc added a 'm' flag.
+# In MyFRpy 3.2 and older, --with-wide-unicode added a 'u' flag.
+# In MyFRpy 3.7 and older, --with-pymalloc added a 'm' flag.
 AC_SUBST([SOABI])
 AC_MSG_CHECKING([ABIFLAGS])
 AC_MSG_RESULT([$ABIFLAGS])
 AC_MSG_CHECKING([SOABI])
-SOABI='cpython-'`echo $VERSION | tr -d .`${ABIFLAGS}${PLATFORM_TRIPLET:+-$PLATFORM_TRIPLET}
+SOABI='cmyFRpy-'`echo $VERSION | tr -d .`${ABIFLAGS}${PLATFORM_TRIPLET:+-$PLATFORM_TRIPLET}
 AC_MSG_RESULT([$SOABI])
 
 # Release and debug (Py_DEBUG) ABI are compatible, but not Py_TRACE_REFS ABI
 if test "$Py_DEBUG" = 'true' -a "$with_trace_refs" != "yes"; then
   # Similar to SOABI but remove "d" flag from ABIFLAGS
   AC_SUBST([ALT_SOABI])
-  ALT_SOABI='cpython-'`echo $VERSION | tr -d .``echo $ABIFLAGS | tr -d d`${PLATFORM_TRIPLET:+-$PLATFORM_TRIPLET}
+  ALT_SOABI='cmyFRpy-'`echo $VERSION | tr -d .``echo $ABIFLAGS | tr -d d`${PLATFORM_TRIPLET:+-$PLATFORM_TRIPLET}
   AC_DEFINE_UNQUOTED([ALT_SOABI], ["${ALT_SOABI}"],
             [Alternative SOABI used in debug build to load C extensions built in release mode])
 fi
@@ -5979,21 +5979,21 @@ AC_MSG_CHECKING([LDVERSION])
 LDVERSION='$(VERSION)$(ABIFLAGS)'
 AC_MSG_RESULT([$LDVERSION])
 
-# On Android and Cygwin the shared libraries must be linked with libpython.
-AC_SUBST([LIBPYTHON])
+# On Android and Cygwin the shared libraries must be linked with libmyFRpy.
+AC_SUBST([LIBMYFRPY])
 if test "$PY_ENABLE_SHARED" = "1" && ( test -n "$ANDROID_API_LEVEL" || test "$MACHDEP" = "cygwin"); then
-  LIBPYTHON="-lpython${VERSION}${ABIFLAGS}"
+  LIBMYFRPY="-lmyFRpy${VERSION}${ABIFLAGS}"
 else
-  LIBPYTHON=''
+  LIBMYFRPY=''
 fi
 
 
 AC_SUBST([BINLIBDEST])
-BINLIBDEST='$(LIBDIR)/python$(VERSION)'
+BINLIBDEST='$(LIBDIR)/myFRpy$(VERSION)'
 
 
 # Check for --with-platlibdir
-# /usr/$LIDIRNAME/python$VERSION
+# /usr/$LIDIRNAME/myFRpy$VERSION
 AC_SUBST([PLATLIBDIR])
 PLATLIBDIR="lib"
 AC_MSG_CHECKING([for --with-platlibdir])
@@ -6001,7 +6001,7 @@ AC_ARG_WITH(
   [platlibdir],
   [AS_HELP_STRING(
     [--with-platlibdir=DIRNAME],
-    [Python library directory name (default is "lib")]
+    [MyFRpy library directory name (default is "lib")]
   )],
 [
 # ignore 3 options:
@@ -6012,7 +6012,7 @@ if test -n "$withval" -a "$withval" != yes -a "$withval" != no
 then
   AC_MSG_RESULT([yes])
   PLATLIBDIR="$withval"
-  BINLIBDEST='${exec_prefix}/${PLATLIBDIR}/python$(VERSION)'
+  BINLIBDEST='${exec_prefix}/${PLATLIBDIR}/myFRpy$(VERSION)'
 else
   AC_MSG_RESULT([no])
 fi],
@@ -6022,9 +6022,9 @@ fi],
 dnl define LIBPL after ABIFLAGS and LDVERSION is defined.
 AC_SUBST([PY_ENABLE_SHARED])
 if test x$PLATFORM_TRIPLET = x; then
-  LIBPL='$(prefix)'"/${PLATLIBDIR}/python${VERSION}/config-${LDVERSION}"
+  LIBPL='$(prefix)'"/${PLATLIBDIR}/myFRpy${VERSION}/config-${LDVERSION}"
 else
-  LIBPL='$(prefix)'"/${PLATLIBDIR}/python${VERSION}/config-${LDVERSION}-${PLATFORM_TRIPLET}"
+  LIBPL='$(prefix)'"/${PLATLIBDIR}/myFRpy${VERSION}/config-${LDVERSION}-${PLATFORM_TRIPLET}"
 fi
 AC_SUBST([LIBPL])
 
@@ -6739,7 +6739,7 @@ esac
 
 AC_SUBST([THREADHEADERS])
 
-for h in `(cd $srcdir;echo Python/thread_*.h)`
+for h in `(cd $srcdir;echo MyFRpy/thread_*.h)`
 do
   THREADHEADERS="$THREADHEADERS \$(srcdir)/$h"
 done
@@ -6763,9 +6763,9 @@ SRCDIRS="\
   Objects \
   Parser \
   Programs \
-  Python \
-  Python/frozen_modules \
-  Python/deepfreeze"
+  MyFRpy \
+  MyFRpy/frozen_modules \
+  MyFRpy/deepfreeze"
 AC_MSG_CHECKING([for build directories])
 for dir in $SRCDIRS; do
     if test ! -d $dir; then
@@ -6954,7 +6954,7 @@ AC_LINK_IFELSE(
         char buffer[1];
         const size_t buflen = sizeof(buffer);
         const int flags = GRND_NONBLOCK;
-        /* ignore the result, Python checks for ENOSYS and EAGAIN at runtime */
+        /* ignore the result, MyFRpy checks for ENOSYS and EAGAIN at runtime */
         (void)syscall(SYS_getrandom, buffer, buflen, flags);
         return 0;
     }
@@ -6980,7 +6980,7 @@ AC_LINK_IFELSE(
         char buffer[1];
         const size_t buflen = sizeof(buffer);
         const int flags = 0;
-        /* ignore the result, Python checks for ENOSYS at runtime */
+        /* ignore the result, MyFRpy checks for ENOSYS at runtime */
         (void)getrandom(buffer, buflen, flags);
         return 0;
     }
@@ -7111,7 +7111,7 @@ WITH_SAVE_ENV([
       SSL_CTX_set_keylog_callback(ctx, keylog_cb);
       SSL *ssl = SSL_new(ctx);
       X509_VERIFY_PARAM *param = SSL_get0_param(ssl);
-      X509_VERIFY_PARAM_set1_host(param, "python.org", 0);
+      X509_VERIFY_PARAM_set1_host(param, "myFRpy.org", 0);
       SSL_free(ssl);
       SSL_CTX_free(ctx);
     ])], [ac_cv_working_openssl_ssl=yes], [ac_cv_working_openssl_ssl=no])
@@ -7143,7 +7143,7 @@ WITH_SAVE_ENV([
 # ssl module default cipher suite string
 AH_TEMPLATE([PY_SSL_DEFAULT_CIPHERS],
   [Default cipher suites list for ssl module.
-   1: Python's preferred selection, 2: leave OpenSSL defaults untouched, 0: custom string])
+   1: MyFRpy's preferred selection, 2: leave OpenSSL defaults untouched, 0: custom string])
 AH_TEMPLATE([PY_SSL_DEFAULT_CIPHER_STRING],
   [Cipher suite string for PY_SSL_DEFAULT_CIPHERS=0]
 )
@@ -7152,17 +7152,17 @@ AC_MSG_CHECKING([for --with-ssl-default-suites])
 AC_ARG_WITH(
   [ssl-default-suites],
   [AS_HELP_STRING(
-    [--with-ssl-default-suites=@<:@python|openssl|STRING@:>@],
+    [--with-ssl-default-suites=@<:@myFRpy|openssl|STRING@:>@],
     [override default cipher suites string,
-     python: use Python's preferred selection (default),
+     myFRpy: use MyFRpy's preferred selection (default),
      openssl: leave OpenSSL's defaults untouched,
      STRING: use a custom string,
-     python and STRING also set TLS 1.2 as minimum TLS version]
+     myFRpy and STRING also set TLS 1.2 as minimum TLS version]
   )],
 [
 AC_MSG_RESULT([$withval])
 case "$withval" in
-    python)
+    myFRpy)
         AC_DEFINE([PY_SSL_DEFAULT_CIPHERS], [1])
         ;;
     openssl)
@@ -7175,7 +7175,7 @@ case "$withval" in
 esac
 ],
 [
-AC_MSG_RESULT([python])
+AC_MSG_RESULT([myFRpy])
 AC_DEFINE([PY_SSL_DEFAULT_CIPHERS], [1])
 ])
 
@@ -7544,9 +7544,9 @@ AC_SUBST([MODULE_BLOCK])
 # generate output files
 AC_CONFIG_FILES(m4_normalize([
   Makefile.pre
-  Misc/python.pc
-  Misc/python-embed.pc
-  Misc/python-config.sh
+  Misc/myFRpy.pc
+  Misc/myFRpy-embed.pc
+  Misc/myFRpy-config.sh
 ]))
 AC_CONFIG_FILES(m4_normalize([
   Modules/Setup.bootstrap
@@ -7586,5 +7586,5 @@ fi
 AS_VAR_IF([PY_SUPPORT_TIER], [0], [AC_MSG_WARN([
 
 Platform "$host" with compiler "$ac_cv_cc_name" is not supported by the
-CPython core team, see https://peps.python.org/pep-0011/ for more information.
+CMyFRpy core team, see https://peps.myFRpy.org/pep-0011/ for more information.
 ])])

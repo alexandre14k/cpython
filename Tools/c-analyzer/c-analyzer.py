@@ -1,4 +1,4 @@
-from cpython.__main__ import parse_args, main, configure_logger
+from cmyFRpy.__main__ import parse_args, main, configure_logger
 
 
 cmd, cmd_kwargs, verbosity, traceback_cm = parse_args()

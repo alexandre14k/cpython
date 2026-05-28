@@ -1,8 +1,8 @@
-"""Weak reference support for Python.
+"""Weak reference support for MyFRpy.
 
 This module is an implementation of PEP 205:
 
-https://peps.python.org/pep-0205/
+https://peps.myFRpy.org/pep-0205/
 """
 
 # Naming convention: Variables named "wr" are weak reference objects;

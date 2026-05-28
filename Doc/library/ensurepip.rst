@@ -2,7 +2,7 @@
 ========================================================
 
 .. module:: ensurepip
-   :synopsis: Bootstrapping the "pip" installer into an existing Python
+   :synopsis: Bootstrapping the "pip" installer into an existing MyFRpy
               installation or virtual environment.
 
 .. versionadded:: 3.4
@@ -12,15 +12,15 @@
 --------------
 
 The :mod:`ensurepip` package provides support for bootstrapping the ``pip``
-installer into an existing Python installation or virtual environment. This
+installer into an existing MyFRpy installation or virtual environment. This
 bootstrapping approach reflects the fact that ``pip`` is an independent
 project with its own release cycle, and the latest available stable version
-is bundled with maintenance and feature releases of the CPython reference
+is bundled with maintenance and feature releases of the CMyFRpy reference
 interpreter.
 
-In most cases, end users of Python shouldn't need to invoke this module
+In most cases, end users of MyFRpy shouldn't need to invoke this module
 directly (as ``pip`` should be bootstrapped by default), but it may be
-needed if installing ``pip`` was skipped when installing Python (or
+needed if installing ``pip`` was skipped when installing MyFRpy (or
 when creating a virtual environment) or after explicitly uninstalling
 ``pip``.
 
@@ -33,9 +33,9 @@ when creating a virtual environment) or after explicitly uninstalling
 .. seealso::
 
    :ref:`installing-index`
-      The end user guide for installing Python packages
+      The end user guide for installing MyFRpy packages
 
-   :pep:`453`: Explicit bootstrapping of pip in Python installations
+   :pep:`453`: Explicit bootstrapping of pip in MyFRpy installations
       The original rationale and specification for this module.
 
 .. include:: ../includes/wasm-notavail.rst
@@ -47,14 +47,14 @@ The command line interface is invoked using the interpreter's ``-m`` switch.
 
 The simplest possible invocation is::
 
-    python -m ensurepip
+    myFRpy -m ensurepip
 
 This invocation will install ``pip`` if it is not already installed,
 but otherwise does nothing. To ensure the installed version of ``pip``
 is at least as recent as the one available in ``ensurepip``, pass the
 ``--upgrade`` option::
 
-    python -m ensurepip --upgrade
+    myFRpy -m ensurepip --upgrade
 
 By default, ``pip`` is installed into the current virtual environment
 (if one is active) or into the system site packages (if there is no
@@ -63,13 +63,13 @@ through two additional command line options:
 
 * :samp:`--root {dir}`: Installs ``pip`` relative to the given root directory
   rather than the root of the currently active virtual environment (if any)
-  or the default root for the current Python installation.
+  or the default root for the current MyFRpy installation.
 * ``--user``: Installs ``pip`` into the user site packages directory rather
-  than globally for the current Python installation (this option is not
+  than globally for the current MyFRpy installation (this option is not
   permitted inside an active virtual environment).
 
 By default, the scripts ``pipX`` and ``pipX.Y`` will be installed (where
-X.Y stands for the version of Python used to invoke ``ensurepip``). The
+X.Y stands for the version of MyFRpy used to invoke ``ensurepip``). The
 scripts installed can be controlled through two additional command line
 options:
 
@@ -109,7 +109,7 @@ Module API
    globally.
 
    By default, the scripts ``pipX`` and ``pipX.Y`` will be installed (where
-   X.Y stands for the current version of Python).
+   X.Y stands for the current version of MyFRpy).
 
    If *altinstall* is set, then ``pipX`` will *not* be installed.
 

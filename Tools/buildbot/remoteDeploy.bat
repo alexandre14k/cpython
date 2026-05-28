@@ -18,35 +18,35 @@ if "%SSH_SERVER%"=="" goto :Arm32SshHelp
 ssh %SSH_SERVER% echo Make sure we can find SSH and SSH_SERVER variable is valid
 if %ERRORLEVEL% NEQ 0 (echo SSH does not work) & exit /b %ERRORLEVEL%
 
-if "%PYTHON_SOURCE%"=="" (set PYTHON_SOURCE=%here%..\..\)
-if "%REMOTE_PYTHON_DIR%"=="" (set REMOTE_PYTHON_DIR=C:\python\)
-if NOT "%REMOTE_PYTHON_DIR:~-1,1%"=="\" (set REMOTE_PYTHON_DIR=%REMOTE_PYTHON_DIR%\)
-echo PYTHON_SOURCE = %PYTHON_SOURCE%
-echo REMOTE_PYTHON_DIR = %REMOTE_PYTHON_DIR%
+if "%MYFRPY_SOURCE%"=="" (set MYFRPY_SOURCE=%here%..\..\)
+if "%REMOTE_MYFRPY_DIR%"=="" (set REMOTE_MYFRPY_DIR=C:\myFRpy\)
+if NOT "%REMOTE_MYFRPY_DIR:~-1,1%"=="\" (set REMOTE_MYFRPY_DIR=%REMOTE_MYFRPY_DIR%\)
+echo MYFRPY_SOURCE = %MYFRPY_SOURCE%
+echo REMOTE_MYFRPY_DIR = %REMOTE_MYFRPY_DIR%
 
-REM stop Python processes and remove existing files if found
-ssh %SSH_SERVER% "kill python.exe"
-ssh %SSH_SERVER% "kill python_d.exe"
-ssh %SSH_SERVER% "if EXIST %REMOTE_PYTHON_DIR% (rd %REMOTE_PYTHON_DIR% /s/q)"
+REM stop MyFRpy processes and remove existing files if found
+ssh %SSH_SERVER% "kill myFRpy.exe"
+ssh %SSH_SERVER% "kill myFRpy_d.exe"
+ssh %SSH_SERVER% "if EXIST %REMOTE_MYFRPY_DIR% (rd %REMOTE_MYFRPY_DIR% /s/q)"
 
-REM Create Python directories
-ssh %SSH_SERVER% "md %REMOTE_PYTHON_DIR%PCBuild\arm32"
-ssh %SSH_SERVER% "md %REMOTE_PYTHON_DIR%temp"
-ssh %SSH_SERVER% "md %REMOTE_PYTHON_DIR%Modules"
-ssh %SSH_SERVER% "md %REMOTE_PYTHON_DIR%PC"
+REM Create MyFRpy directories
+ssh %SSH_SERVER% "md %REMOTE_MYFRPY_DIR%PCBuild\arm32"
+ssh %SSH_SERVER% "md %REMOTE_MYFRPY_DIR%temp"
+ssh %SSH_SERVER% "md %REMOTE_MYFRPY_DIR%Modules"
+ssh %SSH_SERVER% "md %REMOTE_MYFRPY_DIR%PC"
 
-REM Copy Python files
-for /f "USEBACKQ" %%i in (`dir PCbuild\*.bat /b`) do @scp PCBuild\%%i "%SSH_SERVER%:%REMOTE_PYTHON_DIR%PCBuild"
-for /f "USEBACKQ" %%i in (`dir PCbuild\*.py /b`) do @scp PCBuild\%%i "%SSH_SERVER%:%REMOTE_PYTHON_DIR%PCBuild"
-for /f "USEBACKQ" %%i in (`dir PCbuild\arm32\*.exe /b`) do @scp PCBuild\arm32\%%i "%SSH_SERVER%:%REMOTE_PYTHON_DIR%PCBuild\arm32"
-for /f "USEBACKQ" %%i in (`dir PCbuild\arm32\*.pyd /b`) do @scp PCBuild\arm32\%%i "%SSH_SERVER%:%REMOTE_PYTHON_DIR%PCBuild\arm32"
-for /f "USEBACKQ" %%i in (`dir PCbuild\arm32\*.dll /b`) do @scp PCBuild\arm32\%%i "%SSH_SERVER%:%REMOTE_PYTHON_DIR%PCBuild\arm32"
-scp -r "%PYTHON_SOURCE%Include" "%SSH_SERVER%:%REMOTE_PYTHON_DIR%Include"
-scp -r "%PYTHON_SOURCE%Lib" "%SSH_SERVER%:%REMOTE_PYTHON_DIR%Lib"
-scp -r "%PYTHON_SOURCE%Parser" "%SSH_SERVER%:%REMOTE_PYTHON_DIR%Parser"
-scp -r "%PYTHON_SOURCE%Tools" "%SSH_SERVER%:%REMOTE_PYTHON_DIR%Tools"
-scp "%PYTHON_SOURCE%Modules\Setup" "%SSH_SERVER%:%REMOTE_PYTHON_DIR%Modules"
-scp "%PYTHON_SOURCE%PC\pyconfig.h" "%SSH_SERVER%:%REMOTE_PYTHON_DIR%PC"
+REM Copy MyFRpy files
+for /f "USEBACKQ" %%i in (`dir PCbuild\*.bat /b`) do @scp PCBuild\%%i "%SSH_SERVER%:%REMOTE_MYFRPY_DIR%PCBuild"
+for /f "USEBACKQ" %%i in (`dir PCbuild\*.py /b`) do @scp PCBuild\%%i "%SSH_SERVER%:%REMOTE_MYFRPY_DIR%PCBuild"
+for /f "USEBACKQ" %%i in (`dir PCbuild\arm32\*.exe /b`) do @scp PCBuild\arm32\%%i "%SSH_SERVER%:%REMOTE_MYFRPY_DIR%PCBuild\arm32"
+for /f "USEBACKQ" %%i in (`dir PCbuild\arm32\*.pyd /b`) do @scp PCBuild\arm32\%%i "%SSH_SERVER%:%REMOTE_MYFRPY_DIR%PCBuild\arm32"
+for /f "USEBACKQ" %%i in (`dir PCbuild\arm32\*.dll /b`) do @scp PCBuild\arm32\%%i "%SSH_SERVER%:%REMOTE_MYFRPY_DIR%PCBuild\arm32"
+scp -r "%MYFRPY_SOURCE%Include" "%SSH_SERVER%:%REMOTE_MYFRPY_DIR%Include"
+scp -r "%MYFRPY_SOURCE%Lib" "%SSH_SERVER%:%REMOTE_MYFRPY_DIR%Lib"
+scp -r "%MYFRPY_SOURCE%Parser" "%SSH_SERVER%:%REMOTE_MYFRPY_DIR%Parser"
+scp -r "%MYFRPY_SOURCE%Tools" "%SSH_SERVER%:%REMOTE_MYFRPY_DIR%Tools"
+scp "%MYFRPY_SOURCE%Modules\Setup" "%SSH_SERVER%:%REMOTE_MYFRPY_DIR%Modules"
+scp "%MYFRPY_SOURCE%PC\pyconfig.h" "%SSH_SERVER%:%REMOTE_MYFRPY_DIR%PC"
 
 exit /b %ERRORLEVEL%
 

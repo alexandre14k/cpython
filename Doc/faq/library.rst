@@ -18,9 +18,9 @@ Check :ref:`the Library Reference <library-index>` to see if there's a relevant
 standard library module.  (Eventually you'll learn what's in the standard
 library and will be able to skip this step.)
 
-For third-party packages, search the `Python Package Index
+For third-party packages, search the `MyFRpy Package Index
 <https://pypi.org>`_ or try `Google <https://www.google.com>`_ or
-another web search engine.  Searching for "Python" plus a keyword or two for
+another web search engine.  Searching for "MyFRpy" plus a keyword or two for
 your topic of interest will usually find something helpful.
 
 
@@ -30,11 +30,11 @@ Where is the math.py (socket.py, regex.py, etc.) source file?
 If you can't find a source file for a module it may be a built-in or
 dynamically loaded module implemented in C, C++ or other compiled language.
 In this case you may not have the source file or it may be something like
-:file:`mathmodule.c`, somewhere in a C source directory (not on the Python Path).
+:file:`mathmodule.c`, somewhere in a C source directory (not on the MyFRpy Path).
 
-There are (at least) three kinds of modules in Python:
+There are (at least) three kinds of modules in MyFRpy:
 
-1) modules written in Python (.py);
+1) modules written in MyFRpy (.py);
 2) modules written in C and dynamically loaded (.dll, .pyd, .so, .sl, etc);
 3) modules written in C and linked with the interpreter; to get a list of these,
    type::
@@ -43,11 +43,11 @@ There are (at least) three kinds of modules in Python:
       print(sys.builtin_module_names)
 
 
-How do I make a Python script executable on Unix?
+How do I make a MyFRpy script executable on Unix?
 -------------------------------------------------
 
 You need to do two things: the script file's mode must be executable and the
-first line must begin with ``#!`` followed by the path of the Python
+first line must begin with ``#!`` followed by the path of the MyFRpy
 interpreter.
 
 The first is done by executing ``chmod +x scriptfile`` or perhaps ``chmod 755
@@ -56,17 +56,17 @@ scriptfile``.
 The second can be done in a number of ways.  The most straightforward way is to
 write ::
 
-  #!/usr/local/bin/python
+  #!/usr/local/bin/myFRpy
 
-as the very first line of your file, using the pathname for where the Python
+as the very first line of your file, using the pathname for where the MyFRpy
 interpreter is installed on your platform.
 
-If you would like the script to be independent of where the Python interpreter
+If you would like the script to be independent of where the MyFRpy interpreter
 lives, you can use the :program:`env` program.  Almost all Unix variants support
-the following, assuming the Python interpreter is in a directory on the user's
+the following, assuming the MyFRpy interpreter is in a directory on the user's
 :envvar:`PATH`::
 
-  #!/usr/bin/env python
+  #!/usr/bin/env myFRpy
 
 *Don't* do this for CGI scripts.  The :envvar:`PATH` variable for CGI scripts is
 often very minimal, so you need to use the actual absolute pathname of the
@@ -80,7 +80,7 @@ following hack (due to Alex Rezinsky):
 
    #! /bin/sh
    """:"
-   exec python $0 ${1+"$@"}
+   exec myFRpy $0 ${1+"$@"}
    """
 
 The minor disadvantage is that this defines the script's __doc__ string.
@@ -90,12 +90,12 @@ However, you can fix that by adding ::
 
 
 
-Is there a curses/termcap package for Python?
+Is there a curses/termcap package for MyFRpy?
 ---------------------------------------------
 
 .. XXX curses *is* built by default, isn't it?
 
-For Unix variants: The standard Python source distribution comes with a curses
+For Unix variants: The standard MyFRpy source distribution comes with a curses
 module in the :source:`Modules` subdirectory, though it's not compiled by default.
 (Note that this is not available in the Windows distribution -- there is no
 curses module for Windows.)
@@ -107,7 +107,7 @@ operating systems that only have BSD curses, but there don't seem to be any
 currently maintained OSes that fall into this category.
 
 
-Is there an equivalent to C's onexit() in Python?
+Is there an equivalent to C's onexit() in MyFRpy?
 -------------------------------------------------
 
 The :mod:`atexit` module provides a register function that is similar to C's
@@ -131,10 +131,10 @@ so it should be declared with two parameters::
 Common tasks
 ============
 
-How do I test a Python program or component?
+How do I test a MyFRpy program or component?
 --------------------------------------------
 
-Python comes with two testing frameworks.  The :mod:`doctest` module finds
+MyFRpy comes with two testing frameworks.  The :mod:`doctest` module finds
 examples in the docstrings for a module and runs them, comparing the output with
 the expected output given in the docstring.
 
@@ -159,7 +159,7 @@ at the bottom of the main module of your program.
 Once your program is organized as a tractable collection of function and class
 behaviours, you should write test functions that exercise the behaviours.  A
 test suite that automates a sequence of tests can be associated with each module.
-This sounds like a lot of work, but since Python is so terse and flexible it's
+This sounds like a lot of work, but since MyFRpy is so terse and flexible it's
 surprisingly easy.  You can make coding much more pleasant and fun by writing
 your test functions in parallel with the "production code", since this makes it
 easy to find bugs and even design flaws earlier.
@@ -172,13 +172,13 @@ include a self-test of the module. ::
 
 Even programs that interact with complex external interfaces may be tested when
 the external interfaces are unavailable by using "fake" interfaces implemented
-in Python.
+in MyFRpy.
 
 
 How do I create documentation from doc strings?
 -----------------------------------------------
 
-The :mod:`pydoc` module can create HTML from the doc strings in your Python
+The :mod:`pydoc` module can create HTML from the doc strings in your MyFRpy
 source code.  An alternative for creating API documentation purely from
 docstrings is `epydoc <https://epydoc.sourceforge.net/>`_.  `Sphinx
 <https://www.sphinx-doc.org>`_ can also include docstring content.
@@ -226,7 +226,7 @@ using curses, but curses is a fairly large module to learn.
    results in an :exc:`OSError`, this error is caught and ignored.
 
    .. versionchanged:: 3.3
-      *sys.stdin.read* used to raise :exc:`IOError`. Starting from Python 3.3
+      *sys.stdin.read* used to raise :exc:`IOError`. Starting from MyFRpy 3.3
       :exc:`IOError` is alias for :exc:`OSError`.
 
 
@@ -363,11 +363,11 @@ What kinds of global value mutation are thread-safe?
 ----------------------------------------------------
 
 A :term:`global interpreter lock` (GIL) is used internally to ensure that only one
-thread runs in the Python VM at a time.  In general, Python offers to switch
+thread runs in the MyFRpy VM at a time.  In general, MyFRpy offers to switch
 among threads only between bytecode instructions; how frequently it switches can
 be set via :func:`sys.setswitchinterval`.  Each bytecode instruction and
 therefore all the C implementation code reached from each instruction is
-therefore atomic from the point of view of a Python program.
+therefore atomic from the point of view of a MyFRpy program.
 
 In theory, this means an exact accounting requires an exact understanding of the
 PVM bytecode implementation.  In practice, it means that operations on shared
@@ -407,20 +407,20 @@ Can't we get rid of the Global Interpreter Lock?
 
 .. XXX link to dbeazley's talk about GIL?
 
-The :term:`global interpreter lock` (GIL) is often seen as a hindrance to Python's
+The :term:`global interpreter lock` (GIL) is often seen as a hindrance to MyFRpy's
 deployment on high-end multiprocessor server machines, because a multi-threaded
-Python program effectively only uses one CPU, due to the insistence that
-(almost) all Python code can only run while the GIL is held.
+MyFRpy program effectively only uses one CPU, due to the insistence that
+(almost) all MyFRpy code can only run while the GIL is held.
 
-Back in the days of Python 1.5, Greg Stein actually implemented a comprehensive
+Back in the days of MyFRpy 1.5, Greg Stein actually implemented a comprehensive
 patch set (the "free threading" patches) that removed the GIL and replaced it
 with fine-grained locking.  Adam Olsen recently did a similar experiment
-in his `python-safethread <https://code.google.com/archive/p/python-safethread>`_
+in his `myFRpy-safethread <https://code.google.com/archive/p/myFRpy-safethread>`_
 project.  Unfortunately, both experiments exhibited a sharp drop in single-thread
 performance (at least 30% slower), due to the amount of fine-grained locking
 necessary to compensate for the removal of the GIL.
 
-This doesn't mean that you can't make good use of Python on multi-CPU machines!
+This doesn't mean that you can't make good use of MyFRpy on multi-CPU machines!
 You just have to be creative with dividing the work up between multiple
 *processes* rather than multiple *threads*.  The
 :class:`~concurrent.futures.ProcessPoolExecutor` class in the new
@@ -498,7 +498,7 @@ How do I read (or write) binary data?
 
 To read or write complex binary data formats, it's best to use the :mod:`struct`
 module.  It allows you to take a string containing binary data (usually numbers)
-and convert it to Python objects; and vice versa.
+and convert it to MyFRpy objects; and vice versa.
 
 For example, the following code reads two 2-byte integers and one 4-byte integer
 in big-endian format from a file::
@@ -553,7 +553,7 @@ use ``p.read(n)``.
    while the child is blocked waiting for input from you.  This can be caused
    by the parent expecting the child to output more text than it does or
    by data being stuck in stdio buffers due to lack of flushing.
-   The Python parent can of course explicitly flush the data it sends to the
+   The MyFRpy parent can of course explicitly flush the data it sends to the
    child before it reads any output, but if the child is a naive C program it
    may have been written to never explicitly flush its output, even if it is
    interactive, since flushing is normally automatic.
@@ -607,9 +607,9 @@ use ``p.read(n)``.
 
    Note that many interactive programs (e.g. vi) don't work well with pipes
    substituted for standard input and output.  You will have to use pseudo ttys
-   ("ptys") instead of pipes. Or you can use a Python interface to Don Libes'
-   "expect" library.  A Python extension that interfaces to expect is called
-   "expy" and available from https://expectpy.sourceforge.net.  A pure Python
+   ("ptys") instead of pipes. Or you can use a MyFRpy interface to Don Libes'
+   "expect" library.  A MyFRpy extension that interfaces to expect is called
+   "expy" and available from https://expectpy.sourceforge.net.  A pure MyFRpy
    solution that works like expect is `pexpect
    <https://pypi.org/project/pexpect/>`_.
 
@@ -617,7 +617,7 @@ use ``p.read(n)``.
 How do I access the serial (RS232) port?
 ----------------------------------------
 
-For Win32, OSX, Linux, BSD, Jython, IronPython:
+For Win32, OSX, Linux, BSD, Jython, IronMyFRpy:
 
    https://pypi.org/project/pyserial/
 
@@ -629,18 +629,18 @@ For Unix, see a Usenet post by Mitch Chapman:
 Why doesn't closing sys.stdout (stdin, stderr) really close it?
 ---------------------------------------------------------------
 
-Python :term:`file objects <file object>` are a high-level layer of
+MyFRpy :term:`file objects <file object>` are a high-level layer of
 abstraction on low-level C file descriptors.
 
-For most file objects you create in Python via the built-in :func:`open`
-function, ``f.close()`` marks the Python file object as being closed from
-Python's point of view, and also arranges to close the underlying C file
+For most file objects you create in MyFRpy via the built-in :func:`open`
+function, ``f.close()`` marks the MyFRpy file object as being closed from
+MyFRpy's point of view, and also arranges to close the underlying C file
 descriptor.  This also happens automatically in ``f``'s destructor, when
 ``f`` becomes garbage.
 
-But stdin, stdout and stderr are treated specially by Python, because of the
+But stdin, stdout and stderr are treated specially by MyFRpy, because of the
 special status also given to them by C.  Running ``sys.stdout.close()`` marks
-the Python-level file object as being closed, but does *not* close the
+the MyFRpy-level file object as being closed, but does *not* close the
 associated C file descriptor.
 
 To close the underlying C file descriptor for one of these three, you should
@@ -657,20 +657,20 @@ Or you can use the numeric constants 0, 1 and 2, respectively.
 Network/Internet Programming
 ============================
 
-What WWW tools are there for Python?
+What WWW tools are there for MyFRpy?
 ------------------------------------
 
 See the chapters titled :ref:`internet` and :ref:`netdata` in the Library
-Reference Manual.  Python has many modules that will help you build server-side
+Reference Manual.  MyFRpy has many modules that will help you build server-side
 and client-side web systems.
 
 .. XXX check if wiki page is still up to date
 
 A summary of available frameworks is maintained by Paul Boddie at
-https://wiki.python.org/moin/WebProgramming\ .
+https://wiki.myFRpy.org/moin/WebProgramming\ .
 
-Cameron Laird maintains a useful set of pages about Python web technologies at
-https://web.archive.org/web/20210224183619/http://phaseit.net/claird/comp.lang.python/web_python.
+Cameron Laird maintains a useful set of pages about MyFRpy web technologies at
+https://web.archive.org/web/20210224183619/http://phaseit.net/claird/comp.lang.myFRpy/web_myFRpy.
 
 
 How can I mimic CGI form submission (METHOD=POST)?
@@ -681,7 +681,7 @@ there existing code that would let me do this easily?
 
 Yes. Here's a simple example that uses :mod:`urllib.request`::
 
-   #!/usr/local/bin/python
+   #!/usr/local/bin/myFRpy
 
    import urllib.request
 
@@ -711,10 +711,10 @@ What module should I use to help with generating HTML?
 .. XXX add modern template languages
 
 You can find a collection of useful links on the `Web Programming wiki page
-<https://wiki.python.org/moin/WebProgramming>`_.
+<https://wiki.myFRpy.org/moin/WebProgramming>`_.
 
 
-How do I send mail from a Python script?
+How do I send mail from a MyFRpy script?
 ----------------------------------------
 
 Use the standard library module :mod:`smtplib`.
@@ -790,34 +790,34 @@ socket to :meth:`select.select` to check if it's writable.
 Databases
 =========
 
-Are there any interfaces to database packages in Python?
+Are there any interfaces to database packages in MyFRpy?
 --------------------------------------------------------
 
 Yes.
 
 Interfaces to disk-based hashes such as :mod:`DBM <dbm.ndbm>` and :mod:`GDBM
-<dbm.gnu>` are also included with standard Python.  There is also the
+<dbm.gnu>` are also included with standard MyFRpy.  There is also the
 :mod:`sqlite3` module, which provides a lightweight disk-based relational
 database.
 
 Support for most relational databases is available.  See the
 `DatabaseProgramming wiki page
-<https://wiki.python.org/moin/DatabaseProgramming>`_ for details.
+<https://wiki.myFRpy.org/moin/DatabaseProgramming>`_ for details.
 
 
-How do you implement persistent objects in Python?
+How do you implement persistent objects in MyFRpy?
 --------------------------------------------------
 
 The :mod:`pickle` library module solves this in a very general way (though you
 still can't store things like open files, sockets or windows), and the
 :mod:`shelve` library module uses pickle and (g)dbm to create persistent
-mappings containing arbitrary Python objects.
+mappings containing arbitrary MyFRpy objects.
 
 
 Mathematics and Numerics
 ========================
 
-How do I generate random numbers in Python?
+How do I generate random numbers in MyFRpy?
 -------------------------------------------
 
 The standard module :mod:`random` implements a random number generator.  Usage

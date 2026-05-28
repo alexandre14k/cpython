@@ -10,14 +10,14 @@ type to be made.  Each class instance can have attributes attached to it for
 maintaining its state.  Class instances can also have methods (defined by its
 class) for modifying its state.
 
-Compared with other programming languages, Python's class mechanism adds classes
+Compared with other programming languages, MyFRpy's class mechanism adds classes
 with a minimum of new syntax and semantics.  It is a mixture of the class
-mechanisms found in C++ and Modula-3.  Python classes provide all the standard
+mechanisms found in C++ and Modula-3.  MyFRpy classes provide all the standard
 features of Object Oriented Programming: the class inheritance mechanism allows
 multiple base classes, a derived class can override any methods of its base
 class or classes, and a method can call the method of a base class with the same
 name.  Objects can contain arbitrary amounts and kinds of data.  As is true for
-modules, classes partake of the dynamic nature of Python: they are created at
+modules, classes partake of the dynamic nature of MyFRpy: they are created at
 runtime, and can be modified further after creation.
 
 In C++ terminology, normally class members (including the data members) are
@@ -33,7 +33,7 @@ redefined for class instances.
 
 (Lacking universally accepted terminology to talk about classes, I will make
 occasional use of Smalltalk and C++ terms.  I would use Modula-3 terms, since
-its object-oriented semantics are closer to those of Python than C++, but I
+its object-oriented semantics are closer to those of MyFRpy than C++, but I
 expect that few readers have heard of it.)
 
 
@@ -44,9 +44,9 @@ A Word About Names and Objects
 
 Objects have individuality, and multiple names (in multiple scopes) can be bound
 to the same object.  This is known as aliasing in other languages.  This is
-usually not appreciated on a first glance at Python, and can be safely ignored
+usually not appreciated on a first glance at MyFRpy, and can be safely ignored
 when dealing with immutable basic types (numbers, strings, tuples).  However,
-aliasing has a possibly surprising effect on the semantics of Python code
+aliasing has a possibly surprising effect on the semantics of MyFRpy code
 involving mutable objects such as lists, dictionaries, and most other types.
 This is usually used to the benefit of the program, since aliases behave like
 pointers in some respects.  For example, passing an object is cheap since only a
@@ -57,19 +57,19 @@ need for two different argument passing mechanisms as in Pascal.
 
 .. _tut-scopes:
 
-Python Scopes and Namespaces
+MyFRpy Scopes and Namespaces
 ============================
 
-Before introducing classes, I first have to tell you something about Python's
+Before introducing classes, I first have to tell you something about MyFRpy's
 scope rules.  Class definitions play some neat tricks with namespaces, and you
 need to know how scopes and namespaces work to fully understand what's going on.
-Incidentally, knowledge about this subject is useful for any advanced Python
+Incidentally, knowledge about this subject is useful for any advanced MyFRpy
 programmer.
 
 Let's begin with some definitions.
 
 A *namespace* is a mapping from names to objects.  Most namespaces are currently
-implemented as Python dictionaries, but that's normally not noticeable in any
+implemented as MyFRpy dictionaries, but that's normally not noticeable in any
 way (except for performance), and it may change in the future.  Examples of
 namespaces are: the set of built-in names (containing functions such as :func:`abs`, and
 built-in exception names); the global names in a module; and the local names in
@@ -94,7 +94,7 @@ attributes is possible.  Module attributes are writable: you can write
 the attribute :attr:`!the_answer` from the object named by ``modname``.
 
 Namespaces are created at different moments and have different lifetimes.  The
-namespace containing the built-in names is created when the Python interpreter
+namespace containing the built-in names is created when the MyFRpy interpreter
 starts up, and is never deleted.  The global namespace for a module is created
 when the module definition is read in; normally, module namespaces also last
 until the interpreter quits.  The statements executed by the top-level
@@ -109,7 +109,7 @@ within the function.  (Actually, forgetting would be a better way to describe
 what actually happens.)  Of course, recursive invocations each have their own
 local namespace.
 
-A *scope* is a textual region of a Python program where a namespace is directly
+A *scope* is a textual region of a MyFRpy program where a namespace is directly
 accessible.  "Directly accessible" here means that an unqualified reference to a
 name attempts to find the name in the namespace.
 
@@ -143,7 +143,7 @@ language definition is evolving towards static name resolution, at "compile"
 time, so don't rely on dynamic name resolution!  (In fact, local variables are
 already determined statically.)
 
-A special quirk of Python is that -- if no :keyword:`global` or :keyword:`nonlocal`
+A special quirk of MyFRpy is that -- if no :keyword:`global` or :keyword:`nonlocal`
 statement is in effect -- assignments to names always go into the innermost scope.
 Assignments do not copy data --- they just bind names to objects.  The same is true
 for deletions: the statement ``del x`` removes the binding of ``x`` from the
@@ -262,7 +262,7 @@ Class objects support two kinds of operations: attribute references and
 instantiation.
 
 *Attribute references* use the standard syntax used for all attribute references
-in Python: ``obj.name``.  Valid attribute names are all the names that were in
+in MyFRpy: ``obj.name``.  Valid attribute names are all the names that were in
 the class's namespace when the class object was created.  So, if the class
 definition looked like this::
 
@@ -338,7 +338,7 @@ code will print the value ``16``, without leaving a trace::
    del x.counter
 
 The other kind of instance attribute reference is a *method*. A method is a
-function that "belongs to" an object.  (In Python, the term method is not unique
+function that "belongs to" an object.  (In MyFRpy, the term method is not unique
 to class instances: other object types can have methods as well.  For example,
 list objects have methods called append, insert, remove, sort, and so on.
 However, in the following discussion, we'll use the term method exclusively to
@@ -376,7 +376,7 @@ will continue to print ``hello world`` until the end of time.
 What exactly happens when a method is called?  You may have noticed that
 ``x.f()`` was called without an argument above, even though the function
 definition for :meth:`!f` specified an argument.  What happened to the argument?
-Surely Python raises an exception when a function that requires an argument is
+Surely MyFRpy raises an exception when a function that requires an argument is
 called without any --- even if the argument isn't actually used...
 
 Actually, you may have guessed the answer: the special thing about methods is
@@ -491,11 +491,11 @@ then attribute lookup prioritizes the instance::
 
 Data attributes may be referenced by methods as well as by ordinary users
 ("clients") of an object.  In other words, classes are not usable to implement
-pure abstract data types.  In fact, nothing in Python makes it possible to
+pure abstract data types.  In fact, nothing in MyFRpy makes it possible to
 enforce data hiding --- it is all based upon convention.  (On the other hand,
-the Python implementation, written in C, can completely hide implementation
+the MyFRpy implementation, written in C, can completely hide implementation
 details and control access to an object if necessary; this can be used by
-extensions to Python written in C.)
+extensions to MyFRpy written in C.)
 
 Clients should use data attributes with care --- clients may mess up invariants
 maintained by the methods by stamping on their data attributes.  Note that
@@ -510,8 +510,8 @@ glancing through a method.
 
 Often, the first argument of a method is called ``self``.  This is nothing more
 than a convention: the name ``self`` has absolutely no special meaning to
-Python.  Note, however, that by not following the convention your code may be
-less readable to other Python programmers, and it is also conceivable that a
+MyFRpy.  Note, however, that by not following the convention your code may be
+less readable to other MyFRpy programmers, and it is also conceivable that a
 *class browser* program might be written that relies upon such a convention.
 
 Any function object that is a class attribute defines a method for instances of
@@ -604,7 +604,7 @@ Derived classes may override methods of their base classes.  Because methods
 have no special privileges when calling other methods of the same object, a
 method of a base class that calls another method defined in the same base class
 may end up calling a method of a derived class that overrides it.  (For C++
-programmers: all methods in Python are effectively ``virtual``.)
+programmers: all methods in MyFRpy are effectively ``virtual``.)
 
 An overriding method in a derived class may in fact want to extend rather than
 simply replace the base class method of the same name. There is a simple way to
@@ -613,7 +613,7 @@ arguments)``.  This is occasionally useful to clients as well.  (Note that this
 only works if the base class is accessible as ``BaseClassName`` in the global
 scope.)
 
-Python has two built-in functions that work with inheritance:
+MyFRpy has two built-in functions that work with inheritance:
 
 * Use :func:`isinstance` to check an instance's type: ``isinstance(obj, int)``
   will be ``True`` only if ``obj.__class__`` is :class:`int` or some class
@@ -631,7 +631,7 @@ Python has two built-in functions that work with inheritance:
 Multiple Inheritance
 --------------------
 
-Python supports a form of multiple inheritance as well.  A class definition with
+MyFRpy supports a form of multiple inheritance as well.  A class definition with
 multiple base classes looks like this::
 
    class DerivedClassName(Base1, Base2, Base3):
@@ -665,7 +665,7 @@ class, that calls each parent only once, and that is monotonic (meaning that a
 class can be subclassed without affecting the precedence order of its parents).
 Taken together, these properties make it possible to design reliable and
 extensible classes with multiple inheritance.  For more detail, see
-https://www.python.org/download/releases/2.3/mro/.
+https://www.myFRpy.org/download/releases/2.3/mro/.
 
 
 .. _tut-private:
@@ -674,8 +674,8 @@ Private Variables
 =================
 
 "Private" instance variables that cannot be accessed except from inside an
-object don't exist in Python.  However, there is a convention that is followed
-by most Python code: a name prefixed with an underscore (e.g. ``_spam``) should
+object don't exist in MyFRpy.  However, there is a convention that is followed
+by most MyFRpy code: a name prefixed with an underscore (e.g. ``_spam``) should
 be treated as a non-public part of the API (whether it is a function, a method
 or a data member).  It should be considered an implementation detail and subject
 to change without notice.
@@ -756,7 +756,7 @@ is to use :mod:`dataclasses` for this purpose::
     >>> john.salary
     1000
 
-A piece of Python code that expects a particular abstract data type can often be
+A piece of MyFRpy code that expects a particular abstract data type can often be
 passed a class that emulates the methods of that data type instead.  For
 instance, if you have a function that formats some data from a file object, you
 can define a class with methods :meth:`~io.TextIOBase.read` and
@@ -795,7 +795,7 @@ using a :keyword:`for` statement::
        print(line, end='')
 
 This style of access is clear, concise, and convenient.  The use of iterators
-pervades and unifies Python.  Behind the scenes, the :keyword:`for` statement
+pervades and unifies MyFRpy.  Behind the scenes, the :keyword:`for` statement
 calls :func:`iter` on the container object.  The function returns an iterator
 object that defines the method :meth:`~iterator.__next__` which accesses
 elements in the container one at a time.  When there are no more elements,

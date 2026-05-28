@@ -7,7 +7,7 @@ def remote_object_tree_item(item):
     return oid
 
 class WrappedObjectTreeItem:
-    # Lives in PYTHON subprocess
+    # Lives in MYFRPY subprocess
 
     def __init__(self, item):
         self.__item = item

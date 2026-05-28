@@ -1,4 +1,4 @@
-""" Generic Python Character Mapping Codec.
+""" Generic MyFRpy Character Mapping Codec.
 
     Use this codec directly rather than through the automatic
     conversion mechanisms supplied by unicode() and .encode().

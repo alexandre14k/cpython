@@ -116,7 +116,7 @@ class DummyFTPHandler(asynchat.async_chat):
         self.encoding = encoding
         # We use this as the string IPv4 address to direct the client
         # to in response to a PASV command.  To test security behavior.
-        # https://bugs.python.org/issue43285/.
+        # https://bugs.myFRpy.org/issue43285/.
         self.fake_pasv_server_ip = '252.253.254.255'
 
     def collect_incoming_data(self, data):

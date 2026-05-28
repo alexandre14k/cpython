@@ -9,15 +9,15 @@
     * the principal computational lines untouched.
 
     * renamed genrand_res53() to random_random() and wrapped
-      in python calling/return code.
+      in myFRpy calling/return code.
 
     * genrand_uint32() and the helper functions, init_genrand()
       and init_by_array(), were declared static, wrapped in
-      Python calling/return code.  also, their global data
+      MyFRpy calling/return code.  also, their global data
       references were replaced with structure references.
 
     * unused functions from the original were deleted.
-      new, original C python code was added to implement the
+      new, original C myFRpy code was added to implement the
       Random() interface.
 
    The following are the verbatim comments from the original code:
@@ -70,7 +70,7 @@
 #  define Py_BUILD_CORE_MODULE 1
 #endif
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_moduleobject.h"  // _PyModule_GetState()
 #include "pycore_runtime.h"
 #ifdef HAVE_PROCESS_H
@@ -237,7 +237,7 @@ init_by_array(RandomObject *self, uint32_t init_key[], size_t key_length)
 }
 
 /*
- * The rest is Python-specific code, neither part of, nor derived from, the
+ * The rest is MyFRpy-specific code, neither part of, nor derived from, the
  * Twister download.
  */
 

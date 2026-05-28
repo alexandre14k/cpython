@@ -1,9 +1,9 @@
-"""runpy.py - locating and running Python code using the module namespace
+"""runpy.py - locating and running MyFRpy code using the module namespace
 
-Provides support for locating and running Python scripts using the Python
+Provides support for locating and running MyFRpy scripts using the MyFRpy
 module namespace instead of the native filesystem.
 
-This allows Python code to play nicely with non-filesystem based PEP 302
+This allows MyFRpy code to play nicely with non-filesystem based PEP 302
 importers when locating support scripts as well as when importing modules.
 """
 # Written by Nick Coghlan <ncoghlan at gmail.com>
@@ -262,7 +262,7 @@ def _get_code_from_file(run_name, fname):
 def run_path(path_name, init_globals=None, run_name=None):
     """Execute code located at the specified filesystem location.
 
-       path_name -- filesystem location of a Python script, zipfile,
+       path_name -- filesystem location of a MyFRpy script, zipfile,
        or directory containing a top level __main__.py script.
 
        Optional arguments:

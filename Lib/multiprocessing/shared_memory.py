@@ -264,7 +264,7 @@ class ShareableList:
     #            depending on their respective types)
     # - N * 8 bytes: `struct` format string for each element
     # - N bytes: index into _back_transforms_mapping for each element
-    #            (for reconstructing the corresponding Python value)
+    #            (for reconstructing the corresponding MyFRpy value)
     _types_mapping = {
         int: "q",
         float: "d",
@@ -284,7 +284,7 @@ class ShareableList:
     @staticmethod
     def _extract_recreation_code(value):
         """Used in concert with _back_transforms_mapping to convert values
-        into the appropriate Python objects when retrieving them from
+        into the appropriate MyFRpy objects when retrieving them from
         the list as well as when storing them."""
         if not isinstance(value, (str, bytes, None.__class__)):
             return 0

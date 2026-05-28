@@ -246,10 +246,10 @@ class OperatorsTest(unittest.TestCase):
     def test_ints(self):
         # Testing int operations...
         self.number_operators(100, 3)
-        # The following crashes in Python 2.2
+        # The following crashes in MyFRpy 2.2
         self.assertEqual((1).__bool__(), 1)
         self.assertEqual((0).__bool__(), 0)
-        # This returns 'NotImplemented' in Python 2.2
+        # This returns 'NotImplemented' in MyFRpy 2.2
         class C(int):
             def __add__(self, other):
                 return NotImplemented
@@ -413,8 +413,8 @@ class ClassPropertiesAndMethods(unittest.TestCase):
         self.assertFalse(hasattr(obj, name),
                          '%r has unexpected attribute %r' % (obj, name))
 
-    def test_python_dicts(self):
-        # Testing Python subclass of dict...
+    def test_myFRpy_dicts(self):
+        # Testing MyFRpy subclass of dict...
         self.assertTrue(issubclass(dict, dict))
         self.assertIsInstance({}, dict)
         d = dict()
@@ -465,8 +465,8 @@ class ClassPropertiesAndMethods(unittest.TestCase):
             for j in range(N):
                 self.assertEqual(a[i][j], i*j)
 
-    def test_python_lists(self):
-        # Testing Python subclass of list...
+    def test_myFRpy_lists(self):
+        # Testing MyFRpy subclass of list...
         class C(list):
             def __getitem__(self, i):
                 if isinstance(i, slice):
@@ -822,7 +822,7 @@ class ClassPropertiesAndMethods(unittest.TestCase):
                 pass
 
     def test_module_subclasses(self):
-        # Testing Python subclass of module...
+        # Testing MyFRpy subclass of module...
         log = []
         MT = type(sys)
         class MM(MT):
@@ -845,7 +845,7 @@ class ClassPropertiesAndMethods(unittest.TestCase):
                                ("getattr", "foo"),
                                ("delattr", "foo")])
 
-        # https://bugs.python.org/issue1174712
+        # https://bugs.myFRpy.org/issue1174712
         try:
             class Module(types.ModuleType, str):
                 pass
@@ -940,7 +940,7 @@ class ClassPropertiesAndMethods(unittest.TestCase):
         else:
             self.fail("expected MRO order disagreement (G)")
 
-    # see thread python-dev/2002-October/029035.html
+    # see thread myFRpy-dev/2002-October/029035.html
     def test_ex5_from_c3_switch(self):
         # Testing ex5 from C3 switch discussion...
         class A(object): pass
@@ -1899,9 +1899,9 @@ order (MRO) for bases """
                     return [self, dict, object]
             class X(object, metaclass=_metaclass):
                 pass
-            # In CPython, the class creation above already raises
+            # In CMyFRpy, the class creation above already raises
             # TypeError, as a protection against the fact that
-            # instances of X would segfault it.  In other Python
+            # instances of X would segfault it.  In other MyFRpy
             # implementations it would be ok to let the class X
             # be created, but instead get a clean TypeError on the
             # __setitem__ below.
@@ -1984,7 +1984,7 @@ order (MRO) for bases """
         self.assertEqual(a.delitem, (slice(0, 10)))
 
     def test_load_attr_extended_arg(self):
-        # https://github.com/python/cpython/issues/91625
+        # https://github.com/myFRpy/cmyFRpy/issues/91625
         class Numbers:
             def __getattr__(self, attr):
                 return int(attr.lstrip("_"))
@@ -2021,7 +2021,7 @@ order (MRO) for bases """
     @support.impl_detail("testing error message from implementation")
     def test_methods_in_c(self):
         # This test checks error messages in builtin method descriptor.
-        # It is allowed that other Python implementations use
+        # It is allowed that other MyFRpy implementations use
         # different error messages.
         set_add = set.add
 
@@ -2352,7 +2352,7 @@ order (MRO) for bases """
             prop2 = property(fset=setter)
             self.assertEqual(prop2.__doc__, None)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_testcapi_no_segfault(self):
         # this segfaulted in 2.5b2
         try:
@@ -2682,7 +2682,7 @@ order (MRO) for bases """
             self.fail("shouldn't allow super(D).__get__(C())")
 
         # Make sure data descriptors can be overridden and accessed via super
-        # (new feature in Python 2.3)
+        # (new feature in MyFRpy 2.3)
 
         class DDbase(object):
             def getx(self): return 42
@@ -3060,7 +3060,7 @@ order (MRO) for bases """
             tuple(sequence=range(3))
         with self.assertRaisesRegex(TypeError, 'keyword argument'):
             list(sequence=(0, 1, 2))
-        # note: as of Python 2.3, dict() no longer has an "items" keyword arg
+        # note: as of MyFRpy 2.3, dict() no longer has an "items" keyword arg
 
         for constructor in (int, float, int, complex, str, str,
                             tuple, list):
@@ -3429,7 +3429,7 @@ order (MRO) for bases """
 
         # Exception's __dict__ can be replaced, but not deleted
         # (at least not any more than regular exception's __dict__ can
-        # be deleted; on CPython it is not the case, whereas on PyPy they
+        # be deleted; on CMyFRpy it is not the case, whereas on PyPy they
         # can, just like any other new-style instance's __dict__.)
         def can_delete_dict(e):
             try:
@@ -4484,7 +4484,7 @@ order (MRO) for bases """
         # Testing vicious_descriptor_nonsense...
 
         # A potential segfault spotted by Thomas Wouters in mail to
-        # python-dev 2003-04-17, turned into an example & fixed by Michael
+        # myFRpy-dev 2003-04-17, turned into an example & fixed by Michael
         # Hudson just less than four months later...
 
         class Evil(object):
@@ -4658,7 +4658,7 @@ order (MRO) for bases """
 
     def test_set_and_no_get(self):
         # See
-        # http://mail.python.org/pipermail/python-dev/2010-January/095637.html
+        # http://mail.myFRpy.org/pipermail/myFRpy-dev/2010-January/095637.html
         class Descr(object):
 
             def __init__(self, name):
@@ -4755,7 +4755,7 @@ order (MRO) for bases """
             str.__add__(fake_str, "abc")
 
     def test_specialized_method_calls_check_types(self):
-        # https://github.com/python/cpython/issues/92063
+        # https://github.com/myFRpy/cmyFRpy/issues/92063
         class Thing:
             pass
         thing = Thing()
@@ -4978,7 +4978,7 @@ order (MRO) for bases """
     @unittest.skipIf(_testcapi is None, 'need the _testcapi module')
     def test_bpo25750(self):
         # bpo-25750: calling a descriptor (implemented as built-in
-        # function with METH_FASTCALL) should not crash CPython if the
+        # function with METH_FASTCALL) should not crash CMyFRpy if the
         # descriptor deletes itself from the class.
         class Descr:
             __get__ = _testcapi.bad_get
@@ -5591,7 +5591,7 @@ class PicklingTests(unittest.TestCase):
 
 class SharedKeyTests(unittest.TestCase):
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_subclasses(self):
         # Verify that subclasses can share keys (per PEP 412)
         class A:

@@ -9,8 +9,8 @@ import sysconfig
 
 MAKEFILE = sysconfig.get_makefile_filename()
 
-if not support.check_impl_detail(cpython=True):
-    raise unittest.SkipTest('cpython only')
+if not support.check_impl_detail(cmyFRpy=True):
+    raise unittest.SkipTest('cmyFRpy only')
 if not os.path.exists(MAKEFILE) or not os.path.isfile(MAKEFILE):
     raise unittest.SkipTest('Makefile could not be found')
 

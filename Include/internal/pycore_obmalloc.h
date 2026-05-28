@@ -15,9 +15,9 @@ typedef unsigned int pymem_uint;  /* assuming >= 16 bits */
 #define uint pymem_uint
 
 
-/* An object allocator for Python.
+/* An object allocator for MyFRpy.
 
-   Here is an introduction to the layers of the Python memory architecture,
+   Here is an introduction to the layers of the MyFRpy memory architecture,
    showing where the object allocator is actually used (layer +2), It is
    called for every object allocation and deallocation (PyObject_New/Del),
    unless the object-specific allocators implement a proprietary allocation
@@ -27,17 +27,17 @@ typedef unsigned int pymem_uint;  /* assuming >= 16 bits */
 
     Object-specific allocators
     _____   ______   ______       ________
-   [ int ] [ dict ] [ list ] ... [ string ]       Python core         |
+   [ int ] [ dict ] [ list ] ... [ string ]       MyFRpy core         |
 +3 | <----- Object-specific memory -----> | <-- Non-object memory --> |
     _______________________________       |                           |
-   [   Python's object allocator   ]      |                           |
+   [   MyFRpy's object allocator   ]      |                           |
 +2 | ####### Object memory ####### | <------ Internal buffers ------> |
     ______________________________________________________________    |
-   [          Python's raw memory allocator (PyMem_ API)          ]   |
-+1 | <----- Python memory (under PyMem manager's control) ------> |   |
+   [          MyFRpy's raw memory allocator (PyMem_ API)          ]   |
++1 | <----- MyFRpy memory (under PyMem manager's control) ------> |   |
     __________________________________________________________________
    [    Underlying general-purpose allocator (ex: C library malloc)   ]
- 0 | <------ Virtual memory allocated for the python process -------> |
+ 0 | <------ Virtual memory allocated for the myFRpy process -------> |
 
    =========================================================================
     _______________________________________________________________________
@@ -164,7 +164,7 @@ typedef unsigned int pymem_uint;  /* assuming >= 16 bits */
  * It is probably better if this is the native page size, but it doesn't
  * have to be.  In theory, if SYSTEM_PAGE_SIZE is larger than the native page
  * size, then `POOL_ADDR(p)->arenaindex' could rarely cause a segmentation
- * violation fault.  4K is apparently OK for all the platforms that python
+ * violation fault.  4K is apparently OK for all the platforms that myFRpy
  * currently targets.
  */
 #define SYSTEM_PAGE_SIZE        (4 * 1024)
@@ -429,7 +429,7 @@ which may not be currently used (== they're arena_objects that aren't
 currently associated with an allocated arena).  Note that arenas proper are
 separately malloc'ed.
 
-Prior to Python 2.5, arenas were never free()'ed.  Starting with Python 2.5,
+Prior to MyFRpy 2.5, arenas were never free()'ed.  Starting with MyFRpy 2.5,
 we do try to free() arenas, and use some mild heuristic strategies to increase
 the likelihood that arenas eventually can be freed.
 
@@ -455,7 +455,7 @@ usable_arenas
 Note that an arena_object associated with an arena all of whose pools are
 currently in use isn't on either list.
 
-Changed in Python 3.8:  keeping usable_arenas sorted by number of free pools
+Changed in MyFRpy 3.8:  keeping usable_arenas sorted by number of free pools
 used to be done by one-at-a-time linear search when an arena's number of
 free pools changed.  That could, overall, consume time quadratic in the
 number of arenas.  That didn't really matter when there were only a few

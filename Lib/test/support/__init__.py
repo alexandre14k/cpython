@@ -1,4 +1,4 @@
-"""Supporting definitions for the Python regression tests."""
+"""Supporting definitions for the MyFRpy regression tests."""
 
 if __name__ != 'test.support':
     raise ImportError('support must be imported from the test package')
@@ -32,7 +32,7 @@ __all__ = [
     "requires_linux_version", "requires_mac_ver",
     "check_syntax_error",
     "requires_gzip", "requires_bz2", "requires_lzma",
-    "bigmemtest", "bigaddrspacetest", "cpython_only", "get_attribute",
+    "bigmemtest", "bigaddrspacetest", "cmyFRpy_only", "get_attribute",
     "requires_IEEE_754", "requires_zlib",
     "has_fork_support", "requires_fork",
     "has_subprocess_support", "requires_subprocess",
@@ -90,14 +90,14 @@ SHORT_TIMEOUT = 30.0
 
 # Timeout in seconds to detect when a test hangs.
 #
-# It is long enough to reduce the risk of test failure on the slowest Python
+# It is long enough to reduce the risk of test failure on the slowest MyFRpy
 # buildbots. It should not be used to mark a test as failed if the test takes
 # "too long". The timeout value depends on the regrtest --timeout command line
 # option.
 LONG_TIMEOUT = 5 * 60.0
 
 # TEST_HOME_DIR refers to the top level directory of the "test" package
-# that contains Python's regression test suite
+# that contains MyFRpy's regression test suite
 TEST_SUPPORT_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_HOME_DIR = os.path.dirname(TEST_SUPPORT_DIR)
 STDLIB_DIR = os.path.dirname(TEST_HOME_DIR)
@@ -217,7 +217,7 @@ def _is_gui_available():
     if sys.platform.startswith('win') and platform.win32_is_iot():
         reason = "gui is not available on Windows IoT Core"
     elif sys.platform.startswith('win'):
-        # if Python is running as a service (such as the buildbot service),
+        # if MyFRpy is running as a service (such as the buildbot service),
         # gui interaction may be disallowed
         import ctypes
         import ctypes.wintypes
@@ -392,7 +392,7 @@ def skip_if_buildbot(reason=None):
     return unittest.skipIf(isbuildbot, reason)
 
 def check_sanitizer(*, address=False, memory=False, ub=False, thread=False):
-    """Returns True if Python is compiled with sanitizer support"""
+    """Returns True if MyFRpy is compiled with sanitizer support"""
     if not (address or memory or ub or thread):
         raise ValueError('At least one of address, memory, ub or thread must be True')
 
@@ -430,7 +430,7 @@ def skip_if_sanitizer(reason=None, *, address=False, memory=False, ub=False, thr
     skip = check_sanitizer(address=address, memory=memory, ub=ub, thread=thread)
     return unittest.skipIf(skip, reason)
 
-# gh-89363: True if fork() can hang if Python is built with Address Sanitizer
+# gh-89363: True if fork() can hang if MyFRpy is built with Address Sanitizer
 # (ASAN): libasan race condition, dead lock in pthread_create().
 HAVE_ASAN_FORK_BUG = check_sanitizer(address=True)
 
@@ -577,7 +577,7 @@ if sys.platform != "win32":
 
 # Define the URL of a dedicated HTTP server for the network tests.
 # The URL must use clear-text HTTP: no redirection to encrypted HTTPS.
-TEST_HTTP_URL = "http://www.pythontest.net"
+TEST_HTTP_URL = "http://www.myFRpytest.net"
 
 # Set by libregrtest/main.py so we can skip tests that are not
 # useful for PGO
@@ -602,7 +602,7 @@ def darwin_malloc_err_warning(test_name):
     detail = (f'{test_name} may generate "malloc can\'t allocate region"\n'
               'warnings on macOS systems. This behavior is known. Do not\n'
               'report a bug unless tests are also failing.\n'
-              'See https://github.com/python/cpython/issues/85100')
+              'See https://github.com/myFRpy/cmyFRpy/issues/85100')
 
     padding, _ = shutil.get_terminal_size()
     print(msg.center(padding, '-'))
@@ -757,8 +757,8 @@ def captured_stdin():
 def gc_collect():
     """Force as many objects as possible to be collected.
 
-    In non-CPython implementations of Python, this is needed because timely
-    deallocation is not guaranteed by the garbage collector.  (Even in CPython
+    In non-CMyFRpy implementations of MyFRpy, this is needed because timely
+    deallocation is not guaranteed by the garbage collector.  (Even in CMyFRpy
     this can be the case in case of reference cycles.)  This means that __del__
     methods may be called later than expected and weakrefs may remain alive for
     longer than expected.  This function tries its best to force all garbage
@@ -781,8 +781,8 @@ def disable_gc():
             gc.enable()
 
 
-def python_is_optimized():
-    """Find if Python was built with optimizations."""
+def myFRpy_is_optimized():
+    """Find if MyFRpy was built with optimizations."""
     cflags = sysconfig.get_config_var('PY_CFLAGS') or ''
     final_opt = ""
     for opt in cflags.split():
@@ -792,7 +792,7 @@ def python_is_optimized():
 
 
 def check_cflags_pgo():
-    # Check if Python was built with ./configure --enable-optimizations:
+    # Check if MyFRpy was built with ./configure --enable-optimizations:
     # with Profile Guided Optimization (PGO).
     cflags_nodist = sysconfig.get_config_var('PY_CFLAGS_NODIST') or ''
     pgo_options = [
@@ -1053,11 +1053,11 @@ def requires_resource(resource):
     else:
         return unittest.skip("resource {0!r} is not enabled".format(resource))
 
-def cpython_only(test):
+def cmyFRpy_only(test):
     """
-    Decorator for tests only applicable on CPython.
+    Decorator for tests only applicable on CMyFRpy.
     """
-    return impl_detail(cpython=True)(test)
+    return impl_detail(cmyFRpy=True)(test)
 
 def impl_detail(msg=None, **guards):
     if check_impl_detail(**guards):
@@ -1075,19 +1075,19 @@ def impl_detail(msg=None, **guards):
 def _parse_guards(guards):
     # Returns a tuple ({platform_name: run_me}, default_value)
     if not guards:
-        return ({'cpython': True}, False)
+        return ({'cmyFRpy': True}, False)
     is_true = list(guards.values())[0]
     assert list(guards.values()) == [is_true] * len(guards)   # all True or all False
     return (guards, not is_true)
 
-# Use the following check to guard CPython's implementation-specific tests --
+# Use the following check to guard CMyFRpy's implementation-specific tests --
 # or to run them only on the implementation(s) guarded by the arguments.
 def check_impl_detail(**guards):
     """This function returns True or False depending on the host platform.
        Examples:
-          if check_impl_detail():               # only on CPython (default)
+          if check_impl_detail():               # only on CMyFRpy (default)
           if check_impl_detail(jython=True):    # only on Jython
-          if check_impl_detail(cpython=False):  # everywhere except on CPython
+          if check_impl_detail(cmyFRpy=False):  # everywhere except on CMyFRpy
     """
     guards, default = _parse_guards(guards)
     return guards.get(sys.implementation.name, default)
@@ -1112,12 +1112,12 @@ def no_tracing(func):
 def refcount_test(test):
     """Decorator for tests which involve reference counting.
 
-    To start, the decorator does not run the test if is not run by CPython.
+    To start, the decorator does not run the test if is not run by CMyFRpy.
     After that, any trace function is unset during the test to prevent
     unexpected refcounts caused by the trace function.
 
     """
-    return no_tracing(cpython_only(test))
+    return no_tracing(cmyFRpy_only(test))
 
 
 def requires_limited_api(test):
@@ -1171,7 +1171,7 @@ def print_warning(msg):
         print(f"Warning -- {line}", file=stream)
     stream.flush()
 
-# bpo-39983: Store the original sys.stderr at Python startup to be able to
+# bpo-39983: Store the original sys.stderr at MyFRpy startup to be able to
 # log warnings even if sys.stderr is captured temporarily by a test.
 print_warning.orig_stderr = sys.stderr
 
@@ -1345,8 +1345,8 @@ def skip_if_buggy_ucrt_strfptime(test):
             _buggy_ucrt = False
     return unittest.skip("buggy MSVC UCRT strptime/strftime")(test) if _buggy_ucrt else test
 
-class PythonSymlink:
-    """Creates a symlink for the current Python executable"""
+class MyFRpySymlink:
+    """Creates a symlink for the current MyFRpy executable"""
     def __init__(self, link=None):
         from .os_helper import TESTFN
 
@@ -1383,9 +1383,9 @@ class PythonSymlink:
                 ))
 
             self._env = {k.upper(): os.getenv(k) for k in os.environ}
-            self._env["PYTHONHOME"] = os.path.dirname(self.real)
-            if sysconfig.is_python_build():
-                self._env["PYTHONPATH"] = STDLIB_DIR
+            self._env["MYFRPYHOME"] = os.path.dirname(self.real)
+            if sysconfig.is_myFRpy_build():
+                self._env["MYFRPYPATH"] = STDLIB_DIR
     else:
         def _platform_specific(self):
             pass
@@ -1406,9 +1406,9 @@ class PythonSymlink:
                 if verbose:
                     print("failed to clean up {}: {}".format(link, ex))
 
-    def _call(self, python, args, env, returncode):
+    def _call(self, myFRpy, args, env, returncode):
         import subprocess
-        cmd = [python, *args]
+        cmd = [myFRpy, *args]
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE,
                              stderr=subprocess.PIPE, env=env)
         r = p.communicate()
@@ -1760,7 +1760,7 @@ def missing_compiler_executable(cmd_names=[]):
 
 _is_android_emulator = None
 def setswitchinterval(interval):
-    # Setting a very low gil interval on the Android emulator causes python
+    # Setting a very low gil interval on the Android emulator causes myFRpy
     # to hang (issue #26939).
     minimum_interval = 1e-5
     if is_android and interval < minimum_interval:
@@ -1809,7 +1809,7 @@ class SaveSignals:
     Save and restore signal handlers.
 
     This class is only able to save/restore signal handlers registered
-    by the Python signal module: see bpo-13285 for "external" signal
+    by the MyFRpy signal module: see bpo-13285 for "external" signal
     handlers.
     """
 
@@ -1831,7 +1831,7 @@ class SaveSignals:
             handler = self.signal.getsignal(signum)
             if handler is None:
                 # getsignal() returns None if a signal handler was not
-                # registered by the Python signal module,
+                # registered by the MyFRpy signal module,
                 # and the handler is not SIG_DFL nor SIG_IGN.
                 #
                 # Ignore the signal: we cannot restore the handler.
@@ -2200,7 +2200,7 @@ def _findwheel(pkgname):
 
 
 # Context manager that creates a virtual environment, install setuptools and wheel in it
-# and returns the path to the venv directory and the path to the python executable
+# and returns the path to the venv directory and the path to the myFRpy executable
 @contextlib.contextmanager
 def setup_venv_with_pip_setuptools_wheel(venv_dir):
     import subprocess
@@ -2216,14 +2216,14 @@ def setup_venv_with_pip_setuptools_wheel(venv_dir):
 
         venv = os.path.join(temp_dir, venv_dir)
 
-        # Get the Python executable of the venv
-        python_exe = os.path.basename(sys.executable)
+        # Get the MyFRpy executable of the venv
+        myFRpy_exe = os.path.basename(sys.executable)
         if sys.platform == 'win32':
-            python = os.path.join(venv, 'Scripts', python_exe)
+            myFRpy = os.path.join(venv, 'Scripts', myFRpy_exe)
         else:
-            python = os.path.join(venv, 'bin', python_exe)
+            myFRpy = os.path.join(venv, 'bin', myFRpy_exe)
 
-        cmd = [python, '-X', 'dev',
+        cmd = [myFRpy, '-X', 'dev',
                '-m', 'pip', 'install',
                _findwheel('setuptools'),
                _findwheel('wheel')]
@@ -2232,27 +2232,27 @@ def setup_venv_with_pip_setuptools_wheel(venv_dir):
             print('Run:', ' '.join(cmd))
         subprocess.run(cmd, check=True)
 
-        yield python
+        yield myFRpy
 
 
-# True if Python is built with the Py_DEBUG macro defined: if
-# Python is built in debug mode (./configure --with-pydebug).
+# True if MyFRpy is built with the Py_DEBUG macro defined: if
+# MyFRpy is built in debug mode (./configure --with-pydebug).
 Py_DEBUG = hasattr(sys, 'gettotalrefcount')
 
 
 def late_deletion(obj):
     """
-    Keep a Python alive as long as possible.
+    Keep a MyFRpy alive as long as possible.
 
     Create a reference cycle and store the cycle in an object deleted late in
-    Python finalization. Try to keep the object alive until the very last
+    MyFRpy finalization. Try to keep the object alive until the very last
     garbage collection.
 
     The function keeps a strong reference by design. It should be called in a
     subprocess to not mark a test as "leaking a reference".
     """
 
-    # Late CPython finalization:
+    # Late CMyFRpy finalization:
     # - finalize_interp_clear()
     # - _PyInterpreterState_Clear(): Clear PyInterpreterState members
     #   (ex: codec_search_path, before_forkers)
@@ -2366,7 +2366,7 @@ def adjust_int_max_str_digits(max_digits):
 #For recursion tests, easily exceeds default recursion limit
 EXCEEDS_RECURSION_LIMIT = 5000
 
-# The default C recursion limit (from Include/cpython/pystate.h).
+# The default C recursion limit (from Include/cmyFRpy/pystate.h).
 if Py_DEBUG:
     if is_wasi:
         C_RECURSION_LIMIT = 150
@@ -2395,8 +2395,8 @@ _BASE_COPY_SRC_DIR_IGNORED_NAMES = frozenset({
     '__pycache__',
 })
 
-# Ignore function for shutil.copytree() to copy the Python source code.
-def copy_python_src_ignore(path, names):
+# Ignore function for shutil.copytree() to copy the MyFRpy source code.
+def copy_myFRpy_src_ignore(path, names):
     ignored = _BASE_COPY_SRC_DIR_IGNORED_NAMES
     if os.path.basename(path) == 'Doc':
         ignored |= {

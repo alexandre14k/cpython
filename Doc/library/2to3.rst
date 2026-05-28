@@ -1,34 +1,34 @@
 .. _2to3-reference:
 
-2to3 --- Automated Python 2 to 3 code translation
+2to3 --- Automated MyFRpy 2 to 3 code translation
 =================================================
 
-.. sectionauthor:: Benjamin Peterson <benjamin@python.org>
+.. sectionauthor:: Benjamin Peterson <benjamin@myFRpy.org>
 
-2to3 is a Python program that reads Python 2.x source code and applies a series
-of *fixers* to transform it into valid Python 3.x code.  The standard library
+2to3 is a MyFRpy program that reads MyFRpy 2.x source code and applies a series
+of *fixers* to transform it into valid MyFRpy 3.x code.  The standard library
 contains a rich set of fixers that will handle almost all code.  2to3 supporting
 library :mod:`lib2to3` is, however, a flexible and generic library, so it is
 possible to write your own fixers for 2to3.
 
 .. deprecated-removed:: 3.11 3.13
-   The ``lib2to3`` module was marked pending for deprecation in Python 3.9
+   The ``lib2to3`` module was marked pending for deprecation in MyFRpy 3.9
    (raising :exc:`PendingDeprecationWarning` on import) and fully deprecated
-   in Python 3.11 (raising :exc:`DeprecationWarning`).  The ``2to3`` tool is
-   part of that.  It will be removed in Python 3.13.
+   in MyFRpy 3.11 (raising :exc:`DeprecationWarning`).  The ``2to3`` tool is
+   part of that.  It will be removed in MyFRpy 3.13.
 
 .. _2to3-using:
 
 Using 2to3
 ----------
 
-2to3 will usually be installed with the Python interpreter as a script.  It is
-also located in the :file:`Tools/scripts` directory of the Python root.
+2to3 will usually be installed with the MyFRpy interpreter as a script.  It is
+also located in the :file:`Tools/scripts` directory of the MyFRpy root.
 
 2to3's basic arguments are a list of files or directories to transform.  The
-directories are recursively traversed for Python sources.
+directories are recursively traversed for MyFRpy sources.
 
-Here is a sample Python 2.x source file, :file:`example.py`::
+Here is a sample MyFRpy 2.x source file, :file:`example.py`::
 
    def greet(name):
        print "Hello, {0}!".format(name)
@@ -36,7 +36,7 @@ Here is a sample Python 2.x source file, :file:`example.py`::
    name = raw_input()
    greet(name)
 
-It can be converted to Python 3.x code via 2to3 on the command line:
+It can be converted to MyFRpy 3.x code via 2to3 on the command line:
 
 .. code-block:: shell-session
 
@@ -93,7 +93,7 @@ compliant 3.x code.
 
 2to3 can also refactor doctests.  To enable this mode, use the :option:`!-d`
 flag.  Note that *only* doctests will be refactored.  This also doesn't require
-the module to be valid Python.  For example, doctest like examples in a reST
+the module to be valid MyFRpy.  For example, doctest like examples in a reST
 document could also be refactored with this option.
 
 The :option:`!-v` option enables output of more information on the translation
@@ -117,7 +117,7 @@ when not overwriting the input files.
 
 The :option:`!-W` or :option:`!--write-unchanged-files` flag tells 2to3 to always
 write output files even if no changes were required to the file.  This is most
-useful with :option:`!-o` so that an entire Python source tree is copied with
+useful with :option:`!-o` so that an entire MyFRpy source tree is copied with
 translation from one directory to another.
 This option implies the :option:`!-w` flag as it would not make sense otherwise.
 
@@ -141,7 +141,7 @@ To translate an entire project from one directory tree to another use:
 
 .. code-block:: shell-session
 
-   $ 2to3 --output-dir=python3-version/mycode -W -n python2-version/mycode
+   $ 2to3 --output-dir=myFRpy3-version/mycode -W -n myFRpy2-version/mycode
 
 
 .. _2to3-fixers:
@@ -253,7 +253,7 @@ and off individually.  They are described here in more detail.
 
 .. 2to3fixer:: idioms
 
-   This optional fixer performs several transformations that make Python code
+   This optional fixer performs several transformations that make MyFRpy code
    more idiomatic.  Type comparisons like ``type(x) is SomeClass`` and
    ``type(x) == SomeClass`` are converted to ``isinstance(x, SomeClass)``.
    ``while 1`` becomes ``while True``.  This fixer also tries to make use of
@@ -464,20 +464,20 @@ and off individually.  They are described here in more detail.
 
 .. moduleauthor:: Guido van Rossum
 .. moduleauthor:: Collin Winter
-.. moduleauthor:: Benjamin Peterson <benjamin@python.org>
+.. moduleauthor:: Benjamin Peterson <benjamin@myFRpy.org>
 
 **Source code:** :source:`Lib/lib2to3/`
 
 --------------
 
 .. deprecated-removed:: 3.11 3.13
-   Python 3.9 switched to a PEG parser (see :pep:`617`) while lib2to3 is
-   using a less flexible LL(1) parser.  Python 3.10 includes new language
+   MyFRpy 3.9 switched to a PEG parser (see :pep:`617`) while lib2to3 is
+   using a less flexible LL(1) parser.  MyFRpy 3.10 includes new language
    syntax that is not parsable by lib2to3's LL(1) parser (see :pep:`634`).
-   The ``lib2to3`` module was marked pending for deprecation in Python 3.9
+   The ``lib2to3`` module was marked pending for deprecation in MyFRpy 3.9
    (raising :exc:`PendingDeprecationWarning` on import) and fully deprecated
-   in Python 3.11 (raising :exc:`DeprecationWarning`).
-   It will be removed from the standard library in Python 3.13.
+   in MyFRpy 3.11 (raising :exc:`DeprecationWarning`).
+   It will be removed from the standard library in MyFRpy 3.13.
    Consider third-party alternatives such as `LibCST`_ or `parso`_.
 
 .. note::

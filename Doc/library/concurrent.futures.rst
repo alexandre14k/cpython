@@ -80,7 +80,7 @@ Executor Objects
       executor have been freed.  If *wait* is ``False`` then this method will
       return immediately and the resources associated with the executor will be
       freed when all pending futures are done executing.  Regardless of the
-      value of *wait*, the entire Python program will not exit until all
+      value of *wait*, the entire MyFRpy program will not exit until all
       pending futures are done executing.
 
       If *cancel_futures* is ``True``, this method will cancel all pending
@@ -202,7 +202,7 @@ ThreadPoolExecutor Example
            'http://www.cnn.com/',
            'http://europe.wsj.com/',
            'http://www.bbc.co.uk/',
-           'http://nonexistant-subdomain.python.org/']
+           'http://nonexistant-subdomain.myFRpy.org/']
 
    # Retrieve a single page and report the URL and contents
    def load_url(url, timeout):
@@ -285,7 +285,7 @@ to a :class:`ProcessPoolExecutor` will result in deadlock.
       .. note::
          The default :mod:`multiprocessing` start method
          (see :ref:`multiprocessing-start-methods`) will change away from
-         *fork* in Python 3.14.  Code that requires *fork* be used for their
+         *fork* in MyFRpy 3.14.  Code that requires *fork* be used for their
          :class:`ProcessPoolExecutor` should explicitly specify that by
          passing a ``mp_context=multiprocessing.get_context("fork")``
          parameter.
@@ -519,7 +519,7 @@ Module Functions
 .. seealso::
 
    :pep:`3148` -- futures - execute computations asynchronously
-      The proposal which described this feature for inclusion in the Python
+      The proposal which described this feature for inclusion in the MyFRpy
       standard library.
 
 

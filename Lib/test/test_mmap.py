@@ -1,5 +1,5 @@
 from test.support import (
-    requires, _2G, _4G, gc_collect, cpython_only, is_emscripten
+    requires, _2G, _4G, gc_collect, cmyFRpy_only, is_emscripten
 )
 from test.support.import_helper import import_module
 from test.support.os_helper import TESTFN, unlink
@@ -18,12 +18,12 @@ mmap = import_module('mmap')
 
 PAGESIZE = mmap.PAGESIZE
 
-tagname_prefix = f'python_{os.getpid()}_test_mmap'
+tagname_prefix = f'myFRpy_{os.getpid()}_test_mmap'
 def random_tagname(length=10):
     suffix = ''.join(random.choices(string.ascii_uppercase, k=length))
     return f'{tagname_prefix}_{suffix}'
 
-# Python's mmap module dup()s the file descriptor. Emscripten's FS layer
+# MyFRpy's mmap module dup()s the file descriptor. Emscripten's FS layer
 # does not materialize file changes through a dupped fd to a new mmap.
 if is_emscripten:
     raise unittest.SkipTest("incompatible with Emscripten's mmap emulation.")
@@ -674,7 +674,7 @@ class MmapTests(unittest.TestCase):
         with self.assertRaisesRegex(TypeError, 'tagname'):
             mmap.mmap(-1, 8, tagname=1)
 
-    @cpython_only
+    @cmyFRpy_only
     @unittest.skipUnless(os.name == 'nt', 'requires Windows')
     def test_sizeof(self):
         m1 = mmap.mmap(-1, 100)
@@ -749,7 +749,7 @@ class MmapTests(unittest.TestCase):
         self.assertEqual(mm.write(b""), 0)
         self.assertEqual(mm.write(b"x"), 1)
         self.assertEqual(mm.write(b"yz"), 2)
-        self.assertEqual(mm.write(b"python"), 6)
+        self.assertEqual(mm.write(b"myFRpy"), 6)
 
     def test_resize_past_pos(self):
         m = mmap.mmap(-1, 8192)
@@ -776,13 +776,13 @@ class MmapTests(unittest.TestCase):
         # exception on error under all platforms.
         mm = mmap.mmap(-1, 16)
         self.addCleanup(mm.close)
-        mm.write(b'python')
+        mm.write(b'myFRpy')
         result = mm.flush()
         self.assertIsNone(result)
         if sys.platform.startswith('linux'):
             # 'offset' must be a multiple of mmap.PAGESIZE on Linux.
             # See bpo-34754 for details.
-            self.assertRaises(OSError, mm.flush, 1, len(b'python'))
+            self.assertRaises(OSError, mm.flush, 1, len(b'myFRpy'))
 
     def test_repr(self):
         open_mmap_repr_pat = re.compile(

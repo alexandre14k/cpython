@@ -1,4 +1,4 @@
-#include <Python.h>
+#include <MyFRpy.h>
 #include "pycore_ast.h"           // _PyAST_Validate(),
 #include "pycore_pystate.h"       // _PyThreadState_GET()
 #include <errcode.h>
@@ -708,7 +708,7 @@ _PyPegen_number_token(Parser *p)
     if (p->feature_version < 6 && strchr(num_raw, '_') != NULL) {
         p->error_indicator = 1;
         return RAISE_SYNTAX_ERROR("Underscores in numeric literals are only supported "
-                                  "in Python 3.6 and greater");
+                                  "in MyFRpy 3.6 and greater");
     }
 
     PyObject *c = parsenumber(num_raw);

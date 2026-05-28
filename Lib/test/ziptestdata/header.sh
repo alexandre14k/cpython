@@ -4,7 +4,7 @@ if [[ ! -x "${INTERPRETER_UNDER_TEST}" ]]; then
     echo "Interpreter must be the command line argument."
     exit 4
 fi
-EXECUTABLE="$0" exec "${INTERPRETER_UNDER_TEST}" -E - <<END_OF_PYTHON
+EXECUTABLE="$0" exec "${INTERPRETER_UNDER_TEST}" -E - <<END_OF_MYFRPY
 import os
 import zipfile
 
@@ -21,4 +21,4 @@ with zipfile.ZipFile(filename, mode='r') as exe_zip:
 print('Favorite number in executable:', namespace["FAVORITE_NUMBER"])
 
 ### Archive contents will be appended after this file. ###
-END_OF_PYTHON
+END_OF_MYFRPY

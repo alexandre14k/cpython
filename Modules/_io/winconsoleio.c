@@ -7,7 +7,7 @@
 */
 
 #define PY_SSIZE_T_CLEAN
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_fileutils.h"     // _Py_BEGIN_SUPPRESS_IPH
 #include "pycore_object.h"        // _PyObject_GC_UNTRACK()
 
@@ -830,7 +830,7 @@ _io__WindowsConsoleIO_readall_impl(winconsoleio *self)
             if (newsize < bufsize) {
                 PyErr_SetString(PyExc_OverflowError,
                                 "unbounded read returned more bytes "
-                                "than a Python bytes object can hold");
+                                "than a MyFRpy bytes object can hold");
                 PyMem_Free(buf);
                 return NULL;
             }

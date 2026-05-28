@@ -7,7 +7,7 @@
 This will append site-specific paths to the module search path.  On
 Unix (including Mac OSX), it starts with sys.prefix and
 sys.exec_prefix (if different) and appends
-lib/python<version>/site-packages.
+lib/myFRpy<version>/site-packages.
 On other platforms (such as Windows), it tries each of the
 prefixes directly, as well as with lib/site-packages appended.  The
 resulting directories, if they exist, are appended to sys.path, and
@@ -16,7 +16,7 @@ also inspected for path configuration files.
 If a file named "pyvenv.cfg" exists one directory above sys.executable,
 sys.prefix and sys.exec_prefix are set to that directory and
 it is also checked for site-packages (sys.base_prefix and
-sys.base_exec_prefix will always be the "real" prefixes of the Python
+sys.base_exec_prefix will always be the "real" prefixes of the MyFRpy
 installation). If "pyvenv.cfg" (a bootstrap configuration file) contains
 the key "include-system-site-packages" set to anything other than "false"
 (case-insensitive), the system-level prefixes will still also be
@@ -34,7 +34,7 @@ sys.path more than once.  Blank lines and lines beginning with
 '#' are skipped. Lines starting with 'import' are executed.
 
 For example, suppose sys.prefix and sys.exec_prefix are set to
-/usr/local and there is a directory /usr/local/lib/python2.5/site-packages
+/usr/local and there is a directory /usr/local/lib/myFRpy2.5/site-packages
 with three subdirectories, foo, bar and spam, and two path
 configuration files, foo.pth and bar.pth.  Assume foo.pth contains the
 following:
@@ -51,8 +51,8 @@ and bar.pth contains:
 
 Then the following directories are added to sys.path, in this order:
 
-  /usr/local/lib/python2.5/site-packages/bar
-  /usr/local/lib/python2.5/site-packages/foo
+  /usr/local/lib/myFRpy2.5/site-packages/bar
+  /usr/local/lib/myFRpy2.5/site-packages/foo
 
 Note that bletch is omitted because it doesn't exist; bar precedes foo
 because bar.pth comes alphabetically before foo.pth; and spam is
@@ -60,7 +60,7 @@ omitted because it is not mentioned in either path configuration file.
 
 The readline module is also automatically configured to enable
 completion for systems that support it.  This can be overridden in
-sitecustomize, usercustomize or PYTHONSTARTUP.  Starting Python in
+sitecustomize, usercustomize or MYFRPYSTARTUP.  Starting MyFRpy in
 isolated mode (-I) disables automatic readline configuration.
 
 After these operations, an attempt is made to import a module
@@ -84,7 +84,7 @@ ENABLE_USER_SITE = None
 
 # for distutils.commands.install
 # These values are initialized by the getuserbase() and getusersitepackages()
-# functions, through the main() function when Python starts.
+# functions, through the main() function when MyFRpy starts.
 USER_SITE = None
 USER_BASE = None
 
@@ -268,11 +268,11 @@ def check_enableusersite():
 # needs very limited part of them.
 # To speedup startup time, we have copy of them.
 #
-# See https://bugs.python.org/issue29585
+# See https://bugs.myFRpy.org/issue29585
 
 # Copy of sysconfig._getuserbase()
 def _getuserbase():
-    env_base = os.environ.get("PYTHONUSERBASE", None)
+    env_base = os.environ.get("MYFRPYUSERBASE", None)
     if env_base:
         return env_base
 
@@ -285,7 +285,7 @@ def _getuserbase():
 
     if os.name == "nt":
         base = os.environ.get("APPDATA") or "~"
-        return joinuser(base, "Python")
+        return joinuser(base, "MyFRpy")
 
     if sys.platform == "darwin" and sys._framework:
         return joinuser("~", "Library", sys._framework,
@@ -300,12 +300,12 @@ def _get_path(userbase):
 
     if os.name == 'nt':
         ver_nodot = sys.winver.replace('.', '')
-        return f'{userbase}\\Python{ver_nodot}\\site-packages'
+        return f'{userbase}\\MyFRpy{ver_nodot}\\site-packages'
 
     if sys.platform == 'darwin' and sys._framework:
-        return f'{userbase}/lib/python/site-packages'
+        return f'{userbase}/lib/myFRpy/site-packages'
 
-    return f'{userbase}/lib/python{version[0]}.{version[1]}/site-packages'
+    return f'{userbase}/lib/myFRpy{version[0]}.{version[1]}/site-packages'
 
 
 def getuserbase():
@@ -341,7 +341,7 @@ def getusersitepackages():
 def addusersitepackages(known_paths):
     """Add a per user site-package to sys.path
 
-    Each user has its own python directory with site-packages in the
+    Each user has its own myFRpy directory with site-packages in the
     home directory.
     """
     # get the per user site-package path
@@ -378,7 +378,7 @@ def getsitepackages(prefixes=None):
 
             for libdir in libdirs:
                 path = os.path.join(prefix, libdir,
-                                    "python%d.%d" % sys.version_info[:2],
+                                    "myFRpy%d.%d" % sys.version_info[:2],
                                     "site-packages")
                 sitepackages.append(path)
         else:
@@ -416,7 +416,7 @@ def setcopyright():
     builtins.copyright = _sitebuiltins._Printer("copyright", sys.copyright)
     builtins.credits = _sitebuiltins._Printer("credits", """\
     Thanks to CWI, CNRI, BeOpen.com, Zope Corporation and a cast of thousands
-    for supporting Python development.  See www.python.org for more information.""")
+    for supporting MyFRpy development.  See www.myFRpy.org for more information.""")
     files, dirs = [], []
     # Not all modules are required to have a __file__ attribute.  See
     # PEP 420 for more details.
@@ -428,7 +428,7 @@ def setcopyright():
         dirs.extend([os.path.join(here, os.pardir), here, os.curdir])
     builtins.license = _sitebuiltins._Printer(
         "license",
-        "See https://www.python.org/psf/license/",
+        "See https://www.myFRpy.org/psf/license/",
         files, dirs)
 
 
@@ -475,7 +475,7 @@ _FRENCH_KEYWORDS = {
 }
 
 _AIDE_TOPICS = {
-    "boucles": "Les boucles en Python : for ... in ..., while ...",
+    "boucles": "Les boucles en MyFRpy : for ... in ..., while ...",
     "conditions": "Les conditions : if, elif, else",
     "types": "Les types de base : int, float, str, list, dict...",
 }
@@ -483,7 +483,7 @@ _AIDE_TOPICS = {
 def aide(topic=None):
     """Aide personnalisée en français."""
     if topic is None:
-        print("Aide myFRpy : utilisez aide(\"mots-clés\") pour les mots-clés Python.")
+        print("Aide myFRpy : utilisez aide(\"mots-clés\") pour les mots-clés MyFRpy.")
         print("Autres sujets : boucles, conditions, types")
         return
 
@@ -491,7 +491,7 @@ def aide(topic=None):
 
     # --- Special case: French keyword table ---
     if topic in ("mots-clés", "keywords", "mot-cle", "mot-clé"):
-        print("Mots-clés Python (version française) :\n")
+        print("Mots-clés MyFRpy (version française) :\n")
         for kw, fr in _FRENCH_KEYWORDS.items():
             print(f"  {kw:<10} → {fr}")
         return
@@ -508,9 +508,9 @@ def enablerlcompleter():
     registering a sys.__interactivehook__.
 
     If the readline module can be imported, the hook will set the Tab key
-    as completion key and register ~/.python_history as history file.
+    as completion key and register ~/.myFRpy_history as history file.
     This can be overridden in the sitecustomize or usercustomize module,
-    or in a PYTHONSTARTUP file.
+    or in a MYFRPYSTARTUP file.
     """
     def register_readline():
         import atexit
@@ -538,13 +538,13 @@ def enablerlcompleter():
             pass
 
         if readline.get_current_history_length() == 0:
-            # If no history was loaded, default to .python_history.
+            # If no history was loaded, default to .myFRpy_history.
             # The guard is necessary to avoid doubling history size at
             # each interpreter exit when readline was already configured
-            # through a PYTHONSTARTUP hook, see:
-            # http://bugs.python.org/issue5845#msg198636
+            # through a MYFRPYSTARTUP hook, see:
+            # http://bugs.myFRpy.org/issue5845#msg198636
             history = os.path.join(os.path.expanduser('~'),
-                                   '.python_history')
+                                   '.myFRpy_history')
             try:
                 readline.read_history_file(history)
             except OSError:
@@ -632,7 +632,7 @@ def execsitecustomize():
             sys.excepthook(*sys.exc_info())
         else:
             sys.stderr.write(
-                "Error in sitecustomize; set PYTHONVERBOSE for traceback:\n"
+                "Error in sitecustomize; set MYFRPYVERBOSE for traceback:\n"
                 "%s: %s\n" %
                 (err.__class__.__name__, err))
 
@@ -652,7 +652,7 @@ def execusercustomize():
             sys.excepthook(*sys.exc_info())
         else:
             sys.stderr.write(
-                "Error in usercustomize; set PYTHONVERBOSE for traceback:\n"
+                "Error in usercustomize; set MYFRPYVERBOSE for traceback:\n"
                 "%s: %s\n" %
                 (err.__class__.__name__, err))
 
@@ -661,7 +661,7 @@ def main():
     """Add standard site-specific directories to the module search path.
 
     This function is called automatically when this module is imported,
-    unless the python interpreter was started with the -S flag.
+    unless the myFRpy interpreter was started with the -S flag.
     """
     global ENABLE_USER_SITE
 
@@ -686,7 +686,7 @@ def main():
     if ENABLE_USER_SITE:
         execusercustomize()
 
-# Prevent extending of sys.path when python was started with -S and
+# Prevent extending of sys.path when myFRpy was started with -S and
 # site is imported later.
 if not sys.flags.no_site:
     main()

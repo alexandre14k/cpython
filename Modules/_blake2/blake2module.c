@@ -1,6 +1,6 @@
 /*
  * Written in 2013 by Dmitry Chestnykh <dmitry@codingrobots.com>
- * Modified for CPython by Christian Heimes <christian@python.org>
+ * Modified for CMyFRpy by Christian Heimes <christian@myFRpy.org>
  *
  * To the extent possible under law, the author have dedicated all
  * copyright and related and neighboring rights to this software to
@@ -12,7 +12,7 @@
 #  define Py_BUILD_CORE_MODULE 1
 #endif
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "blake2module.h"
 
 extern PyType_Spec blake2b_type_spec;

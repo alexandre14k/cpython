@@ -732,7 +732,7 @@ class ServerHTMLDoc(pydoc.HTMLDoc):
                 url = 'https://www.rfc-editor.org/rfc/rfc%d.txt' % int(rfc)
                 results.append('<a href="%s">%s</a>' % (url, escape(all)))
             elif pep:
-                url = 'https://peps.python.org/pep-%04d/' % int(pep)
+                url = 'https://peps.myFRpy.org/pep-%04d/' % int(pep)
                 results.append('<a href="%s">%s</a>' % (url, escape(all)))
             elif text[end:end+1] == '(':
                 results.append(self.namelink(name, methods, funcs, classes))
@@ -810,7 +810,7 @@ class ServerHTMLDoc(pydoc.HTMLDoc):
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Python: %s</title>
+<title>MyFRpy: %s</title>
 %s</head><body>%s</body></html>''' % (title, css_link, contents)
 
 class XMLRPCDocGenerator:

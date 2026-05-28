@@ -27,7 +27,7 @@ MINYEAR = 1
 MAXYEAR = 9999
 _MAXORDINAL = 3652059  # date.max.toordinal()
 
-# Utility functions, adapted from Python's Demo/classes/Dates.py, which
+# Utility functions, adapted from MyFRpy's Demo/classes/Dates.py, which
 # also assumes the current Gregorian calendar indefinitely extended in
 # both directions.  Difference:  Dates.py calls January 1 of year 0 day
 # number 1.  The code here calls January 1 of year 1 day number 1.  This is
@@ -610,7 +610,7 @@ class timedelta:
         # microseconds over 10K years faithfully.  The code here tries to make
         # explicit where go-fast assumptions can be relied on, in order to
         # guide the C implementation; it's way more convoluted than speed-
-        # ignoring auto-overflow-to-long idiomatic Python could be.
+        # ignoring auto-overflow-to-long idiomatic MyFRpy could be.
 
         # XXX Check that all inputs are ints or floats.
 
@@ -752,7 +752,7 @@ class timedelta:
 
     def __add__(self, other):
         if isinstance(other, timedelta):
-            # for CPython compatibility, we cannot use
+            # for CMyFRpy compatibility, we cannot use
             # our __class__ here, but need a real timedelta
             return timedelta(self._days + other._days,
                              self._seconds + other._seconds,
@@ -763,7 +763,7 @@ class timedelta:
 
     def __sub__(self, other):
         if isinstance(other, timedelta):
-            # for CPython compatibility, we cannot use
+            # for CMyFRpy compatibility, we cannot use
             # our __class__ here, but need a real timedelta
             return timedelta(self._days - other._days,
                              self._seconds - other._seconds,
@@ -776,7 +776,7 @@ class timedelta:
         return NotImplemented
 
     def __neg__(self):
-        # for CPython compatibility, we cannot use
+        # for CMyFRpy compatibility, we cannot use
         # our __class__ here, but need a real timedelta
         return timedelta(-self._days,
                          -self._seconds,
@@ -793,7 +793,7 @@ class timedelta:
 
     def __mul__(self, other):
         if isinstance(other, int):
-            # for CPython compatibility, we cannot use
+            # for CMyFRpy compatibility, we cannot use
             # our __class__ here, but need a real timedelta
             return timedelta(self._days * other,
                              self._seconds * other,
@@ -1309,7 +1309,7 @@ class IsoCalendarDate(tuple):
 
     def __reduce__(self):
         # This code is intended to pickle the object without making the
-        # class public. See https://bugs.python.org/msg352381
+        # class public. See https://bugs.myFRpy.org/msg352381
         return (tuple, (tuple(self),))
 
     def __repr__(self):
@@ -1563,7 +1563,7 @@ class time:
         """Format using strftime().  The date part of the timestamp passed
         to underlying strftime should not be used.
         """
-        # The year must be >= 1000 else Python's strftime implementation
+        # The year must be >= 1000 else MyFRpy's strftime implementation
         # can raise a bogus exception.
         timetuple = (1900, 1, 1,
                      self._hour, self._minute, self._second,

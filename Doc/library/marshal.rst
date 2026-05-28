@@ -1,17 +1,17 @@
-:mod:`marshal` --- Internal Python object serialization
+:mod:`marshal` --- Internal MyFRpy object serialization
 =======================================================
 
 .. module:: marshal
-   :synopsis: Convert Python objects to streams of bytes and back (with different
+   :synopsis: Convert MyFRpy objects to streams of bytes and back (with different
               constraints).
 
 --------------
 
-This module contains functions that can read and write Python values in a binary
-format.  The format is specific to Python, but independent of machine
-architecture issues (e.g., you can write a Python value to a file on a PC,
+This module contains functions that can read and write MyFRpy values in a binary
+format.  The format is specific to MyFRpy, but independent of machine
+architecture issues (e.g., you can write a MyFRpy value to a file on a PC,
 transport the file to a Sun, and read it back there).  Details of the format are
-undocumented on purpose; it may change between Python versions (although it
+undocumented on purpose; it may change between MyFRpy versions (although it
 rarely does). [#]_
 
 .. index::
@@ -19,12 +19,12 @@ rarely does). [#]_
    pair: module; shelve
 
 This is not a general "persistence" module.  For general persistence and
-transfer of Python objects through RPC calls, see the modules :mod:`pickle` and
+transfer of MyFRpy objects through RPC calls, see the modules :mod:`pickle` and
 :mod:`shelve`.  The :mod:`marshal` module exists mainly to support reading and
-writing the "pseudo-compiled" code for Python modules of :file:`.pyc` files.
-Therefore, the Python maintainers reserve the right to modify the marshal format
+writing the "pseudo-compiled" code for MyFRpy modules of :file:`.pyc` files.
+Therefore, the MyFRpy maintainers reserve the right to modify the marshal format
 in backward incompatible ways should the need arise.  If you're serializing and
-de-serializing Python objects, use the :mod:`pickle` module instead -- the
+de-serializing MyFRpy objects, use the :mod:`pickle` module instead -- the
 performance is comparable, version independence is guaranteed, and pickle
 supports a substantially wider range of objects than marshal.
 
@@ -36,8 +36,8 @@ supports a substantially wider range of objects than marshal.
 
 .. index:: object; code, code object
 
-Not all Python object types are supported; in general, only objects whose value
-is independent from a particular invocation of Python can be written and read by
+Not all MyFRpy object types are supported; in general, only objects whose value
+is independent from a particular invocation of MyFRpy can be written and read by
 this module.  The following types are supported: booleans, integers, floating
 point numbers, complex numbers, strings, bytes, bytearrays, tuples, lists, sets,
 frozensets, dictionaries, and code objects, where it should be understood that
@@ -72,7 +72,7 @@ The module defines these functions:
 .. function:: load(file)
 
    Read one value from the open file and return it.  If no valid value is read
-   (e.g. because the data has a different Python version's incompatible marshal
+   (e.g. because the data has a different MyFRpy version's incompatible marshal
    format), raise :exc:`EOFError`, :exc:`ValueError` or :exc:`TypeError`.  The
    file must be a readable :term:`binary file`.
 

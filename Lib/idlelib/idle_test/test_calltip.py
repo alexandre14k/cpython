@@ -58,7 +58,7 @@ class Get_argspecTest(unittest.TestCase):
         def tiptest(obj, out):
             self.assertEqual(get_spec(obj), out)
 
-        # Python class that inherits builtin methods
+        # MyFRpy class that inherits builtin methods
         class List(list): "List() doc"
 
         # Simulate builtin with no docstring for default tip test

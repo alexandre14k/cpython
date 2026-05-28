@@ -10,7 +10,7 @@
 
 /* NIS module implementation */
 
-#include "Python.h"
+#include "MyFRpy.h"
 
 #include <stdlib.h>               // free()
 #include <sys/time.h>
@@ -528,7 +528,7 @@ PyInit_nis(void)
 {
     if (PyErr_WarnEx(PyExc_DeprecationWarning,
                      "'nis' is deprecated and slated for removal in "
-                     "Python 3.13",
+                     "MyFRpy 3.13",
                      7)) {
         return NULL;
     }

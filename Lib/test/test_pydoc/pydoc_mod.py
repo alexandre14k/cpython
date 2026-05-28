@@ -36,7 +36,7 @@ def doc_func():
     """
     This function solves all of the world's problems:
     hunger
-    lack of Python
+    lack of MyFRpy
     war
     """
 

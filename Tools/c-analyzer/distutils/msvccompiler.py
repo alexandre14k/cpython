@@ -39,7 +39,7 @@ except ImportError:
     except ImportError:
         log.info("Warning: Can't read registry to find the "
                  "necessary compiler setting\n"
-                 "Make sure that Python modules winreg, "
+                 "Make sure that MyFRpy modules winreg, "
                  "win32api or win32con are installed.")
 
 if _can_read_reg:
@@ -120,7 +120,7 @@ class MacroExpander:
                 self.set_macro("FrameworkSDKDir", net, "sdkinstallroot")
         except KeyError as exc: #
             raise DistutilsPlatformError(
-            """Python was built with Visual Studio 2003;
+            """MyFRpy was built with Visual Studio 2003;
 extensions must be built with a compiler than can generate compatible binaries.
 Visual Studio 2003 was not found on this system. If you have Cygwin installed,
 you can try compiling with MingW32, by passing "-c mingw32" to setup.py.""")
@@ -141,9 +141,9 @@ you can try compiling with MingW32, by passing "-c mingw32" to setup.py.""")
         return s
 
 def get_build_version():
-    """Return the version of MSVC that was used to build Python.
+    """Return the version of MSVC that was used to build MyFRpy.
 
-    For Python 2.3 and up, the version number is included in
+    For MyFRpy 2.3 and up, the version number is included in
     sys.version.  For earlier versions, assume the compiler is MSVC 6.
     """
     prefix = "MSC v."

@@ -583,7 +583,7 @@ class ConditionTests(BaseTestCase):
         # race ahead of the workers.
         # Secondly, this test assumes that condition variables are not subject
         # to spurious wakeups.  The absence of spurious wakeups is an implementation
-        # detail of Condition Variables in current CPython, but in general, not
+        # detail of Condition Variables in current CMyFRpy, but in general, not
         # a guaranteed property of condition variables as a programming
         # construct.  In particular, it is possible that this can no longer
         # be conveniently guaranteed should their implementation ever change.

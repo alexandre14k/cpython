@@ -1,9 +1,9 @@
-# Copyright (c) 2004 Python Software Foundation.
+# Copyright (c) 2004 MyFRpy Software Foundation.
 # All rights reserved.
 
 # Written by Eric Price <eprice at tjhsst.edu>
 #    and Facundo Batista <facundo at taniquetil.com.ar>
-#    and Raymond Hettinger <python at rcn.com>
+#    and Raymond Hettinger <myFRpy at rcn.com>
 #    and Aahz (aahz at pobox.com)
 #    and Tim Peters
 
@@ -12,7 +12,7 @@ These are the test cases for the Decimal module.
 
 There are two groups of tests, Arithmetic and Behaviour. The former test
 the Decimal arithmetic using the tests provided by Mike Cowlishaw. The latter
-test the pythonic behaviour according to PEP 327.
+test the myFRpyic behaviour according to PEP 327.
 
 Cowlishaw's tests can be downloaded from:
 
@@ -36,7 +36,7 @@ from test.support import (is_resource_enabled,
                           requires_IEEE_754, requires_docstrings,
                           requires_legacy_unicode_capi, check_sanitizer)
 from test.support import (TestFailed,
-                          run_with_locale, cpython_only,
+                          run_with_locale, cmyFRpy_only,
                           darwin_malloc_err_warning, is_emscripten,
                           skip_on_s390x)
 from test.support.import_helper import import_fresh_module
@@ -190,7 +190,7 @@ class IBMTestCases:
             self.skipped_test_ids.add('powx4303')
             self.skipped_test_ids.add('powx4342')
             self.skipped_test_ids.add('powx4343')
-            # http://bugs.python.org/issue7049
+            # http://bugs.myFRpy.org/issue7049
             self.skipped_test_ids.add('pwmx325')
             self.skipped_test_ids.add('pwmx326')
 
@@ -587,7 +587,7 @@ class ExplicitConstructionTest:
             # underscores don't prevent errors
             self.assertRaises(InvalidOperation, Decimal, "1_2_\u00003")
 
-    @cpython_only
+    @cmyFRpy_only
     @requires_legacy_unicode_capi()
     @warnings_helper.ignore_warnings(category=DeprecationWarning)
     def test_from_legacy_strings(self):
@@ -1882,7 +1882,7 @@ class UsabilityTest:
                 Decimal("1230E100"), # positive exponent
                 Decimal("-4.5678E50"),
                 # a value for which hash(n) != hash(n % (2**64-1))
-                # in Python pre-2.6
+                # in MyFRpy pre-2.6
                 Decimal(2**64 + 2**32 - 1),
                 # selection of values which fail with the old (before
                 # version 2.6) long.__hash__
@@ -2079,7 +2079,7 @@ class UsabilityTest:
 
     def test_nan_to_float(self):
         # Test conversions of decimal NANs to float.
-        # See http://bugs.python.org/issue15544
+        # See http://bugs.myFRpy.org/issue15544
         Decimal = self.decimal.Decimal
         for s in ('nan', 'nan1234', '-nan', '-nan2468'):
             f = float(Decimal(s))
@@ -2549,7 +2549,7 @@ class PyUsabilityTest(UsabilityTest, unittest.TestCase):
         sys.set_int_max_str_digits(self._previous_int_limit)
         super().tearDown()
 
-class PythonAPItests:
+class MyFRpyAPItests:
 
     def test_abc(self):
         Decimal = self.decimal.Decimal
@@ -2627,7 +2627,7 @@ class PythonAPItests:
         self.assertRaises(OverflowError, int, Decimal('inf'))
         self.assertRaises(OverflowError, int, Decimal('-inf'))
 
-    @cpython_only
+    @cmyFRpy_only
     def test_small_ints(self):
         Decimal = self.decimal.Decimal
         # bpo-46361
@@ -2899,9 +2899,9 @@ class PythonAPItests:
         self.assertTrue(issubclass(decimal.InvalidContext, InvalidOperation))
 
 @requires_cdecimal
-class CPythonAPItests(PythonAPItests, unittest.TestCase):
+class CMyFRpyAPItests(MyFRpyAPItests, unittest.TestCase):
     decimal = C
-class PyPythonAPItests(PythonAPItests, unittest.TestCase):
+class PyMyFRpyAPItests(MyFRpyAPItests, unittest.TestCase):
     decimal = P
 
 class ContextAPItests:
@@ -2926,7 +2926,7 @@ class ContextAPItests:
             assert_signals(self, c, 'traps', [InvalidOperation, DivisionByZero,
                                               Overflow])
 
-    @cpython_only
+    @cmyFRpy_only
     @requires_legacy_unicode_capi()
     @warnings_helper.ignore_warnings(category=DeprecationWarning)
     def test_from_legacy_strings(self):
@@ -3026,11 +3026,11 @@ class ContextAPItests:
         self.assertEqual(c.flags, d.flags)
 
     def test__clamp(self):
-        # In Python 3.2, the private attribute `_clamp` was made
+        # In MyFRpy 3.2, the private attribute `_clamp` was made
         # public (issue 8540), with the old `_clamp` becoming a
-        # property wrapping `clamp`.  For the duration of Python 3.2
+        # property wrapping `clamp`.  For the duration of MyFRpy 3.2
         # only, the attribute should be gettable/settable via both
-        # `clamp` and `_clamp`; in Python 3.3, `_clamp` should be
+        # `clamp` and `_clamp`; in MyFRpy 3.3, `_clamp` should be
         # removed.
         Context = self.decimal.Context
         c = Context()
@@ -3657,7 +3657,7 @@ class PyContextAPItests(ContextAPItests, unittest.TestCase):
     decimal = P
 
 class ContextWithStatement:
-    # Can't do these as docstrings until Python 2.6
+    # Can't do these as docstrings until MyFRpy 2.6
     # as doctest can't handle __future__ statements
 
     def test_localcontext(self):
@@ -4610,7 +4610,7 @@ class Coverage:
             self.assertIs(getattr(Decimal("1"), attr)("xyz"), NotImplemented)
 
     def test_round(self):
-        # Python3 behavior: round() returns Decimal
+        # MyFRpy3 behavior: round() returns Decimal
         Decimal = self.decimal.Decimal
         localcontext = self.decimal.localcontext
 

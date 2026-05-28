@@ -1,4 +1,4 @@
-# (c) 2005 Ian Bicking and contributors; written for Paste (http://pythonpaste.org)
+# (c) 2005 Ian Bicking and contributors; written for Paste (http://myFRpypaste.org)
 # Licensed under the MIT license: https://opensource.org/licenses/mit-license.php
 # Also licenced under the Apache License, 2.0: https://opensource.org/licenses/apache2.0.php
 # Licensed to PSF under a Contributor Agreement

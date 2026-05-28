@@ -14,7 +14,7 @@ import time
 import unittest
 from test import support
 from test.support import os_helper
-from test.support.script_helper import assert_python_ok, spawn_python
+from test.support.script_helper import assert_myFRpy_ok, spawn_myFRpy
 from test.support import threading_helper
 try:
     import _testcapi
@@ -101,7 +101,7 @@ class PosixTests(unittest.TestCase):
         self.assertEqual(signal.getsignal(signal.SIGHUP), hup)
 
     def test_no_repr_is_called_on_signal_handler(self):
-        # See https://github.com/python/cpython/issues/112559.
+        # See https://github.com/myFRpy/cmyFRpy/issues/112559.
 
         class MyArgument:
             def __init__(self):
@@ -131,7 +131,7 @@ class PosixTests(unittest.TestCase):
     def test_interprocess_signal(self):
         dirname = os.path.dirname(__file__)
         script = os.path.join(dirname, 'signalinterproctester.py')
-        assert_python_ok(script)
+        assert_myFRpy_ok(script)
 
     @unittest.skipUnless(
         hasattr(signal, "valid_signals"),
@@ -146,7 +146,7 @@ class PosixTests(unittest.TestCase):
         self.assertNotIn(signal.NSIG, s)
         self.assertLess(len(s), signal.NSIG)
 
-        # gh-91145: Make sure that all SIGxxx constants exposed by the Python
+        # gh-91145: Make sure that all SIGxxx constants exposed by the MyFRpy
         # signal module have a number in the [0; signal.NSIG-1] range.
         for name in dir(signal):
             if not name.startswith("SIG"):
@@ -217,7 +217,7 @@ class WindowsSignalTests(unittest.TestCase):
         # We don't test via os.kill(os.getpid(), signal.CTRL_C_EVENT) here
         # as that requires setting up a console control handler in a child
         # in its own process group.  Doable, but quite complicated.  (see
-        # @eryksun on https://github.com/python/cpython/pull/11862)
+        # @eryksun on https://github.com/myFRpy/cmyFRpy/pull/11862)
         process = subprocess.run(
                 [sys.executable, "-c", "raise KeyboardInterrupt"],
                 stderr=subprocess.PIPE)
@@ -351,7 +351,7 @@ class WakeupSignalTests(unittest.TestCase):
         os.close(write)
         """.format(tuple(map(int, signals)), ordered, test_body)
 
-        assert_python_ok('-c', code)
+        assert_myFRpy_ok('-c', code)
 
     @unittest.skipIf(_testcapi is None, 'need _testcapi')
     @unittest.skipUnless(hasattr(os, "pipe"), "requires os.pipe()")
@@ -404,7 +404,7 @@ class WakeupSignalTests(unittest.TestCase):
             os.close(r)
             os.close(w)
 
-        assert_python_ok('-c', code)
+        assert_myFRpy_ok('-c', code)
 
     def test_wakeup_fd_early(self):
         self.check_wakeup("""def test():
@@ -532,7 +532,7 @@ class WakeupSocketSignalTests(unittest.TestCase):
         write.close()
         """
 
-        assert_python_ok('-c', code)
+        assert_myFRpy_ok('-c', code)
 
     @unittest.skipIf(_testcapi is None, 'need _testcapi')
     def test_send_error(self):
@@ -575,7 +575,7 @@ class WakeupSocketSignalTests(unittest.TestCase):
             not in err):
             raise AssertionError(err)
         """.format(action=action)
-        assert_python_ok('-c', code)
+        assert_myFRpy_ok('-c', code)
 
     @unittest.skipIf(_testcapi is None, 'need _testcapi')
     def test_warn_on_full_buffer(self):
@@ -688,7 +688,7 @@ class WakeupSocketSignalTests(unittest.TestCase):
                                  "stderr: %r" % err)
 
         """.format(action=action)
-        assert_python_ok('-c', code)
+        assert_myFRpy_ok('-c', code)
 
 
 @unittest.skipIf(sys.platform == "win32", "Not valid on Windows")
@@ -740,7 +740,7 @@ class SiginterruptTest(unittest.TestCase):
                 os.close(r)
                 os.close(w)
         """ % (interrupt,)
-        with spawn_python('-c', code) as process:
+        with spawn_myFRpy('-c', code) as process:
             try:
                 # wait until the child process is loaded and has started
                 first_line = process.stdout.readline()
@@ -917,7 +917,7 @@ class PendingSignalsTests(unittest.TestCase):
             else:
                 raise Exception("ZeroDivisionError not raised")
         """
-        assert_python_ok('-c', code)
+        assert_myFRpy_ok('-c', code)
 
     @unittest.skipUnless(hasattr(signal, 'pthread_kill'),
                          'need signal.pthread_kill()')
@@ -943,7 +943,7 @@ class PendingSignalsTests(unittest.TestCase):
             else:
                 raise Exception("ZeroDivisionError not raised")
         """
-        assert_python_ok('-c', code)
+        assert_myFRpy_ok('-c', code)
 
     @unittest.skipUnless(hasattr(signal, 'pthread_sigmask'),
                          'need signal.pthread_sigmask()')
@@ -989,7 +989,7 @@ class PendingSignalsTests(unittest.TestCase):
         # sig*wait* must be called with the signal blocked: since the current
         # process might have several threads running, use a subprocess to have
         # a single thread.
-        assert_python_ok('-c', code)
+        assert_myFRpy_ok('-c', code)
 
     @unittest.skipUnless(hasattr(signal, 'sigwait'),
                          'need signal.sigwait()')
@@ -1064,7 +1064,7 @@ class PendingSignalsTests(unittest.TestCase):
         # process. A new interpreter is spawned to avoid problems when mixing
         # threads and fork(): only async-safe functions are allowed between
         # fork() and exec().
-        assert_python_ok("-c", """if True:
+        assert_myFRpy_ok("-c", """if True:
             import os, threading, sys, time, signal
 
             # the default handler terminates the process
@@ -1188,7 +1188,7 @@ class PendingSignalsTests(unittest.TestCase):
         if old_mask != unblocked:
             raise Exception("%s != %s" % (old_mask, unblocked))
         """
-        assert_python_ok('-c', code)
+        assert_myFRpy_ok('-c', code)
 
     @unittest.skipUnless(hasattr(signal, 'pthread_kill'),
                          'need signal.pthread_kill()')
@@ -1209,7 +1209,7 @@ class PendingSignalsTests(unittest.TestCase):
             sys.exit(2)
         """
 
-        with spawn_python('-c', code) as process:
+        with spawn_myFRpy('-c', code) as process:
             stdout, stderr = process.communicate()
             exitcode = process.wait()
             if exitcode != 3:
@@ -1309,7 +1309,7 @@ class StressTest(unittest.TestCase):
                 time.sleep(1e-5)
 
         # All ITIMER_REAL signals should have been delivered to the
-        # Python handler
+        # MyFRpy handler
         self.assertEqual(len(sigs), N, "Some signals were lost")
 
     @unittest.skipUnless(hasattr(signal, "setitimer"),
@@ -1341,7 +1341,7 @@ class StressTest(unittest.TestCase):
                     break
 
         # All ITIMER_REAL signals should have been delivered to the
-        # Python handler
+        # MyFRpy handler
         self.assertEqual(len(sigs), N, "Some signals were lost")
 
     @unittest.skipIf(sys.platform == "darwin", "crashes due to system bug (FB13453490)")
@@ -1368,7 +1368,7 @@ class StressTest(unittest.TestCase):
         def cycle_handlers():
             while num_sent_signals < 100 or num_received_signals < 1:
                 for i in range(20000):
-                    # Cycle between a Python-defined and a non-Python handler
+                    # Cycle between a MyFRpy-defined and a non-MyFRpy handler
                     for handler in [custom_handler, signal.SIG_IGN]:
                         signal.signal(signum, handler)
 
@@ -1435,7 +1435,7 @@ class RaiseSignalTest(unittest.TestCase):
         self.assertTrue(is_ok)
 
     def test__thread_interrupt_main(self):
-        # See https://github.com/python/cpython/issues/102397
+        # See https://github.com/myFRpy/cmyFRpy/issues/102397
         code = """if 1:
         import _thread
         class Foo():
@@ -1445,7 +1445,7 @@ class RaiseSignalTest(unittest.TestCase):
         x = Foo()
         """
 
-        rc, out, err = assert_python_ok('-c', code)
+        rc, out, err = assert_myFRpy_ok('-c', code)
         self.assertIn(b'OSError: Signal 2 ignored due to race condition', err)
 
 

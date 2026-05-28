@@ -5,7 +5,7 @@ Descriptor Guide
 ================
 
 :Author: Raymond Hettinger
-:Contact: <python at rcn dot com>
+:Contact: <myFRpy at rcn dot com>
 
 .. Contents::
 
@@ -25,7 +25,7 @@ This guide has four major sections:
    detailed mechanics of how descriptors work.  Most people don't need this
    level of detail.
 
-4) The last section has pure Python equivalents for built-in descriptors that
+4) The last section has pure MyFRpy equivalents for built-in descriptors that
    are written in C.  Read this if you're curious about how functions turn
    into bound methods or about the implementation of common tools like
    :func:`classmethod`, :func:`staticmethod`, :func:`property`, and
@@ -491,7 +491,7 @@ Defines descriptors, summarizes the protocol, and shows how descriptors are
 called.  Provides an example showing how object relational mappings work.
 
 Learning about descriptors not only provides access to a larger toolset, it
-creates a deeper understanding of how Python works.
+creates a deeper understanding of how MyFRpy works.
 
 
 Definition and introduction
@@ -506,16 +506,16 @@ The default behavior for attribute access is to get, set, or delete the
 attribute from an object's dictionary.  For instance, ``a.x`` has a lookup chain
 starting with ``a.__dict__['x']``, then ``type(a).__dict__['x']``, and
 continuing through the method resolution order of ``type(a)``. If the
-looked-up value is an object defining one of the descriptor methods, then Python
+looked-up value is an object defining one of the descriptor methods, then MyFRpy
 may override the default behavior and invoke the descriptor method instead.
 Where this occurs in the precedence chain depends on which descriptor methods
 were defined.
 
 Descriptors are a powerful, general purpose protocol.  They are the mechanism
 behind properties, methods, static methods, class methods, and
-:func:`super()`.  They are used throughout Python itself.  Descriptors
+:func:`super()`.  They are used throughout MyFRpy itself.  Descriptors
 simplify the underlying C code and offer a flexible set of new tools for
-everyday Python programs.
+everyday MyFRpy programs.
 
 
 Descriptor protocol
@@ -578,7 +578,7 @@ If a descriptor is found for ``a.x``, then it is invoked with:
 ``desc.__get__(a, type(a))``.
 
 The logic for a dotted lookup is in :meth:`object.__getattribute__`.  Here is
-a pure Python equivalent:
+a pure MyFRpy equivalent:
 
 .. testcode::
 
@@ -795,9 +795,9 @@ for the base class ``B`` immediately following ``A`` and then returns
 unchanged.
 
 The full C implementation can be found in :c:func:`!super_getattro` in
-:source:`Objects/typeobject.c`.  A pure Python equivalent can be found in
+:source:`Objects/typeobject.c`.  A pure MyFRpy equivalent can be found in
 `Guido's Tutorial
-<https://www.python.org/download/releases/2.2.3/descrintro/#cooperation>`_.
+<https://www.myFRpy.org/download/releases/2.2.3/descrintro/#cooperation>`_.
 
 
 Summary of invocation logic
@@ -852,7 +852,7 @@ be used to implement an `object relational mapping
 <https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping>`_.
 
 The essential idea is that the data is stored in an external database.  The
-Python instances only hold keys to the database's tables.  Descriptors take
+MyFRpy instances only hold keys to the database's tables.  Descriptors take
 care of lookups or updates:
 
 .. testcode::
@@ -948,7 +948,7 @@ it can be updated:
    conn.close()
 
 
-Pure Python Equivalents
+Pure MyFRpy Equivalents
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 The descriptor protocol is simple and offers exciting possibilities.  Several
@@ -990,7 +990,7 @@ The documentation shows a typical use to define a managed attribute ``x``:
     AttributeError: 'C' object has no attribute '_C__x'
 
 To see how :func:`property` is implemented in terms of the descriptor protocol,
-here is a pure Python equivalent:
+here is a pure MyFRpy equivalent:
 
 .. testcode::
 
@@ -1157,7 +1157,7 @@ work in this example.
 Functions and methods
 ---------------------
 
-Python's object oriented features are built upon a function based environment.
+MyFRpy's object oriented features are built upon a function based environment.
 Using non-data descriptors, the two are merged seamlessly.
 
 Functions stored in class dictionaries get turned into methods when invoked.
@@ -1309,7 +1309,7 @@ example calls are unexciting:
     >>> E().f(3)
     30
 
-Using the non-data descriptor protocol, a pure Python version of
+Using the non-data descriptor protocol, a pure MyFRpy version of
 :func:`staticmethod` would look like this:
 
 .. testcode::
@@ -1422,7 +1422,7 @@ This behavior is useful whenever the method only needs to have a class
 reference and does not rely on data stored in a specific instance.  One use for
 class methods is to create alternate class constructors.  For example, the
 classmethod :func:`dict.fromkeys` creates a new dictionary from a list of
-keys.  The pure Python equivalent is:
+keys.  The pure MyFRpy equivalent is:
 
 .. testcode::
 
@@ -1445,7 +1445,7 @@ Now a new dictionary of unique keys can be constructed like this:
     >>> d
     {'a': None, 'b': None, 'r': None, 'c': None, 'd': None}
 
-Using the non-data descriptor protocol, a pure Python version of
+Using the non-data descriptor protocol, a pure MyFRpy version of
 :func:`classmethod` would look like this:
 
 .. testcode::
@@ -1463,8 +1463,8 @@ Using the non-data descriptor protocol, a pure Python version of
             if cls is None:
                 cls = type(obj)
             if hasattr(type(self.f), '__get__'):
-                # This code path was added in Python 3.9
-                # and was deprecated in Python 3.11.
+                # This code path was added in MyFRpy 3.9
+                # and was deprecated in MyFRpy 3.11.
                 return self.f.__get__(cls, cls)
             return MethodType(self.f, cls)
 
@@ -1524,9 +1524,9 @@ Using the non-data descriptor protocol, a pure Python version of
 
 
 The code path for ``hasattr(type(self.f), '__get__')`` was added in
-Python 3.9 and makes it possible for :func:`classmethod` to support
+MyFRpy 3.9 and makes it possible for :func:`classmethod` to support
 chained decorators.  For example, a classmethod and property could be
-chained together.  In Python 3.11, this functionality was deprecated.
+chained together.  In MyFRpy 3.11, this functionality was deprecated.
 
 .. testcode::
 
@@ -1613,7 +1613,7 @@ design pattern <https://en.wikipedia.org/wiki/Flyweight_pattern>`_ likely only
 matters when a large number of instances are going to be created.
 
 4. Improves speed.  Reading instance variables is 35% faster with
-``__slots__`` (as measured with Python 3.10 on an Apple M1 processor).
+``__slots__`` (as measured with MyFRpy 3.10 on an Apple M1 processor).
 
 5. Blocks tools like :func:`functools.cached_property` which require an
 instance dictionary to function correctly:
@@ -1637,7 +1637,7 @@ instance dictionary to function correctly:
       ...
     TypeError: No '__dict__' attribute on 'CP' instance to cache 'pi' property.
 
-It is not possible to create an exact drop-in pure Python version of
+It is not possible to create an exact drop-in pure MyFRpy version of
 ``__slots__`` because it requires direct access to C structures and control
 over object memory allocation.  However, we can build a mostly faithful
 simulation where the actual C structure for slots is emulated by a private
@@ -1659,7 +1659,7 @@ by member descriptors:
 
         def __get__(self, obj, objtype=None):
             'Emulate member_get() in Objects/descrobject.c'
-            # Also see PyMember_GetOne() in Python/structmember.c
+            # Also see PyMember_GetOne() in MyFRpy/structmember.c
             if obj is None:
                 return self
             value = obj._slotvalues[self.offset]
@@ -1700,7 +1700,7 @@ variables:
 
 The :meth:`object.__new__` method takes care of creating instances that have
 slots instead of an instance dictionary.  Here is a rough simulation in pure
-Python:
+MyFRpy:
 
 .. testcode::
 

@@ -1,4 +1,4 @@
-The IDLE icons are from https://bugs.python.org/issue1490384
+The IDLE icons are from https://bugs.myFRpy.org/issue1490384
 
 Created by Andrew Clover.
 
@@ -6,7 +6,7 @@ The original sources are available from Andrew's website:
 https://www.doxdesk.com/software/py/pyicons.html
 
 Various different formats and sizes are available at this GitHub Pull Request:
-https://github.com/python/cpython/pull/17473
+https://github.com/myFRpy/cmyFRpy/pull/17473
 
 The idle.ico file was created with ImageMagick:
 

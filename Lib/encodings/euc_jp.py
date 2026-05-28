@@ -1,5 +1,5 @@
 #
-# euc_jp.py: Python Unicode Codec for EUC_JP
+# euc_jp.py: MyFRpy Unicode Codec for EUC_JP
 #
 # Written by Hye-Shik Chang <perky@FreeBSD.org>
 #

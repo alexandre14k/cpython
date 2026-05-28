@@ -1,4 +1,4 @@
-#include "Python.h"
+#include "MyFRpy.h"
 #include <ctype.h>
 
 #include <stdbool.h>
@@ -1318,7 +1318,7 @@ xmlparse_handler_setter(xmlparseobject *self, PyObject *v, struct HandlerInfo *h
            data handler is already active, we need to be more
            careful.  What we can safely do is replace the existing
            character data handler callback function with a no-op
-           function that will refuse to call Python.  The downside
+           function that will refuse to call MyFRpy.  The downside
            is that this doesn't completely remove the character
            data handler from the C layer if there's any callback
            active, so Expat does a little more work than it
@@ -1642,7 +1642,7 @@ static struct PyMethodDef pyexpat_methods[] = {
 /* Module docstring */
 
 PyDoc_STRVAR(pyexpat_module_documentation,
-"Python wrapper for Expat parser.");
+"MyFRpy wrapper for Expat parser.");
 
 /* Initialization function for the module */
 

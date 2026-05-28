@@ -1,7 +1,7 @@
 /* Author: Daniel Stutzbach */
 
 #define PY_SSIZE_T_CLEAN
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_fileutils.h"     // _Py_BEGIN_SUPPRESS_IPH
 #include "pycore_object.h"        // _PyObject_GC_UNTRACK()
 #include "structmember.h"         // PyMemberDef
@@ -459,7 +459,7 @@ _io_FileIO___init___impl(fileio *self, PyObject *nameobj, const char *mode,
     else {
 #if defined(S_ISDIR) && defined(EISDIR)
         /* On Unix, open will succeed for directories.
-           In Python, there should be no file objects referring to
+           In MyFRpy, there should be no file objects referring to
            directories, so we need a check.  */
         if (S_ISDIR(fdfstat.st_mode)) {
             errno = EISDIR;
@@ -743,7 +743,7 @@ _io_FileIO_readall_impl(fileio *self)
             if (bufsize > PY_SSIZE_T_MAX || bufsize <= 0) {
                 PyErr_SetString(PyExc_OverflowError,
                                 "unbounded read returned more bytes "
-                                "than a Python bytes object can hold");
+                                "than a MyFRpy bytes object can hold");
                 Py_DECREF(result);
                 return NULL;
             }

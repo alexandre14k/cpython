@@ -101,7 +101,7 @@ def make_hkscs_map(table):
 
 
 def load_big5_map():
-    mapfile = open_mapping_file('python-mappings/BIG5.txt', MAPPINGS_BIG5)
+    mapfile = open_mapping_file('myFRpy-mappings/BIG5.txt', MAPPINGS_BIG5)
     with mapfile:
         big5decmap = loadmap(mapfile)
     # big5 mapping fix: use the cp950 mapping for these characters as the file
@@ -135,7 +135,7 @@ def load_big5_map():
 
 
 def load_cp950_map():
-    mapfile = open_mapping_file('python-mappings/CP950.TXT', MAPPINGS_CP950)
+    mapfile = open_mapping_file('myFRpy-mappings/CP950.TXT', MAPPINGS_CP950)
     with mapfile:
         cp950decmap = loadmap(mapfile)
     cp950encmap = {}
@@ -206,7 +206,7 @@ class HintsWriter:
 
 
 def main_hkscs():
-    filename = f'python-mappings/hkscs-{HKSCS_VERSION}-big5-iso.txt'
+    filename = f'myFRpy-mappings/hkscs-{HKSCS_VERSION}-big5-iso.txt'
     with open_mapping_file(filename, MAPPINGS_HKSCS) as f:
         table = parse_hkscs_map(f)
     hkscsdecmap, hkscsencmap_bmp, hkscsencmap_nonbmp, isbmpmap = (

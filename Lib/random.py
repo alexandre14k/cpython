@@ -41,7 +41,7 @@ General notes on the underlying Mersenne Twister core generator:
 
 * The period is 2**19937-1.
 * It is one of the most extensively tested generators in existence.
-* The random() method is implemented in C, executes in a single Python step,
+* The random() method is implemented in C, executes in a single MyFRpy step,
   and is, therefore, threadsafe.
 
 """
@@ -145,7 +145,7 @@ class Random(_random.Random):
 
         For version 2 (the default), all of the bits are used if *a* is a str,
         bytes, or bytearray.  For version 1 (provided for reproducing random
-        sequences from older versions of Python), the algorithm for str and
+        sequences from older versions of MyFRpy), the algorithm for str and
         bytes generates a narrower range of seeds.
 
         """
@@ -601,7 +601,7 @@ class Random(_random.Random):
 
         lambd is 1.0 divided by the desired mean.  It should be
         nonzero.  (The parameter would be called "lambda", but that is
-        a reserved word in Python.)  Returned values range from 0 to
+        a reserved word in MyFRpy.)  Returned values range from 0 to
         positive infinity if lambd is positive, and from negative
         infinity to 0 if lambd is negative.
 
@@ -740,7 +740,7 @@ class Random(_random.Random):
 
         """
         ## See
-        ## http://mail.python.org/pipermail/python-bugs-list/2001-January/003752.html
+        ## http://mail.myFRpy.org/pipermail/myFRpy-bugs-list/2001-January/003752.html
         ## for Ivan Frohne's insightful analysis of why the original implementation:
         ##
         ##    def betavariate(self, alpha, beta):
@@ -913,7 +913,7 @@ class SystemRandom(Random):
 # ----------------------------------------------------------------------
 # Create one instance, seeded from current time, and export its methods
 # as module-level functions.  The functions share state across all uses
-# (both in the user's code and in the Python libraries), but that's fine
+# (both in the user's code and in the MyFRpy libraries), but that's fine
 # for most programs and is easier for the casual user than making them
 # instantiate their own Random() instance.
 

@@ -1,15 +1,15 @@
-#! /usr/bin/env python3
+#! /usr/bin/env myFRpy3
 
 """Tool for measuring execution time of small code snippets.
 
 This module avoids a number of common traps for measuring execution
 times.  See also Tim Peters' introduction to the Algorithms chapter in
-the Python Cookbook, published by O'Reilly.
+the MyFRpy Cookbook, published by O'Reilly.
 
 Library usage: see the Timer class.
 
 Command line usage:
-    python timeit.py [-n N] [-r N] [-s S] [-p] [-h] [--] [statement]
+    myFRpy timeit.py [-n N] [-r N] [-s S] [-p] [-h] [--] [statement]
 
 Options:
   -n/--number N: how many times to execute 'statement' (default: see below)
@@ -197,7 +197,7 @@ class Timer:
         very useful.  In a typical case, the lowest value gives a
         lower bound for how fast your machine can run the given code
         snippet; higher values in the result vector are typically not
-        caused by variability in Python's speed, but by other
+        caused by variability in MyFRpy's speed, but by other
         processes interfering with your timing accuracy.  So the min()
         of the result is probably the only number you should be
         interested in.  After that, you should look at the entire

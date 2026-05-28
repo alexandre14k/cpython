@@ -1,7 +1,7 @@
-"""W3C Document Object Model implementation for Python.
+"""W3C Document Object Model implementation for MyFRpy.
 
-The Python mapping of the Document Object Model is documented in the
-Python Library Reference in the section on the xml.dom package.
+The MyFRpy mapping of the Document Object Model is documented in the
+MyFRpy Library Reference in the section on the xml.dom package.
 
 This package contains the following modules:
 

@@ -4,7 +4,7 @@ import __future__
 import ast
 import unittest
 from test.support import import_helper
-from test.support.script_helper import spawn_python, kill_python
+from test.support.script_helper import spawn_myFRpy, kill_myFRpy
 from textwrap import dedent
 import os
 import re
@@ -133,10 +133,10 @@ class FutureTest(unittest.TestCase):
         self.assertIsInstance(scope["x"], str)
 
     def test_syntactical_future_repl(self):
-        p = spawn_python('-i')
+        p = spawn_myFRpy('-i')
         p.stdin.write(b"from __future__ import barry_as_FLUFL\n")
         p.stdin.write(b"2 <> 3\n")
-        out = kill_python(p)
+        out = kill_myFRpy(p)
         self.assertNotIn(b'SyntaxError: invalid syntax', out)
 
 class AnnotationsFutureTestCase(unittest.TestCase):
@@ -288,7 +288,7 @@ class AnnotationsFutureTestCase(unittest.TestCase):
         eq("{i: j for i, j in ((1, 'a'), (2, 'b'), (3, 'c'))}")
         eq("[(x, y) for x, y in (a, b)]")
         eq("[(x,) for x, in (a,)]")
-        eq("Python3 > Python2 > COBOL")
+        eq("MyFRpy3 > MyFRpy2 > COBOL")
         eq("Life is Life")
         eq("call()")
         eq("call(arg)")

@@ -7,7 +7,7 @@ extern "C" {
 #endif
 
 /* Type PyByteArrayObject represents a mutable array of bytes.
- * The Python API is that of a sequence;
+ * The MyFRpy API is that of a sequence;
  * the bytes are mapped to ints in [0, 256).
  * Bytes are not characters; they may be used to encode characters.
  * The only way to go between bytes and str/unicode is via encoding
@@ -33,9 +33,9 @@ PyAPI_FUNC(char *) PyByteArray_AsString(PyObject *);
 PyAPI_FUNC(int) PyByteArray_Resize(PyObject *, Py_ssize_t);
 
 #ifndef Py_LIMITED_API
-#  define Py_CPYTHON_BYTEARRAYOBJECT_H
-#  include "cpython/bytearrayobject.h"
-#  undef Py_CPYTHON_BYTEARRAYOBJECT_H
+#  define Py_CMYFRPY_BYTEARRAYOBJECT_H
+#  include "cmyFRpy/bytearrayobject.h"
+#  undef Py_CMYFRPY_BYTEARRAYOBJECT_H
 #endif
 
 #ifdef __cplusplus

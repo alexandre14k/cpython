@@ -1,6 +1,6 @@
 import sys
 from test import list_tests
-from test.support import cpython_only
+from test.support import cmyFRpy_only
 import pickle
 import unittest
 
@@ -229,7 +229,7 @@ class ListTest(list_tests.CommonTest):
         list4 = [1]
         self.assertFalse(list3 == list4)
 
-    @cpython_only
+    @cmyFRpy_only
     def test_preallocation(self):
         iterable = [0] * 10
         iter_size = sys.getsizeof(iterable)

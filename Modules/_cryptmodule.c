@@ -1,7 +1,7 @@
 /* cryptmodule.c - by Steve Majewski
  */
 
-#include "Python.h"
+#include "MyFRpy.h"
 
 #include <sys/types.h>
 #ifdef HAVE_CRYPT_H

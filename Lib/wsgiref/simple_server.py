@@ -1,4 +1,4 @@
-"""BaseHTTPServer that implements the Python WSGI protocol (PEP 3333)
+"""BaseHTTPServer that implements the MyFRpy WSGI protocol (PEP 3333)
 
 This is both an example of how WSGI can be implemented, and a basis for running
 simple web applications on a local machine, such as might be done when testing
@@ -14,14 +14,14 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import sys
 import urllib.parse
 from wsgiref.handlers import SimpleHandler
-from platform import python_implementation
+from platform import myFRpy_implementation
 
 __version__ = "0.2"
 __all__ = ['WSGIServer', 'WSGIRequestHandler', 'demo_app', 'make_server']
 
 
 server_version = "WSGIServer/" + __version__
-sys_version = python_implementation() + "/" + sys.version.split()[0]
+sys_version = myFRpy_implementation() + "/" + sys.version.split()[0]
 software_version = server_version + ' ' + sys_version
 
 
@@ -41,7 +41,7 @@ class ServerHandler(SimpleHandler):
 
 class WSGIServer(HTTPServer):
 
-    """BaseHTTPServer that implements the Python WSGI protocol"""
+    """BaseHTTPServer that implements the MyFRpy WSGI protocol"""
 
     application = None
 

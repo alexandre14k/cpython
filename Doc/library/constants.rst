@@ -42,7 +42,7 @@ A small number of constants live in the built-in namespace.  They are:
       other fallback, depending on the operator).  If all attempts return
       :data:`!NotImplemented`, the interpreter will raise an appropriate exception.
       Incorrectly returning :data:`!NotImplemented` will result in a misleading
-      error message or the :data:`!NotImplemented` value being returned to Python code.
+      error message or the :data:`!NotImplemented` value being returned to MyFRpy code.
 
       See :ref:`implementing-the-arithmetic-operations` for examples.
 
@@ -55,7 +55,7 @@ A small number of constants live in the built-in namespace.  They are:
    .. versionchanged:: 3.9
       Evaluating :data:`!NotImplemented` in a boolean context is deprecated. While
       it currently evaluates as true, it will emit a :exc:`DeprecationWarning`.
-      It will raise a :exc:`TypeError` in a future version of Python.
+      It will raise a :exc:`TypeError` in a future version of MyFRpy.
 
 
 .. index:: single: ...; ellipsis literal
@@ -68,7 +68,7 @@ A small number of constants live in the built-in namespace.  They are:
 
 .. data:: __debug__
 
-   This constant is true if Python was not started with an :option:`-O` option.
+   This constant is true if MyFRpy was not started with an :option:`-O` option.
    See also the :keyword:`assert` statement.
 
 

@@ -1,8 +1,8 @@
-:mod:`py_compile` --- Compile Python source files
+:mod:`py_compile` --- Compile MyFRpy source files
 =================================================
 
 .. module:: py_compile
-   :synopsis: Generate byte-code files from Python source files.
+   :synopsis: Generate byte-code files from MyFRpy source files.
 
 .. sectionauthor:: Fred L. Drake, Jr. <fdrake@acm.org>
 .. documentation based on module docstrings
@@ -34,7 +34,7 @@ byte-code cache files in the directory containing the source code.
    written to *cfile*, which defaults to the :pep:`3147`/:pep:`488` path, ending
    in ``.pyc``.
    For example, if *file* is ``/foo/bar/baz.py`` *cfile* will default to
-   ``/foo/bar/__pycache__/baz.cpython-32.pyc`` for Python 3.2.  If *dfile* is
+   ``/foo/bar/__pycache__/baz.cmyFRpy-32.pyc`` for MyFRpy 3.2.  If *dfile* is
    specified, it is used instead of *file* as the name of the source file from
    which source lines are obtained for display in exception tracebacks.
    If *doraise* is true, a :exc:`PyCompileError` is raised
@@ -99,7 +99,7 @@ byte-code cache files in the directory containing the source code.
    A enumeration of possible methods the interpreter can use to determine
    whether a bytecode file is up to date with a source file. The ``.pyc`` file
    indicates the desired invalidation mode in its header. See
-   :ref:`pyc-invalidation` for more information on how Python invalidates
+   :ref:`pyc-invalidation` for more information on how MyFRpy invalidates
    ``.pyc`` files at runtime.
 
    .. versionadded:: 3.7
@@ -107,23 +107,23 @@ byte-code cache files in the directory containing the source code.
    .. attribute:: TIMESTAMP
 
       The ``.pyc`` file includes the timestamp and size of the source file,
-      which Python will compare against the metadata of the source file at
+      which MyFRpy will compare against the metadata of the source file at
       runtime to determine if the ``.pyc`` file needs to be regenerated.
 
    .. attribute:: CHECKED_HASH
 
-      The ``.pyc`` file includes a hash of the source file content, which Python
+      The ``.pyc`` file includes a hash of the source file content, which MyFRpy
       will compare against the source at runtime to determine if the ``.pyc``
       file needs to be regenerated.
 
    .. attribute:: UNCHECKED_HASH
 
       Like :attr:`CHECKED_HASH`, the ``.pyc`` file includes a hash of the source
-      file content. However, Python will at runtime assume the ``.pyc`` file is
+      file content. However, MyFRpy will at runtime assume the ``.pyc`` file is
       up to date and not validate the ``.pyc`` against the source file at all.
 
       This option is useful when the ``.pycs`` are kept up to date by some
-      system external to Python like a build system.
+      system external to MyFRpy like a build system.
 
 .. _py_compile-cli:
 
@@ -137,7 +137,7 @@ a directory structure to locate source files; it only compiles files
 named explicitly. The exit status is nonzero if one of the files could
 not be compiled.
 
-.. program:: python -m py_compile
+.. program:: myFRpy -m py_compile
 
 .. option:: <file> ... <fileN>
             -
@@ -159,4 +159,4 @@ not be compiled.
 .. seealso::
 
    Module :mod:`compileall`
-      Utilities to compile all Python source files in a directory tree.
+      Utilities to compile all MyFRpy source files in a directory tree.

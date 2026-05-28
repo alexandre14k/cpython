@@ -1,7 +1,7 @@
 #
 # Test suite for the textwrap module.
 #
-# Original tests written by Greg Ward <gward@python.net>.
+# Original tests written by Greg Ward <gward@myFRpy.net>.
 # Converted to PyUnit by Peter Hansen <peter@engcorp.com>.
 # Currently maintained by Greg Ward.
 #
@@ -197,14 +197,14 @@ What a mess!
 
     def test_hyphenated_numbers(self):
         # Test that hyphenated numbers (eg. dates) are not broken like words.
-        text = ("Python 1.0.0 was released on 1994-01-26.  Python 1.0.1 was\n"
+        text = ("MyFRpy 1.0.0 was released on 1994-01-26.  MyFRpy 1.0.1 was\n"
                 "released on 1994-02-15.")
 
-        self.check_wrap(text, 30, ['Python 1.0.0 was released on',
-                                   '1994-01-26.  Python 1.0.1 was',
+        self.check_wrap(text, 30, ['MyFRpy 1.0.0 was released on',
+                                   '1994-01-26.  MyFRpy 1.0.1 was',
                                    'released on 1994-02-15.'])
-        self.check_wrap(text, 40, ['Python 1.0.0 was released on 1994-01-26.',
-                                   'Python 1.0.1 was released on 1994-02-15.'])
+        self.check_wrap(text, 40, ['MyFRpy 1.0.0 was released on 1994-01-26.',
+                                   'MyFRpy 1.0.1 was released on 1994-02-15.'])
         self.check_wrap(text, 1, text.split(), break_long_words=False)
 
         text = "I do all my shopping at 7-11."
@@ -564,9 +564,9 @@ class MaxLinesTestCase(BaseTestCase):
         # would be last wrapped line so long the placeholder cannot
         # be added there without violence. So, textwrap backtracks,
         # adding placeholder to the penultimate line.
-        text = 'Good grief Python features are advancing quickly!'
+        text = 'Good grief MyFRpy features are advancing quickly!'
         self.check_wrap(text, 12,
-                        ['Good grief', 'Python*****'],
+                        ['Good grief', 'MyFRpy*****'],
                         max_lines=3,
                         placeholder='*****')
 

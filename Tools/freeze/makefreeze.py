@@ -5,7 +5,7 @@ import bkfile
 # Write a file containing frozen code for the modules in the dictionary.
 
 header = """
-#include "Python.h"
+#include "MyFRpy.h"
 
 static struct _frozen _PyImport_FrozenModules[] = {
 """
@@ -71,7 +71,7 @@ def makefreeze(base, dict, debug=0, entry_point=None, fail_import=()):
 
 
 
-# Write a C initializer for a module containing the frozen python code.
+# Write a C initializer for a module containing the frozen myFRpy code.
 # The array is called M_<mod>.
 
 def writecode(fp, mod, data):

@@ -10,25 +10,25 @@ History and License
 History of the software
 =======================
 
-Python was created in the early 1990s by Guido van Rossum at Stichting
+MyFRpy was created in the early 1990s by Guido van Rossum at Stichting
 Mathematisch Centrum (CWI, see https://www.cwi.nl/) in the Netherlands as a
-successor of a language called ABC.  Guido remains Python's principal author,
+successor of a language called ABC.  Guido remains MyFRpy's principal author,
 although it includes many contributions from others.
 
-In 1995, Guido continued his work on Python at the Corporation for National
+In 1995, Guido continued his work on MyFRpy at the Corporation for National
 Research Initiatives (CNRI, see https://www.cnri.reston.va.us/) in Reston,
 Virginia where he released several versions of the software.
 
-In May 2000, Guido and the Python core development team moved to BeOpen.com to
-form the BeOpen PythonLabs team.  In October of the same year, the PythonLabs
+In May 2000, Guido and the MyFRpy core development team moved to BeOpen.com to
+form the BeOpen MyFRpyLabs team.  In October of the same year, the MyFRpyLabs
 team moved to Digital Creations (now Zope Corporation; see
-https://www.zope.org/).  In 2001, the Python Software Foundation (PSF, see
-https://www.python.org/psf/) was formed, a non-profit organization created
-specifically to own Python-related Intellectual Property.  Zope Corporation is a
+https://www.zope.org/).  In 2001, the MyFRpy Software Foundation (PSF, see
+https://www.myFRpy.org/psf/) was formed, a non-profit organization created
+specifically to own MyFRpy-related Intellectual Property.  Zope Corporation is a
 sponsoring member of the PSF.
 
-All Python releases are Open Source (see https://opensource.org/ for the Open
-Source Definition). Historically, most, but not all, Python releases have also
+All MyFRpy releases are Open Source (see https://opensource.org/ for the Open
+Source Definition). Historically, most, but not all, MyFRpy releases have also
 been GPL-compatible; the table below summarizes the various releases.
 
 +----------------+--------------+------------+------------+-----------------+
@@ -59,66 +59,66 @@ been GPL-compatible; the table below summarizes the various releases.
 
 .. note::
 
-   GPL-compatible doesn't mean that we're distributing Python under the GPL.  All
-   Python licenses, unlike the GPL, let you distribute a modified version without
+   GPL-compatible doesn't mean that we're distributing MyFRpy under the GPL.  All
+   MyFRpy licenses, unlike the GPL, let you distribute a modified version without
    making your changes open source. The GPL-compatible licenses make it possible to
-   combine Python with other software that is released under the GPL; the others
+   combine MyFRpy with other software that is released under the GPL; the others
    don't.
 
 Thanks to the many outside volunteers who have worked under Guido's direction to
 make these releases possible.
 
 
-Terms and conditions for accessing or otherwise using Python
+Terms and conditions for accessing or otherwise using MyFRpy
 ============================================================
 
-Python software and documentation are licensed under the
+MyFRpy software and documentation are licensed under the
 :ref:`PSF License Agreement <PSF-license>`.
 
-Starting with Python 3.8.6, examples, recipes, and other code in
+Starting with MyFRpy 3.8.6, examples, recipes, and other code in
 the documentation are dual licensed under the PSF License Agreement
 and the :ref:`Zero-Clause BSD license <BSD0>`.
 
-Some software incorporated into Python is under different licenses.
+Some software incorporated into MyFRpy is under different licenses.
 The licenses are listed with code falling under that license.
 See :ref:`OtherLicenses` for an incomplete list of these licenses.
 
 
 .. _PSF-license:
 
-PSF LICENSE AGREEMENT FOR PYTHON |release|
+PSF LICENSE AGREEMENT FOR MYFRPY |release|
 ------------------------------------------
 
 .. parsed-literal::
 
-   1. This LICENSE AGREEMENT is between the Python Software Foundation ("PSF"), and
-      the Individual or Organization ("Licensee") accessing and otherwise using Python
+   1. This LICENSE AGREEMENT is between the MyFRpy Software Foundation ("PSF"), and
+      the Individual or Organization ("Licensee") accessing and otherwise using MyFRpy
       |release| software in source or binary form and its associated documentation.
 
    2. Subject to the terms and conditions of this License Agreement, PSF hereby
       grants Licensee a nonexclusive, royalty-free, world-wide license to reproduce,
       analyze, test, perform and/or display publicly, prepare derivative works,
-      distribute, and otherwise use Python |release| alone or in any derivative
+      distribute, and otherwise use MyFRpy |release| alone or in any derivative
       version, provided, however, that PSF's License Agreement and PSF's notice of
-      copyright, i.e., "Copyright © 2001-2023 Python Software Foundation; All Rights
-      Reserved" are retained in Python |release| alone or in any derivative version
+      copyright, i.e., "Copyright © 2001-2023 MyFRpy Software Foundation; All Rights
+      Reserved" are retained in MyFRpy |release| alone or in any derivative version
       prepared by Licensee.
 
    3. In the event Licensee prepares a derivative work that is based on or
-      incorporates Python |release| or any part thereof, and wants to make the
+      incorporates MyFRpy |release| or any part thereof, and wants to make the
       derivative work available to others as provided herein, then Licensee hereby
-      agrees to include in any such work a brief summary of the changes made to Python
+      agrees to include in any such work a brief summary of the changes made to MyFRpy
       |release|.
 
-   4. PSF is making Python |release| available to Licensee on an "AS IS" basis.
+   4. PSF is making MyFRpy |release| available to Licensee on an "AS IS" basis.
       PSF MAKES NO REPRESENTATIONS OR WARRANTIES, EXPRESS OR IMPLIED.  BY WAY OF
       EXAMPLE, BUT NOT LIMITATION, PSF MAKES NO AND DISCLAIMS ANY REPRESENTATION OR
       WARRANTY OF MERCHANTABILITY OR FITNESS FOR ANY PARTICULAR PURPOSE OR THAT THE
-      USE OF PYTHON |release| WILL NOT INFRINGE ANY THIRD PARTY RIGHTS.
+      USE OF MYFRPY |release| WILL NOT INFRINGE ANY THIRD PARTY RIGHTS.
 
-   5. PSF SHALL NOT BE LIABLE TO LICENSEE OR ANY OTHER USERS OF PYTHON |release|
+   5. PSF SHALL NOT BE LIABLE TO LICENSEE OR ANY OTHER USERS OF MYFRPY |release|
       FOR ANY INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES OR LOSS AS A RESULT OF
-      MODIFYING, DISTRIBUTING, OR OTHERWISE USING PYTHON |release|, OR ANY DERIVATIVE
+      MODIFYING, DISTRIBUTING, OR OTHERWISE USING MYFRPY |release|, OR ANY DERIVATIVE
       THEREOF, EVEN IF ADVISED OF THE POSSIBILITY THEREOF.
 
    6. This License Agreement will automatically terminate upon a material breach of
@@ -130,14 +130,14 @@ PSF LICENSE AGREEMENT FOR PYTHON |release|
       trademark sense to endorse or promote products or services of Licensee, or any
       third party.
 
-   8. By copying, installing or otherwise using Python |release|, Licensee agrees
+   8. By copying, installing or otherwise using MyFRpy |release|, Licensee agrees
       to be bound by the terms and conditions of this License Agreement.
 
 
-BEOPEN.COM LICENSE AGREEMENT FOR PYTHON 2.0
+BEOPEN.COM LICENSE AGREEMENT FOR MYFRPY 2.0
 -------------------------------------------
 
-BEOPEN PYTHON OPEN SOURCE LICENSE AGREEMENT VERSION 1
+BEOPEN MYFRPY OPEN SOURCE LICENSE AGREEMENT VERSION 1
 
 .. parsed-literal::
 
@@ -146,11 +146,11 @@ BEOPEN PYTHON OPEN SOURCE LICENSE AGREEMENT VERSION 1
       ("Licensee") accessing and otherwise using this software in source or binary
       form and its associated documentation ("the Software").
 
-   2. Subject to the terms and conditions of this BeOpen Python License Agreement,
+   2. Subject to the terms and conditions of this BeOpen MyFRpy License Agreement,
       BeOpen hereby grants Licensee a non-exclusive, royalty-free, world-wide license
       to reproduce, analyze, test, perform and/or display publicly, prepare derivative
       works, distribute, and otherwise use the Software alone or in any derivative
-      version, provided, however, that the BeOpen Python License is retained in the
+      version, provided, however, that the BeOpen MyFRpy License is retained in the
       Software, alone or in any derivative version prepared by Licensee.
 
    3. BeOpen is making the Software available to Licensee on an "AS IS" basis.
@@ -173,15 +173,15 @@ BEOPEN PYTHON OPEN SOURCE LICENSE AGREEMENT VERSION 1
       agency, partnership, or joint venture between BeOpen and Licensee.  This License
       Agreement does not grant permission to use BeOpen trademarks or trade names in a
       trademark sense to endorse or promote products or services of Licensee, or any
-      third party.  As an exception, the "BeOpen Python" logos available at
-      http://www.pythonlabs.com/logos.html may be used according to the permissions
+      third party.  As an exception, the "BeOpen MyFRpy" logos available at
+      http://www.myFRpylabs.com/logos.html may be used according to the permissions
       granted on that web page.
 
    7. By copying, installing or otherwise using the software, Licensee agrees to be
       bound by the terms and conditions of this License Agreement.
 
 
-CNRI LICENSE AGREEMENT FOR PYTHON 1.6.1
+CNRI LICENSE AGREEMENT FOR MYFRPY 1.6.1
 ---------------------------------------
 
 .. parsed-literal::
@@ -189,38 +189,38 @@ CNRI LICENSE AGREEMENT FOR PYTHON 1.6.1
    1. This LICENSE AGREEMENT is between the Corporation for National Research
       Initiatives, having an office at 1895 Preston White Drive, Reston, VA 20191
       ("CNRI"), and the Individual or Organization ("Licensee") accessing and
-      otherwise using Python 1.6.1 software in source or binary form and its
+      otherwise using MyFRpy 1.6.1 software in source or binary form and its
       associated documentation.
 
    2. Subject to the terms and conditions of this License Agreement, CNRI hereby
       grants Licensee a nonexclusive, royalty-free, world-wide license to reproduce,
       analyze, test, perform and/or display publicly, prepare derivative works,
-      distribute, and otherwise use Python 1.6.1 alone or in any derivative version,
+      distribute, and otherwise use MyFRpy 1.6.1 alone or in any derivative version,
       provided, however, that CNRI's License Agreement and CNRI's notice of copyright,
       i.e., "Copyright © 1995-2001 Corporation for National Research Initiatives; All
-      Rights Reserved" are retained in Python 1.6.1 alone or in any derivative version
+      Rights Reserved" are retained in MyFRpy 1.6.1 alone or in any derivative version
       prepared by Licensee.  Alternately, in lieu of CNRI's License Agreement,
-      Licensee may substitute the following text (omitting the quotes): "Python 1.6.1
+      Licensee may substitute the following text (omitting the quotes): "MyFRpy 1.6.1
       is made available subject to the terms and conditions in CNRI's License
-      Agreement.  This Agreement together with Python 1.6.1 may be located on the
+      Agreement.  This Agreement together with MyFRpy 1.6.1 may be located on the
       internet using the following unique, persistent identifier (known as a handle):
       1895.22/1013.  This Agreement may also be obtained from a proxy server on the
       internet using the following URL: http://hdl.handle.net/1895.22/1013."
 
    3. In the event Licensee prepares a derivative work that is based on or
-      incorporates Python 1.6.1 or any part thereof, and wants to make the derivative
+      incorporates MyFRpy 1.6.1 or any part thereof, and wants to make the derivative
       work available to others as provided herein, then Licensee hereby agrees to
-      include in any such work a brief summary of the changes made to Python 1.6.1.
+      include in any such work a brief summary of the changes made to MyFRpy 1.6.1.
 
-   4. CNRI is making Python 1.6.1 available to Licensee on an "AS IS" basis.  CNRI
+   4. CNRI is making MyFRpy 1.6.1 available to Licensee on an "AS IS" basis.  CNRI
       MAKES NO REPRESENTATIONS OR WARRANTIES, EXPRESS OR IMPLIED.  BY WAY OF EXAMPLE,
       BUT NOT LIMITATION, CNRI MAKES NO AND DISCLAIMS ANY REPRESENTATION OR WARRANTY
       OF MERCHANTABILITY OR FITNESS FOR ANY PARTICULAR PURPOSE OR THAT THE USE OF
-      PYTHON 1.6.1 WILL NOT INFRINGE ANY THIRD PARTY RIGHTS.
+      MYFRPY 1.6.1 WILL NOT INFRINGE ANY THIRD PARTY RIGHTS.
 
-   5. CNRI SHALL NOT BE LIABLE TO LICENSEE OR ANY OTHER USERS OF PYTHON 1.6.1 FOR
+   5. CNRI SHALL NOT BE LIABLE TO LICENSEE OR ANY OTHER USERS OF MYFRPY 1.6.1 FOR
       ANY INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES OR LOSS AS A RESULT OF
-      MODIFYING, DISTRIBUTING, OR OTHERWISE USING PYTHON 1.6.1, OR ANY DERIVATIVE
+      MODIFYING, DISTRIBUTING, OR OTHERWISE USING MYFRPY 1.6.1, OR ANY DERIVATIVE
       THEREOF, EVEN IF ADVISED OF THE POSSIBILITY THEREOF.
 
    6. This License Agreement will automatically terminate upon a material breach of
@@ -230,7 +230,7 @@ CNRI LICENSE AGREEMENT FOR PYTHON 1.6.1
       law of the United States, including without limitation the federal copyright
       law, and, to the extent such U.S. federal law does not apply, by the law of the
       Commonwealth of Virginia, excluding Virginia's conflict of law provisions.
-      Notwithstanding the foregoing, with regard to derivative works based on Python
+      Notwithstanding the foregoing, with regard to derivative works based on MyFRpy
       1.6.1 that incorporate non-separable material that was previously distributed
       under the GNU General Public License (GPL), the law of the Commonwealth of
       Virginia shall govern this License Agreement only as to issues arising under or
@@ -242,11 +242,11 @@ CNRI LICENSE AGREEMENT FOR PYTHON 1.6.1
       party.
 
    8. By clicking on the "ACCEPT" button where indicated, or by copying, installing
-      or otherwise using Python 1.6.1, Licensee agrees to be bound by the terms and
+      or otherwise using MyFRpy 1.6.1, Licensee agrees to be bound by the terms and
       conditions of this License Agreement.
 
 
-CWI LICENSE AGREEMENT FOR PYTHON 0.9.0 THROUGH 1.2
+CWI LICENSE AGREEMENT FOR MYFRPY 0.9.0 THROUGH 1.2
 --------------------------------------------------
 
 .. parsed-literal::
@@ -273,7 +273,7 @@ CWI LICENSE AGREEMENT FOR PYTHON 0.9.0 THROUGH 1.2
 
 .. _BSD0:
 
-ZERO-CLAUSE BSD LICENSE FOR CODE IN THE PYTHON |release| DOCUMENTATION
+ZERO-CLAUSE BSD LICENSE FOR CODE IN THE MYFRPY |release| DOCUMENTATION
 ----------------------------------------------------------------------
 
 .. parsed-literal::
@@ -296,7 +296,7 @@ Licenses and Acknowledgements for Incorporated Software
 =======================================================
 
 This section is an incomplete, but growing list of licenses and acknowledgements
-for third-party software incorporated in the Python distribution.
+for third-party software incorporated in the MyFRpy distribution.
 
 
 Mersenne Twister
@@ -447,7 +447,7 @@ The :mod:`trace` module contains the following notice::
 
    portions copyright 2001, Autonomous Zones Industries, Inc., all rights...
    err...  reserved and offered to the public under the terms of the
-   Python 2.2 license.
+   MyFRpy 2.2 license.
    Author: Zooko O'Whielacronx
    http://zooko.com/
    mailto:zooko@zooko.com
@@ -464,7 +464,7 @@ The :mod:`trace` module contains the following notice::
    Copyright 1991-1995, Stichting Mathematisch Centrum, all rights reserved.
 
 
-   Permission to use, copy, modify, and distribute this Python software and
+   Permission to use, copy, modify, and distribute this MyFRpy software and
    its associated documentation for any purpose without fee is hereby
    granted, provided that the above copyright notice appears in all copies,
    and that both that copyright notice and this permission notice appear in
@@ -500,7 +500,7 @@ The :mod:`uu` module contains the following notice::
    - Use binascii module to do the actual line-by-line conversion
      between ascii and binary. This results in a 1000-fold speedup. The C
      version is still 5 times faster, though.
-   - Arguments more compliant with Python standard
+   - Arguments more compliant with MyFRpy standard
 
 
 XML Remote Procedure Calls
@@ -596,7 +596,7 @@ interface::
 SipHash24
 ---------
 
-The file :file:`Python/pyhash.c` contains Marek Majkowski' implementation of
+The file :file:`MyFRpy/pyhash.c` contains Marek Majkowski' implementation of
 Dan Bernstein's SipHash24 algorithm. It contains the following note::
 
   <MIT License>
@@ -625,7 +625,7 @@ Dan Bernstein's SipHash24 algorithm. It contains the following note::
 strtod and dtoa
 ---------------
 
-The file :file:`Python/dtoa.c`, which supplies C functions dtoa and
+The file :file:`MyFRpy/dtoa.c`, which supplies C functions dtoa and
 strtod for conversion of C doubles to and from strings, is derived
 from the file of the same name by David M. Gay, currently available
 from https://web.archive.org/web/20220517033456/http://www.netlib.org/fp/dtoa.c.
@@ -658,7 +658,7 @@ OpenSSL
 The modules :mod:`hashlib`, :mod:`posix`, :mod:`ssl`, :mod:`crypt` use
 the OpenSSL library for added performance if made available by the
 operating system. Additionally, the Windows and macOS installers for
-Python may include a copy of the OpenSSL libraries, so we include a copy
+MyFRpy may include a copy of the OpenSSL libraries, so we include a copy
 of the OpenSSL license here. For the OpenSSL 3.0 release,
 and later releases derived from that, the Apache License v2 applies::
 

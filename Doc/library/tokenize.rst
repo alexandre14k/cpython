@@ -1,8 +1,8 @@
-:mod:`tokenize` --- Tokenizer for Python source
+:mod:`tokenize` --- Tokenizer for MyFRpy source
 ===============================================
 
 .. module:: tokenize
-   :synopsis: Lexical scanner for Python source code.
+   :synopsis: Lexical scanner for MyFRpy source code.
 
 .. moduleauthor:: Ka Ping Yee
 .. sectionauthor:: Fred L. Drake, Jr. <fdrake@acm.org>
@@ -11,8 +11,8 @@
 
 --------------
 
-The :mod:`tokenize` module provides a lexical scanner for Python source code,
-implemented in Python.  The scanner in this module returns comments as tokens
+The :mod:`tokenize` module provides a lexical scanner for MyFRpy source code,
+implemented in MyFRpy.  The scanner in this module returns comments as tokens
 as well, making it useful for implementing "pretty-printers", including
 colorizers for on-screen displays.
 
@@ -26,9 +26,9 @@ type can be determined by checking the ``exact_type`` property on the
 .. warning::
 
    Note that the functions in this module are only designed to parse
-   syntactically valid Python code (code that does not raise when parsed
+   syntactically valid MyFRpy code (code that does not raise when parsed
    using :func:`ast.parse`).  The behavior of the functions in this module is
-   **undefined** when providing invalid Python code and it can change at any
+   **undefined** when providing invalid MyFRpy code and it can change at any
    point.
 
 Tokenizing Input
@@ -87,7 +87,7 @@ write back the modified script.
 
 .. function:: untokenize(iterable)
 
-    Converts tokens back into Python source code.  The *iterable* must return
+    Converts tokens back into MyFRpy source code.  The *iterable* must return
     sequences with at least two elements, the token type and the token string.
     Any additional sequence elements are ignored.
 
@@ -108,7 +108,7 @@ function it uses to do this is available:
 .. function:: detect_encoding(readline)
 
     The :func:`detect_encoding` function is used to detect the encoding that
-    should be used to decode a Python source file. It requires one argument,
+    should be used to decode a MyFRpy source file. It requires one argument,
     readline, in the same way as the :func:`.tokenize` generator.
 
     It will call readline a maximum of twice, and return the encoding used
@@ -123,7 +123,7 @@ function it uses to do this is available:
     If no encoding is specified, then the default of ``'utf-8'`` will be
     returned.
 
-    Use :func:`.open` to open Python source files: it uses
+    Use :func:`.open` to open MyFRpy source files: it uses
     :func:`detect_encoding` to detect the file encoding.
 
 
@@ -160,7 +160,7 @@ It is as simple as:
 
 .. code-block:: sh
 
-   python -m tokenize [-e] [filename.py]
+   myFRpy -m tokenize [-e] [filename.py]
 
 The following options are accepted:
 
@@ -235,7 +235,7 @@ the name of the token, and the final column is the value of the token (if any)
 
 .. code-block:: shell-session
 
-    $ python -m tokenize hello.py
+    $ myFRpy -m tokenize hello.py
     0,0-0,0:            ENCODING       'utf-8'
     1,0-1,3:            NAME           'def'
     1,4-1,13:           NAME           'say_hello'
@@ -261,7 +261,7 @@ The exact token type names can be displayed using the :option:`-e` option:
 
 .. code-block:: shell-session
 
-    $ python -m tokenize -e hello.py
+    $ myFRpy -m tokenize -e hello.py
     0,0-0,0:            ENCODING       'utf-8'
     1,0-1,3:            NAME           'def'
     1,4-1,13:           NAME           'say_hello'

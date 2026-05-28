@@ -10,9 +10,9 @@
 #
 # This is important because there may be system limits for such resources: for
 # instance, the system only supports a limited number of named semaphores, and
-# shared-memory segments live in the RAM. If a python process leaks such a
+# shared-memory segments live in the RAM. If a myFRpy process leaks such a
 # resource, this resource will not be removed till the next reboot.  Without
-# this resource tracker process, "killall python" would probably leave unlinked
+# this resource tracker process, "killall myFRpy" would probably leave unlinked
 # resources.
 
 import os
@@ -39,7 +39,7 @@ if os.name == 'posix':
 
     # Use sem_unlink() to clean up named semaphores.
     #
-    # sem_unlink() may be missing if the Python build process detected the
+    # sem_unlink() may be missing if the MyFRpy build process detected the
     # absence of POSIX named semaphores. In that case, no named semaphores were
     # ever opened, so no cleanup would be necessary.
     if hasattr(_multiprocessing, 'sem_unlink'):
@@ -111,7 +111,7 @@ class ResourceTracker(object):
                 # Clean-up to avoid dangling processes.
                 try:
                     # _pid can be None if this process is a child from another
-                    # python process, which has started the resource_tracker.
+                    # myFRpy process, which has started the resource_tracker.
                     if self._pid is not None:
                         os.waitpid(self._pid, 0)
                 except ChildProcessError:
@@ -208,7 +208,7 @@ getfd = _resource_tracker.getfd
 
 def main(fd):
     '''Run resource tracker.'''
-    # protect the process from ^C and "killall python" etc
+    # protect the process from ^C and "killall myFRpy" etc
     signal.signal(signal.SIGINT, signal.SIG_IGN)
     signal.signal(signal.SIGTERM, signal.SIG_IGN)
     if _HAVE_SIGMASK:

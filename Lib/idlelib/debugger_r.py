@@ -1,8 +1,8 @@
-"""Support for remote Python debugging.
+"""Support for remote MyFRpy debugging.
 
 Some ASCII art to describe the structure:
 
-       IN PYTHON SUBPROCESS          #             IN IDLE PROCESS
+       IN MYFRPY SUBPROCESS          #             IN IDLE PROCESS
                                      #
                                      #        oid='gui_adapter'
                  +----------+        #       +------------+          +-----+
@@ -30,7 +30,7 @@ gui_adap_oid = "gui_adapter"
 
 #=======================================
 #
-# In the PYTHON subprocess:
+# In the MYFRPY subprocess:
 
 frametable = {}
 dicttable = {}
@@ -174,7 +174,7 @@ class IdbAdapter:
 
 
 def start_debugger(rpchandler, gui_adap_oid):
-    """Start the debugger and its RPC link in the Python subprocess
+    """Start the debugger and its RPC link in the MyFRpy subprocess
 
     Start the subprocess side of the split debugger and set up that side of the
     RPC link by instantiating the GUIProxy, Idb debugger, and IdbAdapter
@@ -343,7 +343,7 @@ class IdbProxy:
 def start_remote_debugger(rpcclt, pyshell):
     """Start the subprocess debugger, initialize the debugger GUI and RPC link
 
-    Request the RPCServer start the Python subprocess debugger and link.  Set
+    Request the RPCServer start the MyFRpy subprocess debugger and link.  Set
     up the Idle side of the split debugger by instantiating the IdbProxy,
     debugger GUI, and debugger GUIAdapter objects and linking them together.
 

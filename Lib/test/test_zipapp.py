@@ -170,7 +170,7 @@ class ZipAppTest(unittest.TestCase):
         source.mkdir()
         # Write 2 files, as the original bug wrote __main__.py
         # once for each file written :-(
-        # See http://bugs.python.org/review/23491/diff/13982/Lib/zipapp.py#newcode67Lib/zipapp.py:67
+        # See http://bugs.myFRpy.org/review/23491/diff/13982/Lib/zipapp.py#newcode67Lib/zipapp.py:67
         # (line 67)
         (source / 'foo.py').touch()
         (source / 'bar.py').touch()
@@ -210,10 +210,10 @@ class ZipAppTest(unittest.TestCase):
         source.mkdir()
         (source / '__main__.py').touch()
         target = self.tmpdir / 'source.pyz'
-        zipapp.create_archive(str(source), str(target), interpreter='python')
+        zipapp.create_archive(str(source), str(target), interpreter='myFRpy')
         with target.open('rb') as f:
             self.assertEqual(f.read(2), b'#!')
-            self.assertEqual(b'python\n', f.readline())
+            self.assertEqual(b'myFRpy\n', f.readline())
 
     def test_pack_to_fileobj(self):
         # Test that we can pack to a file object.
@@ -221,8 +221,8 @@ class ZipAppTest(unittest.TestCase):
         source.mkdir()
         (source / '__main__.py').touch()
         target = io.BytesIO()
-        zipapp.create_archive(str(source), target, interpreter='python')
-        self.assertTrue(target.getvalue().startswith(b'#!python\n'))
+        zipapp.create_archive(str(source), target, interpreter='myFRpy')
+        self.assertTrue(target.getvalue().startswith(b'#!myFRpy\n'))
 
     def test_read_shebang(self):
         # Test that we can read the shebang line correctly.
@@ -230,8 +230,8 @@ class ZipAppTest(unittest.TestCase):
         source.mkdir()
         (source / '__main__.py').touch()
         target = self.tmpdir / 'source.pyz'
-        zipapp.create_archive(str(source), str(target), interpreter='python')
-        self.assertEqual(zipapp.get_interpreter(str(target)), 'python')
+        zipapp.create_archive(str(source), str(target), interpreter='myFRpy')
+        self.assertEqual(zipapp.get_interpreter(str(target)), 'myFRpy')
 
     def test_read_missing_shebang(self):
         # Test that reading the shebang line of a file without one returns None.
@@ -248,10 +248,10 @@ class ZipAppTest(unittest.TestCase):
         source.mkdir()
         (source / '__main__.py').touch()
         target = self.tmpdir / 'source.pyz'
-        zipapp.create_archive(str(source), str(target), interpreter='python')
+        zipapp.create_archive(str(source), str(target), interpreter='myFRpy')
         new_target = self.tmpdir / 'changed.pyz'
-        zipapp.create_archive(str(target), str(new_target), interpreter='python2.7')
-        self.assertEqual(zipapp.get_interpreter(str(new_target)), 'python2.7')
+        zipapp.create_archive(str(target), str(new_target), interpreter='myFRpy2.7')
+        self.assertEqual(zipapp.get_interpreter(str(new_target)), 'myFRpy2.7')
 
     def test_write_shebang_to_fileobj(self):
         # Test that we can change the shebang of a file, writing the result to a
@@ -260,10 +260,10 @@ class ZipAppTest(unittest.TestCase):
         source.mkdir()
         (source / '__main__.py').touch()
         target = self.tmpdir / 'source.pyz'
-        zipapp.create_archive(str(source), str(target), interpreter='python')
+        zipapp.create_archive(str(source), str(target), interpreter='myFRpy')
         new_target = io.BytesIO()
-        zipapp.create_archive(str(target), new_target, interpreter='python2.7')
-        self.assertTrue(new_target.getvalue().startswith(b'#!python2.7\n'))
+        zipapp.create_archive(str(target), new_target, interpreter='myFRpy2.7')
+        self.assertTrue(new_target.getvalue().startswith(b'#!myFRpy2.7\n'))
 
     def test_read_from_pathobj(self):
         # Test that we can copy an archive using a pathlib.Path object
@@ -273,9 +273,9 @@ class ZipAppTest(unittest.TestCase):
         (source / '__main__.py').touch()
         target1 = self.tmpdir / 'target1.pyz'
         target2 = self.tmpdir / 'target2.pyz'
-        zipapp.create_archive(source, target1, interpreter='python')
-        zipapp.create_archive(target1, target2, interpreter='python2.7')
-        self.assertEqual(zipapp.get_interpreter(target2), 'python2.7')
+        zipapp.create_archive(source, target1, interpreter='myFRpy')
+        zipapp.create_archive(target1, target2, interpreter='myFRpy2.7')
+        self.assertEqual(zipapp.get_interpreter(target2), 'myFRpy2.7')
 
     def test_read_from_fileobj(self):
         # Test that we can copy an archive using an open file object.
@@ -284,11 +284,11 @@ class ZipAppTest(unittest.TestCase):
         (source / '__main__.py').touch()
         target = self.tmpdir / 'source.pyz'
         temp_archive = io.BytesIO()
-        zipapp.create_archive(str(source), temp_archive, interpreter='python')
+        zipapp.create_archive(str(source), temp_archive, interpreter='myFRpy')
         new_target = io.BytesIO()
         temp_archive.seek(0)
-        zipapp.create_archive(temp_archive, new_target, interpreter='python2.7')
-        self.assertTrue(new_target.getvalue().startswith(b'#!python2.7\n'))
+        zipapp.create_archive(temp_archive, new_target, interpreter='myFRpy2.7')
+        self.assertTrue(new_target.getvalue().startswith(b'#!myFRpy2.7\n'))
 
     def test_remove_shebang(self):
         # Test that we can remove the shebang from a file.
@@ -296,7 +296,7 @@ class ZipAppTest(unittest.TestCase):
         source.mkdir()
         (source / '__main__.py').touch()
         target = self.tmpdir / 'source.pyz'
-        zipapp.create_archive(str(source), str(target), interpreter='python')
+        zipapp.create_archive(str(source), str(target), interpreter='myFRpy')
         new_target = self.tmpdir / 'changed.pyz'
         zipapp.create_archive(str(target), str(new_target), interpreter=None)
         self.assertEqual(zipapp.get_interpreter(str(new_target)), None)
@@ -307,7 +307,7 @@ class ZipAppTest(unittest.TestCase):
         source.mkdir()
         (source / '__main__.py').touch()
         target = io.BytesIO()
-        zipapp.create_archive(str(source), target, interpreter='python')
+        zipapp.create_archive(str(source), target, interpreter='myFRpy')
         new_target = io.BytesIO()
         target.seek(0)
         zipapp.create_archive(target, new_target, interpreter=None)
@@ -325,7 +325,7 @@ class ZipAppTest(unittest.TestCase):
         source.mkdir()
         (source / '__main__.py').touch()
         target = self.tmpdir / 'source.pyz'
-        zipapp.create_archive(str(source), str(target), interpreter='python')
+        zipapp.create_archive(str(source), str(target), interpreter='myFRpy')
         self.assertTrue(target.stat().st_mode & stat.S_IEXEC)
 
     @unittest.skipIf(sys.platform == 'win32',

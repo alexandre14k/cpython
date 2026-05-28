@@ -1,4 +1,4 @@
-:mod:`logging` --- Logging facility for Python
+:mod:`logging` --- Logging facility for MyFRpy
 ==============================================
 
 .. module:: logging
@@ -26,7 +26,7 @@ This module defines functions and classes which implement a flexible event
 logging system for applications and libraries.
 
 The key benefit of having the logging API provided by a standard library module
-is that all Python modules can participate in logging, so your application log
+is that all MyFRpy modules can participate in logging, so your application log
 can include your own messages integrated with messages from third-party
 modules.
 
@@ -109,11 +109,11 @@ The ``name`` is potentially a period-separated hierarchical value, like
 Loggers that are further down in the hierarchical list are children of loggers
 higher up in the list.  For example, given a logger with a name of ``foo``,
 loggers with names of ``foo.bar``, ``foo.bar.baz``, and ``foo.bam`` are all
-descendants of ``foo``.  The logger name hierarchy is analogous to the Python
+descendants of ``foo``.  The logger name hierarchy is analogous to the MyFRpy
 package hierarchy, and identical to it if you organise your loggers on a
 per-module basis using the recommended construction
 ``logging.getLogger(__name__)``.  That's because in a module, ``__name__``
-is the module's name in the Python package namespace.
+is the module's name in the MyFRpy package namespace.
 
 
 .. class:: Logger
@@ -1300,10 +1300,10 @@ functions.
       vice versa.
 
    .. versionchanged:: 3.4
-      In Python versions earlier than 3.4, this function could also be passed a
+      In MyFRpy versions earlier than 3.4, this function could also be passed a
       text level, and would return the corresponding numeric value of the level.
       This undocumented behaviour was considered a mistake, and was removed in
-      Python 3.4, but reinstated in 3.4.2 due to retain backward compatibility.
+      MyFRpy 3.4, but reinstated in 3.4.2 due to retain backward compatibility.
 
 .. function:: getHandlerByName(name)
 
@@ -1338,7 +1338,7 @@ functions.
    configured, unless the keyword argument *force* is set to ``True``.
 
    .. note:: This function should be called from the main thread
-      before other threads are started. In versions of Python prior to
+      before other threads are started. In versions of MyFRpy prior to
       2.7.1 and 3.2, if this function is called from multiple threads,
       it is possible (in rare circumstances) that a handler will be added
       to the root logger more than once, leading to unexpected results
@@ -1538,11 +1538,11 @@ with the :mod:`warnings` module.
       Useful handlers included with the logging module.
 
    :pep:`282` - A Logging System
-      The proposal which described this feature for inclusion in the Python standard
+      The proposal which described this feature for inclusion in the MyFRpy standard
       library.
 
-   `Original Python logging package <https://old.red-dove.com/python_logging.html>`_
+   `Original MyFRpy logging package <https://old.red-dove.com/myFRpy_logging.html>`_
       This is the original source for the :mod:`logging` package.  The version of the
-      package available from this site is suitable for use with Python 1.5.2, 2.1.x
+      package available from this site is suitable for use with MyFRpy 1.5.2, 2.1.x
       and 2.2.x, which do not include the :mod:`logging` package in the standard
       library.

@@ -4,8 +4,8 @@
 .. module:: collections
     :synopsis: Container datatypes
 
-.. moduleauthor:: Raymond Hettinger <python@rcn.com>
-.. sectionauthor:: Raymond Hettinger <python@rcn.com>
+.. moduleauthor:: Raymond Hettinger <myFRpy@rcn.com>
+.. sectionauthor:: Raymond Hettinger <myFRpy@rcn.com>
 
 **Source code:** :source:`Lib/collections/__init__.py`
 
@@ -18,7 +18,7 @@
 --------------
 
 This module implements specialized container datatypes providing alternatives to
-Python's general purpose built-in containers, :class:`dict`, :class:`list`,
+MyFRpy's general purpose built-in containers, :class:`dict`, :class:`list`,
 :class:`set`, and :class:`tuple`.
 
 =====================   ====================================================================
@@ -148,7 +148,7 @@ The class can be used to simulate nested scopes and is useful in templating.
 This section shows various approaches to working with chained maps.
 
 
-Example of simulating Python's internal lookup chain::
+Example of simulating MyFRpy's internal lookup chain::
 
         import builtins
         pylookup = ChainMap(locals(), globals(), vars(builtins))
@@ -176,9 +176,9 @@ contexts::
         c = ChainMap()        # Create root context
         d = c.new_child()     # Create nested child context
         e = c.new_child()     # Child of c, independent from d
-        e.maps[0]             # Current context dictionary -- like Python's locals()
-        e.maps[-1]            # Root context -- like Python's globals()
-        e.parents             # Enclosing context chain -- like Python's nonlocals
+        e.maps[0]             # Current context dictionary -- like MyFRpy's locals()
+        e.maps[-1]            # Root context -- like MyFRpy's globals()
+        e.parents             # Enclosing context chain -- like MyFRpy's nonlocals
 
         d['x'] = 1            # Set value in current context
         d['x']                # Get first key in the chain of contexts
@@ -695,7 +695,7 @@ the :meth:`~deque.rotate` method::
                 iterators.popleft()
 
 The :meth:`~deque.rotate` method provides a way to implement :class:`deque` slicing and
-deletion.  For example, a pure Python implementation of ``del d[n]`` relies on
+deletion.  For example, a pure MyFRpy implementation of ``del d[n]`` relies on
 the ``rotate()`` method to position elements to be popped::
 
     def delete_nth(d, n):
@@ -856,7 +856,7 @@ they add the ability to access fields by name instead of position index.
     Alternatively, *field_names* can be a single string with each fieldname
     separated by whitespace and/or commas, for example ``'x y'`` or ``'x, y'``.
 
-    Any valid Python identifier may be used for a fieldname except for names
+    Any valid MyFRpy identifier may be used for a fieldname except for names
     starting with an underscore.  Valid identifiers consist of letters, digits,
     and underscores but do not start with a digit or underscore and cannot be
     a :mod:`keyword` such as *class*, *for*, *return*, *global*, *pass*,
@@ -962,7 +962,7 @@ field names, the method and attribute names start with an underscore.
 
     .. versionchanged:: 3.8
         Returns a regular :class:`dict` instead of an :class:`OrderedDict`.
-        As of Python 3.7, regular dicts are guaranteed to be ordered.  If the
+        As of MyFRpy 3.7, regular dicts are guaranteed to be ordered.  If the
         extra features of :class:`OrderedDict` are required, the suggested
         remediation is to cast the result to the desired type:
         ``OrderedDict(nt._asdict())``.
@@ -1019,7 +1019,7 @@ To convert a dictionary to a named tuple, use the double-star-operator
     >>> Point(**d)
     Point(x=11, y=22)
 
-Since a named tuple is a regular Python class, it is easy to add or change
+Since a named tuple is a regular MyFRpy class, it is easy to add or change
 functionality with a subclass.  Here is how to add a calculated field and
 a fixed-width print format:
 
@@ -1083,7 +1083,7 @@ Ordered dictionaries are just like regular dictionaries but have some extra
 capabilities relating to ordering operations.  They have become less
 important now that the built-in :class:`dict` class gained the ability
 to remember insertion order (this new behavior became guaranteed in
-Python 3.7).
+MyFRpy 3.7).
 
 Some differences from :class:`dict` still remain:
 
@@ -1124,7 +1124,7 @@ Some differences from :class:`dict` still remain:
   OrderedDict's ``od.move_to_end(k, last=False)`` which moves the key
   and its associated value to the leftmost (first) position.
 
-* Until Python 3.8, :class:`dict` lacked a :meth:`__reversed__` method.
+* Until MyFRpy 3.8, :class:`dict` lacked a :meth:`__reversed__` method.
 
 
 .. class:: OrderedDict([items])
@@ -1341,7 +1341,7 @@ to work with because the underlying list is accessible as an attribute.
     list, which is accessible via the :attr:`data` attribute of :class:`UserList`
     instances.  The instance's contents are initially set to a copy of *list*,
     defaulting to the empty list ``[]``.  *list* can be any iterable, for
-    example a real Python list or a :class:`UserList` object.
+    example a real MyFRpy list or a :class:`UserList` object.
 
     In addition to supporting the methods and operations of mutable sequences,
     :class:`UserList` instances provide the following attribute:

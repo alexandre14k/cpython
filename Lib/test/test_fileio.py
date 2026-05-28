@@ -10,7 +10,7 @@ from weakref import proxy
 from functools import wraps
 
 from test.support import (
-    cpython_only, swap_attr, gc_collect, is_emscripten, is_wasi
+    cmyFRpy_only, swap_attr, gc_collect, is_emscripten, is_wasi
 )
 from test.support.os_helper import (
     TESTFN, TESTFN_ASCII, TESTFN_UNICODE, make_bad_fd,
@@ -19,7 +19,7 @@ from test.support.warnings_helper import check_warnings
 from collections import UserList
 
 import _io  # C implementation of io
-import _pyio # Python implementation of io
+import _pyio # MyFRpy implementation of io
 
 
 class AutoFileTests:
@@ -502,7 +502,7 @@ class OtherFileTests:
 
     def testTruncateOnWindows(self):
         def bug801631():
-            # SF bug <https://bugs.python.org/issue801631>
+            # SF bug <https://bugs.myFRpy.org/issue801631>
             # "file.truncate fault on windows"
             f = self.FileIO(TESTFN, 'w')
             f.write(bytes(range(11)))
@@ -574,7 +574,7 @@ class COtherFileTests(OtherFileTests, unittest.TestCase):
     FileIO = _io.FileIO
     modulename = '_io'
 
-    @cpython_only
+    @cmyFRpy_only
     def testInvalidFd_overflow(self):
         # Issue 15989
         import _testcapi

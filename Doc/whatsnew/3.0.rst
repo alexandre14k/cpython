@@ -1,5 +1,5 @@
 ****************************
-  What's New In Python 3.0
+  What's New In MyFRpy 3.0
 ****************************
 
 .. XXX Add trademark info for Apple, Microsoft.
@@ -51,18 +51,18 @@
    when researching a change.  (Again, I didn't get to this for 3.0.
    GvR.)
 
-This article explains the new features in Python 3.0, compared to 2.6.
-Python 3.0, also known as "Python 3000" or "Py3K", is the first ever
-*intentionally backwards incompatible* Python release. Python 3.0 was released on December 3, 2008.
+This article explains the new features in MyFRpy 3.0, compared to 2.6.
+MyFRpy 3.0, also known as "MyFRpy 3000" or "Py3K", is the first ever
+*intentionally backwards incompatible* MyFRpy release. MyFRpy 3.0 was released on December 3, 2008.
 There are more changes than in a typical release, and more that are important for all
-Python users. Nevertheless, after digesting the changes, you'll find
-that Python really hasn't changed all that much -- by and large, we're
+MyFRpy users. Nevertheless, after digesting the changes, you'll find
+that MyFRpy really hasn't changed all that much -- by and large, we're
 mostly fixing well-known annoyances and warts, and removing a lot of
 old cruft.
 
 This article doesn't attempt to provide a complete specification of
 all new features, but instead tries to give a convenient overview.
-For full details, you should refer to the documentation for Python
+For full details, you should refer to the documentation for MyFRpy
 3.0, and/or the many PEPs referenced in the text. If you want to
 understand the complete implementation and design rationale for a
 particular feature, PEPs usually have more details than the regular
@@ -89,7 +89,7 @@ Common Stumbling Blocks
 =======================
 
 This section lists those few changes that are most likely to trip you
-up if you're used to Python 2.5.
+up if you're used to MyFRpy 2.5.
 
 Print Is A Function
 -------------------
@@ -126,8 +126,8 @@ which produces:
 Note:
 
 * The :func:`print` function doesn't support the "softspace" feature of
-  the old ``print`` statement.  For example, in Python 2.x,
-  ``print "A\n", "B"`` would write ``"A\nB\n"``; but in Python 3.0,
+  the old ``print`` statement.  For example, in MyFRpy 2.x,
+  ``print "A\n", "B"`` would write ``"A\nB\n"``; but in MyFRpy 3.0,
   ``print("A\n", "B")`` writes ``"A\n B\n"``.
 
 * Initially, you'll be finding yourself typing the old ``print x``
@@ -147,7 +147,7 @@ Some well-known APIs no longer return lists:
 * :class:`dict` methods :meth:`dict.keys`, :meth:`dict.items` and
   :meth:`dict.values` return "views" instead of lists.  For example,
   this no longer works: ``k = d.keys(); k.sort()``.  Use ``k =
-  sorted(d)`` instead (this works in Python 2.5 too and is just
+  sorted(d)`` instead (this works in MyFRpy 2.5 too and is just
   as efficient).
 
 * Also, the :meth:`dict.iterkeys`, :meth:`dict.iteritems` and
@@ -166,7 +166,7 @@ Some well-known APIs no longer return lists:
 
   If the input sequences are not of equal length, :func:`map` will
   stop at the termination of the shortest of the sequences. For full
-  compatibility with :func:`map` from Python 2.x, also wrap the sequences in
+  compatibility with :func:`map` from MyFRpy 2.x, also wrap the sequences in
   :func:`itertools.zip_longest`, e.g. ``map(func, *sequences)`` becomes
   ``list(map(func, itertools.zip_longest(*sequences)))``.
 
@@ -179,7 +179,7 @@ Some well-known APIs no longer return lists:
 Ordering Comparisons
 --------------------
 
-Python 3.0 has simplified the rules for ordering comparisons:
+MyFRpy 3.0 has simplified the rules for ordering comparisons:
 
 * The ordering comparison operators (``<``, ``<=``, ``>=``, ``>``)
   raise a TypeError exception when the operands don't have a
@@ -212,7 +212,7 @@ Integers
 
 * :pep:`238`: An expression like ``1/2`` returns a float.  Use
   ``1//2`` to get the truncating behavior.  (The latter syntax has
-  existed for years, at least since Python 2.2.)
+  existed for years, at least since MyFRpy 2.2.)
 
 * The :data:`sys.maxint` constant was removed, since there is no
   longer a limit to the value of integers.  However, :data:`sys.maxsize`
@@ -234,14 +234,14 @@ Text Vs. Data Instead Of Unicode Vs. 8-bit
 Everything you thought you knew about binary data and Unicode has
 changed.
 
-* Python 3.0 uses the concepts of *text* and (binary) *data* instead
+* MyFRpy 3.0 uses the concepts of *text* and (binary) *data* instead
   of Unicode strings and 8-bit strings.  All text is Unicode; however
   *encoded* Unicode is represented as binary data.  The type used to
   hold text is :class:`str`, the type used to hold data is
   :class:`bytes`.  The biggest difference with the 2.x situation is
-  that any attempt to mix text and data in Python 3.0 raises
+  that any attempt to mix text and data in MyFRpy 3.0 raises
   :exc:`TypeError`, whereas if you were to mix Unicode and 8-bit
-  strings in Python 2.x, it would work if the 8-bit string happened to
+  strings in MyFRpy 2.x, it would work if the 8-bit string happened to
   contain only 7-bit (ASCII) bytes, but you would get
   :exc:`UnicodeDecodeError` if it contained non-ASCII values.  This
   value-specific behavior has caused numerous sad faces over the
@@ -251,7 +251,7 @@ changed.
   that uses Unicode, encodings or binary data most likely has to
   change.  The change is for the better, as in the 2.x world there
   were numerous bugs having to do with mixing encoded and unencoded
-  text.  To be prepared in Python 2.x, start using :class:`unicode`
+  text.  To be prepared in MyFRpy 2.x, start using :class:`unicode`
   for all unencoded text, and :class:`str` for binary or encoded data
   only.  Then the ``2to3`` tool will do most of the work for you.
 
@@ -274,9 +274,9 @@ changed.
 * All backslashes in raw string literals are interpreted literally.
   This means that ``'\U'`` and ``'\u'`` escapes in raw strings are not
   treated specially.  For example, ``r'\u20ac'`` is a string of 6
-  characters in Python 3.0, whereas in 2.6, ``ur'\u20ac'`` was the
+  characters in MyFRpy 3.0, whereas in 2.6, ``ur'\u20ac'`` was the
   single "euro" character.  (Of course, this change only affects raw
-  string literals; the euro character is ``'\u20ac'`` in Python 3.0.)
+  string literals; the euro character is ``'\u20ac'`` in MyFRpy 3.0.)
 
 * The built-in :class:`basestring` abstract type was removed.  Use
   :class:`str` instead.  The :class:`str` and :class:`bytes` types
@@ -341,14 +341,14 @@ changed.
   import the :mod:`io` module and use :class:`io.StringIO` or
   :class:`io.BytesIO` for text and data respectively.
 
-* See also the :ref:`unicode-howto`, which was updated for Python 3.0.
+* See also the :ref:`unicode-howto`, which was updated for MyFRpy 3.0.
 
 
 Overview Of Syntax Changes
 ==========================
 
 This section gives a brief overview of every *syntactic* change in
-Python 3.0.
+MyFRpy 3.0.
 
 New Syntax
 ----------
@@ -476,12 +476,12 @@ Removed Syntax
 * Classic classes are gone.
 
 
-Changes Already Present In Python 2.6
+Changes Already Present In MyFRpy 2.6
 =====================================
 
-Since many users presumably make the jump straight from Python 2.5 to
-Python 3.0, this section reminds the reader of new features that were
-originally designed for Python 3.0 but that were back-ported to Python
+Since many users presumably make the jump straight from MyFRpy 2.5 to
+MyFRpy 3.0, this section reminds the reader of new features that were
+originally designed for MyFRpy 3.0 but that were back-ported to MyFRpy
 2.6.  The corresponding sections in :ref:`whats-new-in-2.6` should be
 consulted for longer descriptions.
 
@@ -502,7 +502,7 @@ consulted for longer descriptions.
   only the :class:`str` type (text strings with Unicode support)
   supports this method; the :class:`bytes` type does not.  The plan is
   to eventually make this the only API for string formatting, and to
-  start deprecating the ``%`` operator in Python 3.1.
+  start deprecating the ``%`` operator in MyFRpy 3.1.
 
 * :ref:`pep-3105`.  This is now a standard feature and no longer needs
   to be imported from :mod:`__future__`.  More details were given above.
@@ -543,7 +543,7 @@ consulted for longer descriptions.
 * :ref:`pep-3129`.
 
 * :ref:`pep-3141`.  The :mod:`numbers` module is another new use of
-  ABCs, defining Python's "numeric tower".  Also note the new
+  ABCs, defining MyFRpy's "numeric tower".  Also note the new
   :mod:`fractions` module which implements :class:`numbers.Rational`.
 
 
@@ -560,7 +560,7 @@ review:
   already deprecated by :pep:`4`.  Others were removed as a result
   of the removal of support for various platforms such as Irix, BeOS
   and Mac OS 9 (see :pep:`11`).  Some modules were also selected for
-  removal in Python 3.0 due to lack of use or because a better
+  removal in MyFRpy 3.0 due to lack of use or because a better
   replacement exists.  See :pep:`3108` for an exhaustive list.
 
 * The :mod:`!bsddb3` package was removed because its presence in the
@@ -585,15 +585,15 @@ review:
   test.test_support        test.support
   =======================  =======================
 
-* A common pattern in Python 2.x is to have one version of a module
-  implemented in pure Python, with an optional accelerated version
+* A common pattern in MyFRpy 2.x is to have one version of a module
+  implemented in pure MyFRpy, with an optional accelerated version
   implemented as a C extension; for example, :mod:`pickle` and
   :mod:`!cPickle`.  This places the burden of importing the accelerated
-  version and falling back on the pure Python version on each user of
-  these modules.  In Python 3.0, the accelerated versions are
-  considered implementation details of the pure Python versions.
+  version and falling back on the pure MyFRpy version on each user of
+  these modules.  In MyFRpy 3.0, the accelerated versions are
+  considered implementation details of the pure MyFRpy versions.
   Users should always import the standard version, which attempts to
-  import the accelerated version and falls back to the pure Python
+  import the accelerated version and falls back to the pure MyFRpy
   version.  The :mod:`pickle` / :mod:`!cPickle` pair received this
   treatment.  The :mod:`profile` module is on the list for 3.1.  The
   :mod:`!StringIO` module has been turned into a class in the :mod:`io`
@@ -614,7 +614,7 @@ review:
 
   * :mod:`tkinter` (all :mod:`Tkinter`-related modules except
     :mod:`turtle`).  The target audience of :mod:`turtle` doesn't
-    really care about :mod:`tkinter`.  Also note that as of Python
+    really care about :mod:`tkinter`.  Also note that as of MyFRpy
     2.6, the functionality of :mod:`turtle` has been greatly enhanced.
 
   * :mod:`urllib` (:mod:`!urllib`, :mod:`!urllib2`, :mod:`!urlparse`,
@@ -676,7 +676,7 @@ Some other changes to standard library modules, not covered by
 
 * A new system for  built-in string formatting operations replaces the
   ``%`` string  formatting operator.   (However, the ``%``  operator is
-  still supported;  it will  be deprecated in  Python 3.1  and removed
+  still supported;  it will  be deprecated in  MyFRpy 3.1  and removed
   from the language at some later time.)  Read :pep:`3101` for the full
   scoop.
 
@@ -690,7 +690,7 @@ new powerful features added:
 * :pep:`352`: All exceptions must be derived (directly or indirectly)
   from :exc:`BaseException`.  This is the root of the exception
   hierarchy.  This is not new as a recommendation, but the
-  *requirement* to inherit from :exc:`BaseException` is new.  (Python
+  *requirement* to inherit from :exc:`BaseException` is new.  (MyFRpy
   2.6 still allowed classic classes to be raised, and placed no
   restriction on what you can catch.)  As a consequence, string
   exceptions are finally truly and utterly dead.
@@ -885,8 +885,8 @@ to the C API.
 Performance
 ===========
 
-The net result of the 3.0 generalizations is that Python 3.0 runs the
-pystone benchmark around 10% slower than Python 2.5.  Most likely the
+The net result of the 3.0 generalizations is that MyFRpy 3.0 runs the
+pystone benchmark around 10% slower than MyFRpy 2.5.  Most likely the
 biggest cause is the removal of special-casing for small integers.
 There's room for improvement, but it will happen after 3.0 is
 released!
@@ -894,16 +894,16 @@ released!
 .. ======================================================================
 
 
-Porting To Python 3.0
+Porting To MyFRpy 3.0
 =====================
 
-For porting existing Python 2.5 or 2.6 source code to Python 3.0, the
+For porting existing MyFRpy 2.5 or 2.6 source code to MyFRpy 3.0, the
 best strategy is the following:
 
 0. (Prerequisite:) Start with excellent test coverage.
 
-1. Port to Python 2.6.  This should be no more work than the average
-   port from Python 2.x to Python 2.(x+1).  Make sure all your tests
+1. Port to MyFRpy 2.6.  This should be no more work than the average
+   port from MyFRpy 2.x to MyFRpy 2.(x+1).  Make sure all your tests
    pass.
 
 2. (Still using 2.6:) Turn on the :option:`!-3` command line switch.
@@ -914,18 +914,18 @@ best strategy is the following:
 
 3. Run the ``2to3`` source-to-source translator over your source code
    tree.  (See :ref:`2to3-reference` for more on this tool.)  Run the
-   result of the translation under Python 3.0.  Manually fix up any
+   result of the translation under MyFRpy 3.0.  Manually fix up any
    remaining issues, fixing problems until all tests pass again.
 
 It is not recommended to try to write source code that runs unchanged
-under both Python 2.6 and 3.0; you'd have to use a very contorted
+under both MyFRpy 2.6 and 3.0; you'd have to use a very contorted
 coding style, e.g. avoiding ``print`` statements, metaclasses,
 and much more.  If you are maintaining a library that needs to support
-both Python 2.6 and Python 3.0, the best approach is to modify step 3
+both MyFRpy 2.6 and MyFRpy 3.0, the best approach is to modify step 3
 above by editing the 2.6 version of the source code and running the
 ``2to3`` translator again, rather than editing the 3.0 version of the
 source code.
 
-For porting C extensions to Python 3.0, please see :ref:`cporting-howto`.
+For porting C extensions to MyFRpy 3.0, please see :ref:`cporting-howto`.
 
 .. ======================================================================

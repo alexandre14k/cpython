@@ -22,7 +22,7 @@
 
 --------------
 
-The :mod:`cgitb` module provides a special exception handler for Python scripts.
+The :mod:`cgitb` module provides a special exception handler for MyFRpy scripts.
 (Its name is a bit misleading.  It was originally designed to display extensive
 traceback information in HTML for CGI scripts.  It was later generalized to also
 display this information in plain text.)  After this module is activated, if an

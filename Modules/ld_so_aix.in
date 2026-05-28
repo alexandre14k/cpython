@@ -18,7 +18,7 @@
 #                   (*) -o [OutputFileName]          -o shr.o
 #                   (*) -e [EntryPointLabel]         -e init[OutputBaseName]
 #                   (*) -bE:[ExportFile]             -bE:[OutputBaseName].exp
-#                   (*) -bI:[ImportFile]             -bI:./python.exp
+#                   (*) -bI:[ImportFile]             -bI:./myFRpy.exp
 #                       -bM:[ModuleType]             -bM:SRE
 #                       -bhalt:[Number]              -bhalt:4
 #                       -T[Number]                   -T512
@@ -32,9 +32,9 @@
 #                   the pre-compiled .o file(s).
 #
 #   NOTES:          1.  Since "ld_so_aix" was originally written for building
-#                       shared modules for the Python interpreter, the -e and
-#                       -bI default values match Python's conventions. In
-#                       Python, the entry point for a shared module is based
+#                       shared modules for the MyFRpy interpreter, the -e and
+#                       -bI default values match MyFRpy's conventions. In
+#                       MyFRpy, the entry point for a shared module is based
 #                       on the module's name (e.g., the "mathmodule" will
 #                       expect an  entry point of "initmath").
 #                   2.  The script accepts multiple .o or .a input files and
@@ -85,9 +85,9 @@ if test ! -n "$*"; then
   echo $usage; exit 2
 fi
 
-# Default import file for Python
+# Default import file for MyFRpy
 # Can be overridden by providing a -bI: argument.
-impfile="./python.exp"
+impfile="./myFRpy.exp"
 
 # Parse arguments
 while test -n "$1"
@@ -132,7 +132,7 @@ do
   shift
 done
 
-if test "$objfile" = "libpython@VERSION@@ABIFLAGS@.so"; then
+if test "$objfile" = "libmyFRpy@VERSION@@ABIFLAGS@.so"; then
   ldsocoremode="true"
 fi
 
@@ -156,7 +156,7 @@ if test -z "$expfile"; then
   expfile="$filename.exp"
 fi
 
-# Default entry symbol for Python modules = init[modulename]
+# Default entry symbol for MyFRpy modules = init[modulename]
 # Can be overridden by providing a -e argument.
 if test -z "$entry"; then
   entry=PyInit_`echo $filename | sed "s/module.*//"`

@@ -25,8 +25,8 @@ from urllib.request import urlopen, urlcleanup
 from test import support
 from test.support import import_helper
 from test.support import os_helper
-from test.support.script_helper import (assert_python_ok,
-                                        assert_python_failure, spawn_python)
+from test.support.script_helper import (assert_myFRpy_ok,
+                                        assert_myFRpy_failure, spawn_myFRpy)
 from test.support import threading_helper
 from test.support import (reap_children, captured_output, captured_stdout,
                           captured_stderr, is_emscripten, is_wasi,
@@ -116,7 +116,7 @@ FUNCTIONS
     doc_func()
         This function solves all of the world's problems:
         hunger
-        lack of Python
+        lack of MyFRpy
         war
 
     nodoc_func()
@@ -205,7 +205,7 @@ Functions
     doc_func()
         This function solves all of the world's problems:
         hunger
-        lack of Python
+        lack of MyFRpy
         war
     nodoc_func()
 
@@ -229,7 +229,7 @@ expected_html_data_docstrings = tuple(s.replace(' ', '&nbsp;')
 
 # output pattern for missing module
 missing_pattern = '''\
-No Python documentation found for %r.
+No MyFRpy documentation found for %r.
 Use help() to get the interactive help utility.
 Use help(str) for help on the str class.'''.replace('\n', os.linesep)
 
@@ -312,7 +312,7 @@ def run_pydoc(module_name, *args, **env):
     """
     args = args + (module_name,)
     # do not write bytecode files to avoid caching errors
-    rc, out, err = assert_python_ok('-B', pydoc.__file__, *args, **env)
+    rc, out, err = assert_myFRpy_ok('-B', pydoc.__file__, *args, **env)
     return out.strip()
 
 def run_pydoc_fail(module_name, *args, **env):
@@ -320,7 +320,7 @@ def run_pydoc_fail(module_name, *args, **env):
     Runs pydoc on the specified module expecting a failure.
     """
     args = args + (module_name,)
-    rc, out, err = assert_python_failure('-B', pydoc.__file__, *args, **env)
+    rc, out, err = assert_myFRpy_failure('-B', pydoc.__file__, *args, **env)
     return out.strip()
 
 def get_pydoc_html(module):
@@ -487,7 +487,7 @@ class PydocDocTest(unittest.TestCase):
 
     @requires_docstrings
     def test_not_ascii(self):
-        result = run_pydoc('test.test_pydoc.test_pydoc.nonascii', PYTHONIOENCODING='ascii')
+        result = run_pydoc('test.test_pydoc.test_pydoc.nonascii', MYFRPYIOENCODING='ascii')
         encoded = nonascii.__doc__.encode('ascii', 'backslashreplace')
         self.assertIn(encoded, result)
 
@@ -641,7 +641,7 @@ class PydocDocTest(unittest.TestCase):
 
     def test_fail_help_cli(self):
         elines = (missing_pattern % 'abd').splitlines()
-        with spawn_python("-c" "help()") as proc:
+        with spawn_myFRpy("-c" "help()") as proc:
             out, _ = proc.communicate(b"abd")
             olines = out.decode().splitlines()[-9:-6]
             olines[0] = olines[0].removeprefix('help> ')
@@ -824,7 +824,7 @@ class PydocDocTest(unittest.TestCase):
         doc = pydoc.render_doc(B)
         doc = clean_text(doc)
         self.assertEqual(doc, '''\
-Python Library Documentation: class B in module %s
+MyFRpy Library Documentation: class B in module %s
 
 class B(A)
  |  Method resolution order:
@@ -864,7 +864,7 @@ class B(A)
 
         doc = pydoc.render_doc(B, renderer=pydoc.HTMLDoc())
         expected_text = f"""
-Python Library Documentation
+MyFRpy Library Documentation
 
 class B in module {__name__}
 class B(A)
@@ -939,7 +939,7 @@ class PydocImportTest(PydocBaseTest):
         for importstring, expectedinmsg in testpairs:
             with open(sourcefn, 'w') as f:
                 f.write("import {}\n".format(importstring))
-            result = run_pydoc_fail(modname, PYTHONPATH=TESTFN).decode("ascii")
+            result = run_pydoc_fail(modname, MYFRPYPATH=TESTFN).decode("ascii")
             expected = badimport_pattern % (modname, expectedinmsg)
             self.assertEqual(expected, result)
 
@@ -949,7 +949,7 @@ class PydocImportTest(PydocBaseTest):
         os.mkdir(pkgdir)
         badsyntax = os.path.join(pkgdir, "__init__") + os.extsep + "py"
         with open(badsyntax, 'w') as f:
-            f.write("invalid python syntax = $1\n")
+            f.write("invalid myFRpy syntax = $1\n")
         with self.restrict_walk_packages(path=[TESTFN]):
             with captured_stdout() as out:
                 with captured_stderr() as err:
@@ -1169,7 +1169,7 @@ class TestDescriptions(unittest.TestCase):
         return '\n'.join(lines[2:])
 
     # these should include "self"
-    def test_unbound_python_method(self):
+    def test_unbound_myFRpy_method(self):
         self.assertEqual(self._get_summary_line(textwrap.TextWrapper.wrap),
             "wrap(self, text)")
 
@@ -1179,7 +1179,7 @@ class TestDescriptions(unittest.TestCase):
             "dump(self, obj, /) unbound _pickle.Pickler method")
 
     # these no longer include "self"
-    def test_bound_python_method(self):
+    def test_bound_myFRpy_method(self):
         t = textwrap.TextWrapper()
         self.assertEqual(self._get_summary_line(t.wrap),
             "wrap(text) method of textwrap.TextWrapper instance")
@@ -1265,7 +1265,7 @@ cm(x) class method of test.test_pydoc.test_pydoc.X
     @requires_docstrings
     def test_getset_descriptor(self):
         # Currently these attributes are implemented as getset descriptors
-        # in CPython.
+        # in CMyFRpy.
         self.assertEqual(self._get_summary_line(int.numerator), "numerator")
         self.assertEqual(self._get_summary_line(float.real), "real")
         self.assertEqual(self._get_summary_line(Exception.args), "args")
@@ -1274,7 +1274,7 @@ cm(x) class method of test.test_pydoc.test_pydoc.X
     @requires_docstrings
     def test_member_descriptor(self):
         # Currently these attributes are implemented as member descriptors
-        # in CPython.
+        # in CMyFRpy.
         self.assertEqual(self._get_summary_line(complex.real), "real")
         self.assertEqual(self._get_summary_line(range.start), "start")
         self.assertEqual(self._get_summary_line(slice.start), "start")

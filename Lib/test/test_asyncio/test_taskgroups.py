@@ -751,7 +751,7 @@ class TestTaskGroup(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(get_error_types(cm.exception), {ZeroDivisionError})
 
     async def test_taskgroup_context_manager_exit_raises(self):
-        # See https://github.com/python/cpython/issues/95289
+        # See https://github.com/myFRpy/cmyFRpy/issues/95289
         class CustomException(Exception):
             pass
 

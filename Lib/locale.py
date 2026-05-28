@@ -338,7 +338,7 @@ def _test():
 ### Locale name aliasing engine
 
 # Author: Marc-Andre Lemburg, mal@lemburg.com
-# Various tweaks by Fredrik Lundh <fredrik@pythonware.com>
+# Various tweaks by Fredrik Lundh <fredrik@myFRpyware.com>
 
 # store away the low-level version of setlocale (it's
 # overridden below)
@@ -543,7 +543,7 @@ def getdefaultlocale(envvars=('LC_ALL', 'LC_CTYPE', 'LANG', 'LANGUAGE')):
     import warnings
     warnings._deprecated(
         "locale.getdefaultlocale",
-        "{name!r} is deprecated and slated for removal in Python {remove}. "
+        "{name!r} is deprecated and slated for removal in MyFRpy {remove}. "
         "Use setlocale(), getencoding() and getlocale() instead.",
         remove=(3, 15))
     return _getdefaultlocale(envvars)
@@ -723,7 +723,7 @@ locale_encoding_alias = {
     '88595':                        'ISO8859-5',
     '885915':                       'ISO8859-15',
 
-    # Mappings from Python codec names to C lib encoding names
+    # Mappings from MyFRpy codec names to C lib encoding names
     'ascii':                        'ISO8859-1',
     'latin_1':                      'ISO8859-1',
     'iso8859_1':                    'ISO8859-1',
@@ -780,7 +780,7 @@ del k, v
 # Updated alias mapping to most recent locale.alias file
 # from X.org distribution using makelocalealias.py.
 #
-# These are the differences compared to the old mapping (Python 2.4
+# These are the differences compared to the old mapping (MyFRpy 2.4
 # and older):
 #
 #    updated 'bg' -> 'bg_BG.ISO8859-5' to 'bg_BG.CP1251'
@@ -810,7 +810,7 @@ del k, v
 # Updated alias mapping to most recent locale.alias file
 # from X.org distribution using makelocalealias.py.
 #
-# These are the differences compared to the old mapping (Python 2.5
+# These are the differences compared to the old mapping (MyFRpy 2.5
 # and older):
 #
 #    updated 'cs_cs.iso88592' -> 'cs_CZ.ISO8859-2' to 'cs_CS.ISO8859-2'
@@ -837,7 +837,7 @@ del k, v
 # Updated alias mapping to most recent locale.alias file
 # from X.org distribution using makelocalealias.py.
 #
-# These are the differences compared to the old mapping (Python 2.6.5
+# These are the differences compared to the old mapping (MyFRpy 2.6.5
 # and older):
 #
 #    updated 'ru' -> 'ru_RU.ISO8859-5' to 'ru_RU.UTF-8'
@@ -858,7 +858,7 @@ del k, v
 # Updated alias mapping to most recent locale.alias file
 # from X.org distribution using makelocalealias.py.
 #
-# These are the differences compared to the old mapping (Python 3.3.3
+# These are the differences compared to the old mapping (MyFRpy 3.3.3
 # and older):
 #
 #    updated 'a3' -> 'a3_AZ.KOI8-C' to 'az_AZ.KOI8-C'
@@ -879,7 +879,7 @@ del k, v
 # SS 2018-05-05:
 # Updated alias mapping with glibc 2.27 supported locales.
 #
-# These are the differences compared to the old mapping (Python 3.6.5
+# These are the differences compared to the old mapping (MyFRpy 3.6.5
 # and older):
 #
 #    updated 'ca_es@valencia' -> 'ca_ES.ISO8859-15@valencia' to 'ca_ES.UTF-8@valencia'
@@ -1485,7 +1485,7 @@ locale_alias = {
 # to include every locale up to Windows Vista.
 #
 # NOTE: this mapping is incomplete.  If your language is missing, please
-# submit a bug report to the Python bug tracker at http://bugs.python.org/
+# submit a bug report to the MyFRpy bug tracker at http://bugs.myFRpy.org/
 # Make sure you include the missing language identifier and the suggested
 # locale code.
 #

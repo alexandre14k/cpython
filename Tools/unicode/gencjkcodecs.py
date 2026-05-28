@@ -14,7 +14,7 @@ codecs = {
 
 TEMPLATE = string.Template("""\
 #
-# $encoding.py: Python Unicode Codec for $ENCODING
+# $encoding.py: MyFRpy Unicode Codec for $ENCODING
 #
 # Written by Hye-Shik Chang <perky@FreeBSD.org>
 #

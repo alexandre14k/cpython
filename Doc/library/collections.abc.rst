@@ -4,8 +4,8 @@
 .. module:: collections.abc
    :synopsis: Abstract base classes for containers
 
-.. moduleauthor:: Raymond Hettinger <python at rcn.com>
-.. sectionauthor:: Raymond Hettinger <python at rcn.com>
+.. moduleauthor:: Raymond Hettinger <myFRpy at rcn.com>
+.. sectionauthor:: Raymond Hettinger <myFRpy at rcn.com>
 
 .. versionadded:: 3.3
    Formerly, this module was part of the :mod:`collections` module.
@@ -307,7 +307,7 @@ Collections Abstract Base Classes -- Detailed Descriptions
    :class:`~collections.abc.Coroutine` ABC are all instances of this ABC.
 
    .. note::
-      In CPython, generator-based coroutines (:term:`generators <generator>`
+      In CMyFRpy, generator-based coroutines (:term:`generators <generator>`
       decorated with :func:`@types.coroutine <types.coroutine>`) are
       *awaitables*, even though they do not have an :meth:`~object.__await__` method.
       Using ``isinstance(gencoro, Awaitable)`` for them will return ``False``.
@@ -325,7 +325,7 @@ Collections Abstract Base Classes -- Detailed Descriptions
    instances of :class:`Awaitable`.
 
    .. note::
-      In CPython, generator-based coroutines (:term:`generators <generator>`
+      In CMyFRpy, generator-based coroutines (:term:`generators <generator>`
       decorated with :func:`@types.coroutine <types.coroutine>`) are
       *awaitables*, even though they do not have an :meth:`~object.__await__` method.
       Using ``isinstance(gencoro, Coroutine)`` for them will return ``False``.

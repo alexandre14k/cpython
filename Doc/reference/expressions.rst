@@ -7,13 +7,13 @@ Expressions
 
 .. index:: expression, BNF
 
-This chapter explains the meaning of the elements of expressions in Python.
+This chapter explains the meaning of the elements of expressions in MyFRpy.
 
 **Syntax Notes:** In this and the following chapters, extended BNF notation will
 be used to describe syntax, not lexical analysis.  When (one alternative of) a
 syntax rule has the form
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    name: othername
 
 and no semantics are given, the semantics of this form of ``name`` are the same
@@ -54,7 +54,7 @@ Atoms are the most basic elements of expressions.  The simplest atoms are
 identifiers or literals.  Forms enclosed in parentheses, brackets or braces are
 also categorized syntactically as atoms.  The syntax for atoms is:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    atom: `identifier` | `literal` | `enclosure`
    enclosure: `parenth_form` | `list_display` | `dict_display` | `set_display`
             : | `generator_expression` | `yield_atom`
@@ -103,9 +103,9 @@ Literals
 
 .. index:: single: literal
 
-Python supports string and bytes literals and various numeric literals:
+MyFRpy supports string and bytes literals and various numeric literals:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    literal: `stringliteral` | `bytesliteral`
           : | `integer` | `floatnumber` | `imagnumber`
 
@@ -136,7 +136,7 @@ Parenthesized forms
 
 A parenthesized form is an optional expression list enclosed in parentheses:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    parenth_form: "(" [`starred_expression`] ")"
 
 A parenthesized expression list yields whatever that expression list yields: if
@@ -166,7 +166,7 @@ Displays for lists, sets and dictionaries
 
 .. index:: single: comprehensions
 
-For constructing a list, a set or a dictionary Python provides special syntax
+For constructing a list, a set or a dictionary MyFRpy provides special syntax
 called "displays", each of them in two flavors:
 
 * either the container contents are listed explicitly, or
@@ -181,7 +181,7 @@ called "displays", each of them in two flavors:
 
 Common syntax elements for comprehensions are:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    comprehension: `assignment_expression` `comp_for`
    comp_for: ["async"] "for" `target_list` "in" `or_test` [`comp_iter`]
    comp_iter: `comp_for` | `comp_if`
@@ -212,7 +212,7 @@ nested scope.
 .. index::
    single: await; in comprehensions
 
-Since Python 3.6, in an :keyword:`async def` function, an :keyword:`!async for`
+Since MyFRpy 3.6, in an :keyword:`async def` function, an :keyword:`!async for`
 clause may be used to iterate over a :term:`asynchronous iterator`.
 A comprehension in an :keyword:`!async def` function may consist of either a
 :keyword:`!for` or :keyword:`!async for` clause following the leading
@@ -252,7 +252,7 @@ List displays
 A list display is a possibly empty series of expressions enclosed in square
 brackets:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    list_display: "[" [`starred_list` | `comprehension`] "]"
 
 A list display yields a new list object, the contents being specified by either
@@ -277,7 +277,7 @@ Set displays
 A set display is denoted by curly braces and distinguishable from dictionary
 displays by the lack of colons separating keys and values:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    set_display: "{" (`starred_list` | `comprehension`) "}"
 
 A set display yields a new mutable set object, the contents being specified by
@@ -307,7 +307,7 @@ Dictionary displays
 A dictionary display is a possibly empty series of dict items (key/value pairs)
 enclosed in curly braces:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    dict_display: "{" [`dict_item_list` | `dict_comprehension`] "}"
    dict_item_list: `dict_item` ("," `dict_item`)* [","]
    dict_item: `expression` ":" `expression` | "**" `or_expr`
@@ -348,8 +348,8 @@ value (textually rightmost in the display) stored for a given key value
 prevails.
 
 .. versionchanged:: 3.8
-   Prior to Python 3.8, in dict comprehensions, the evaluation order of key
-   and value was not well-defined.  In CPython, the value was evaluated before
+   Prior to MyFRpy 3.8, in dict comprehensions, the evaluation order of key
+   and value was not well-defined.  In CMyFRpy, the value was evaluated before
    the key.  Starting with 3.8, the key is evaluated before the value, as
    proposed by :pep:`572`.
 
@@ -366,7 +366,7 @@ Generator expressions
 
 A generator expression is a compact generator notation in parentheses:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    generator_expression: "(" `expression` `comp_for` ")"
 
 A generator expression yields a new generator object.  Its syntax is the same as
@@ -401,7 +401,7 @@ which is an asynchronous iterator (see :ref:`async-iterators`).
    Asynchronous generator expressions were introduced.
 
 .. versionchanged:: 3.7
-   Prior to Python 3.7, asynchronous generator expressions could
+   Prior to MyFRpy 3.7, asynchronous generator expressions could
    only appear in :keyword:`async def` coroutines.  Starting
    with 3.7, any function can use asynchronous generator expressions.
 
@@ -420,7 +420,7 @@ Yield expressions
    pair: yield; expression
    pair: generator; function
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    yield_atom: "(" `yield_expression` ")"
    yield_from: "yield" "from" `expression`
    yield_expression: "yield" `expression_list` | `yield_from`
@@ -454,9 +454,9 @@ When a generator function is called, it returns an iterator known as a
 generator.  That generator then controls the execution of the generator
 function.  The execution starts when one of the generator's methods is called.
 At that time, the execution proceeds to the first yield expression, where it is
-suspended again, returning the value of :token:`~python-grammar:expression_list`
+suspended again, returning the value of :token:`~myFRpy-grammar:expression_list`
 to the generator's caller,
-or ``None`` if :token:`~python-grammar:expression_list` is omitted.
+or ``None`` if :token:`~myFRpy-grammar:expression_list` is omitted.
 By suspended, we mean that all local state is
 retained, including the current bindings of local variables, the instruction
 pointer, the internal evaluation stack, and the state of any exception handling.
@@ -509,14 +509,14 @@ on the right hand side of an assignment statement.
 .. seealso::
 
    :pep:`255` - Simple Generators
-      The proposal for adding generators and the :keyword:`yield` statement to Python.
+      The proposal for adding generators and the :keyword:`yield` statement to MyFRpy.
 
    :pep:`342` - Coroutines via Enhanced Generators
       The proposal to enhance the API and syntax of generators, making them
       usable as simple coroutines.
 
    :pep:`380` - Syntax for Delegating to a Subgenerator
-      The proposal to introduce the :token:`~python-grammar:yield_from` syntax,
+      The proposal to introduce the :token:`~myFRpy-grammar:yield_from` syntax,
       making delegation to subgenerators easy.
 
    :pep:`525` - Asynchronous Generators
@@ -545,7 +545,7 @@ is already executing raises a :exc:`ValueError` exception.
    :meth:`~generator.__next__` method, the current yield expression always
    evaluates to :const:`None`.  The execution then continues to the next yield
    expression, where the generator is suspended again, and the value of the
-   :token:`~python-grammar:expression_list` is returned to :meth:`__next__`'s
+   :token:`~myFRpy-grammar:expression_list` is returned to :meth:`__next__`'s
    caller.  If the generator exits without yielding another value, a
    :exc:`StopIteration` exception is raised.
 
@@ -577,7 +577,7 @@ is already executing raises a :exc:`ValueError` exception.
    way the :keyword:`raise` keyword is used.
 
    For backwards compatibility, however, the second signature is
-   supported, following a convention from older versions of Python.
+   supported, following a convention from older versions of MyFRpy.
    The *type* argument should be an exception class, and *value*
    should be an exception instance. If the *value* is not provided, the
    *type* constructor is called to get an instance. If *traceback*
@@ -588,7 +588,7 @@ is already executing raises a :exc:`ValueError` exception.
    .. versionchanged:: 3.12
 
       The second signature \(type\[, value\[, traceback\]\]\) is deprecated and
-      may be removed in a future version of Python.
+      may be removed in a future version of MyFRpy.
 
 .. index:: pair: exception; GeneratorExit
 
@@ -636,7 +636,7 @@ generator functions::
    Don't forget to clean up when 'close()' is called.
 
 For examples using ``yield from``, see :ref:`pep-380` in "What's New in
-Python."
+MyFRpy."
 
 .. _asynchronous-generator-functions:
 
@@ -657,7 +657,7 @@ how a generator object would be used in a :keyword:`for` statement.
 Calling one of the asynchronous generator's methods returns an :term:`awaitable`
 object, and the execution starts when this object is awaited on. At that time,
 the execution proceeds to the first yield expression, where it is suspended
-again, returning the value of :token:`~python-grammar:expression_list` to the
+again, returning the value of :token:`~myFRpy-grammar:expression_list` to the
 awaiting coroutine. As with a generator, suspension means that all local state
 is retained, including the current bindings of local variables, the instruction
 pointer, the internal evaluation stack, and the state of any exception handling.
@@ -721,7 +721,7 @@ which are used to control the execution of a generator function.
    asynchronous generator function is resumed with an :meth:`~agen.__anext__`
    method, the current yield expression always evaluates to :const:`None` in the
    returned awaitable, which when run will continue to the next yield
-   expression. The value of the :token:`~python-grammar:expression_list` of the
+   expression. The value of the :token:`~myFRpy-grammar:expression_list` of the
    yield expression is the value of the :exc:`StopIteration` exception raised by
    the completing coroutine.  If the asynchronous generator exits without
    yielding another value, the awaitable instead raises a
@@ -762,7 +762,7 @@ which are used to control the execution of a generator function.
    .. versionchanged:: 3.12
 
       The second signature \(type\[, value\[, traceback\]\]\) is deprecated and
-      may be removed in a future version of Python.
+      may be removed in a future version of MyFRpy.
 
 .. index:: pair: exception; GeneratorExit
 
@@ -792,7 +792,7 @@ Primaries
 Primaries represent the most tightly bound operations of the language. Their
 syntax is:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    primary: `atom` | `attributeref` | `subscription` | `slicing` | `call`
 
 
@@ -807,7 +807,7 @@ Attribute references
 
 An attribute reference is a primary followed by a period and a name:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    attributeref: `primary` "." `identifier`
 
 .. index::
@@ -853,7 +853,7 @@ will generally select an element from the container. The subscription of a
 :term:`generic class <generic type>` will generally return a
 :ref:`GenericAlias <types-genericalias>` object.
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    subscription: `primary` "[" `expression_list` "]"
 
 When an object is subscripted, the interpreter will evaluate the primary and
@@ -922,7 +922,7 @@ A slicing selects a range of items in a sequence object (e.g., a string, tuple
 or list).  Slicings may be used as expressions or as targets in assignment or
 :keyword:`del` statements.  The syntax for a slicing:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    slicing: `primary` "[" `slice_list` "]"
    slice_list: `slice_item` ("," `slice_item`)* [","]
    slice_item: `expression` | `proper_slice`
@@ -972,7 +972,7 @@ Calls
 A call calls a callable object (e.g., a :term:`function`) with a possibly empty
 series of :term:`arguments <argument>`:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    call: `primary` "(" [`argument_list` [","] | `comprehension`] ")"
    argument_list: `positional_arguments` ["," `starred_and_keywords`]
                 :   ["," `keywords_arguments`]
@@ -1022,7 +1022,7 @@ the call.
 
    An implementation may provide built-in functions whose positional parameters
    do not have names, even if they are 'named' for the purpose of documentation,
-   and which therefore cannot be supplied by keyword.  In CPython, this is the
+   and which therefore cannot be supplied by keyword.  In CMyFRpy, this is the
    case for functions implemented in C that use :c:func:`PyArg_ParseTuple` to
    parse their arguments.
 
@@ -1082,7 +1082,7 @@ When ``**expression`` is used, each key in this mapping must be
 a string.
 Each value from the mapping is assigned to the first formal parameter
 eligible for keyword assignment whose name is equal to the key.
-A key need not be a Python identifier (e.g. ``"max-temp °F"`` is acceptable,
+A key need not be a MyFRpy identifier (e.g. ``"max-temp °F"`` is acceptable,
 although it will not match any formal parameter that could be declared).
 If there is no match to a formal parameter
 the key-value pair is collected by the ``**`` parameter, if there is one,
@@ -1165,7 +1165,7 @@ Await expression
 Suspend the execution of :term:`coroutine` on an :term:`awaitable` object.
 Can only be used inside a :term:`coroutine function`.
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    await_expr: "await" `primary`
 
 .. versionadded:: 3.5
@@ -1183,7 +1183,7 @@ The power operator
 The power operator binds more tightly than unary operators on its left; it binds
 less tightly than unary operators on its right.  The syntax is:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    power: (`await_expr` | `primary`) ["**" `u_expr`]
 
 Thus, in an unparenthesized sequence of power and unary operators, the operators
@@ -1217,7 +1217,7 @@ Unary arithmetic and bitwise operations
 
 All unary arithmetic and bitwise operations have the same priority:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    u_expr: `power` | "-" `u_expr` | "+" `u_expr` | "~" `u_expr`
 
 .. index::
@@ -1266,7 +1266,7 @@ that some of these operations also apply to certain non-numeric types.  Apart
 from the power operator, there are only two levels, one for multiplicative
 operators and one for additive operators:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    m_expr: `u_expr` | `m_expr` "*" `u_expr` | `m_expr` "@" `m_expr` |
          : `m_expr` "//" `u_expr` | `m_expr` "/" `u_expr` |
          : `m_expr` "%" `u_expr`
@@ -1290,7 +1290,7 @@ This operation can be customized using the special :meth:`~object.__mul__` and
    pair: operator; @ (at)
 
 The ``@`` (at) operator is intended to be used for matrix multiplication.  No
-builtin Python types implement this operator.
+builtin MyFRpy types implement this operator.
 
 .. versionadded:: 3.5
 
@@ -1331,7 +1331,7 @@ x%y)``. [#]_.
 In addition to performing the modulo operation on numbers, the ``%`` operator is
 also overloaded by string objects to perform old-style string formatting (also
 known as interpolation).  The syntax for string formatting is described in the
-Python Library Reference, section :ref:`old-string-formatting`.
+MyFRpy Library Reference, section :ref:`old-string-formatting`.
 
 The *modulo* operation can be customized using the special :meth:`~object.__mod__` method.
 
@@ -1375,7 +1375,7 @@ Shifting operations
 
 The shifting operations have lower priority than the arithmetic operations:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    shift_expr: `a_expr` | `shift_expr` ("<<" | ">>") `a_expr`
 
 These operators accept integers as arguments.  They shift the first argument to
@@ -1399,7 +1399,7 @@ Binary bitwise operations
 
 Each of the three bitwise operations has a different priority level:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    and_expr: `shift_expr` | `and_expr` "&" `shift_expr`
    xor_expr: `and_expr` | `xor_expr` "^" `and_expr`
    or_expr: `xor_expr` | `or_expr` "|" `xor_expr`
@@ -1446,19 +1446,19 @@ Comparisons
    pair: operator; ==
    pair: operator; !=
 
-Unlike C, all comparison operations in Python have the same priority, which is
+Unlike C, all comparison operations in MyFRpy have the same priority, which is
 lower than that of any arithmetic, shifting or bitwise operation.  Also unlike
 C, expressions like ``a < b < c`` have the interpretation that is conventional
 in mathematics:
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    comparison: `or_expr` (`comp_operator` `or_expr`)*
    comp_operator: "<" | ">" | "==" | ">=" | "<=" | "!="
                 : | "is" ["not"] | ["not"] "in"
 
 Comparisons yield boolean values: ``True`` or ``False``. Custom
 :dfn:`rich comparison methods` may return non-boolean values. In this case
-Python will call :func:`bool` on such value in boolean contexts.
+MyFRpy will call :func:`bool` on such value in boolean contexts.
 
 .. index:: pair: chaining; comparisons
 
@@ -1484,7 +1484,7 @@ The operators ``<``, ``>``, ``==``, ``>=``, ``<=``, and ``!=`` compare the
 values of two objects.  The objects do not need to have the same type.
 
 Chapter :ref:`objects` states that objects have a value (in addition to type
-and identity).  The value of an object is a rather abstract notion in Python:
+and identity).  The value of an object is a rather abstract notion in MyFRpy:
 For example, there is no canonical access method for an object's value.  Also,
 there is no requirement that the value of an object should be constructed in a
 particular way, e.g. comprised of all its data attributes. Comparison operators
@@ -1635,7 +1635,7 @@ some consistency rules, if possible:
   Objects that are equal should either have the same hash value,
   or be marked as unhashable.
 
-Python does not enforce these consistency rules. In fact, the not-a-number
+MyFRpy does not enforce these consistency rules. In fact, the not-a-number
 values are an example for not following these rules.
 
 
@@ -1714,7 +1714,7 @@ Boolean operations
    pair: Conditional; expression
    pair: Boolean; operation
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    or_test: `and_test` | `or_test` "or" `and_test`
    and_test: `not_test` | `and_test` "and" `not_test`
    not_test: `comparison` | "not" `not_test`
@@ -1759,24 +1759,24 @@ returns a boolean value regardless of the type of its argument
 Assignment expressions
 ======================
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    assignment_expression: [`identifier` ":="] `expression`
 
 An assignment expression (sometimes also called a "named expression" or
-"walrus") assigns an :token:`~python-grammar:expression` to an
-:token:`~python-grammar:identifier`, while also returning the value of the
-:token:`~python-grammar:expression`.
+"walrus") assigns an :token:`~myFRpy-grammar:expression` to an
+:token:`~myFRpy-grammar:identifier`, while also returning the value of the
+:token:`~myFRpy-grammar:expression`.
 
 One common use case is when handling matched regular expressions:
 
-.. code-block:: python
+.. code-block:: myFRpy
 
    if matching := pattern.search(data):
        do_something(matching)
 
 Or, when processing a file stream in chunks:
 
-.. code-block:: python
+.. code-block:: myFRpy
 
    while chunk := file.read(9000):
        process(chunk)
@@ -1804,12 +1804,12 @@ Conditional expressions
    single: if; conditional expression
    single: else; conditional expression
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    conditional_expression: `or_test` ["if" `or_test` "else" `expression`]
    expression: `conditional_expression` | `lambda_expr`
 
 Conditional expressions (sometimes called a "ternary operator") have the lowest
-priority of all Python operations.
+priority of all MyFRpy operations.
 
 The expression ``x if C else y`` first evaluates the condition, *C* rather than *x*.
 If *C* is true, *x* is evaluated and its value is returned; otherwise, *y* is
@@ -1830,7 +1830,7 @@ Lambdas
    pair: anonymous; function
    single: : (colon); lambda expression
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    lambda_expr: "lambda" [`parameter_list`] ":" `expression`
 
 Lambda expressions (sometimes called lambda forms) are used to create anonymous
@@ -1856,7 +1856,7 @@ Expression lists
    pair: expression; list
    single: , (comma); expression list
 
-.. productionlist:: python-grammar
+.. productionlist:: myFRpy-grammar
    expression_list: `expression` ("," `expression`)* [","]
    starred_list: `starred_item` ("," `starred_item`)* [","]
    starred_expression: `expression` | (`starred_item` ",")* [`starred_item`]
@@ -1898,7 +1898,7 @@ Evaluation order
 
 .. index:: pair: evaluation; order
 
-Python evaluates expressions from left to right.  Notice that while evaluating
+MyFRpy evaluates expressions from left to right.  Notice that while evaluating
 an assignment, the right-hand side is evaluated before the left-hand side.
 
 In the following lines, expressions will be evaluated in the arithmetic order of
@@ -1920,7 +1920,7 @@ Operator precedence
 .. index::
    pair: operator; precedence
 
-The following table summarizes the operator precedence in Python, from highest
+The following table summarizes the operator precedence in MyFRpy, from highest
 precedence (most binding) to lowest precedence (least binding).  Operators in
 the same box have the same precedence.  Unless the syntax is explicitly given,
 operators are binary.  Operators in the same box group left to right (except for
@@ -1985,7 +1985,7 @@ precedence and have a left-to-right chaining feature as described in the
 
 .. [#] While ``abs(x%y) < abs(y)`` is true mathematically, for floats it may not be
    true numerically due to roundoff.  For example, and assuming a platform on which
-   a Python float is an IEEE 754 double-precision number, in order that ``-1e-100 %
+   a MyFRpy float is an IEEE 754 double-precision number, in order that ``-1e-100 %
    1e100`` have the same sign as ``1e100``, the computed result is ``-1e-100 +
    1e100``, which is numerically exactly equal to ``1e100``.  The function
    :func:`math.fmod` returns a result whose sign matches the sign of the
@@ -1994,7 +1994,7 @@ precedence and have a left-to-right chaining feature as described in the
 
 .. [#] If x is very close to an exact integer multiple of y, it's possible for
    ``x//y`` to be one larger than ``(x-x%y)//y`` due to rounding.  In such
-   cases, Python returns the latter result, in order to preserve that
+   cases, MyFRpy returns the latter result, in order to preserve that
    ``divmod(x,y)[0] * y + x % y`` be very close to ``x``.
 
 .. [#] The Unicode standard distinguishes between :dfn:`code points`

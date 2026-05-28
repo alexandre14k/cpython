@@ -15,13 +15,13 @@ distinguished from a number.  Use :c:func:`PyErr_Occurred` to disambiguate.
 
 .. c:type:: PyLongObject
 
-   This subtype of :c:type:`PyObject` represents a Python integer object.
+   This subtype of :c:type:`PyObject` represents a MyFRpy integer object.
 
 
 .. c:var:: PyTypeObject PyLong_Type
 
-   This instance of :c:type:`PyTypeObject` represents the Python integer type.
-   This is the same object as :class:`int` in the Python layer.
+   This instance of :c:type:`PyTypeObject` represents the MyFRpy integer type.
+   This is the same object as :class:`int` in the MyFRpy layer.
 
 
 .. c:function:: int PyLong_Check(PyObject *p)
@@ -94,14 +94,14 @@ distinguished from a number.  Use :c:func:`PyErr_Occurred` to disambiguate.
    ignored.  If there are no digits or *str* is not NULL-terminated following the
    digits and trailing whitespace, :exc:`ValueError` will be raised.
 
-   .. seealso:: Python methods :meth:`int.to_bytes` and :meth:`int.from_bytes`
+   .. seealso:: MyFRpy methods :meth:`int.to_bytes` and :meth:`int.from_bytes`
       to convert a :c:type:`PyLongObject` to/from an array of bytes in base
       ``256``. You can call those from C using :c:func:`PyObject_CallMethod`.
 
 
 .. c:function:: PyObject* PyLong_FromUnicodeObject(PyObject *u, int base)
 
-   Convert a sequence of Unicode digits in the string *u* to a Python integer
+   Convert a sequence of Unicode digits in the string *u* to a MyFRpy integer
    value.
 
    .. versionadded:: 3.3
@@ -109,7 +109,7 @@ distinguished from a number.  Use :c:func:`PyErr_Occurred` to disambiguate.
 
 .. c:function:: PyObject* PyLong_FromVoidPtr(void *p)
 
-   Create a Python integer from the pointer *p*. The pointer value can be
+   Create a MyFRpy integer from the pointer *p*. The pointer value can be
    retrieved from the resulting value using :c:func:`PyLong_AsVoidPtr`.
 
 
@@ -316,7 +316,7 @@ distinguished from a number.  Use :c:func:`PyErr_Occurred` to disambiguate.
 
 .. c:function:: void* PyLong_AsVoidPtr(PyObject *pylong)
 
-   Convert a Python integer *pylong* to a C :c:expr:`void` pointer.
+   Convert a MyFRpy integer *pylong* to a C :c:expr:`void` pointer.
    If *pylong* cannot be converted, an :exc:`OverflowError` will be raised.  This
    is only assured to produce a usable :c:expr:`void` pointer for values created
    with :c:func:`PyLong_FromVoidPtr`.

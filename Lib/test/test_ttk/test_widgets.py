@@ -1575,7 +1575,7 @@ class TreeviewTest(AbstractWidgetTest, unittest.TestCase):
                 "invoked.")
 
         # XXX The following raises an error in a tcl interpreter, but not in
-        # Python
+        # MyFRpy
         #self.tv.heading('#0', command='I dont exist')
         #simulate_heading_click(5, 5)
 

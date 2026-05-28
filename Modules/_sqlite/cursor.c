@@ -610,7 +610,7 @@ final:
     return rc;
 }
 
-/* returns 0 if the object is one of Python's internal ones that don't need to be adapted */
+/* returns 0 if the object is one of MyFRpy's internal ones that don't need to be adapted */
 static inline int
 need_adapt(pysqlite_state *state, PyObject *obj)
 {
@@ -667,7 +667,7 @@ bind_parameters(pysqlite_state *state, pysqlite_Statement *self,
                 int ret = PyErr_WarnFormat(PyExc_DeprecationWarning, 1,
                         "Binding %d ('%s') is a named parameter, but you "
                         "supplied a sequence which requires nameless (qmark) "
-                        "placeholders. Starting with Python 3.14 an "
+                        "placeholders. Starting with MyFRpy 3.14 an "
                         "sqlite3.ProgrammingError will be raised.",
                         i+1, name);
                 if (ret < 0) {

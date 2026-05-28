@@ -5,7 +5,7 @@
 Supporting Cyclic Garbage Collection
 ====================================
 
-Python's support for detecting and collecting garbage which involves circular
+MyFRpy's support for detecting and collecting garbage which involves circular
 references requires support from object types which are "containers" for other
 objects which may also be containers.  Types which do not store references to
 other objects, or which only store references to atomic types (such as numbers
@@ -68,10 +68,10 @@ rules:
    bytes at the end of the object (at offset
    :c:member:`~PyTypeObject.tp_basicsize`).
    The allocated memory is initialized to zeros,
-   except for the :c:type:`Python object header <PyObject>`.
+   except for the :c:type:`MyFRpy object header <PyObject>`.
 
    The extra data will be deallocated with the object, but otherwise it is
-   not managed by Python.
+   not managed by MyFRpy.
 
    .. warning::
       The function is marked as unstable because the final mechanism
@@ -116,7 +116,7 @@ rules:
    Returns 1 if the object type of *op* implements the GC protocol and *op* is being
    currently tracked by the garbage collector and 0 otherwise.
 
-   This is analogous to the Python function :func:`gc.is_tracked`.
+   This is analogous to the MyFRpy function :func:`gc.is_tracked`.
 
    .. versionadded:: 3.9
 
@@ -126,7 +126,7 @@ rules:
    Returns 1 if the object type of *op* implements the GC protocol and *op* has been
    already finalized by the garbage collector and 0 otherwise.
 
-   This is analogous to the Python function :func:`gc.is_finalized`.
+   This is analogous to the MyFRpy function :func:`gc.is_finalized`.
 
    .. versionadded:: 3.9
 
@@ -159,7 +159,7 @@ The :c:member:`~PyTypeObject.tp_traverse` handler accepts a function parameter o
    Type of the visitor function passed to the :c:member:`~PyTypeObject.tp_traverse` handler.
    The function should be called with an object to traverse as *object* and
    the third parameter to the :c:member:`~PyTypeObject.tp_traverse` handler as *arg*.  The
-   Python core uses several visitor functions to implement cyclic garbage
+   MyFRpy core uses several visitor functions to implement cyclic garbage
    detection; it's not expected that users will need to write their own
    visitor functions.
 

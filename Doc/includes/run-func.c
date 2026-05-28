@@ -1,5 +1,5 @@
 #define PY_SSIZE_T_CLEAN
-#include <Python.h>
+#include <MyFRpy.h>
 
 int
 main(int argc, char *argv[])
@@ -9,7 +9,7 @@ main(int argc, char *argv[])
     int i;
 
     if (argc < 3) {
-        fprintf(stderr,"Usage: call pythonfile funcname [args]\n");
+        fprintf(stderr,"Usage: call myFRpyfile funcname [args]\n");
         return 1;
     }
 

@@ -2,5 +2,5 @@
 <WixLocalization Culture="en-us" xmlns="http://schemas.microsoft.com/wix/2006/localization">
     <String Id="Descriptor">Append to Path</String>
     <String Id="ShortDescriptor">AppendPath</String>
-    <String Id="NoPython">No !(loc.ProductName) installation was detected.</String>
+    <String Id="NoMyFRpy">No !(loc.ProductName) installation was detected.</String>
 </WixLocalization>

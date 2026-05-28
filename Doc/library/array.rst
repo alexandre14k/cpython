@@ -16,7 +16,7 @@ them is constrained.  The type is specified at object creation time by using a
 defined:
 
 +-----------+--------------------+-------------------+-----------------------+-------+
-| Type code | C Type             | Python Type       | Minimum size in bytes | Notes |
+| Type code | C Type             | MyFRpy Type       | Minimum size in bytes | Notes |
 +===========+====================+===================+=======================+=======+
 | ``'b'``   | signed char        | int               | 1                     |       |
 +-----------+--------------------+-------------------+-----------------------+-------+
@@ -53,7 +53,7 @@ Notes:
    .. versionchanged:: 3.9
       ``array('u')`` now uses :c:type:`wchar_t` as C type instead of deprecated
       ``Py_UNICODE``. This change doesn't affect its behavior because
-      ``Py_UNICODE`` is alias of :c:type:`wchar_t` since Python 3.3.
+      ``Py_UNICODE`` is alias of :c:type:`wchar_t` since MyFRpy 3.3.
 
    .. deprecated-removed:: 3.3 4.0
 

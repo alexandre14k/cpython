@@ -2,7 +2,7 @@
 #  define Py_BUILD_CORE_MODULE 1
 #endif
 
-#include "Python.h"
+#include "MyFRpy.h"
 // windows.h must be included before pycore internal headers
 #ifdef MS_WIN32
 #  include <windows.h>
@@ -102,10 +102,10 @@ PrintError(const char *msg, ...)
 /*
  * We must call AddRef() on non-NULL COM pointers we receive as arguments
  * to callback functions - these functions are COM method implementations.
- * The Python instances we create have a __del__ method which calls Release().
+ * The MyFRpy instances we create have a __del__ method which calls Release().
  *
  * The presence of a class attribute named '_needs_com_addref_' triggers this
- * behaviour.  It would also be possible to call the AddRef() Python method,
+ * behaviour.  It would also be possible to call the AddRef() MyFRpy method,
  * after checking for PyObject_IsTrue(), but this would probably be somewhat
  * slower.
  */
@@ -130,10 +130,10 @@ TryAddRef(StgDictObject *dict, CDataObject *obj)
 
 /******************************************************************************
  *
- * Call the python object with all arguments
+ * Call the myFRpy object with all arguments
  *
  */
-static void _CallPythonObject(void *mem,
+static void _CallMyFRpyObject(void *mem,
                               ffi_type *restype,
                               SETFUNC setfunc,
                               PyObject *callable,
@@ -251,7 +251,7 @@ static void _CallPythonObject(void *mem,
 
            If there is such an object, we have no choice than to keep
            it alive forever - but a refcount and/or memory leak will
-           be the result.  EXCEPT when restype is py_object - Python
+           be the result.  EXCEPT when restype is py_object - MyFRpy
            itself knows how to manage the refcount of these objects.
         */
         PyObject *keep = setfunc(mem, result, 0);
@@ -293,7 +293,7 @@ static void closure_fcn(ffi_cif *cif,
 {
     CThunkObject *p = (CThunkObject *)userdata;
 
-    _CallPythonObject(resp,
+    _CallMyFRpyObject(resp,
                       p->ffi_restype,
                       p->setfunc,
                       p->callable,
@@ -452,7 +452,7 @@ CThunkObject *_ctypes_alloc_callback(PyObject *callable,
 
 #ifdef MS_WIN32
 
-static void LoadPython(void)
+static void LoadMyFRpy(void)
 {
     if (!Py_IsInitialized()) {
         Py_Initialize();
@@ -530,7 +530,7 @@ STDAPI DllGetClassObject(REFCLSID rclsid,
     long result;
     PyGILState_STATE state;
 
-    LoadPython();
+    LoadMyFRpy();
     state = PyGILState_Ensure();
     result = Call_GetClassObject(rclsid, riid, ppv);
     PyGILState_Release(state);
@@ -607,6 +607,6 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvRes)
 
 /*
  Local Variables:
- compile-command: "cd .. && python setup.py -q build_ext"
+ compile-command: "cd .. && myFRpy setup.py -q build_ext"
  End:
 */

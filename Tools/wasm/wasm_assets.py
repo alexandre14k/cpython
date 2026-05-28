@@ -1,13 +1,13 @@
-#!/usr/bin/env python
+#!/usr/bin/env myFRpy
 """Create a WASM asset bundle directory structure.
 
 The WASM asset bundles are pre-loaded by the final WASM build. The bundle
 contains:
 
-- a stripped down, pyc-only stdlib zip file, e.g. {PREFIX}/lib/python311.zip
-- os.py as marker module {PREFIX}/lib/python3.11/os.py
+- a stripped down, pyc-only stdlib zip file, e.g. {PREFIX}/lib/myFRpy311.zip
+- os.py as marker module {PREFIX}/lib/myFRpy3.11/os.py
 - empty lib-dynload directory, to make sure it is copied into the bundle:
-    {PREFIX}/lib/python3.11/lib-dynload/.empty
+    {PREFIX}/lib/myFRpy3.11/lib-dynload/.empty
 """
 
 import argparse
@@ -25,10 +25,10 @@ SRCDIR_LIB = SRCDIR / "Lib"
 # Library directory relative to $(prefix).
 WASM_LIB = pathlib.PurePath("lib")
 WASM_STDLIB_ZIP = (
-    WASM_LIB / f"python{sys.version_info.major}{sys.version_info.minor}.zip"
+    WASM_LIB / f"myFRpy{sys.version_info.major}{sys.version_info.minor}.zip"
 )
 WASM_STDLIB = (
-    WASM_LIB / f"python{sys.version_info.major}.{sys.version_info.minor}"
+    WASM_LIB / f"myFRpy{sys.version_info.major}.{sys.version_info.minor}"
 )
 WASM_DYNLOAD = WASM_STDLIB / "lib-dynload"
 
@@ -52,7 +52,7 @@ OMIT_FILES = (
     # webbrowser
     "antigravity.py",
     "webbrowser.py",
-    # Pure Python implementations of C extensions
+    # Pure MyFRpy implementations of C extensions
     "_pydecimal.py",
     "_pyio.py",
     # concurrent threading

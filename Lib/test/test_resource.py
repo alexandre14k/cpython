@@ -41,8 +41,8 @@ class ResourceTest(unittest.TestCase):
             pass
         else:
             # Check to see what happens when the RLIMIT_FSIZE is small.  Some
-            # versions of Python were terminated by an uncaught SIGXFSZ, but
-            # pythonrun.c has been fixed to ignore that exception.  If so, the
+            # versions of MyFRpy were terminated by an uncaught SIGXFSZ, but
+            # myFRpyrun.c has been fixed to ignore that exception.  If so, the
             # write() should return EFBIG when the limit is exceeded.
 
             # At least one platform has an unlimited RLIMIT_FSIZE and attempts

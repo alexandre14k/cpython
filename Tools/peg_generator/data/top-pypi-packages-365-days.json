@@ -21,7 +21,7 @@
         },
         {
             "download_count": 629757389,
-            "project": "python-dateutil"
+            "project": "myFRpy-dateutil"
         },
         {
             "download_count": 629606070,
@@ -309,7 +309,7 @@
         },
         {
             "download_count": 82019683,
-            "project": "ipython"
+            "project": "imyFRpy"
         },
         {
             "download_count": 81402313,
@@ -405,7 +405,7 @@
         },
         {
             "download_count": 62535342,
-            "project": "google-api-python-client"
+            "project": "google-api-myFRpy-client"
         },
         {
             "download_count": 61655343,
@@ -473,7 +473,7 @@
         },
         {
             "download_count": 53875643,
-            "project": "ipython-genutils"
+            "project": "imyFRpy-genutils"
         },
         {
             "download_count": 53414364,
@@ -561,7 +561,7 @@
         },
         {
             "download_count": 45435235,
-            "project": "gitpython"
+            "project": "gitmyFRpy"
         },
         {
             "download_count": 45275021,
@@ -677,7 +677,7 @@
         },
         {
             "download_count": 38876199,
-            "project": "opencv-python"
+            "project": "opencv-myFRpy"
         },
         {
             "download_count": 38852272,
@@ -797,7 +797,7 @@
         },
         {
             "download_count": 30383292,
-            "project": "dnspython"
+            "project": "dnsmyFRpy"
         },
         {
             "download_count": 30245623,
@@ -937,7 +937,7 @@
         },
         {
             "download_count": 24483899,
-            "project": "python-editor"
+            "project": "myFRpy-editor"
         },
         {
             "download_count": 24388318,
@@ -1097,7 +1097,7 @@
         },
         {
             "download_count": 20021156,
-            "project": "snowflake-connector-python"
+            "project": "snowflake-connector-myFRpy"
         },
         {
             "download_count": 19972964,
@@ -1269,7 +1269,7 @@
         },
         {
             "download_count": 16390810,
-            "project": "python-jose"
+            "project": "myFRpy-jose"
         },
         {
             "download_count": 16303498,
@@ -1293,7 +1293,7 @@
         },
         {
             "download_count": 15247809,
-            "project": "python-magic"
+            "project": "myFRpy-magic"
         },
         {
             "download_count": 15213240,
@@ -1469,7 +1469,7 @@
         },
         {
             "download_count": 12946906,
-            "project": "aliyun-python-sdk-core"
+            "project": "aliyun-myFRpy-sdk-core"
         },
         {
             "download_count": 12863346,
@@ -1481,7 +1481,7 @@
         },
         {
             "download_count": 12835022,
-            "project": "aliyun-python-sdk-ecs"
+            "project": "aliyun-myFRpy-sdk-ecs"
         },
         {
             "download_count": 12816025,
@@ -1497,7 +1497,7 @@
         },
         {
             "download_count": 12772525,
-            "project": "python-daemon"
+            "project": "myFRpy-daemon"
         },
         {
             "download_count": 12766382,
@@ -1513,7 +1513,7 @@
         },
         {
             "download_count": 12534903,
-            "project": "python-json-logger"
+            "project": "myFRpy-json-logger"
         },
         {
             "download_count": 12484719,
@@ -1565,7 +1565,7 @@
         },
         {
             "download_count": 11788737,
-            "project": "python-levenshtein"
+            "project": "myFRpy-levenshtein"
         },
         {
             "download_count": 11778504,
@@ -1593,7 +1593,7 @@
         },
         {
             "download_count": 11361327,
-            "project": "python-dotenv"
+            "project": "myFRpy-dotenv"
         },
         {
             "download_count": 11334209,
@@ -1745,7 +1745,7 @@
         },
         {
             "download_count": 9904711,
-            "project": "msgpack-python"
+            "project": "msgpack-myFRpy"
         },
         {
             "download_count": 9827614,
@@ -1837,7 +1837,7 @@
         },
         {
             "download_count": 9274704,
-            "project": "mysql-connector-python"
+            "project": "mysql-connector-myFRpy"
         },
         {
             "download_count": 9272854,
@@ -1937,7 +1937,7 @@
         },
         {
             "download_count": 8605163,
-            "project": "kafka-python"
+            "project": "kafka-myFRpy"
         },
         {
             "download_count": 8593398,
@@ -2085,7 +2085,7 @@
         },
         {
             "download_count": 8142774,
-            "project": "python-slugify"
+            "project": "myFRpy-slugify"
         },
         {
             "download_count": 8104254,
@@ -2257,7 +2257,7 @@
         },
         {
             "download_count": 7490404,
-            "project": "mysql-python"
+            "project": "mysql-myFRpy"
         },
         {
             "download_count": 7471849,
@@ -2437,7 +2437,7 @@
         },
         {
             "download_count": 6910342,
-            "project": "python-augeas"
+            "project": "myFRpy-augeas"
         },
         {
             "download_count": 6902895,
@@ -2489,7 +2489,7 @@
         },
         {
             "download_count": 6709540,
-            "project": "python-mimeparse"
+            "project": "myFRpy-mimeparse"
         },
         {
             "download_count": 6686487,
@@ -2565,7 +2565,7 @@
         },
         {
             "download_count": 6364528,
-            "project": "python-http-client"
+            "project": "myFRpy-http-client"
         },
         {
             "download_count": 6363103,
@@ -2581,7 +2581,7 @@
         },
         {
             "download_count": 6347386,
-            "project": "python-gnupg"
+            "project": "myFRpy-gnupg"
         },
         {
             "download_count": 6338642,
@@ -2609,7 +2609,7 @@
         },
         {
             "download_count": 6295377,
-            "project": "python-jenkins"
+            "project": "myFRpy-jenkins"
         },
         {
             "download_count": 6275920,
@@ -2649,7 +2649,7 @@
         },
         {
             "download_count": 6124335,
-            "project": "python3-openid"
+            "project": "myFRpy3-openid"
         },
         {
             "download_count": 6124110,
@@ -2721,7 +2721,7 @@
         },
         {
             "download_count": 5880962,
-            "project": "python-memcached"
+            "project": "myFRpy-memcached"
         },
         {
             "download_count": 5873333,
@@ -3073,7 +3073,7 @@
         },
         {
             "download_count": 4899768,
-            "project": "python-consul"
+            "project": "myFRpy-consul"
         },
         {
             "download_count": 4896198,
@@ -3137,7 +3137,7 @@
         },
         {
             "download_count": 4652633,
-            "project": "python-utils"
+            "project": "myFRpy-utils"
         },
         {
             "download_count": 4645712,
@@ -3161,7 +3161,7 @@
         },
         {
             "download_count": 4606642,
-            "project": "python-pam"
+            "project": "myFRpy-pam"
         },
         {
             "download_count": 4606137,
@@ -3177,7 +3177,7 @@
         },
         {
             "download_count": 4600206,
-            "project": "avro-python3"
+            "project": "avro-myFRpy3"
         },
         {
             "download_count": 4589906,
@@ -3241,7 +3241,7 @@
         },
         {
             "download_count": 4433310,
-            "project": "python-docx"
+            "project": "myFRpy-docx"
         },
         {
             "download_count": 4432803,
@@ -3313,7 +3313,7 @@
         },
         {
             "download_count": 4291946,
-            "project": "python-jwt"
+            "project": "myFRpy-jwt"
         },
         {
             "download_count": 4264873,
@@ -3329,7 +3329,7 @@
         },
         {
             "download_count": 4256821,
-            "project": "python-geohash"
+            "project": "myFRpy-geohash"
         },
         {
             "download_count": 4247442,
@@ -3401,7 +3401,7 @@
         },
         {
             "download_count": 4042252,
-            "project": "python-ldap"
+            "project": "myFRpy-ldap"
         },
         {
             "download_count": 4007776,
@@ -3433,7 +3433,7 @@
         },
         {
             "download_count": 3922990,
-            "project": "python-gflags"
+            "project": "myFRpy-gflags"
         },
         {
             "download_count": 3912801,
@@ -3481,7 +3481,7 @@
         },
         {
             "download_count": 3792308,
-            "project": "python-snappy"
+            "project": "myFRpy-snappy"
         },
         {
             "download_count": 3787259,
@@ -3621,7 +3621,7 @@
         },
         {
             "download_count": 3489788,
-            "project": "python-swiftclient"
+            "project": "myFRpy-swiftclient"
         },
         {
             "download_count": 3477450,
@@ -3641,7 +3641,7 @@
         },
         {
             "download_count": 3448945,
-            "project": "python-keystoneclient"
+            "project": "myFRpy-keystoneclient"
         },
         {
             "download_count": 3448335,
@@ -3701,7 +3701,7 @@
         },
         {
             "download_count": 3361635,
-            "project": "antlr4-python3-runtime"
+            "project": "antlr4-myFRpy3-runtime"
         },
         {
             "download_count": 3340033,
@@ -3733,7 +3733,7 @@
         },
         {
             "download_count": 3244587,
-            "project": "python-crontab"
+            "project": "myFRpy-crontab"
         },
         {
             "download_count": 3243979,
@@ -3849,7 +3849,7 @@
         },
         {
             "download_count": 3073217,
-            "project": "analytics-python"
+            "project": "analytics-myFRpy"
         },
         {
             "download_count": 3065872,
@@ -3909,7 +3909,7 @@
         },
         {
             "download_count": 3008025,
-            "project": "opencv-contrib-python"
+            "project": "opencv-contrib-myFRpy"
         },
         {
             "download_count": 3003750,
@@ -4017,7 +4017,7 @@
         },
         {
             "download_count": 2886531,
-            "project": "python-subunit"
+            "project": "myFRpy-subunit"
         },
         {
             "download_count": 2878388,
@@ -4025,7 +4025,7 @@
         },
         {
             "download_count": 2874189,
-            "project": "python-novaclient"
+            "project": "myFRpy-novaclient"
         },
         {
             "download_count": 2857065,
@@ -4117,7 +4117,7 @@
         },
         {
             "download_count": 2749279,
-            "project": "python-logstash"
+            "project": "myFRpy-logstash"
         },
         {
             "download_count": 2747409,
@@ -4233,7 +4233,7 @@
         },
         {
             "download_count": 2615568,
-            "project": "python-crfsuite"
+            "project": "myFRpy-crfsuite"
         },
         {
             "download_count": 2600491,
@@ -4293,7 +4293,7 @@
         },
         {
             "download_count": 2519234,
-            "project": "mysql-connector-python-rf"
+            "project": "mysql-connector-myFRpy-rf"
         },
         {
             "download_count": 2517497,
@@ -4345,7 +4345,7 @@
         },
         {
             "download_count": 2478052,
-            "project": "pythonwhois"
+            "project": "myFRpywhois"
         },
         {
             "download_count": 2470002,
@@ -4373,7 +4373,7 @@
         },
         {
             "download_count": 2442569,
-            "project": "python-gitlab"
+            "project": "myFRpy-gitlab"
         },
         {
             "download_count": 2439713,
@@ -4397,7 +4397,7 @@
         },
         {
             "download_count": 2428283,
-            "project": "python-glanceclient"
+            "project": "myFRpy-glanceclient"
         },
         {
             "download_count": 2422100,
@@ -4473,7 +4473,7 @@
         },
         {
             "download_count": 2364172,
-            "project": "python-openid"
+            "project": "myFRpy-openid"
         },
         {
             "download_count": 2357263,
@@ -4569,7 +4569,7 @@
         },
         {
             "download_count": 2258528,
-            "project": "python-cinderclient"
+            "project": "myFRpy-cinderclient"
         },
         {
             "download_count": 2252312,
@@ -4705,7 +4705,7 @@
         },
         {
             "download_count": 2109163,
-            "project": "antlr4-python2-runtime"
+            "project": "antlr4-myFRpy2-runtime"
         },
         {
             "download_count": 2099008,
@@ -4757,7 +4757,7 @@
         },
         {
             "download_count": 2053631,
-            "project": "python-whois"
+            "project": "myFRpy-whois"
         },
         {
             "download_count": 2052521,
@@ -4801,7 +4801,7 @@
         },
         {
             "download_count": 2022199,
-            "project": "python-socketio"
+            "project": "myFRpy-socketio"
         },
         {
             "download_count": 2021994,
@@ -4853,11 +4853,11 @@
         },
         {
             "download_count": 1996773,
-            "project": "python-box"
+            "project": "myFRpy-box"
         },
         {
             "download_count": 1992382,
-            "project": "python-openstackclient"
+            "project": "myFRpy-openstackclient"
         },
         {
             "download_count": 1987939,
@@ -4961,7 +4961,7 @@
         },
         {
             "download_count": 1916732,
-            "project": "python-engineio"
+            "project": "myFRpy-engineio"
         },
         {
             "download_count": 1904465,
@@ -5089,7 +5089,7 @@
         },
         {
             "download_count": 1821759,
-            "project": "python-nvd3"
+            "project": "myFRpy-nvd3"
         },
         {
             "download_count": 1818147,
@@ -5149,7 +5149,7 @@
         },
         {
             "download_count": 1766756,
-            "project": "python-stdnum"
+            "project": "myFRpy-stdnum"
         },
         {
             "download_count": 1765611,
@@ -5365,7 +5365,7 @@
         },
         {
             "download_count": 1596670,
-            "project": "python-decouple"
+            "project": "myFRpy-decouple"
         },
         {
             "download_count": 1592734,
@@ -5421,7 +5421,7 @@
         },
         {
             "download_count": 1569151,
-            "project": "appium-python-client"
+            "project": "appium-myFRpy-client"
         },
         {
             "download_count": 1567159,
@@ -5457,7 +5457,7 @@
         },
         {
             "download_count": 1550611,
-            "project": "python-neutronclient"
+            "project": "myFRpy-neutronclient"
         },
         {
             "download_count": 1549879,
@@ -5469,7 +5469,7 @@
         },
         {
             "download_count": 1539049,
-            "project": "vertica-python"
+            "project": "vertica-myFRpy"
         },
         {
             "download_count": 1538249,
@@ -5529,7 +5529,7 @@
         },
         {
             "download_count": 1517841,
-            "project": "presto-python-client"
+            "project": "presto-myFRpy-client"
         },
         {
             "download_count": 1515284,
@@ -5601,7 +5601,7 @@
         },
         {
             "download_count": 1481519,
-            "project": "python-etcd"
+            "project": "myFRpy-etcd"
         },
         {
             "download_count": 1480386,
@@ -5701,7 +5701,7 @@
         },
         {
             "download_count": 1425070,
-            "project": "python-nmap"
+            "project": "myFRpy-nmap"
         },
         {
             "download_count": 1424275,
@@ -5749,7 +5749,7 @@
         },
         {
             "download_count": 1399670,
-            "project": "python3-saml"
+            "project": "myFRpy3-saml"
         },
         {
             "download_count": 1399023,
@@ -5881,7 +5881,7 @@
         },
         {
             "download_count": 1340081,
-            "project": "cerberus-python-client"
+            "project": "cerberus-myFRpy-client"
         },
         {
             "download_count": 1339531,
@@ -6113,7 +6113,7 @@
         },
         {
             "download_count": 1206452,
-            "project": "python-easyconfig"
+            "project": "myFRpy-easyconfig"
         },
         {
             "download_count": 1206109,
@@ -6301,7 +6301,7 @@
         },
         {
             "download_count": 1137033,
-            "project": "python-telegram-bot"
+            "project": "myFRpy-telegram-bot"
         },
         {
             "download_count": 1135140,
@@ -6313,7 +6313,7 @@
         },
         {
             "download_count": 1133241,
-            "project": "pytest-pythonpath"
+            "project": "pytest-myFRpypath"
         },
         {
             "download_count": 1129508,
@@ -6329,7 +6329,7 @@
         },
         {
             "download_count": 1128310,
-            "project": "python-heatclient"
+            "project": "myFRpy-heatclient"
         },
         {
             "download_count": 1127447,
@@ -6485,7 +6485,7 @@
         },
         {
             "download_count": 1109781,
-            "project": "python-redis-lock"
+            "project": "myFRpy-redis-lock"
         },
         {
             "download_count": 1109474,
@@ -6501,11 +6501,11 @@
         },
         {
             "download_count": 1107023,
-            "project": "allure-python-commons"
+            "project": "allure-myFRpy-commons"
         },
         {
             "download_count": 1106855,
-            "project": "opencv-python-headless"
+            "project": "opencv-myFRpy-headless"
         },
         {
             "download_count": 1104732,
@@ -6521,7 +6521,7 @@
         },
         {
             "download_count": 1099271,
-            "project": "python-redis"
+            "project": "myFRpy-redis"
         },
         {
             "download_count": 1099171,
@@ -6761,7 +6761,7 @@
         },
         {
             "download_count": 1036044,
-            "project": "biopython"
+            "project": "biomyFRpy"
         },
         {
             "download_count": 1035148,
@@ -6829,7 +6829,7 @@
         },
         {
             "download_count": 1025061,
-            "project": "python-pptx"
+            "project": "myFRpy-pptx"
         },
         {
             "download_count": 1024849,
@@ -6913,7 +6913,7 @@
         },
         {
             "download_count": 1003341,
-            "project": "u-msgpack-python"
+            "project": "u-msgpack-myFRpy"
         },
         {
             "download_count": 1002884,
@@ -6953,7 +6953,7 @@
         },
         {
             "download_count": 990507,
-            "project": "python-rapidjson"
+            "project": "myFRpy-rapidjson"
         },
         {
             "download_count": 989611,
@@ -6969,7 +6969,7 @@
         },
         {
             "download_count": 987924,
-            "project": "python-string-utils"
+            "project": "myFRpy-string-utils"
         },
         {
             "download_count": 987136,
@@ -7025,7 +7025,7 @@
         },
         {
             "download_count": 975772,
-            "project": "python-coveralls"
+            "project": "myFRpy-coveralls"
         },
         {
             "download_count": 975418,
@@ -7093,7 +7093,7 @@
         },
         {
             "download_count": 960677,
-            "project": "google-python-cloud-debugger"
+            "project": "google-myFRpy-cloud-debugger"
         },
         {
             "download_count": 958036,
@@ -7437,7 +7437,7 @@
         },
         {
             "download_count": 885171,
-            "project": "python-gilt"
+            "project": "myFRpy-gilt"
         },
         {
             "download_count": 884033,
@@ -7497,7 +7497,7 @@
         },
         {
             "download_count": 868629,
-            "project": "awsiotpythonsdk"
+            "project": "awsiotmyFRpysdk"
         },
         {
             "download_count": 867297,
@@ -7589,7 +7589,7 @@
         },
         {
             "download_count": 849002,
-            "project": "logmatic-python"
+            "project": "logmatic-myFRpy"
         },
         {
             "download_count": 848508,
@@ -7673,7 +7673,7 @@
         },
         {
             "download_count": 832545,
-            "project": "python-jose-cryptodome"
+            "project": "myFRpy-jose-cryptodome"
         },
         {
             "download_count": 831517,
@@ -7789,7 +7789,7 @@
         },
         {
             "download_count": 810452,
-            "project": "python-ironicclient"
+            "project": "myFRpy-ironicclient"
         },
         {
             "download_count": 808082,
@@ -7829,7 +7829,7 @@
         },
         {
             "download_count": 803677,
-            "project": "ffmpeg-python"
+            "project": "ffmpeg-myFRpy"
         },
         {
             "download_count": 803390,
@@ -7969,7 +7969,7 @@
         },
         {
             "download_count": 774504,
-            "project": "python-designateclient"
+            "project": "myFRpy-designateclient"
         },
         {
             "download_count": 774495,
@@ -8265,7 +8265,7 @@
         },
         {
             "download_count": 713825,
-            "project": "python-bioformats"
+            "project": "myFRpy-bioformats"
         },
         {
             "download_count": 713644,
@@ -8337,7 +8337,7 @@
         },
         {
             "download_count": 702193,
-            "project": "python-twitter"
+            "project": "myFRpy-twitter"
         },
         {
             "download_count": 701163,
@@ -8373,7 +8373,7 @@
         },
         {
             "download_count": 693279,
-            "project": "python-barbicanclient"
+            "project": "myFRpy-barbicanclient"
         },
         {
             "download_count": 693249,
@@ -8525,7 +8525,7 @@
         },
         {
             "download_count": 669083,
-            "project": "wxpython"
+            "project": "wxmyFRpy"
         },
         {
             "download_count": 667717,
@@ -8565,7 +8565,7 @@
         },
         {
             "download_count": 660570,
-            "project": "auth0-python"
+            "project": "auth0-myFRpy"
         },
         {
             "download_count": 660013,
@@ -8669,7 +8669,7 @@
         },
         {
             "download_count": 645984,
-            "project": "ptpython"
+            "project": "ptmyFRpy"
         },
         {
             "download_count": 645726,
@@ -8757,7 +8757,7 @@
         },
         {
             "download_count": 630085,
-            "project": "dogstatsd-python"
+            "project": "dogstatsd-myFRpy"
         },
         {
             "download_count": 629789,
@@ -8913,7 +8913,7 @@
         },
         {
             "download_count": 601374,
-            "project": "python-intercom"
+            "project": "myFRpy-intercom"
         },
         {
             "download_count": 600575,
@@ -8921,7 +8921,7 @@
         },
         {
             "download_count": 600277,
-            "project": "python-statsd"
+            "project": "myFRpy-statsd"
         },
         {
             "download_count": 599602,
@@ -8937,7 +8937,7 @@
         },
         {
             "download_count": 598119,
-            "project": "libvirt-python"
+            "project": "libvirt-myFRpy"
         },
         {
             "download_count": 597629,
@@ -8965,7 +8965,7 @@
         },
         {
             "download_count": 596308,
-            "project": "edgegrid-python"
+            "project": "edgegrid-myFRpy"
         },
         {
             "download_count": 596233,
@@ -9029,7 +9029,7 @@
         },
         {
             "download_count": 587372,
-            "project": "caniusepython3"
+            "project": "caniusemyFRpy3"
         },
         {
             "download_count": 586559,
@@ -9109,7 +9109,7 @@
         },
         {
             "download_count": 575622,
-            "project": "mecab-python3"
+            "project": "mecab-myFRpy3"
         },
         {
             "download_count": 575453,
@@ -9125,7 +9125,7 @@
         },
         {
             "download_count": 573651,
-            "project": "python-louvain"
+            "project": "myFRpy-louvain"
         },
         {
             "download_count": 572787,
@@ -9237,7 +9237,7 @@
         },
         {
             "download_count": 560775,
-            "project": "aliyun-python-sdk-core-v3"
+            "project": "aliyun-myFRpy-sdk-core-v3"
         },
         {
             "download_count": 560763,
@@ -9269,7 +9269,7 @@
         },
         {
             "download_count": 557098,
-            "project": "python-monkey-business"
+            "project": "myFRpy-monkey-business"
         },
         {
             "download_count": 556600,
@@ -9493,7 +9493,7 @@
         },
         {
             "download_count": 528753,
-            "project": "python-jsonschema-objects"
+            "project": "myFRpy-jsonschema-objects"
         },
         {
             "download_count": 528555,
@@ -9821,7 +9821,7 @@
         },
         {
             "download_count": 495032,
-            "project": "python-hosts"
+            "project": "myFRpy-hosts"
         },
         {
             "download_count": 494652,
@@ -9865,7 +9865,7 @@
         },
         {
             "download_count": 490771,
-            "project": "logzio-python-handler"
+            "project": "logzio-myFRpy-handler"
         },
         {
             "download_count": 490651,
@@ -9873,11 +9873,11 @@
         },
         {
             "download_count": 490261,
-            "project": "python-geoip"
+            "project": "myFRpy-geoip"
         },
         {
             "download_count": 489169,
-            "project": "gremlinpython"
+            "project": "gremlinmyFRpy"
         },
         {
             "download_count": 488646,
@@ -9993,7 +9993,7 @@
         },
         {
             "download_count": 477626,
-            "project": "pythonnet"
+            "project": "myFRpynet"
         },
         {
             "download_count": 477384,
@@ -10025,7 +10025,7 @@
         },
         {
             "download_count": 471137,
-            "project": "python-debian"
+            "project": "myFRpy-debian"
         },
         {
             "download_count": 471045,
@@ -10069,7 +10069,7 @@
         },
         {
             "download_count": 466658,
-            "project": "python-keyczar"
+            "project": "myFRpy-keyczar"
         },
         {
             "download_count": 466596,
@@ -10145,7 +10145,7 @@
         },
         {
             "download_count": 459361,
-            "project": "bpython"
+            "project": "bmyFRpy"
         },
         {
             "download_count": 459221,
@@ -10337,7 +10337,7 @@
         },
         {
             "download_count": 442789,
-            "project": "systemd-python"
+            "project": "systemd-myFRpy"
         },
         {
             "download_count": 441825,
@@ -10401,7 +10401,7 @@
         },
         {
             "download_count": 433574,
-            "project": "python-social-auth"
+            "project": "myFRpy-social-auth"
         },
         {
             "download_count": 433514,
@@ -10449,7 +10449,7 @@
         },
         {
             "download_count": 429446,
-            "project": "python2-pythondialog"
+            "project": "myFRpy2-myFRpydialog"
         },
         {
             "download_count": 429251,
@@ -10509,7 +10509,7 @@
         },
         {
             "download_count": 421423,
-            "project": "python-barcode"
+            "project": "myFRpy-barcode"
         },
         {
             "download_count": 420487,
@@ -10585,7 +10585,7 @@
         },
         {
             "download_count": 410783,
-            "project": "google-api-python-client-uritemplate"
+            "project": "google-api-myFRpy-client-uritemplate"
         },
         {
             "download_count": 408750,
@@ -10713,7 +10713,7 @@
         },
         {
             "download_count": 400436,
-            "project": "python-xlib"
+            "project": "myFRpy-xlib"
         },
         {
             "download_count": 400407,
@@ -10865,7 +10865,7 @@
         },
         {
             "download_count": 388843,
-            "project": "smartsheet-python-sdk"
+            "project": "smartsheet-myFRpy-sdk"
         },
         {
             "download_count": 388646,
@@ -10965,7 +10965,7 @@
         },
         {
             "download_count": 381241,
-            "project": "open3d-python"
+            "project": "open3d-myFRpy"
         },
         {
             "download_count": 381173,
@@ -10981,7 +10981,7 @@
         },
         {
             "download_count": 380964,
-            "project": "aliyun-python-sdk-kms"
+            "project": "aliyun-myFRpy-sdk-kms"
         },
         {
             "download_count": 380771,
@@ -11025,11 +11025,11 @@
         },
         {
             "download_count": 377300,
-            "project": "python-jsonrpc-server"
+            "project": "myFRpy-jsonrpc-server"
         },
         {
             "download_count": 377259,
-            "project": "yara-python"
+            "project": "yara-myFRpy"
         },
         {
             "download_count": 376371,
@@ -11049,7 +11049,7 @@
         },
         {
             "download_count": 375656,
-            "project": "plaid-python"
+            "project": "plaid-myFRpy"
         },
         {
             "download_count": 375163,
@@ -11069,7 +11069,7 @@
         },
         {
             "download_count": 373672,
-            "project": "dnspython3"
+            "project": "dnsmyFRpy3"
         },
         {
             "download_count": 373668,
@@ -11105,7 +11105,7 @@
         },
         {
             "download_count": 371891,
-            "project": "python-multipart"
+            "project": "myFRpy-multipart"
         },
         {
             "download_count": 371361,
@@ -11157,7 +11157,7 @@
         },
         {
             "download_count": 367743,
-            "project": "python-language-server"
+            "project": "myFRpy-language-server"
         },
         {
             "download_count": 367741,
@@ -11217,7 +11217,7 @@
         },
         {
             "download_count": 362569,
-            "project": "python-saml"
+            "project": "myFRpy-saml"
         },
         {
             "download_count": 362447,
@@ -11293,7 +11293,7 @@
         },
         {
             "download_count": 356429,
-            "project": "p4python"
+            "project": "p4myFRpy"
         },
         {
             "download_count": 356412,
@@ -11313,7 +11313,7 @@
         },
         {
             "download_count": 355827,
-            "project": "python-cjson"
+            "project": "myFRpy-cjson"
         },
         {
             "download_count": 355794,
@@ -11421,7 +11421,7 @@
         },
         {
             "download_count": 348008,
-            "project": "ssh2-python"
+            "project": "ssh2-myFRpy"
         },
         {
             "download_count": 347979,
@@ -11445,7 +11445,7 @@
         },
         {
             "download_count": 346883,
-            "project": "forex-python"
+            "project": "forex-myFRpy"
         },
         {
             "download_count": 346742,
@@ -11477,7 +11477,7 @@
         },
         {
             "download_count": 344742,
-            "project": "flask-shell-ipython"
+            "project": "flask-shell-imyFRpy"
         },
         {
             "download_count": 344586,
@@ -11537,7 +11537,7 @@
         },
         {
             "download_count": 339480,
-            "project": "python-qpid-proton"
+            "project": "myFRpy-qpid-proton"
         },
         {
             "download_count": 339302,
@@ -11557,7 +11557,7 @@
         },
         {
             "download_count": 337701,
-            "project": "python-igraph"
+            "project": "myFRpy-igraph"
         },
         {
             "download_count": 337586,
@@ -11593,7 +11593,7 @@
         },
         {
             "download_count": 335463,
-            "project": "python-binary-memcached"
+            "project": "myFRpy-binary-memcached"
         },
         {
             "download_count": 335218,
@@ -11833,7 +11833,7 @@
         },
         {
             "download_count": 317793,
-            "project": "python-mistralclient"
+            "project": "myFRpy-mistralclient"
         },
         {
             "download_count": 317688,
@@ -11865,7 +11865,7 @@
         },
         {
             "download_count": 316758,
-            "project": "python-nomad"
+            "project": "myFRpy-nomad"
         },
         {
             "download_count": 316352,
@@ -11889,7 +11889,7 @@
         },
         {
             "download_count": 315929,
-            "project": "python-moztelemetry"
+            "project": "myFRpy-moztelemetry"
         },
         {
             "download_count": 315911,
@@ -11945,7 +11945,7 @@
         },
         {
             "download_count": 312696,
-            "project": "python-can"
+            "project": "myFRpy-can"
         },
         {
             "download_count": 312614,
@@ -11981,7 +11981,7 @@
         },
         {
             "download_count": 311122,
-            "project": "python-troveclient"
+            "project": "myFRpy-troveclient"
         },
         {
             "download_count": 310826,
@@ -11989,7 +11989,7 @@
         },
         {
             "download_count": 310446,
-            "project": "python-lzf"
+            "project": "myFRpy-lzf"
         },
         {
             "download_count": 310429,
@@ -12029,7 +12029,7 @@
         },
         {
             "download_count": 308548,
-            "project": "python-magnumclient"
+            "project": "myFRpy-magnumclient"
         },
         {
             "download_count": 307984,
@@ -12057,7 +12057,7 @@
         },
         {
             "download_count": 305226,
-            "project": "singer-python"
+            "project": "singer-myFRpy"
         },
         {
             "download_count": 304755,
@@ -12125,7 +12125,7 @@
         },
         {
             "download_count": 302400,
-            "project": "testlink-api-python-client"
+            "project": "testlink-api-myFRpy-client"
         },
         {
             "download_count": 302299,
@@ -12141,7 +12141,7 @@
         },
         {
             "download_count": 301868,
-            "project": "python-termstyle"
+            "project": "myFRpy-termstyle"
         },
         {
             "download_count": 301830,
@@ -12205,11 +12205,11 @@
         },
         {
             "download_count": 298085,
-            "project": "python-oauth2"
+            "project": "myFRpy-oauth2"
         },
         {
             "download_count": 297969,
-            "project": "opencv-contrib-python-headless"
+            "project": "opencv-contrib-myFRpy-headless"
         },
         {
             "download_count": 297585,
@@ -12525,7 +12525,7 @@
         },
         {
             "download_count": 283563,
-            "project": "python-geoip-geolite2"
+            "project": "myFRpy-geoip-geolite2"
         },
         {
             "download_count": 283441,
@@ -12725,7 +12725,7 @@
         },
         {
             "download_count": 274643,
-            "project": "zxcvbn-python"
+            "project": "zxcvbn-myFRpy"
         },
         {
             "download_count": 274395,
@@ -12957,7 +12957,7 @@
         },
         {
             "download_count": 264729,
-            "project": "python-owasp-zap-v2-4"
+            "project": "myFRpy-owasp-zap-v2-4"
         },
         {
             "download_count": 264669,
@@ -13097,7 +13097,7 @@
         },
         {
             "download_count": 258300,
-            "project": "python-logstash-async"
+            "project": "myFRpy-logstash-async"
         },
         {
             "download_count": 258254,
@@ -13109,11 +13109,11 @@
         },
         {
             "download_count": 257227,
-            "project": "python-keycloak"
+            "project": "myFRpy-keycloak"
         },
         {
             "download_count": 257086,
-            "project": "dbus-python"
+            "project": "dbus-myFRpy"
         },
         {
             "download_count": 257005,
@@ -13141,7 +13141,7 @@
         },
         {
             "download_count": 256111,
-            "project": "python-terraform"
+            "project": "myFRpy-terraform"
         },
         {
             "download_count": 255860,
@@ -13245,7 +13245,7 @@
         },
         {
             "download_count": 251759,
-            "project": "python-rake"
+            "project": "myFRpy-rake"
         },
         {
             "download_count": 251594,
@@ -13493,7 +13493,7 @@
         },
         {
             "download_count": 239680,
-            "project": "microsoftgraph-python"
+            "project": "microsoftgraph-myFRpy"
         },
         {
             "download_count": 239524,
@@ -13513,7 +13513,7 @@
         },
         {
             "download_count": 239183,
-            "project": "hellosign-python-sdk"
+            "project": "hellosign-myFRpy-sdk"
         },
         {
             "download_count": 239095,
@@ -13649,7 +13649,7 @@
         },
         {
             "download_count": 234150,
-            "project": "loggly-python-handler"
+            "project": "loggly-myFRpy-handler"
         },
         {
             "download_count": 233705,
@@ -13789,7 +13789,7 @@
         },
         {
             "download_count": 230614,
-            "project": "restrictedpython"
+            "project": "restrictedmyFRpy"
         },
         {
             "download_count": 230470,
@@ -13861,7 +13861,7 @@
         },
         {
             "download_count": 228281,
-            "project": "python-vagrant"
+            "project": "myFRpy-vagrant"
         },
         {
             "download_count": 228240,
@@ -14037,7 +14037,7 @@
         },
         {
             "download_count": 222931,
-            "project": "python3-memcached"
+            "project": "myFRpy3-memcached"
         },
         {
             "download_count": 222858,
@@ -14105,7 +14105,7 @@
         },
         {
             "download_count": 221604,
-            "project": "python-gettext"
+            "project": "myFRpy-gettext"
         },
         {
             "download_count": 221598,
@@ -14281,7 +14281,7 @@
         },
         {
             "download_count": 214088,
-            "project": "bigquery-python"
+            "project": "bigquery-myFRpy"
         },
         {
             "download_count": 213952,
@@ -14389,7 +14389,7 @@
         },
         {
             "download_count": 211695,
-            "project": "python-prctl"
+            "project": "myFRpy-prctl"
         },
         {
             "download_count": 211523,
@@ -14469,7 +14469,7 @@
         },
         {
             "download_count": 209028,
-            "project": "python-baseconv"
+            "project": "myFRpy-baseconv"
         },
         {
             "download_count": 208950,
@@ -14557,7 +14557,7 @@
         },
         {
             "download_count": 206215,
-            "project": "python-xmp-toolkit"
+            "project": "myFRpy-xmp-toolkit"
         },
         {
             "download_count": 205992,
@@ -14597,7 +14597,7 @@
         },
         {
             "download_count": 204809,
-            "project": "dawg-python"
+            "project": "dawg-myFRpy"
         },
         {
             "download_count": 204696,
@@ -14749,7 +14749,7 @@
         },
         {
             "download_count": 199808,
-            "project": "python-zaqarclient"
+            "project": "myFRpy-zaqarclient"
         },
         {
             "download_count": 199774,
@@ -14777,7 +14777,7 @@
         },
         {
             "download_count": 199376,
-            "project": "python-graph-core"
+            "project": "myFRpy-graph-core"
         },
         {
             "download_count": 199234,
@@ -14857,7 +14857,7 @@
         },
         {
             "download_count": 196830,
-            "project": "python-mozaggregator"
+            "project": "myFRpy-mozaggregator"
         },
         {
             "download_count": 196757,
@@ -14869,7 +14869,7 @@
         },
         {
             "download_count": 196154,
-            "project": "python3-xlib"
+            "project": "myFRpy3-xlib"
         },
         {
             "download_count": 195862,
@@ -15009,7 +15009,7 @@
         },
         {
             "download_count": 191702,
-            "project": "cli-proton-python"
+            "project": "cli-proton-myFRpy"
         },
         {
             "download_count": 191581,
@@ -15041,7 +15041,7 @@
         },
         {
             "download_count": 191091,
-            "project": "python-firebase"
+            "project": "myFRpy-firebase"
         },
         {
             "download_count": 190890,
@@ -15049,7 +15049,7 @@
         },
         {
             "download_count": 190752,
-            "project": "python3-logstash"
+            "project": "myFRpy3-logstash"
         },
         {
             "download_count": 190743,
@@ -15161,7 +15161,7 @@
         },
         {
             "download_count": 187440,
-            "project": "atlassian-python-api"
+            "project": "atlassian-myFRpy-api"
         },
         {
             "download_count": 187397,
@@ -15277,7 +15277,7 @@
         },
         {
             "download_count": 185712,
-            "project": "python-saharaclient"
+            "project": "myFRpy-saharaclient"
         },
         {
             "download_count": 185687,
@@ -15317,7 +15317,7 @@
         },
         {
             "download_count": 184984,
-            "project": "python-hpilo"
+            "project": "myFRpy-hpilo"
         },
         {
             "download_count": 184866,
@@ -15549,7 +15549,7 @@
         },
         {
             "download_count": 181194,
-            "project": "python-interface"
+            "project": "myFRpy-interface"
         },
         {
             "download_count": 181178,
@@ -15573,7 +15573,7 @@
         },
         {
             "download_count": 180898,
-            "project": "imgurpython"
+            "project": "imgurmyFRpy"
         },
         {
             "download_count": 180787,
@@ -15793,7 +15793,7 @@
         },
         {
             "download_count": 175386,
-            "project": "os-diskconfig-python-novaclient-ext"
+            "project": "os-diskconfig-myFRpy-novaclient-ext"
         },
         {
             "download_count": 175252,
@@ -15873,7 +15873,7 @@
         },
         {
             "download_count": 173974,
-            "project": "python-vlc"
+            "project": "myFRpy-vlc"
         },
         {
             "download_count": 173922,
@@ -15925,7 +15925,7 @@
         },
         {
             "download_count": 173066,
-            "project": "os-networksv2-python-novaclient-ext"
+            "project": "os-networksv2-myFRpy-novaclient-ext"
         },
         {
             "download_count": 173034,
@@ -15985,7 +15985,7 @@
         },
         {
             "download_count": 171593,
-            "project": "rax-default-network-flags-python-novaclient-ext"
+            "project": "rax-default-network-flags-myFRpy-novaclient-ext"
         },
         {
             "download_count": 171548,

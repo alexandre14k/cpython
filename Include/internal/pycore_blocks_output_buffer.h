@@ -38,7 +38,7 @@
 extern "C" {
 #endif
 
-#include "Python.h"
+#include "MyFRpy.h"
 
 typedef struct {
     // List of bytes objects

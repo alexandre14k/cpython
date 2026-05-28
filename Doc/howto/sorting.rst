@@ -6,11 +6,11 @@ Sorting Techniques
 :Author: Andrew Dalke and Raymond Hettinger
 
 
-Python lists have a built-in :meth:`list.sort` method that modifies the list
+MyFRpy lists have a built-in :meth:`list.sort` method that modifies the list
 in-place.  There is also a :func:`sorted` built-in function that builds a new
 sorted list from an iterable.
 
-In this document, we explore the various techniques for sorting data using Python.
+In this document, we explore the various techniques for sorting data using MyFRpy.
 
 
 Sorting Basics
@@ -103,7 +103,7 @@ a :term:`named tuple`.
 Operator Module Functions and Partial Function Evaluation
 =========================================================
 
-The :term:`key function` patterns shown above are very common, so Python provides
+The :term:`key function` patterns shown above are very common, so MyFRpy provides
 convenience functions to make accessor functions easier and faster. The
 :mod:`operator` module has :func:`~operator.itemgetter`,
 :func:`~operator.attrgetter`, and a :func:`~operator.methodcaller` function.
@@ -203,7 +203,7 @@ tuples of field and order to sort them on multiple passes.
     >>> multisort(list(student_objects), (('grade', True), ('age', False)))
     [('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
 
-The `Timsort <https://en.wikipedia.org/wiki/Timsort>`_ algorithm used in Python
+The `Timsort <https://en.wikipedia.org/wiki/Timsort>`_ algorithm used in MyFRpy
 does multiple sorts efficiently because it can take advantage of any ordering
 already present in a dataset.
 
@@ -247,7 +247,7 @@ Another name for this idiom is
 `Schwartzian transform <https://en.wikipedia.org/wiki/Schwartzian_transform>`_\,
 after Randal L. Schwartz, who popularized it among Perl programmers.
 
-Now that Python sorting provides key-functions, this technique is not often needed.
+Now that MyFRpy sorting provides key-functions, this technique is not often needed.
 
 Comparison Functions
 ====================
@@ -266,7 +266,7 @@ It is common to encounter comparison functions when translating algorithms from
 other languages.  Also, some libraries provide comparison functions as part of
 their API.  For example, :func:`locale.strcoll` is a comparison function.
 
-To accommodate those situations, Python provides
+To accommodate those situations, MyFRpy provides
 :class:`functools.cmp_to_key` to wrap the comparison function
 to make it usable as a key function::
 

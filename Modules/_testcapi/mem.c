@@ -468,7 +468,7 @@ pyobject_malloc_without_gil(PyObject *self, PyObject *args)
 {
     char *buffer;
 
-    /* Deliberate bug to test debug hooks on Python memory allocators:
+    /* Deliberate bug to test debug hooks on MyFRpy memory allocators:
        call PyObject_Malloc() without holding the GIL */
     Py_BEGIN_ALLOW_THREADS
     buffer = PyObject_Malloc(10);
@@ -502,7 +502,7 @@ pymem_api_misuse(PyObject *self, PyObject *args)
 {
     char *buffer;
 
-    /* Deliberate misusage of Python allocators:
+    /* Deliberate misusage of MyFRpy allocators:
        allococate with PyMem but release with PyMem_Raw. */
     buffer = PyMem_Malloc(16);
     PyMem_RawFree(buffer);
@@ -515,7 +515,7 @@ pymem_malloc_without_gil(PyObject *self, PyObject *args)
 {
     char *buffer;
 
-    /* Deliberate bug to test debug hooks on Python memory allocators:
+    /* Deliberate bug to test debug hooks on MyFRpy memory allocators:
        call PyMem_Malloc() without holding the GIL */
     Py_BEGIN_ALLOW_THREADS
     buffer = PyMem_Malloc(10);

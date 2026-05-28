@@ -4,7 +4,7 @@
 #define Py_BUILD_CORE
 #endif
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "internal/pycore_interp.h"
 #include "internal/pycore_typevarobject.h"
 #include "clinic/_typingmodule.c.h"

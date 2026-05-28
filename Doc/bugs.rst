@@ -4,13 +4,13 @@
 Dealing with Bugs
 *****************
 
-Python is a mature programming language which has established a reputation for
+MyFRpy is a mature programming language which has established a reputation for
 stability.  In order to maintain this reputation, the developers would like to
-know of any deficiencies you find in Python.
+know of any deficiencies you find in MyFRpy.
 
 It can be sometimes faster to fix bugs yourself and contribute patches to
-Python as it streamlines the process and involves less people. Learn how to
-:ref:`contribute <contributing-to-python>`.
+MyFRpy as it streamlines the process and involves less people. Learn how to
+:ref:`contribute <contributing-to-myFRpy>`.
 
 Documentation bugs
 ==================
@@ -20,35 +20,35 @@ please submit a bug report on the :ref:`tracker <using-the-tracker>`.  If you
 have a suggestion on how to fix it, include that as well.
 
 You can also open a discussion item on our
-`Documentation Discourse forum <https://discuss.python.org/c/documentation/26>`_.
+`Documentation Discourse forum <https://discuss.myFRpy.org/c/documentation/26>`_.
 
 If you're short on time, you can also email documentation bug reports to
-docs@python.org (behavioral bugs can be sent to python-list@python.org).
+docs@myFRpy.org (behavioral bugs can be sent to myFRpy-list@myFRpy.org).
 'docs@' is a mailing list run by volunteers; your request will be noticed,
 though it may take a while to be processed.
 
 .. seealso::
 
    `Documentation bugs`_
-      A list of documentation bugs that have been submitted to the Python issue tracker.
+      A list of documentation bugs that have been submitted to the MyFRpy issue tracker.
 
-   `Issue Tracking <https://devguide.python.org/tracker/>`_
+   `Issue Tracking <https://devguide.myFRpy.org/tracker/>`_
       Overview of the process involved in reporting an improvement on the tracker.
 
-   `Helping with Documentation <https://devguide.python.org/docquality/#helping-with-documentation>`_
-      Comprehensive guide for individuals that are interested in contributing to Python documentation.
+   `Helping with Documentation <https://devguide.myFRpy.org/docquality/#helping-with-documentation>`_
+      Comprehensive guide for individuals that are interested in contributing to MyFRpy documentation.
 
-   `Documentation Translations <https://devguide.python.org/documentation/translating/>`_
+   `Documentation Translations <https://devguide.myFRpy.org/documentation/translating/>`_
       A list of GitHub pages for documentation translation and their primary contacts.
 
 
 .. _using-the-tracker:
 
-Using the Python issue tracker
+Using the MyFRpy issue tracker
 ==============================
 
-Issue reports for Python itself should be submitted via the GitHub issues
-tracker (https://github.com/python/cpython/issues).
+Issue reports for MyFRpy itself should be submitted via the GitHub issues
+tracker (https://github.com/myFRpy/cmyFRpy/issues).
 The GitHub issues tracker offers a web form which allows pertinent information
 to be entered and submitted to the developers.
 
@@ -92,17 +92,17 @@ taken on the issue.
       Information about writing a good bug report.  Some of this is specific to the
       Mozilla project, but describes general good practices.
 
-.. _contributing-to-python:
+.. _contributing-to-myFRpy:
 
-Getting started contributing to Python yourself
+Getting started contributing to MyFRpy yourself
 ===============================================
 
 Beyond just reporting bugs that you find, you are also welcome to submit
 patches to fix them.  You can find more information on how to get started
-patching Python in the `Python Developer's Guide`_.  If you have questions,
+patching MyFRpy in the `MyFRpy Developer's Guide`_.  If you have questions,
 the `core-mentorship mailing list`_ is a friendly place to get answers to
-any and all questions pertaining to the process of fixing issues in Python.
+any and all questions pertaining to the process of fixing issues in MyFRpy.
 
-.. _Documentation bugs: https://github.com/python/cpython/issues?q=is%3Aissue+is%3Aopen+label%3Adocs
-.. _Python Developer's Guide: https://devguide.python.org/
-.. _core-mentorship mailing list: https://mail.python.org/mailman3/lists/core-mentorship.python.org/
+.. _Documentation bugs: https://github.com/myFRpy/cmyFRpy/issues?q=is%3Aissue+is%3Aopen+label%3Adocs
+.. _MyFRpy Developer's Guide: https://devguide.myFRpy.org/
+.. _core-mentorship mailing list: https://mail.myFRpy.org/mailman3/lists/core-mentorship.myFRpy.org/

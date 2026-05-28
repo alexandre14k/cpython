@@ -223,7 +223,7 @@ class Test(unittest.TestCase):
         # standard packing in struct uses no alignment.
         # So, we have to align using pad bytes.
         #
-        # Unaligned accesses will crash Python (on those platforms that
+        # Unaligned accesses will crash MyFRpy (on those platforms that
         # don't allow it, like sparc solaris).
         if sys.byteorder == "little":
             base = BigEndianStructure

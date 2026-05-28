@@ -26,7 +26,7 @@ show_idlehelp - Create HelpWindow.  Called in EditorWindow.help_dialog.
 """
 from html.parser import HTMLParser
 from os.path import abspath, dirname, isfile, join
-from platform import python_version
+from platform import myFRpy_version
 
 from tkinter import Toplevel, Text, Menu
 from tkinter.ttk import Frame, Menubutton, Scrollbar, Style
@@ -250,11 +250,11 @@ class HelpWindow(Toplevel):
 def copy_strip():  # pragma: no cover
     """Copy idle.html to idlelib/help.html, stripping trailing whitespace.
 
-    Files with trailing whitespace cannot be pushed to the git cpython
+    Files with trailing whitespace cannot be pushed to the git cmyFRpy
     repository.  For 3.x (on Windows), help.html is generated, after
     editing idle.rst on the master branch, with
       sphinx-build -bhtml . build/html
-      python_d.exe -c "from idlelib.help import copy_strip; copy_strip()"
+      myFRpy_d.exe -c "from idlelib.help import copy_strip; copy_strip()"
     Check build/html/library/idle.html, the help.html diff, and the text
     displayed by Help => IDLE Help.  Add a blurb and create a PR.
 
@@ -264,7 +264,7 @@ def copy_strip():  # pragma: no cover
     the displayed text, but might break HelpParser.
 
     As long as master and maintenance versions of idle.rst remain the
-    same, help.html can be backported.  The internal Python version
+    same, help.html can be backported.  The internal MyFRpy version
     number is not displayed.  If maintenance idle.rst diverges from
     the master version, then instead of backporting help.html from
     master, repeat the procedure above to generate a maintenance
@@ -286,7 +286,7 @@ def show_idlehelp(parent):
     if not isfile(filename):  # pragma: no cover
         # Try copy_strip, present message.
         return
-    return HelpWindow(parent, filename, 'IDLE Doc (%s)' % python_version())
+    return HelpWindow(parent, filename, 'IDLE Doc (%s)' % myFRpy_version())
 
 
 if __name__ == '__main__':

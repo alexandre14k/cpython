@@ -239,7 +239,7 @@ class ExecutorDeadlockTest:
         # Test that there is a clean exception instad of a deadlock when a
         # child process crashes while some data is being written into the
         # queue.
-        # https://github.com/python/cpython/issues/94777
+        # https://github.com/myFRpy/cmyFRpy/issues/94777
         self.executor.shutdown(wait=True)
         data = "a" * support.PIPE_MAX_SIZE
         with self.executor_type(max_workers=2,
@@ -250,7 +250,7 @@ class ExecutorDeadlockTest:
 
     def test_gh105829_should_not_deadlock_if_wakeup_pipe_full(self):
         # Issue #105829: The _ExecutorManagerThread wakeup pipe could
-        # fill up and block. See: https://github.com/python/cpython/issues/105829
+        # fill up and block. See: https://github.com/myFRpy/cmyFRpy/issues/105829
 
         # Lots of cargo culting while writing this test, apologies if
         # something is really stupid...

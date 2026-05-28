@@ -282,7 +282,7 @@ class ComplexTest(unittest.TestCase):
         self.assertRaises(ValueError, pow, a, b, 0)
 
         # Check some boundary conditions; some of these used to invoke
-        # undefined behaviour (https://bugs.python.org/issue44698). We're
+        # undefined behaviour (https://bugs.myFRpy.org/issue44698). We're
         # not actually checking the results of these operations, just making
         # sure they don't crash (for example when using clang's
         # UndefinedBehaviourSanitizer).
@@ -458,7 +458,7 @@ class ComplexTest(unittest.TestCase):
             TypeError,
             "second argument must be a number, not 'dict'",
             complex, 1, {1:2})
-        # the following three are accepted by Python 2.6
+        # the following three are accepted by MyFRpy 2.6
         self.assertRaises(ValueError, complex, "1..1j")
         self.assertRaises(ValueError, complex, "1.11.1j")
         self.assertRaises(ValueError, complex, "1e1.1j")
@@ -672,10 +672,10 @@ class ComplexTest(unittest.TestCase):
         z0 = -0j
         z1 = -7j
         z2 = -1e1000j
-        # Note: In versions of Python < 3.2, a negated imaginary literal
+        # Note: In versions of MyFRpy < 3.2, a negated imaginary literal
         # accidentally ended up with real part 0.0 instead of -0.0, thanks to a
         # modification during CST -> AST translation (see issue #9011).  That's
-        # fixed in Python 3.2.
+        # fixed in MyFRpy 3.2.
         self.assertFloatsAreIdentical(z0.real, -0.0)
         self.assertFloatsAreIdentical(z0.imag, -0.0)
         self.assertFloatsAreIdentical(z1.real, -0.0)

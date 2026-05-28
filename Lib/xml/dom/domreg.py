@@ -3,7 +3,7 @@ directly. Instead, the functions getDOMImplementation and
 registerDOMImplementation should be imported from xml.dom."""
 
 # This is a list of well-known implementations.  Well-known names
-# should be published by posting to xml-sig@python.org, and are
+# should be published by posting to xml-sig@myFRpy.org, and are
 # subsequently recorded in this file.
 
 import sys
@@ -57,8 +57,8 @@ def getDOMImplementation(name=None, features=()):
         return mod.getDOMImplementation()
     elif name:
         return registered[name]()
-    elif not sys.flags.ignore_environment and "PYTHON_DOM" in os.environ:
-        return getDOMImplementation(name = os.environ["PYTHON_DOM"])
+    elif not sys.flags.ignore_environment and "MYFRPY_DOM" in os.environ:
+        return getDOMImplementation(name = os.environ["MYFRPY_DOM"])
 
     # User did not specify a name, try implementations in arbitrary
     # order, returning the one that has the required features

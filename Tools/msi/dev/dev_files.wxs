@@ -10,22 +10,22 @@
     
     <Fragment>
         <ComponentGroup Id="dev_libs">
-            <Component Id="libs_python3.lib" Directory="libs" Guid="*">
-                <File Id="libs_python_stable.lib" Name="python$(var.MajorVersionNumber).lib" KeyPath="yes" />
+            <Component Id="libs_myFRpy3.lib" Directory="libs" Guid="*">
+                <File Id="libs_myFRpy_stable.lib" Name="myFRpy$(var.MajorVersionNumber).lib" KeyPath="yes" />
             </Component>
-            <Component Id="libs_python.lib" Directory="libs" Guid="*">
-                <File Id="libs_python.lib" Name="python$(var.MajorVersionNumber)$(var.MinorVersionNumber).lib" KeyPath="yes" />
+            <Component Id="libs_myFRpy.lib" Directory="libs" Guid="*">
+                <File Id="libs_myFRpy.lib" Name="myFRpy$(var.MajorVersionNumber)$(var.MinorVersionNumber).lib" KeyPath="yes" />
             </Component>
         </ComponentGroup>
     </Fragment>
     
     <Fragment>
         <ComponentGroup Id="dev_libs_d">
-            <Component Id="libs_python3_d.lib" Directory="libs" Guid="*">
-                <File Id="libs_python_stable_d.lib" Name="python$(var.MajorVersionNumber)_d.lib" />
+            <Component Id="libs_myFRpy3_d.lib" Directory="libs" Guid="*">
+                <File Id="libs_myFRpy_stable_d.lib" Name="myFRpy$(var.MajorVersionNumber)_d.lib" />
             </Component>
-            <Component Id="libs_python_d.lib" Directory="libs" Guid="*">
-                <File Id="libs_python_d.lib" Name="python$(var.MajorVersionNumber)$(var.MinorVersionNumber)_d.lib" />
+            <Component Id="libs_myFRpy_d.lib" Directory="libs" Guid="*">
+                <File Id="libs_myFRpy_d.lib" Name="myFRpy$(var.MajorVersionNumber)$(var.MinorVersionNumber)_d.lib" />
             </Component>
         </ComponentGroup>
     </Fragment>

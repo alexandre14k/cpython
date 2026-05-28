@@ -9,9 +9,9 @@ import sysconfig
 import unittest
 
 
-# This test is only relevant for from-source builds of Python.
-if not sysconfig.is_python_build():
-    raise unittest.SkipTest('test irrelevant for an installed Python')
+# This test is only relevant for from-source builds of MyFRpy.
+if not sysconfig.is_myFRpy_build():
+    raise unittest.SkipTest('test irrelevant for an installed MyFRpy')
 
 src_base = dirname(dirname(dirname(__file__)))
 parser_dir = os.path.join(src_base, 'Parser')
@@ -22,7 +22,7 @@ class TestAsdlParser(unittest.TestCase):
     def setUpClass(cls):
         # Loads the asdl module dynamically, since it's not in a real importable
         # package.
-        # Parses Python.asdl into an ast.Module and run the check on it.
+        # Parses MyFRpy.asdl into an ast.Module and run the check on it.
         # There's no need to do this for each test method, hence setUpClass.
         sys.path.insert(0, parser_dir)
         loader = importlib.machinery.SourceFileLoader(
@@ -31,7 +31,7 @@ class TestAsdlParser(unittest.TestCase):
         module = importlib.util.module_from_spec(spec)
         loader.exec_module(module)
         cls.asdl = module
-        cls.mod = cls.asdl.parse(os.path.join(parser_dir, 'Python.asdl'))
+        cls.mod = cls.asdl.parse(os.path.join(parser_dir, 'MyFRpy.asdl'))
         cls.assertTrue(cls.asdl.check(cls.mod), 'Module validation failed')
 
     @classmethod
@@ -45,7 +45,7 @@ class TestAsdlParser(unittest.TestCase):
         self.types = self.mod.types
 
     def test_module(self):
-        self.assertEqual(self.mod.name, 'Python')
+        self.assertEqual(self.mod.name, 'MyFRpy')
         self.assertIn('stmt', self.types)
         self.assertIn('expr', self.types)
         self.assertIn('mod', self.types)

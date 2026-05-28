@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env myFRpy
 """Generate C code from an ASDL description."""
 
 import sys
@@ -76,7 +76,7 @@ def is_simple(sum_type):
     A sum is simple if its types have no fields and itself
     doesn't have any attributes. Instances of these types are
     cached at C level, and they act like singletons when propagating
-    parser generated nodes into Python level, e.g.
+    parser generated nodes into MyFRpy level, e.g.
     unaryop = Invert | Not | UAdd | USub
     """
 
@@ -982,7 +982,7 @@ add_attributes(struct ast_state *state, PyObject *type, const char * const *attr
     return result;
 }
 
-/* Conversion AST -> Python */
+/* Conversion AST -> MyFRpy */
 
 static PyObject* ast2obj_list(struct ast_state *state, struct validator *vstate, asdl_seq *seq,
                               PyObject* (*func)(struct ast_state *state, struct validator *vstate, void*))
@@ -1020,7 +1020,7 @@ static PyObject* ast2obj_int(struct ast_state *Py_UNUSED(state), struct validato
     return PyLong_FromLong(b);
 }
 
-/* Conversion Python -> AST */
+/* Conversion MyFRpy -> AST */
 
 static int obj2ast_object(struct ast_state *Py_UNUSED(state), PyObject* obj, PyObject** out, PyArena* arena)
 {
@@ -1536,7 +1536,7 @@ def generate_module_def(mod, metadata, f, internal_h):
     generate_ast_state(module_state, internal_h)
 
     print(textwrap.dedent("""
-        #include "Python.h"
+        #include "MyFRpy.h"
         #include "pycore_ast.h"
         #include "pycore_ast_state.h"     // struct ast_state
         #include "pycore_ceval.h"         // _Py_EnterRecursiveCall

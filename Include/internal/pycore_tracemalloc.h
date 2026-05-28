@@ -45,7 +45,7 @@ struct
 __attribute__((packed))
 #endif
 tracemalloc_frame {
-    /* filename cannot be NULL: "<unknown>" is used if the Python frame
+    /* filename cannot be NULL: "<unknown>" is used if the MyFRpy frame
        filename is NULL */
     PyObject *filename;
     unsigned int lineno;

@@ -415,7 +415,7 @@ class TestCommandLineArgs(unittest.TestCase):
         program.createTests = lambda: None
         program.parseArgs(argv)
 
-        # note that 'wing.txt' is not a Python file so the name should
+        # note that 'wing.txt' is not a MyFRpy file so the name should
         # *not* be converted to a module name
         expected = ['foo', 'bar', 'baz', 'wing.txt']
         self.assertEqual(program.testNames, expected)
@@ -486,7 +486,7 @@ class TestCommandLineArgs(unittest.TestCase):
 
     def testSelectedTestNamesFunctionalTest(self):
         def run_unittest(args):
-            # Use -E to ignore PYTHONSAFEPATH env var
+            # Use -E to ignore MYFRPYSAFEPATH env var
             cmd = [sys.executable, '-E', '-m', 'unittest'] + args
             p = subprocess.Popen(cmd,
                 stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, cwd=os.path.dirname(__file__))

@@ -1,6 +1,6 @@
-"""Basic test of the frozen module (source is in Python/frozen.c)."""
+"""Basic test of the frozen module (source is in MyFRpy/frozen.c)."""
 
-# The Python/frozen.c source code contains a marshalled Python module
+# The MyFRpy/frozen.c source code contains a marshalled MyFRpy module
 # and therefore depends on the marshal format as well as the bytecode
 # format.  If those formats have been changed then frozen.c needs to be
 # updated.

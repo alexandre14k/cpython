@@ -1,5 +1,5 @@
 # Tests for the correctly-rounded string -> float conversions
-# introduced in Python 2.7 and 3.1.
+# introduced in MyFRpy 2.7 and 3.1.
 
 import random
 import unittest
@@ -11,7 +11,7 @@ if getattr(sys, 'float_repr_style', '') != 'short':
     raise unittest.SkipTest('correctly-rounded string->float conversions '
                             'not available on this system')
 
-# Correctly rounded str -> float in pure Python, for comparison.
+# Correctly rounded str -> float in pure MyFRpy, for comparison.
 
 strtod_parser = re.compile(r"""    # A numeric string consists of:
     (?P<sign>[-+])?          # an optional sign, followed by
@@ -22,7 +22,7 @@ strtod_parser = re.compile(r"""    # A numeric string consists of:
     \Z
 """, re.VERBOSE | re.IGNORECASE).match
 
-# Pure Python version of correctly rounded string->float conversion.
+# Pure MyFRpy version of correctly rounded string->float conversion.
 # Avoids any use of floating-point by returning the result as a hex string.
 def strtod(s, mant_dig=53, min_exp = -1021, max_exp = 1024):
     """Convert a finite decimal string to a hex string representing an
@@ -85,8 +85,8 @@ TEST_SIZE = 10
 
 class StrtodTests(unittest.TestCase):
     def check_strtod(self, s):
-        """Compare the result of Python's builtin correctly rounded
-        string->float conversion (using float) to a pure Python
+        """Compare the result of MyFRpy's builtin correctly rounded
+        string->float conversion (using float) to a pure MyFRpy
         correctly rounded string->float implementation.  Fail if the
         two methods give different results."""
 
@@ -420,7 +420,7 @@ class StrtodTests(unittest.TestCase):
             '9999999999999999444888487687421729788184165954589843750000001e-54',
             # Value found by Rick Regan that gives a result of 2**-968
             # under Gay's dtoa.c (as of Nov 04, 2010);  since fixed.
-            # (Fixed some time ago in Python's dtoa.c.)
+            # (Fixed some time ago in MyFRpy's dtoa.c.)
             '0.0000000000000000000000000000000000000000100000000' #...
             '000000000576129113423785429971690421191214034235435' #...
             '087147763178149762956868991692289869941246658073194' #...

@@ -5,39 +5,39 @@
 {% else %}
   {#
     The link below returns HTTP 404 until the first related alpha release.
-    This is expected; use daily documentation builds for CPython development.
+    This is expected; use daily documentation builds for CMyFRpy development.
   #}
-  {% set dlbase = 'https://docs.python.org/ftp/python/doc/' + release %}
+  {% set dlbase = 'https://docs.myFRpy.org/ftp/myFRpy/doc/' + release %}
 {% endif %}
 
 {% block body %}
-<h1>Download Python {{ release }} Documentation</h1>
+<h1>Download MyFRpy {{ release }} Documentation</h1>
 
 {% if last_updated %}<p><b>Last updated on: {{ last_updated }}.</b></p>{% endif %}
 
 <p>To download an archive containing all the documents for this version of
-Python in one of various formats, follow one of links in this table.</p>
+MyFRpy in one of various formats, follow one of links in this table.</p>
 
 <table class="docutils">
   <tr><th>Format</th><th>Packed as .zip</th><th>Packed as .tar.bz2</th></tr>
   <tr><td>PDF (US-Letter paper size)</td>
-    <td><a href="{{ dlbase }}/python-{{ release }}-docs-pdf-letter.zip">Download</a> (ca. 13 MiB)</td>
-    <td><a href="{{ dlbase }}/python-{{ release }}-docs-pdf-letter.tar.bz2">Download</a> (ca. 13 MiB)</td>
+    <td><a href="{{ dlbase }}/myFRpy-{{ release }}-docs-pdf-letter.zip">Download</a> (ca. 13 MiB)</td>
+    <td><a href="{{ dlbase }}/myFRpy-{{ release }}-docs-pdf-letter.tar.bz2">Download</a> (ca. 13 MiB)</td>
   </tr>
   <tr><td>PDF (A4 paper size)</td>
-    <td><a href="{{ dlbase }}/python-{{ release }}-docs-pdf-a4.zip">Download</a> (ca. 13 MiB)</td>
-    <td><a href="{{ dlbase }}/python-{{ release }}-docs-pdf-a4.tar.bz2">Download</a> (ca. 13 MiB)</td>
+    <td><a href="{{ dlbase }}/myFRpy-{{ release }}-docs-pdf-a4.zip">Download</a> (ca. 13 MiB)</td>
+    <td><a href="{{ dlbase }}/myFRpy-{{ release }}-docs-pdf-a4.tar.bz2">Download</a> (ca. 13 MiB)</td>
   </tr>
   <tr><td>HTML</td>
-    <td><a href="{{ dlbase }}/python-{{ release }}-docs-html.zip">Download</a> (ca. 9 MiB)</td>
-    <td><a href="{{ dlbase }}/python-{{ release }}-docs-html.tar.bz2">Download</a> (ca. 6 MiB)</td>
+    <td><a href="{{ dlbase }}/myFRpy-{{ release }}-docs-html.zip">Download</a> (ca. 9 MiB)</td>
+    <td><a href="{{ dlbase }}/myFRpy-{{ release }}-docs-html.tar.bz2">Download</a> (ca. 6 MiB)</td>
   </tr>
   <tr><td>Plain Text</td>
-    <td><a href="{{ dlbase }}/python-{{ release }}-docs-text.zip">Download</a> (ca. 3 MiB)</td>
-    <td><a href="{{ dlbase }}/python-{{ release }}-docs-text.tar.bz2">Download</a> (ca. 2 MiB)</td>
+    <td><a href="{{ dlbase }}/myFRpy-{{ release }}-docs-text.zip">Download</a> (ca. 3 MiB)</td>
+    <td><a href="{{ dlbase }}/myFRpy-{{ release }}-docs-text.tar.bz2">Download</a> (ca. 2 MiB)</td>
   </tr>
  <tr><td>EPUB</td>
-    <td><a href="{{ dlbase }}/python-{{ release }}-docs.epub">Download</a> (ca. 5 MiB)</td>
+    <td><a href="{{ dlbase }}/myFRpy-{{ release }}-docs.epub">Download</a> (ca. 5 MiB)</td>
     <td></td>
   </tr>
 </table>
@@ -59,6 +59,6 @@ platform. These are created on Unix using the Info-ZIP zip program.</p>
 
 <h2>Problems</h2>
 
-<p>If you have comments or suggestions for the Python documentation, please send
-email to <a href="mailto:docs@python.org">docs@python.org</a>.</p>
+<p>If you have comments or suggestions for the MyFRpy documentation, please send
+email to <a href="mailto:docs@myFRpy.org">docs@myFRpy.org</a>.</p>
 {% endblock %}

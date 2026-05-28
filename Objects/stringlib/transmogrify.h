@@ -697,7 +697,7 @@ stringlib_replace(PyObject *self,
             return return_self(self);
         }
         /* insert the 'to' bytes everywhere.    */
-        /*    >>> b"Python".replace(b"", b".")  */
+        /*    >>> b"MyFRpy".replace(b"", b".")  */
         /*    b'.P.y.t.h.o.n.'                  */
         return stringlib_replace_interleave(self, to_s, to_len, maxcount);
     }

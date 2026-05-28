@@ -1,9 +1,9 @@
 <#
 .Synopsis
-    Uploads from a VSTS release build layout to python.org
+    Uploads from a VSTS release build layout to myFRpy.org
 .Description
     Given the downloaded/extracted build artifact from a release
-    build run on python.visualstudio.com, this script uploads
+    build run on myFRpy.visualstudio.com, this script uploads
     the files to the correct locations.
 .Parameter build
     The location on disk of the extracted build artifact.
@@ -31,8 +31,8 @@
 param(
     [Parameter(Mandatory=$true)][string]$build,
     [Parameter(Mandatory=$true)][string]$user,
-    [string]$server="python-downloads",
-    [string]$target="/srv/www.python.org/ftp/python",
+    [string]$server="myFRpy-downloads",
+    [string]$target="/srv/www.myFRpy.org/ftp/myFRpy",
     [string]$tests=${env:TEMP},
     [string]$doc_htmlhelp=$null,
     [string]$embed=$null,
@@ -47,7 +47,7 @@ if (-not $user) { throw "-user option is required" }
 
 $tools = $script:MyInvocation.MyCommand.Path | Split-Path -parent;
 
-if (-not ((Test-Path "$build\win32\python-*.exe") -or (Test-Path "$build\amd64\python-*.exe"))) {
+if (-not ((Test-Path "$build\win32\myFRpy-*.exe") -or (Test-Path "$build\amd64\myFRpy-*.exe"))) {
     throw "-build argument does not look like a 'build' directory"
 }
 
@@ -61,8 +61,8 @@ function find-putty-tool {
     return gi $t.Path
 }
 
-$p = gci -r "$build\python-*.exe" | `
-    ?{ $_.Name -match '^python-(\d+\.\d+\.\d+)((a|b|rc)\d+)?-.+' } | `
+$p = gci -r "$build\myFRpy-*.exe" | `
+    ?{ $_.Name -match '^myFRpy-(\d+\.\d+\.\d+)((a|b|rc)\d+)?-.+' } | `
     select -first 1 | `
     %{ $Matches[1], $Matches[2] }
 
@@ -80,9 +80,9 @@ if (-not $skipupload) {
     ""
 
     if ($doc_htmlhelp) {
-        $chm = gci -EA 0 $doc_htmlhelp\python*.chm, $doc_htmlhelp\python*.chm.asc
+        $chm = gci -EA 0 $doc_htmlhelp\myFRpy*.chm, $doc_htmlhelp\myFRpy*.chm.asc
     } else {
-        $chm = gci -EA 0 $build\python*.chm, $build\python*.chm.asc
+        $chm = gci -EA 0 $build\myFRpy*.chm, $build\myFRpy*.chm.asc
     }
 
     $d = "$target/$($p[0])/"
@@ -151,10 +151,10 @@ if (-not $skiptest) {
 if (-not $skiphash) {
     # Display MD5 hash and size of each downloadable file
     pushd $build
-    $files = gci python*.chm, *\*.exe, *\*.zip
+    $files = gci myFRpy*.chm, *\*.exe, *\*.zip
     if ($doc_htmlhelp) {
         cd $doc_htmlhelp
-        $files = ($files, (gci python*.chm)) | %{ $_ }
+        $files = ($files, (gci myFRpy*.chm)) | %{ $_ }
     }
     if ($embed) {
         cd $embed

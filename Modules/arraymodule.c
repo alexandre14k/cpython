@@ -8,7 +8,7 @@
 #endif
 
 #define PY_SSIZE_T_CLEAN
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_moduleobject.h"  // _PyModule_GetState()
 #include "pycore_bytesobject.h"   // _PyBytes_Repeat
 #include "structmember.h"         // PyMemberDef
@@ -80,7 +80,7 @@ enum machine_format_code {
     UNKNOWN_FORMAT = -1,
     /* UNKNOWN_FORMAT is used to indicate that the machine format for an
      * array type code cannot be interpreted. When this occurs, a list of
-     * Python objects is used to represent the content of the array
+     * MyFRpy objects is used to represent the content of the array
      * instead of using the memory content of the array directly. In that
      * case, the array_reconstructor mechanism is bypassed completely, and
      * the standard array constructor is used instead.
@@ -2219,12 +2219,12 @@ array_array___reduce_ex___impl(arrayobject *self, PyTypeObject *cls,
     if (mformat_code == UNKNOWN_FORMAT || protocol < 3) {
         /* Convert the array to a list if we got something weird
          * (e.g., non-IEEE floats), or we are pickling the array using
-         * a Python 2.x compatible protocol.
+         * a MyFRpy 2.x compatible protocol.
          *
-         * It is necessary to use a list representation for Python 2.x
-         * compatible pickle protocol, since Python 2's str objects
-         * are unpickled as unicode by Python 3. Thus it is impossible
-         * to make arrays unpicklable by Python 3 by using their memory
+         * It is necessary to use a list representation for MyFRpy 2.x
+         * compatible pickle protocol, since MyFRpy 2's str objects
+         * are unpickled as unicode by MyFRpy 3. Thus it is impossible
+         * to make arrays unpicklable by MyFRpy 3 by using their memory
          * representation, unless we resort to ugly hacks such as
          * coercing unicode objects to bytes in array_reconstructor.
          */
@@ -2770,11 +2770,11 @@ The following type codes are defined:\n\
     'f'         floating point     4\n\
     'd'         floating point     8\n\
 \n\
-NOTE: The 'u' typecode corresponds to Python's unicode character. On\n\
+NOTE: The 'u' typecode corresponds to MyFRpy's unicode character. On\n\
 narrow builds this is 2-bytes on wide builds this is 4-bytes.\n\
 \n\
 NOTE: The 'q' and 'Q' type codes are only available if the platform\n\
-C compiler used to build Python supports 'long long', or, on Windows,\n\
+C compiler used to build MyFRpy supports 'long long', or, on Windows,\n\
 '__int64'.\n\
 \n\
 Methods:\n\

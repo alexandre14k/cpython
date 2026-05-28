@@ -514,11 +514,11 @@ Simple example querying HTTP headers of the URL passed on the command line::
 
 Usage::
 
-    python example.py http://example.com/path/page.html
+    myFRpy example.py http://example.com/path/page.html
 
 or with HTTPS::
 
-    python example.py https://example.com/path/page.html
+    myFRpy example.py https://example.com/path/page.html
 
 
 .. _asyncio_example_create_connection-streams:

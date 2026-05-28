@@ -41,14 +41,14 @@ class MiscTest(unittest.TestCase):
         self.assertRaises(TypeError, array.array, 'xx')
         self.assertRaises(ValueError, array.array, 'x')
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_disallow_instantiation(self):
         my_array = array.array("I")
         support.check_disallow_instantiation(
             self, type(iter(my_array)), my_array
         )
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_immutable(self):
         # bpo-43908: check that array.array is immutable
         with self.assertRaises(TypeError):
@@ -1121,14 +1121,14 @@ class BaseTest:
         a = array.array('H', b"1234")
         self.assertEqual(len(a) * a.itemsize, 4)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_sizeof_with_buffer(self):
         a = array.array(self.typecode, self.example)
         basesize = support.calcvobjsize('Pn2Pi')
         buffer_size = a.buffer_info()[1] * a.itemsize
         support.check_sizeof(self, a, basesize + buffer_size)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_sizeof_without_buffer(self):
         a = array.array(self.typecode)
         basesize = support.calcvobjsize('Pn2Pi')
@@ -1146,7 +1146,7 @@ class BaseTest:
             a = array.array(self.typecode, "foo")
             a = array.array(self.typecode, array.array('u', 'foo'))
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_obsolete_write_lock(self):
         _testcapi = import_helper.import_module('_testcapi')
         a = array.array('B', b"")

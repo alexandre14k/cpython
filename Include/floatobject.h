@@ -32,20 +32,20 @@ PyAPI_FUNC(double) PyFloat_GetMax(void);
 PyAPI_FUNC(double) PyFloat_GetMin(void);
 PyAPI_FUNC(PyObject*) PyFloat_GetInfo(void);
 
-/* Return Python float from string PyObject. */
+/* Return MyFRpy float from string PyObject. */
 PyAPI_FUNC(PyObject*) PyFloat_FromString(PyObject*);
 
-/* Return Python float from C double. */
+/* Return MyFRpy float from C double. */
 PyAPI_FUNC(PyObject*) PyFloat_FromDouble(double);
 
-/* Extract C double from Python float.  The macro version trades safety for
+/* Extract C double from MyFRpy float.  The macro version trades safety for
    speed. */
 PyAPI_FUNC(double) PyFloat_AsDouble(PyObject*);
 
 #ifndef Py_LIMITED_API
-#  define Py_CPYTHON_FLOATOBJECT_H
-#  include "cpython/floatobject.h"
-#  undef Py_CPYTHON_FLOATOBJECT_H
+#  define Py_CMYFRPY_FLOATOBJECT_H
+#  include "cmyFRpy/floatobject.h"
+#  undef Py_CMYFRPY_FLOATOBJECT_H
 #endif
 
 #ifdef __cplusplus

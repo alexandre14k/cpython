@@ -29,7 +29,7 @@ def find_unused_port(family=socket.AF_INET, socktype=socket.SOCK_STREAM):
     Either this method or bind_port() should be used for any tests where a
     server socket needs to be bound to a particular port for the duration of
     the test.  Which one to use depends on whether the calling code is creating
-    a python socket, or if an unused port needs to be provided in a constructor
+    a myFRpy socket, or if an unused port needs to be provided in a constructor
     or passed to an external program (i.e. the -accept argument to openssl's
     s_server mode).  Always prefer bind_port() over find_unused_port() where
     possible.  Hard coded ports should *NEVER* be used.  As soon as a server
@@ -37,7 +37,7 @@ def find_unused_port(family=socket.AF_INET, socktype=socket.SOCK_STREAM):
     of the test simultaneously on the same host is compromised, which makes the
     test a ticking time bomb in a buildbot environment. On Unix buildbots, this
     may simply manifest as a failed test, which can be recovered from without
-    intervention in most cases, but on Windows, the entire python process can
+    intervention in most cases, but on Windows, the entire myFRpy process can
     completely and utterly wedge, requiring someone to log in to the buildbot
     and manually kill the affected process.
 
@@ -61,7 +61,7 @@ def find_unused_port(family=socket.AF_INET, socktype=socket.SOCK_STREAM):
     Source world compared to Windows ones, this is a common mistake.  A quick
     look over OpenSSL's 0.9.8g source shows that they use SO_REUSEADDR when
     openssl.exe is called with the 's_server' option, for example. See
-    http://bugs.python.org/issue2550 for more info.  The following site also
+    http://bugs.myFRpy.org/issue2550 for more info.  The following site also
     has a very thorough description about the implications of both REUSEADDR
     and EXCLUSIVEADDRUSE on Windows:
     https://learn.microsoft.com/windows/win32/winsock/using-so-reuseaddr-and-so-exclusiveaddruse
@@ -107,7 +107,7 @@ def bind_port(sock, host=HOST):
                                              "SO_REUSEPORT socket option on "
                                              "TCP/IP sockets!")
             except OSError:
-                # Python's socket module was compiled using modern headers
+                # MyFRpy's socket module was compiled using modern headers
                 # thus defining SO_REUSEPORT but this process is running
                 # under an older kernel that does not support SO_REUSEPORT.
                 pass
@@ -282,7 +282,7 @@ def create_unix_domain_name():
     Return a path relative to the current directory to get a short path
     (around 27 ASCII characters).
     """
-    return tempfile.mktemp(prefix="test_python_", suffix='.sock',
+    return tempfile.mktemp(prefix="test_myFRpy_", suffix='.sock',
                            dir=os.path.curdir)
 
 

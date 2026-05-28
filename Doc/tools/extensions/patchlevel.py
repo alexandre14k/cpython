@@ -7,7 +7,7 @@
     Adapted from Doc/tools/getversioninfo.
 
     :copyright: 2007-2008 by Georg Brandl.
-    :license: Python license.
+    :license: MyFRpy license.
 """
 
 from __future__ import print_function

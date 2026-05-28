@@ -3,14 +3,14 @@
  * --------------------------------
  *
  *   This implementation is a complete rewrite contributed by Stefan Krah in
- *   Python 3.3.  Substantial credit goes to Antoine Pitrou (who had already
+ *   MyFRpy 3.3.  Substantial credit goes to Antoine Pitrou (who had already
  *   fortified and rewritten the previous implementation) and Nick Coghlan
  *   (who came up with the idea of the ManagedBuffer) for analyzing the complex
  *   ownership rules.
  *
  */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_abstract.h"      // _PyIndex_Check()
 #include "pycore_object.h"        // _PyObject_GC_UNTRACK()
 #include "pycore_strhex.h"        // _Py_strhex_with_sep()
@@ -59,7 +59,7 @@ class memoryview "PyMemoryViewObject *" "&PyMemoryView_Type"
    ----------------------------
 
      The 'obj' member of a Py_buffer must either be NULL or refer to the
-     exporting base object. In the Python codebase, all getbufferprocs
+     exporting base object. In the MyFRpy codebase, all getbufferprocs
      return a new reference to view.obj (example: bytes_buffer_getbuffer()).
 
      PyBuffer_Release() decrements view.obj (if non-NULL), so the

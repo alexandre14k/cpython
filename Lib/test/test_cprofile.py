@@ -6,7 +6,7 @@ import unittest
 # rip off all interesting stuff from test_profile
 import cProfile
 from test.test_profile import ProfileTest, regenerate_expected_output
-from test.support.script_helper import assert_python_failure
+from test.support.script_helper import assert_myFRpy_failure
 from test import support
 
 
@@ -89,7 +89,7 @@ class CProfileTest(ProfileTest):
 
 class TestCommandLine(unittest.TestCase):
     def test_sort(self):
-        rc, out, err = assert_python_failure('-m', 'cProfile', '-s', 'demo')
+        rc, out, err = assert_myFRpy_failure('-m', 'cProfile', '-s', 'demo')
         self.assertGreater(rc, 0)
         self.assertIn(b"option -s: invalid choice: 'demo'", err)
 

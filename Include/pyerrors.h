@@ -29,7 +29,7 @@ PyAPI_FUNC(void) PyErr_GetExcInfo(PyObject **, PyObject **, PyObject **);
 PyAPI_FUNC(void) PyErr_SetExcInfo(PyObject *, PyObject *, PyObject *);
 #endif
 
-/* Defined in Python/pylifecycle.c
+/* Defined in MyFRpy/pylifecycle.c
 
    The Py_FatalError() function is replaced with a macro which logs
    automatically the name of the current function, unless the Py_LIMITED_API
@@ -224,7 +224,7 @@ PyAPI_FUNC(PyObject *) PyErr_SetImportError(PyObject *, PyObject *,
 PyAPI_FUNC(void) PyErr_BadInternalCall(void);
 PyAPI_FUNC(void) _PyErr_BadInternalCall(const char *filename, int lineno);
 /* Mask the old API with a call to the new API for code compiled under
-   Python 2.0: */
+   MyFRpy 2.0: */
 #define PyErr_BadInternalCall() _PyErr_BadInternalCall(__FILE__, __LINE__)
 
 /* Function to create a new exception */
@@ -326,9 +326,9 @@ PyAPI_FUNC(int) PyOS_vsnprintf(char *str, size_t size, const char  *format, va_l
                         Py_GCC_ATTRIBUTE((format(printf, 3, 0)));
 
 #ifndef Py_LIMITED_API
-#  define Py_CPYTHON_ERRORS_H
-#  include "cpython/pyerrors.h"
-#  undef Py_CPYTHON_ERRORS_H
+#  define Py_CMYFRPY_ERRORS_H
+#  include "cmyFRpy/pyerrors.h"
+#  undef Py_CMYFRPY_ERRORS_H
 #endif
 
 #ifdef __cplusplus

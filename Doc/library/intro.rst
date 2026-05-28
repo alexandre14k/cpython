@@ -4,30 +4,30 @@
 Introduction
 ************
 
-The "Python library" contains several different kinds of components.
+The "MyFRpy library" contains several different kinds of components.
 
 It contains data types that would normally be considered part of the "core" of a
-language, such as numbers and lists.  For these types, the Python language core
+language, such as numbers and lists.  For these types, the MyFRpy language core
 defines the form of literals and places some constraints on their semantics, but
 does not fully define the semantics.  (On the other hand, the language core does
 define syntactic properties like the spelling and priorities of operators.)
 
 The library also contains built-in functions and exceptions --- objects that can
-be used by all Python code without the need of an :keyword:`import` statement.
+be used by all MyFRpy code without the need of an :keyword:`import` statement.
 Some of these are defined by the core language, but many are not essential for
 the core semantics and are only described here.
 
 The bulk of the library, however, consists of a collection of modules. There are
 many ways to dissect this collection.  Some modules are written in C and built
-in to the Python interpreter; others are written in Python and imported in
+in to the MyFRpy interpreter; others are written in MyFRpy and imported in
 source form.  Some modules provide interfaces that are highly specific to
-Python, like printing a stack trace; some provide interfaces that are specific
+MyFRpy, like printing a stack trace; some provide interfaces that are specific
 to particular operating systems, such as access to specific hardware; others
 provide interfaces that are specific to a particular application domain, like
 the World Wide Web. Some modules are available in all versions and ports of
-Python; others are only available when the underlying system supports or
+MyFRpy; others are only available when the underlying system supports or
 requires them; yet others are available only when a particular configuration
-option was chosen at the time when Python was compiled and installed.
+option was chosen at the time when MyFRpy was compiled and installed.
 
 This manual is organized "from the inside out:" it first describes the built-in
 functions, data types and exceptions, and finally the modules, grouped in
@@ -35,7 +35,7 @@ chapters of related modules.
 
 This means that if you start reading this manual from the start, and skip to the
 next chapter when you get bored, you will get a reasonable overview of the
-available modules and application areas that are supported by the Python
+available modules and application areas that are supported by the MyFRpy
 library.  Of course, you don't *have* to read it like a novel --- you can also
 browse the table of contents (in front of the manual), or look for a specific
 function, module or term in the index (in the back).  And finally, if you enjoy
@@ -73,22 +73,22 @@ WebAssembly platforms
 The `WebAssembly`_ platforms ``wasm32-emscripten`` (`Emscripten`_) and
 ``wasm32-wasi`` (`WASI`_) provide a subset of POSIX APIs. WebAssembly runtimes
 and browsers are sandboxed and have limited access to the host and external
-resources. Any Python standard library module that uses processes, threading,
+resources. Any MyFRpy standard library module that uses processes, threading,
 networking, signals, or other forms of inter-process communication (IPC), is
 either not available or may not work as on other Unix-like systems. File I/O,
 file system, and Unix permission-related functions are restricted, too.
 Emscripten does not permit blocking I/O. Other blocking operations like
 :func:`~time.sleep` block the browser event loop.
 
-The properties and behavior of Python on WebAssembly platforms depend on the
+The properties and behavior of MyFRpy on WebAssembly platforms depend on the
 `Emscripten`_-SDK or `WASI`_-SDK version, WASM runtimes (browser, NodeJS,
-`wasmtime`_), and Python build time flags. WebAssembly, Emscripten, and WASI
+`wasmtime`_), and MyFRpy build time flags. WebAssembly, Emscripten, and WASI
 are evolving standards; some features like networking may be
 supported in the future.
 
-For Python in the browser, users should consider `Pyodide`_ or `PyScript`_.
+For MyFRpy in the browser, users should consider `Pyodide`_ or `PyScript`_.
 PyScript is built on top of Pyodide, which itself is built on top of
-CPython and Emscripten. Pyodide provides access to browsers' JavaScript and
+CMyFRpy and Emscripten. Pyodide provides access to browsers' JavaScript and
 DOM APIs as well as limited networking capabilities with JavaScript's
 ``XMLHttpRequest`` and ``Fetch`` APIs.
 

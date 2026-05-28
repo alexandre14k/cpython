@@ -162,7 +162,7 @@ class ExceptionTestCase(unittest.TestCase):
         self.assertRaises(ValueError, zlib.decompressobj().flush, 0)
         self.assertRaises(ValueError, zlib.decompressobj().flush, -1)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_overflow(self):
         with self.assertRaisesRegex(OverflowError, 'int too large'):
             zlib.decompress(b'', 15, sys.maxsize + 1)
@@ -171,7 +171,7 @@ class ExceptionTestCase(unittest.TestCase):
         with self.assertRaisesRegex(OverflowError, 'int too large'):
             zlib.decompressobj().flush(sys.maxsize + 1)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_disallow_instantiation(self):
         # Ensure that the type disallows instantiation (bpo-43916)
         support.check_disallow_instantiation(self, type(zlib.compressobj()))

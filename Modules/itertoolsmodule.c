@@ -1,5 +1,5 @@
 #define PY_SSIZE_T_CLEAN
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_call.h"          // _PyObject_CallNoArgs()
 #include "pycore_long.h"          // _PyLong_GetZero()
 #include "pycore_moduleobject.h"  // _PyModule_GetState()
@@ -10,7 +10,7 @@
 #include <stddef.h>               // offsetof()
 
 /* Itertools module written and maintained
-   by Raymond D. Hettinger <python@rcn.com>
+   by Raymond D. Hettinger <myFRpy@rcn.com>
 */
 
 typedef struct {
@@ -99,7 +99,7 @@ class itertools.pairwise "pairwiseobject *" "clinic_state()->pairwise_type"
     if (PyErr_WarnEx(                                                         \
             PyExc_DeprecationWarning,                                         \
             "Pickle, copy, and deepcopy support will be "                     \
-            "removed from itertools in Python 3.14.", 1) < 0) {               \
+            "removed from itertools in MyFRpy 3.14.", 1) < 0) {               \
         return NULL;                                                          \
     }
 
@@ -2702,7 +2702,7 @@ combinations_next(combinationsobject *co)
             _PyObject_GC_TRACK(result);
         }
         /* Now, we've got the only copy so we can update it in-place
-         * CPython's empty tuple is a singleton and cached in
+         * CMyFRpy's empty tuple is a singleton and cached in
          * PyTuple's freelist.
          */
         assert(r == 0 || Py_REFCNT(result) == 1);
@@ -3019,7 +3019,7 @@ cwr_next(cwrobject *co)
         else if (!_PyObject_GC_IS_TRACKED(result)) {
             _PyObject_GC_TRACK(result);
         }
-        /* Now, we've got the only copy so we can update it in-place CPython's
+        /* Now, we've got the only copy so we can update it in-place CMyFRpy's
            empty tuple is a singleton and cached in PyTuple's freelist. */
         assert(r == 0 || Py_REFCNT(result) == 1);
 
@@ -3792,7 +3792,7 @@ compress_next(compressobject *lz)
 
     while (1) {
         /* Steps:  get datum, get selector, evaluate selector.
-           Order is important (to match the pure python version
+           Order is important (to match the pure myFRpy version
            in terms of which input gets a chance to raise an
            exception first).
         */
@@ -4005,7 +4005,7 @@ fast_mode:  when cnt an integer < PY_SSIZE_T_MAX and no step is specified.
 slow_mode:  when cnt == PY_SSIZE_T_MAX, step is not int(1), or cnt is a float.
 
     assert(cnt == PY_SSIZE_T_MAX && long_cnt != NULL && long_step != NULL);
-    All counting is done with python objects (no overflows or underflows).
+    All counting is done with myFRpy objects (no overflows or underflows).
     Advances with:  long_cnt += long_step
     Step may be zero -- effectively a slow version of repeat(cnt).
     Either long_cnt or long_step may be a float, Fraction, or Decimal.

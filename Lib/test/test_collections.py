@@ -431,7 +431,7 @@ class TestNamedTuple(unittest.TestCase):
         Vector.x.__doc__ = 'docstring for Vector.x'
         self.assertEqual(Vector.x.__doc__, 'docstring for Vector.x')
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     @unittest.skipIf(sys.flags.optimize >= 2,
                      "Docstrings are omitted with -O2 and above")
     def test_field_doc_reuse(self):
@@ -440,7 +440,7 @@ class TestNamedTuple(unittest.TestCase):
         self.assertIs(P.m.__doc__, Q.o.__doc__)
         self.assertIs(P.n.__doc__, Q.p.__doc__)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_field_repr(self):
         Point = namedtuple('Point', 'x y')
         self.assertEqual(repr(Point.x), "_tuplegetter(0, 'Alias for field number 0')")
@@ -597,7 +597,7 @@ class TestNamedTuple(unittest.TestCase):
        # template, and an example
         words = {'Alias', 'At', 'AttributeError', 'Build', 'Bypass', 'Create',
         'Encountered', 'Expected', 'Field', 'For', 'Got', 'Helper',
-        'IronPython', 'Jython', 'KeyError', 'Make', 'Modify', 'Note',
+        'IronMyFRpy', 'Jython', 'KeyError', 'Make', 'Modify', 'Note',
         'OrderedDict', 'Point', 'Return', 'Returns', 'Type', 'TypeError',
         'Used', 'Validate', 'ValueError', 'Variables', 'a', 'accessible', 'add',
         'added', 'all', 'also', 'an', 'arg_list', 'args', 'arguments',
@@ -676,7 +676,7 @@ class TestNamedTuple(unittest.TestCase):
         a.w = 5
         self.assertEqual(a.__dict__, {'w': 5})
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_field_descriptor(self):
         Point = namedtuple('Point', 'x y')
         p = Point(11, 22)
@@ -2352,7 +2352,7 @@ class TestCounter(unittest.TestCase):
         self.assertEqual(m,
              OrderedDict([('a', 5), ('b', 2), ('r', 2), ('c', 1), ('d', 1)]))
 
-        # test fidelity to the pure python version
+        # test fidelity to the pure myFRpy version
         c = CounterSubclassWithSetItem('abracadabra')
         self.assertTrue(c.called)
         self.assertEqual(dict(c), {'a': 5, 'b': 2, 'c': 1, 'd': 1, 'r':2 })

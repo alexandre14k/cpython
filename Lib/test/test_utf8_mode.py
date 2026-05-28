@@ -8,7 +8,7 @@ import sys
 import textwrap
 import unittest
 from test import support
-from test.support.script_helper import assert_python_ok, assert_python_failure
+from test.support.script_helper import assert_myFRpy_ok, assert_myFRpy_failure
 from test.support import os_helper, MS_WINDOWS
 
 
@@ -17,9 +17,9 @@ VXWORKS = (sys.platform == "vxworks")
 
 class UTF8ModeTests(unittest.TestCase):
     DEFAULT_ENV = {
-        'PYTHONUTF8': '',
-        'PYTHONLEGACYWINDOWSFSENCODING': '',
-        'PYTHONCOERCECLOCALE': '0',
+        'MYFRPYUTF8': '',
+        'MYFRPYLEGACYWINDOWSFSENCODING': '',
+        'MYFRPYCOERCECLOCALE': '0',
     }
 
     def posix_locale(self):
@@ -29,10 +29,10 @@ class UTF8ModeTests(unittest.TestCase):
     def get_output(self, *args, failure=False, **kw):
         kw = dict(self.DEFAULT_ENV, **kw)
         if failure:
-            out = assert_python_failure(*args, **kw)
+            out = assert_myFRpy_failure(*args, **kw)
             out = out[2]
         else:
-            out = assert_python_ok(*args, **kw)
+            out = assert_myFRpy_ok(*args, **kw)
             out = out[1]
         return out.decode().rstrip("\n\r")
 
@@ -59,42 +59,42 @@ class UTF8ModeTests(unittest.TestCase):
         self.assertEqual(out, '0')
 
         if MS_WINDOWS:
-            # PYTHONLEGACYWINDOWSFSENCODING disables the UTF-8 Mode
+            # MYFRPYLEGACYWINDOWSFSENCODING disables the UTF-8 Mode
             # and has the priority over -X utf8
             out = self.get_output('-X', 'utf8', '-c', code,
-                                  PYTHONLEGACYWINDOWSFSENCODING='1')
+                                  MYFRPYLEGACYWINDOWSFSENCODING='1')
             self.assertEqual(out, '0')
 
     def test_env_var(self):
         code = 'import sys; print(sys.flags.utf8_mode)'
 
-        out = self.get_output('-c', code, PYTHONUTF8='1')
+        out = self.get_output('-c', code, MYFRPYUTF8='1')
         self.assertEqual(out, '1')
 
-        out = self.get_output('-c', code, PYTHONUTF8='0')
+        out = self.get_output('-c', code, MYFRPYUTF8='0')
         self.assertEqual(out, '0')
 
-        # -X utf8 has the priority over PYTHONUTF8
-        out = self.get_output('-X', 'utf8=0', '-c', code, PYTHONUTF8='1')
+        # -X utf8 has the priority over MYFRPYUTF8
+        out = self.get_output('-X', 'utf8=0', '-c', code, MYFRPYUTF8='1')
         self.assertEqual(out, '0')
 
         if MS_WINDOWS:
-            # PYTHONLEGACYWINDOWSFSENCODING disables the UTF-8 mode
-            # and has the priority over PYTHONUTF8
-            out = self.get_output('-X', 'utf8', '-c', code, PYTHONUTF8='1',
-                                  PYTHONLEGACYWINDOWSFSENCODING='1')
+            # MYFRPYLEGACYWINDOWSFSENCODING disables the UTF-8 mode
+            # and has the priority over MYFRPYUTF8
+            out = self.get_output('-X', 'utf8', '-c', code, MYFRPYUTF8='1',
+                                  MYFRPYLEGACYWINDOWSFSENCODING='1')
             self.assertEqual(out, '0')
 
         # Cannot test with the POSIX locale, since the POSIX locale enables
         # the UTF-8 mode
         if not self.posix_locale():
-            # PYTHONUTF8 should be ignored if -E is used
-            out = self.get_output('-E', '-c', code, PYTHONUTF8='1')
+            # MYFRPYUTF8 should be ignored if -E is used
+            out = self.get_output('-E', '-c', code, MYFRPYUTF8='1')
             self.assertEqual(out, '0')
 
         # invalid mode
-        out = self.get_output('-c', code, PYTHONUTF8='xxx', failure=True)
-        self.assertIn('invalid PYTHONUTF8 environment variable value',
+        out = self.get_output('-c', code, MYFRPYUTF8='xxx', failure=True)
+        self.assertIn('invalid MYFRPYUTF8 environment variable value',
                       out.rstrip())
 
     def test_filesystemencoding(self):
@@ -113,11 +113,11 @@ class UTF8ModeTests(unittest.TestCase):
         self.assertEqual(out, expected)
 
         if MS_WINDOWS:
-            # PYTHONLEGACYWINDOWSFSENCODING disables the UTF-8 mode
-            # and has the priority over -X utf8 and PYTHONUTF8
+            # MYFRPYLEGACYWINDOWSFSENCODING disables the UTF-8 mode
+            # and has the priority over -X utf8 and MYFRPYUTF8
             out = self.get_output('-X', 'utf8', '-c', code,
-                                  PYTHONUTF8='strict',
-                                  PYTHONLEGACYWINDOWSFSENCODING='1')
+                                  MYFRPYUTF8='strict',
+                                  MYFRPYLEGACYWINDOWSFSENCODING='1')
             self.assertEqual(out, 'mbcs/replace')
 
     def test_stdio(self):
@@ -129,22 +129,22 @@ class UTF8ModeTests(unittest.TestCase):
         ''')
 
         out = self.get_output('-X', 'utf8', '-c', code,
-                              PYTHONIOENCODING='')
+                              MYFRPYIOENCODING='')
         self.assertEqual(out.splitlines(),
                          ['stdin: utf-8/surrogateescape',
                           'stdout: utf-8/surrogateescape',
                           'stderr: utf-8/backslashreplace'])
 
-        # PYTHONIOENCODING has the priority over PYTHONUTF8
+        # MYFRPYIOENCODING has the priority over MYFRPYUTF8
         out = self.get_output('-X', 'utf8', '-c', code,
-                              PYTHONIOENCODING="latin1")
+                              MYFRPYIOENCODING="latin1")
         self.assertEqual(out.splitlines(),
                          ['stdin: iso8859-1/strict',
                           'stdout: iso8859-1/strict',
                           'stderr: iso8859-1/backslashreplace'])
 
         out = self.get_output('-X', 'utf8', '-c', code,
-                              PYTHONIOENCODING=":namereplace")
+                              MYFRPYIOENCODING=":namereplace")
         self.assertEqual(out.splitlines(),
                          ['stdin: utf-8/namereplace',
                           'stdout: utf-8/namereplace',
@@ -159,7 +159,7 @@ class UTF8ModeTests(unittest.TestCase):
         ''')
         filename = __file__
 
-        out = self.get_output('-c', code, filename, PYTHONUTF8='1')
+        out = self.get_output('-c', code, filename, MYFRPYUTF8='1')
         self.assertEqual(out.lower(), 'utf-8/strict')
 
     def _check_io_encoding(self, module, encoding=None, errors=None):
@@ -179,7 +179,7 @@ class UTF8ModeTests(unittest.TestCase):
                 print(f"{fp.encoding}/{fp.errors}")
         ''') % (module, ', '.join(args))
         out = self.get_output('-c', code, filename,
-                              PYTHONUTF8='1')
+                              MYFRPYUTF8='1')
 
         if not encoding:
             encoding = 'utf-8'
@@ -237,7 +237,7 @@ class UTF8ModeTests(unittest.TestCase):
                 check('utf8=0', [c_arg], LC_ALL=loc)
 
     def test_optim_level(self):
-        # CPython: check that Py_Main() doesn't increment Py_OptimizeFlag
+        # CMyFRpy: check that Py_Main() doesn't increment Py_OptimizeFlag
         # twice when -X utf8 requires to parse the configuration twice (when
         # the encoding changes after reading the configuration, the
         # configuration is read again with the new encoding).

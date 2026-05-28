@@ -1548,7 +1548,7 @@ interesting::
    import mailbox
    for message in mailbox.mbox('~/mbox'):
        subject = message['subject']       # Could possibly be None.
-       if subject and 'python' in subject.lower():
+       if subject and 'myFRpy' in subject.lower():
            print(subject)
 
 To copy all mail from a Babyl mailbox to an MH mailbox, converting all of the
@@ -1570,7 +1570,7 @@ due to malformed messages in the mailbox::
    import mailbox
    import email.errors
 
-   list_names = ('python-list', 'python-dev', 'python-bugs')
+   list_names = ('myFRpy-list', 'myFRpy-dev', 'myFRpy-bugs')
 
    boxes = {name: mailbox.mbox('~/email/%s' % name) for name in list_names}
    inbox = mailbox.Maildir('~/Maildir', factory=None)

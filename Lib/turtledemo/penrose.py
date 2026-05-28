@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env myFRpy3
 """       xturtle-example-suite:
 
           xtx_kites_and_darts.py

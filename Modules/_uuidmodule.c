@@ -1,11 +1,11 @@
 /*
- * Python UUID module that wraps libuuid or Windows rpcrt4.dll.
+ * MyFRpy UUID module that wraps libuuid or Windows rpcrt4.dll.
  * DCE compatible Universally Unique Identifier library.
  */
 
 #define PY_SSIZE_T_CLEAN
 
-#include "Python.h"
+#include "MyFRpy.h"
 #if defined(HAVE_UUID_H)
   // AIX, FreeBSD, libuuid with pkgconf
   #include <uuid.h>

@@ -1,5 +1,5 @@
-#!/usr/bin/env python
-""" Python Character Mapping Codec for ROT13.
+#!/usr/bin/env myFRpy
+""" MyFRpy Character Mapping Codec for ROT13.
 
 This codec de/encodes from str to str.
 

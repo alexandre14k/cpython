@@ -92,7 +92,7 @@ extr0144 apply 1E-33 -> 0E-32 Inexact Rounded Subnormal Underflow Clamped
 extr0145 apply 1E-34 -> 0E-32 Inexact Rounded Subnormal Underflow Clamped
 clamp: 0
 
--- some buggy addition cases from Python 2.5.x
+-- some buggy addition cases from MyFRpy 2.5.x
 maxexponent: 999
 minexponent: -999
 precision: 6
@@ -128,7 +128,7 @@ extr1021 add 99999.8 0.200000 -> 1.00E+5 Rounded
 extr1022 add 99999.7 0.200000 -> 9.99E+4 Inexact Rounded
 rounding: half_even
 
--- a bug in _rescale caused the following to fail in Python 2.5.1
+-- a bug in _rescale caused the following to fail in MyFRpy 2.5.1
 maxexponent: 999
 minexponent: -999
 precision: 6
@@ -2356,7 +2356,7 @@ bool2099 iszero -sNaN123 -> 0
 -- Note that the three-argument version of power is *not* part of     --
 -- the IBM General Decimal Arithmetic specification.  Questions       --
 -- about it, or about these testcases, should go to one of the        --
--- Python decimal authors.                                            --
+-- MyFRpy decimal authors.                                            --
 ------------------------------------------------------------------------
 
 extended: 1

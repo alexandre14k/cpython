@@ -22,7 +22,7 @@ from test.support import ALWAYS_EQ, REPO_ROOT
 from test.support import threading_helper
 from datetime import timedelta
 
-python_version = sys.version_info[:2]
+myFRpy_version = sys.version_info[:2]
 
 def load_tests(loader, tests, ignore):
     tests.addTests(doctest.DocTestSuite(enum))
@@ -1361,7 +1361,7 @@ class TestSpecial(unittest.TestCase):
         self.assertEqual(repr(E.b), '<E.b: list[int]>')
 
     @unittest.skipIf(
-            python_version >= (3, 13),
+            myFRpy_version >= (3, 13),
             'inner classes are not members',
             )
     def test_nested_classes_in_enum_are_members(self):
@@ -1388,7 +1388,7 @@ class TestSpecial(unittest.TestCase):
             )
 
     @unittest.skipIf(
-            python_version < (3, 13),
+            myFRpy_version < (3, 13),
             'inner classes are still members',
             )
     def test_nested_classes_in_enum_are_not_members(self):
@@ -4630,7 +4630,7 @@ class TestInternals(unittest.TestCase):
         self.assertEqual(Color.green.value, 'green')
 
     @unittest.skipIf(
-            python_version >= (3, 13),
+            myFRpy_version >= (3, 13),
             'mixed types with auto() no longer supported',
             )
     def test_auto_garbage_ok(self):
@@ -4641,7 +4641,7 @@ class TestInternals(unittest.TestCase):
         self.assertEqual(Color.blue.value, 1)
 
     @unittest.skipIf(
-            python_version >= (3, 13),
+            myFRpy_version >= (3, 13),
             'mixed types with auto() no longer supported',
             )
     def test_auto_garbage_corrected_ok(self):
@@ -4660,7 +4660,7 @@ class TestInternals(unittest.TestCase):
         self.assertEqual(Color.yellow.value, 4)
 
     @unittest.skipIf(
-            python_version < (3, 13),
+            myFRpy_version < (3, 13),
             'mixed types with auto() will raise in 3.13',
             )
     def test_auto_garbage_fail(self):
@@ -4670,7 +4670,7 @@ class TestInternals(unittest.TestCase):
                 blue = auto()
 
     @unittest.skipIf(
-            python_version < (3, 13),
+            myFRpy_version < (3, 13),
             'mixed types with auto() will raise in 3.13',
             )
     def test_auto_garbage_corrected_fail(self):
@@ -4702,7 +4702,7 @@ class TestInternals(unittest.TestCase):
         self.assertEqual(Color.blue.value, 'blue')
 
     @unittest.skipIf(
-            python_version < (3, 13),
+            myFRpy_version < (3, 13),
             'auto() will return highest value + 1 in 3.13',
             )
     def test_auto_with_aliases(self):

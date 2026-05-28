@@ -11,7 +11,7 @@ r"""Subprocesses with accessible I/O streams
 This module allows you to spawn processes, connect to their
 input/output/error pipes, and obtain their return codes.
 
-For a complete description of this module see the Python documentation.
+For a complete description of this module see the MyFRpy documentation.
 
 Main API
 ========
@@ -284,7 +284,7 @@ DEVNULL = -3
 
 
 # XXX This function is only used by multiprocessing and the test suite,
-# but it's here so that it can be imported when Python is compiled without
+# but it's here so that it can be imported when MyFRpy is compiled without
 # threads.
 
 def _optim_args_from_interpreter_flags():
@@ -749,7 +749,7 @@ _USE_VFORK = True
 class Popen:
     """ Execute a child program in a new process.
 
-    For a complete description of the arguments see the Python documentation.
+    For a complete description of the arguments see the MyFRpy documentation.
 
     Arguments:
       args: A string, or a sequence of program arguments.
@@ -1099,7 +1099,7 @@ class Popen:
                 self.stdin.close()
         finally:
             if exc_type == KeyboardInterrupt:
-                # https://bugs.python.org/issue25942
+                # https://bugs.myFRpy.org/issue25942
                 # In the case of a KeyboardInterrupt we assume the SIGINT
                 # was also already sent to our child processes.  We can't
                 # block indefinitely as that is not user friendly.
@@ -1123,7 +1123,7 @@ class Popen:
             return
         if self.returncode is None:
             # Not reading subprocess exit status creates a zombie process which
-            # is only destroyed at the parent python process exit
+            # is only destroyed at the parent myFRpy process exit
             _warn("subprocess %s is still running" % self.pid,
                   ResourceWarning, source=self)
         # In case the child hasn't been waited on, check if it's done.
@@ -1208,7 +1208,7 @@ class Popen:
             try:
                 stdout, stderr = self._communicate(input, endtime, timeout)
             except KeyboardInterrupt:
-                # https://bugs.python.org/issue25942
+                # https://bugs.myFRpy.org/issue25942
                 # See the detailed comment in .wait().
                 if timeout is not None:
                     sigint_timeout = min(self._sigint_wait_secs,
@@ -1263,7 +1263,7 @@ class Popen:
         try:
             return self._wait(timeout=timeout)
         except KeyboardInterrupt:
-            # https://bugs.python.org/issue25942
+            # https://bugs.myFRpy.org/issue25942
             # The first keyboard interrupt waits briefly for the child to
             # exit under the common assumption that it also received the ^C
             # generated SIGINT and will exit rapidly.
@@ -1759,7 +1759,7 @@ class Popen:
 
             kwargs = {}
             if restore_signals:
-                # See _Py_RestoreSignals() in Python/pylifecycle.c
+                # See _Py_RestoreSignals() in MyFRpy/pylifecycle.c
                 sigset = []
                 for signame in ('SIGPIPE', 'SIGXFZ', 'SIGXFSZ'):
                     signum = getattr(signal, signame, None)
@@ -1998,7 +1998,7 @@ class Popen:
                         # waiting for child processes has otherwise been
                         # disabled for our process.  This child is dead, we
                         # can't get the status.
-                        # http://bugs.python.org/issue15756
+                        # http://bugs.myFRpy.org/issue15756
                         self.returncode = 0
                 finally:
                     self._waitpid_lock.release()
@@ -2053,7 +2053,7 @@ class Popen:
                         (pid, sts) = self._try_wait(0)
                         # Check the pid and loop as waitpid has been known to
                         # return 0 even without WNOHANG in odd situations.
-                        # http://bugs.python.org/issue14396.
+                        # http://bugs.myFRpy.org/issue14396.
                         if pid == self.pid:
                             self._handle_exitstatus(sts)
             return self.returncode

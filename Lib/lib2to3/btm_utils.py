@@ -2,10 +2,10 @@
 
 from . import pytree
 from .pgen2 import grammar, token
-from .pygram import pattern_symbols, python_symbols
+from .pygram import pattern_symbols, myFRpy_symbols
 
 syms = pattern_symbols
-pysyms = python_symbols
+pysyms = myFRpy_symbols
 tokens = grammar.opmap
 token_labels = token
 
@@ -189,7 +189,7 @@ def reduce_tree(node, parent=None):
 
         #set node type
         if name_leaf.type == token_labels.NAME:
-            #(python) non-name or wildcard
+            #(myFRpy) non-name or wildcard
             if name_leaf.value == 'any':
                 new_node = MinNode(type=TYPE_ANY)
             else:
@@ -199,7 +199,7 @@ def reduce_tree(node, parent=None):
                     new_node = MinNode(type=getattr(pysyms, name_leaf.value))
 
         elif name_leaf.type == token_labels.STRING:
-            #(python) name or character; remove the apostrophes from
+            #(myFRpy) name or character; remove the apostrophes from
             #the string value
             name = name_leaf.value.strip("'")
             if name in tokens:

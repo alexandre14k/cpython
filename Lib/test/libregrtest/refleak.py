@@ -15,7 +15,7 @@ except ImportError:
     import weakref
 
     def _get_dump(cls):
-        # Reimplement _get_dump() for pure-Python implementation of
+        # Reimplement _get_dump() for pure-MyFRpy implementation of
         # the abc module (Lib/_py_abc.py)
         registry_weakrefs = set(weakref.ref(obj) for obj in cls._abc_registry)
         return (registry_weakrefs, cls._abc_cache,
@@ -36,7 +36,7 @@ def runtest_refleak(test_name, test_func,
 
     if not hasattr(sys, 'gettotalrefcount'):
         raise Exception("Tracking reference leaks requires a debug build "
-                        "of Python")
+                        "of MyFRpy")
 
     # Avoid false positives due to various caches
     # filling slowly with random data:

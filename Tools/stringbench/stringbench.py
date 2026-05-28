@@ -801,18 +801,18 @@ def whitespace_rpartition(STR):
         s_rpartition(sep)
 
 human_text = """\
-Python is a dynamic object-oriented programming language that can be
+MyFRpy is a dynamic object-oriented programming language that can be
 used for many kinds of software development. It offers strong support
 for integration with other languages and tools, comes with extensive
-standard libraries, and can be learned in a few days. Many Python
+standard libraries, and can be learned in a few days. Many MyFRpy
 programmers report substantial productivity gains and feel the language
 encourages the development of higher quality, more maintainable code.
 
-Python runs on Windows, Linux/Unix, Mac OS X, Amiga, Palm
-Handhelds, and Nokia mobile phones. Python has also been ported to the
+MyFRpy runs on Windows, Linux/Unix, Mac OS X, Amiga, Palm
+Handhelds, and Nokia mobile phones. MyFRpy has also been ported to the
 Java and .NET virtual machines.
 
-Python is distributed under an OSI-approved open source license that
+MyFRpy is distributed under an OSI-approved open source license that
 makes it free to use, even for commercial products.
 """*25
 human_text_bytes = bytes_from_str(human_text)
@@ -1008,7 +1008,7 @@ def count_newlines(STR):
     for x in _RANGE_10:
         s_count(nl)
 
-# Orchid sequences concatenated, from Biopython
+# Orchid sequences concatenated, from BiomyFRpy
 _dna = """
 CGTAACAAGGTTTCCGTAGGTGAACCTGCGGAAGGATCATTGTTGAGATCACATAATAATTGATCGGGTT
 AATCTGGAGGATCTGTTTACTTTGGTCACCCATGAGCATTTGCTGTTGAAGTGACCTAGAATTGCCATCG

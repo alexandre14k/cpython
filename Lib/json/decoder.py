@@ -257,7 +257,7 @@ class JSONDecoder(object):
     Performs the following translations in decoding by default:
 
     +---------------+-------------------+
-    | JSON          | Python            |
+    | JSON          | MyFRpy            |
     +===============+===================+
     | object        | dict              |
     +---------------+-------------------+
@@ -330,7 +330,7 @@ class JSONDecoder(object):
 
 
     def decode(self, s, _w=WHITESPACE.match):
-        """Return the Python representation of ``s`` (a ``str`` instance
+        """Return the MyFRpy representation of ``s`` (a ``str`` instance
         containing a JSON document).
 
         """
@@ -342,7 +342,7 @@ class JSONDecoder(object):
 
     def raw_decode(self, s, idx=0):
         """Decode a JSON document from ``s`` (a ``str`` beginning with
-        a JSON document) and return a 2-tuple of the Python
+        a JSON document) and return a 2-tuple of the MyFRpy
         representation and the index in ``s`` where the document ended.
 
         This can be used to decode a JSON document from a string that may

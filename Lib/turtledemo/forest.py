@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env myFRpy3
 """     turtlegraphics-example-suite:
 
              tdemo_forest.py

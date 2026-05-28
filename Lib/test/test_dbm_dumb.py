@@ -25,7 +25,7 @@ def _delete_files():
 
 class DumbDBMTestCase(unittest.TestCase):
     _dict = {b'0': b'',
-             b'a': b'Python:',
+             b'a': b'MyFRpy:',
              b'b': b'Programming',
              b'c': b'the',
              b'd': b'way',

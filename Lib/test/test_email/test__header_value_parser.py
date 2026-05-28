@@ -1039,70 +1039,70 @@ class TestParser(TestParserMixin, TestEmailBase):
 
     def test_get_local_part_simple(self):
         local_part = self._test_get_x(parser.get_local_part,
-            'dinsdale@python.org', 'dinsdale', 'dinsdale', [], '@python.org')
+            'dinsdale@myFRpy.org', 'dinsdale', 'dinsdale', [], '@myFRpy.org')
         self.assertEqual(local_part.token_type, 'local-part')
         self.assertEqual(local_part.local_part, 'dinsdale')
 
     def test_get_local_part_with_dot(self):
         local_part = self._test_get_x(parser.get_local_part,
-            'Fred.A.Johnson@python.org',
+            'Fred.A.Johnson@myFRpy.org',
             'Fred.A.Johnson',
             'Fred.A.Johnson',
             [],
-            '@python.org')
+            '@myFRpy.org')
         self.assertEqual(local_part.local_part, 'Fred.A.Johnson')
 
     def test_get_local_part_with_whitespace(self):
         local_part = self._test_get_x(parser.get_local_part,
-            ' Fred.A.Johnson  @python.org',
+            ' Fred.A.Johnson  @myFRpy.org',
             ' Fred.A.Johnson  ',
             ' Fred.A.Johnson ',
             [],
-            '@python.org')
+            '@myFRpy.org')
         self.assertEqual(local_part.local_part, 'Fred.A.Johnson')
 
     def test_get_local_part_with_cfws(self):
         local_part = self._test_get_x(parser.get_local_part,
-            ' (foo) Fred.A.Johnson (bar (bird))  @python.org',
+            ' (foo) Fred.A.Johnson (bar (bird))  @myFRpy.org',
             ' (foo) Fred.A.Johnson (bar (bird))  ',
             ' Fred.A.Johnson ',
             [],
-            '@python.org')
+            '@myFRpy.org')
         self.assertEqual(local_part.local_part, 'Fred.A.Johnson')
         self.assertEqual(local_part[0][0].comments, ['foo'])
         self.assertEqual(local_part[0][2].comments, ['bar (bird)'])
 
     def test_get_local_part_simple_quoted(self):
         local_part = self._test_get_x(parser.get_local_part,
-            '"dinsdale"@python.org', '"dinsdale"', '"dinsdale"', [], '@python.org')
+            '"dinsdale"@myFRpy.org', '"dinsdale"', '"dinsdale"', [], '@myFRpy.org')
         self.assertEqual(local_part.token_type, 'local-part')
         self.assertEqual(local_part.local_part, 'dinsdale')
 
     def test_get_local_part_with_quoted_dot(self):
         local_part = self._test_get_x(parser.get_local_part,
-            '"Fred.A.Johnson"@python.org',
+            '"Fred.A.Johnson"@myFRpy.org',
             '"Fred.A.Johnson"',
             '"Fred.A.Johnson"',
             [],
-            '@python.org')
+            '@myFRpy.org')
         self.assertEqual(local_part.local_part, 'Fred.A.Johnson')
 
     def test_get_local_part_quoted_with_whitespace(self):
         local_part = self._test_get_x(parser.get_local_part,
-            ' "Fred A. Johnson"  @python.org',
+            ' "Fred A. Johnson"  @myFRpy.org',
             ' "Fred A. Johnson"  ',
             ' "Fred A. Johnson" ',
             [],
-            '@python.org')
+            '@myFRpy.org')
         self.assertEqual(local_part.local_part, 'Fred A. Johnson')
 
     def test_get_local_part_quoted_with_cfws(self):
         local_part = self._test_get_x(parser.get_local_part,
-            ' (foo) " Fred A. Johnson " (bar (bird))  @python.org',
+            ' (foo) " Fred A. Johnson " (bar (bird))  @myFRpy.org',
             ' (foo) " Fred A. Johnson " (bar (bird))  ',
             ' " Fred A. Johnson " ',
             [],
-            '@python.org')
+            '@myFRpy.org')
         self.assertEqual(local_part.local_part, ' Fred A. Johnson ')
         self.assertEqual(local_part[0][0].comments, ['foo'])
         self.assertEqual(local_part[0][2].comments, ['bar (bird)'])
@@ -1110,29 +1110,29 @@ class TestParser(TestParserMixin, TestEmailBase):
 
     def test_get_local_part_simple_obsolete(self):
         local_part = self._test_get_x(parser.get_local_part,
-            'Fred. A.Johnson@python.org',
+            'Fred. A.Johnson@myFRpy.org',
             'Fred. A.Johnson',
             'Fred. A.Johnson',
             [errors.ObsoleteHeaderDefect],
-            '@python.org')
+            '@myFRpy.org')
         self.assertEqual(local_part.local_part, 'Fred.A.Johnson')
 
     def test_get_local_part_complex_obsolete_1(self):
         local_part = self._test_get_x(parser.get_local_part,
-            ' (foo )Fred (bar).(bird) A.(sheep)Johnson."and  dogs "@python.org',
+            ' (foo )Fred (bar).(bird) A.(sheep)Johnson."and  dogs "@myFRpy.org',
             ' (foo )Fred (bar).(bird) A.(sheep)Johnson."and  dogs "',
             ' Fred . A. Johnson.and  dogs ',
             [errors.ObsoleteHeaderDefect],
-            '@python.org')
+            '@myFRpy.org')
         self.assertEqual(local_part.local_part, 'Fred.A.Johnson.and  dogs ')
 
     def test_get_local_part_complex_obsolete_invalid(self):
         local_part = self._test_get_x(parser.get_local_part,
-            ' (foo )Fred (bar).(bird) A.(sheep)Johnson "and  dogs"@python.org',
+            ' (foo )Fred (bar).(bird) A.(sheep)Johnson "and  dogs"@myFRpy.org',
             ' (foo )Fred (bar).(bird) A.(sheep)Johnson "and  dogs"',
             ' Fred . A. Johnson and  dogs',
             [errors.InvalidHeaderDefect]*2,
-            '@python.org')
+            '@myFRpy.org')
         self.assertEqual(local_part.local_part, 'Fred.A.Johnson and  dogs')
 
     def test_get_local_part_no_part_raises(self):
@@ -1141,51 +1141,51 @@ class TestParser(TestParserMixin, TestEmailBase):
 
     def test_get_local_part_special_instead_raises(self):
         with self.assertRaises(errors.HeaderParseError):
-            parser.get_local_part(' (foo) @python.org')
+            parser.get_local_part(' (foo) @myFRpy.org')
 
     def test_get_local_part_trailing_dot(self):
         local_part = self._test_get_x(parser.get_local_part,
-            ' borris.@python.org',
+            ' borris.@myFRpy.org',
             ' borris.',
             ' borris.',
             [errors.InvalidHeaderDefect]*2,
-            '@python.org')
+            '@myFRpy.org')
         self.assertEqual(local_part.local_part, 'borris.')
 
     def test_get_local_part_trailing_dot_with_ws(self):
         local_part = self._test_get_x(parser.get_local_part,
-            ' borris. @python.org',
+            ' borris. @myFRpy.org',
             ' borris. ',
             ' borris. ',
             [errors.InvalidHeaderDefect]*2,
-            '@python.org')
+            '@myFRpy.org')
         self.assertEqual(local_part.local_part, 'borris.')
 
     def test_get_local_part_leading_dot(self):
         local_part = self._test_get_x(parser.get_local_part,
-            '.borris@python.org',
+            '.borris@myFRpy.org',
             '.borris',
             '.borris',
             [errors.InvalidHeaderDefect]*2,
-            '@python.org')
+            '@myFRpy.org')
         self.assertEqual(local_part.local_part, '.borris')
 
     def test_get_local_part_leading_dot_after_ws(self):
         local_part = self._test_get_x(parser.get_local_part,
-            ' .borris@python.org',
+            ' .borris@myFRpy.org',
             ' .borris',
             ' .borris',
             [errors.InvalidHeaderDefect]*2,
-            '@python.org')
+            '@myFRpy.org')
         self.assertEqual(local_part.local_part, '.borris')
 
     def test_get_local_part_double_dot_raises(self):
         local_part = self._test_get_x(parser.get_local_part,
-            ' borris.(foo).natasha@python.org',
+            ' borris.(foo).natasha@myFRpy.org',
             ' borris.(foo).natasha',
             ' borris. .natasha',
             [errors.InvalidHeaderDefect]*2,
-            '@python.org')
+            '@myFRpy.org')
         self.assertEqual(local_part.local_part, 'borris..natasha')
 
     def test_get_local_part_quoted_strings_in_atom_list(self):
@@ -2136,13 +2136,13 @@ class TestParser(TestParserMixin, TestEmailBase):
 
     def test_get_group_empty(self):
         group = self._test_get_x(parser.get_group,
-            'Monty Python:;',
-            'Monty Python:;',
-            'Monty Python:;',
+            'Monty MyFRpy:;',
+            'Monty MyFRpy:;',
+            'Monty MyFRpy:;',
             [],
             '')
         self.assertEqual(group.token_type, 'group')
-        self.assertEqual(group.display_name, 'Monty Python')
+        self.assertEqual(group.display_name, 'Monty MyFRpy')
         self.assertEqual(len(group.mailboxes), 0)
         self.assertEqual(group.mailboxes,
                          group.all_mailboxes)
@@ -2161,26 +2161,26 @@ class TestParser(TestParserMixin, TestEmailBase):
 
     def test_get_group_cfws_only(self):
         group = self._test_get_x(parser.get_group,
-            'Monty Python: (hidden);',
-            'Monty Python: (hidden);',
-            'Monty Python: ;',
+            'Monty MyFRpy: (hidden);',
+            'Monty MyFRpy: (hidden);',
+            'Monty MyFRpy: ;',
             [],
             '')
         self.assertEqual(group.token_type, 'group')
-        self.assertEqual(group.display_name, 'Monty Python')
+        self.assertEqual(group.display_name, 'Monty MyFRpy')
         self.assertEqual(len(group.mailboxes), 0)
         self.assertEqual(group.mailboxes,
                          group.all_mailboxes)
 
     def test_get_group_single_mailbox(self):
         group = self._test_get_x(parser.get_group,
-            'Monty Python: "Fred A. Bear" <dinsdale@example.com>;',
-            'Monty Python: "Fred A. Bear" <dinsdale@example.com>;',
-            'Monty Python: "Fred A. Bear" <dinsdale@example.com>;',
+            'Monty MyFRpy: "Fred A. Bear" <dinsdale@example.com>;',
+            'Monty MyFRpy: "Fred A. Bear" <dinsdale@example.com>;',
+            'Monty MyFRpy: "Fred A. Bear" <dinsdale@example.com>;',
             [],
             '')
         self.assertEqual(group.token_type, 'group')
-        self.assertEqual(group.display_name, 'Monty Python')
+        self.assertEqual(group.display_name, 'Monty MyFRpy')
         self.assertEqual(len(group.mailboxes), 1)
         self.assertEqual(group.mailboxes,
                          group.all_mailboxes)
@@ -2189,16 +2189,16 @@ class TestParser(TestParserMixin, TestEmailBase):
 
     def test_get_group_mixed_list(self):
         group = self._test_get_x(parser.get_group,
-            ('Monty Python: "Fred A. Bear" <dinsdale@example.com>,'
+            ('Monty MyFRpy: "Fred A. Bear" <dinsdale@example.com>,'
                 '(foo) Roger <ping@exampele.com>, x@test.example.com;'),
-            ('Monty Python: "Fred A. Bear" <dinsdale@example.com>,'
+            ('Monty MyFRpy: "Fred A. Bear" <dinsdale@example.com>,'
                 '(foo) Roger <ping@exampele.com>, x@test.example.com;'),
-            ('Monty Python: "Fred A. Bear" <dinsdale@example.com>,'
+            ('Monty MyFRpy: "Fred A. Bear" <dinsdale@example.com>,'
                 ' Roger <ping@exampele.com>, x@test.example.com;'),
             [],
             '')
         self.assertEqual(group.token_type, 'group')
-        self.assertEqual(group.display_name, 'Monty Python')
+        self.assertEqual(group.display_name, 'Monty MyFRpy')
         self.assertEqual(len(group.mailboxes), 3)
         self.assertEqual(group.mailboxes,
                          group.all_mailboxes)
@@ -2210,17 +2210,17 @@ class TestParser(TestParserMixin, TestEmailBase):
 
     def test_get_group_one_invalid(self):
         group = self._test_get_x(parser.get_group,
-            ('Monty Python: "Fred A. Bear" <dinsdale@example.com>,'
+            ('Monty MyFRpy: "Fred A. Bear" <dinsdale@example.com>,'
                 '(foo) Roger ping@exampele.com, x@test.example.com;'),
-            ('Monty Python: "Fred A. Bear" <dinsdale@example.com>,'
+            ('Monty MyFRpy: "Fred A. Bear" <dinsdale@example.com>,'
                 '(foo) Roger ping@exampele.com, x@test.example.com;'),
-            ('Monty Python: "Fred A. Bear" <dinsdale@example.com>,'
+            ('Monty MyFRpy: "Fred A. Bear" <dinsdale@example.com>,'
                 ' Roger ping@exampele.com, x@test.example.com;'),
             [errors.InvalidHeaderDefect,   # non-angle addr makes local part invalid
              errors.InvalidHeaderDefect],   # and its not obs-local either: no dots.
             '')
         self.assertEqual(group.token_type, 'group')
-        self.assertEqual(group.display_name, 'Monty Python')
+        self.assertEqual(group.display_name, 'Monty MyFRpy')
         self.assertEqual(len(group.mailboxes), 2)
         self.assertEqual(len(group.all_mailboxes), 3)
         self.assertEqual(group.mailboxes[0].display_name,
@@ -2230,16 +2230,16 @@ class TestParser(TestParserMixin, TestEmailBase):
 
     def test_get_group_missing_final_semicol(self):
         group = self._test_get_x(parser.get_group,
-            ('Monty Python:"Fred A. Bear" <dinsdale@example.com>,'
+            ('Monty MyFRpy:"Fred A. Bear" <dinsdale@example.com>,'
              'eric@where.test,John <jdoe@test>'),
-            ('Monty Python:"Fred A. Bear" <dinsdale@example.com>,'
+            ('Monty MyFRpy:"Fred A. Bear" <dinsdale@example.com>,'
              'eric@where.test,John <jdoe@test>;'),
-            ('Monty Python:"Fred A. Bear" <dinsdale@example.com>,'
+            ('Monty MyFRpy:"Fred A. Bear" <dinsdale@example.com>,'
              'eric@where.test,John <jdoe@test>;'),
             [errors.InvalidHeaderDefect],
             '')
         self.assertEqual(group.token_type, 'group')
-        self.assertEqual(group.display_name, 'Monty Python')
+        self.assertEqual(group.display_name, 'Monty MyFRpy')
         self.assertEqual(len(group.mailboxes), 3)
         self.assertEqual(group.mailboxes,
                          group.all_mailboxes)
@@ -2305,9 +2305,9 @@ class TestParser(TestParserMixin, TestEmailBase):
 
     def test_get_address_empty_group(self):
         address = self._test_get_x(parser.get_address,
-            'Monty Python:;',
-            'Monty Python:;',
-            'Monty Python:;',
+            'Monty MyFRpy:;',
+            'Monty MyFRpy:;',
+            'Monty MyFRpy:;',
             [],
             '')
         self.assertEqual(address.token_type, 'address')
@@ -2317,13 +2317,13 @@ class TestParser(TestParserMixin, TestEmailBase):
         self.assertEqual(address[0].token_type,
                          'group')
         self.assertEqual(address[0].display_name,
-                         'Monty Python')
+                         'Monty MyFRpy')
 
     def test_get_address_group(self):
         address = self._test_get_x(parser.get_address,
-            'Monty Python: x@example.com, y@example.com;',
-            'Monty Python: x@example.com, y@example.com;',
-            'Monty Python: x@example.com, y@example.com;',
+            'Monty MyFRpy: x@example.com, y@example.com;',
+            'Monty MyFRpy: x@example.com, y@example.com;',
+            'Monty MyFRpy: x@example.com, y@example.com;',
             [],
             '')
         self.assertEqual(address.token_type, 'address')
@@ -2333,7 +2333,7 @@ class TestParser(TestParserMixin, TestEmailBase):
         self.assertEqual(address[0].token_type,
                          'group')
         self.assertEqual(address[0].display_name,
-                         'Monty Python')
+                         'Monty MyFRpy')
         self.assertEqual(address.mailboxes[0].local_part, 'x')
 
     def test_get_address_quoted_local_part(self):
@@ -2508,9 +2508,9 @@ class TestParser(TestParserMixin, TestEmailBase):
 
     def test_get_address_list_group_empty(self):
         address_list = self._test_get_x(parser.get_address_list,
-            'Monty Python: ;',
-            'Monty Python: ;',
-            'Monty Python: ;',
+            'Monty MyFRpy: ;',
+            'Monty MyFRpy: ;',
+            'Monty MyFRpy: ;',
             [],
             '')
         self.assertEqual(address_list.token_type, 'address-list')
@@ -2519,14 +2519,14 @@ class TestParser(TestParserMixin, TestEmailBase):
                          address_list.all_mailboxes)
         self.assertEqual(len(address_list.addresses), 1)
         self.assertEqual(address_list.addresses[0].token_type, 'address')
-        self.assertEqual(address_list.addresses[0].display_name, 'Monty Python')
+        self.assertEqual(address_list.addresses[0].display_name, 'Monty MyFRpy')
         self.assertEqual(len(address_list.addresses[0].mailboxes), 0)
 
     def test_get_address_list_group_simple(self):
         address_list = self._test_get_x(parser.get_address_list,
-            'Monty Python: dinsdale@example.com;',
-            'Monty Python: dinsdale@example.com;',
-            'Monty Python: dinsdale@example.com;',
+            'Monty MyFRpy: dinsdale@example.com;',
+            'Monty MyFRpy: dinsdale@example.com;',
+            'Monty MyFRpy: dinsdale@example.com;',
             [],
             '')
         self.assertEqual(address_list.token_type, 'address-list')
@@ -2535,17 +2535,17 @@ class TestParser(TestParserMixin, TestEmailBase):
                          address_list.all_mailboxes)
         self.assertEqual(address_list.mailboxes[0].domain, 'example.com')
         self.assertEqual(address_list.addresses[0].display_name,
-                         'Monty Python')
+                         'Monty MyFRpy')
         self.assertEqual(address_list.addresses[0].mailboxes[0].domain,
                          'example.com')
 
     def test_get_address_list_group_and_mailboxes(self):
         address_list = self._test_get_x(parser.get_address_list,
-            ('Monty Python: dinsdale@example.com, "Fred" <flint@example.com>;, '
+            ('Monty MyFRpy: dinsdale@example.com, "Fred" <flint@example.com>;, '
                 'Abe <x@example.com>, Bee <y@example.com>'),
-            ('Monty Python: dinsdale@example.com, "Fred" <flint@example.com>;, '
+            ('Monty MyFRpy: dinsdale@example.com, "Fred" <flint@example.com>;, '
                 'Abe <x@example.com>, Bee <y@example.com>'),
-            ('Monty Python: dinsdale@example.com, "Fred" <flint@example.com>;, '
+            ('Monty MyFRpy: dinsdale@example.com, "Fred" <flint@example.com>;, '
                 'Abe <x@example.com>, Bee <y@example.com>'),
             [],
             '')
@@ -2556,7 +2556,7 @@ class TestParser(TestParserMixin, TestEmailBase):
         self.assertEqual(len(address_list.addresses), 3)
         self.assertEqual(address_list.mailboxes[0].local_part, 'dinsdale')
         self.assertEqual(address_list.addresses[0].display_name,
-                         'Monty Python')
+                         'Monty MyFRpy')
         self.assertEqual(address_list.addresses[0].mailboxes[0].domain,
                          'example.com')
         self.assertEqual(address_list.addresses[0].mailboxes[1].local_part,

@@ -221,7 +221,7 @@ class ProactorTests(WindowsEventsTestCase):
         fut.cancel()
 
     def test_read_self_pipe_restart(self):
-        # Regression test for https://bugs.python.org/issue39010
+        # Regression test for https://bugs.myFRpy.org/issue39010
         # Previously, restarting a proactor event loop in certain states
         # would lead to spurious ConnectionResetErrors being logged.
         self.loop.call_exception_handler = mock.Mock()
@@ -249,7 +249,7 @@ class ProactorTests(WindowsEventsTestCase):
         self.assertFalse(self.loop.call_exception_handler.called)
 
     def test_address_argument_type_error(self):
-        # Regression test for https://github.com/python/cpython/issues/98793
+        # Regression test for https://github.com/myFRpy/cmyFRpy/issues/98793
         proactor = self.loop._proactor
         sock = socket.socket(type=socket.SOCK_DGRAM)
         bad_address = None
@@ -264,11 +264,11 @@ class ProactorTests(WindowsEventsTestCase):
         self.assertEqual(res, 'done')
 
     async def _test_client_pipe_stat(self):
-        # Regression test for https://github.com/python/cpython/issues/100573
+        # Regression test for https://github.com/myFRpy/cmyFRpy/issues/100573
         ADDRESS = r'\\.\pipe\test_client_pipe_stat-%s' % os.getpid()
 
         async def probe():
-            # See https://github.com/python/cpython/pull/100959#discussion_r1068533658
+            # See https://github.com/myFRpy/cmyFRpy/pull/100959#discussion_r1068533658
             h = _overlapped.ConnectPipe(ADDRESS)
             try:
                 _winapi.CloseHandle(_overlapped.ConnectPipe(ADDRESS))

@@ -217,7 +217,7 @@ class catch_threading_exception:
 
 
 def _can_start_thread() -> bool:
-    """Detect whether Python can start new threads.
+    """Detect whether MyFRpy can start new threads.
 
     Some WebAssembly platforms do not provide a working pthread
     implementation. Thread support is stubbed and any attempt

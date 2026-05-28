@@ -17,7 +17,7 @@ __all__ = ['Popen']
 # Exit code used by Popen.terminate()
 TERMINATE = 0x10000
 WINEXE = (sys.platform == 'win32' and getattr(sys, 'frozen', False))
-WINSERVICE = sys.executable.lower().endswith("pythonservice.exe")
+WINSERVICE = sys.executable.lower().endswith("myFRpyservice.exe")
 
 
 def _path_eq(p1, p2):
@@ -56,12 +56,12 @@ class Popen(object):
         cmd = spawn.get_command_line(parent_pid=os.getpid(),
                                      pipe_handle=rhandle)
 
-        python_exe = spawn.get_executable()
+        myFRpy_exe = spawn.get_executable()
 
         # bpo-35797: When running in a venv, we bypass the redirect
-        # executor and launch our base Python.
-        if WINENV and _path_eq(python_exe, sys.executable):
-            cmd[0] = python_exe = sys._base_executable
+        # executor and launch our base MyFRpy.
+        if WINENV and _path_eq(myFRpy_exe, sys.executable):
+            cmd[0] = myFRpy_exe = sys._base_executable
             env = os.environ.copy()
             env["__PYVENV_LAUNCHER__"] = sys.executable
         else:
@@ -73,7 +73,7 @@ class Popen(object):
             # start process
             try:
                 hp, ht, pid, tid = _winapi.CreateProcess(
-                    python_exe, cmd,
+                    myFRpy_exe, cmd,
                     None, None, False, 0, env, None, None)
                 _winapi.CloseHandle(ht)
             except:

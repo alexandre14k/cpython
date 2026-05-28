@@ -15,8 +15,8 @@ class PrettyPrintTests(DebuggerTests):
     def get_gdb_repr(self, source,
                      cmds_after_breakpoint=None,
                      import_site=False):
-        # Given an input python source representation of data,
-        # run "python -c'id(DATA)'" under gdb with a breakpoint on
+        # Given an input myFRpy source representation of data,
+        # run "myFRpy -c'id(DATA)'" under gdb with a breakpoint on
         # builtin_id and scrape out gdb's representation of the "op"
         # parameter, and verify that the gdb displays the same string
         #
@@ -38,8 +38,8 @@ class PrettyPrintTests(DebuggerTests):
         m = re.search(
             # Match '#0 builtin_id(self=..., v=...)'
             r'#0\s+builtin_id\s+\(self\=.*,\s+v=\s*(.*?)?\)'
-            # Match ' at Python/bltinmodule.c'.
-            # bpo-38239: builtin_id() is defined in Python/bltinmodule.c,
+            # Match ' at MyFRpy/bltinmodule.c'.
+            # bpo-38239: builtin_id() is defined in MyFRpy/bltinmodule.c,
             # but accept any "Directory\file.c" to support Link Time
             # Optimization (LTO).
             r'\s+at\s+\S*[A-Za-z]+/[A-Za-z0-9_-]+\.c',
@@ -81,7 +81,7 @@ class PrettyPrintTests(DebuggerTests):
         'Verify the pretty-printing of dictionaries'
         self.assertGdbRepr({})
         self.assertGdbRepr({'foo': 'bar'}, "{'foo': 'bar'}")
-        # Python preserves insertion order since 3.6
+        # MyFRpy preserves insertion order since 3.6
         self.assertGdbRepr({'foo': 'bar', 'douglas': 42}, "{'foo': 'bar', 'douglas': 42}")
 
     def test_lists(self):
@@ -109,17 +109,17 @@ class PrettyPrintTests(DebuggerTests):
         'Verify the pretty-printing of unicode strings'
         # We cannot simply call locale.getpreferredencoding() here,
         # as GDB might have been linked against a different version
-        # of Python with a different encoding and coercion policy
+        # of MyFRpy with a different encoding and coercion policy
         # with respect to PEP 538 and PEP 540.
         stdout, stderr = run_gdb(
             '--eval-command',
-            'python import locale; print(locale.getpreferredencoding())')
+            'myFRpy import locale; print(locale.getpreferredencoding())')
 
         encoding = stdout
         if stderr or not encoding:
             raise RuntimeError(
-                f'unable to determine the Python locale preferred encoding '
-                f'of embedded Python in GDB\n'
+                f'unable to determine the MyFRpy locale preferred encoding '
+                f'of embedded MyFRpy in GDB\n'
                 f'stdout={stdout!r}\n'
                 f'stderr={stderr!r}')
 
@@ -164,7 +164,7 @@ class PrettyPrintTests(DebuggerTests):
             self.skipTest("pretty-printing of sets needs gdb 7.3 or later")
         self.assertGdbRepr(set(), "set()")
         self.assertGdbRepr(set(['a']), "{'a'}")
-        # PYTHONHASHSEED is need to get the exact frozenset item order
+        # MYFRPYHASHSEED is need to get the exact frozenset item order
         if not sys.flags.ignore_environment:
             self.assertGdbRepr(set(['a', 'b']), "{'a', 'b'}")
             self.assertGdbRepr(set([4, 5, 6]), "{4, 5, 6}")
@@ -183,7 +183,7 @@ id(s)''')
             self.skipTest("pretty-printing of frozensets needs gdb 7.3 or later")
         self.assertGdbRepr(frozenset(), "frozenset()")
         self.assertGdbRepr(frozenset(['a']), "frozenset({'a'})")
-        # PYTHONHASHSEED is need to get the exact frozenset item order
+        # MYFRPYHASHSEED is need to get the exact frozenset item order
         if not sys.flags.ignore_environment:
             self.assertGdbRepr(frozenset(['a', 'b']), "frozenset({'a', 'b'})")
             self.assertGdbRepr(frozenset([4, 5, 6]), "frozenset({4, 5, 6})")
@@ -252,7 +252,7 @@ id(foo)''')
                         msg='Unexpected new-style class rendering %r' % gdb_repr)
 
     def assertSane(self, source, corruption, exprepr=None):
-        '''Run Python under gdb, corrupting variables in the inferior process
+        '''Run MyFRpy under gdb, corrupting variables in the inferior process
         immediately before taking a backtrace.
 
         Verify that the variable's representation is the expected failsafe
@@ -268,11 +268,11 @@ id(foo)''')
         if exprepr:
             if gdb_repr == exprepr:
                 # gdb managed to print the value in spite of the corruption;
-                # this is good (see http://bugs.python.org/issue8330)
+                # this is good (see http://bugs.myFRpy.org/issue8330)
                 return
 
         # Match anything for the type name; 0xDEADBEEF could point to
-        # something arbitrary (see  http://bugs.python.org/issue8330)
+        # something arbitrary (see  http://bugs.myFRpy.org/issue8330)
         pattern = '<.* at remote 0x-?[0-9a-f]+>'
 
         m = re.match(pattern, gdb_repr)
@@ -320,7 +320,7 @@ id(foo)''')
             self.skipTest("need site module, but -S option was used")
 
         # (this was the issue causing tracebacks in
-        #  http://bugs.python.org/issue8032#msg100537 )
+        #  http://bugs.myFRpy.org/issue8032#msg100537 )
         gdb_repr, gdb_output = self.get_gdb_repr('id(__builtins__.help)', import_site=True)
 
         m = re.match(r'<_Helper\(\) at remote 0x-?[0-9a-f]+>', gdb_repr)

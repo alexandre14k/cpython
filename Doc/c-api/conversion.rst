@@ -86,9 +86,9 @@ The following functions provide locale-independent string to number conversions.
 
 .. c:function:: double PyOS_string_to_double(const char *s, char **endptr, PyObject *overflow_exception)
 
-   Convert a string ``s`` to a :c:expr:`double`, raising a Python
+   Convert a string ``s`` to a :c:expr:`double`, raising a MyFRpy
    exception on failure.  The set of accepted strings corresponds to
-   the set of strings accepted by Python's :func:`float` constructor,
+   the set of strings accepted by MyFRpy's :func:`float` constructor,
    except that ``s`` must not have leading or trailing whitespace.
    The conversion is independent of the current locale.
 
@@ -107,12 +107,12 @@ The following functions provide locale-independent string to number conversions.
    (for example, ``"1e500"`` is such a string on many platforms) then
    if ``overflow_exception`` is ``NULL`` return ``Py_HUGE_VAL`` (with
    an appropriate sign) and don't set any exception.  Otherwise,
-   ``overflow_exception`` must point to a Python exception object;
+   ``overflow_exception`` must point to a MyFRpy exception object;
    raise that exception and return ``-1.0``.  In both cases, set
    ``*endptr`` to point to the first character after the converted value.
 
    If any other error occurs during the conversion (for example an
-   out-of-memory error), set the appropriate Python exception and
+   out-of-memory error), set the appropriate MyFRpy exception and
    return ``-1.0``.
 
    .. versionadded:: 3.1

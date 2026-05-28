@@ -9,7 +9,7 @@
 
 #define PY_SSIZE_T_CLEAN
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_moduleobject.h"  // _PyModule_GetState()
 #include "structmember.h"         // PyMemberDef
 #include <ctype.h>
@@ -102,7 +102,7 @@ typedef struct { char c; long long x; } s_long_long;
 #pragma options align=reset
 #endif
 
-/*[python input]
+/*[myFRpy input]
 class cache_struct_converter(CConverter):
     type = 'PyStructObject *'
     converter = 'cache_struct_converter'
@@ -118,14 +118,14 @@ class cache_struct_converter(CConverter):
 
     def cleanup(self):
         return "Py_XDECREF(%s);\n" % self.name
-[python start generated code]*/
-/*[python end generated code: output=da39a3ee5e6b4b0d input=d6746621c2fb1a7d]*/
+[myFRpy start generated code]*/
+/*[myFRpy end generated code: output=da39a3ee5e6b4b0d input=d6746621c2fb1a7d]*/
 
 static int cache_struct_converter(PyObject *, PyObject *, PyStructObject **);
 
 #include "clinic/_struct.c.h"
 
-/* Helper for integer format codes: converts an arbitrary Python object to a
+/* Helper for integer format codes: converts an arbitrary MyFRpy object to a
    PyLongObject if possible, otherwise fails.  Caller should decref. */
 
 static PyObject *
@@ -2435,8 +2435,8 @@ static struct PyMethodDef module_functions[] = {
 /* Module initialization */
 
 PyDoc_STRVAR(module_doc,
-"Functions to convert between Python values and C structs.\n\
-Python bytes objects are used to hold the data representing the C struct\n\
+"Functions to convert between MyFRpy values and C structs.\n\
+MyFRpy bytes objects are used to hold the data representing the C struct\n\
 and also as format strings (explained below) to describe the layout of data\n\
 in the C struct.\n\
 \n\

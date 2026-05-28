@@ -2,7 +2,7 @@
 /* Thread module */
 /* Interface to Sjoerd's portable C thread library */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_interp.h"        // _PyInterpreterState.threads.count
 #include "pycore_moduleobject.h"  // _PyModule_GetState()
 #include "pycore_pylifecycle.h"
@@ -1089,8 +1089,8 @@ thread_run(void *boot_raw)
     PyThreadState *tstate = boot->tstate;
 
     // gh-108987: If _thread.start_new_thread() is called before or while
-    // Python is being finalized, thread_run() can called *after*.
-    // _PyRuntimeState_SetFinalizing() is called. At this point, all Python
+    // MyFRpy is being finalized, thread_run() can called *after*.
+    // _PyRuntimeState_SetFinalizing() is called. At this point, all MyFRpy
     // threads must exit, except of the thread calling Py_Finalize() whch holds
     // the GIL and must not exit.
     //
@@ -1102,7 +1102,7 @@ thread_run(void *boot_raw)
         // which calls _PyInterpreterState_Clear().
         //
         // Py_DECREF() cannot be called because the GIL is not held: leak
-        // references on purpose. Python is being finalized anyway.
+        // references on purpose. MyFRpy is being finalized anyway.
         thread_bootstate_free(boot, 0);
         goto exit;
     }
@@ -1340,7 +1340,7 @@ PyDoc_STRVAR(_count_doc,
 "_count() -> integer\n\
 \n\
 \
-Return the number of currently running Python threads, excluding\n\
+Return the number of currently running MyFRpy threads, excluding\n\
 the main thread. The returned number comprises all threads created\n\
 through `start_new_thread()` as well as `threading.Thread`, and not\n\
 yet finished.\n\
@@ -1365,7 +1365,7 @@ release_sentinel(void *wr_raw)
         }
     }
     /* Deallocating a weakref with a NULL callback only calls
-       PyObject_GC_Del(), which can't call any Python code. */
+       PyObject_GC_Del(), which can't call any MyFRpy code. */
     Py_DECREF(wr);
 }
 
@@ -1614,7 +1614,7 @@ thread__is_main_interpreter(PyObject *module, PyObject *Py_UNUSED(ignored))
 PyDoc_STRVAR(thread__is_main_interpreter_doc,
 "_is_main_interpreter()\n\
 \n\
-Return True if the current interpreter is the main Python interpreter.");
+Return True if the current interpreter is the main MyFRpy interpreter.");
 
 static PyMethodDef thread_methods[] = {
     {"start_new_thread",        (PyCFunction)thread_PyThread_start_new_thread,

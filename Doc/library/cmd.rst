@@ -233,7 +233,7 @@ Instances of :class:`Cmd` subclasses have some public instance variables:
 Cmd Example
 -----------
 
-.. sectionauthor:: Raymond Hettinger <python at rcn dot com>
+.. sectionauthor:: Raymond Hettinger <myFRpy at rcn dot com>
 
 The :mod:`cmd` module is mainly useful for building custom shells that let a
 user work with a program interactively.

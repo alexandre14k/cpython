@@ -1,12 +1,12 @@
 #
-# Recreate the Python charmap codecs from the Unicode mapping
+# Recreate the MyFRpy charmap codecs from the Unicode mapping
 # files available at ftp://ftp.unicode.org/
 #
 #(c) Copyright Marc-Andre Lemburg, 2005.
 #    Licensed to PSF under a Contributor Agreement.
 
-# Python binary to use
-PYTHON = python
+# MyFRpy binary to use
+MYFRPY = myFRpy
 
 # Remove tool to use
 RM = /bin/rm
@@ -28,7 +28,7 @@ build/:
 	mkdir build
 
 misc:	build/
-	$(PYTHON) gencodec.py MAPPINGS/VENDORS/MISC/ build/
+	$(MYFRPY) gencodec.py MAPPINGS/VENDORS/MISC/ build/
 	$(RM) build/atarist.*
 	$(RM) build/us_ascii_quotes.*
 	$(RM) build/ibmgraph.*
@@ -36,19 +36,19 @@ misc:	build/
 	$(RM) -f build/readme.*
 
 custom-mappings:	build/
-	$(PYTHON) gencodec.py python-mappings/ build/
+	$(MYFRPY) gencodec.py myFRpy-mappings/ build/
 
 windows:	build/
-	$(PYTHON) gencodec.py MAPPINGS/VENDORS/MICSFT/WINDOWS/ build/
+	$(MYFRPY) gencodec.py MAPPINGS/VENDORS/MICSFT/WINDOWS/ build/
 	$(RM) build/cp9*
 	$(RM) -f build/readme.*
 
 iso:	build/
-	$(PYTHON) gencodec.py MAPPINGS/ISO8859/ build/ iso
+	$(MYFRPY) gencodec.py MAPPINGS/ISO8859/ build/ iso
 	$(RM) -f build/isoreadme.*
 
 apple:	build/
-	$(PYTHON) gencodec.py MAPPINGS/VENDORS/APPLE/ build/ mac_
+	$(MYFRPY) gencodec.py MAPPINGS/VENDORS/APPLE/ build/ mac_
 	$(RM) build/mac_dingbats.*
 	$(RM) build/mac_japanese.*
 	$(RM) build/mac_chin*
@@ -69,11 +69,11 @@ apple:	build/
 	$(RM) -f build/mac_readme.*
 
 ebcdic:	build/
-	$(PYTHON) gencodec.py MAPPINGS/VENDORS/MICSFT/EBCDIC/ build/
+	$(MYFRPY) gencodec.py MAPPINGS/VENDORS/MICSFT/EBCDIC/ build/
 	$(RM) -f build/readme.*
 
 cjk:	build/
-	$(PYTHON) gencjkcodecs.py build/
+	$(MYFRPY) gencjkcodecs.py build/
 
 ### Cleanup
 

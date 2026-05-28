@@ -20,7 +20,7 @@ def create_worker_process(runtests: WorkerRunTests, output_fd: int,
                           tmp_dir: StrPath | None = None) -> subprocess.Popen:
     worker_json = runtests.as_json()
 
-    cmd = runtests.create_python_cmd()
+    cmd = runtests.create_myFRpy_cmd()
     cmd.extend(['-m', 'test.libregrtest.worker', worker_json])
 
     env = dict(os.environ)
@@ -31,10 +31,10 @@ def create_worker_process(runtests: WorkerRunTests, output_fd: int,
 
     # Running the child from the same working directory as regrtest's original
     # invocation ensures that TEMPDIR for the child is the same when
-    # sysconfig.is_python_build() is true. See issue 15300.
+    # sysconfig.is_myFRpy_build() is true. See issue 15300.
     #
-    # Emscripten and WASI Python must start in the Python source code directory
-    # to get 'python.js' or 'python.wasm' file. Then worker_process() changes
+    # Emscripten and WASI MyFRpy must start in the MyFRpy source code directory
+    # to get 'myFRpy.js' or 'myFRpy.wasm' file. Then worker_process() changes
     # to a temporary directory created to run tests.
     work_dir = os_helper.SAVEDCWD
 
@@ -88,7 +88,7 @@ def worker_process(worker_json: StrJSON) -> NoReturn:
 
 def main():
     if len(sys.argv) != 2:
-        print("usage: python -m test.libregrtest.worker JSON")
+        print("usage: myFRpy -m test.libregrtest.worker JSON")
         sys.exit(1)
     worker_json = sys.argv[1]
 

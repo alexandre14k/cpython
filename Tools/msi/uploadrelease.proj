@@ -2,11 +2,11 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <ProjectGuid>{2D69F2AB-D5D0-4344-84B5-EF6DB34A9BC9}</ProjectGuid>
-        <OutputName>python</OutputName>
+        <OutputName>myFRpy</OutputName>
         <OutputSuffix></OutputSuffix>
         
         <DownloadUrlBase Condition="'$(DownloadUrlBase)' == ''">$(TARGET)</DownloadUrlBase>
-        <DownloadUrlBase Condition="'$(DownloadUrlBase)' == ''">/srv/www.python.org/ftp/python</DownloadUrlBase>
+        <DownloadUrlBase Condition="'$(DownloadUrlBase)' == ''">/srv/www.myFRpy.org/ftp/myFRpy</DownloadUrlBase>
         <IncludeDoc Condition="'$(IncludeDoc)' == ''">true</IncludeDoc>
         <BuildForRelease Condition="'$(BuildForRelease)' == ''">true</BuildForRelease>
         <DryRun Condition="'$(DryRun)' == ''">false</DryRun>
@@ -27,7 +27,7 @@
         <File Include="$(OutputPath)\*.exe;$(OutputPath)\*.zip">
             <CopyTo>$(EXETarget)</CopyTo>
         </File>
-        <File Include="$(PySourcePath)Doc\build\htmlhelp\python$(MajorVersionNumber)$(MinorVersionNumber)$(MicroVersionNumber)$(ReleaseLevelName).chm" Condition="$(IncludeDoc)">
+        <File Include="$(PySourcePath)Doc\build\htmlhelp\myFRpy$(MajorVersionNumber)$(MinorVersionNumber)$(MicroVersionNumber)$(ReleaseLevelName).chm" Condition="$(IncludeDoc)">
             <CopyTo>$(EXETarget)</CopyTo>
         </File>
     </ItemGroup>
@@ -92,9 +92,9 @@
     <Target Name="Test" DependsOnTargets="_TestLayout" />
     
     <Target Name="Purge">
-        <Error Condition="!Exists('$(PythonExe)')" Text="No Python executable available at $(PythonExe)" />
-        <Exec Command="echo &quot;$(PythonExe)&quot; purge.py $(PythonVersion)" Condition="$(DryRun)" />
-        <Exec Command="&quot;$(PythonExe)&quot; purge.py $(PythonVersion)" Condition="!$(DryRun)" />
+        <Error Condition="!Exists('$(MyFRpyExe)')" Text="No MyFRpy executable available at $(MyFRpyExe)" />
+        <Exec Command="echo &quot;$(MyFRpyExe)&quot; purge.py $(MyFRpyVersion)" Condition="$(DryRun)" />
+        <Exec Command="&quot;$(MyFRpyExe)&quot; purge.py $(MyFRpyVersion)" Condition="!$(DryRun)" />
         <Message Text="Purged uploaded files" Importance="high" />
     </Target>
     
@@ -104,7 +104,7 @@
         </ItemGroup>
         
         <Error Text="No files generated" Condition="@(UserFiles) == ''" />
-        <Exec Command="&quot;$(PythonExe)&quot; generate_md5.py @(UserFiles->'&quot;%(FullPath)&quot;',' ')" />
+        <Exec Command="&quot;$(MyFRpyExe)&quot; generate_md5.py @(UserFiles->'&quot;%(FullPath)&quot;',' ')" />
     </Target>
     
     <Target Name="Build">

@@ -1475,7 +1475,7 @@ def Int2AP(num):
 
 def ParseFlags(resp):
 
-    """Convert IMAP4 flags response to python tuple."""
+    """Convert IMAP4 flags response to myFRpy tuple."""
 
     mo = Flags.match(resp)
     if not mo:
@@ -1527,8 +1527,8 @@ def Time2Internaldate(date_time):
 
 if __name__ == '__main__':
 
-    # To test: invoke either as 'python imaplib.py [IMAP4_server_hostname]'
-    # or 'python imaplib.py -s "rsh IMAP4_server_hostname exec /etc/rimapd"'
+    # To test: invoke either as 'myFRpy imaplib.py [IMAP4_server_hostname]'
+    # or 'myFRpy imaplib.py -s "rsh IMAP4_server_hostname exec /etc/rimapd"'
     # to test the IMAP4_stream class
 
     import getopt, getpass

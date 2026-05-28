@@ -1,5 +1,5 @@
 /*
- * ossaudiodev -- Python interface to the OSS (Open Sound System) API.
+ * ossaudiodev -- MyFRpy interface to the OSS (Open Sound System) API.
  *                This is the standard audio API for Linux and some
  *                flavours of BSD [XXX which ones?]; it is also available
  *                for a wide range of commercial Unices.
@@ -7,12 +7,12 @@
  * Originally written by Peter Bosch, March 2000, as linuxaudiodev.
  *
  * Renamed to ossaudiodev and rearranged/revised/hacked up
- * by Greg Ward <gward@python.net>, November 2002.
+ * by Greg Ward <gward@myFRpy.net>, November 2002.
  * Mixer interface by Nicholas FitzRoy-Dale <wzdd@lardcave.net>, Dec 2002.
  *
  * (c) 2000 Peter Bosch.  All Rights Reserved.
  * (c) 2002 Gregory P. Ward.  All Rights Reserved.
- * (c) 2002 Python Software Foundation.  All Rights Reserved.
+ * (c) 2002 MyFRpy Software Foundation.  All Rights Reserved.
  *
  * $Id$
  */
@@ -22,7 +22,7 @@
 #endif
 
 #define PY_SSIZE_T_CLEAN
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_fileutils.h"     // _Py_write()
 #include "structmember.h"         // PyMemberDef
 
@@ -242,7 +242,7 @@ static int _is_fd_valid(int fd)
      ioctl(fd, SNDCTL_DSP_cmd, &arg)
 
    where arg is the value to set, and on return the driver sets arg to
-   the value that was actually set.  Mapping this to Python is obvious:
+   the value that was actually set.  Mapping this to MyFRpy is obvious:
      arg = dsp.xxx(arg)
 */
 static PyObject *
@@ -264,7 +264,7 @@ _do_ioctl_1(int fd, PyObject *args, char *fname, unsigned long cmd)
 
 /* _do_ioctl_1_internal() is a wrapper for ioctls that take no inputs
    but return an output -- ie. we need to pass a pointer to a local C
-   variable so the driver can write its output there, but from Python
+   variable so the driver can write its output there, but from MyFRpy
    all we see is the return value.  For example,
    SOUND_MIXER_READ_DEVMASK returns a bitmask of available mixer
    devices, but does not use the value of the parameter passed-in in any
@@ -466,7 +466,7 @@ oss_writeall(oss_audio_t *self, PyObject *args)
        Guenter Geiger <geiger@xdv.org> on the linux-audio-dev list
        (http://eca.cx/lad/2002/11/0380.html), OSS guarantees that
        write() in blocking mode consumes the whole buffer.  In blocking
-       mode, the behaviour of write() and writeall() from Python is
+       mode, the behaviour of write() and writeall() from MyFRpy is
        indistinguishable. */
 
     if (!_is_fd_valid(self->fd))
@@ -1115,7 +1115,7 @@ PyInit_ossaudiodev(void)
 
     if (PyErr_WarnEx(PyExc_DeprecationWarning,
                      "'ossaudiodev' is deprecated and slated for removal in "
-                     "Python 3.13",
+                     "MyFRpy 3.13",
                      7)) {
         return NULL;
     }

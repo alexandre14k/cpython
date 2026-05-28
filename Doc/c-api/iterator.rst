@@ -5,7 +5,7 @@
 Iterator Objects
 ----------------
 
-Python provides two general-purpose iterator objects.  The first, a sequence
+MyFRpy provides two general-purpose iterator objects.  The first, a sequence
 iterator, works with an arbitrary sequence supporting the :meth:`~object.__getitem__`
 method.  The second works with a callable object and a sentinel value, calling
 the callable for each item in the sequence, and ending the iteration when the
@@ -46,7 +46,7 @@ sentinel value is returned.
 
 .. c:function:: PyObject* PyCallIter_New(PyObject *callable, PyObject *sentinel)
 
-   Return a new iterator.  The first parameter, *callable*, can be any Python
+   Return a new iterator.  The first parameter, *callable*, can be any MyFRpy
    callable object that can be called with no parameters; each call to it should
    return the next item in the iteration.  When *callable* returns a value equal to
    *sentinel*, the iteration will be terminated.

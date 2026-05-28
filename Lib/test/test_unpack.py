@@ -153,7 +153,7 @@ def load_tests(loader, tests, pattern):
 
 class TestCornerCases(unittest.TestCase):
     def test_extended_oparg_not_ignored(self):
-        # https://github.com/python/cpython/issues/91625
+        # https://github.com/myFRpy/cmyFRpy/issues/91625
         target = "(" + "y,"*400 + ")"
         code = f"""def unpack_400(x):
             {target} = x

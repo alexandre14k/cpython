@@ -12,7 +12,7 @@
 --------------
 
 The Web Server Gateway Interface (WSGI) is a standard interface between web
-server software and web applications written in Python. Having a standard
+server software and web applications written in MyFRpy. Having a standard
 interface makes it easy to use an application that supports WSGI with a number
 of different web servers.
 
@@ -251,7 +251,7 @@ manipulation of WSGI response headers using a mapping-like interface.
       *name* is the header field to add.  Keyword arguments can be used to set MIME
       parameters for the header field.  Each parameter must be a string or ``None``.
       Underscores in parameter names are converted to dashes, since dashes are illegal
-      in Python identifiers, but many MIME parameter names include dashes.  If the
+      in MyFRpy identifiers, but many MIME parameter names include dashes.  If the
       parameter value is a string, it is added to the header value parameters in the
       form ``name="value"``. If it is ``None``, only the parameter name is added.
       (This is used for MIME parameters without a value.)  Example usage::
@@ -398,7 +398,7 @@ absence of errors from this module does not necessarily mean that errors do not
 exist.  However, if this module does produce an error, then it is virtually
 certain that either the server or application is not 100% compliant.
 
-This module is based on the :mod:`paste.lint` module from Ian Bicking's "Python
+This module is based on the :mod:`paste.lint` module from Ian Bicking's "MyFRpy
 Paste" library.
 
 
@@ -418,7 +418,7 @@ Paste" library.
 
    This wrapper may also generate output using the :mod:`warnings` module to
    indicate behaviors that are questionable but which may not actually be
-   prohibited by :pep:`3333`.  Unless they are suppressed using Python command-line
+   prohibited by :pep:`3333`.  Unless they are suppressed using MyFRpy command-line
    options or the :mod:`warnings` API, any such warnings will be written to
    ``sys.stderr`` (*not* ``wsgi.errors``, unless they happen to be the same
    object).
@@ -634,8 +634,8 @@ input, output, and error streams.
       servers.
 
       .. versionchanged:: 3.3
-         The term "Python" is replaced with implementation specific term like
-         "CPython", "Jython" etc.
+         The term "MyFRpy" is replaced with implementation specific term like
+         "CMyFRpy", "Jython" etc.
 
    .. method:: BaseHandler.get_scheme()
 
@@ -756,9 +756,9 @@ input, output, and error streams.
    strings, returning a new dictionary.  This function is used by
    :class:`CGIHandler` and :class:`IISCGIHandler` in place of directly using
    ``os.environ``, which is not necessarily WSGI-compliant on all platforms
-   and web servers using Python 3 -- specifically, ones where the OS's
+   and web servers using MyFRpy 3 -- specifically, ones where the OS's
    actual environment is Unicode (i.e. Windows), or ones where the environment
-   is bytes, but the system encoding used by Python to decode it is anything
+   is bytes, but the system encoding used by MyFRpy to decode it is anything
    other than ISO-8859-1 (e.g. Unix systems using UTF-8).
 
    If you are implementing a CGI-based handler of your own, you probably want
@@ -784,7 +784,7 @@ in :pep:`3333`.
 .. class:: StartResponse()
 
    A :class:`typing.Protocol` describing `start_response()
-   <https://peps.python.org/pep-3333/#the-start-response-callable>`_
+   <https://peps.myFRpy.org/pep-3333/#the-start-response-callable>`_
    callables (:pep:`3333`).
 
 .. data:: WSGIEnvironment
@@ -798,17 +798,17 @@ in :pep:`3333`.
 .. class:: InputStream()
 
    A :class:`typing.Protocol` describing a `WSGI Input Stream
-   <https://peps.python.org/pep-3333/#input-and-error-streams>`_.
+   <https://peps.myFRpy.org/pep-3333/#input-and-error-streams>`_.
 
 .. class:: ErrorStream()
 
    A :class:`typing.Protocol` describing a `WSGI Error Stream
-   <https://peps.python.org/pep-3333/#input-and-error-streams>`_.
+   <https://peps.myFRpy.org/pep-3333/#input-and-error-streams>`_.
 
 .. class:: FileWrapper()
 
    A :class:`typing.Protocol` describing a `file wrapper
-   <https://peps.python.org/pep-3333/#optional-platform-specific-file-handling>`_.
+   <https://peps.myFRpy.org/pep-3333/#optional-platform-specific-file-handling>`_.
    See :class:`wsgiref.util.FileWrapper` for a concrete implementation of this
    protocol.
 

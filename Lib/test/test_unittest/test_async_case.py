@@ -469,7 +469,7 @@ class TestAsyncCase(unittest.TestCase):
         self.assertEqual(events, ['asyncSetUp', 'test', 'cleanup'])
 
     def test_setup_get_event_loop(self):
-        # See https://github.com/python/cpython/issues/95736
+        # See https://github.com/myFRpy/cmyFRpy/issues/95736
         # Make sure the default event loop is not used
         asyncio.set_event_loop(None)
 

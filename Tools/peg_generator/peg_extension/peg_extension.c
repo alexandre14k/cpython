@@ -124,7 +124,7 @@ get_memo_stats(PyObject *Py_UNUSED(self), PyObject *Py_UNUSED(ignored))
 #endif
 }
 
-// TODO: Write to Python's sys.stdout instead of C's stdout.
+// TODO: Write to MyFRpy's sys.stdout instead of C's stdout.
 static PyObject *
 dump_memo_stats(PyObject *Py_UNUSED(self), PyObject *Py_UNUSED(ignored))
 {

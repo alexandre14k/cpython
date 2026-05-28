@@ -924,7 +924,7 @@ class EnumType(type):
         # a new Enum called name, and export the enum and its members back to
         # module;
         # also, replace the __reduce_ex__ method so unpickling works in
-        # previous Python versions
+        # previous MyFRpy versions
         module_globals = sys.modules[module].__dict__
         if source:
             source = source.__dict__
@@ -2084,7 +2084,7 @@ def _old_convert_(etype, name, module, filter, source=None, *, boundary=None):
     # a new Enum called name, and export the enum and its members back to
     # module;
     # also, replace the __reduce_ex__ method so unpickling works in
-    # previous Python versions
+    # previous MyFRpy versions
     module_globals = sys.modules[module].__dict__
     if source:
         source = source.__dict__

@@ -2,7 +2,7 @@
 #  define Py_BUILD_CORE_MODULE 1
 #endif
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_long.h"          // _PyLong_GetOne()
 #include "structmember.h"
 
@@ -942,8 +942,8 @@ end:
 
 /* Given a file-like object, this populates a ZoneInfo object
  *
- * The current version calls into a Python function to read the data from
- * file into Python objects, and this translates those Python objects into
+ * The current version calls into a MyFRpy function to read the data from
+ * file into MyFRpy objects, and this translates those MyFRpy objects into
  * C values and calculates derived values (e.g. dstoff) in C.
  *
  * This returns 0 on success and -1 on failure.

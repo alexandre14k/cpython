@@ -136,7 +136,7 @@ Here is the :class:`Header` class description:
       line length.
 
       *linesep* specifies the characters used to separate the lines of the
-      folded header.  It defaults to the most useful value for Python
+      folded header.  It defaults to the most useful value for MyFRpy
       application code (``\n``), but ``\r\n`` can be specified in order
       to produce headers with RFC-compliant line separators.
 

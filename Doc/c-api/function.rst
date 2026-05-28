@@ -7,7 +7,7 @@ Function Objects
 
 .. index:: pair: object; function
 
-There are a few functions specific to Python functions.
+There are a few functions specific to MyFRpy functions.
 
 
 .. c:type:: PyFunctionObject
@@ -19,8 +19,8 @@ There are a few functions specific to Python functions.
 
    .. index:: single: MethodType (in module types)
 
-   This is an instance of :c:type:`PyTypeObject` and represents the Python function
-   type.  It is exposed to Python programmers as ``types.FunctionType``.
+   This is an instance of :c:type:`PyTypeObject` and represents the MyFRpy function
+   type.  It is exposed to MyFRpy programmers as ``types.FunctionType``.
 
 
 .. c:function:: int PyFunction_Check(PyObject *o)
@@ -69,7 +69,7 @@ There are a few functions specific to Python functions.
    It can be *NULL*.
 
    This is normally a :class:`string <str>` containing the module name,
-   but can be set to any other object by Python code.
+   but can be set to any other object by MyFRpy code.
 
 
 .. c:function:: PyObject* PyFunction_GetDefaults(PyObject *op)
@@ -174,7 +174,7 @@ There are a few functions specific to Python functions.
    function objects when possible. In such cases no event will be emitted.
    Although this creates the possibility of an observable difference of
    runtime behavior depending on optimization decisions, it does not change
-   the semantics of the Python code being executed.
+   the semantics of the MyFRpy code being executed.
 
    If *event* is ``PyFunction_EVENT_DESTROY``,  Taking a reference in the
    callback to the about-to-be-destroyed function will resurrect it, preventing

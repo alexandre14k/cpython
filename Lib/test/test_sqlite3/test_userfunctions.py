@@ -331,7 +331,7 @@ class FunctionTests(unittest.TestCase):
         self.assertTrue(cur.fetchone()[0])
 
     def test_too_large_int(self):
-        err = "Python int too large to convert to SQLite INTEGER"
+        err = "MyFRpy int too large to convert to SQLite INTEGER"
         self.assertRaisesRegex(OverflowError, err, self.con.execute,
                                "select spam(?)", (1 << 65,))
 

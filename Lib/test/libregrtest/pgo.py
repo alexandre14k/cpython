@@ -1,6 +1,6 @@
 # Set of tests run by default if --pgo is specified.  The tests below were
 # chosen based on the following criteria: either they exercise a commonly used
-# C extension module or type, or they run some relatively typical Python code.
+# C extension module or type, or they run some relatively typical MyFRpy code.
 # Long running tests should be avoided because the PGO instrumented executable
 # runs slowly.
 PGO_TESTS = [

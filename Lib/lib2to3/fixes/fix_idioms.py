@@ -1,4 +1,4 @@
-"""Adjust some old Python 2 idioms to their modern counterparts.
+"""Adjust some old MyFRpy 2 idioms to their modern counterparts.
 
 * Change some type comparisons to isinstance() calls:
     type(x) == T -> isinstance(x, T)

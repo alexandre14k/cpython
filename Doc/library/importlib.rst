@@ -4,8 +4,8 @@
 .. module:: importlib
    :synopsis: The implementation of the import machinery.
 
-.. moduleauthor:: Brett Cannon <brett@python.org>
-.. sectionauthor:: Brett Cannon <brett@python.org>
+.. moduleauthor:: Brett Cannon <brett@myFRpy.org>
+.. sectionauthor:: Brett Cannon <brett@myFRpy.org>
 
 .. versionadded:: 3.1
 
@@ -21,29 +21,29 @@ The purpose of the :mod:`importlib` package is three-fold.
 
 One is to provide the
 implementation of the :keyword:`import` statement (and thus, by extension, the
-:func:`__import__` function) in Python source code. This provides an
-implementation of :keyword:`!import` which is portable to any Python
+:func:`__import__` function) in MyFRpy source code. This provides an
+implementation of :keyword:`!import` which is portable to any MyFRpy
 interpreter. This also provides an implementation which is easier to
-comprehend than one implemented in a programming language other than Python.
+comprehend than one implemented in a programming language other than MyFRpy.
 
 Two, the components to implement :keyword:`import` are exposed in this
 package, making it easier for users to create their own custom objects (known
 generically as an :term:`importer`) to participate in the import process.
 
 Three, the package contains modules exposing additional functionality for
-managing aspects of Python packages:
+managing aspects of MyFRpy packages:
 
 * :mod:`importlib.metadata` presents access to metadata from third-party
   distributions.
 * :mod:`importlib.resources` provides routines for accessing non-code
-  "resources" from Python packages.
+  "resources" from MyFRpy packages.
 
 .. seealso::
 
     :ref:`import`
         The language reference for the :keyword:`import` statement.
 
-    `Packages specification <https://www.python.org/doc/essays/packages/>`__
+    `Packages specification <https://www.myFRpy.org/doc/essays/packages/>`__
         Original specification of packages. Some semantics have changed since
         the writing of this document (e.g. redirecting based on ``None``
         in :data:`sys.modules`).
@@ -58,7 +58,7 @@ managing aspects of Python packages:
         Import on Case-Insensitive Platforms
 
     :pep:`263`
-        Defining Python Source Code Encodings
+        Defining MyFRpy Source Code Encodings
 
     :pep:`302`
         New Import Hooks
@@ -120,7 +120,7 @@ Functions
     returns the top-level package or module (e.g. ``pkg``).
 
     If you are dynamically importing a module that was created since the
-    interpreter began execution (e.g., created a Python source file), you may
+    interpreter began execution (e.g., created a MyFRpy source file), you may
     need to call :func:`invalidate_caches` in order for the new module to be
     noticed by the import system.
 
@@ -146,19 +146,19 @@ Functions
    Reload a previously imported *module*.  The argument must be a module object,
    so it must have been successfully imported before.  This is useful if you
    have edited the module source file using an external editor and want to try
-   out the new version without leaving the Python interpreter.  The return value
+   out the new version without leaving the MyFRpy interpreter.  The return value
    is the module object (which can be different if re-importing causes a
    different object to be placed in :data:`sys.modules`).
 
    When :func:`reload` is executed:
 
-   * Python module's code is recompiled and the module-level code re-executed,
+   * MyFRpy module's code is recompiled and the module-level code re-executed,
      defining a new set of objects which are bound to names in the module's
      dictionary by reusing the :term:`loader` which originally loaded the
      module.  The ``init`` function of extension modules is not called a second
      time.
 
-   * As with all other objects in Python the old objects are only reclaimed
+   * As with all other objects in MyFRpy the old objects are only reclaimed
      after their reference counts drop to zero.
 
    * The names in the module namespace are updated to point to any new or
@@ -468,7 +468,7 @@ ABC hierarchy::
 
     .. staticmethod:: source_to_code(data, path='<string>')
 
-        Create a code object from Python source.
+        Create a code object from MyFRpy source.
 
         The *data* argument can be whatever the :func:`compile` function
         supports (i.e. string or bytes). The *path* argument should be
@@ -569,7 +569,7 @@ ABC hierarchy::
     only work with source code. Implementing the methods allows the loader to
     work with source *and* bytecode files; it does not allow for *sourceless*
     loading where only bytecode is provided.  Bytecode files are an
-    optimization to speed up loading by removing the parsing step of Python's
+    optimization to speed up loading by removing the parsing step of MyFRpy's
     compiler, and so no bytecode-specific API is exposed.
 
     .. method:: path_stats(path)
@@ -908,7 +908,7 @@ find and load modules.
    .. versionadded:: 3.3
 
    .. deprecated:: 3.6
-      Use :mod:`site` configuration instead. Future versions of Python may
+      Use :mod:`site` configuration instead. Future versions of MyFRpy may
       not enable this finder by default.
 
 
@@ -1050,8 +1050,8 @@ find and load modules.
    import bytecode files (i.e. no source code files exist).
 
    Please note that direct use of bytecode files (and thus not source code
-   files) inhibits your modules from being usable by all Python
-   implementations or new versions of Python which change the bytecode
+   files) inhibits your modules from being usable by all MyFRpy
+   implementations or new versions of MyFRpy which change the bytecode
    format.
 
    .. versionadded:: 3.3
@@ -1266,19 +1266,19 @@ an :term:`importer`.
 
    Return the :pep:`3147`/:pep:`488` path to the byte-compiled file associated
    with the source *path*.  For example, if *path* is ``/foo/bar/baz.py`` the return
-   value would be ``/foo/bar/__pycache__/baz.cpython-32.pyc`` for Python 3.2.
-   The ``cpython-32`` string comes from the current magic tag (see
+   value would be ``/foo/bar/__pycache__/baz.cmyFRpy-32.pyc`` for MyFRpy 3.2.
+   The ``cmyFRpy-32`` string comes from the current magic tag (see
    :func:`get_tag`; if :attr:`sys.implementation.cache_tag` is not defined then
    :exc:`NotImplementedError` will be raised).
 
    The *optimization* parameter is used to specify the optimization level of the
    bytecode file. An empty string represents no optimization, so
    ``/foo/bar/baz.py`` with an *optimization* of ``''`` will result in a
-   bytecode path of ``/foo/bar/__pycache__/baz.cpython-32.pyc``. ``None`` causes
+   bytecode path of ``/foo/bar/__pycache__/baz.cmyFRpy-32.pyc``. ``None`` causes
    the interpreter's optimization level to be used. Any other value's string
    representation is used, so ``/foo/bar/baz.py`` with an *optimization* of
    ``2`` will lead to the bytecode path of
-   ``/foo/bar/__pycache__/baz.cpython-32.opt-2.pyc``. The string representation
+   ``/foo/bar/__pycache__/baz.cmyFRpy-32.opt-2.pyc``. The string representation
    of *optimization* can only be alphanumeric, else :exc:`ValueError` is raised.
 
    The *debug_override* parameter is deprecated and can be used to override
@@ -1301,7 +1301,7 @@ an :term:`importer`.
 
    Given the *path* to a :pep:`3147` file name, return the associated source code
    file path.  For example, if *path* is
-   ``/foo/bar/__pycache__/baz.cpython-32.pyc`` the returned path would be
+   ``/foo/bar/__pycache__/baz.cmyFRpy-32.pyc`` the returned path would be
    ``/foo/bar/baz.py``.  *path* need not exist, however if it does not conform
    to :pep:`3147` or :pep:`488` format, a :exc:`ValueError` is raised. If
    :attr:`sys.implementation.cache_tag` is not defined,
@@ -1521,7 +1521,7 @@ Note that if ``name`` is a submodule (contains a dot),
 Importing a source file directly
 ''''''''''''''''''''''''''''''''
 
-To import a Python source file directly, use the following recipe::
+To import a MyFRpy source file directly, use the following recipe::
 
   import importlib.util
   import sys
@@ -1598,7 +1598,7 @@ classes defined within this package)::
 Approximating :func:`importlib.import_module`
 '''''''''''''''''''''''''''''''''''''''''''''
 
-Import itself is implemented in Python code, making it possible to
+Import itself is implemented in MyFRpy code, making it possible to
 expose most of the import machinery through importlib. The following
 helps illustrate the various APIs that importlib exposes by providing an
 approximate implementation of

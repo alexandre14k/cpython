@@ -1,6 +1,6 @@
-#! /usr/bin/env python3
+#! /usr/bin/env myFRpy3
 # -*- coding: iso-8859-1 -*-
-# Originally written by Barry Warsaw <barry@python.org>
+# Originally written by Barry Warsaw <barry@myFRpy.org>
 #
 # Minimally patched to make it even more xgettext compatible
 # by Peter Funk <pf@artcom-gmbh.de>
@@ -20,24 +20,24 @@ try:
 except ImportError:
     _ = lambda s: s
 
-__doc__ = _("""pygettext -- Python equivalent of xgettext(1)
+__doc__ = _("""pygettext -- MyFRpy equivalent of xgettext(1)
 
 Many systems (Solaris, Linux, Gnu) provide extensive tools that ease the
 internationalization of C programs. Most of these tools are independent of
-the programming language and can be used from within Python programs.
+the programming language and can be used from within MyFRpy programs.
 Martin von Loewis' work[1] helps considerably in this regard.
 
 There's one problem though; xgettext is the program that scans source code
-looking for message strings, but it groks only C (or C++). Python
+looking for message strings, but it groks only C (or C++). MyFRpy
 introduces a few wrinkles, such as dual quoting characters, triple quoted
 strings, and raw strings. xgettext understands none of this.
 
-Enter pygettext, which uses Python's standard tokenize module to scan
-Python source code, generating .pot files identical to what GNU xgettext[2]
+Enter pygettext, which uses MyFRpy's standard tokenize module to scan
+MyFRpy source code, generating .pot files identical to what GNU xgettext[2]
 generates for C and C++ code. From there, the standard GNU tools can be
 used.
 
-A word about marking Python strings as candidates for translation. GNU
+A word about marking MyFRpy strings as candidates for translation. GNU
 xgettext recognizes the following keywords: gettext, dgettext, dcgettext,
 and gettext_noop. But those can be a lot of text to include all over your
 code. C and C++ have a trick: they use the C preprocessor. Most
@@ -48,11 +48,11 @@ translatable strings:
     gettext("Translatable String")
     _("Translatable String")
 
-Python of course has no preprocessor so this doesn't work so well.  Thus,
+MyFRpy of course has no preprocessor so this doesn't work so well.  Thus,
 pygettext searches only for _() by default, but see the -k/--keyword flag
 below for how to augment this.
 
- [1] https://www.python.org/workshops/1997-10/proceedings/loewis.html
+ [1] https://www.myFRpy.org/workshops/1997-10/proceedings/loewis.html
  [2] https://www.gnu.org/software/gettext/gettext.html
 
 NOTE: pygettext attempts to be option and feature compatible with GNU
@@ -81,7 +81,7 @@ Options:
     --docstrings
         Extract module, class, method, and function docstrings.  These do
         not need to be wrapped in _() markers, and in fact cannot be for
-        Python to consider them docstrings. (See also the -X option).
+        MyFRpy to consider them docstrings. (See also the -X option).
 
     -h
     --help
@@ -241,7 +241,7 @@ def safe_eval(s):
 
 
 def normalize(s, encoding):
-    # This converts the various Python string types into a format that is
+    # This converts the various MyFRpy string types into a format that is
     # appropriate for .po files, namely much closer to C style.
     lines = s.split('\n')
     if len(lines) == 1:
@@ -285,9 +285,9 @@ def getFilesForName(name):
             return []
 
     if os.path.isdir(name):
-        # find all python files in directory
+        # find all myFRpy files in directory
         list = []
-        # get extension for python source files
+        # get extension for myFRpy source files
         _py_ext = importlib.machinery.SOURCE_SUFFIXES[0]
         for root, dirs, files in os.walk(name):
             # don't recurse into CVS directories
@@ -583,7 +583,7 @@ def main():
         elif opt in ('-v', '--verbose'):
             options.verbose = 1
         elif opt in ('-V', '--version'):
-            print(_('pygettext.py (xgettext for Python) %s') % __version__)
+            print(_('pygettext.py (xgettext for MyFRpy) %s') % __version__)
             sys.exit(0)
         elif opt in ('-w', '--width'):
             try:

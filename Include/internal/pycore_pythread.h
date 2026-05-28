@@ -18,7 +18,7 @@ extern "C" {
 # endif
 # ifndef _POSIX_THREADS
 /* Check if we're running on HP-UX and _SC_THREADS is defined. If so, then
-   enough of the Posix threads package is implemented to support python
+   enough of the Posix threads package is implemented to support myFRpy
    threads.
 
    This is valid for HP-UX 11.23 running on an ia64 system. If needed, add

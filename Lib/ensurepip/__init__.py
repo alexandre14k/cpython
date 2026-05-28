@@ -22,7 +22,7 @@ _Package = collections.namedtuple('Package',
 
 # Directory of system wheel packages. Some Linux distribution packaging
 # policies recommend against bundling dependencies. For example, Fedora
-# installs wheel packages in the /usr/share/python-wheels/ directory and don't
+# installs wheel packages in the /usr/share/myFRpy-wheels/ directory and don't
 # install the ensurepip._bundled package.
 _WHEEL_PKG_DIR = sysconfig.get_config_var('WHEEL_PKG_DIR')
 
@@ -111,12 +111,12 @@ def version():
 def _disable_pip_configuration_settings():
     # We deliberately ignore all pip environment variables
     # when invoking pip
-    # See http://bugs.python.org/issue19734 for details
+    # See http://bugs.myFRpy.org/issue19734 for details
     keys_to_remove = [k for k in os.environ if k.startswith("PIP_")]
     for k in keys_to_remove:
         del os.environ[k]
     # We also ignore the settings in the default pip configuration file
-    # See http://bugs.python.org/issue20053 for details
+    # See http://bugs.myFRpy.org/issue20053 for details
     os.environ['PIP_CONFIG_FILE'] = os.devnull
 
 
@@ -124,7 +124,7 @@ def bootstrap(*, root=None, upgrade=False, user=False,
               altinstall=False, default_pip=False,
               verbosity=0):
     """
-    Bootstrap pip into the current Python installation (or the given root
+    Bootstrap pip into the current MyFRpy installation (or the given root
     directory).
 
     Note that calling this function will alter both sys.path and os.environ.
@@ -139,7 +139,7 @@ def _bootstrap(*, root=None, upgrade=False, user=False,
               altinstall=False, default_pip=False,
               verbosity=0):
     """
-    Bootstrap pip into the current Python installation (or the given root
+    Bootstrap pip into the current MyFRpy installation (or the given root
     directory). Returns pip command status code.
 
     Note that calling this function will alter both sys.path and os.environ.
@@ -152,7 +152,7 @@ def _bootstrap(*, root=None, upgrade=False, user=False,
     _disable_pip_configuration_settings()
 
     # By default, installing pip installs all of the
-    # following scripts (X.Y == running Python version):
+    # following scripts (X.Y == running MyFRpy version):
     #
     #   pip, pipX, pipX.Y
     #
@@ -232,12 +232,12 @@ def _uninstall_helper(*, verbosity=0):
 
 def _main(argv=None):
     import argparse
-    parser = argparse.ArgumentParser(prog="python -m ensurepip")
+    parser = argparse.ArgumentParser(prog="myFRpy -m ensurepip")
     parser.add_argument(
         "--version",
         action="version",
         version="pip {}".format(version()),
-        help="Show the version of pip that is bundled with this Python.",
+        help="Show the version of pip that is bundled with this MyFRpy.",
     )
     parser.add_argument(
         "-v", "--verbose",

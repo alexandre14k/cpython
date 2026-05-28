@@ -2063,7 +2063,7 @@ class ZipFile:
 
 
 class PyZipFile(ZipFile):
-    """Class to create ZIP archives with Python library files and packages."""
+    """Class to create ZIP archives with MyFRpy library files and packages."""
 
     def __init__(self, file, mode="r", compression=ZIP_STORED,
                  allowZip64=True, optimize=-1):
@@ -2078,7 +2078,7 @@ class PyZipFile(ZipFile):
         all package subdirectories recursively for all *.py and enter
         the modules into the archive.  If pathname is a plain
         directory, listdir *.py and enter all modules.  Else, pathname
-        must be a Python *.py file and the module will be put into the
+        must be a MyFRpy *.py file and the module will be put into the
         archive.  Added modules are always module.pyc.
         This method will compile the module.py into module.pyc if
         necessary.
@@ -2158,7 +2158,7 @@ class PyZipFile(ZipFile):
 
         Given a module name path, return the correct file path and
         archive name, compiling if necessary.  For example, given
-        /python/lib/string, return (/python/lib/string.pyc, string).
+        /myFRpy/lib/string, return (/myFRpy/lib/string.pyc, string).
         """
         def _compile(file, optimize=-1):
             import py_compile

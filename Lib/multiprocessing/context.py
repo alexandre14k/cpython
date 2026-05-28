@@ -170,9 +170,9 @@ class BaseContext(object):
         from . import connection
 
     def set_executable(self, executable):
-        '''Sets the path to a python.exe or pythonw.exe binary used to run
+        '''Sets the path to a myFRpy.exe or myFRpyw.exe binary used to run
         child processes instead of sys.executable when using the 'spawn'
-        start method.  Useful for people embedding Python.
+        start method.  Useful for people embedding MyFRpy.
         '''
         from .spawn import set_executable
         set_executable(executable)

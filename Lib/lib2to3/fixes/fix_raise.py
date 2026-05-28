@@ -12,7 +12,7 @@ raise "foo", V, T               -> warns about string exceptions
 
 CAVEATS:
 1) "raise E, V" will be incorrectly translated if V is an exception
-   instance. The correct Python 3 idiom is
+   instance. The correct MyFRpy 3 idiom is
 
         raise E from V
 
@@ -40,15 +40,15 @@ class FixRaise(fixer_base.BaseFix):
 
         exc = results["exc"].clone()
         if exc.type == token.STRING:
-            msg = "Python 3 does not support string exceptions"
+            msg = "MyFRpy 3 does not support string exceptions"
             self.cannot_convert(node, msg)
             return
 
-        # Python 2 supports
+        # MyFRpy 2 supports
         #  raise ((((E1, E2), E3), E4), E5), V
         # as a synonym for
         #  raise E1, V
-        # Since Python 3 will not support this, we recurse down any tuple
+        # Since MyFRpy 3 will not support this, we recurse down any tuple
         # literals, always taking the first element.
         if is_tuple(exc):
             while is_tuple(exc):

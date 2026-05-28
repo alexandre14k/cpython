@@ -1,4 +1,4 @@
-"""Define partial Python code Parser used by editor and hyperparser.
+"""Define partial MyFRpy code Parser used by editor and hyperparser.
 
 Instances of ParseMap are used with str.translate.
 
@@ -421,7 +421,7 @@ class Parser:
 
             if ch == '"' or ch == "'":
                 # consume string
-                # Note that study1 did this with a Python loop, but
+                # Note that study1 did this with a MyFRpy loop, but
                 # we use a regexp here; the reason is speed in both
                 # cases; the string may be huge, but study1 pre-squashed
                 # strings to a couple of characters per line.  study1

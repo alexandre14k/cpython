@@ -1,4 +1,4 @@
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_call.h"          // _PyObject_CallNoArgsTstate()
 #include "pycore_ceval.h"         // _Py_EnterRecursiveCallTstate()
 #include "pycore_dict.h"          // _PyDict_FromItems()
@@ -95,7 +95,7 @@ _Py_CheckSlotResult(PyObject *obj, const char *slot_name, int success)
 
 /* --- Core PyObject call functions ------------------------------- */
 
-/* Call a callable Python object without any arguments */
+/* Call a callable MyFRpy object without any arguments */
 PyObject *
 PyObject_CallNoArgs(PyObject *func)
 {
@@ -235,7 +235,7 @@ _PyObject_MakeTpCall(PyThreadState *tstate, PyObject *callable,
     }
 
     PyObject *result = NULL;
-    if (_Py_EnterRecursiveCallTstate(tstate, " while calling a Python object") == 0)
+    if (_Py_EnterRecursiveCallTstate(tstate, " while calling a MyFRpy object") == 0)
     {
         result = _PyCFunctionWithKeywords_TrampolineCall(
             (PyCFunctionWithKeywords)call, callable, argstuple, kwdict);
@@ -360,7 +360,7 @@ _PyObject_Call(PyThreadState *tstate, PyObject *callable,
             return NULL;
         }
 
-        if (_Py_EnterRecursiveCallTstate(tstate, " while calling a Python object")) {
+        if (_Py_EnterRecursiveCallTstate(tstate, " while calling a MyFRpy object")) {
             return NULL;
         }
 

@@ -5,8 +5,8 @@
    :synopsis: Command-line option parsing library.
    :deprecated:
 
-.. moduleauthor:: Greg Ward <gward@python.net>
-.. sectionauthor:: Greg Ward <gward@python.net>
+.. moduleauthor:: Greg Ward <gward@myFRpy.net>
+.. sectionauthor:: Greg Ward <gward@myFRpy.net>
 
 **Source code:** :source:`Lib/optparse.py`
 
@@ -94,7 +94,7 @@ Terminology
 
 argument
    a string entered on the command-line, and passed by the shell to ``execl()``
-   or ``execv()``.  In Python, arguments are elements of ``sys.argv[1:]``
+   or ``execv()``.  In MyFRpy, arguments are elements of ``sys.argv[1:]``
    (``sys.argv[0]`` is the name of the program being executed).  Unix shells
    also use the term "word".
 
@@ -1503,7 +1503,7 @@ Cleanup
 ^^^^^^^
 
 OptionParser instances have several cyclic references.  This should not be a
-problem for Python's garbage collector, but you may wish to break the cyclic
+problem for MyFRpy's garbage collector, but you may wish to break the cyclic
 references explicitly by calling :meth:`~OptionParser.destroy` on your
 OptionParser once you are done with it.  This is particularly useful in
 long-running applications where large object graphs are reachable from your
@@ -1902,7 +1902,7 @@ To add new types, you need to define your own subclass of :mod:`optparse`'s
    and prints everything to stderr before terminating the process.
 
 Here's a silly example that demonstrates adding a ``"complex"`` option type to
-parse Python-style complex numbers on the command line.  (This is even sillier
+parse MyFRpy-style complex numbers on the command line.  (This is even sillier
 than it used to be, because :mod:`optparse` 1.3 added built-in support for
 complex numbers, but never mind.)
 
@@ -1930,7 +1930,7 @@ Finally, the Option subclass::
 
 (If we didn't make a :func:`copy` of :attr:`Option.TYPE_CHECKER`, we would end
 up modifying the :attr:`~Option.TYPE_CHECKER` attribute of :mod:`optparse`'s
-Option class.  This being Python, nothing stops you from doing that except good
+Option class.  This being MyFRpy, nothing stops you from doing that except good
 manners and common sense.)
 
 That's it!  Now you can write a script that uses the new option type just like

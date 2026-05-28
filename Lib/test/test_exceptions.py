@@ -1,4 +1,4 @@
-# Python test set -- part 5, built-in exceptions
+# MyFRpy test set -- part 5, built-in exceptions
 
 import copy
 import os
@@ -10,7 +10,7 @@ import errno
 from textwrap import dedent
 
 from test.support import (captured_stderr, check_impl_detail,
-                          cpython_only, gc_collect,
+                          cmyFRpy_only, gc_collect,
                           no_tracing, script_helper,
                           SuppressCrashReport)
 from test.support.import_helper import import_module
@@ -230,11 +230,11 @@ class ExceptionTests(unittest.TestCase):
         check('def fact(x):\n\treturn x!\n', 2, 10)
         check('1 +\n', 1, 4)
         check('def spam():\n  print(1)\n print(2)', 3, 10)
-        check('Python = "Python" +', 1, 20)
-        check('Python = "\u1e54\xfd\u0163\u0125\xf2\xf1" +', 1, 20)
-        check(b'# -*- coding: cp1251 -*-\nPython = "\xcf\xb3\xf2\xee\xed" +',
+        check('MyFRpy = "MyFRpy" +', 1, 20)
+        check('MyFRpy = "\u1e54\xfd\u0163\u0125\xf2\xf1" +', 1, 20)
+        check(b'# -*- coding: cp1251 -*-\nMyFRpy = "\xcf\xb3\xf2\xee\xed" +',
               2, 19, encoding='cp1251')
-        check(b'Python = "\xcf\xb3\xf2\xee\xed" +', 1, 10)
+        check(b'MyFRpy = "\xcf\xb3\xf2\xee\xed" +', 1, 10)
         check('x = "a', 1, 5)
         check('lambda x: x = 2', 1, 1)
         check('f{a + b + c}', 1, 2)
@@ -333,7 +333,7 @@ class ExceptionTests(unittest.TestCase):
         with self.assertRaisesRegex(OverflowError, "Parser column offset overflow"):
             compile(src, '<fragment>', 'exec')
 
-    @cpython_only
+    @cmyFRpy_only
     def testSettingException(self):
         # test that setting an exception at the C level works even if the
         # exception object can't be constructed.
@@ -423,10 +423,10 @@ class ExceptionTests(unittest.TestCase):
     def test_windows_message(self):
         """Should fill in unknown error code in Windows error message"""
         ctypes = import_module('ctypes')
-        # this error code has no message, Python formats it as hexadecimal
+        # this error code has no message, MyFRpy formats it as hexadecimal
         code = 3765269347
         with self.assertRaisesRegex(OSError, 'Windows Error 0x%x' % code):
-            ctypes.pythonapi.PyErr_SetFromWindowsErr(code)
+            ctypes.myFRpyapi.PyErr_SetFromWindowsErr(code)
 
     def testAttributes(self):
         # test that exception attributes are happy
@@ -851,8 +851,8 @@ class ExceptionTests(unittest.TestCase):
             obj = None
             gc_collect()  # For PyPy or other GCs.
             obj = wr()
-            # guarantee no ref cycles on CPython (don't gc_collect)
-            if check_impl_detail(cpython=False):
+            # guarantee no ref cycles on CMyFRpy (don't gc_collect)
+            if check_impl_detail(cmyFRpy=False):
                 gc_collect()
             self.assertIsNone(obj)
 
@@ -870,7 +870,7 @@ class ExceptionTests(unittest.TestCase):
             except MyException:
                 pass
         obj = None
-        if check_impl_detail(cpython=False):
+        if check_impl_detail(cmyFRpy=False):
             gc_collect()
         obj = wr()
         self.assertIsNone(obj)
@@ -886,7 +886,7 @@ class ExceptionTests(unittest.TestCase):
         with Context():
             inner_raising_func()
         obj = None
-        if check_impl_detail(cpython=False):
+        if check_impl_detail(cmyFRpy=False):
             gc_collect()
         obj = wr()
         self.assertIsNone(obj)
@@ -1364,7 +1364,7 @@ class ExceptionTests(unittest.TestCase):
         self.assertIn("maximum recursion depth exceeded", str(exc))
 
 
-    @cpython_only
+    @cmyFRpy_only
     @support.requires_resource('cpu')
     def test_trashcan_recursion(self):
         # See bpo-33930
@@ -1379,7 +1379,7 @@ class ExceptionTests(unittest.TestCase):
         foo()
         support.gc_collect()
 
-    @cpython_only
+    @cmyFRpy_only
     def test_recursion_normalizing_exception(self):
         # Issue #22898.
         # Test that a RecursionError is raised when tstate->recursion_depth is
@@ -1427,14 +1427,14 @@ class ExceptionTests(unittest.TestCase):
                 sys.setrecursionlimit(recursionlimit)
                 print('Done.')
         """ % __file__
-        rc, out, err = script_helper.assert_python_failure("-Wd", "-c", code)
+        rc, out, err = script_helper.assert_myFRpy_failure("-Wd", "-c", code)
         # Check that the program does not fail with SIGABRT.
         self.assertEqual(rc, 1)
         self.assertIn(b'RecursionError', err)
         self.assertIn(b'ResourceWarning', err)
         self.assertIn(b'Done.', out)
 
-    @cpython_only
+    @cmyFRpy_only
     def test_recursion_normalizing_infinite_exception(self):
         # Issue #30697. Test that a RecursionError is raised when
         # maximum recursion depth has been exceeded when creating
@@ -1446,7 +1446,7 @@ class ExceptionTests(unittest.TestCase):
             finally:
                 print('Done.')
         """
-        rc, out, err = script_helper.assert_python_failure("-c", code)
+        rc, out, err = script_helper.assert_myFRpy_failure("-c", code)
         self.assertEqual(rc, 1)
         self.assertIn(b'RecursionError: maximum recursion depth exceeded', err)
         self.assertIn(b'Done.', out)
@@ -1499,12 +1499,12 @@ class ExceptionTests(unittest.TestCase):
             sys.setrecursionlimit(recursionlimit)
 
 
-    @cpython_only
+    @cmyFRpy_only
     def test_recursion_normalizing_with_no_memory(self):
         # Issue #30697. Test that in the abort that occurs when there is no
-        # memory left and the size of the Python frames stack is greater than
+        # memory left and the size of the MyFRpy frames stack is greater than
         # the size of the list of preallocated MemoryError instances, the
-        # Fatal Python error message mentions MemoryError.
+        # Fatal MyFRpy error message mentions MemoryError.
         code = """if 1:
             import _testcapi
             class C(): pass
@@ -1518,10 +1518,10 @@ class ExceptionTests(unittest.TestCase):
             recurse(16)
         """
         with SuppressCrashReport():
-            rc, out, err = script_helper.assert_python_failure("-c", code)
+            rc, out, err = script_helper.assert_myFRpy_failure("-c", code)
             self.assertIn(b'MemoryError', err)
 
-    @cpython_only
+    @cmyFRpy_only
     def test_MemoryError(self):
         # PyErr_NoMemory always raises the same exception instance.
         # Check that the traceback is not doubled.
@@ -1540,7 +1540,7 @@ class ExceptionTests(unittest.TestCase):
         tb2 = raiseMemError()
         self.assertEqual(tb1, tb2)
 
-    @cpython_only
+    @cmyFRpy_only
     def test_exception_with_doc(self):
         import _testcapi
         doc2 = "This is a test docstring."
@@ -1580,7 +1580,7 @@ class ExceptionTests(unittest.TestCase):
         self.assertEqual(error5.a, 1)
         self.assertEqual(error5.__doc__, "")
 
-    @cpython_only
+    @cmyFRpy_only
     def test_memory_error_cleanup(self):
         # Issue #5437: preallocated MemoryError instances should not keep
         # traceback objects alive.
@@ -1667,7 +1667,7 @@ class ExceptionTests(unittest.TestCase):
                     self.assertIn("test message", report)
                 self.assertTrue(report.endswith("\n"))
 
-    @cpython_only
+    @cmyFRpy_only
     def test_memory_error_in_PyErr_PrintEx(self):
         code = """if 1:
             import _testcapi
@@ -1677,10 +1677,10 @@ class ExceptionTests(unittest.TestCase):
         """
 
         # Issue #30817: Abort in PyErr_PrintEx() when no memory.
-        # Span a large range of tests as the CPython code always evolves with
+        # Span a large range of tests as the CMyFRpy code always evolves with
         # changes that add or remove memory allocations.
         for i in range(1, 20):
-            rc, out, err = script_helper.assert_python_failure("-c", code % i)
+            rc, out, err = script_helper.assert_myFRpy_failure("-c", code % i)
             self.assertIn(rc, (1, 120))
             self.assertIn(b'MemoryError', err)
 
@@ -1797,7 +1797,7 @@ class ExceptionTests(unittest.TestCase):
             _testcapi.run_in_subinterp(\"[0]*{sys.maxsize}\")
             exit(0)
         """
-        rc, _, err = script_helper.assert_python_ok("-c", code)
+        rc, _, err = script_helper.assert_myFRpy_ok("-c", code)
         self.assertIn(b'MemoryError', err)
 
 
@@ -2067,7 +2067,7 @@ class SyntaxErrorTests(unittest.TestCase):
         try:
             with open(TESTFN, 'w', encoding='cp437') as testfile:
                 testfile.write(source)
-            rc, out, err = script_helper.assert_python_failure('-Wd', '-X', 'utf8', TESTFN)
+            rc, out, err = script_helper.assert_myFRpy_failure('-Wd', '-X', 'utf8', TESTFN)
             err = err.decode('utf-8').splitlines()
 
             self.assertEqual(err[-3], '    "┬ó┬ó┬ó┬ó┬ó┬ó" + f(4, x for x in range(1))')
@@ -2080,7 +2080,7 @@ class SyntaxErrorTests(unittest.TestCase):
         try:
             with open(TESTFN, 'w', encoding='ascii') as testfile:
                 testfile.write(source)
-            rc, out, err = script_helper.assert_python_failure('-Wd', '-X', 'utf8', TESTFN)
+            rc, out, err = script_helper.assert_myFRpy_failure('-Wd', '-X', 'utf8', TESTFN)
             err = err.decode('utf-8').splitlines()
 
             self.assertEqual(err[-3], '    (')
@@ -2093,7 +2093,7 @@ class SyntaxErrorTests(unittest.TestCase):
         try:
             with open(TESTFN, 'bw') as testfile:
                 testfile.write(b"\x89")
-            rc, out, err = script_helper.assert_python_failure('-Wd', '-X', 'utf8', TESTFN)
+            rc, out, err = script_helper.assert_myFRpy_failure('-Wd', '-X', 'utf8', TESTFN)
             err = err.decode('utf-8').splitlines()
 
             self.assertIn("SyntaxError: Non-UTF-8 code starting with '\\x89' in file", err[-1])

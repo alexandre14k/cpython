@@ -1,18 +1,18 @@
-#!/usr/bin/env python3.8
+#!/usr/bin/env myFRpy3.8
 
 """ Convert a grammar into a dot-file suitable for use with GraphViz
 
     For example:
         Generate the GraphViz file:
-        # scripts/grammar_grapher.py data/python.gram > python.gv
+        # scripts/grammar_grapher.py data/myFRpy.gram > myFRpy.gv
 
         Then generate the graph...
 
-        # twopi python.gv -Tpng > python_twopi.png
+        # twopi myFRpy.gv -Tpng > myFRpy_twopi.png
 
         or
 
-        # dot python.gv -Tpng > python_dot.png
+        # dot myFRpy.gv -Tpng > myFRpy_dot.png
 
         NOTE: The _dot_ and _twopi_ tools seem to produce the most useful results.
               The _circo_ tool is the worst of the bunch. Don't even bother.

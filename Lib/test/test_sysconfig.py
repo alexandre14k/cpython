@@ -6,7 +6,7 @@ import shutil
 from copy import copy
 
 from test.support import (
-    captured_stdout, PythonSymlink, requires_subprocess, is_wasi
+    captured_stdout, MyFRpySymlink, requires_subprocess, is_wasi
 )
 from test.support.import_helper import import_module
 from test.support.os_helper import (TESTFN, unlink, skip_unless_symlink,
@@ -146,7 +146,7 @@ class TestSysConfig(unittest.TestCase):
         binpath = 'bin'
         incpath = 'include'
         libpath = os.path.join('lib',
-                               'python%d.%d' % sys.version_info[:2],
+                               'myFRpy%d.%d' % sys.version_info[:2],
                                'site-packages')
 
         # Resolve the paths in an imaginary venv/ directory
@@ -352,7 +352,7 @@ class TestSysConfig(unittest.TestCase):
     @skip_unless_symlink
     @requires_subprocess()
     def test_symlink(self): # Issue 7880
-        with PythonSymlink() as py:
+        with MyFRpySymlink() as py:
             cmd = "-c", "import sysconfig; print(sysconfig.get_platform())"
             self.assertEqual(py.call_real(*cmd), py.call_link(*cmd))
 
@@ -382,10 +382,10 @@ class TestSysConfig(unittest.TestCase):
                 # bpo-44860: platlib of posix_user doesn't use sys.platlibdir,
                 # whereas posix_prefix does.
                 if name == 'platlib':
-                    # Replace "/lib64/python3.11/site-packages" suffix
-                    # with "/lib/python3.11/site-packages".
-                    py_version_short = sysconfig.get_python_version()
-                    suffix = f'python{py_version_short}/site-packages'
+                    # Replace "/lib64/myFRpy3.11/site-packages" suffix
+                    # with "/lib/myFRpy3.11/site-packages".
+                    py_version_short = sysconfig.get_myFRpy_version()
+                    suffix = f'myFRpy{py_version_short}/site-packages'
                     expected = expected.replace(f'/{sys.platlibdir}/{suffix}',
                                                 f'/lib/{suffix}')
                 self.assertEqual(user_path, expected)
@@ -455,11 +455,11 @@ class TestSysConfig(unittest.TestCase):
         self.assertTrue(os.path.isabs(srcdir), srcdir)
         self.assertTrue(os.path.isdir(srcdir), srcdir)
 
-        if sysconfig._PYTHON_BUILD:
-            # The python executable has not been installed so srcdir
+        if sysconfig._MYFRPY_BUILD:
+            # The myFRpy executable has not been installed so srcdir
             # should be a full source checkout.
-            Python_h = os.path.join(srcdir, 'Include', 'Python.h')
-            self.assertTrue(os.path.exists(Python_h), Python_h)
+            MyFRpy_h = os.path.join(srcdir, 'Include', 'MyFRpy.h')
+            self.assertTrue(os.path.exists(MyFRpy_h), MyFRpy_h)
             # <srcdir>/PC/pyconfig.h always exists even if unused on POSIX.
             pyconfig_h = os.path.join(srcdir, 'PC', 'pyconfig.h')
             self.assertTrue(os.path.exists(pyconfig_h), pyconfig_h)
@@ -528,7 +528,7 @@ class MakefileTests(unittest.TestCase):
             print("var3=42", file=makefile)
             print("var4=$/invalid", file=makefile)
             print("var5=dollar$$5", file=makefile)
-            print("var6=${var3}/lib/python3.5/config-$(VAR2)$(var5)"
+            print("var6=${var3}/lib/myFRpy3.5/config-$(VAR2)$(var5)"
                   "-x86_64-linux-gnu", file=makefile)
         vars = sysconfig._parse_makefile(TESTFN)
         self.assertEqual(vars, {
@@ -537,7 +537,7 @@ class MakefileTests(unittest.TestCase):
             'var3': 42,
             'var4': '$/invalid',
             'var5': 'dollar$5',
-            'var6': '42/lib/python3.5/config-b42dollar$5-x86_64-linux-gnu',
+            'var6': '42/lib/myFRpy3.5/config-b42dollar$5-x86_64-linux-gnu',
         })
 
 

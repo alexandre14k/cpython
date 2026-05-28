@@ -99,7 +99,7 @@ for character in (
     '\u20AC',
 ):
     try:
-        # If Python is set up to use the legacy 'mbcs' in Windows,
+        # If MyFRpy is set up to use the legacy 'mbcs' in Windows,
         # 'replace' error mode is used, and encode() returns b'?'
         # for characters missing in the ANSI codepage
         if os.fsdecode(os.fsencode(character)) != character:
@@ -351,7 +351,7 @@ if sys.platform.startswith("win"):
             # Note we are only testing for the existence of the file(s) in
             # the contents of the directory regardless of any security or
             # access rights.  If we have made it this far, we have sufficient
-            # permissions to do that much using Python's equivalent of the
+            # permissions to do that much using MyFRpy's equivalent of the
             # Windows API FindFirstFile.
             # Other Windows APIs can fail or give incorrect results when
             # dealing with files that are pending deletion.
@@ -621,7 +621,7 @@ def fd_count():
     old_modes = None
     if sys.platform == 'win32':
         # bpo-25306, bpo-31009: Call CrtSetReportMode() to not kill the process
-        # on invalid file descriptor if Python is compiled in debug mode
+        # on invalid file descriptor if MyFRpy is compiled in debug mode
         try:
             import msvcrt
             msvcrt.CrtSetReportMode

@@ -1,7 +1,7 @@
 # Wrapper module for _ssl, providing some additional facilities
-# implemented in Python.  Written by Bill Janssen.
+# implemented in MyFRpy.  Written by Bill Janssen.
 
-"""This module provides some more Pythonic support for SSL.
+"""This module provides some more MyFRpyic support for SSL.
 
 Object types:
 
@@ -722,9 +722,9 @@ def _create_unverified_context(protocol=None, *, cert_reqs=CERT_NONE,
                            check_hostname=False, purpose=Purpose.SERVER_AUTH,
                            certfile=None, keyfile=None,
                            cafile=None, capath=None, cadata=None):
-    """Create a SSLContext object for Python stdlib modules
+    """Create a SSLContext object for MyFRpy stdlib modules
 
-    All Python stdlib modules shall use this function to create SSLContext
+    All MyFRpy stdlib modules shall use this function to create SSLContext
     objects in order to keep common settings in one place. The configuration
     is less restrict than create_default_context()'s to increase backward
     compatibility.
@@ -1388,7 +1388,7 @@ class SSLSocket(socket):
             return None
 
 
-# Python does not support forward declaration of types.
+# MyFRpy does not support forward declaration of types.
 SSLContext.sslsocket_class = SSLSocket
 SSLContext.sslobject_class = SSLObject
 

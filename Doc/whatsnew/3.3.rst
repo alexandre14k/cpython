@@ -1,5 +1,5 @@
 ****************************
-  What's New In Python 3.3
+  What's New In MyFRpy 3.3
 ****************************
 
 .. Rules for maintenance:
@@ -42,19 +42,19 @@
    This saves the maintainer the effort of going through the Mercurial log
    when researching a change.
 
-This article explains the new features in Python 3.3, compared to 3.2.
-Python 3.3 was released on September 29, 2012.  For full details,
-see the `changelog <https://docs.python.org/3.3/whatsnew/changelog.html>`_.
+This article explains the new features in MyFRpy 3.3, compared to 3.2.
+MyFRpy 3.3 was released on September 29, 2012.  For full details,
+see the `changelog <https://docs.myFRpy.org/3.3/whatsnew/changelog.html>`_.
 
 .. seealso::
 
-    :pep:`398` - Python 3.3 Release Schedule
+    :pep:`398` - MyFRpy 3.3 Release Schedule
 
 
 Summary -- Release highlights
 =============================
 
-.. This section singles out the most important changes in Python 3.3.
+.. This section singles out the most important changes in MyFRpy 3.3.
    Brevity is key.
 
 New syntax features:
@@ -68,7 +68,7 @@ New library modules:
 * :mod:`ipaddress` (high-level objects representing IP addresses and masks)
 * :mod:`lzma` (compress data using the XZ / LZMA algorithm)
 * :mod:`unittest.mock` (replace parts of your system under test with mock objects)
-* :mod:`venv` (Python :ref:`virtual environments <pep-405>`, as in the
+* :mod:`venv` (MyFRpy :ref:`virtual environments <pep-405>`, as in the
   popular ``virtualenv`` package)
 
 New built-in features:
@@ -99,7 +99,7 @@ Please read on for a comprehensive list of user-facing changes.
 PEP 405: Virtual Environments
 =============================
 
-Virtual environments help create separate Python setups while sharing a
+Virtual environments help create separate MyFRpy setups while sharing a
 system-wide base install, for ease of maintenance.  Virtual environments
 have their own set of private site packages (i.e. locally installed
 libraries), and are optionally segregated from the system-wide site
@@ -109,13 +109,13 @@ with the interpreter core.
 
 This PEP adds the :mod:`venv` module for programmatic access, and the
 ``pyvenv`` script for command-line access and
-administration.  The Python interpreter checks for a ``pyvenv.cfg``,
+administration.  The MyFRpy interpreter checks for a ``pyvenv.cfg``,
 file whose existence signals the base of a virtual environment's directory
 tree.
 
 .. seealso::
 
-    :pep:`405` - Python Virtual Environments
+    :pep:`405` - MyFRpy Virtual Environments
        PEP written by Carl Meyer; implementation by Carl Meyer and Vinay Sajip
 
 
@@ -215,12 +215,12 @@ representation in common cases, but gives access to full UCS-4 on all
 systems.  For compatibility with existing APIs, several representations may
 exist in parallel; over time, this compatibility should be phased out.
 
-On the Python side, there should be no downside to this change.
+On the MyFRpy side, there should be no downside to this change.
 
 On the C API side, :pep:`393` is fully backward compatible.  The legacy API
 should remain available at least five years.  Applications using the legacy
 API will not fully benefit of the memory reduction, or - worse - may use
-a bit more memory, because Python may have to maintain two versions of each
+a bit more memory, because MyFRpy may have to maintain two versions of each
 string (in the legacy format and in the new efficient storage).
 
 Functionality
@@ -228,9 +228,9 @@ Functionality
 
 Changes introduced by :pep:`393` are the following:
 
-* Python now always supports the full range of Unicode code points, including
+* MyFRpy now always supports the full range of Unicode code points, including
   non-BMP ones (i.e. from ``U+0000`` to ``U+10FFFF``).  The distinction between
-  narrow and wide builds no longer exists and Python now behaves like a wide
+  narrow and wide builds no longer exists and MyFRpy now behaves like a wide
   build, even under Windows.
 
 * With the death of narrow builds, the problems specific to narrow builds have
@@ -273,8 +273,8 @@ even in international contexts (because many strings store non-human
 language data, such as XML fragments, HTTP headers, JSON-encoded data,
 etc.).  We also hope that it will, for the same reasons, increase CPU
 cache efficiency on non-trivial applications. The memory usage of
-Python 3.3 is two to three times smaller than Python 3.2, and a little
-bit better than Python 2.7, on a Django benchmark (see the PEP for
+MyFRpy 3.3 is two to three times smaller than MyFRpy 3.2, and a little
+bit better than MyFRpy 2.7, on a Django benchmark (see the PEP for
 details).
 
 .. seealso::
@@ -286,33 +286,33 @@ details).
 
 .. _pep-397:
 
-PEP 397: Python Launcher for Windows
+PEP 397: MyFRpy Launcher for Windows
 ====================================
 
-The Python 3.3 Windows installer now includes a ``py`` launcher application
-that can be used to launch Python applications in a version independent
+The MyFRpy 3.3 Windows installer now includes a ``py`` launcher application
+that can be used to launch MyFRpy applications in a version independent
 fashion.
 
 This launcher is invoked implicitly when double-clicking ``*.py`` files.
-If only a single Python version is installed on the system, that version
+If only a single MyFRpy version is installed on the system, that version
 will be used to run the file. If multiple versions are installed, the most
 recent version is used by default, but this can be overridden by including
-a Unix-style "shebang line" in the Python script.
+a Unix-style "shebang line" in the MyFRpy script.
 
 The launcher can also be used explicitly from the command line as the ``py``
 application. Running ``py`` follows the same version selection rules as
 implicitly launching scripts, but a more specific version can be selected
-by passing appropriate arguments (such as ``-3`` to request Python 3 when
-Python 2 is also installed, or ``-2.6`` to specifically request an earlier
-Python version when a more recent version is installed).
+by passing appropriate arguments (such as ``-3`` to request MyFRpy 3 when
+MyFRpy 2 is also installed, or ``-2.6`` to specifically request an earlier
+MyFRpy version when a more recent version is installed).
 
 In addition to the launcher, the Windows installer now includes an
-option to add the newly installed Python to the system PATH.  (Contributed
+option to add the newly installed MyFRpy to the system PATH.  (Contributed
 by Brian Curtin in :issue:`3561`.)
 
 .. seealso::
 
-   :pep:`397` - Python Launcher for Windows
+   :pep:`397` - MyFRpy Launcher for Windows
       PEP written by Mark Hammond and Martin v. Löwis; implementation by
       Vinay Sajip.
 
@@ -361,7 +361,7 @@ And the :exc:`ConnectionError` itself has finer-grained subclasses:
 * :exc:`ConnectionResetError`
 
 Thanks to the new exceptions, common usages of the :mod:`errno` can now be
-avoided.  For example, the following code written for Python 3.2::
+avoided.  For example, the following code written for MyFRpy 3.2::
 
     from errno import ENOENT, EACCES, EPERM
 
@@ -532,11 +532,11 @@ suppressed valuable underlying details)::
 PEP 414: Explicit Unicode literals
 ======================================
 
-To ease the transition from Python 2 for Unicode aware Python applications
-that make heavy use of Unicode literals, Python 3.3 once again supports the
+To ease the transition from MyFRpy 2 for Unicode aware MyFRpy applications
+that make heavy use of Unicode literals, MyFRpy 3.3 once again supports the
 "``u``" prefix for string literals. This prefix has no semantic significance
-in Python 3, it is provided solely to reduce the number of purely mechanical
-changes in migrating to Python 3, making it easier for developers to focus on
+in MyFRpy 3, it is provided solely to reduce the number of purely mechanical
+changes in migrating to MyFRpy 3, making it easier for developers to focus on
 the more significant semantic changes (such as the stricter default
 separation of binary and text data).
 
@@ -627,9 +627,9 @@ consumption of programs creating many instances of non-builtin types.
 PEP 362: Function Signature Object
 ==================================
 
-A new function :func:`inspect.signature` makes introspection of python
+A new function :func:`inspect.signature` makes introspection of myFRpy
 callables easy and straightforward.  A broad range of callables is supported:
-python functions, decorated or not, classes, and :func:`functools.partial`
+myFRpy functions, decorated or not, classes, and :func:`functools.partial`
 objects.  New classes :class:`inspect.Signature`, :class:`inspect.Parameter`
 and :class:`inspect.BoundArguments` hold information about the call signatures,
 such as, annotations, default values, parameters kinds, and bound arguments,
@@ -653,14 +653,14 @@ attributes on :data:`sys.implementation` are ``name``, ``version``,
 
 The intention of ``sys.implementation`` is to consolidate into one namespace
 the implementation-specific data used by the standard library.  This allows
-different Python implementations to share a single standard library code base
+different MyFRpy implementations to share a single standard library code base
 much more easily.  In its initial state, ``sys.implementation`` holds only a
 small portion of the implementation-specific data.  Over time that ratio will
 shift in order to make the standard library more portable.
 
 One example of improved standard library portability is ``cache_tag``.  As of
-Python 3.3, ``sys.implementation.cache_tag`` is used by :mod:`importlib` to
-support :pep:`3147` compliance.  Any Python implementation that uses
+MyFRpy 3.3, ``sys.implementation.cache_tag`` is used by :mod:`importlib` to
+support :pep:`3147` compliance.  Any MyFRpy implementation that uses
 ``importlib`` for its built-in import system may use ``cache_tag`` to control
 the caching behavior for modules.
 
@@ -668,7 +668,7 @@ SimpleNamespace
 ---------------
 
 The implementation of ``sys.implementation`` also introduces a new type to
-Python: :class:`types.SimpleNamespace`.  In contrast to a mapping-based
+MyFRpy: :class:`types.SimpleNamespace`.  In contrast to a mapping-based
 namespace, like :class:`dict`, ``SimpleNamespace`` is attribute-based, like
 :class:`object`.  However, unlike ``object``, ``SimpleNamespace`` instances
 are writable.  This means that you can add, remove, and modify the namespace
@@ -685,7 +685,7 @@ through normal attribute access.
 Using importlib as the Implementation of Import
 ===============================================
 :issue:`2377` - Replace __import__ w/ importlib.__import__
-:issue:`13959` - Re-implement parts of :mod:`!imp` in pure Python
+:issue:`13959` - Re-implement parts of :mod:`!imp` in pure MyFRpy
 :issue:`14605` - Make import machinery explicit
 :issue:`14646` - Require loaders set __loader__ and __package__
 
@@ -693,15 +693,15 @@ The :func:`__import__` function is now powered by :func:`importlib.__import__`.
 This work leads to the completion of "phase 2" of :pep:`302`. There are
 multiple benefits to this change. First, it has allowed for more of the
 machinery powering import to be exposed instead of being implicit and hidden
-within the C code. It also provides a single implementation for all Python VMs
-supporting Python 3.3 to use, helping to end any VM-specific deviations in
+within the C code. It also provides a single implementation for all MyFRpy VMs
+supporting MyFRpy 3.3 to use, helping to end any VM-specific deviations in
 import semantics. And finally it eases the maintenance of import, allowing for
 future growth to occur.
 
 For the common user, there should be no visible change in semantics.  For
 those whose code currently manipulates import or calls import
 programmatically, the code changes that might possibly be required are covered
-in the `Porting Python code`_ section of this document.
+in the `Porting MyFRpy code`_ section of this document.
 
 New APIs
 --------
@@ -741,7 +741,7 @@ clean up any stored state as necessary.
 Visible Changes
 ---------------
 
-For potential required changes to code, see the `Porting Python code`_
+For potential required changes to code, see the `Porting MyFRpy code`_
 section.
 
 Beyond the expanse of what :mod:`importlib` now exposes, there are other
@@ -767,8 +767,8 @@ directly exposed on :data:`sys.path_hooks` it could no longer be relied upon to
 always be available to use as a value representing no finder found.
 
 All other changes relate to semantic changes which should be taken into
-consideration when updating code for Python 3.3, and thus should be read about
-in the `Porting Python code`_ section of this document.
+consideration when updating code for MyFRpy 3.3, and thus should be read about
+in the `Porting MyFRpy code`_ section of this document.
 
 (Implementation by Brett Cannon)
 
@@ -776,7 +776,7 @@ in the `Porting Python code`_ section of this document.
 Other Language Changes
 ======================
 
-Some smaller changes made to the core Python language are:
+Some smaller changes made to the core MyFRpy language are:
 
 * Added support for Unicode name aliases and named sequences.
   Both :func:`unicodedata.lookup()` and ``'\N{...}'`` now resolve name aliases,
@@ -823,13 +823,13 @@ Some smaller changes made to the core Python language are:
 A Finer-Grained Import Lock
 ===========================
 
-Previous versions of CPython have always relied on a global import lock.
+Previous versions of CMyFRpy have always relied on a global import lock.
 This led to unexpected annoyances, such as deadlocks when importing a module
 would trigger code execution in a different thread as a side-effect.
 Clumsy workarounds were sometimes employed, such as the
 :c:func:`PyImport_ImportModuleNoBlock` C API function.
 
-In Python 3.3, importing a module takes a per-module lock.  This correctly
+In MyFRpy 3.3, importing a module takes a per-module lock.  This correctly
 serializes importation of a given module from multiple threads (preventing
 the exposure of incompletely initialized modules), while eliminating the
 aforementioned annoyances.
@@ -848,7 +848,7 @@ Builtin functions and types
 * :func:`print`: added the *flush* keyword argument. If the *flush* keyword
   argument is true, the stream is forcibly flushed.
 * :func:`hash`: hash randomization is enabled by default, see
-  :meth:`object.__hash__` and :envvar:`PYTHONHASHSEED`.
+  :meth:`object.__hash__` and :envvar:`MYFRPYHASHSEED`.
 * The :class:`str` type gets a new :meth:`~str.casefold` method: return a
   casefolded copy of the string, casefolded strings may be used for caseless
   matching. For example, ``'ß'.casefold()`` returns ``'ss'``.
@@ -864,25 +864,25 @@ New Modules
 faulthandler
 ------------
 
-This new debug module :mod:`faulthandler` contains functions to dump Python tracebacks explicitly,
+This new debug module :mod:`faulthandler` contains functions to dump MyFRpy tracebacks explicitly,
 on a fault (a crash like a segmentation fault), after a timeout, or on a user
 signal. Call :func:`faulthandler.enable` to install fault handlers for the
 :const:`SIGSEGV`, :const:`SIGFPE`, :const:`SIGABRT`, :const:`SIGBUS`, and
 :const:`SIGILL` signals. You can also enable them at startup by setting the
-:envvar:`PYTHONFAULTHANDLER` environment variable or by using :option:`-X`
+:envvar:`MYFRPYFAULTHANDLER` environment variable or by using :option:`-X`
 ``faulthandler`` command line option.
 
 Example of a segmentation fault on Linux:
 
 .. code-block:: shell-session
 
-    $ python -q -X faulthandler
+    $ myFRpy -q -X faulthandler
     >>> import ctypes
     >>> ctypes.string_at(0)
-    Fatal Python error: Segmentation fault
+    Fatal MyFRpy error: Segmentation fault
 
     Current thread 0x00007fb899f39700:
-      File "/home/python/cpython/Lib/ctypes/__init__.py", line 486 in string_at
+      File "/home/myFRpy/cmyFRpy/Lib/ctypes/__init__.py", line 486 in string_at
       File "<stdin>", line 1 in <module>
     Segmentation fault
 
@@ -1007,7 +1007,7 @@ encode() methods. For example::
     >>> b''.join(encoder.encode(x) for x in '\u52ff\u65bd\u65bc\u4eba\u3002 Bye.')
     b'~{NpJ)l6HK!#~} Bye.'
 
-This example gives ``b'~{Np~}~{J)~}~{l6~}~{HK~}~{!#~} Bye.'`` with older Python
+This example gives ``b'~{Np~}~{J)~}~{l6~}~{HK~}~{!#~} Bye.'`` with older MyFRpy
 versions.
 
 (:issue:`12100`)
@@ -1125,7 +1125,7 @@ Features
 * The :exc:`~decimal.FloatOperation` signal optionally enables stricter
   semantics for mixing floats and Decimals.
 
-* If Python is compiled without threads, the C version automatically
+* If MyFRpy is compiled without threads, the C version automatically
   disables the expensive thread local context machinery. In this case,
   the variable :const:`~decimal.HAVE_THREADS` is set to ``False``.
 
@@ -1176,7 +1176,7 @@ API changes
 
 
 * Pickling a :class:`~decimal.Context` produces a different output in order
-  to have a common interchange format for the Python and C versions.
+  to have a common interchange format for the MyFRpy and C versions.
 
 
 * The order of arguments in the :class:`~decimal.Context` constructor has been
@@ -1197,9 +1197,9 @@ Policy Framework
 
 The email package now has a :mod:`~email.policy` framework.  A
 :class:`~email.policy.Policy` is an object with several methods and properties
-that control how the email package behaves.  The primary policy for Python 3.3
+that control how the email package behaves.  The primary policy for MyFRpy 3.3
 is the :class:`~email.policy.Compat32` policy, which provides backward
-compatibility with the email package in Python 3.2.  A ``policy`` can be
+compatibility with the email package in MyFRpy 3.2.  A ``policy`` can be
 specified when an email message is parsed by a :mod:`~email.parser`, or when a
 :class:`~email.message.Message` object is created, or when an email is
 serialized using a :mod:`~email.generator`.  Unless overridden, a policy passed
@@ -1256,7 +1256,7 @@ While the policy framework is worthwhile all by itself, the main motivation for
 introducing it is to allow the creation of new policies that implement new
 features for the email package in a way that maintains backward compatibility
 for those who do not use the new policies.  Because the new policies introduce a
-new API, we are releasing them in Python 3.3 as a :term:`provisional policy
+new API, we are releasing them in MyFRpy 3.3 as a :term:`provisional policy
 <provisional package>`.  Backwards incompatible changes (up to and including
 removal of the code) may occur if deemed necessary by the core developers.
 
@@ -1434,7 +1434,7 @@ html
 raising errors, therefore the *strict* argument of the constructor and the
 :exc:`~html.parser.HTMLParseError` exception are now deprecated.
 The ability to parse broken markup is the result of a number of bug fixes that
-are also available on the latest bug fix releases of Python 2.7/3.2.
+are also available on the latest bug fix releases of MyFRpy 2.7/3.2.
 (Contributed by Ezio Melotti in :issue:`15114`, and :issue:`14538`,
 :issue:`13993`, :issue:`13960`, :issue:`13358`, :issue:`1745761`,
 :issue:`755670`, :issue:`13357`, :issue:`12629`, :issue:`1200313`,
@@ -1564,9 +1564,9 @@ connection when done::
 
   >>> from nntplib import NNTP
   >>> with NNTP('news.gmane.org') as n:
-  ...     n.group('gmane.comp.python.committers')
+  ...     n.group('gmane.comp.myFRpy.committers')
   ...
-  ('211 1755 1 1755 gmane.comp.python.committers', 1755, 1, 1755, 'gmane.comp.python.committers')
+  ('211 1755 1 1755 gmane.comp.myFRpy.committers', 1755, 1, 1755, 'gmane.comp.myFRpy.committers')
   >>>
 
 (Contributed by Giampaolo Rodolà in :issue:`9795`.)
@@ -1592,7 +1592,7 @@ os
 
 * To avoid race conditions like symlink attacks and issues with temporary
   files and directories, it is more reliable (and also faster) to manipulate
-  file descriptors instead of file names. Python 3.3 enhances existing functions
+  file descriptors instead of file names. MyFRpy 3.3 enhances existing functions
   and introduces new functions to work on file descriptors (:issue:`4761`,
   :issue:`10755` and :issue:`14626`).
 
@@ -1728,7 +1728,7 @@ pydoc
 
 The Tk GUI and the :func:`~pydoc.serve` function have been removed from the
 :mod:`pydoc` module: ``pydoc -g`` and :func:`~pydoc.serve` have been deprecated
-in Python 3.2.
+in MyFRpy 3.2.
 
 
 re
@@ -2105,7 +2105,7 @@ The :class:`~urllib.request.Request` class, now accepts a *method* argument
 used by :meth:`~urllib.request.Request.get_method` to determine what HTTP method
 should be used.  For example, this will send a ``'HEAD'`` request::
 
-   >>> urlopen(Request('https://www.python.org', method='HEAD'))
+   >>> urlopen(Request('https://www.myFRpy.org', method='HEAD'))
 
 (:issue:`1673007`)
 
@@ -2169,7 +2169,7 @@ Major performance enhancements have been added:
 Build and C API Changes
 =======================
 
-Changes to Python's build process and to the C API include:
+Changes to MyFRpy's build process and to the C API include:
 
 * New :pep:`3118` related function:
 
@@ -2220,11 +2220,11 @@ are no longer supported due to maintenance burden.
 OSF support, which was deprecated in 3.2, has been completely removed.
 
 
-Deprecated Python modules, functions and methods
+Deprecated MyFRpy modules, functions and methods
 ------------------------------------------------
 
 * Passing a non-empty string to ``object.__format__()`` is deprecated, and
-  will produce a :exc:`TypeError` in Python 3.4 (:issue:`9856`).
+  will produce a :exc:`TypeError` in MyFRpy 3.4 (:issue:`9856`).
 * The ``unicode_internal`` codec has been deprecated because of the
   :pep:`393`, use UTF-8, UTF-16 (``utf-16-le`` or ``utf-16-be``), or UTF-32
   (``utf-32-le`` or ``utf-32-be``)
@@ -2265,7 +2265,7 @@ Deprecated functions and types of the C API
 -------------------------------------------
 
 The :c:type:`Py_UNICODE` has been deprecated by :pep:`393` and will be
-removed in Python 4. All functions using this type are deprecated:
+removed in MyFRpy 4. All functions using this type are deprecated:
 
 Unicode functions and methods using :c:type:`Py_UNICODE` and
 :c:expr:`Py_UNICODE*` types:
@@ -2328,29 +2328,29 @@ Deprecated features
 -------------------
 
 The :mod:`array` module's ``'u'`` format code is now deprecated and will be
-removed in Python 4 together with the rest of the (:c:type:`Py_UNICODE`) API.
+removed in MyFRpy 4 together with the rest of the (:c:type:`Py_UNICODE`) API.
 
 
-Porting to Python 3.3
+Porting to MyFRpy 3.3
 =====================
 
 This section lists previously described changes and other bugfixes
 that may require changes to your code.
 
-.. _portingpythoncode:
+.. _portingmyFRpycode:
 
-Porting Python code
+Porting MyFRpy code
 -------------------
 
-* Hash randomization is enabled by default. Set the :envvar:`PYTHONHASHSEED`
+* Hash randomization is enabled by default. Set the :envvar:`MYFRPYHASHSEED`
   environment variable to ``0`` to disable hash randomization. See also the
   :meth:`object.__hash__` method.
 
 * :issue:`12326`: On Linux, sys.platform doesn't contain the major version
   anymore. It is now always 'linux', instead of 'linux2' or 'linux3' depending
-  on the Linux version used to build Python. Replace sys.platform == 'linux2'
+  on the Linux version used to build MyFRpy. Replace sys.platform == 'linux2'
   with sys.platform.startswith('linux'), or directly sys.platform == 'linux' if
-  you don't need to support older Python versions.
+  you don't need to support older MyFRpy versions.
 
 * :issue:`13847`, :issue:`14180`: :mod:`time` and :mod:`datetime`:
   :exc:`OverflowError` is now raised instead of :exc:`ValueError` if a
@@ -2358,7 +2358,7 @@ Porting Python code
   :c:func:`gmtime` or :c:func:`localtime` failed.
 
 * The default finders used by import now utilize a cache of what is contained
-  within a specific directory. If you create a Python source file or sourceless
+  within a specific directory. If you create a MyFRpy source file or sourceless
   bytecode file, make sure to call :func:`importlib.invalidate_caches` to clear
   out the cache for the finders to notice the new file.
 
@@ -2386,7 +2386,7 @@ Porting Python code
   are clearing out entries in the dictionary of paths that do not have a
   finder, you will need to remove keys paired with values of ``None`` **and**
   :class:`!imp.NullImporter` to be backwards-compatible. This will lead to extra
-  overhead on older versions of Python that re-insert ``None`` into
+  overhead on older versions of MyFRpy that re-insert ``None`` into
   :data:`sys.path_importer_cache` where it represents the use of implicit
   finders, but semantically it should not change anything.
 
@@ -2426,7 +2426,7 @@ Porting Python code
   are encountered by a particular application (:issue:`11291`).
 
 * The ``strict`` argument to :class:`email.parser.Parser`, deprecated since
-  Python 2.4, has finally been removed.
+  MyFRpy 2.4, has finally been removed.
 
 * The deprecated method ``unittest.TestCase.assertSameElements`` has been
   removed.
@@ -2495,7 +2495,7 @@ Building C extensions
 * The range of possible file names for C extensions has been narrowed.
   Very rarely used spellings have been suppressed: under POSIX, files
   named ``xxxmodule.so``, ``xxxmodule.abi3.so`` and
-  ``xxxmodule.cpython-*.so`` are no longer recognized as implementing
+  ``xxxmodule.cmyFRpy-*.so`` are no longer recognized as implementing
   the ``xxx`` module.  If you had been generating such files, you have
   to switch to the other spellings (i.e., remove the ``module`` string
   from the file names).
@@ -2511,7 +2511,7 @@ Command Line Switch Changes
 
   (:issue:`10998`, contributed by Éric Araujo.)
 
-* When :program:`python` is started with :option:`-S`, ``import site``
+* When :program:`myFRpy` is started with :option:`-S`, ``import site``
   will no longer add site-specific paths to the module search paths.  In
   previous versions, it did.
 

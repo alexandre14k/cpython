@@ -1,4 +1,4 @@
-"""Class for printing reports on profiled python code."""
+"""Class for printing reports on profiled myFRpy code."""
 
 # Written by James Roskind
 # Based on prior profile module by Sjoerd Mullender...

@@ -8,9 +8,9 @@ The grammar is taken from PatternGrammar.txt.
 The compiler compiles a pattern to a pytree.*Pattern instance.
 """
 
-__author__ = "Guido van Rossum <guido@python.org>"
+__author__ = "Guido van Rossum <guido@myFRpy.org>"
 
-# Python imports
+# MyFRpy imports
 import io
 
 # Fairly local imports
@@ -48,8 +48,8 @@ class PatternCompiler(object):
         else:
             self.grammar = driver.load_grammar(grammar_file)
             self.syms = pygram.Symbols(self.grammar)
-        self.pygrammar = pygram.python_grammar
-        self.pysyms = pygram.python_symbols
+        self.pygrammar = pygram.myFRpy_grammar
+        self.pysyms = pygram.myFRpy_symbols
         self.driver = driver.Driver(self.grammar, convert=pattern_convert)
 
     def compile_pattern(self, input, debug=False, with_tree=False):

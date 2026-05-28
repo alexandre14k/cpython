@@ -1,20 +1,20 @@
-:mod:`keyword` --- Testing for Python keywords
+:mod:`keyword` --- Testing for MyFRpy keywords
 ==============================================
 
 .. module:: keyword
-   :synopsis: Test whether a string is a keyword in Python.
+   :synopsis: Test whether a string is a keyword in MyFRpy.
 
 **Source code:** :source:`Lib/keyword.py`
 
 --------------
 
-This module allows a Python program to determine if a string is a
+This module allows a MyFRpy program to determine if a string is a
 :ref:`keyword <keywords>` or :ref:`soft keyword <soft-keywords>`.
 
 
 .. function:: iskeyword(s)
 
-   Return ``True`` if *s* is a Python :ref:`keyword <keywords>`.
+   Return ``True`` if *s* is a MyFRpy :ref:`keyword <keywords>`.
 
 
 .. data:: kwlist
@@ -26,7 +26,7 @@ This module allows a Python program to determine if a string is a
 
 .. function:: issoftkeyword(s)
 
-   Return ``True`` if *s* is a Python :ref:`soft keyword <soft-keywords>`.
+   Return ``True`` if *s* is a MyFRpy :ref:`soft keyword <soft-keywords>`.
 
    .. versionadded:: 3.9
 

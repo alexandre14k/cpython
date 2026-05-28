@@ -1252,7 +1252,7 @@ class DictTest(unittest.TestCase):
 
     @bigmemtest(size=357913941, memuse=160)
     def test_dict(self, size):
-        # https://github.com/python/cpython/issues/102701
+        # https://github.com/myFRpy/cmyFRpy/issues/102701
         d = dict.fromkeys(range(size))
         d[size] = 1
 

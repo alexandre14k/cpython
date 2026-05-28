@@ -102,11 +102,11 @@ pseudo-terminal to record all input and output of a terminal session in a
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-a', dest='append', action='store_true')
-    parser.add_argument('-p', dest='use_python', action='store_true')
+    parser.add_argument('-p', dest='use_myFRpy', action='store_true')
     parser.add_argument('filename', nargs='?', default='typescript')
     options = parser.parse_args()
 
-    shell = sys.executable if options.use_python else os.environ.get('SHELL', 'sh')
+    shell = sys.executable if options.use_myFRpy else os.environ.get('SHELL', 'sh')
     filename = options.filename
     mode = 'ab' if options.append else 'wb'
 

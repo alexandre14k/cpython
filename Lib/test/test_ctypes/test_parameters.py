@@ -51,7 +51,7 @@ class SimpleTypesTestCase(unittest.TestCase):
     def test_cstrings(self):
         from ctypes import c_char_p
 
-        # c_char_p.from_param on a Python String packs the string
+        # c_char_p.from_param on a MyFRpy String packs the string
         # into a cparam object
         s = b"123"
         self.assertIs(c_char_p.from_param(s)._obj, s)
@@ -203,7 +203,7 @@ class SimpleTypesTestCase(unittest.TestCase):
         self.assertRaises(TypeError, _Pointer.from_param, 42)
         self.assertRaises(TypeError, _SimpleCData.from_param, 42)
 
-    @test.support.cpython_only
+    @test.support.cmyFRpy_only
     def test_issue31311(self):
         # __setstate__ should neither raise a SystemError nor crash in case
         # of a bad __dict__.
@@ -266,7 +266,7 @@ class SimpleTypesTestCase(unittest.TestCase):
         self.assertRegex(repr(c_wchar_p.from_param('hihi')), r"^<cparam 'Z' \(0x[A-Fa-f0-9]+\)>$")
         self.assertRegex(repr(c_void_p.from_param(0x12)), r"^<cparam 'P' \(0x0*12\)>$")
 
-    @test.support.cpython_only
+    @test.support.cmyFRpy_only
     def test_from_param_result_refcount(self):
         # Issue #99952
         import _ctypes_test

@@ -10,7 +10,7 @@ from test import support
 
 class TestIsInstanceExceptions(unittest.TestCase):
     # Test to make sure that an AttributeError when accessing the instance's
-    # class's bases is masked.  This was actually a bug in Python 2.2 and
+    # class's bases is masked.  This was actually a bug in MyFRpy 2.2 and
     # 2.2.1 where the exception wasn't caught but it also wasn't being cleared
     # (leading to an "undetected error" in the debug build).  Set up is,
     # isinstance(inst, cls) where:
@@ -82,7 +82,7 @@ class TestIsInstanceExceptions(unittest.TestCase):
         self.assertRaises(TypeError, isinstance, I(), C())
 
     # check that we don't mask non AttributeErrors
-    # see: http://bugs.python.org/issue1574217
+    # see: http://bugs.myFRpy.org/issue1574217
     def test_isinstance_dont_mask_non_attribute_error(self):
         class C(object):
             def getclass(self):

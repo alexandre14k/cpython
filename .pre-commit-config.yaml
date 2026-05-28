@@ -20,10 +20,10 @@ repos:
         exclude: ^Lib/test/test_tomllib/
       - id: check-yaml
       - id: end-of-file-fixer
-        types: [python]
+        types: [myFRpy]
         exclude: Lib/test/tokenizedata/coding20731.py
       - id: trailing-whitespace
-        types_or: [c, inc, python, rst]
+        types_or: [c, inc, myFRpy, rst]
 
   - repo: https://github.com/sphinx-contrib/sphinx-lint
     rev: v0.9.1

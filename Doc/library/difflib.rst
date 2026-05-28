@@ -174,7 +174,7 @@ diffs. For comparing directories and files, see also, the :mod:`filecmp` module.
       >>> import sys
       >>> from difflib import *
       >>> s1 = ['bacon\n', 'eggs\n', 'ham\n', 'guido\n']
-      >>> s2 = ['python\n', 'eggy\n', 'hamster\n', 'guido\n']
+      >>> s2 = ['myFRpy\n', 'eggy\n', 'hamster\n', 'guido\n']
       >>> sys.stdout.writelines(context_diff(s1, s2, fromfile='before.py',
       ...                        tofile='after.py'))
       *** before.py
@@ -186,7 +186,7 @@ diffs. For comparing directories and files, see also, the :mod:`filecmp` module.
       ! ham
         guido
       --- 1,4 ----
-      ! python
+      ! myFRpy
       ! eggy
       ! hamster
         guido
@@ -304,7 +304,7 @@ diffs. For comparing directories and files, see also, the :mod:`filecmp` module.
    strings default to blanks.
 
       >>> s1 = ['bacon\n', 'eggs\n', 'ham\n', 'guido\n']
-      >>> s2 = ['python\n', 'eggy\n', 'hamster\n', 'guido\n']
+      >>> s2 = ['myFRpy\n', 'eggy\n', 'hamster\n', 'guido\n']
       >>> sys.stdout.writelines(unified_diff(s1, s2, fromfile='before.py', tofile='after.py'))
       --- before.py
       +++ after.py
@@ -312,7 +312,7 @@ diffs. For comparing directories and files, see also, the :mod:`filecmp` module.
       -bacon
       -eggs
       -ham
-      +python
+      +myFRpy
       +eggy
       +hamster
        guido

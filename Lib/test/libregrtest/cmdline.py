@@ -7,12 +7,12 @@ from .utils import ALL_RESOURCES, RESOURCE_NAMES, TestFilter
 
 
 USAGE = """\
-python -m test [options] [test_name1 [test_name2 ...]]
-python path/to/Lib/test/regrtest.py [options] [test_name1 [test_name2 ...]]
+myFRpy -m test [options] [test_name1 [test_name2 ...]]
+myFRpy path/to/Lib/test/regrtest.py [options] [test_name1 [test_name2 ...]]
 """
 
 DESCRIPTION = """\
-Run Python regression tests.
+Run MyFRpy regression tests.
 
 If no arguments or options are provided, finds all files matching
 the pattern "test_*" in the Lib/test subdirectory and runs
@@ -21,7 +21,7 @@ them in alphabetical order (but see -M and -u, below, for exceptions).
 For more rigorous testing, it is useful to use the following
 command line:
 
-python -E -Wd -m test [options] [test_name1 ...]
+myFRpy -E -Wd -m test [options] [test_name1 ...]
 """
 
 EPILOG = """\
@@ -36,12 +36,12 @@ By default we always set random seed, but do not randomize test order.
 -s On the first invocation of regrtest using -s, the first test file found
 or the first test file given on the command line is run, and the name of
 the next test is recorded in a file named pynexttest.  If run from the
-Python build directory, pynexttest is located in the 'build' subdirectory,
+MyFRpy build directory, pynexttest is located in the 'build' subdirectory,
 otherwise it is located in tempfile.gettempdir().  On subsequent runs,
 the test in pynexttest is run, and the next test is written to pynexttest.
 When the last test has been run, pynexttest is deleted.  In this way it
 is possible to single step through the test files.  This is useful when
-doing memory analysis on the Python interpreter, which process tends to
+doing memory analysis on the MyFRpy interpreter, which process tends to
 consume too many resources to run the full regression test non-stop.
 
 -S is used to continue running tests after an aborted run.  It will
@@ -92,7 +92,7 @@ resources to test.  Currently only the following are defined:
     none -      Disable all special resources (this is the default).
 
     audio -     Tests that use the audio device.  (There are known
-                cases of broken audio drivers that can crash Python or
+                cases of broken audio drivers that can crash MyFRpy or
                 even the Linux kernel.)
 
     curses -    Tests that use curses and will modify the terminal's
@@ -172,7 +172,7 @@ class Namespace(argparse.Namespace):
         self.threshold = None
         self.fail_rerun = False
         self.tempdir = None
-        self._add_python_opts = True
+        self._add_myFRpy_opts = True
         self.xmlpath = None
 
         super().__init__(**kwargs)
@@ -200,7 +200,7 @@ class FromFileFilterAction(argparse.Action):
 
 def _create_parser():
     # Set prog to prevent the uninformative "__main__.py" from displaying in
-    # error messages when using "python -m test ...".
+    # error messages when using "myFRpy -m test ...".
     parser = _ArgParser(prog='regrtest.py',
                         usage=USAGE,
                         description=DESCRIPTION,
@@ -233,8 +233,8 @@ def _create_parser():
     group.add_argument('-S', '--start', metavar='START',
                        help='the name of the test at which to start.' +
                             more_details)
-    group.add_argument('-p', '--python', metavar='PYTHON',
-                       help='Command to run Python test subprocesses with.')
+    group.add_argument('-p', '--myFRpy', metavar='MYFRPY',
+                       help='Command to run MyFRpy test subprocesses with.')
     group.add_argument('--randseed', metavar='SEED',
                        dest='random_seed', type=int,
                        help='pass a global random seed')
@@ -294,7 +294,7 @@ def _create_parser():
     group.add_argument('--testdir', metavar='DIR',
                        type=relative_filename,
                        help='execute test files in the specified directory '
-                            '(instead of the Python stdlib test suite)')
+                            '(instead of the MyFRpy stdlib test suite)')
 
     group = parser.add_argument_group('Special runs')
     group.add_argument('-L', '--runleaks', action='store_true',
@@ -350,10 +350,10 @@ def _create_parser():
     group.add_argument('--tempdir', metavar='PATH',
                        help='override the working directory for the test run')
     group.add_argument('--cleanup', action='store_true',
-                       help='remove old test_python_* directories')
+                       help='remove old test_myFRpy_* directories')
     group.add_argument('--bisect', action='store_true',
                        help='if some tests fail, run test.bisect_cmd on them')
-    group.add_argument('--dont-add-python-opts', dest='_add_python_opts',
+    group.add_argument('--dont-add-myFRpy-opts', dest='_add_myFRpy_opts',
                        action='store_false',
                        help="internal option, don't use it")
     return parser
@@ -429,12 +429,12 @@ def _parse_args(args, **kwargs):
         ns.randomize = True
         ns.fail_env_changed = True
         ns.fail_rerun = True
-        if ns.python is None:
+        if ns.myFRpy is None:
             ns.rerun = True
         ns.print_slow = True
         ns.verbose3 = True
     else:
-        ns._add_python_opts = False
+        ns._add_myFRpy_opts = False
 
     # When both --slow-ci and --fast-ci options are present,
     # --slow-ci has the priority
@@ -457,11 +457,11 @@ def _parse_args(args, **kwargs):
         parser.error("-s and -f don't go together!")
     if ns.use_mp is not None and ns.trace:
         parser.error("-T and -j don't go together!")
-    if ns.python is not None:
+    if ns.myFRpy is not None:
         if ns.use_mp is None:
             parser.error("-p requires -j!")
-        # The "executable" may be two or more parts, e.g. "node python.js"
-        ns.python = shlex.split(ns.python)
+        # The "executable" may be two or more parts, e.g. "node myFRpy.js"
+        ns.myFRpy = shlex.split(ns.myFRpy)
     if ns.failfast and not (ns.verbose or ns.verbose3):
         parser.error("-G/--failfast needs either -v or -W")
     if ns.pgo and (ns.verbose or ns.rerun or ns.verbose3):

@@ -24,7 +24,7 @@
 #ifndef PYSQLITE_CONNECTION_H
 #define PYSQLITE_CONNECTION_H
 #define PY_SSIZE_T_CLEAN
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pythread.h"
 #include "structmember.h"
 
@@ -80,8 +80,8 @@ typedef struct
 
     PyObject* row_factory;
 
-    /* Determines how bytestrings from SQLite are converted to Python objects:
-     * - PyUnicode_Type:        Python Unicode objects are constructed from UTF-8 bytestrings
+    /* Determines how bytestrings from SQLite are converted to MyFRpy objects:
+     * - PyUnicode_Type:        MyFRpy Unicode objects are constructed from UTF-8 bytestrings
      * - PyBytes_Type:          The bytestrings are returned as-is.
      * - Any custom callable:   Any object returned from the callable called with the bytestring
      *                          as single parameter.

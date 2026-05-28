@@ -1,6 +1,6 @@
 # Copyright (C) 2007-2012 Michael Foord & the mock team
 # E-mail: fuzzyman AT voidspace DOT org DOT uk
-# http://www.voidspace.org.uk/python/mock/
+# http://www.voidspace.org.uk/myFRpy/mock/
 
 import os
 import sys
@@ -1927,7 +1927,7 @@ class PatchTest(unittest.TestCase):
     def test_patch_orderdict(self):
         foo = OrderedDict()
         foo['a'] = object()
-        foo['b'] = 'python'
+        foo['b'] = 'myFRpy'
 
         original = foo.copy()
         update_values = list(zip('cdefghijklmnopqrstuvwxyz', range(26)))

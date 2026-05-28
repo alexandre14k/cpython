@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env myFRpy3
 
 """Send the contents of a directory as a MIME message."""
 

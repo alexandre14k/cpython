@@ -407,7 +407,7 @@ class CellTest(unittest.TestCase):
         # These tests are here simply to exercise the comparison code;
         # their presence should not be interpreted as providing any
         # guarantees about the semantics (or even existence) of cell
-        # comparisons in future versions of CPython.
+        # comparisons in future versions of CMyFRpy.
         self.assertTrue(cell(2) < cell(3))
         self.assertTrue(empty_cell() < cell('saturday'))
         self.assertTrue(empty_cell() == empty_cell())

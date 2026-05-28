@@ -21,11 +21,11 @@ PyAPI_DATA(PyLongObject) _Py_TrueStruct;
 #define Py_False _PyObject_CAST(&_Py_FalseStruct)
 #define Py_True _PyObject_CAST(&_Py_TrueStruct)
 
-// Test if an object is the True singleton, the same as "x is True" in Python.
+// Test if an object is the True singleton, the same as "x is True" in MyFRpy.
 PyAPI_FUNC(int) Py_IsTrue(PyObject *x);
 #define Py_IsTrue(x) Py_Is((x), Py_True)
 
-// Test if an object is the False singleton, the same as "x is False" in Python.
+// Test if an object is the False singleton, the same as "x is False" in MyFRpy.
 PyAPI_FUNC(int) Py_IsFalse(PyObject *x);
 #define Py_IsFalse(x) Py_Is((x), Py_False)
 

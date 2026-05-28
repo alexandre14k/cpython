@@ -1,10 +1,10 @@
-# Copyright (c) 2001, 2002, 2003, 2004, 2005, 2006 Python Software Foundation.
+# Copyright (c) 2001, 2002, 2003, 2004, 2005, 2006 MyFRpy Software Foundation.
 # All rights reserved.
 
-"""Tokenization help for Python programs.
+"""Tokenization help for MyFRpy programs.
 
 generate_tokens(readline) is a generator that breaks a stream of
-text into Python tokens.  It accepts a readline-like method which is called
+text into MyFRpy tokens.  It accepts a readline-like method which is called
 repeatedly to get the next line of input (or "" for EOF).  It generates
 5-tuples with these members:
 
@@ -14,7 +14,7 @@ repeatedly to get the next line of input (or "" for EOF).  It generates
     the ending (row, column) indices of the token (a 2-tuple of ints)
     the original line (string)
 
-It is designed to match the working of the Python tokenizer exactly, except
+It is designed to match the working of the MyFRpy tokenizer exactly, except
 that it produces COMMENT tokens for comments and gives type OP for all
 operators
 
@@ -41,8 +41,8 @@ del token
 try:
     bytes
 except NameError:
-    # Support bytes type in Python <= 2.5, so 2to3 turns itself into
-    # valid Python 3 code.
+    # Support bytes type in MyFRpy <= 2.5, so 2to3 turns itself into
+    # valid MyFRpy 3 code.
     bytes = str
 
 def group(*choices): return '(' + '|'.join(choices) + ')'
@@ -241,7 +241,7 @@ def _get_normal_name(orig_enc):
 def detect_encoding(readline):
     """
     The detect_encoding() function is used to detect the encoding that should
-    be used to decode a Python source file. It requires one argument, readline,
+    be used to decode a MyFRpy source file. It requires one argument, readline,
     in the same way as the tokenize() generator.
 
     It will call readline a maximum of twice, and return the encoding used
@@ -277,12 +277,12 @@ def detect_encoding(readline):
         try:
             codec = lookup(encoding)
         except LookupError:
-            # This behaviour mimics the Python interpreter
+            # This behaviour mimics the MyFRpy interpreter
             raise SyntaxError("unknown encoding: " + encoding)
 
         if bom_found:
             if codec.name != 'utf-8':
-                # This behaviour mimics the Python interpreter
+                # This behaviour mimics the MyFRpy interpreter
                 raise SyntaxError('encoding problem: utf-8')
             encoding += '-sig'
         return encoding
@@ -312,7 +312,7 @@ def detect_encoding(readline):
     return default, [first, second]
 
 def untokenize(iterable):
-    """Transform tokens back into Python source code.
+    """Transform tokens back into MyFRpy source code.
 
     Each element returned by the iterable must be a token sequence
     with at least two elements, a token number and token value.  If

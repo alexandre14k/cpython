@@ -5,7 +5,7 @@ import unittest
 
 from test import support
 from test.support import import_helper, requires_subprocess
-from test.support.script_helper import assert_python_failure, assert_python_ok
+from test.support.script_helper import assert_myFRpy_failure, assert_myFRpy_ok
 
 
 # Skip this test if the _testcapi module isn't available.
@@ -13,15 +13,15 @@ _testcapi = import_helper.import_module('_testcapi')
 
 @requires_subprocess()
 class PyMemDebugTests(unittest.TestCase):
-    PYTHONMALLOC = 'debug'
+    MYFRPYMALLOC = 'debug'
     # '0x04c06e0' or '04C06E0'
     PTR_REGEX = r'(?:0x)?[0-9a-fA-F]+'
 
     def check(self, code):
         with support.SuppressCrashReport():
-            out = assert_python_failure(
+            out = assert_myFRpy_failure(
                 '-c', code,
-                PYTHONMALLOC=self.PYTHONMALLOC,
+                MYFRPYMALLOC=self.MYFRPYMALLOC,
                 # FreeBSD: instruct jemalloc to not fill freed() memory
                 # with junk byte 0x5a, see JEMALLOC(3)
                 MALLOC_CONF="junk:false",
@@ -44,7 +44,7 @@ class PyMemDebugTests(unittest.TestCase):
                  r"\n"
                  r"Enable tracemalloc to get the memory block allocation traceback\n"
                  r"\n"
-                 r"Fatal Python error: _PyMem_DebugRawFree: bad trailing pad byte")
+                 r"Fatal MyFRpy error: _PyMem_DebugRawFree: bad trailing pad byte")
         regex = regex.format(ptr=self.PTR_REGEX)
         regex = re.compile(regex, flags=re.DOTALL)
         self.assertRegex(out, regex)
@@ -60,14 +60,14 @@ class PyMemDebugTests(unittest.TestCase):
                  r"\n"
                  r"Enable tracemalloc to get the memory block allocation traceback\n"
                  r"\n"
-                 r"Fatal Python error: _PyMem_DebugRawFree: bad ID: Allocated using API 'm', verified using API 'r'\n")
+                 r"Fatal MyFRpy error: _PyMem_DebugRawFree: bad ID: Allocated using API 'm', verified using API 'r'\n")
         regex = regex.format(ptr=self.PTR_REGEX)
         self.assertRegex(out, regex)
 
     def check_malloc_without_gil(self, code):
         out = self.check(code)
-        expected = ('Fatal Python error: _PyMem_DebugMalloc: '
-                    'Python memory allocator called without holding the GIL')
+        expected = ('Fatal MyFRpy error: _PyMem_DebugMalloc: '
+                    'MyFRpy memory allocator called without holding the GIL')
         self.assertIn(expected, out)
 
     def test_pymem_malloc_without_gil(self):
@@ -95,9 +95,9 @@ class PyMemDebugTests(unittest.TestCase):
             except _testcapi.error:
                 os._exit(1)
         ''')
-        assert_python_ok(
+        assert_myFRpy_ok(
             '-c', code,
-            PYTHONMALLOC=self.PYTHONMALLOC,
+            MYFRPYMALLOC=self.MYFRPYMALLOC,
             MALLOC_CONF="junk:false",
         )
 
@@ -140,7 +140,7 @@ class PyMemDebugTests(unittest.TestCase):
                         _testcapi.remove_mem_hooks()
                         break
         """
-        rc, out, err = assert_python_ok('-c', code)
+        rc, out, err = assert_myFRpy_ok('-c', code)
         lines = out.splitlines()
         for i, line in enumerate(lines, 1):
             self.assertIn(b'MemoryError', out)
@@ -151,18 +151,18 @@ class PyMemDebugTests(unittest.TestCase):
 
 
 class PyMemMallocDebugTests(PyMemDebugTests):
-    PYTHONMALLOC = 'malloc_debug'
+    MYFRPYMALLOC = 'malloc_debug'
 
 
 @unittest.skipUnless(support.with_pymalloc(), 'need pymalloc')
 class PyMemPymallocDebugTests(PyMemDebugTests):
-    PYTHONMALLOC = 'pymalloc_debug'
+    MYFRPYMALLOC = 'pymalloc_debug'
 
 
 @unittest.skipUnless(support.Py_DEBUG, 'need Py_DEBUG')
 class PyMemDefaultTests(PyMemDebugTests):
-    # test default allocator of Python compiled in debug mode
-    PYTHONMALLOC = ''
+    # test default allocator of MyFRpy compiled in debug mode
+    MYFRPYMALLOC = ''
 
 
 if __name__ == "__main__":

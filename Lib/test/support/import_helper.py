@@ -131,7 +131,7 @@ def import_fresh_module(name, fresh=(), blocked=(), *,
                         ):
     """Import and return a module, deliberately bypassing sys.modules.
 
-    This function imports and returns a fresh copy of the named Python module
+    This function imports and returns a fresh copy of the named MyFRpy module
     by removing the named module from sys.modules before doing the import.
     Note that unlike reload, the original module is not affected by
     this operation.

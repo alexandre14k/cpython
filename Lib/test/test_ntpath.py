@@ -5,7 +5,7 @@ import string
 import sys
 import unittest
 import warnings
-from test.support import cpython_only, os_helper
+from test.support import cmyFRpy_only, os_helper
 from test.support import TestFailed, is_emscripten
 from test.support.os_helper import FakePath
 from test import test_genericpath
@@ -984,10 +984,10 @@ class TestNtpath(NtpathTestCase):
         self.assertTrue(os.path.exists(r"\\.\CON"))
 
     @unittest.skipIf(sys.platform != 'win32', "Fast paths are only for win32")
-    @cpython_only
+    @cmyFRpy_only
     def test_fast_paths_in_use(self):
         # There are fast paths of these functions implemented in posixmodule.c.
-        # Confirm that they are being used, and not the Python fallbacks in
+        # Confirm that they are being used, and not the MyFRpy fallbacks in
         # genericpath.py.
         self.assertTrue(os.path.isdir is nt._path_isdir)
         self.assertFalse(inspect.isfunction(os.path.isdir))

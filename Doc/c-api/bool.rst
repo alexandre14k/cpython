@@ -5,7 +5,7 @@
 Boolean Objects
 ---------------
 
-Booleans in Python are implemented as a subclass of integers.  There are only
+Booleans in MyFRpy are implemented as a subclass of integers.  There are only
 two booleans, :c:data:`Py_False` and :c:data:`Py_True`.  As such, the normal
 creation and deletion functions don't apply to booleans.  The following macros
 are available, however.
@@ -13,8 +13,8 @@ are available, however.
 
 .. c:var:: PyTypeObject PyBool_Type
 
-   This instance of :c:type:`PyTypeObject` represents the Python boolean type; it
-   is the same object as :class:`bool` in the Python layer.
+   This instance of :c:type:`PyTypeObject` represents the MyFRpy boolean type; it
+   is the same object as :class:`bool` in the MyFRpy layer.
 
 
 .. c:function:: int PyBool_Check(PyObject *o)
@@ -25,8 +25,8 @@ are available, however.
 
 .. c:var:: PyObject* Py_False
 
-   The Python ``False`` object.  This object has no methods and is
-   `immortal <https://peps.python.org/pep-0683/>`_.
+   The MyFRpy ``False`` object.  This object has no methods and is
+   `immortal <https://peps.myFRpy.org/pep-0683/>`_.
 
 .. versionchanged:: 3.12
    :c:data:`Py_False` is immortal.
@@ -34,8 +34,8 @@ are available, however.
 
 .. c:var:: PyObject* Py_True
 
-   The Python ``True`` object.  This object has no methods and is
-   `immortal <https://peps.python.org/pep-0683/>`_.
+   The MyFRpy ``True`` object.  This object has no methods and is
+   `immortal <https://peps.myFRpy.org/pep-0683/>`_.
 
 .. versionchanged:: 3.12
    :c:data:`Py_True` is immortal.

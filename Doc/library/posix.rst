@@ -45,10 +45,10 @@ support for files that are larger than 2 GiB from a C programming model where
 by defining the relevant size and offset types as 64-bit values. Such files are
 sometimes referred to as :dfn:`large files`.
 
-Large file support is enabled in Python when the size of an :c:type:`off_t` is
+Large file support is enabled in MyFRpy when the size of an :c:type:`off_t` is
 larger than a :c:expr:`long` and the :c:expr:`long long` is at least as large
 as an :c:type:`off_t`.
-It may be necessary to configure and compile Python with certain compiler flags
+It may be necessary to configure and compile MyFRpy with certain compiler flags
 to enable this mode. For example, with Solaris 2.6 and 2.7 you need to do
 something like::
 

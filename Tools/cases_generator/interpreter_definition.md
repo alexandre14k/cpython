@@ -2,7 +2,7 @@
 
 ## Abstract
 
-The CPython interpreter is defined in C, meaning that the semantics of the
+The CMyFRpy interpreter is defined in C, meaning that the semantics of the
 bytecode instructions, the dispatching mechanism, error handling, and
 tracing and instrumentation are all intermixed.
 
@@ -25,7 +25,7 @@ definition, reducing errors.
 
 ## Motivation
 
-The bytecode interpreter of CPython has traditionally been defined as standard
+The bytecode interpreter of CMyFRpy has traditionally been defined as standard
 C code, but with a lot of macros.
 The presence of these macros and the nature of bytecode interpreters means
 that the interpreter is effectively defined in a domain specific language (DSL).
@@ -43,7 +43,7 @@ passes from the semantic definition, reducing errors.
 
 ## Rationale
 
-As we improve the performance of CPython, we need to optimize larger regions
+As we improve the performance of CMyFRpy, we need to optimize larger regions
 of code, use more complex optimizations and, ultimately, translate to machine
 code. 
 
@@ -133,7 +133,7 @@ The following definitions may occur:
 * `super`: A super-instruction, such as `LOAD_FAST__LOAD_FAST`, constructed from
   normal or macro instructions.
 
-`NAME` can be any ASCII identifier that is a C identifier and not a C or Python keyword.
+`NAME` can be any ASCII identifier that is a C identifier and not a C or MyFRpy keyword.
 `foo_1` is legal. `$` is not legal, nor is `struct` or `class`.
 
 The optional `type` in an `object` is the C type. It defaults to `PyObject *`.

@@ -123,7 +123,7 @@ class PyIdPersPicklerTests(AbstractIdentityPersistentPicklerTests,
     pickler = pickle._Pickler
     unpickler = pickle._Unpickler
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_pickler_reference_cycle(self):
         def check(Pickler):
             for proto in range(pickle.HIGHEST_PROTOCOL + 1):
@@ -154,9 +154,9 @@ class PyIdPersPicklerTests(AbstractIdentityPersistentPicklerTests,
                 return obj
         check(PersPickler)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_custom_pickler_dispatch_table_memleak(self):
-        # See https://github.com/python/cpython/issues/89988
+        # See https://github.com/myFRpy/cmyFRpy/issues/89988
 
         class Pickler(self.pickler):
             def __init__(self, *args, **kwargs):
@@ -177,7 +177,7 @@ class PyIdPersPicklerTests(AbstractIdentityPersistentPicklerTests,
         self.assertIsNone(table_ref())
 
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_unpickler_reference_cycle(self):
         def check(Unpickler):
             for proto in range(pickle.HIGHEST_PROTOCOL + 1):
@@ -293,7 +293,7 @@ if has_c_implementation:
             pass
         pickler_class = CustomCPicklerClass
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     class HeapTypesTests(unittest.TestCase):
         def setUp(self):
             pickler = _pickle.Pickler(io.BytesIO())
@@ -321,7 +321,7 @@ if has_c_implementation:
                     with self.assertRaisesRegex(TypeError, "immutable"):
                         tp.foo = "bar"
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     class SizeofTests(unittest.TestCase):
         check_sizeof = support.check_sizeof
 

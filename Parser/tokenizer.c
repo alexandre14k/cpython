@@ -2,7 +2,7 @@
 /* Tokenizer implementation */
 
 #define PY_SSIZE_T_CLEAN
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_call.h"          // _PyObject_CallNoArgs()
 
 #include <ctype.h>
@@ -28,7 +28,7 @@
                || (c >= 128))
 
 
-/* Don't ever change this -- it would break the portability of Python code */
+/* Don't ever change this -- it would break the portability of MyFRpy code */
 #define TABSIZE 8
 
 #define MAKE_TOKEN(token_type) token_setup(tok, token, token_type, p_start, p_end)
@@ -773,7 +773,7 @@ ensure_utf8(char *line, struct tok_state *tok)
                      "Non-UTF-8 code starting with '\\x%.2x' "
                      "in file %U on line %i, "
                      "but no encoding declared; "
-                     "see https://peps.python.org/pep-0263/ for details",
+                     "see https://peps.myFRpy.org/pep-0263/ for details",
                      badchar, tok->filename, tok->lineno);
         return 0;
     }
@@ -804,7 +804,7 @@ buf_setreadl(struct tok_state *tok, const char* enc) {
     return 1;
 }
 
-/* Return a UTF-8 encoding Python string object from the
+/* Return a UTF-8 encoding MyFRpy string object from the
    C byte string STR, which is encoded with ENC. */
 
 static PyObject *
@@ -2148,12 +2148,12 @@ tok_get_normal_mode(struct tok_state *tok, tokenizer_mode* current_tok, struct t
 
         /* async/await parsing block. */
         if (tok->cur - tok->start == 5 && tok->start[0] == 'a') {
-            /* May be an 'async' or 'await' token.  For Python 3.7 or
-               later we recognize them unconditionally.  For Python
+            /* May be an 'async' or 'await' token.  For MyFRpy 3.7 or
+               later we recognize them unconditionally.  For MyFRpy
                3.5 or 3.6 we recognize 'async' in front of 'def', and
                either one inside of 'async def'.  (Technically we
                shouldn't recognize these at all for 3.4 or earlier,
-               but there's no *valid* Python 3.4 code that would be
+               but there's no *valid* MyFRpy 3.4 code that would be
                rejected, and async functions will be rejected in a
                later phase.) */
             if (!tok->async_hacks || tok->async_def) {
@@ -3013,7 +3013,7 @@ fdopen_borrow(int fd) {
 }
 #endif
 
-/* Get the encoding of a Python file. Check for the coding cookie and check if
+/* Get the encoding of a MyFRpy file. Check for the coding cookie and check if
    the file starts with a BOM.
 
    _PyTokenizer_FindEncodingFilename() returns NULL when it can't find the

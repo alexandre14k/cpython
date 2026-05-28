@@ -1,4 +1,4 @@
-# Implementat marshal.loads() in pure Python
+# Implementat marshal.loads() in pure MyFRpy
 
 import ast
 

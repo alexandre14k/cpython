@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env myFRpy3
 
 """
 Compare checksums for wheels in :mod:`ensurepip` against the Cheeseshop.

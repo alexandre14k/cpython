@@ -29,11 +29,11 @@ class OutputWindowTest(unittest.TestCase):
     def setUp(self):
         self.text.delete('1.0', 'end')
 
-    def test_ispythonsource(self):
-        # OutputWindow overrides ispythonsource to always return False.
+    def test_ismyFRpysource(self):
+        # OutputWindow overrides ismyFRpysource to always return False.
         w = self.window
-        self.assertFalse(w.ispythonsource('test.txt'))
-        self.assertFalse(w.ispythonsource(__file__))
+        self.assertFalse(w.ismyFRpysource('test.txt'))
+        self.assertFalse(w.ismyFRpysource(__file__))
 
     def test_window_title(self):
         self.assertEqual(self.window.top.title(), 'Output')

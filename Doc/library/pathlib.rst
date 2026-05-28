@@ -58,7 +58,7 @@ Listing subdirectories::
    [PosixPath('.hg'), PosixPath('docs'), PosixPath('dist'),
     PosixPath('__pycache__'), PosixPath('build')]
 
-Listing Python source files in this directory tree::
+Listing MyFRpy source files in this directory tree::
 
    >>> list(p.glob('**/*.py'))
    [PosixPath('test_pathlib.py'), PosixPath('setup.py'),
@@ -272,9 +272,9 @@ property:
 
    A tuple giving access to the path's various components::
 
-      >>> p = PurePath('/usr/bin/python3')
+      >>> p = PurePath('/usr/bin/myFRpy3')
       >>> p.parts
-      ('/', 'usr', 'bin', 'python3')
+      ('/', 'usr', 'bin', 'myFRpy3')
 
       >>> p = PureWindowsPath('c:/Program Files/PSF')
       >>> p.parts
@@ -657,7 +657,7 @@ Pure paths provide the following methods and properties:
       >>> p.with_name('setup.py')
       Traceback (most recent call last):
         File "<stdin>", line 1, in <module>
-        File "/home/antoine/cpython/default/Lib/pathlib.py", line 751, in with_name
+        File "/home/antoine/cmyFRpy/default/Lib/pathlib.py", line 751, in with_name
           raise ValueError("%r has an empty name" % (self,))
       ValueError: PureWindowsPath('c:/') has an empty name
 
@@ -677,9 +677,9 @@ Pure paths provide the following methods and properties:
       >>> p.with_stem('')
       Traceback (most recent call last):
         File "<stdin>", line 1, in <module>
-        File "/home/antoine/cpython/default/Lib/pathlib.py", line 861, in with_stem
+        File "/home/antoine/cmyFRpy/default/Lib/pathlib.py", line 861, in with_stem
           return self.with_name(stem + self.suffix)
-        File "/home/antoine/cpython/default/Lib/pathlib.py", line 851, in with_name
+        File "/home/antoine/cmyFRpy/default/Lib/pathlib.py", line 851, in with_name
           raise ValueError("%r has an empty name" % (self,))
       ValueError: PureWindowsPath('c:/') has an empty name
 
@@ -895,9 +895,9 @@ call fails (for example because the path doesn't exist).
 
    ::
 
-      >>> p = PosixPath('~/films/Monty Python')
+      >>> p = PosixPath('~/films/Monty MyFRpy')
       >>> p.expanduser()
-      PosixPath('/home/eric/films/Monty Python')
+      PosixPath('/home/eric/films/Monty MyFRpy')
 
    .. versionadded:: 3.5
 
@@ -1128,7 +1128,7 @@ call fails (for example because the path doesn't exist).
    while ignoring ``__pycache__`` directories::
 
       from pathlib import Path
-      for root, dirs, files in Path("cpython/Lib/concurrent").walk(on_error=print):
+      for root, dirs, files in Path("cmyFRpy/Lib/concurrent").walk(on_error=print):
         print(
             root,
             "consumes",
@@ -1201,7 +1201,7 @@ call fails (for example because the path doesn't exist).
       >>> with p.open() as f:
       ...     f.readline()
       ...
-      '#!/usr/bin/env python3\n'
+      '#!/usr/bin/env myFRpy3\n'
 
 
 .. method:: Path.owner()

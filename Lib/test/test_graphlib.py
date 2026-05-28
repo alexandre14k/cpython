@@ -2,7 +2,7 @@ import graphlib
 import os
 import unittest
 
-from test.support.script_helper import assert_python_ok
+from test.support.script_helper import assert_myFRpy_ok
 
 class TestTopologicalSort(unittest.TestCase):
     def _test_graph(self, graph, expected):
@@ -234,11 +234,11 @@ class TestTopologicalSort(unittest.TestCase):
                 print(list(ts.static_order()))
                 """
             env = os.environ.copy()
-            # signal to assert_python not to do a copy
+            # signal to assert_myFRpy not to do a copy
             # of os.environ on its own
             env["__cleanenv"] = True
-            env["PYTHONHASHSEED"] = str(seed)
-            out = assert_python_ok("-c", code, **env)
+            env["MYFRPYHASHSEED"] = str(seed)
+            out = assert_myFRpy_ok("-c", code, **env)
             return out
 
         run1 = check_order_with_hash_seed(1234)

@@ -1,11 +1,11 @@
-/* This module makes GNU readline available to Python.  It has ideas
+/* This module makes GNU readline available to MyFRpy.  It has ideas
  * contributed by Lee Busby, LLNL, and William Magro, Cornell Theory
  * Center.  The completer interface was inspired by Lele Gaifax.  More
  * recently, it was largely rewritten by Guido van Rossum.
  */
 
 /* Standard definitions */
-#include "Python.h"
+#include "MyFRpy.h"
 
 #include <errno.h>
 #include <signal.h>
@@ -60,7 +60,7 @@ extern char **completion_matches(char *, CPFunction *);
  *
  * This emulation library is not 100% API compatible with the "real" readline
  * and cannot be detected at compile-time,
- * hence we use a runtime check to detect if the Python readline module is
+ * hence we use a runtime check to detect if the MyFRpy readline module is
  * linked to libedit.
  *
  * Currently there is one known API incompatibility:
@@ -86,12 +86,12 @@ on_completion_display_matches_hook(char **matches,
 static char *completer_word_break_characters;
 
 typedef struct {
-  /* Specify hook functions in Python */
+  /* Specify hook functions in MyFRpy */
   PyObject *completion_display_matches_hook;
   PyObject *startup_hook;
   PyObject *pre_input_hook;
 
-  PyObject *completer; /* Specify a word completer in Python */
+  PyObject *completer; /* Specify a word completer in MyFRpy */
   PyObject *begidx;
   PyObject *endidx;
 } readlinestate;
@@ -164,7 +164,7 @@ decode(const char *s)
 /*
 Explicitly disable bracketed paste in the interactive interpreter, even if it's
 set in the inputrc, is enabled by default (eg GNU Readline 8.1), or a user calls
-readline.read_init_file(). The Python REPL has not implemented bracketed
+readline.read_init_file(). The MyFRpy REPL has not implemented bracketed
 paste support. Also, bracketed mode writes the "\x1b[?2004h" escape sequence
 into stdout which causes test failures in applications that don't support it.
 It can still be explicitly enabled by calling readline.parse_and_bind("set
@@ -989,7 +989,7 @@ static struct PyMethodDef readline_methods[] =
 };
 
 
-/* C function to call the Python hooks. */
+/* C function to call the MyFRpy hooks. */
 
 static int
 on_hook(PyObject *func)
@@ -1049,7 +1049,7 @@ on_pre_input_hook()
 #endif
 
 
-/* C function to call the Python completion_display_matches */
+/* C function to call the MyFRpy completion_display_matches */
 
 #ifdef HAVE_RL_COMPLETION_DISPLAY_MATCHES_HOOK
 static void
@@ -1111,7 +1111,7 @@ readline_sigwinch_handler(int signum)
 }
 #endif
 
-/* C function to call the Python completer. */
+/* C function to call the MyFRpy completer. */
 
 static char *
 on_completion(const char *text, int state)
@@ -1209,7 +1209,7 @@ setup_readline(readlinestate *mod_state)
 #endif
 
     /* The name must be defined before initialization */
-    rl_readline_name = "python";
+    rl_readline_name = "myFRpy";
 
     /* the libedit readline emulation resets key bindings etc
      * when calling rl_initialize.  So call it upfront
@@ -1262,7 +1262,7 @@ setup_readline(readlinestate *mod_state)
 #endif
     /* Set our completion function */
     rl_attempted_completion_function = flex_complete;
-    /* Set Python word break characters */
+    /* Set MyFRpy word break characters */
     completer_word_break_characters =
         strdup(" \t\n`~!@#$%^&*()-=+[{]}\\|;:'\",<>/?");
         /* All nonalphanums except '.' */

@@ -8,7 +8,7 @@ __all__ = ["getcaps","findmatch"]
 
 
 _DEPRECATION_MSG = ('The {name} module is deprecated and will be removed in '
-                    'Python {remove}. See the mimetypes module for an '
+                    'MyFRpy {remove}. See the mimetypes module for an '
                     'alternative.')
 warnings._deprecated(__name__, _DEPRECATION_MSG, remove=(3, 13))
 

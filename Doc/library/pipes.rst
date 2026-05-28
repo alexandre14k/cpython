@@ -3,7 +3,7 @@
 
 .. module:: pipes
    :platform: Unix
-   :synopsis: A Python interface to Unix shell pipelines.
+   :synopsis: A MyFRpy interface to Unix shell pipelines.
    :deprecated:
 
 .. sectionauthor:: Moshe Zadka <moshez@zadka.site.co.il>

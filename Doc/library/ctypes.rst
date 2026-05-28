@@ -1,18 +1,18 @@
-:mod:`ctypes` --- A foreign function library for Python
+:mod:`ctypes` --- A foreign function library for MyFRpy
 =======================================================
 
 .. module:: ctypes
-   :synopsis: A foreign function library for Python.
+   :synopsis: A foreign function library for MyFRpy.
 
-.. moduleauthor:: Thomas Heller <theller@python.net>
+.. moduleauthor:: Thomas Heller <theller@myFRpy.net>
 
 **Source code:** :source:`Lib/ctypes`
 
 --------------
 
-:mod:`ctypes` is a foreign function library for Python.  It provides C compatible
+:mod:`ctypes` is a foreign function library for MyFRpy.  It provides C compatible
 data types, and allows calling functions in DLLs or shared libraries.  It can be
-used to wrap these libraries in pure Python.
+used to wrap these libraries in pure MyFRpy.
 
 
 .. _ctypes-ctypes-tutorial:
@@ -67,7 +67,7 @@ Windows appends the usual ``.dll`` file suffix automatically.
 .. note::
     Accessing the standard C library through ``cdll.msvcrt`` will use an
     outdated version of the library that may be incompatible with the one
-    being used by Python. Where possible, use native Python functionality,
+    being used by MyFRpy. Where possible, use native MyFRpy functionality,
     or else import and use the ``msvcrt`` module.
 
 On Linux, it is required to specify the filename *including* the extension to
@@ -122,7 +122,7 @@ UNICODE is defined or not::
 version you need by specifying ``GetModuleHandleA`` or ``GetModuleHandleW``
 explicitly, and then call it with bytes or string objects respectively.
 
-Sometimes, dlls export functions with names which aren't valid Python
+Sometimes, dlls export functions with names which aren't valid MyFRpy
 identifiers, like ``"??2@YAPAXI@Z"``. In this case you have to use
 :func:`getattr` to retrieve the function::
 
@@ -149,7 +149,7 @@ functions can be accessed by indexing the dll object with the ordinal number::
 Calling functions
 ^^^^^^^^^^^^^^^^^
 
-You can call these functions like any other Python callable. This example uses
+You can call these functions like any other MyFRpy callable. This example uses
 the ``rand()`` function, which takes no arguments and returns a pseudo-random integer::
 
    >>> print(libc.rand())  # doctest: +SKIP
@@ -190,16 +190,16 @@ argument values::
    OSError: exception: access violation reading 0x00000020
    >>>
 
-There are, however, enough ways to crash Python with :mod:`ctypes`, so you
+There are, however, enough ways to crash MyFRpy with :mod:`ctypes`, so you
 should be careful anyway.  The :mod:`faulthandler` module can be helpful in
 debugging crashes (e.g. from segmentation faults produced by erroneous C library
 calls).
 
 ``None``, integers, bytes objects and (unicode) strings are the only native
-Python objects that can directly be used as parameters in these function calls.
+MyFRpy objects that can directly be used as parameters in these function calls.
 ``None`` is passed as a C ``NULL`` pointer, bytes objects and strings are passed
 as pointer to the memory block that contains their data (:c:expr:`char *` or
-:c:expr:`wchar_t *`).  Python integers are passed as the platforms default C
+:c:expr:`wchar_t *`).  MyFRpy integers are passed as the platforms default C
 :c:expr:`int` type, their value is masked to fit into the C type.
 
 Before we move on calling functions with other parameter types, we have to learn
@@ -214,7 +214,7 @@ Fundamental data types
 :mod:`ctypes` defines a number of primitive C compatible data types:
 
 +----------------------+------------------------------------------+----------------------------+
-| ctypes type          | C type                                   | Python type                |
+| ctypes type          | C type                                   | MyFRpy type                |
 +======================+==========================================+============================+
 | :class:`c_bool`      | :c:expr:`_Bool`                          | bool (1)                   |
 +----------------------+------------------------------------------+----------------------------+
@@ -291,7 +291,7 @@ Since these types are mutable, their value can also be changed afterwards::
 
 Assigning a new value to instances of the pointer types :class:`c_char_p`,
 :class:`c_wchar_p`, and :class:`c_void_p` changes the *memory location* they
-point to, *not the contents* of the memory block (of course not, because Python
+point to, *not the contents* of the memory block (of course not, because MyFRpy
 bytes objects are immutable)::
 
    >>> s = "Hello, World"
@@ -346,7 +346,7 @@ Calling functions, continued
 
 Note that printf prints to the real standard output channel, *not* to
 :data:`sys.stdout`, so these examples will only work at the console prompt, not
-from within *IDLE* or *PythonWin*::
+from within *IDLE* or *MyFRpyWin*::
 
    >>> printf = libc.printf
    >>> printf(b"Hello, %s\n", b"World!")
@@ -364,7 +364,7 @@ from within *IDLE* or *PythonWin*::
    ArgumentError: argument 2: TypeError: Don't know how to convert parameter 2
    >>>
 
-As has been mentioned before, all Python types except integers, strings, and
+As has been mentioned before, all MyFRpy types except integers, strings, and
 bytes objects have to be wrapped in their corresponding :mod:`ctypes` type, so
 that they can be converted to the required C data type::
 
@@ -386,7 +386,7 @@ is different than that for regular functions.
 On those platforms it is required to specify the :attr:`~_FuncPtr.argtypes`
 attribute for the regular, non-variadic, function arguments:
 
-.. code-block:: python3
+.. code-block:: myFRpy3
 
    libc.printf.argtypes = [ctypes.c_char_p]
 
@@ -454,7 +454,7 @@ prototype for a C function), and tries to convert the arguments to valid types::
 If you have defined your own classes which you pass to function calls, you have
 to implement a :meth:`~_CData.from_param` class method for them to be able to use them
 in the :attr:`~_FuncPtr.argtypes` sequence. The :meth:`~_CData.from_param` class method receives
-the Python object passed to the function call, it should do a typecheck or
+the MyFRpy object passed to the function call, it should do a typecheck or
 whatever is needed to make sure this object is acceptable, and then return the
 object itself, its :attr:`!_as_parameter_` attribute, or whatever you want to
 pass as the C function argument in this case. Again, the result should be an
@@ -509,7 +509,7 @@ a string pointer and a char, and returns a pointer to a string::
 
 If you want to avoid the :func:`ord("x") <ord>` calls above, you can set the
 :attr:`~_FuncPtr.argtypes` attribute, and the second argument will be converted from a
-single character Python bytes object into a C char:
+single character MyFRpy bytes object into a C char:
 
 .. doctest::
 
@@ -526,7 +526,7 @@ single character Python bytes object into a C char:
    b'def'
    >>>
 
-You can also use a callable Python object (a function or a class for example) as
+You can also use a callable MyFRpy object (a function or a class for example) as
 the :attr:`~_FuncPtr.restype` attribute, if the foreign function returns an integer.  The
 callable will be called with the *integer* the C function returns, and the
 result of this call will be used as the result of your function call. This is
@@ -572,7 +572,7 @@ to be passed by value. This is also known as *passing parameters by reference*.
 by reference.  The same effect can be achieved with the :func:`pointer` function,
 although :func:`pointer` does a lot more work since it constructs a real pointer
 object, so it is faster to use :func:`byref` if you don't need the pointer
-object in Python itself::
+object in MyFRpy itself::
 
    >>> i = c_int()
    >>> f = c_float()
@@ -834,7 +834,7 @@ Calling the pointer type without an argument creates a ``NULL`` pointer.
    >>>
 
 :mod:`ctypes` checks for ``NULL`` when dereferencing pointers (but dereferencing
-invalid non-\ ``NULL`` pointers would crash Python)::
+invalid non-\ ``NULL`` pointers would crash MyFRpy)::
 
    >>> null_ptr[0]
    Traceback (most recent call last):
@@ -986,7 +986,7 @@ other, and finally follow the pointer chain a few times::
 Callback functions
 ^^^^^^^^^^^^^^^^^^
 
-:mod:`ctypes` allows creating C callable function pointers from Python callables.
+:mod:`ctypes` allows creating C callable function pointers from MyFRpy callables.
 These are sometimes called *callback functions*.
 
 First, you must create a class for the callback function. The class knows the
@@ -1089,8 +1089,8 @@ write::
    garbage collected, crashing your program when a callback is made.
 
    Also, note that if the callback function is called in a thread created
-   outside of Python's control (e.g. by the foreign code that calls the
-   callback), ctypes creates a new dummy Python thread on every invocation. This
+   outside of MyFRpy's control (e.g. by the foreign code that calls the
+   callback), ctypes creates a new dummy MyFRpy thread on every invocation. This
    behavior is correct for most purposes, but it means that values stored with
    :class:`threading.local` will *not* survive across different callbacks, even when
    those calls are made from the same C thread.
@@ -1101,19 +1101,19 @@ Accessing values exported from dlls
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Some shared libraries not only export functions, they also export variables. An
-example in the Python library itself is the :c:data:`Py_Version`, Python
+example in the MyFRpy library itself is the :c:data:`Py_Version`, MyFRpy
 runtime version number encoded in a single constant integer.
 
 :mod:`ctypes` can access values like this with the :meth:`~_CData.in_dll` class methods of
-the type.  *pythonapi* is a predefined symbol giving access to the Python C
+the type.  *myFRpyapi* is a predefined symbol giving access to the MyFRpy C
 api::
 
-   >>> version = ctypes.c_int.in_dll(ctypes.pythonapi, "Py_Version")
+   >>> version = ctypes.c_int.in_dll(ctypes.myFRpyapi, "Py_Version")
    >>> print(hex(version.value))
    0x30c00a0
 
 An extended example which also demonstrates the use of pointers accesses the
-:c:data:`PyImport_FrozenModules` pointer exported by Python.
+:c:data:`PyImport_FrozenModules` pointer exported by MyFRpy.
 
 Quoting the docs for that value:
 
@@ -1140,7 +1140,7 @@ We have defined the :c:struct:`_frozen` data type, so we can get the pointer
 to the table::
 
    >>> FrozenTable = POINTER(struct_frozen)
-   >>> table = FrozenTable.in_dll(pythonapi, "_PyImport_FrozenBootstrap")
+   >>> table = FrozenTable.in_dll(myFRpyapi, "_PyImport_FrozenBootstrap")
    >>>
 
 Since ``table`` is a ``pointer`` to the array of ``struct_frozen`` records, we
@@ -1159,7 +1159,7 @@ hit the ``NULL`` entry::
    zipimport 12345
    >>>
 
-The fact that standard Python has a frozen module and a frozen package
+The fact that standard MyFRpy has a frozen module and a frozen package
 (indicated by the negative ``size`` member) is not well known, it is only used
 for testing. Try it out with ``import __hello__`` for example.
 
@@ -1227,9 +1227,9 @@ Another example that may behave differently from what one would expect is this::
 
 Why is it printing ``False``?  ctypes instances are objects containing a memory
 block plus some :term:`descriptor`\s accessing the contents of the memory.
-Storing a Python object in the memory block does not store the object itself,
+Storing a MyFRpy object in the memory block does not store the object itself,
 instead the ``contents`` of the object is stored.  Accessing the contents again
-constructs a new Python object each time!
+constructs a new MyFRpy object each time!
 
 
 .. _ctypes-variable-sized-data-types:
@@ -1272,7 +1272,7 @@ get errors accessing other elements::
    >>>
 
 Another way to use variable-sized data types with :mod:`ctypes` is to use the
-dynamic nature of Python, and (re-)define the data type after the required size
+dynamic nature of MyFRpy, and (re-)define the data type after the required size
 is already known, on a case by case basis.
 
 
@@ -1358,7 +1358,7 @@ module instead of using :func:`~ctypes.util.find_library` to locate the library 
 Loading shared libraries
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-There are several ways to load shared libraries into the Python process.  One
+There are several ways to load shared libraries into the MyFRpy process.  One
 way is to instantiate one of the following classes:
 
 
@@ -1416,18 +1416,18 @@ way is to instantiate one of the following classes:
 
       The *name* parameter can now be a :term:`path-like object`.
 
-The Python :term:`global interpreter lock` is released before calling any
+The MyFRpy :term:`global interpreter lock` is released before calling any
 function exported by these libraries, and reacquired afterwards.
 
 
 .. class:: PyDLL(name, mode=DEFAULT_MODE, handle=None)
 
    Instances of this class behave like :class:`CDLL` instances, except that the
-   Python GIL is *not* released during the function call, and after the function
-   execution the Python error flag is checked. If the error flag is set, a Python
+   MyFRpy GIL is *not* released during the function call, and after the function
+   execution the MyFRpy error flag is checked. If the error flag is set, a MyFRpy
    exception is raised.
 
-   Thus, this is only useful to call Python C api functions directly.
+   Thus, this is only useful to call MyFRpy C api functions directly.
 
    .. versionchanged:: 3.12
 
@@ -1566,13 +1566,13 @@ These prefabricated library loaders are available:
    Creates :class:`PyDLL` instances.
 
 
-For accessing the C Python api directly, a ready-to-use Python shared library
+For accessing the C MyFRpy api directly, a ready-to-use MyFRpy shared library
 object is available:
 
-.. data:: pythonapi
+.. data:: myFRpyapi
    :noindex:
 
-   An instance of :class:`PyDLL` that exposes Python C API functions as
+   An instance of :class:`PyDLL` that exposes MyFRpy C API functions as
    attributes.  Note that all these functions are assumed to return C
    :c:expr:`int`, which is of course not always the truth, so you have to assign
    the correct :attr:`!restype` attribute to use these functions.
@@ -1622,7 +1622,7 @@ They are instances of a private class:
       Assign a ctypes type to specify the result type of the foreign function.
       Use ``None`` for :c:expr:`void`, a function not returning anything.
 
-      It is possible to assign a callable Python object that is not a ctypes
+      It is possible to assign a callable MyFRpy object that is not a ctypes
       type, in this case the function is assumed to return a C :c:expr:`int`, and
       the callable will be called with this integer, allowing further
       processing or error checking.  Using this is deprecated, for more flexible
@@ -1651,7 +1651,7 @@ They are instances of a private class:
 
    .. attribute:: errcheck
 
-      Assign a Python function or another callable to this attribute. The
+      Assign a MyFRpy function or another callable to this attribute. The
       callable will be called with three or more arguments:
 
       .. function:: callable(result, func, arguments)
@@ -1684,7 +1684,7 @@ They are instances of a private class:
 
    On Windows, when a foreign function call raises a system exception (for
    example, due to an access violation), it will be captured and replaced with
-   a suitable Python exception. Further, an auditing event
+   a suitable MyFRpy exception. Further, an auditing event
    ``ctypes.set_exception`` with argument ``code`` will be raised, allowing an
    audit hook to replace the exception with its own.
 
@@ -1727,7 +1727,7 @@ See :ref:`ctypes-callback-functions` for examples.
 
 .. function:: PYFUNCTYPE(restype, *argtypes)
 
-   The returned function prototype creates functions that use the Python calling
+   The returned function prototype creates functions that use the MyFRpy calling
    convention.  The function will *not* release the GIL during the call.
 
 Function prototypes created by these factory functions can be instantiated in
@@ -1744,7 +1744,7 @@ different ways, depending on the type and number of the parameters in the call:
    :noindex:
    :module:
 
-   Create a C callable function (a callback function) from a Python *callable*.
+   Create a C callable function (a callback function) from a MyFRpy *callable*.
 
 
 .. function:: prototype(func_spec[, paramflags])
@@ -1975,7 +1975,7 @@ Utility functions
 .. function:: find_msvcrt()
    :module: ctypes.util
 
-   Windows only: return the filename of the VC runtime library used by Python,
+   Windows only: return the filename of the VC runtime library used by MyFRpy,
    and by the extension modules.  If the name of the library cannot be
    determined, ``None`` is returned.
 
@@ -2116,7 +2116,7 @@ Data types
    Among other things, all ctypes type instances contain a memory block that
    hold C compatible data; the address of the memory block is returned by the
    :func:`addressof` helper function. Another instance variable is exposed as
-   :attr:`_objects`; this contains other Python objects that need to be kept
+   :attr:`_objects`; this contains other MyFRpy objects that need to be kept
    alive in case the memory block contains pointers.
 
    Common methods of ctypes data types, these are all class methods (to be
@@ -2186,7 +2186,7 @@ Data types
 
    .. attribute:: _objects
 
-      This member is either ``None`` or a dictionary containing Python objects
+      This member is either ``None`` or a dictionary containing MyFRpy objects
       that need to be kept alive so that the memory block contents is kept
       valid.  This object is only exposed for debugging; never modify the
       contents of this dictionary.
@@ -2212,7 +2212,7 @@ Fundamental data types
       This attribute contains the actual value of the instance. For integer and
       pointer types, it is an integer, for character types, it is a single
       character bytes object or string, for character pointer types it is a
-      Python bytes object or string.
+      MyFRpy bytes object or string.
 
       When the ``value`` attribute is retrieved from a ctypes instance, usually
       a new object is returned each time.  :mod:`ctypes` does *not* implement
@@ -2222,8 +2222,8 @@ Fundamental data types
 
 Fundamental data types, when returned as foreign function call results, or, for
 example, by retrieving structure field members or array items, are transparently
-converted to native Python types.  In other words, if a foreign function has a
-:attr:`~_FuncPtr.restype` of :class:`c_char_p`, you will always receive a Python bytes
+converted to native MyFRpy types.  In other words, if a foreign function has a
+:attr:`~_FuncPtr.restype` of :class:`c_char_p`, you will always receive a MyFRpy bytes
 object, *not* a :class:`c_char_p` instance.
 
 .. XXX above is false, it actually returns a Unicode string

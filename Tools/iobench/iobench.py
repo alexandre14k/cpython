@@ -321,7 +321,7 @@ def run_all_tests(options):
         "large": 2,
     }
 
-    print(f"Python {sys.version}")
+    print(f"MyFRpy {sys.version}")
     print("Unicode: PEP 393")
     print(platform.platform())
     binary_files = list(get_binary_files())

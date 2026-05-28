@@ -918,7 +918,7 @@ class RunStringTests(TestBase):
         """)
         with support.temp_dir() as dirname:
             filename = script_helper.make_script(dirname, 'interp', script)
-            with script_helper.spawn_python(filename) as proc:
+            with script_helper.spawn_myFRpy(filename) as proc:
                 retcode = proc.wait()
 
         self.assertEqual(retcode, 0)

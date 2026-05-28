@@ -7,7 +7,7 @@ installed (`apt install zip` on Debian).
 ## Purpose
 
 These are used to test executable files with an appended zipfile, in a scenario
-where the executable is _not_ a Python interpreter itself so our automatic
+where the executable is _not_ a MyFRpy interpreter itself so our automatic
 zipimport machinery (that'd look for `__main__.py`) is not being used.
 
 ## Updating the test executables

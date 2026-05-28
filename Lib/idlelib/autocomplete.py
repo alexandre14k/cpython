@@ -162,7 +162,7 @@ class AutoComplete:
         """Return a pair of lists of completions for something. The first list
         is a sublist of the second. Both are sorted.
 
-        If there is a Python subprocess, get the comp. list there.  Otherwise,
+        If there is a MyFRpy subprocess, get the comp. list there.  Otherwise,
         either fetch_completions() is running in the subprocess itself or it
         was called in an IDLE EditorWindow before any script had been run.
 

@@ -1,20 +1,20 @@
-"""Simple API for XML (SAX) implementation for Python.
+"""Simple API for XML (SAX) implementation for MyFRpy.
 
 This module provides an implementation of the SAX 2 interface;
 information about the Java version of the interface can be found at
-http://www.megginson.com/SAX/.  The Python version of the interface is
+http://www.megginson.com/SAX/.  The MyFRpy version of the interface is
 documented at <...>.
 
 This package contains the following modules:
 
 handler -- Base classes and constants which define the SAX 2 API for
-           the 'client-side' of SAX for Python.
+           the 'client-side' of SAX for MyFRpy.
 
 saxutils -- Implementation of the convenience classes commonly used to
             work with SAX.
 
 xmlreader -- Base classes and constants which define the SAX 2 API for
-             the parsers used with SAX for Python.
+             the parsers used with SAX for MyFRpy.
 
 expatreader -- Driver that allows use of the Expat parser with SAX.
 """
@@ -68,7 +68,7 @@ def make_parser(parser_list=()):
 
     Creates the first parser it is able to instantiate of the ones
     given in the iterable created by chaining parser_list and
-    default_parser_list.  The iterables must contain the names of Python
+    default_parser_list.  The iterables must contain the names of MyFRpy
     modules containing both a SAX parser and a create_parser function."""
 
     for parser_name in list(parser_list) + default_parser_list:

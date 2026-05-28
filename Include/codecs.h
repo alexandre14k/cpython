@@ -6,7 +6,7 @@ extern "C" {
 
 /* ------------------------------------------------------------------------
 
-   Python Codec Registry and support functions
+   MyFRpy Codec Registry and support functions
 
 
 Written by Marc-Andre Lemburg (mal@lemburg.com).
@@ -114,10 +114,10 @@ PyAPI_FUNC(PyObject *) PyCodec_Decode(
    operation.
 
    Please note that these APIs are internal and should not
-   be used in Python C extensions.
+   be used in MyFRpy C extensions.
 
    XXX (ncoghlan): should we make these, or something like them, public
-   in Python 3.5+?
+   in MyFRpy 3.5+?
 
  */
 PyAPI_FUNC(PyObject *) _PyCodec_LookupTextEncoding(

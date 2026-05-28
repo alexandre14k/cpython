@@ -11,7 +11,7 @@ from contextlib import contextmanager
 
 import profile
 from test.profilee import testfunc, timer
-from test.support.script_helper import assert_python_failure, assert_python_ok
+from test.support.script_helper import assert_myFRpy_failure, assert_myFRpy_ok
 
 
 class ProfileTest(unittest.TestCase):
@@ -101,14 +101,14 @@ class ProfileTest(unittest.TestCase):
 
     def test_run_profile_as_module(self):
         # Test that -m switch needs an argument
-        assert_python_failure('-m', self.profilermodule.__name__, '-m')
+        assert_myFRpy_failure('-m', self.profilermodule.__name__, '-m')
 
         # Test failure for not-existent module
-        assert_python_failure('-m', self.profilermodule.__name__,
+        assert_myFRpy_failure('-m', self.profilermodule.__name__,
                               '-m', 'random_module_xyz')
 
         # Test successful run
-        assert_python_ok('-m', self.profilermodule.__name__,
+        assert_myFRpy_ok('-m', self.profilermodule.__name__,
                          '-m', 'timeit', '-n', '1')
 
     def test_output_file_when_changing_directory(self):
@@ -117,7 +117,7 @@ class ProfileTest(unittest.TestCase):
             with open('demo.py', 'w', encoding="utf-8") as f:
                 f.write('import os; os.chdir("dest")')
 
-            assert_python_ok(
+            assert_myFRpy_ok(
                 '-m', self.profilermodule.__name__,
                 '-o', 'out.pstats',
                 'demo.py',

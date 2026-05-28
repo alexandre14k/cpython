@@ -1,21 +1,21 @@
-:mod:`test` --- Regression tests package for Python
+:mod:`test` --- Regression tests package for MyFRpy
 ===================================================
 
 .. module:: test
-   :synopsis: Regression tests package containing the testing suite for Python.
+   :synopsis: Regression tests package containing the testing suite for MyFRpy.
 
-.. sectionauthor:: Brett Cannon <brett@python.org>
+.. sectionauthor:: Brett Cannon <brett@myFRpy.org>
 
 .. note::
-   The :mod:`test` package is meant for internal use by Python only. It is
-   documented for the benefit of the core developers of Python. Any use of
-   this package outside of Python's standard library is discouraged as code
+   The :mod:`test` package is meant for internal use by MyFRpy only. It is
+   documented for the benefit of the core developers of MyFRpy. Any use of
+   this package outside of MyFRpy's standard library is discouraged as code
    mentioned here can change or be removed without notice between releases of
-   Python.
+   MyFRpy.
 
 --------------
 
-The :mod:`test` package contains all regression tests for Python as well as the
+The :mod:`test` package contains all regression tests for MyFRpy as well as the
 modules :mod:`test.support` and :mod:`test.regrtest`.
 :mod:`test.support` is used to enhance your tests while
 :mod:`test.regrtest` drives the testing suite.
@@ -87,7 +87,7 @@ A basic boilerplate is often used::
 
 This code pattern allows the testing suite to be run by :mod:`test.regrtest`,
 on its own as a script that supports the :mod:`unittest` CLI, or via the
-``python -m unittest`` CLI.
+``myFRpy -m unittest`` CLI.
 
 The goal for regression testing is to try to break code. This leads to a few
 guidelines to be followed:
@@ -162,51 +162,51 @@ Running tests using the command-line interface
 .. module:: test.regrtest
    :synopsis: Drives the regression test suite.
 
-The :mod:`test` package can be run as a script to drive Python's regression
-test suite, thanks to the :option:`-m` option: :program:`python -m test`. Under
-the hood, it uses :mod:`test.regrtest`; the call :program:`python -m
-test.regrtest` used in previous Python versions still works.  Running the
+The :mod:`test` package can be run as a script to drive MyFRpy's regression
+test suite, thanks to the :option:`-m` option: :program:`myFRpy -m test`. Under
+the hood, it uses :mod:`test.regrtest`; the call :program:`myFRpy -m
+test.regrtest` used in previous MyFRpy versions still works.  Running the
 script by itself automatically starts running all regression tests in the
 :mod:`test` package. It does this by finding all modules in the package whose
 name starts with ``test_``, importing them, and executing the function
 :func:`test_main` if present or loading the tests via
 unittest.TestLoader.loadTestsFromModule if ``test_main`` does not exist.  The
 names of tests to execute may also be passed to the script. Specifying a single
-regression test (:program:`python -m test test_spam`) will minimize output and
+regression test (:program:`myFRpy -m test test_spam`) will minimize output and
 only print whether the test passed or failed.
 
 Running :mod:`test` directly allows what resources are available for
 tests to use to be set. You do this by using the ``-u`` command-line
 option. Specifying ``all`` as the value for the ``-u`` option enables all
-possible resources: :program:`python -m test -uall`.
+possible resources: :program:`myFRpy -m test -uall`.
 If all but one resource is desired (a more common case), a
 comma-separated list of resources that are not desired may be listed after
-``all``. The command :program:`python -m test -uall,-audio,-largefile`
+``all``. The command :program:`myFRpy -m test -uall,-audio,-largefile`
 will run :mod:`test` with all resources except the ``audio`` and
 ``largefile`` resources. For a list of all resources and more command-line
-options, run :program:`python -m test -h`.
+options, run :program:`myFRpy -m test -h`.
 
 Some other ways to execute the regression tests depend on what platform the
 tests are being executed on. On Unix, you can run :program:`make test` at the
-top-level directory where Python was built. On Windows,
+top-level directory where MyFRpy was built. On Windows,
 executing :program:`rt.bat` from your :file:`PCbuild` directory will run all
 regression tests.
 
 
-:mod:`test.support` --- Utilities for the Python test suite
+:mod:`test.support` --- Utilities for the MyFRpy test suite
 ===========================================================
 
 .. module:: test.support
-   :synopsis: Support for Python's regression test suite.
+   :synopsis: Support for MyFRpy's regression test suite.
 
 
-The :mod:`test.support` module provides support for Python's regression
+The :mod:`test.support` module provides support for MyFRpy's regression
 test suite.
 
 .. note::
 
    :mod:`test.support` is not a public module.  It is documented here to help
-   Python developers write tests.  The API of this module is subject to change
+   MyFRpy developers write tests.  The API of this module is subject to change
    without backwards compatibility concerns between releases.
 
 
@@ -300,7 +300,7 @@ The :mod:`test.support` module defines the following constants:
 
    Timeout in seconds to detect when a test hangs.
 
-   It is long enough to reduce the risk of test failure on the slowest Python
+   It is long enough to reduce the risk of test failure on the slowest MyFRpy
    buildbots. It should not be used to mark a test as failed if the test takes
    "too long".  The timeout value depends on the regrtest ``--timeout`` command
    line option.
@@ -324,9 +324,9 @@ The :mod:`test.support` module defines the following constants:
 
 .. data:: Py_DEBUG
 
-   True if Python was built with the :c:macro:`Py_DEBUG` macro
+   True if MyFRpy was built with the :c:macro:`Py_DEBUG` macro
    defined, that is, if
-   Python was :ref:`built in debug mode <debug-build>`.
+   MyFRpy was :ref:`built in debug mode <debug-build>`.
 
    .. versionadded:: 3.12
 
@@ -371,7 +371,7 @@ The :mod:`test.support` module defines the following constants:
 
 .. data:: MISSING_C_DOCSTRINGS
 
-   Set to ``True`` if Python is built without docstrings (the
+   Set to ``True`` if MyFRpy is built without docstrings (the
    :c:macro:`WITH_DOC_STRINGS` macro is not defined).
    See the :option:`configure --without-doc-strings <--without-doc-strings>` option.
 
@@ -381,7 +381,7 @@ The :mod:`test.support` module defines the following constants:
 .. data:: HAVE_DOCSTRINGS
 
    Set to ``True`` if function docstrings are available.
-   See the :option:`python -OO <-O>` option, which strips docstrings of functions implemented in Python.
+   See the :option:`myFRpy -OO <-O>` option, which strips docstrings of functions implemented in MyFRpy.
 
    See also the :data:`MISSING_C_DOCSTRINGS` variable.
 
@@ -468,9 +468,9 @@ The :mod:`test.support` module defines the following functions:
    tests.
 
 
-.. function:: python_is_optimized()
+.. function:: myFRpy_is_optimized()
 
-   Return ``True`` if Python was not built with ``-O0`` or ``-Og``.
+   Return ``True`` if MyFRpy was not built with ``-O0`` or ``-Og``.
 
 
 .. function:: with_pymalloc()
@@ -516,14 +516,14 @@ The :mod:`test.support` module defines the following functions:
 
 .. function:: check_impl_detail(**guards)
 
-   Use this check to guard CPython's implementation-specific tests or to
+   Use this check to guard CMyFRpy's implementation-specific tests or to
    run them only on the implementations guarded by the arguments.  This
    function returns ``True`` or ``False`` depending on the host platform.
    Example usage::
 
-      check_impl_detail()               # Only on CPython (default).
+      check_impl_detail()               # Only on CMyFRpy (default).
       check_impl_detail(jython=True)    # Only on Jython.
-      check_impl_detail(cpython=False)  # Everywhere except CPython.
+      check_impl_detail(cmyFRpy=False)  # Everywhere except CMyFRpy.
 
 
 .. function:: set_memlimit(limit)
@@ -672,13 +672,13 @@ The :mod:`test.support` module defines the following functions:
 .. function:: calcobjsize(fmt)
 
    Return the size of the :c:type:`PyObject` whose structure members are
-   defined by *fmt*. The returned value includes the size of the Python object header and alignment.
+   defined by *fmt*. The returned value includes the size of the MyFRpy object header and alignment.
 
 
 .. function:: calcvobjsize(fmt)
 
    Return the size of the :c:type:`PyVarObject` whose structure members are
-   defined by *fmt*. The returned value includes the size of the Python object header and alignment.
+   defined by *fmt*. The returned value includes the size of the MyFRpy object header and alignment.
 
 
 .. function:: checksizeof(test, o, size)
@@ -772,9 +772,9 @@ The :mod:`test.support` module defines the following functions:
    is available.
 
 
-.. decorator:: cpython_only
+.. decorator:: cmyFRpy_only
 
-   Decorator for tests only applicable to CPython.
+   Decorator for tests only applicable to CMyFRpy.
 
 
 .. decorator:: impl_detail(msg=None, **guards)
@@ -791,7 +791,7 @@ The :mod:`test.support` module defines the following functions:
 .. decorator:: refcount_test
 
    Decorator for tests which involve reference counting.  The decorator does
-   not run the test if it is not run by CPython.  Any trace function is unset
+   not run the test if it is not run by CMyFRpy.  Any trace function is unset
    for the duration of the test to prevent unexpected refcounts caused by
    the trace function.
 
@@ -1013,7 +1013,7 @@ The :mod:`test.support` module defines the following classes:
 
 .. class:: SaveSignals()
 
-   Class to save and restore signal handlers registered by the Python signal
+   Class to save and restore signal handlers registered by the MyFRpy signal
    handler.
 
    .. method:: save(self)
@@ -1070,7 +1070,7 @@ The :mod:`test.support.socket_helper` module provides support for socket tests.
    Either this method or :func:`bind_port` should be used for any tests
    where a server socket needs to be bound to a particular port for the
    duration of the test.
-   Which one to use depends on whether the calling code is creating a Python
+   Which one to use depends on whether the calling code is creating a MyFRpy
    socket, or if an unused port needs to be provided in a constructor
    or passed to an external program (i.e. the ``-accept`` argument to
    openssl's s_server mode).  Always prefer :func:`bind_port` over
@@ -1117,14 +1117,14 @@ The :mod:`test.support.socket_helper` module provides support for socket tests.
    exceptions.
 
 
-:mod:`test.support.script_helper` --- Utilities for the Python execution tests
+:mod:`test.support.script_helper` --- Utilities for the MyFRpy execution tests
 ==============================================================================
 
 .. module:: test.support.script_helper
-   :synopsis: Support for Python's script execution tests.
+   :synopsis: Support for MyFRpy's script execution tests.
 
 
-The :mod:`test.support.script_helper` module provides support for Python's
+The :mod:`test.support.script_helper` module provides support for MyFRpy's
 script execution tests.
 
 .. function:: interpreter_requires_environment()
@@ -1133,20 +1133,20 @@ script execution tests.
    variables in order to be able to run at all.
 
    This is designed to be used with ``@unittest.skipIf()`` to annotate tests
-   that need to use an ``assert_python*()`` function to launch an isolated
+   that need to use an ``assert_myFRpy*()`` function to launch an isolated
    mode (``-I``) or no environment mode (``-E``) sub-interpreter process.
 
    A normal build & test does not run into this situation but it can happen
    when trying to run the standard library test suite from an interpreter that
-   doesn't have an obvious home with Python's current home finding logic.
+   doesn't have an obvious home with MyFRpy's current home finding logic.
 
-   Setting :envvar:`PYTHONHOME` is one way to get most of the testsuite to run
-   in that situation.  :envvar:`PYTHONPATH` or :envvar:`PYTHONUSERSITE` are
+   Setting :envvar:`MYFRPYHOME` is one way to get most of the testsuite to run
+   in that situation.  :envvar:`MYFRPYPATH` or :envvar:`MYFRPYUSERSITE` are
    other common environment variables that might impact whether or not the
    interpreter can start.
 
 
-.. function:: run_python_until_end(*args, **env_vars)
+.. function:: run_myFRpy_until_end(*args, **env_vars)
 
    Set up the environment based on *env_vars* for running the interpreter
    in a subprocess.  The values can include ``__isolated``, ``__cleanenv``,
@@ -1156,7 +1156,7 @@ script execution tests.
       The function no longer strips whitespaces from *stderr*.
 
 
-.. function:: assert_python_ok(*args, **env_vars)
+.. function:: assert_myFRpy_ok(*args, **env_vars)
 
    Assert that running the interpreter with *args* and optional environment
    variables *env_vars* succeeds (``rc == 0``) and return a ``(return code,
@@ -1165,34 +1165,34 @@ script execution tests.
    If the *__cleanenv* keyword-only parameter is set, *env_vars* is used as a fresh
    environment.
 
-   Python is started in isolated mode (command line option ``-I``),
+   MyFRpy is started in isolated mode (command line option ``-I``),
    except if the *__isolated* keyword-only parameter is set to ``False``.
 
    .. versionchanged:: 3.9
       The function no longer strips whitespaces from *stderr*.
 
 
-.. function:: assert_python_failure(*args, **env_vars)
+.. function:: assert_myFRpy_failure(*args, **env_vars)
 
    Assert that running the interpreter with *args* and optional environment
    variables *env_vars* fails (``rc != 0``) and return a ``(return code,
    stdout, stderr)`` tuple.
 
-   See :func:`assert_python_ok` for more options.
+   See :func:`assert_myFRpy_ok` for more options.
 
    .. versionchanged:: 3.9
       The function no longer strips whitespaces from *stderr*.
 
 
-.. function:: spawn_python(*args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, **kw)
+.. function:: spawn_myFRpy(*args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, **kw)
 
-   Run a Python subprocess with the given arguments.
+   Run a MyFRpy subprocess with the given arguments.
 
    *kw* is extra keyword args to pass to :func:`subprocess.Popen`. Returns a
    :class:`subprocess.Popen` object.
 
 
-.. function:: kill_python(p)
+.. function:: kill_myFRpy(p)
 
    Run the given :class:`subprocess.Popen` process until completion and return
    stdout.
@@ -1551,7 +1551,7 @@ The :mod:`test.support.import_helper` module provides support for import tests.
 
 .. function:: import_fresh_module(name, fresh=(), blocked=(), deprecated=False)
 
-   This function imports and returns a fresh copy of the named Python module
+   This function imports and returns a fresh copy of the named MyFRpy module
    by removing the named module from ``sys.modules`` before doing the import.
    Note that unlike :func:`reload`, the original module is not affected by
    this operation.
@@ -1577,7 +1577,7 @@ The :mod:`test.support.import_helper` module provides support for import tests.
 
       # Get copies of the warnings module for testing without affecting the
       # version being used by the rest of the test suite. One copy uses the
-      # C implementation, the other is forced to use the pure Python fallback
+      # C implementation, the other is forced to use the pure MyFRpy fallback
       # implementation
       py_warnings = import_fresh_module('warnings', blocked=['_warnings'])
       c_warnings = import_fresh_module('warnings', fresh=['_warnings'])

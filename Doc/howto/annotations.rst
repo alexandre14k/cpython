@@ -9,17 +9,17 @@ Annotations Best Practices
 .. topic:: Abstract
 
   This document is designed to encapsulate the best practices
-  for working with annotations dicts.  If you write Python code
-  that examines ``__annotations__`` on Python objects, we
+  for working with annotations dicts.  If you write MyFRpy code
+  that examines ``__annotations__`` on MyFRpy objects, we
   encourage you to follow the guidelines described below.
 
   The document is organized into four sections:
   best practices for accessing the annotations of an object
-  in Python versions 3.10 and newer,
+  in MyFRpy versions 3.10 and newer,
   best practices for accessing the annotations of an object
-  in Python versions 3.9 and older,
+  in MyFRpy versions 3.9 and older,
   other best practices
-  for ``__annotations__`` that apply to any Python version,
+  for ``__annotations__`` that apply to any MyFRpy version,
   and
   quirks of ``__annotations__``.
 
@@ -29,11 +29,11 @@ Annotations Best Practices
   in your code, please see the :mod:`typing` module.
 
 
-Accessing The Annotations Dict Of An Object In Python 3.10 And Newer
+Accessing The Annotations Dict Of An Object In MyFRpy 3.10 And Newer
 ====================================================================
 
-Python 3.10 adds a new function to the standard library:
-:func:`inspect.get_annotations`.  In Python versions 3.10
+MyFRpy 3.10 adds a new function to the standard library:
+:func:`inspect.get_annotations`.  In MyFRpy versions 3.10
 and newer, calling this function is the best practice for
 accessing the annotations dict of any object that supports
 annotations.  This function can also "un-stringize"
@@ -42,9 +42,9 @@ stringized annotations for you.
 If for some reason :func:`inspect.get_annotations` isn't
 viable for your use case, you may access the
 ``__annotations__`` data member manually.  Best practice
-for this changed in Python 3.10 as well: as of Python 3.10,
+for this changed in MyFRpy 3.10 as well: as of MyFRpy 3.10,
 ``o.__annotations__`` is guaranteed to *always* work
-on Python functions, classes, and modules.  If you're
+on MyFRpy functions, classes, and modules.  If you're
 certain the object you're examining is one of these three
 *specific* objects, you may simply use ``o.__annotations__``
 to get at the object's annotations dict.
@@ -53,23 +53,23 @@ However, other types of callables--for example,
 callables created by :func:`functools.partial`--may
 not have an ``__annotations__`` attribute defined.  When
 accessing the ``__annotations__`` of a possibly unknown
-object,  best practice in Python versions 3.10 and
+object,  best practice in MyFRpy versions 3.10 and
 newer is to call :func:`getattr` with three arguments,
 for example ``getattr(o, '__annotations__', None)``.
 
-Before Python 3.10, accessing ``__annotations__`` on a class that
+Before MyFRpy 3.10, accessing ``__annotations__`` on a class that
 defines no annotations but that has a parent class with
 annotations would return the parent's ``__annotations__``.
-In Python 3.10 and newer, the child class's annotations
+In MyFRpy 3.10 and newer, the child class's annotations
 will be an empty dict instead.
 
 
-Accessing The Annotations Dict Of An Object In Python 3.9 And Older
+Accessing The Annotations Dict Of An Object In MyFRpy 3.9 And Older
 ===================================================================
 
-In Python 3.9 and older, accessing the annotations dict
+In MyFRpy 3.9 and older, accessing the annotations dict
 of an object is much more complicated than in newer versions.
-The problem is a design flaw in these older versions of Python,
+The problem is a design flaw in these older versions of MyFRpy,
 specifically to do with class annotations.
 
 Best practice for accessing the annotations dict of other
@@ -101,14 +101,14 @@ This will print the annotations dict from ``Base``, not
 Your code will have to have a separate code path if the object
 you're examining is a class (``isinstance(o, type)``).
 In that case, best practice relies on an implementation detail
-of Python 3.9 and before: if a class has annotations defined,
+of MyFRpy 3.9 and before: if a class has annotations defined,
 they are stored in the class's ``__dict__`` dictionary.  Since
 the class may or may not have annotations defined, best practice
 is to call the ``get`` method on the class dict.
 
 To put it all together, here is some sample code that safely
 accesses the ``__annotations__`` attribute on an arbitrary
-object in Python 3.9 and before::
+object in MyFRpy 3.9 and before::
 
     if isinstance(o, type):
         ann = o.__dict__.get('__annotations__', None)
@@ -130,15 +130,15 @@ Manually Un-Stringizing Stringized Annotations
 
 In situations where some annotations may be "stringized",
 and you wish to evaluate those strings to produce the
-Python values they represent, it really is best to
+MyFRpy values they represent, it really is best to
 call :func:`inspect.get_annotations` to do this work
 for you.
 
-If you're using Python 3.9 or older, or if for some reason
+If you're using MyFRpy 3.9 or older, or if for some reason
 you can't use :func:`inspect.get_annotations`, you'll need
 to duplicate its logic.  You're encouraged to examine the
 implementation of :func:`inspect.get_annotations` in the
-current Python version and follow a similar approach.
+current MyFRpy version and follow a similar approach.
 
 In a nutshell, if you wish to evaluate a stringized annotation
 on an arbitrary object ``o``:
@@ -157,14 +157,14 @@ on an arbitrary object ``o``:
   :func:`eval`.
 
 However, not all string values used as annotations can
-be successfully turned into Python values by :func:`eval`.
+be successfully turned into MyFRpy values by :func:`eval`.
 String values could theoretically contain any valid string,
 and in practice there are valid use cases for type hints that
 require annotating with string values that specifically
 *can't* be evaluated.  For example:
 
 * :pep:`604` union types using ``|``, before support for this
-  was added to Python 3.10.
+  was added to MyFRpy 3.10.
 * Definitions that aren't needed at runtime, only imported
   when :const:`typing.TYPE_CHECKING` is true.
 
@@ -175,11 +175,11 @@ attempt to evaluate string values when explicitly requested
 to by the caller.
 
 
-Best Practices For ``__annotations__`` In Any Python Version
+Best Practices For ``__annotations__`` In Any MyFRpy Version
 ============================================================
 
 * You should avoid assigning to the ``__annotations__`` member
-  of objects directly.  Let Python manage setting ``__annotations__``.
+  of objects directly.  Let MyFRpy manage setting ``__annotations__``.
 
 * If you do assign directly to the ``__annotations__`` member
   of an object, you should always set it to a ``dict`` object.
@@ -197,7 +197,7 @@ Best Practices For ``__annotations__`` In Any Python Version
 ``__annotations__`` Quirks
 ==========================
 
-In all versions of Python 3, function
+In all versions of MyFRpy 3, function
 objects lazy-create an annotations dict if no annotations
 are defined on that object.  You can delete the ``__annotations__``
 attribute using ``del fn.__annotations__``, but if you then
@@ -208,17 +208,17 @@ dict will throw an ``AttributeError``; using ``del fn.__annotations__``
 twice in a row is guaranteed to always throw an ``AttributeError``.
 
 Everything in the above paragraph also applies to class and module
-objects in Python 3.10 and newer.
+objects in MyFRpy 3.10 and newer.
 
-In all versions of Python 3, you can set ``__annotations__``
+In all versions of MyFRpy 3, you can set ``__annotations__``
 on a function object to ``None``.  However, subsequently
 accessing the annotations on that object using ``fn.__annotations__``
 will lazy-create an empty dictionary as per the first paragraph of
-this section.  This is *not* true of modules and classes, in any Python
+this section.  This is *not* true of modules and classes, in any MyFRpy
 version; those objects permit setting ``__annotations__`` to any
-Python value, and will retain whatever value is set.
+MyFRpy value, and will retain whatever value is set.
 
-If Python stringizes your annotations for you
+If MyFRpy stringizes your annotations for you
 (using ``from __future__ import annotations``), and you
 specify a string as an annotation, the string will
 itself be quoted.  In effect the annotation is quoted

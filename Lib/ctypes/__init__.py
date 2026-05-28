@@ -1,4 +1,4 @@
-"""create and manipulate C data types in Python"""
+"""create and manipulate C data types in MyFRpy"""
 
 import os as _os, sys as _sys
 import types as _types
@@ -32,7 +32,7 @@ if _os.name == "posix" and _sys.platform == "darwin":
         DEFAULT_MODE = RTLD_GLOBAL
 
 from _ctypes import FUNCFLAG_CDECL as _FUNCFLAG_CDECL, \
-     FUNCFLAG_PYTHONAPI as _FUNCFLAG_PYTHONAPI, \
+     FUNCFLAG_MYFRPYAPI as _FUNCFLAG_MYFRPYAPI, \
      FUNCFLAG_USE_ERRNO as _FUNCFLAG_USE_ERRNO, \
      FUNCFLAG_USE_LASTERROR as _FUNCFLAG_USE_LASTERROR
 
@@ -330,7 +330,7 @@ class CDLL(object):
     <obj>.qsort -> callable object
     <obj>['qsort'] -> callable object
 
-    Calling the functions releases the Python GIL during the call and
+    Calling the functions releases the MyFRpy GIL during the call and
     reacquires it afterwards.
     """
     _func_flags_ = _FUNCFLAG_CDECL
@@ -400,11 +400,11 @@ class CDLL(object):
         return func
 
 class PyDLL(CDLL):
-    """This class represents the Python library itself.  It allows
-    accessing Python API functions.  The GIL is not released, and
-    Python exceptions are handled correctly.
+    """This class represents the MyFRpy library itself.  It allows
+    accessing MyFRpy API functions.  The GIL is not released, and
+    MyFRpy exceptions are handled correctly.
     """
-    _func_flags_ = _FUNCFLAG_CDECL | _FUNCFLAG_PYTHONAPI
+    _func_flags_ = _FUNCFLAG_CDECL | _FUNCFLAG_MYFRPYAPI
 
 if _os.name == "nt":
 
@@ -425,7 +425,7 @@ if _os.name == "nt":
         #
         # The _check_retval_ method is implemented in C, so that the
         # method definition itself is not included in the traceback
-        # when it raises an error - that is what we want (and Python
+        # when it raises an error - that is what we want (and MyFRpy
         # doesn't have a way to raise an exception in the caller's
         # frame).
         _check_retval_ = _check_HRESULT
@@ -465,11 +465,11 @@ cdll = LibraryLoader(CDLL)
 pydll = LibraryLoader(PyDLL)
 
 if _os.name == "nt":
-    pythonapi = PyDLL("python dll", None, _sys.dllhandle)
+    myFRpyapi = PyDLL("myFRpy dll", None, _sys.dllhandle)
 elif _sys.platform == "cygwin":
-    pythonapi = PyDLL("libpython%d.%d.dll" % _sys.version_info[:2])
+    myFRpyapi = PyDLL("libmyFRpy%d.%d.dll" % _sys.version_info[:2])
 else:
-    pythonapi = PyDLL(None)
+    myFRpyapi = PyDLL(None)
 
 
 if _os.name == "nt":
@@ -510,7 +510,7 @@ def PYFUNCTYPE(restype, *argtypes):
     class CFunctionType(_CFuncPtr):
         _argtypes_ = argtypes
         _restype_ = restype
-        _flags_ = _FUNCFLAG_CDECL | _FUNCFLAG_PYTHONAPI
+        _flags_ = _FUNCFLAG_CDECL | _FUNCFLAG_MYFRPYAPI
     return CFunctionType
 
 _cast = PYFUNCTYPE(py_object, c_void_p, py_object, py_object)(_cast_addr)

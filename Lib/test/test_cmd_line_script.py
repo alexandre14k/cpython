@@ -18,7 +18,7 @@ from test.support import import_helper
 from test.support import os_helper
 from test.support.script_helper import (
     make_pkg, make_script, make_zip_pkg, make_zip_script,
-    assert_python_ok, assert_python_failure, spawn_python, kill_python)
+    assert_myFRpy_ok, assert_myFRpy_failure, spawn_myFRpy, kill_myFRpy)
 
 verbose = support.verbose
 
@@ -116,7 +116,7 @@ class CmdLineTest(unittest.TestCase):
         self.assertIn(printed_file.encode('utf-8'), data)
         self.assertIn(printed_package.encode('utf-8'), data)
         self.assertIn(printed_argv0.encode('utf-8'), data)
-        # PYTHONSAFEPATH=1 changes the default sys.path[0]
+        # MYFRPYSAFEPATH=1 changes the default sys.path[0]
         if not sys.flags.safe_path:
             self.assertIn(printed_path0.encode('utf-8'), data)
         self.assertIn(printed_cwd.encode('utf-8'), data)
@@ -129,7 +129,7 @@ class CmdLineTest(unittest.TestCase):
             script_exec_args = [script_exec_args]
         run_args = [*support.optim_args_from_interpreter_flags(),
                     *cmd_line_switches, *script_exec_args, *example_args]
-        rc, out, err = assert_python_ok(
+        rc, out, err = assert_myFRpy_ok(
             *run_args, __isolated=False, __cwd=cwd, **env_vars
         )
         self._check_output(script_exec_args, rc, out + err, expected_file,
@@ -143,7 +143,7 @@ class CmdLineTest(unittest.TestCase):
         else:
             script_exec_args = tuple(script_exec_args)
         run_args = cmd_line_switches + script_exec_args
-        rc, out, err = assert_python_failure(
+        rc, out, err = assert_myFRpy_failure(
             *run_args, __isolated=False, __cwd=cwd, **env_vars
         )
         if verbose > 1:
@@ -153,7 +153,7 @@ class CmdLineTest(unittest.TestCase):
         self.assertIn(expected_msg.encode('utf-8'), err)
 
     def test_dash_c_loader(self):
-        rc, out, err = assert_python_ok("-c", "print(__loader__)")
+        rc, out, err = assert_myFRpy_ok("-c", "print(__loader__)")
         expected = repr(importlib.machinery.BuiltinImporter).encode("utf-8")
         self.assertIn(expected, out)
 
@@ -161,22 +161,22 @@ class CmdLineTest(unittest.TestCase):
         # Unfortunately, there's no way to automatically test the fully
         # interactive REPL, since that code path only gets executed when
         # stdin is an interactive tty.
-        p = spawn_python()
+        p = spawn_myFRpy()
         try:
             p.stdin.write(b"print(__loader__)\n")
             p.stdin.flush()
         finally:
-            out = kill_python(p)
+            out = kill_myFRpy(p)
         expected = repr(importlib.machinery.BuiltinImporter).encode("utf-8")
         self.assertIn(expected, out)
 
     @contextlib.contextmanager
-    def interactive_python(self, separate_stderr=False):
+    def interactive_myFRpy(self, separate_stderr=False):
         if separate_stderr:
-            p = spawn_python('-i', stderr=subprocess.PIPE)
+            p = spawn_myFRpy('-i', stderr=subprocess.PIPE)
             stderr = p.stderr
         else:
-            p = spawn_python('-i', stderr=subprocess.STDOUT)
+            p = spawn_myFRpy('-i', stderr=subprocess.STDOUT)
             stderr = p.stdout
         try:
             # Drain stderr until prompt
@@ -187,17 +187,17 @@ class CmdLineTest(unittest.TestCase):
                 stderr.readline()
             yield p
         finally:
-            kill_python(p)
+            kill_myFRpy(p)
             stderr.close()
 
     def check_repl_stdout_flush(self, separate_stderr=False):
-        with self.interactive_python(separate_stderr) as p:
+        with self.interactive_myFRpy(separate_stderr) as p:
             p.stdin.write(b"print('foo')\n")
             p.stdin.flush()
             self.assertEqual(b'foo', p.stdout.readline().strip())
 
     def check_repl_stderr_flush(self, separate_stderr=False):
-        with self.interactive_python(separate_stderr) as p:
+        with self.interactive_myFRpy(separate_stderr) as p:
             p.stdin.write(b"1/0\n")
             p.stdin.flush()
             stderr = p.stderr if separate_stderr else p.stdout
@@ -328,7 +328,7 @@ class CmdLineTest(unittest.TestCase):
             zip_name, run_name = _make_test_zip_pkg(script_dir, 'test_zip', 'test_pkg', 'script')
             self._check_script(["-m", "test_pkg.script"], run_name, run_name,
                                script_dir, 'test_pkg', zipimport.zipimporter,
-                               PYTHONPATH=zip_name, cwd=script_dir)
+                               MYFRPYPATH=zip_name, cwd=script_dir)
 
     def test_module_in_subpackage_in_zipfile(self):
         with os_helper.temp_dir() as script_dir:
@@ -336,7 +336,7 @@ class CmdLineTest(unittest.TestCase):
             self._check_script(["-m", "test_pkg.test_pkg.script"], run_name, run_name,
                                script_dir, 'test_pkg.test_pkg',
                                zipimport.zipimporter,
-                               PYTHONPATH=zip_name, cwd=script_dir)
+                               MYFRPYPATH=zip_name, cwd=script_dir)
 
     def test_package(self):
         with os_helper.temp_dir() as script_dir:
@@ -388,7 +388,7 @@ class CmdLineTest(unittest.TestCase):
                 pkg_dir = os.path.join(script_dir, 'test_pkg')
                 make_pkg(pkg_dir, "import sys; print('init_argv0==%r' % sys.argv[0])")
                 script_name = _make_test_script(pkg_dir, 'script')
-                rc, out, err = assert_python_ok('-m', 'test_pkg.script', *example_args, __isolated=False)
+                rc, out, err = assert_myFRpy_ok('-m', 'test_pkg.script', *example_args, __isolated=False)
                 if verbose > 1:
                     print(repr(out))
                 expected = "init_argv0==%r" % '-m'
@@ -404,7 +404,7 @@ class CmdLineTest(unittest.TestCase):
             with os_helper.change_cwd(path=script_dir):
                 with open("-c", "w", encoding="utf-8") as f:
                     f.write("data")
-                    rc, out, err = assert_python_ok('-c',
+                    rc, out, err = assert_myFRpy_ok('-c',
                         'import sys; print("sys.path[0]==%r" % sys.path[0])',
                         __isolated=False)
                     if verbose > 1:
@@ -420,7 +420,7 @@ class CmdLineTest(unittest.TestCase):
             with os_helper.change_cwd(path=script_dir):
                 with open("-m", "w", encoding="utf-8") as f:
                     f.write("data")
-                    rc, out, err = assert_python_ok('-m', 'other', *example_args,
+                    rc, out, err = assert_myFRpy_ok('-m', 'other', *example_args,
                                                     __isolated=False)
                     self._check_output(script_name, rc, out,
                                       script_name, script_name, script_dir, '',
@@ -439,7 +439,7 @@ class CmdLineTest(unittest.TestCase):
                 f.write('"""\n')
 
             with os_helper.change_cwd(path=script_dir):
-                rc, out, err = assert_python_ok(script_name)
+                rc, out, err = assert_myFRpy_ok(script_name)
             self.assertEqual(b"", out)
             self.assertEqual(b"", err)
 
@@ -452,7 +452,7 @@ class CmdLineTest(unittest.TestCase):
             yield pkg_dir
 
     def check_dash_m_failure(self, *args):
-        rc, out, err = assert_python_failure('-m', *args, __isolated=False)
+        rc, out, err = assert_myFRpy_failure('-m', *args, __isolated=False)
         if verbose > 1:
             print(repr(out))
         self.assertEqual(rc, 1)
@@ -483,7 +483,7 @@ class CmdLineTest(unittest.TestCase):
         )
         for name, regex in tests:
             with self.subTest(name):
-                rc, _, err = assert_python_failure('-m', name)
+                rc, _, err = assert_myFRpy_failure('-m', name)
                 self.assertEqual(rc, 1)
                 self.assertRegex(err, regex)
                 self.assertNotIn(b'Traceback', err)
@@ -547,7 +547,7 @@ class CmdLineTest(unittest.TestCase):
             """)
         with os_helper.temp_dir() as script_dir:
             script_name = _make_test_script(script_dir, 'script', script)
-            exitcode, stdout, stderr = assert_python_failure(script_name)
+            exitcode, stdout, stderr = assert_myFRpy_failure(script_name)
             text = stderr.decode('ascii').split('\n')
             self.assertEqual(len(text), 5)
             self.assertTrue(text[0].startswith('Traceback'))
@@ -557,7 +557,7 @@ class CmdLineTest(unittest.TestCase):
     def test_non_ascii(self):
         # Mac OS X denies the creation of a file with an invalid UTF-8 name.
         # Windows allows creating a name with an arbitrary bytes name, but
-        # Python cannot a undecodable bytes argument to a subprocess.
+        # MyFRpy cannot a undecodable bytes argument to a subprocess.
         # WASI does not permit invalid UTF-8 names.
         if (os_helper.TESTFN_UNDECODABLE
         and sys.platform not in ('win32', 'darwin', 'emscripten', 'wasi')):
@@ -571,7 +571,7 @@ class CmdLineTest(unittest.TestCase):
         source = 'print(ascii(__file__))\n'
         script_name = _make_test_script(os.getcwd(), name, source)
         self.addCleanup(os_helper.unlink, script_name)
-        rc, stdout, stderr = assert_python_ok(script_name)
+        rc, stdout, stderr = assert_myFRpy_ok(script_name)
         self.assertEqual(
             ascii(script_name),
             stdout.rstrip().decode('ascii'),
@@ -592,7 +592,7 @@ class CmdLineTest(unittest.TestCase):
             """)
         with os_helper.temp_dir() as script_dir:
             script_name = _make_test_script(script_dir, 'script', script)
-            exitcode, stdout, stderr = assert_python_failure(script_name)
+            exitcode, stdout, stderr = assert_myFRpy_failure(script_name)
             text = stderr.decode('ascii')
             self.assertEqual(text.rstrip(), "some text")
 
@@ -600,7 +600,7 @@ class CmdLineTest(unittest.TestCase):
         script = "1 + 1 = 2\n"
         with os_helper.temp_dir() as script_dir:
             script_name = _make_test_script(script_dir, 'script', script)
-            exitcode, stdout, stderr = assert_python_failure(script_name)
+            exitcode, stdout, stderr = assert_myFRpy_failure(script_name)
             text = io.TextIOWrapper(io.BytesIO(stderr), 'ascii').read()
             # Confirm that the caret is located under the '=' sign
             self.assertIn("\n    ^^^^^\n", text)
@@ -612,7 +612,7 @@ class CmdLineTest(unittest.TestCase):
             """)
         with os_helper.temp_dir() as script_dir:
             script_name = _make_test_script(script_dir, 'script', script)
-            exitcode, stdout, stderr = assert_python_failure(script_name)
+            exitcode, stdout, stderr = assert_myFRpy_failure(script_name)
             text = io.TextIOWrapper(io.BytesIO(stderr), 'ascii').read()
             # Confirm that the caret starts under the first 1 character
             self.assertIn("\n    1 + 1 = 2\n    ^^^^^\n", text)
@@ -623,7 +623,7 @@ class CmdLineTest(unittest.TestCase):
                 "\f    1 + 1 = 2\n"
             )
             script_name = _make_test_script(script_dir, "script", script)
-            exitcode, stdout, stderr = assert_python_failure(script_name)
+            exitcode, stdout, stderr = assert_myFRpy_failure(script_name)
             text = io.TextIOWrapper(io.BytesIO(stderr), "ascii").read()
             self.assertNotIn("\f", text)
             self.assertIn("\n    1 + 1 = 2\n    ^^^^^\n", text)
@@ -632,7 +632,7 @@ class CmdLineTest(unittest.TestCase):
         script = 'foo = f"""{}\nfoo"""\n'
         with os_helper.temp_dir() as script_dir:
             script_name = _make_test_script(script_dir, 'script', script)
-            exitcode, stdout, stderr = assert_python_failure(script_name)
+            exitcode, stdout, stderr = assert_myFRpy_failure(script_name)
             self.assertEqual(
                 stderr.splitlines()[-3:],
                 [
@@ -646,7 +646,7 @@ class CmdLineTest(unittest.TestCase):
         script = 'foo = """\\q"""\n'
         with os_helper.temp_dir() as script_dir:
             script_name = _make_test_script(script_dir, 'script', script)
-            exitcode, stdout, stderr = assert_python_failure(
+            exitcode, stdout, stderr = assert_myFRpy_failure(
                 '-Werror', script_name,
             )
             self.assertEqual(
@@ -661,7 +661,7 @@ class CmdLineTest(unittest.TestCase):
         script = "x = '\0' nothing to see here\n';import os;os.system('echo pwnd')\n"
         with os_helper.temp_dir() as script_dir:
             script_name = _make_test_script(script_dir, 'script', script)
-            exitcode, stdout, stderr = assert_python_failure(script_name)
+            exitcode, stdout, stderr = assert_myFRpy_failure(script_name)
             self.assertEqual(
                 stderr.splitlines()[-2:],
                 [   b"    x = '",
@@ -674,7 +674,7 @@ class CmdLineTest(unittest.TestCase):
         with os_helper.temp_dir() as script_dir:
             for script in scripts:
                 script_name = _make_test_script(script_dir, 'script', script)
-                _, _, stderr = assert_python_failure(script_name)
+                _, _, stderr = assert_myFRpy_failure(script_name)
                 self.assertEqual(
                     stderr.splitlines()[-2:],
                     [   b"    multilinestring",
@@ -686,9 +686,9 @@ class CmdLineTest(unittest.TestCase):
         # This test case ensures that the following all give the same
         # sys.path configuration:
         #
-        #    ./python -s script_dir/__main__.py
-        #    ./python -s script_dir
-        #    ./python -I script_dir
+        #    ./myFRpy -s script_dir/__main__.py
+        #    ./myFRpy -s script_dir
+        #    ./myFRpy -I script_dir
         script = textwrap.dedent("""\
             import sys
             for entry in sys.path:
@@ -699,28 +699,28 @@ class CmdLineTest(unittest.TestCase):
         with os_helper.temp_dir() as work_dir, os_helper.temp_dir() as script_dir:
             script_name = _make_test_script(script_dir, '__main__', script)
             # Reference output comes from directly executing __main__.py
-            # We omit PYTHONPATH and user site to align with isolated mode
-            p = spawn_python("-Es", script_name, cwd=work_dir)
-            out_by_name = kill_python(p).decode().splitlines()
+            # We omit MYFRPYPATH and user site to align with isolated mode
+            p = spawn_myFRpy("-Es", script_name, cwd=work_dir)
+            out_by_name = kill_myFRpy(p).decode().splitlines()
             self.assertEqual(out_by_name[0], script_dir)
             self.assertNotIn(work_dir, out_by_name)
             # Directory execution should give the same output
-            p = spawn_python("-Es", script_dir, cwd=work_dir)
-            out_by_dir = kill_python(p).decode().splitlines()
+            p = spawn_myFRpy("-Es", script_dir, cwd=work_dir)
+            out_by_dir = kill_myFRpy(p).decode().splitlines()
             self.assertEqual(out_by_dir, out_by_name)
             # As should directory execution in isolated mode
-            p = spawn_python("-I", script_dir, cwd=work_dir)
-            out_by_dir_isolated = kill_python(p).decode().splitlines()
+            p = spawn_myFRpy("-I", script_dir, cwd=work_dir)
+            out_by_dir_isolated = kill_myFRpy(p).decode().splitlines()
             self.assertEqual(out_by_dir_isolated, out_by_dir, out_by_name)
 
     def test_consistent_sys_path_for_module_execution(self):
         # This test case ensures that the following both give the same
         # sys.path configuration:
-        #    ./python -sm script_pkg.__main__
-        #    ./python -sm script_pkg
+        #    ./myFRpy -sm script_pkg.__main__
+        #    ./myFRpy -sm script_pkg
         #
         # And that this fails as unable to find the package:
-        #    ./python -Im script_pkg
+        #    ./myFRpy -Im script_pkg
         script = textwrap.dedent("""\
             import sys
             for entry in sys.path:
@@ -733,32 +733,32 @@ class CmdLineTest(unittest.TestCase):
             os.mkdir(script_dir)
             script_name = _make_test_script(script_dir, '__main__', script)
             # Reference output comes from `-m script_pkg.__main__`
-            # We omit PYTHONPATH and user site to better align with the
+            # We omit MYFRPYPATH and user site to better align with the
             # direct execution test cases
-            p = spawn_python("-sm", "script_pkg.__main__", cwd=work_dir)
-            out_by_module = kill_python(p).decode().splitlines()
+            p = spawn_myFRpy("-sm", "script_pkg.__main__", cwd=work_dir)
+            out_by_module = kill_myFRpy(p).decode().splitlines()
             self.assertEqual(out_by_module[0], work_dir)
             self.assertNotIn(script_dir, out_by_module)
             # Package execution should give the same output
-            p = spawn_python("-sm", "script_pkg", cwd=work_dir)
-            out_by_package = kill_python(p).decode().splitlines()
+            p = spawn_myFRpy("-sm", "script_pkg", cwd=work_dir)
+            out_by_package = kill_myFRpy(p).decode().splitlines()
             self.assertEqual(out_by_package, out_by_module)
             # Isolated mode should fail with an import error
-            exitcode, stdout, stderr = assert_python_failure(
+            exitcode, stdout, stderr = assert_myFRpy_failure(
                 "-Im", "script_pkg", cwd=work_dir
             )
             traceback_lines = stderr.decode().splitlines()
             self.assertIn("No module named script_pkg", traceback_lines[-1])
 
     def test_nonexisting_script(self):
-        # bpo-34783: "./python script.py" must not crash
+        # bpo-34783: "./myFRpy script.py" must not crash
         # if the script file doesn't exist.
         # (Skip test for macOS framework builds because sys.executable name
-        #  is not the actual Python executable file name.
+        #  is not the actual MyFRpy executable file name.
         script = 'nonexistingscript.py'
         self.assertFalse(os.path.exists(script))
 
-        proc = spawn_python(script, text=True,
+        proc = spawn_myFRpy(script, text=True,
                             stdout=subprocess.PIPE,
                             stderr=subprocess.PIPE)
         out, err = proc.communicate()
@@ -777,7 +777,7 @@ class CmdLineTest(unittest.TestCase):
         with os_helper.temp_dir() as work_dir:
             script_name = _make_test_script(work_dir, 'script.py', script)
             with open(script_name, "r") as fp:
-                p = spawn_python(f"/dev/fd/{fp.fileno()}", close_fds=True, pass_fds=(0,1,2,fp.fileno()))
+                p = spawn_myFRpy(f"/dev/fd/{fp.fileno()}", close_fds=True, pass_fds=(0,1,2,fp.fileno()))
                 out, err = p.communicate()
                 self.assertEqual(out, b"12345678912345678912345\n")
 

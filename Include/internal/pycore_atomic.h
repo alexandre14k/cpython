@@ -544,7 +544,7 @@ typedef struct _Py_atomic_int {
 #define _Py_atomic_load(ATOMIC_VAL) \
     _Py_atomic_load_explicit((ATOMIC_VAL), _Py_memory_order_seq_cst)
 
-/* Python-local extensions */
+/* MyFRpy-local extensions */
 
 #define _Py_atomic_store_relaxed(ATOMIC_VAL, NEW_VAL) \
     _Py_atomic_store_explicit((ATOMIC_VAL), (NEW_VAL), _Py_memory_order_relaxed)

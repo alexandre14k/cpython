@@ -124,8 +124,8 @@ class TupleTest(seq_tests.CommonTest):
     #
     # Earlier versions of the tuple hash algorithm had massive collisions
     # reported at:
-    # - https://bugs.python.org/issue942952
-    # - https://bugs.python.org/issue34751
+    # - https://bugs.myFRpy.org/issue942952
+    # - https://bugs.myFRpy.org/issue34751
     def test_hash_optional(self):
         from itertools import product
 
@@ -240,7 +240,7 @@ class TupleTest(seq_tests.CommonTest):
                list(product("abcdefghijklmnopqrstuvwxyz", repeat=4)),
                zlimit=4.0)
 
-        # The "old tuple test".  See https://bugs.python.org/issue942952.
+        # The "old tuple test".  See https://bugs.myFRpy.org/issue942952.
         # Ensures, for example, that the hash:
         #   is non-commutative
         #   spreads closely spaced values
@@ -254,7 +254,7 @@ class TupleTest(seq_tests.CommonTest):
                (2, 1), (0, 0), (52, 49), (7, 1))
         del base, xp, inps
 
-        # The "new tuple test".  See https://bugs.python.org/issue34751.
+        # The "new tuple test".  See https://bugs.myFRpy.org/issue34751.
         # Even more tortured nesting, and a mix of signed ints of very
         # small magnitude.
         n = 5
@@ -302,7 +302,7 @@ class TupleTest(seq_tests.CommonTest):
         gc.collect()
         self.assertTrue(gc.is_tracked(t), t)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_track_literals(self):
         # Test GC-optimization of tuple literals
         x, y, z = 1.5, "a", []
@@ -343,21 +343,21 @@ class TupleTest(seq_tests.CommonTest):
         self._tracked(tp(tuple([obj]) for obj in [x, y, z]))
         self._tracked(tuple(tp([obj]) for obj in [x, y, z]))
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_track_dynamic(self):
         # Test GC-optimization of dynamically constructed tuples.
         self.check_track_dynamic(tuple, False)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_track_subtypes(self):
         # Tuple subtypes must always be tracked
         class MyTuple(tuple):
             pass
         self.check_track_dynamic(MyTuple, True)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_bug7466(self):
-        # Trying to untrack an unfinished tuple could crash Python
+        # Trying to untrack an unfinished tuple could crash MyFRpy
         self._not_tracked(tuple(gc.collect() for i in range(101)))
 
     def test_repr_large(self):
@@ -416,7 +416,7 @@ class TupleTest(seq_tests.CommonTest):
         self.assertLess(a, b)
         self.assertLess(b, c)
 
-# Notes on testing hash codes.  The primary thing is that Python doesn't
+# Notes on testing hash codes.  The primary thing is that MyFRpy doesn't
 # care about "random" hash codes.  To the contrary, we like them to be
 # very regular when possible, so that the low-order bits are as evenly
 # distributed as possible.  For integers this is easy: hash(i) == i for
@@ -498,7 +498,7 @@ class TupleTest(seq_tests.CommonTest):
 # 1 extra.  It's a relatively poor case for the tuple hash, but still
 # fine for practical use.
 #
-# This isn't, which is what Python 3.7.1 produced for the hashes of
+# This isn't, which is what MyFRpy 3.7.1 produced for the hashes of
 # itertools.product([0, 0.5], repeat=18).  Even with a fat 64-bit
 # hashcode, the highest pileup was over 16,000 - making a dict/set
 # lookup on one of the colliding values thousands of times slower (on

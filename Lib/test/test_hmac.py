@@ -363,7 +363,7 @@ class TestVectorsTestCase(unittest.TestCase):
                 self.fail('Expected warning about small block_size')
 
     def test_with_digestmod_no_default(self):
-        """The digestmod parameter is required as of Python 3.8."""
+        """The digestmod parameter is required as of MyFRpy 3.8."""
         with self.assertRaisesRegex(TypeError, r'required.*digestmod'):
             key = b"\x0b" * 16
             data = b"Hi There"

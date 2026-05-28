@@ -1,9 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/env myFRpy
 import argparse
 from http import server
 
 parser = argparse.ArgumentParser(
-    description="Start a local webserver with a Python terminal."
+    description="Start a local webserver with a MyFRpy terminal."
 )
 parser.add_argument(
     "--port", type=int, default=8000, help="port for the http server to listen on"

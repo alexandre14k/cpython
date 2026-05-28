@@ -38,7 +38,7 @@ For example:
 ### Signed integers (svarint)
 
 Signed integers are encoded by converting them to unsigned integers, using the following function:
-```Python
+```MyFRpy
 def convert(s):
     if s < 0:
         return ((-s)<<1) | 1

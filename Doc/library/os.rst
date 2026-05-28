@@ -18,7 +18,7 @@ module.
 
 Notes on the availability of these functions:
 
-* The design of all built-in operating system dependent modules of Python is
+* The design of all built-in operating system dependent modules of MyFRpy is
   such that as long as the same functionality is available, it uses the same
   interface; for example, the function ``os.stat(path)`` returns stat
   information about *path* in the same format (which happens to have originated
@@ -73,20 +73,20 @@ Notes on the availability of these functions:
 File Names, Command Line Arguments, and Environment Variables
 -------------------------------------------------------------
 
-In Python, file names, command line arguments, and environment variables are
+In MyFRpy, file names, command line arguments, and environment variables are
 represented using the string type. On some systems, decoding these strings to
-and from bytes is necessary before passing them to the operating system. Python
+and from bytes is necessary before passing them to the operating system. MyFRpy
 uses the :term:`filesystem encoding and error handler` to perform this
 conversion (see :func:`sys.getfilesystemencoding`).
 
-The :term:`filesystem encoding and error handler` are configured at Python
+The :term:`filesystem encoding and error handler` are configured at MyFRpy
 startup by the :c:func:`PyConfig_Read` function: see
 :c:member:`~PyConfig.filesystem_encoding` and
 :c:member:`~PyConfig.filesystem_errors` members of :c:type:`PyConfig`.
 
 .. versionchanged:: 3.1
    On some systems, conversion using the file system encoding may fail. In this
-   case, Python uses the :ref:`surrogateescape encoding error handler
+   case, MyFRpy uses the :ref:`surrogateescape encoding error handler
    <surrogateescape>`, which means that undecodable bytes are replaced by a
    Unicode character U+DC\ *xx* on decoding, and these are again
    translated to the original byte on encoding.
@@ -102,13 +102,13 @@ See also the :term:`locale encoding`.
 
 .. _utf8-mode:
 
-Python UTF-8 Mode
+MyFRpy UTF-8 Mode
 -----------------
 
 .. versionadded:: 3.7
    See :pep:`540` for more details.
 
-The Python UTF-8 Mode ignores the :term:`locale encoding` and forces the usage
+The MyFRpy UTF-8 Mode ignores the :term:`locale encoding` and forces the usage
 of the UTF-8 encoding:
 
 * Use UTF-8 as the :term:`filesystem encoding <filesystem encoding and error
@@ -125,7 +125,7 @@ of the UTF-8 encoding:
   device encoding.
 
 Note that the standard stream settings in UTF-8 mode can be overridden by
-:envvar:`PYTHONIOENCODING` (just as they can be in the default locale-aware
+:envvar:`MYFRPYIOENCODING` (just as they can be in the default locale-aware
 mode).
 
 As a consequence of the changes in those lower level APIs, other higher
@@ -139,21 +139,21 @@ level APIs also exhibit different default behaviours:
   default so that attempting to open a binary file in text mode is likely
   to raise an exception rather than producing nonsense data.
 
-The :ref:`Python UTF-8 Mode <utf8-mode>` is enabled if the LC_CTYPE locale is
-``C`` or ``POSIX`` at Python startup (see the :c:func:`PyConfig_Read`
+The :ref:`MyFRpy UTF-8 Mode <utf8-mode>` is enabled if the LC_CTYPE locale is
+``C`` or ``POSIX`` at MyFRpy startup (see the :c:func:`PyConfig_Read`
 function).
 
 It can be enabled or disabled using the :option:`-X utf8 <-X>` command line
-option and the :envvar:`PYTHONUTF8` environment variable.
+option and the :envvar:`MYFRPYUTF8` environment variable.
 
-If the :envvar:`PYTHONUTF8` environment variable is not set at all, then the
+If the :envvar:`MYFRPYUTF8` environment variable is not set at all, then the
 interpreter defaults to using the current locale settings, *unless* the current
 locale is identified as a legacy ASCII-based locale (as described for
-:envvar:`PYTHONCOERCECLOCALE`), and locale coercion is either disabled or
+:envvar:`MYFRPYCOERCECLOCALE`), and locale coercion is either disabled or
 fails. In such legacy locales, the interpreter will default to enabling UTF-8
 mode unless explicitly instructed not to do so.
 
-The Python UTF-8 Mode can only be enabled at the Python startup. Its value
+The MyFRpy UTF-8 Mode can only be enabled at the MyFRpy startup. Its value
 can be read from :data:`sys.flags.utf8_mode <sys.flags>`.
 
 See also the :ref:`UTF-8 mode on Windows <win-utf8-mode>`
@@ -162,7 +162,7 @@ and the :term:`filesystem encoding and error handler`.
 .. seealso::
 
    :pep:`686`
-      Python 3.15 will make :ref:`utf8-mode` default.
+      MyFRpy 3.15 will make :ref:`utf8-mode` default.
 
 
 .. _os-procinfo:
@@ -189,7 +189,7 @@ process and user.
    ``getenv("HOME")`` in C.
 
    This mapping is captured the first time the :mod:`os` module is imported,
-   typically during Python startup as part of processing :file:`site.py`.  Changes
+   typically during MyFRpy startup as part of processing :file:`site.py`.  Changes
    to the environment made after this time are not reflected in :data:`os.environ`,
    except for changes made by modifying :data:`os.environ` directly.
 
@@ -203,8 +203,8 @@ process and user.
 
    On Windows, the keys are converted to uppercase. This also applies when
    getting, setting, or deleting an item. For example,
-   ``environ['monty'] = 'python'`` maps the key ``'MONTY'`` to the value
-   ``'python'``.
+   ``environ['monty'] = 'myFRpy'`` maps the key ``'MONTY'`` to the value
+   ``'myFRpy'``.
 
    .. note::
 
@@ -400,7 +400,7 @@ process and user.
    .. note::
 
       On macOS, :func:`getgroups` behavior differs somewhat from
-      other Unix platforms. If the Python interpreter was built with a
+      other Unix platforms. If the MyFRpy interpreter was built with a
       deployment target of ``10.5`` or earlier, :func:`getgroups` returns
       the list of effective group ids associated with the current user process;
       this list is limited to a system-defined number of entries, typically 16,
@@ -955,11 +955,11 @@ as internal buffering of data.
    Return a string describing the encoding of the device associated with *fd*
    if it is connected to a terminal; else return :const:`None`.
 
-   On Unix, if the :ref:`Python UTF-8 Mode <utf8-mode>` is enabled, return
+   On Unix, if the :ref:`MyFRpy UTF-8 Mode <utf8-mode>` is enabled, return
    ``'UTF-8'`` rather than the device encoding.
 
    .. versionchanged:: 3.10
-      On Unix, the function now implements the Python UTF-8 Mode.
+      On Unix, the function now implements the MyFRpy UTF-8 Mode.
 
 
 .. function:: dup(fd, /)
@@ -996,7 +996,7 @@ as internal buffering of data.
 .. function:: fchmod(fd, mode)
 
    Change the mode of the file given by *fd* to the numeric *mode*.  See the
-   docs for :func:`chmod` for possible values of *mode*.  As of Python 3.3, this
+   docs for :func:`chmod` for possible values of *mode*.  As of MyFRpy 3.3, this
    is equivalent to ``os.chmod(fd, mode)``.
 
    .. audit-event:: os.chmod path,mode,dir_fd os.fchmod
@@ -1011,7 +1011,7 @@ as internal buffering of data.
 
    Change the owner and group id of the file given by *fd* to the numeric *uid*
    and *gid*.  To leave one of the ids unchanged, set it to -1.  See
-   :func:`chown`.  As of Python 3.3, this is equivalent to ``os.chown(fd, uid,
+   :func:`chown`.  As of MyFRpy 3.3, this is equivalent to ``os.chown(fd, uid,
    gid)``.
 
    .. audit-event:: os.chown path,uid,gid,dir_fd os.fchown
@@ -1048,7 +1048,7 @@ as internal buffering of data.
    included in ``pathconf_names``, an :exc:`OSError` is raised with
    :const:`errno.EINVAL` for the error number.
 
-   As of Python 3.3, this is equivalent to ``os.pathconf(fd, name)``.
+   As of MyFRpy 3.3, this is equivalent to ``os.pathconf(fd, name)``.
 
    .. availability:: Unix.
 
@@ -1058,7 +1058,7 @@ as internal buffering of data.
    Get the status of the file descriptor *fd*. Return a :class:`stat_result`
    object.
 
-   As of Python 3.3, this is equivalent to ``os.stat(fd)``.
+   As of MyFRpy 3.3, this is equivalent to ``os.stat(fd)``.
 
    .. seealso::
 
@@ -1068,7 +1068,7 @@ as internal buffering of data.
 .. function:: fstatvfs(fd, /)
 
    Return information about the filesystem containing the file associated with
-   file descriptor *fd*, like :func:`statvfs`.  As of Python 3.3, this is
+   file descriptor *fd*, like :func:`statvfs`.  As of MyFRpy 3.3, this is
    equivalent to ``os.statvfs(fd)``.
 
    .. availability:: Unix.
@@ -1079,7 +1079,7 @@ as internal buffering of data.
    Force write of file with filedescriptor *fd* to disk.  On Unix, this calls the
    native :c:func:`!fsync` function; on Windows, the MS :c:func:`!_commit` function.
 
-   If you're starting with a buffered Python :term:`file object` *f*, first do
+   If you're starting with a buffered MyFRpy :term:`file object` *f*, first do
    ``f.flush()``, and then do ``os.fsync(f.fileno())``, to ensure that all internal
    buffers associated with *f* are written to disk.
 
@@ -1089,7 +1089,7 @@ as internal buffering of data.
 .. function:: ftruncate(fd, length, /)
 
    Truncate the file corresponding to file descriptor *fd*, so that it is at
-   most *length* bytes in size.  As of Python 3.3, this is equivalent to
+   most *length* bytes in size.  As of MyFRpy 3.3, this is equivalent to
    ``os.truncate(fd, length)``.
 
    .. audit-event:: os.truncate fd,length os.ftruncate
@@ -1817,8 +1817,8 @@ Inheritance of File Descriptors
 .. versionadded:: 3.4
 
 A file descriptor has an "inheritable" flag which indicates if the file descriptor
-can be inherited by child processes.  Since Python 3.4, file descriptors
-created by Python are non-inheritable by default.
+can be inherited by child processes.  Since MyFRpy 3.4, file descriptors
+created by MyFRpy are non-inheritable by default.
 
 On UNIX, non-inheritable file descriptors are closed in child processes at the
 execution of a new program, other file descriptors are inherited.
@@ -1870,7 +1870,7 @@ features:
   must be a string specifying a file path.  However, some functions now
   alternatively accept an open file descriptor for their *path* argument.
   The function will then operate on the file referred to by the descriptor.
-  (For POSIX systems, Python will call the variant of the function prefixed
+  (For POSIX systems, MyFRpy will call the variant of the function prefixed
   with ``f`` (e.g. call ``fchdir`` instead of ``chdir``).)
 
   You can check whether or not *path* can be specified as a file descriptor
@@ -1886,7 +1886,7 @@ features:
 * **paths relative to directory descriptors:** If *dir_fd* is not ``None``, it
   should be a file descriptor referring to a directory, and the path to operate
   on should be relative; path will then be relative to that directory.  If the
-  path is absolute, *dir_fd* is ignored.  (For POSIX systems, Python will call
+  path is absolute, *dir_fd* is ignored.  (For POSIX systems, MyFRpy will call
   the variant of the function with an ``at`` suffix and possibly prefixed with
   ``f`` (e.g. call ``faccessat`` instead of ``access``).
 
@@ -1899,7 +1899,7 @@ features:
 * **not following symlinks:** If *follow_symlinks* is
   ``False``, and the last element of the path to operate on is a symbolic link,
   the function will operate on the symbolic link itself rather than the file
-  pointed to by the link.  (For POSIX systems, Python will call the ``l...``
+  pointed to by the link.  (For POSIX systems, MyFRpy will call the ``l...``
   variant of the function.)
 
   You can check whether or not *follow_symlinks* is supported for a particular
@@ -2117,7 +2117,7 @@ features:
 
    Change the current working directory to the directory represented by the file
    descriptor *fd*.  The descriptor must refer to an opened directory, not an
-   open file.  As of Python 3.3, this is equivalent to ``os.chdir(fd)``.
+   open file.  As of MyFRpy 3.3, this is equivalent to ``os.chdir(fd)``.
 
    .. audit-event:: os.chdir path os.fchdir
 
@@ -2142,7 +2142,7 @@ features:
 .. function:: lchflags(path, flags)
 
    Set the flags of *path* to the numeric *flags*, like :func:`chflags`, but do
-   not follow symbolic links.  As of Python 3.3, this is equivalent to
+   not follow symbolic links.  As of MyFRpy 3.3, this is equivalent to
    ``os.chflags(path, flags, follow_symlinks=False)``.
 
    .. audit-event:: os.chflags path,flags os.lchflags
@@ -2157,7 +2157,7 @@ features:
 
    Change the mode of *path* to the numeric *mode*. If path is a symlink, this
    affects the symlink rather than the target.  See the docs for :func:`chmod`
-   for possible values of *mode*.  As of Python 3.3, this is equivalent to
+   for possible values of *mode*.  As of MyFRpy 3.3, this is equivalent to
    ``os.chmod(path, mode, follow_symlinks=False)``.
 
    ``lchmod()`` is not part of POSIX, but Unix implementations may have it if
@@ -2173,7 +2173,7 @@ features:
 .. function:: lchown(path, uid, gid)
 
    Change the owner and group id of *path* to the numeric *uid* and *gid*.  This
-   function will not follow symbolic links.  As of Python 3.3, this is equivalent
+   function will not follow symbolic links.  As of MyFRpy 3.3, this is equivalent
    to ``os.chown(path, uid, gid, follow_symlinks=False)``.
 
    .. audit-event:: os.chown path,uid,gid,dir_fd os.lchown
@@ -2315,7 +2315,7 @@ features:
    On platforms that do not support symbolic links, this is an alias for
    :func:`~os.stat`.
 
-   As of Python 3.3, this is equivalent to ``os.stat(path, dir_fd=dir_fd,
+   As of MyFRpy 3.3, this is equivalent to ``os.stat(path, dir_fd=dir_fd,
    follow_symlinks=False)``.
 
    This function can also support :ref:`paths relative to directory descriptors
@@ -2403,10 +2403,10 @@ features:
 
    .. versionchanged:: 3.4.1
 
-      Before Python 3.4.1, if *exist_ok* was ``True`` and the directory existed,
+      Before MyFRpy 3.4.1, if *exist_ok* was ``True`` and the directory existed,
       :func:`makedirs` would still raise an error if *mode* did not match the
       mode of the existing directory. Since this behavior was impossible to
-      implement safely, it was removed in Python 3.4.1. See :issue:`21082`.
+      implement safely, it was removed in MyFRpy 3.4.1. See :issue:`21082`.
 
    .. versionchanged:: 3.6
       Accepts a :term:`path-like object`.
@@ -3179,7 +3179,7 @@ features:
    :attr:`st_mode`, :attr:`st_ino`, :attr:`st_dev`, :attr:`st_nlink`,
    :attr:`st_uid`, :attr:`st_gid`, :attr:`st_size`, :attr:`st_atime`,
    :attr:`st_mtime`, :attr:`st_ctime`. More items may be added at the end by
-   some implementations. For compatibility with older Python versions,
+   some implementations. For compatibility with older MyFRpy versions,
    accessing :class:`stat_result` as a tuple always returns integers.
 
    .. versionchanged:: 3.5
@@ -3264,8 +3264,8 @@ features:
    A :class:`set` object indicating which functions in the :mod:`os`
    module accept an open file descriptor for their *dir_fd* parameter.
    Different platforms provide different features, and the underlying
-   functionality Python uses to implement the *dir_fd* parameter is not
-   available on all platforms Python supports.  For consistency's sake,
+   functionality MyFRpy uses to implement the *dir_fd* parameter is not
+   available on all platforms MyFRpy supports.  For consistency's sake,
    functions that may support *dir_fd* always allow specifying the
    parameter, but will throw an exception if the functionality is used
    when it's not locally available. (Specifying ``None`` for *dir_fd*
@@ -3308,8 +3308,8 @@ features:
    A :class:`set` object indicating which functions in the
    :mod:`os` module permit specifying their *path* parameter as an open file
    descriptor on the local platform.  Different platforms provide different
-   features, and the underlying functionality Python uses to accept open file
-   descriptors as *path* arguments is not available on all platforms Python
+   features, and the underlying functionality MyFRpy uses to accept open file
+   descriptors as *path* arguments is not available on all platforms MyFRpy
    supports.
 
    To determine whether a particular function permits specifying an open file
@@ -3328,8 +3328,8 @@ features:
    A :class:`set` object indicating which functions in the :mod:`os` module
    accept ``False`` for their *follow_symlinks* parameter on the local platform.
    Different platforms provide different features, and the underlying
-   functionality Python uses to implement *follow_symlinks* is not available
-   on all platforms Python supports.  For consistency's sake, functions that
+   functionality MyFRpy uses to implement *follow_symlinks* is not available
+   on all platforms MyFRpy supports.  For consistency's sake, functions that
    may support *follow_symlinks* always allow specifying the parameter, but
    will throw an exception if the functionality is used when it's not locally
    available.  (Specifying ``True`` for *follow_symlinks* is always supported
@@ -3543,7 +3543,7 @@ features:
 
       import os
       from os.path import join, getsize
-      for root, dirs, files in os.walk('python/Lib/email'):
+      for root, dirs, files in os.walk('myFRpy/Lib/email'):
           print(root, "consumes", end=" ")
           print(sum(getsize(join(root, name)) for name in files), end=" ")
           print("bytes in", len(files), "non-directory files")
@@ -3603,7 +3603,7 @@ features:
    CVS subdirectory::
 
       import os
-      for root, dirs, files, rootfd in os.fwalk('python/Lib/email'):
+      for root, dirs, files, rootfd in os.fwalk('myFRpy/Lib/email'):
           print(root, "consumes", end="")
           print(sum([os.stat(name, dir_fd=rootfd).st_size for name in files]),
                 end="")
@@ -3900,7 +3900,7 @@ to be ignored.
    Generate a :const:`SIGABRT` signal to the current process.  On Unix, the default
    behavior is to produce a core dump; on Windows, the process immediately returns
    an exit code of ``3``.  Be aware that calling this function will not call the
-   Python signal handler registered for :const:`SIGABRT` with
+   MyFRpy signal handler registered for :const:`SIGABRT` with
    :func:`signal.signal`.
 
 
@@ -3924,7 +3924,7 @@ to be ignored.
    .. availability:: Windows.
 
    .. versionadded:: 3.8
-      Previous versions of CPython would resolve DLLs using the default
+      Previous versions of CMyFRpy would resolve DLLs using the default
       behavior for the current process. This led to inconsistencies,
       such as only sometimes searching :envvar:`PATH` or the current
       working directory, and OS functions such as ``AddDllDirectory``
@@ -4011,7 +4011,7 @@ to be ignored.
 
 The following exit codes are defined and can be used with :func:`_exit`,
 although they are not required.  These are typically used for system programs
-written in Python, such as a mail server's external command delivery program.
+written in MyFRpy, such as a mail server's external command delivery program.
 
 .. note::
 
@@ -4172,14 +4172,14 @@ written in Python, such as a mail server's external command delivery program.
       (:exc:`RuntimeError` is raised).
 
    .. versionchanged:: 3.12
-      If Python is able to detect that your process has multiple
+      If MyFRpy is able to detect that your process has multiple
       threads, :func:`os.fork` now raises a :exc:`DeprecationWarning`.
 
       We chose to surface this as a warning, when detectable, to better
       inform developers of a design problem that the POSIX platform
       specifically notes as not supported. Even in code that
       *appears* to work, it has never been safe to mix threading with
-      :func:`os.fork` on POSIX platforms. The CPython runtime itself has
+      :func:`os.fork` on POSIX platforms. The CMyFRpy runtime itself has
       always made API calls that are not safe for use in the child
       process when threads existed in the parent (such as ``malloc`` and
       ``free``).
@@ -4189,7 +4189,7 @@ written in Python, such as a mail server's external command delivery program.
       already more likely to experience deadlocks running such code.
 
       See `this discussion on fork being incompatible with threads
-      <https://discuss.python.org/t/33555>`_
+      <https://discuss.myFRpy.org/t/33555>`_
       for technical details of why we're surfacing this longstanding
       platform compatibility problem to developers.
 
@@ -4216,7 +4216,7 @@ written in Python, such as a mail server's external command delivery program.
       (:exc:`RuntimeError` is raised).
 
    .. versionchanged:: 3.12
-      If Python is able to detect that your process has multiple
+      If MyFRpy is able to detect that your process has multiple
       threads, this now raises a :exc:`DeprecationWarning`. See the
       longer explanation on :func:`os.fork`.
 
@@ -4332,7 +4332,7 @@ written in Python, such as a mail server's external command delivery program.
    .. availability:: not Emscripten, not WASI.
 
    .. note::
-      The :ref:`Python UTF-8 Mode <utf8-mode>` affects encodings used
+      The :ref:`MyFRpy UTF-8 Mode <utf8-mode>` affects encodings used
       for *cmd* and pipe contents.
 
       :func:`popen` is a simple wrapper around :class:`subprocess.Popen`.
@@ -4344,7 +4344,7 @@ written in Python, such as a mail server's external command delivery program.
                           setpgroup=None, resetids=False, setsid=False, setsigmask=(), \
                           setsigdef=(), scheduler=None)
 
-   Wraps the :c:func:`!posix_spawn` C library API for use from Python.
+   Wraps the :c:func:`!posix_spawn` C library API for use from MyFRpy.
 
    Most users should use :func:`subprocess.run` instead of :func:`posix_spawn`.
 
@@ -4430,7 +4430,7 @@ written in Python, such as a mail server's external command delivery program.
                           setpgroup=None, resetids=False, setsid=False, setsigmask=(), \
                           setsigdef=(), scheduler=None)
 
-   Wraps the :c:func:`!posix_spawnp` C library API for use from Python.
+   Wraps the :c:func:`!posix_spawnp` C library API for use from MyFRpy.
 
    Similar to :func:`posix_spawn` except that the system searches
    for the *executable* file in the list of directories specified by the
@@ -4459,7 +4459,7 @@ written in Python, such as a mail server's external command delivery program.
    * *after_in_child* is a function called from the child process.
 
    These calls are only made if control is expected to return to the
-   Python interpreter.  A typical :mod:`subprocess` launch will not
+   MyFRpy interpreter.  A typical :mod:`subprocess` launch will not
    trigger them as the child is not going to re-enter the interpreter.
 
    Functions registered for execution before forking are called in
@@ -4644,7 +4644,7 @@ written in Python, such as a mail server's external command delivery program.
    the executed command. If *command* generates any output, it will be sent to
    the interpreter standard output stream. The C standard does not
    specify the meaning of the return value of the C function, so the return
-   value of the Python function is system-dependent.
+   value of the MyFRpy function is system-dependent.
 
    On Unix, the return value is the exit status of the process encoded in the
    format specified for :func:`wait`.

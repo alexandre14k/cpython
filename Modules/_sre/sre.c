@@ -10,7 +10,7 @@
  * 2000-08-07 fl   use PyOS_CheckStack() if available
  * 2000-09-20 fl   added expand method
  * 2001-03-20 fl   lots of fixes for 2.1b2
- * 2001-04-15 fl   export copyright as Python attribute, not global
+ * 2001-04-15 fl   export copyright as MyFRpy attribute, not global
  * 2001-04-28 fl   added __copy__ methods (work in progress)
  * 2001-05-14 fl   fixes for 1.5.2 compatibility
  * 2001-07-01 fl   added BIGCHARSET support (from Martin von Loewis)
@@ -27,8 +27,8 @@
  * Copyright (c) 1997-2001 by Secret Labs AB.  All rights reserved.
  *
  * This version of the SRE library can be redistributed under CNRI's
- * Python 1.6 license.  For any other use, please contact Secret Labs
- * AB (info@pythonware.com).
+ * MyFRpy 1.6 license.  For any other use, please contact Secret Labs
+ * AB (info@myFRpyware.com).
  *
  * Portions of this engine have been developed in cooperation with
  * CNRI.  Hewlett-Packard provided funding for 1.6 integration and
@@ -40,7 +40,7 @@ static const char copyright[] =
 
 #define PY_SSIZE_T_CLEAN
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_long.h"          // _PyLong_GetZero()
 #include "pycore_moduleobject.h"  // _PyModule_GetState()
 #include "structmember.h"         // PyMemberDef
@@ -367,7 +367,7 @@ getstring(PyObject* string, Py_ssize_t* p_length,
           int* p_isbytes, int* p_charsize,
           Py_buffer *view)
 {
-    /* given a python object, return a data pointer, a length (in
+    /* given a myFRpy object, return a data pointer, a length (in
        characters), and a character size.  return NULL if the object
        is not a string (or not compatible) */
 
@@ -1016,7 +1016,7 @@ static PyObject *
 compile_template(_sremodulestate *module_state,
                  PatternObject *pattern, PyObject *template)
 {
-    /* delegate to Python code */
+    /* delegate to MyFRpy code */
     PyObject *func = module_state->compile_template;
     if (func == NULL) {
         func = _PyImport_GetModuleAttrString("re", "_compile_template");

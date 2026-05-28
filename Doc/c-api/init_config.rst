@@ -3,51 +3,51 @@
 .. _init-config:
 
 ***********************************
-Python Initialization Configuration
+MyFRpy Initialization Configuration
 ***********************************
 
 .. versionadded:: 3.8
 
-Python can be initialized with :c:func:`Py_InitializeFromConfig` and the
+MyFRpy can be initialized with :c:func:`Py_InitializeFromConfig` and the
 :c:type:`PyConfig` structure. It can be preinitialized with
 :c:func:`Py_PreInitialize` and the :c:type:`PyPreConfig` structure.
 
 There are two kinds of configuration:
 
-* The :ref:`Python Configuration <init-python-config>` can be used to build a
-  customized Python which behaves as the regular Python. For example,
+* The :ref:`MyFRpy Configuration <init-myFRpy-config>` can be used to build a
+  customized MyFRpy which behaves as the regular MyFRpy. For example,
   environment variables and command line arguments are used to configure
-  Python.
+  MyFRpy.
 
 * The :ref:`Isolated Configuration <init-isolated-conf>` can be used to embed
-  Python into an application. It isolates Python from the system. For example,
+  MyFRpy into an application. It isolates MyFRpy from the system. For example,
   environment variables are ignored, the LC_CTYPE locale is left unchanged and
   no signal handler is registered.
 
-The :c:func:`Py_RunMain` function can be used to write a customized Python
+The :c:func:`Py_RunMain` function can be used to write a customized MyFRpy
 program.
 
 See also :ref:`Initialization, Finalization, and Threads <initialization>`.
 
 .. seealso::
-   :pep:`587` "Python Initialization Configuration".
+   :pep:`587` "MyFRpy Initialization Configuration".
 
 
 Example
 =======
 
-Example of customized Python always running in isolated mode::
+Example of customized MyFRpy always running in isolated mode::
 
     int main(int argc, char **argv)
     {
         PyStatus status;
 
         PyConfig config;
-        PyConfig_InitPythonConfig(&config);
+        PyConfig_InitMyFRpyConfig(&config);
         config.isolated = 1;
 
         /* Decode command line arguments.
-           Implicitly preinitialize Python (in isolated mode). */
+           Implicitly preinitialize MyFRpy (in isolated mode). */
         status = PyConfig_SetBytesArgv(&config, argc, argv);
         if (PyStatus_Exception(status)) {
             goto exception;
@@ -90,7 +90,7 @@ PyWideStringList
 
       Append *item* to *list*.
 
-      Python must be preinitialized to call this function.
+      MyFRpy must be preinitialized to call this function.
 
    .. c:function:: PyStatus PyWideStringList_Insert(PyWideStringList *list, Py_ssize_t index, const wchar_t *item)
 
@@ -101,7 +101,7 @@ PyWideStringList
 
       *index* must be greater than or equal to ``0``.
 
-      Python must be preinitialized to call this function.
+      MyFRpy must be preinitialized to call this function.
 
    .. c:namespace:: PyWideStringList
 
@@ -159,7 +159,7 @@ PyStatus
 
    .. c:function:: PyStatus PyStatus_Exit(int exitcode)
 
-      Exit Python with the specified exit code.
+      Exit MyFRpy with the specified exit code.
 
    Functions to handle a status:
 
@@ -183,7 +183,7 @@ PyStatus
       only be called if ``PyStatus_Exception(status)`` is non-zero.
 
 .. note::
-   Internally, Python uses macros which set ``PyStatus.func``,
+   Internally, MyFRpy uses macros which set ``PyStatus.func``,
    whereas functions to create a status set ``func`` to ``NULL``.
 
 Example::
@@ -214,16 +214,16 @@ PyPreConfig
 
 .. c:type:: PyPreConfig
 
-   Structure used to preinitialize Python.
+   Structure used to preinitialize MyFRpy.
 
    .. c:namespace:: NULL
 
    Function to initialize a preconfiguration:
 
-   .. c:function:: void PyPreConfig_InitPythonConfig(PyPreConfig *preconfig)
+   .. c:function:: void PyPreConfig_InitMyFRpyConfig(PyPreConfig *preconfig)
 
-      Initialize the preconfiguration with :ref:`Python Configuration
-      <init-python-config>`.
+      Initialize the preconfiguration with :ref:`MyFRpy Configuration
+      <init-myFRpy-config>`.
 
    .. c:function:: void PyPreConfig_InitIsolatedConfig(PyPreConfig *preconfig)
 
@@ -236,7 +236,7 @@ PyPreConfig
 
    .. c:member:: int allocator
 
-      Name of the Python memory allocators:
+      Name of the MyFRpy memory allocators:
 
       * ``PYMEM_ALLOCATOR_NOT_SET`` (``0``): don't change memory allocators
         (use defaults).
@@ -248,14 +248,14 @@ PyPreConfig
       * ``PYMEM_ALLOCATOR_MALLOC`` (``3``): use ``malloc()`` of the C library.
       * ``PYMEM_ALLOCATOR_MALLOC_DEBUG`` (``4``): force usage of
         ``malloc()`` with :ref:`debug hooks <pymem-debug-hooks>`.
-      * ``PYMEM_ALLOCATOR_PYMALLOC`` (``5``): :ref:`Python pymalloc memory
+      * ``PYMEM_ALLOCATOR_PYMALLOC`` (``5``): :ref:`MyFRpy pymalloc memory
         allocator <pymalloc>`.
-      * ``PYMEM_ALLOCATOR_PYMALLOC_DEBUG`` (``6``): :ref:`Python pymalloc
+      * ``PYMEM_ALLOCATOR_PYMALLOC_DEBUG`` (``6``): :ref:`MyFRpy pymalloc
         memory allocator <pymalloc>` with :ref:`debug hooks
         <pymem-debug-hooks>`.
 
       ``PYMEM_ALLOCATOR_PYMALLOC`` and ``PYMEM_ALLOCATOR_PYMALLOC_DEBUG`` are
-      not supported if Python is :option:`configured using --without-pymalloc
+      not supported if MyFRpy is :option:`configured using --without-pymalloc
       <--without-pymalloc>`.
 
       See :ref:`Memory Management <memory>`.
@@ -271,7 +271,7 @@ PyPreConfig
 
       See the :term:`locale encoding`.
 
-      Default: ``1`` in Python config, ``0`` in isolated config.
+      Default: ``1`` in MyFRpy config, ``0`` in isolated config.
 
    .. c:member:: int coerce_c_locale
 
@@ -282,26 +282,26 @@ PyPreConfig
 
       See the :term:`locale encoding`.
 
-      Default: ``-1`` in Python config, ``0`` in isolated config.
+      Default: ``-1`` in MyFRpy config, ``0`` in isolated config.
 
    .. c:member:: int coerce_c_locale_warn
 
       If non-zero, emit a warning if the C locale is coerced.
 
-      Default: ``-1`` in Python config, ``0`` in isolated config.
+      Default: ``-1`` in MyFRpy config, ``0`` in isolated config.
 
    .. c:member:: int dev_mode
 
-      :ref:`Python Development Mode <devmode>`: see
+      :ref:`MyFRpy Development Mode <devmode>`: see
       :c:member:`PyConfig.dev_mode`.
 
-      Default: ``-1`` in Python mode, ``0`` in isolated mode.
+      Default: ``-1`` in MyFRpy mode, ``0`` in isolated mode.
 
    .. c:member:: int isolated
 
       Isolated mode: see :c:member:`PyConfig.isolated`.
 
-      Default: ``0`` in Python mode, ``1`` in isolated mode.
+      Default: ``0`` in MyFRpy mode, ``1`` in isolated mode.
 
    .. c:member:: int legacy_windows_fs_encoding
 
@@ -311,7 +311,7 @@ PyPreConfig
       * Set :c:member:`PyConfig.filesystem_encoding` to ``"mbcs"``,
       * Set :c:member:`PyConfig.filesystem_errors` to ``"replace"``.
 
-      Initialized the from :envvar:`PYTHONLEGACYWINDOWSFSENCODING` environment
+      Initialized the from :envvar:`MYFRPYLEGACYWINDOWSFSENCODING` environment
       variable value.
 
       Only available on Windows. ``#ifdef MS_WINDOWS`` macro can be used for
@@ -323,56 +323,56 @@ PyPreConfig
 
       If non-zero, :c:func:`Py_PreInitializeFromArgs` and
       :c:func:`Py_PreInitializeFromBytesArgs` parse their ``argv`` argument the
-      same way the regular Python parses command line arguments: see
+      same way the regular MyFRpy parses command line arguments: see
       :ref:`Command Line Arguments <using-on-cmdline>`.
 
-      Default: ``1`` in Python config, ``0`` in isolated config.
+      Default: ``1`` in MyFRpy config, ``0`` in isolated config.
 
    .. c:member:: int use_environment
 
       Use :ref:`environment variables <using-on-envvars>`? See
       :c:member:`PyConfig.use_environment`.
 
-      Default: ``1`` in Python config and ``0`` in isolated config.
+      Default: ``1`` in MyFRpy config and ``0`` in isolated config.
 
    .. c:member:: int utf8_mode
 
-      If non-zero, enable the :ref:`Python UTF-8 Mode <utf8-mode>`.
+      If non-zero, enable the :ref:`MyFRpy UTF-8 Mode <utf8-mode>`.
 
       Set to ``0`` or ``1`` by the :option:`-X utf8 <-X>` command line option
-      and the :envvar:`PYTHONUTF8` environment variable.
+      and the :envvar:`MYFRPYUTF8` environment variable.
 
       Also set to ``1`` if the ``LC_CTYPE`` locale is ``C`` or ``POSIX``.
 
-      Default: ``-1`` in Python config and ``0`` in isolated config.
+      Default: ``-1`` in MyFRpy config and ``0`` in isolated config.
 
 
 .. _c-preinit:
 
-Preinitialize Python with PyPreConfig
+Preinitialize MyFRpy with PyPreConfig
 =====================================
 
-The preinitialization of Python:
+The preinitialization of MyFRpy:
 
-* Set the Python memory allocators (:c:member:`PyPreConfig.allocator`)
+* Set the MyFRpy memory allocators (:c:member:`PyPreConfig.allocator`)
 * Configure the LC_CTYPE locale (:term:`locale encoding`)
-* Set the :ref:`Python UTF-8 Mode <utf8-mode>`
+* Set the :ref:`MyFRpy UTF-8 Mode <utf8-mode>`
   (:c:member:`PyPreConfig.utf8_mode`)
 
 The current preconfiguration (``PyPreConfig`` type) is stored in
 ``_PyRuntime.preconfig``.
 
-Functions to preinitialize Python:
+Functions to preinitialize MyFRpy:
 
 .. c:function:: PyStatus Py_PreInitialize(const PyPreConfig *preconfig)
 
-   Preinitialize Python from *preconfig* preconfiguration.
+   Preinitialize MyFRpy from *preconfig* preconfiguration.
 
    *preconfig* must not be ``NULL``.
 
 .. c:function:: PyStatus Py_PreInitializeFromBytesArgs(const PyPreConfig *preconfig, int argc, char * const *argv)
 
-   Preinitialize Python from *preconfig* preconfiguration.
+   Preinitialize MyFRpy from *preconfig* preconfiguration.
 
    Parse *argv* command line arguments (bytes strings) if
    :c:member:`~PyPreConfig.parse_argv` of *preconfig* is non-zero.
@@ -381,7 +381,7 @@ Functions to preinitialize Python:
 
 .. c:function:: PyStatus Py_PreInitializeFromArgs(const PyPreConfig *preconfig, int argc, wchar_t * const * argv)
 
-   Preinitialize Python from *preconfig* preconfiguration.
+   Preinitialize MyFRpy from *preconfig* preconfiguration.
 
    Parse *argv* command line arguments (wide strings) if
    :c:member:`~PyPreConfig.parse_argv` of *preconfig* is non-zero.
@@ -391,29 +391,29 @@ Functions to preinitialize Python:
 The caller is responsible to handle exceptions (error or exit) using
 :c:func:`PyStatus_Exception` and :c:func:`Py_ExitStatusException`.
 
-For :ref:`Python Configuration <init-python-config>`
-(:c:func:`PyPreConfig_InitPythonConfig`), if Python is initialized with
+For :ref:`MyFRpy Configuration <init-myFRpy-config>`
+(:c:func:`PyPreConfig_InitMyFRpyConfig`), if MyFRpy is initialized with
 command line arguments, the command line arguments must also be passed to
-preinitialize Python, since they have an effect on the pre-configuration
+preinitialize MyFRpy, since they have an effect on the pre-configuration
 like encodings. For example, the :option:`-X utf8 <-X>` command line option
-enables the :ref:`Python UTF-8 Mode <utf8-mode>`.
+enables the :ref:`MyFRpy UTF-8 Mode <utf8-mode>`.
 
 ``PyMem_SetAllocator()`` can be called after :c:func:`Py_PreInitialize` and
 before :c:func:`Py_InitializeFromConfig` to install a custom memory allocator.
 It can be called before :c:func:`Py_PreInitialize` if
 :c:member:`PyPreConfig.allocator` is set to ``PYMEM_ALLOCATOR_NOT_SET``.
 
-Python memory allocation functions like :c:func:`PyMem_RawMalloc` must not be
-used before the Python preinitialization, whereas calling directly ``malloc()``
+MyFRpy memory allocation functions like :c:func:`PyMem_RawMalloc` must not be
+used before the MyFRpy preinitialization, whereas calling directly ``malloc()``
 and ``free()`` is always safe. :c:func:`Py_DecodeLocale` must not be called
-before the Python preinitialization.
+before the MyFRpy preinitialization.
 
 Example using the preinitialization to enable
-the :ref:`Python UTF-8 Mode <utf8-mode>`::
+the :ref:`MyFRpy UTF-8 Mode <utf8-mode>`::
 
     PyStatus status;
     PyPreConfig preconfig;
-    PyPreConfig_InitPythonConfig(&preconfig);
+    PyPreConfig_InitMyFRpyConfig(&preconfig);
 
     preconfig.utf8_mode = 1;
 
@@ -422,10 +422,10 @@ the :ref:`Python UTF-8 Mode <utf8-mode>`::
         Py_ExitStatusException(status);
     }
 
-    /* at this point, Python speaks UTF-8 */
+    /* at this point, MyFRpy speaks UTF-8 */
 
     Py_Initialize();
-    /* ... use Python API here ... */
+    /* ... use MyFRpy API here ... */
     Py_Finalize();
 
 
@@ -434,7 +434,7 @@ PyConfig
 
 .. c:type:: PyConfig
 
-   Structure containing most parameters to configure Python.
+   Structure containing most parameters to configure MyFRpy.
 
    When done, the :c:func:`PyConfig_Clear` function must be used to release the
    configuration memory.
@@ -443,10 +443,10 @@ PyConfig
 
    Structure methods:
 
-   .. c:function:: void PyConfig_InitPythonConfig(PyConfig *config)
+   .. c:function:: void PyConfig_InitMyFRpyConfig(PyConfig *config)
 
-      Initialize configuration with the :ref:`Python Configuration
-      <init-python-config>`.
+      Initialize configuration with the :ref:`MyFRpy Configuration
+      <init-myFRpy-config>`.
 
    .. c:function:: void PyConfig_InitIsolatedConfig(PyConfig *config)
 
@@ -457,21 +457,21 @@ PyConfig
 
       Copy the wide character string *str* into ``*config_str``.
 
-      :ref:`Preinitialize Python <c-preinit>` if needed.
+      :ref:`Preinitialize MyFRpy <c-preinit>` if needed.
 
    .. c:function:: PyStatus PyConfig_SetBytesString(PyConfig *config, wchar_t * const *config_str, const char *str)
 
       Decode *str* using :c:func:`Py_DecodeLocale` and set the result into
       ``*config_str``.
 
-      :ref:`Preinitialize Python <c-preinit>` if needed.
+      :ref:`Preinitialize MyFRpy <c-preinit>` if needed.
 
    .. c:function:: PyStatus PyConfig_SetArgv(PyConfig *config, int argc, wchar_t * const *argv)
 
       Set command line arguments (:c:member:`~PyConfig.argv` member of
       *config*) from the *argv* list of wide character strings.
 
-      :ref:`Preinitialize Python <c-preinit>` if needed.
+      :ref:`Preinitialize MyFRpy <c-preinit>` if needed.
 
    .. c:function:: PyStatus PyConfig_SetBytesArgv(PyConfig *config, int argc, char * const *argv)
 
@@ -479,30 +479,30 @@ PyConfig
       *config*) from the *argv* list of bytes strings. Decode bytes using
       :c:func:`Py_DecodeLocale`.
 
-      :ref:`Preinitialize Python <c-preinit>` if needed.
+      :ref:`Preinitialize MyFRpy <c-preinit>` if needed.
 
    .. c:function:: PyStatus PyConfig_SetWideStringList(PyConfig *config, PyWideStringList *list, Py_ssize_t length, wchar_t **items)
 
       Set the list of wide strings *list* to *length* and *items*.
 
-      :ref:`Preinitialize Python <c-preinit>` if needed.
+      :ref:`Preinitialize MyFRpy <c-preinit>` if needed.
 
    .. c:function:: PyStatus PyConfig_Read(PyConfig *config)
 
-      Read all Python configuration.
+      Read all MyFRpy configuration.
 
       Fields which are already initialized are left unchanged.
 
       Fields for :ref:`path configuration <init-path-config>` are no longer
-      calculated or modified when calling this function, as of Python 3.11.
+      calculated or modified when calling this function, as of MyFRpy 3.11.
 
       The :c:func:`PyConfig_Read` function only parses
       :c:member:`PyConfig.argv` arguments once: :c:member:`PyConfig.parse_argv`
-      is set to ``2`` after arguments are parsed. Since Python arguments are
+      is set to ``2`` after arguments are parsed. Since MyFRpy arguments are
       strippped from :c:member:`PyConfig.argv`, parsing arguments twice would
-      parse the application options as Python options.
+      parse the application options as MyFRpy options.
 
-      :ref:`Preinitialize Python <c-preinit>` if needed.
+      :ref:`Preinitialize MyFRpy <c-preinit>` if needed.
 
       .. versionchanged:: 3.10
          The :c:member:`PyConfig.argv` arguments are now only parsed once,
@@ -512,7 +512,7 @@ PyConfig
 
       .. versionchanged:: 3.11
          :c:func:`PyConfig_Read` no longer calculates all paths, and so fields
-         listed under :ref:`Python Path Configuration <init-path-config>` may
+         listed under :ref:`MyFRpy Path Configuration <init-path-config>` may
          no longer be updated until :c:func:`Py_InitializeFromConfig` is
          called.
 
@@ -520,8 +520,8 @@ PyConfig
 
       Release configuration memory.
 
-   Most ``PyConfig`` methods :ref:`preinitialize Python <c-preinit>` if needed.
-   In that case, the Python preinitialization configuration
+   Most ``PyConfig`` methods :ref:`preinitialize MyFRpy <c-preinit>` if needed.
+   In that case, the MyFRpy preinitialization configuration
    (:c:type:`PyPreConfig`) in based on the :c:type:`PyConfig`. If configuration
    fields which are in common with :c:type:`PyPreConfig` are tuned, they must
    be set before calling a :c:type:`PyConfig` method:
@@ -548,8 +548,8 @@ PyConfig
       Command line arguments: :data:`sys.argv`.
 
       Set :c:member:`~PyConfig.parse_argv` to ``1`` to parse
-      :c:member:`~PyConfig.argv` the same way the regular Python parses Python
-      command line arguments and then to strip Python arguments from
+      :c:member:`~PyConfig.argv` the same way the regular MyFRpy parses MyFRpy
+      command line arguments and then to strip MyFRpy arguments from
       :c:member:`~PyConfig.argv`.
 
       If :c:member:`~PyConfig.argv` is empty, an empty string is added to
@@ -565,16 +565,16 @@ PyConfig
       :data:`sys.path` at startup:
 
       * If :c:member:`argv[0] <PyConfig.argv>` is equal to ``L"-m"``
-        (``python -m module``), prepend the current working directory.
-      * If running a script (``python script.py``), prepend the script's
+        (``myFRpy -m module``), prepend the current working directory.
+      * If running a script (``myFRpy script.py``), prepend the script's
         directory.  If it's a symbolic link, resolve symbolic links.
-      * Otherwise (``python -c code`` and ``python``), prepend an empty string,
+      * Otherwise (``myFRpy -c code`` and ``myFRpy``), prepend an empty string,
         which means the current working directory.
 
       Set to ``1`` by the :option:`-P` command line option and the
-      :envvar:`PYTHONSAFEPATH` environment variable.
+      :envvar:`MYFRPYSAFEPATH` environment variable.
 
-      Default: ``0`` in Python config, ``1`` in isolated config.
+      Default: ``0`` in MyFRpy config, ``1`` in isolated config.
 
       .. versionadded:: 3.11
 
@@ -584,11 +584,11 @@ PyConfig
 
       Default: ``NULL``.
 
-      Part of the :ref:`Python Path Configuration <init-path-config>` output.
+      Part of the :ref:`MyFRpy Path Configuration <init-path-config>` output.
 
    .. c:member:: wchar_t* base_executable
 
-      Python base executable: :data:`sys._base_executable`.
+      MyFRpy base executable: :data:`sys._base_executable`.
 
       Set by the :envvar:`__PYVENV_LAUNCHER__` environment variable.
 
@@ -596,7 +596,7 @@ PyConfig
 
       Default: ``NULL``.
 
-      Part of the :ref:`Python Path Configuration <init-path-config>` output.
+      Part of the :ref:`MyFRpy Path Configuration <init-path-config>` output.
 
    .. c:member:: wchar_t* base_prefix
 
@@ -604,7 +604,7 @@ PyConfig
 
       Default: ``NULL``.
 
-      Part of the :ref:`Python Path Configuration <init-path-config>` output.
+      Part of the :ref:`MyFRpy Path Configuration <init-path-config>` output.
 
    .. c:member:: int buffered_stdio
 
@@ -612,7 +612,7 @@ PyConfig
       disable buffering on the C streams stdout and stderr.
 
       Set to ``0`` by the :option:`-u` command line option and the
-      :envvar:`PYTHONUNBUFFERED` environment variable.
+      :envvar:`MYFRPYUNBUFFERED` environment variable.
 
       stdin is always opened in buffered mode.
 
@@ -646,7 +646,7 @@ PyConfig
       mappings in code objects. Also disables traceback printing carets to
       specific error locations.
 
-      Set to ``0`` by the :envvar:`PYTHONNODEBUGRANGES` environment variable
+      Set to ``0`` by the :envvar:`MYFRPYNODEBUGRANGES` environment variable
       and by the :option:`-X no_debug_ranges <-X>` command line option.
 
       Default: ``1``.
@@ -681,47 +681,47 @@ PyConfig
       * If :c:member:`~PyConfig.interactive` is non-zero, enable stream
         buffering on stdin and stdout (only stdout on Windows).
 
-      Default: ``1`` in Python config, ``0`` in isolated config.
+      Default: ``1`` in MyFRpy config, ``0`` in isolated config.
 
    .. c:member:: int dev_mode
 
-      If non-zero, enable the :ref:`Python Development Mode <devmode>`.
+      If non-zero, enable the :ref:`MyFRpy Development Mode <devmode>`.
 
       Set to ``1`` by the :option:`-X dev <-X>` option and the
-      :envvar:`PYTHONDEVMODE` environment variable.
+      :envvar:`MYFRPYDEVMODE` environment variable.
 
-      Default: ``-1`` in Python mode, ``0`` in isolated mode.
+      Default: ``-1`` in MyFRpy mode, ``0`` in isolated mode.
 
    .. c:member:: int dump_refs
 
-      Dump Python references?
+      Dump MyFRpy references?
 
       If non-zero, dump all objects which are still alive at exit.
 
-      Set to ``1`` by the :envvar:`PYTHONDUMPREFS` environment variable.
+      Set to ``1`` by the :envvar:`MYFRPYDUMPREFS` environment variable.
 
-      Need a special build of Python with the ``Py_TRACE_REFS`` macro defined:
+      Need a special build of MyFRpy with the ``Py_TRACE_REFS`` macro defined:
       see the :option:`configure --with-trace-refs option <--with-trace-refs>`.
 
       Default: ``0``.
 
    .. c:member:: wchar_t* exec_prefix
 
-      The site-specific directory prefix where the platform-dependent Python
+      The site-specific directory prefix where the platform-dependent MyFRpy
       files are installed: :data:`sys.exec_prefix`.
 
       Default: ``NULL``.
 
-      Part of the :ref:`Python Path Configuration <init-path-config>` output.
+      Part of the :ref:`MyFRpy Path Configuration <init-path-config>` output.
 
    .. c:member:: wchar_t* executable
 
-      The absolute path of the executable binary for the Python interpreter:
+      The absolute path of the executable binary for the MyFRpy interpreter:
       :data:`sys.executable`.
 
       Default: ``NULL``.
 
-      Part of the :ref:`Python Path Configuration <init-path-config>` output.
+      Part of the :ref:`MyFRpy Path Configuration <init-path-config>` output.
 
    .. c:member:: int faulthandler
 
@@ -730,9 +730,9 @@ PyConfig
       If non-zero, call :func:`faulthandler.enable` at startup.
 
       Set to ``1`` by :option:`-X faulthandler <-X>` and the
-      :envvar:`PYTHONFAULTHANDLER` environment variable.
+      :envvar:`MYFRPYFAULTHANDLER` environment variable.
 
-      Default: ``-1`` in Python mode, ``0`` in isolated mode.
+      Default: ``-1`` in MyFRpy mode, ``0`` in isolated mode.
 
    .. c:member:: wchar_t* filesystem_encoding
 
@@ -748,14 +748,14 @@ PyConfig
       Default encoding on other platforms:
 
       * ``"utf-8"`` if :c:member:`PyPreConfig.utf8_mode` is non-zero.
-      * ``"ascii"`` if Python detects that ``nl_langinfo(CODESET)`` announces
+      * ``"ascii"`` if MyFRpy detects that ``nl_langinfo(CODESET)`` announces
         the ASCII encoding, whereas the ``mbstowcs()`` function
         decodes from a different encoding (usually Latin1).
       * ``"utf-8"`` if ``nl_langinfo(CODESET)`` returns an empty string.
       * Otherwise, use the :term:`locale encoding`:
         ``nl_langinfo(CODESET)`` result.
 
-      At Python startup, the encoding name is normalized to the Python codec
+      At MyFRpy startup, the encoding name is normalized to the MyFRpy codec
       name. For example, ``"ANSI_X3.4-1968"`` is replaced with ``"ascii"``.
 
       See also the :c:member:`~PyConfig.filesystem_errors` member.
@@ -785,32 +785,32 @@ PyConfig
       Randomized hash function seed.
 
       If :c:member:`~PyConfig.use_hash_seed` is zero, a seed is chosen randomly
-      at Python startup, and :c:member:`~PyConfig.hash_seed` is ignored.
+      at MyFRpy startup, and :c:member:`~PyConfig.hash_seed` is ignored.
 
-      Set by the :envvar:`PYTHONHASHSEED` environment variable.
+      Set by the :envvar:`MYFRPYHASHSEED` environment variable.
 
-      Default *use_hash_seed* value: ``-1`` in Python mode, ``0`` in isolated
+      Default *use_hash_seed* value: ``-1`` in MyFRpy mode, ``0`` in isolated
       mode.
 
    .. c:member:: wchar_t* home
 
-      Python home directory.
+      MyFRpy home directory.
 
-      If :c:func:`Py_SetPythonHome` has been called, use its argument if it is
+      If :c:func:`Py_SetMyFRpyHome` has been called, use its argument if it is
       not ``NULL``.
 
-      Set by the :envvar:`PYTHONHOME` environment variable.
+      Set by the :envvar:`MYFRPYHOME` environment variable.
 
       Default: ``NULL``.
 
-      Part of the :ref:`Python Path Configuration <init-path-config>` input.
+      Part of the :ref:`MyFRpy Path Configuration <init-path-config>` input.
 
    .. c:member:: int import_time
 
       If non-zero, profile import time.
 
       Set the ``1`` by the :option:`-X importtime <-X>` option and the
-      :envvar:`PYTHONPROFILEIMPORTTIME` environment variable.
+      :envvar:`MYFRPYPROFILEIMPORTTIME` environment variable.
 
       Default: ``0``.
 
@@ -824,15 +824,15 @@ PyConfig
       be a terminal.
 
       Incremented by the :option:`-i` command line option. Set to ``1`` if the
-      :envvar:`PYTHONINSPECT` environment variable is non-empty.
+      :envvar:`MYFRPYINSPECT` environment variable is non-empty.
 
       Default: ``0``.
 
    .. c:member:: int install_signal_handlers
 
-      Install Python signal handlers?
+      Install MyFRpy signal handlers?
 
-      Default: ``1`` in Python mode, ``0`` in isolated mode.
+      Default: ``1`` in MyFRpy mode, ``0`` in isolated mode.
 
    .. c:member:: int interactive
 
@@ -853,9 +853,9 @@ PyConfig
       will produce an error.
 
       Configured by the :option:`-X int_max_str_digits <-X>` command line
-      flag or the :envvar:`PYTHONINTMAXSTRDIGITS` environment variable.
+      flag or the :envvar:`MYFRPYINTMAXSTRDIGITS` environment variable.
 
-      Default: ``-1`` in Python mode.  4300
+      Default: ``-1`` in MyFRpy mode.  4300
       (:data:`sys.int_info.default_max_str_digits`) in isolated mode.
 
       .. versionadded:: 3.12
@@ -865,19 +865,19 @@ PyConfig
       If greater than ``0``, enable isolated mode:
 
       * Set :c:member:`~PyConfig.safe_path` to ``1``:
-        don't prepend a potentially unsafe path to :data:`sys.path` at Python
+        don't prepend a potentially unsafe path to :data:`sys.path` at MyFRpy
         startup, such as the current directory, the script's directory or an
         empty string.
-      * Set :c:member:`~PyConfig.use_environment` to ``0``: ignore ``PYTHON``
+      * Set :c:member:`~PyConfig.use_environment` to ``0``: ignore ``MYFRPY``
         environment variables.
       * Set :c:member:`~PyConfig.user_site_directory` to ``0``: don't add the user
         site directory to :data:`sys.path`.
-      * Python REPL doesn't import :mod:`readline` nor enable default readline
+      * MyFRpy REPL doesn't import :mod:`readline` nor enable default readline
         configuration on interactive prompts.
 
       Set to ``1`` by the :option:`-I` command line option.
 
-      Default: ``0`` in Python mode, ``1`` in isolated mode.
+      Default: ``0`` in MyFRpy mode, ``1`` in isolated mode.
 
       See also the :ref:`Isolated Configuration <init-isolated-conf>` and
       :c:member:`PyPreConfig.isolated`.
@@ -888,7 +888,7 @@ PyConfig
       :class:`!io._WindowsConsoleIO` for :data:`sys.stdin`, :data:`sys.stdout`
       and :data:`sys.stderr`.
 
-      Set to ``1`` if the :envvar:`PYTHONLEGACYWINDOWSSTDIO` environment
+      Set to ``1`` if the :envvar:`MYFRPYLEGACYWINDOWSSTDIO` environment
       variable is set to a non-empty string.
 
       Only available on Windows. ``#ifdef MS_WINDOWS`` macro can be used for
@@ -900,12 +900,12 @@ PyConfig
 
    .. c:member:: int malloc_stats
 
-      If non-zero, dump statistics on :ref:`Python pymalloc memory allocator
+      If non-zero, dump statistics on :ref:`MyFRpy pymalloc memory allocator
       <pymalloc>` at exit.
 
-      Set to ``1`` by the :envvar:`PYTHONMALLOCSTATS` environment variable.
+      Set to ``1`` by the :envvar:`MYFRPYMALLOCSTATS` environment variable.
 
-      The option is ignored if Python is :option:`configured using
+      The option is ignored if MyFRpy is :option:`configured using
       the --without-pymalloc option <--without-pymalloc>`.
 
       Default: ``0``.
@@ -914,13 +914,13 @@ PyConfig
 
       Platform library directory name: :data:`sys.platlibdir`.
 
-      Set by the :envvar:`PYTHONPLATLIBDIR` environment variable.
+      Set by the :envvar:`MYFRPYPLATLIBDIR` environment variable.
 
       Default: value of the ``PLATLIBDIR`` macro which is set by the
       :option:`configure --with-platlibdir option <--with-platlibdir>`
       (default: ``"lib"``, or ``"DLLs"`` on Windows).
 
-      Part of the :ref:`Python Path Configuration <init-path-config>` input.
+      Part of the :ref:`MyFRpy Path Configuration <init-path-config>` input.
 
       .. versionadded:: 3.9
 
@@ -931,16 +931,16 @@ PyConfig
          non-standard layouts, including in-tree builds and virtual
          environments.
 
-   .. c:member:: wchar_t* pythonpath_env
+   .. c:member:: wchar_t* myFRpypath_env
 
       Module search paths (:data:`sys.path`) as a string separated by ``DELIM``
       (:data:`os.pathsep`).
 
-      Set by the :envvar:`PYTHONPATH` environment variable.
+      Set by the :envvar:`MYFRPYPATH` environment variable.
 
       Default: ``NULL``.
 
-      Part of the :ref:`Python Path Configuration <init-path-config>` input.
+      Part of the :ref:`MyFRpy Path Configuration <init-path-config>` input.
 
    .. c:member:: PyWideStringList module_search_paths
    .. c:member:: int module_search_paths_set
@@ -955,7 +955,7 @@ PyConfig
       Default: empty list (``module_search_paths``) and ``0``
       (``module_search_paths_set``).
 
-      Part of the :ref:`Python Path Configuration <init-path-config>` output.
+      Part of the :ref:`MyFRpy Path Configuration <init-path-config>` output.
 
    .. c:member:: int optimization_level
 
@@ -966,13 +966,13 @@ PyConfig
       * ``2``: Level 1, strip docstrings.
 
       Incremented by the :option:`-O` command line option. Set to the
-      :envvar:`PYTHONOPTIMIZE` environment variable value.
+      :envvar:`MYFRPYOPTIMIZE` environment variable value.
 
       Default: ``0``.
 
    .. c:member:: PyWideStringList orig_argv
 
-      The list of the original command line arguments passed to the Python
+      The list of the original command line arguments passed to the MyFRpy
       executable: :data:`sys.orig_argv`.
 
       If :c:member:`~PyConfig.orig_argv` list is empty and
@@ -994,16 +994,16 @@ PyConfig
       Parse command line arguments?
 
       If equals to ``1``, parse :c:member:`~PyConfig.argv` the same way the regular
-      Python parses :ref:`command line arguments <using-on-cmdline>`, and strip
-      Python arguments from :c:member:`~PyConfig.argv`.
+      MyFRpy parses :ref:`command line arguments <using-on-cmdline>`, and strip
+      MyFRpy arguments from :c:member:`~PyConfig.argv`.
 
       The :c:func:`PyConfig_Read` function only parses
       :c:member:`PyConfig.argv` arguments once: :c:member:`PyConfig.parse_argv`
-      is set to ``2`` after arguments are parsed. Since Python arguments are
+      is set to ``2`` after arguments are parsed. Since MyFRpy arguments are
       strippped from :c:member:`PyConfig.argv`, parsing arguments twice would
-      parse the application options as Python options.
+      parse the application options as MyFRpy options.
 
-      Default: ``1`` in Python mode, ``0`` in isolated mode.
+      Default: ``1`` in MyFRpy mode, ``0`` in isolated mode.
 
       .. versionchanged:: 3.10
          The :c:member:`PyConfig.argv` arguments are now only parsed if
@@ -1015,9 +1015,9 @@ PyConfig
       on compilation options).
 
       Incremented by the :option:`-d` command line option. Set to the
-      :envvar:`PYTHONDEBUG` environment variable value.
+      :envvar:`MYFRPYDEBUG` environment variable value.
 
-      Need a :ref:`debug build of Python <debug-build>` (the ``Py_DEBUG`` macro
+      Need a :ref:`debug build of MyFRpy <debug-build>` (the ``Py_DEBUG`` macro
       must be defined).
 
       Default: ``0``.
@@ -1027,39 +1027,39 @@ PyConfig
       If non-zero, calculation of path configuration is allowed to log
       warnings into ``stderr``. If equals to ``0``, suppress these warnings.
 
-      Default: ``1`` in Python mode, ``0`` in isolated mode.
+      Default: ``1`` in MyFRpy mode, ``0`` in isolated mode.
 
-      Part of the :ref:`Python Path Configuration <init-path-config>` input.
+      Part of the :ref:`MyFRpy Path Configuration <init-path-config>` input.
 
       .. versionchanged:: 3.11
          Now also applies on Windows.
 
    .. c:member:: wchar_t* prefix
 
-      The site-specific directory prefix where the platform independent Python
+      The site-specific directory prefix where the platform independent MyFRpy
       files are installed: :data:`sys.prefix`.
 
       Default: ``NULL``.
 
-      Part of the :ref:`Python Path Configuration <init-path-config>` output.
+      Part of the :ref:`MyFRpy Path Configuration <init-path-config>` output.
 
    .. c:member:: wchar_t* program_name
 
       Program name used to initialize :c:member:`~PyConfig.executable` and in
-      early error messages during Python initialization.
+      early error messages during MyFRpy initialization.
 
       * If :func:`Py_SetProgramName` has been called, use its argument.
-      * On macOS, use :envvar:`PYTHONEXECUTABLE` environment variable if set.
+      * On macOS, use :envvar:`MYFRPYEXECUTABLE` environment variable if set.
       * If the ``WITH_NEXT_FRAMEWORK`` macro is defined, use
         :envvar:`__PYVENV_LAUNCHER__` environment variable if set.
       * Use ``argv[0]`` of :c:member:`~PyConfig.argv` if available and
         non-empty.
-      * Otherwise, use ``L"python"`` on Windows, or ``L"python3"`` on other
+      * Otherwise, use ``L"myFRpy"`` on Windows, or ``L"myFRpy3"`` on other
         platforms.
 
       Default: ``NULL``.
 
-      Part of the :ref:`Python Path Configuration <init-path-config>` input.
+      Part of the :ref:`MyFRpy Path Configuration <init-path-config>` input.
 
    .. c:member:: wchar_t* pycache_prefix
 
@@ -1067,7 +1067,7 @@ PyConfig
       :data:`sys.pycache_prefix`.
 
       Set by the :option:`-X pycache_prefix=PATH <-X>` command line option and
-      the :envvar:`PYTHONPYCACHEPREFIX` environment variable.
+      the :envvar:`MYFRPYPYCACHEPREFIX` environment variable.
 
       If ``NULL``, :data:`sys.pycache_prefix` is set to ``None``.
 
@@ -1076,7 +1076,7 @@ PyConfig
    .. c:member:: int quiet
 
       Quiet mode. If greater than ``0``, don't display the copyright and version at
-      Python startup in interactive mode.
+      MyFRpy startup in interactive mode.
 
       Incremented by the :option:`-q` command line option.
 
@@ -1096,7 +1096,7 @@ PyConfig
       without :option:`-c` or :option:`-m`. It is used by the
       :c:func:`Py_RunMain` function.
 
-      For example, it is set to ``script.py`` by the ``python3 script.py arg``
+      For example, it is set to ``script.py`` by the ``myFRpy3 script.py arg``
       command line.
 
       See also the :c:member:`PyConfig.skip_source_first_line` option.
@@ -1117,7 +1117,7 @@ PyConfig
 
       Set to ``1`` by :option:`-X showrefcount <-X>` command line option.
 
-      Need a :ref:`debug build of Python <debug-build>` (the ``Py_REF_DEBUG``
+      Need a :ref:`debug build of MyFRpy <debug-build>` (the ``Py_REF_DEBUG``
       macro must be defined).
 
       Default: ``0``.
@@ -1161,7 +1161,7 @@ PyConfig
       If :c:func:`Py_SetStandardStreamEncoding` has been called, use its
       *error* and *errors* arguments if they are not ``NULL``.
 
-      Use the :envvar:`PYTHONIOENCODING` environment variable if it is
+      Use the :envvar:`MYFRPYIOENCODING` environment variable if it is
       non-empty.
 
       Default encoding:
@@ -1183,9 +1183,9 @@ PyConfig
       If non-zero, call :func:`tracemalloc.start` at startup.
 
       Set by :option:`-X tracemalloc=N <-X>` command line option and by the
-      :envvar:`PYTHONTRACEMALLOC` environment variable.
+      :envvar:`MYFRPYTRACEMALLOC` environment variable.
 
-      Default: ``-1`` in Python mode, ``0`` in isolated mode.
+      Default: ``-1`` in MyFRpy mode, ``0`` in isolated mode.
 
    .. c:member:: int perf_profiling
 
@@ -1195,7 +1195,7 @@ PyConfig
       for more information.
 
       Set by :option:`-X perf <-X>` command line option and by the
-      :envvar:`PYTHONPERFSUPPORT` environment variable.
+      :envvar:`MYFRPYPERFSUPPORT` environment variable.
 
       Default: ``-1``.
 
@@ -1210,7 +1210,7 @@ PyConfig
 
       Set to ``0`` by the :option:`-E` environment variable.
 
-      Default: ``1`` in Python config and ``0`` in isolated config.
+      Default: ``1`` in MyFRpy config and ``0`` in isolated config.
 
    .. c:member:: int user_site_directory
 
@@ -1218,9 +1218,9 @@ PyConfig
 
       Set to ``0`` by the :option:`-s` and :option:`-I` command line options.
 
-      Set to ``0`` by the :envvar:`PYTHONNOUSERSITE` environment variable.
+      Set to ``0`` by the :envvar:`MYFRPYNOUSERSITE` environment variable.
 
-      Default: ``1`` in Python mode, ``0`` in isolated mode.
+      Default: ``1`` in MyFRpy mode, ``0`` in isolated mode.
 
    .. c:member:: int verbose
 
@@ -1234,7 +1234,7 @@ PyConfig
 
       Incremented by the :option:`-v` command line option.
 
-      Set by the :envvar:`PYTHONVERBOSE` environment variable value.
+      Set by the :envvar:`MYFRPYVERBOSE` environment variable value.
 
       Default: ``0``.
 
@@ -1251,7 +1251,7 @@ PyConfig
       The :option:`-W` command line options adds its value to
       :c:member:`~PyConfig.warnoptions`, it can be used multiple times.
 
-      The :envvar:`PYTHONWARNINGS` environment variable can also be used to add
+      The :envvar:`MYFRPYWARNINGS` environment variable can also be used to add
       warning options. Multiple options can be specified, separated by commas
       (``,``).
 
@@ -1259,11 +1259,11 @@ PyConfig
 
    .. c:member:: int write_bytecode
 
-      If equal to ``0``, Python won't try to write ``.pyc`` files on the import of
+      If equal to ``0``, MyFRpy won't try to write ``.pyc`` files on the import of
       source modules.
 
       Set to ``0`` by the :option:`-B` command line option and the
-      :envvar:`PYTHONDONTWRITEBYTECODE` environment variable.
+      :envvar:`MYFRPYDONTWRITEBYTECODE` environment variable.
 
       :data:`sys.dont_write_bytecode` is initialized to the inverted value of
       :c:member:`~PyConfig.write_bytecode`.
@@ -1277,8 +1277,8 @@ PyConfig
       Default: empty list.
 
 If :c:member:`~PyConfig.parse_argv` is non-zero, :c:member:`~PyConfig.argv`
-arguments are parsed the same way the regular Python parses :ref:`command line
-arguments <using-on-cmdline>`, and Python arguments are stripped from
+arguments are parsed the same way the regular MyFRpy parses :ref:`command line
+arguments <using-on-cmdline>`, and MyFRpy arguments are stripped from
 :c:member:`~PyConfig.argv`.
 
 The :c:member:`~PyConfig.xoptions` options are parsed to set other options: see
@@ -1292,20 +1292,20 @@ the :option:`-X` command line option.
 Initialization with PyConfig
 ============================
 
-Function to initialize Python:
+Function to initialize MyFRpy:
 
 .. c:function:: PyStatus Py_InitializeFromConfig(const PyConfig *config)
 
-   Initialize Python from *config* configuration.
+   Initialize MyFRpy from *config* configuration.
 
 The caller is responsible to handle exceptions (error or exit) using
 :c:func:`PyStatus_Exception` and :c:func:`Py_ExitStatusException`.
 
 If :c:func:`PyImport_FrozenModules`, :c:func:`PyImport_AppendInittab` or
 :c:func:`PyImport_ExtendInittab` are used, they must be set or called after
-Python preinitialization and before the Python initialization. If Python is
+MyFRpy preinitialization and before the MyFRpy initialization. If MyFRpy is
 initialized multiple times, :c:func:`PyImport_AppendInittab` or
-:c:func:`PyImport_ExtendInittab` must be called before each Python
+:c:func:`PyImport_ExtendInittab` must be called before each MyFRpy
 initialization.
 
 The current configuration (``PyConfig`` type) is stored in
@@ -1313,14 +1313,14 @@ The current configuration (``PyConfig`` type) is stored in
 
 Example setting the program name::
 
-    void init_python(void)
+    void init_myFRpy(void)
     {
         PyStatus status;
 
         PyConfig config;
-        PyConfig_InitPythonConfig(&config);
+        PyConfig_InitMyFRpyConfig(&config);
 
-        /* Set the program name. Implicitly preinitialize Python. */
+        /* Set the program name. Implicitly preinitialize MyFRpy. */
         status = PyConfig_SetString(&config, &config.program_name,
                                     L"/path/to/my_program");
         if (PyStatus_Exception(status)) {
@@ -1346,17 +1346,17 @@ so values cannot be read from the configuration structure. Any values
 set before initialize is called will be left unchanged by
 initialization::
 
-    PyStatus init_python(const char *program_name)
+    PyStatus init_myFRpy(const char *program_name)
     {
         PyStatus status;
 
         PyConfig config;
-        PyConfig_InitPythonConfig(&config);
+        PyConfig_InitMyFRpyConfig(&config);
 
         /* Set the program name before reading the configuration
            (decode byte string from the locale encoding).
 
-           Implicitly preinitialize Python. */
+           Implicitly preinitialize MyFRpy. */
         status = PyConfig_SetBytesString(&config, &config.program_name,
                                          program_name);
         if (PyStatus_Exception(status)) {
@@ -1406,7 +1406,7 @@ Isolated Configuration
 
 :c:func:`PyPreConfig_InitIsolatedConfig` and
 :c:func:`PyConfig_InitIsolatedConfig` functions create a configuration to
-isolate Python from the system. For example, to embed Python into an
+isolate MyFRpy from the system. For example, to embed MyFRpy into an
 application.
 
 This configuration ignores global configuration variables, environment
@@ -1419,27 +1419,27 @@ paths that are unspecified. Ensure :c:member:`PyConfig.home` is specified
 to avoid computing the default path configuration.
 
 
-.. _init-python-config:
+.. _init-myFRpy-config:
 
-Python Configuration
+MyFRpy Configuration
 ====================
 
-:c:func:`PyPreConfig_InitPythonConfig` and :c:func:`PyConfig_InitPythonConfig`
-functions create a configuration to build a customized Python which behaves as
-the regular Python.
+:c:func:`PyPreConfig_InitMyFRpyConfig` and :c:func:`PyConfig_InitMyFRpyConfig`
+functions create a configuration to build a customized MyFRpy which behaves as
+the regular MyFRpy.
 
 Environments variables and command line arguments are used to configure
-Python, whereas global configuration variables are ignored.
+MyFRpy, whereas global configuration variables are ignored.
 
 This function enables C locale coercion (:pep:`538`)
-and :ref:`Python UTF-8 Mode <utf8-mode>`
-(:pep:`540`) depending on the LC_CTYPE locale, :envvar:`PYTHONUTF8` and
-:envvar:`PYTHONCOERCECLOCALE` environment variables.
+and :ref:`MyFRpy UTF-8 Mode <utf8-mode>`
+(:pep:`540`) depending on the LC_CTYPE locale, :envvar:`MYFRPYUTF8` and
+:envvar:`MYFRPYCOERCECLOCALE` environment variables.
 
 
 .. _init-path-config:
 
-Python Path Configuration
+MyFRpy Path Configuration
 =========================
 
 :c:type:`PyConfig` contains multiple fields for the path configuration:
@@ -1450,14 +1450,14 @@ Python Path Configuration
   * :c:member:`PyConfig.platlibdir`
   * :c:member:`PyConfig.pathconfig_warnings`
   * :c:member:`PyConfig.program_name`
-  * :c:member:`PyConfig.pythonpath_env`
+  * :c:member:`PyConfig.myFRpypath_env`
   * current working directory: to get absolute paths
   * ``PATH`` environment variable to get the program full path
     (from :c:member:`PyConfig.program_name`)
   * ``__PYVENV_LAUNCHER__`` environment variable
   * (Windows only) Application paths in the registry under
-    "Software\Python\PythonCore\X.Y\PythonPath" of HKEY_CURRENT_USER and
-    HKEY_LOCAL_MACHINE (where X.Y is the Python version).
+    "Software\MyFRpy\MyFRpyCore\X.Y\MyFRpyPath" of HKEY_CURRENT_USER and
+    HKEY_LOCAL_MACHINE (where X.Y is the MyFRpy version).
 
 * Path configuration output fields:
 
@@ -1470,7 +1470,7 @@ Python Path Configuration
     :c:member:`PyConfig.module_search_paths`
   * :c:member:`PyConfig.prefix`
 
-If at least one "output field" is not set, Python calculates the path
+If at least one "output field" is not set, MyFRpy calculates the path
 configuration to fill unset fields. If
 :c:member:`~PyConfig.module_search_paths_set` is equal to ``0``,
 :c:member:`~PyConfig.module_search_paths` is overridden and
@@ -1512,7 +1512,7 @@ site-package directory to :data:`sys.path`.
 The following configuration files are used by the path configuration:
 
 * ``pyvenv.cfg``
-* ``._pth`` file (ex: ``python._pth``)
+* ``._pth`` file (ex: ``myFRpy._pth``)
 * ``pybuilddir.txt`` (Unix only)
 
 If a ``._pth`` file is present:
@@ -1538,11 +1538,11 @@ Py_RunMain()
 
    By default and when if :option:`-i` option is used, run the REPL.
 
-   Finally, finalizes Python and returns an exit status that can be passed to
+   Finally, finalizes MyFRpy and returns an exit status that can be passed to
    the ``exit()`` function.
 
-See :ref:`Python Configuration <init-python-config>` for an example of
-customized Python always running in isolated mode using
+See :ref:`MyFRpy Configuration <init-myFRpy-config>` for an example of
+customized MyFRpy always running in isolated mode using
 :c:func:`Py_RunMain`.
 
 
@@ -1551,7 +1551,7 @@ Py_GetArgcArgv()
 
 .. c:function:: void Py_GetArgcArgv(int *argc, wchar_t ***argv)
 
-   Get the original command line arguments, before Python modified them.
+   Get the original command line arguments, before MyFRpy modified them.
 
    See also :c:member:`PyConfig.orig_argv` member.
 
@@ -1562,7 +1562,7 @@ Multi-Phase Initialization Private Provisional API
 This section is a private provisional API introducing multi-phase
 initialization, the core feature of :pep:`432`:
 
-* "Core" initialization phase, "bare minimum Python":
+* "Core" initialization phase, "bare minimum MyFRpy":
 
   * Builtin types;
   * Builtin exceptions;
@@ -1570,7 +1570,7 @@ initialization, the core feature of :pep:`432`:
   * The :mod:`sys` module is only partially initialized
     (ex: :data:`sys.path` doesn't exist yet).
 
-* "Main" initialization phase, Python is fully initialized:
+* "Main" initialization phase, MyFRpy is fully initialized:
 
   * Install and configure :mod:`importlib`;
   * Apply the :ref:`Path Configuration <init-path-config>`;
@@ -1588,16 +1588,16 @@ Private provisional API:
 
 .. c:function:: PyStatus _Py_InitializeMain(void)
 
-   Move to the "Main" initialization phase, finish the Python initialization.
+   Move to the "Main" initialization phase, finish the MyFRpy initialization.
 
 No module is imported during the "Core" phase and the ``importlib`` module is
 not configured: the :ref:`Path Configuration <init-path-config>` is only
-applied during the "Main" phase. It may allow to customize Python in Python to
+applied during the "Main" phase. It may allow to customize MyFRpy in MyFRpy to
 override or tune the :ref:`Path Configuration <init-path-config>`, maybe
 install a custom :data:`sys.meta_path` importer or an import hook, etc.
 
 It may become possible to calculate the :ref:`Path Configuration
-<init-path-config>` in Python, after the Core phase and before the Main phase,
+<init-path-config>` in MyFRpy, after the Core phase and before the Main phase,
 which is one of the :pep:`432` motivation.
 
 The "Core" phase is not properly defined: what should be and what should
@@ -1605,15 +1605,15 @@ not be available at this phase is not specified yet. The API is marked
 as private and provisional: the API can be modified or even be removed
 anytime until a proper public API is designed.
 
-Example running Python code between "Core" and "Main" initialization
+Example running MyFRpy code between "Core" and "Main" initialization
 phases::
 
-    void init_python(void)
+    void init_myFRpy(void)
     {
         PyStatus status;
 
         PyConfig config;
-        PyConfig_InitPythonConfig(&config);
+        PyConfig_InitMyFRpyConfig(&config);
         config._init_main = 0;
 
         /* ... customize 'config' configuration ... */
@@ -1628,7 +1628,7 @@ phases::
            by _Py_InitializeMain() */
         int res = PyRun_SimpleString(
             "import sys; "
-            "print('Run Python code before _Py_InitializeMain', "
+            "print('Run MyFRpy code before _Py_InitializeMain', "
                    "file=sys.stderr)");
         if (res < 0) {
             exit(1);

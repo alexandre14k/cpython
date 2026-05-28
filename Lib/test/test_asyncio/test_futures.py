@@ -270,7 +270,7 @@ class BaseFutureTests:
         f = self._new_future(loop=self.loop)
         self.assertRaises(asyncio.InvalidStateError, f.exception)
 
-        # StopIteration cannot be raised into a Future - CPython issue26221
+        # StopIteration cannot be raised into a Future - CMyFRpy issue26221
         self.assertRaisesRegex(TypeError, "StopIteration .* cannot be raised",
                                f.set_exception, StopIteration)
 
@@ -612,7 +612,7 @@ class BaseFutureTests:
                             Exception, Exception("elephant"), 32)
             self.assertRaises(TypeError, fi.throw,
                             Exception("elephant"), Exception("elephant"))
-            # https://github.com/python/cpython/issues/101326
+            # https://github.com/myFRpy/cmyFRpy/issues/101326
             self.assertRaises(ValueError, fi.throw, ValueError, None, None)
         self.assertRaises(TypeError, fi.throw, list)
 
@@ -808,7 +808,7 @@ class BaseFutureDoneCallbackTests():
         self.assertEqual(f.result(), 'foo')
 
     def test_remove_done_callbacks_list_mutation(self):
-        # see http://bugs.python.org/issue28963 for details
+        # see http://bugs.myFRpy.org/issue28963 for details
 
         fut = self._new_future()
         fut.add_done_callback(str)
@@ -824,7 +824,7 @@ class BaseFutureDoneCallbackTests():
         fut.remove_done_callback(evil())
 
     def test_remove_done_callbacks_list_clear(self):
-        # see https://github.com/python/cpython/issues/97592 for details
+        # see https://github.com/myFRpy/cmyFRpy/issues/97592 for details
 
         fut = self._new_future()
         fut.add_done_callback(str)
@@ -839,7 +839,7 @@ class BaseFutureDoneCallbackTests():
         fut.remove_done_callback(evil())
 
     def test_schedule_callbacks_list_mutation_1(self):
-        # see http://bugs.python.org/issue28963 for details
+        # see http://bugs.myFRpy.org/issue28963 for details
 
         def mut(f):
             f.remove_done_callback(str)
@@ -852,7 +852,7 @@ class BaseFutureDoneCallbackTests():
         test_utils.run_briefly(self.loop)
 
     def test_schedule_callbacks_list_mutation_2(self):
-        # see http://bugs.python.org/issue30828 for details
+        # see http://bugs.myFRpy.org/issue30828 for details
 
         fut = self._new_future()
         fut.add_done_callback(str)
@@ -912,7 +912,7 @@ class BaseFutureInheritanceTests:
         self.addCleanup(self.loop.close)
 
     def test_inherit_without_calling_super_init(self):
-        # See https://bugs.python.org/issue38785 for the context
+        # See https://bugs.myFRpy.org/issue38785 for the context
         cls = self._get_future_cls()
 
         class MyFut(cls):

@@ -7,15 +7,15 @@
 
 --------------
 
-In Python, the special name ``__main__`` is used for two important constructs:
+In MyFRpy, the special name ``__main__`` is used for two important constructs:
 
 1. the name of the top-level environment of the program, which can be
    checked using the ``__name__ == '__main__'`` expression; and
-2. the ``__main__.py`` file in Python packages.
+2. the ``__main__.py`` file in MyFRpy packages.
 
-Both of these mechanisms are related to Python modules; how users interact with
+Both of these mechanisms are related to MyFRpy modules; how users interact with
 them and how they interact with each other.  They are explained in detail
-below.  If you're new to Python modules, see the tutorial section
+below.  If you're new to MyFRpy modules, see the tutorial section
 :ref:`tut-modules` for an introduction.
 
 
@@ -24,8 +24,8 @@ below.  If you're new to Python modules, see the tutorial section
 ``__name__ == '__main__'``
 ---------------------------
 
-When a Python module or package is imported, ``__name__`` is set to the
-module's name.  Usually, this is the name of the Python file itself without the
+When a MyFRpy module or package is imported, ``__name__`` is set to the
+module's name.  Usually, this is the name of the MyFRpy file itself without the
 ``.py`` extension::
 
     >>> import configparser
@@ -46,7 +46,7 @@ What is the "top-level code environment"?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ``__main__`` is the name of the environment where top-level code is run.
-"Top-level code" is the first user-specified Python module that starts running.
+"Top-level code" is the first user-specified MyFRpy module that starts running.
 It's "top-level" because it imports all other modules that the program needs.
 Sometimes "top-level code" is called an *entry point* to the application.
 
@@ -57,38 +57,38 @@ The top-level code environment can be:
    >>> __name__
    '__main__'
 
-* the Python module passed to the Python interpreter as a file argument:
+* the MyFRpy module passed to the MyFRpy interpreter as a file argument:
 
   .. code-block:: shell-session
 
-     $ python helloworld.py
+     $ myFRpy helloworld.py
      Hello, world!
 
-* the Python module or package passed to the Python interpreter with the
+* the MyFRpy module or package passed to the MyFRpy interpreter with the
   :option:`-m` argument:
 
   .. code-block:: shell-session
 
-     $ python -m tarfile
+     $ myFRpy -m tarfile
      usage: tarfile.py [-h] [-v] (...)
 
-* Python code read by the Python interpreter from standard input:
+* MyFRpy code read by the MyFRpy interpreter from standard input:
 
   .. code-block:: shell-session
 
-     $ echo "import this" | python
-     The Zen of Python, by Tim Peters
+     $ echo "import this" | myFRpy
+     The Zen of MyFRpy, by Tim Peters
 
      Beautiful is better than ugly.
      Explicit is better than implicit.
      ...
 
-* Python code passed to the Python interpreter with the :option:`-c` argument:
+* MyFRpy code passed to the MyFRpy interpreter with the :option:`-c` argument:
 
   .. code-block:: shell-session
 
-     $ python -c "import this"
-     The Zen of Python, by Tim Peters
+     $ myFRpy -c "import this"
+     The Zen of MyFRpy, by Tim Peters
 
      Beautiful is better than ugly.
      Explicit is better than implicit.
@@ -178,7 +178,7 @@ that your function will return some value acceptable as an input to
 returned if your function does not have a return statement).
 
 By proactively following this convention ourselves, our module will have the
-same behavior when run directly (i.e. ``python echo.py``) as it will have if
+same behavior when run directly (i.e. ``myFRpy echo.py``) as it will have if
 we later package it as a console script entry-point in a pip-installable
 package.
 
@@ -190,15 +190,15 @@ earlier exemplifies using the ``sys.exit(main())`` convention.
 
 .. seealso::
 
-   `Python Packaging User Guide <https://packaging.python.org/>`_
+   `MyFRpy Packaging User Guide <https://packaging.myFRpy.org/>`_
    contains a collection of tutorials and references on how to distribute and
-   install Python packages with modern tools.
+   install MyFRpy packages with modern tools.
 
 
-``__main__.py`` in Python Packages
+``__main__.py`` in MyFRpy Packages
 ----------------------------------
 
-If you are not familiar with Python packages, see section :ref:`tut-packages`
+If you are not familiar with MyFRpy packages, see section :ref:`tut-packages`
 of the tutorial.  Most commonly, the ``__main__.py`` file is used to provide
 a command-line interface for a package. Consider the following hypothetical
 package, "bandclass":
@@ -215,7 +215,7 @@ directly from the command line using the :option:`-m` flag. For example:
 
 .. code-block:: shell-session
 
-   $ python -m bandclass
+   $ myFRpy -m bandclass
 
 This command will cause ``__main__.py`` to run. How you utilize this mechanism
 will depend on the nature of the package you are writing, but in this
@@ -259,13 +259,13 @@ one mentioned below are preferred.
 
    See :mod:`venv` for an example of a package with a minimal ``__main__.py``
    in the standard library. It doesn't contain a ``if __name__ == '__main__'``
-   block. You can invoke it with ``python -m venv [directory]``.
+   block. You can invoke it with ``myFRpy -m venv [directory]``.
 
    See :mod:`runpy` for more details on the :option:`-m` flag to the
    interpreter executable.
 
    See :mod:`zipapp` for how to run applications packaged as *.zip* files. In
-   this case Python looks for a ``__main__.py`` file in the root directory of
+   this case MyFRpy looks for a ``__main__.py`` file in the root directory of
    the archive.
 
 
@@ -273,7 +273,7 @@ one mentioned below are preferred.
 ``import __main__``
 -------------------
 
-Regardless of which module a Python program was started with, other modules
+Regardless of which module a MyFRpy program was started with, other modules
 running within that same program can import the top-level environment's scope
 (:term:`namespace`) by importing the ``__main__`` module.  This doesn't import
 a ``__main__.py`` file but rather whichever module that received the special
@@ -320,7 +320,7 @@ Now, if we started our program, the result would look like this:
 
 .. code-block:: shell-session
 
-   $ python start.py
+   $ myFRpy start.py
    Define the variable `my_name`!
 
 The exit code of the program would be 1, indicating an error. Uncommenting the
@@ -329,23 +329,23 @@ status code 0, indicating success:
 
 .. code-block:: shell-session
 
-   $ python start.py
+   $ myFRpy start.py
    Dinsdale found in file /path/to/start.py
 
 Note that importing ``__main__`` doesn't cause any issues with unintentionally
 running top-level code meant for script use which is put in the
 ``if __name__ == "__main__"`` block of the ``start`` module. Why does this work?
 
-Python inserts an empty ``__main__`` module in :data:`sys.modules` at
+MyFRpy inserts an empty ``__main__`` module in :data:`sys.modules` at
 interpreter startup, and populates it by running top-level code. In our example
 this is the ``start`` module which runs line by line and imports ``namely``.
 In turn, ``namely`` imports ``__main__`` (which is really ``start``). That's an
 import cycle! Fortunately, since the partially populated ``__main__``
-module is present in :data:`sys.modules`, Python passes that to ``namely``.
+module is present in :data:`sys.modules`, MyFRpy passes that to ``namely``.
 See :ref:`Special considerations for __main__ <import-dunder-main>` in the
 import system's reference for details on how this works.
 
-The Python REPL is another example of a "top-level environment", so anything
+The MyFRpy REPL is another example of a "top-level environment", so anything
 defined in the REPL becomes part of the ``__main__`` scope::
 
     >>> import namely

@@ -1,13 +1,13 @@
 /* Implementation helper: a struct that looks like a tuple.
    See timemodule and posixmodule for example uses.
 
-   The structseq helper is considered an internal CPython implementation
+   The structseq helper is considered an internal CMyFRpy implementation
    detail.  Docs for modules using structseqs should call them
    "named tuples" (be sure to include a space between the two
    words and add a link back to the term in Docs/glossary.rst).
 */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_tuple.h"         // _PyTuple_FromArray()
 #include "pycore_object.h"        // _PyObject_GC_TRACK()
 #include "structmember.h"         // PyMemberDef
@@ -65,7 +65,7 @@ PyStructSequence_New(PyTypeObject *type)
     if (obj == NULL)
         return NULL;
     /* Hack the size of the variable object, so invisible fields don't appear
-     to Python code. */
+     to MyFRpy code. */
     Py_SET_SIZE(obj, vsize);
     for (i = 0; i < size; i++)
         obj->ob_item[i] = NULL;

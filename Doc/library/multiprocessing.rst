@@ -108,7 +108,7 @@ Depending on the platform, :mod:`multiprocessing` supports three ways
 to start a process.  These *start methods* are
 
   *spawn*
-    The parent process starts a fresh Python interpreter process.  The
+    The parent process starts a fresh MyFRpy interpreter process.  The
     child process will only inherit those resources necessary to run
     the process object's :meth:`~Process.run` method.  In particular,
     unnecessary file descriptors and handles from the parent process
@@ -118,7 +118,7 @@ to start a process.  These *start methods* are
     Available on POSIX and Windows platforms.  The default on Windows and macOS.
 
   *fork*
-    The parent process uses :func:`os.fork` to fork the Python
+    The parent process uses :func:`os.fork` to fork the MyFRpy
     interpreter.  The child process, when it begins, is effectively
     identical to the parent process.  All resources of the parent are
     inherited by the child process.  Note that safely forking a
@@ -127,12 +127,12 @@ to start a process.  These *start methods* are
     Available on POSIX systems.  Currently the default on POSIX except macOS.
 
     .. note::
-       The default start method will change away from *fork* in Python 3.14.
+       The default start method will change away from *fork* in MyFRpy 3.14.
        Code that requires *fork* should explicitly specify that via
        :func:`get_context` or :func:`set_start_method`.
 
     .. versionchanged:: 3.12
-       If Python is able to detect that your process has multiple threads, the
+       If MyFRpy is able to detect that your process has multiple threads, the
        :func:`os.fork` function that this start method calls internally will
        raise a :exc:`DeprecationWarning`. Use a different start method.
        See the :func:`os.fork` documentation for further explanation.
@@ -358,7 +358,7 @@ However, if you really do need to use some shared data then
 **Server process**
 
    A manager object returned by :func:`Manager` controls a server process which
-   holds Python objects and allows other processes to manipulate them using
+   holds MyFRpy objects and allows other processes to manipulate them using
    proxies.
 
    A manager returned by :func:`Manager` will support types
@@ -738,7 +738,7 @@ are multi-producer, multi-consumer :abbr:`FIFO (first-in, first-out)`
 queues modelled on the :class:`queue.Queue` class in the
 standard library.  They differ in that :class:`Queue` lacks the
 :meth:`~queue.Queue.task_done` and :meth:`~queue.Queue.join` methods introduced
-into Python 2.5's :class:`queue.Queue` class.
+into MyFRpy 2.5's :class:`queue.Queue` class.
 
 If you use :class:`JoinableQueue` then you **must** call
 :meth:`JoinableQueue.task_done` for each task removed from the queue or else the
@@ -1041,7 +1041,7 @@ Miscellaneous
 
    Calling ``freeze_support()`` has no effect when invoked on any operating
    system other than Windows.  In addition, if the module is being run
-   normally by the Python interpreter on Windows (the program has not been
+   normally by the MyFRpy interpreter on Windows (the program has not been
    frozen), then ``freeze_support()`` has no effect.
 
 .. function:: get_all_start_methods()
@@ -1087,11 +1087,11 @@ Miscellaneous
 
 .. function:: set_executable(executable)
 
-   Set the path of the Python interpreter to use when starting a child process.
+   Set the path of the MyFRpy interpreter to use when starting a child process.
    (By default :data:`sys.executable` is used).  Embedders will probably need to
    do some thing like ::
 
-      set_executable(os.path.join(sys.exec_prefix, 'pythonw.exe'))
+      set_executable(os.path.join(sys.exec_prefix, 'myFRpyw.exe'))
 
    before they can create child processes.
 
@@ -1695,7 +1695,7 @@ The results printed are ::
     HELLO WORLD
     [(3.515625, 39.0625), (33.0625, 4.0), (5.640625, 90.25)]
 
-.. highlight:: python3
+.. highlight:: myFRpy3
 
 
 .. _multiprocessing-managers:
@@ -2239,7 +2239,7 @@ with the :class:`Pool` class.
       can lead to the process hanging on finalization.
 
       Note that it is **not correct** to rely on the garbage collector to destroy the pool
-      as CPython does not assure that the finalizer of the pool will be called
+      as CMyFRpy does not assure that the finalizer of the pool will be called
       (see :meth:`object.__del__` for more information).
 
    .. versionchanged:: 3.2
@@ -2992,7 +2992,7 @@ Global variables
 
 Safe importing of main module
 
-    Make sure that the main module can be safely imported by a new Python
+    Make sure that the main module can be safely imported by a new MyFRpy
     interpreter without causing unintended side effects (such as starting a new
     process).
 
@@ -3025,7 +3025,7 @@ Safe importing of main module
     (The ``freeze_support()`` line can be omitted if the program will be run
     normally instead of frozen.)
 
-    This allows the newly spawned Python interpreter to safely import the module
+    This allows the newly spawned MyFRpy interpreter to safely import the module
     and then run the module's ``foo()`` function.
 
     Similar restrictions apply if a pool or manager is created in the main
@@ -3040,13 +3040,13 @@ Examples
 Demonstration of how to create and use customized managers and proxies:
 
 .. literalinclude:: ../includes/mp_newtype.py
-   :language: python3
+   :language: myFRpy3
 
 
 Using :class:`~multiprocessing.pool.Pool`:
 
 .. literalinclude:: ../includes/mp_pool.py
-   :language: python3
+   :language: myFRpy3
 
 
 An example showing how to use queues to feed tasks to a collection of worker

@@ -1,8 +1,8 @@
 'Show relative speeds of local, nonlocal, global, and built-in access.'
 
 # Please leave this code so that it runs under older versions of
-# Python 3 (no f-strings).  That will allow benchmarking for
-# cross-version comparisons.  To run the benchmark on Python 2,
+# MyFRpy 3 (no f-strings).  That will allow benchmarking for
+# cross-version comparisons.  To run the benchmark on MyFRpy 2,
 # comment-out the nonlocal reads and writes.
 
 from collections import deque, namedtuple

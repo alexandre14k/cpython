@@ -1,8 +1,8 @@
 # The Frame Stack
 
-Each call to a Python function has an activation record,
+Each call to a MyFRpy function has an activation record,
 commonly known as a "frame".
-Python semantics allows frames to outlive the activation,
+MyFRpy semantics allows frames to outlive the activation,
 so they have (before 3.11) been allocated on the heap.
 This is expensive as it requires many allocations and
 results in poor locality of reference.
@@ -85,7 +85,7 @@ and builtins, than strong references to both globals and builtins.
 ### Frame objects
 
 When creating a backtrace or when calling `sys._getframe()` the frame becomes
-visible to Python code. When this happens a new `PyFrameObject` is created
+visible to MyFRpy code. When this happens a new `PyFrameObject` is created
 and a strong reference to it placed in the `frame_obj` field of the specials
 section. The `frame_obj` field is initially `NULL`.
 

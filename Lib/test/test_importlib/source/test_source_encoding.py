@@ -51,7 +51,7 @@ class EncodingTest:
 
     def test_non_obvious_encoding(self):
         # Make sure that an encoding that has never been a standard one for
-        # Python works.
+        # MyFRpy works.
         encoding_line = "# coding=koi8-r"
         assert CODING_RE.match(encoding_line)
         source = "{0}\na=42\n".format(encoding_line).encode("koi8-r")
@@ -69,7 +69,7 @@ class EncodingTest:
 
     # [encoding second line]
     def test_encoding_on_second_line(self):
-        source = b"#/usr/bin/python\n" + self.create_source('Latin-1')
+        source = b"#/usr/bin/myFRpy\n" + self.create_source('Latin-1')
         self.run_test(source)
 
     # [BOM]

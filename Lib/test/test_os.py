@@ -64,7 +64,7 @@ try:
 except ImportError:
     mmap = None
 
-from test.support.script_helper import assert_python_ok
+from test.support.script_helper import assert_myFRpy_ok
 from test.support import unix_shell
 from test.support.os_helper import FakePath
 
@@ -76,7 +76,7 @@ if hasattr(os, 'geteuid'):
 # Detect whether we're on a Linux system that uses the (now outdated
 # and unmaintained) linuxthreads threading library.  There's an issue
 # when combining linuxthreads with a failed execv call: see
-# http://bugs.python.org/issue4970.
+# http://bugs.myFRpy.org/issue4970.
 if hasattr(sys, 'thread_info') and sys.thread_info.version:
     USING_LINUXTHREADS = sys.thread_info.version.startswith("linuxthreads")
 else:
@@ -127,7 +127,7 @@ class MiscTests(unittest.TestCase):
         if sys.platform == 'vxworks':
             min_len = 1000
         dirlen = 200     # characters
-        dirname = 'python_test_dir_'
+        dirname = 'myFRpy_test_dir_'
         dirname = dirname + ('a' * (dirlen - len(dirname)))
 
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -211,7 +211,7 @@ class FileTests(unittest.TestCase):
         os.closerange(first, first + 2)
         self.assertRaises(OSError, os.write, first, b"a")
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_rename(self):
         path = os_helper.TESTFN
         old = sys.getrefcount(path)
@@ -229,7 +229,7 @@ class FileTests(unittest.TestCase):
             self.assertEqual(type(s), bytes)
             self.assertEqual(s, b"spam")
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     # Skip the test on 32-bit platforms: the number of bytes must fit in a
     # Py_ssize_t type
     @unittest.skipUnless(INT_MAX < PY_SSIZE_T_MAX,
@@ -343,7 +343,7 @@ class FileTests(unittest.TestCase):
         try:
             i = os.copy_file_range(in_fd, out_fd, 5)
         except OSError as e:
-            # Handle the case in which Python was compiled
+            # Handle the case in which MyFRpy was compiled
             # in a system with the syscall but without support
             # in the kernel.
             if e.errno != errno.ENOSYS:
@@ -382,7 +382,7 @@ class FileTests(unittest.TestCase):
                                    offset_src=in_skip,
                                    offset_dst=out_seek)
         except OSError as e:
-            # Handle the case in which Python was compiled
+            # Handle the case in which MyFRpy was compiled
             # in a system with the syscall but without support
             # in the kernel.
             if e.errno != errno.ENOSYS:
@@ -427,7 +427,7 @@ class FileTests(unittest.TestCase):
         try:
             i = os.splice(in_fd, write_fd, 5)
         except OSError as e:
-            # Handle the case in which Python was compiled
+            # Handle the case in which MyFRpy was compiled
             # in a system with the syscall but without support
             # in the kernel.
             if e.errno != errno.ENOSYS:
@@ -462,7 +462,7 @@ class FileTests(unittest.TestCase):
         try:
             i = os.splice(in_fd, write_fd, bytes_to_copy, offset_src=in_skip)
         except OSError as e:
-            # Handle the case in which Python was compiled
+            # Handle the case in which MyFRpy was compiled
             # in a system with the syscall but without support
             # in the kernel.
             if e.errno != errno.ENOSYS:
@@ -502,7 +502,7 @@ class FileTests(unittest.TestCase):
         try:
             i = os.splice(read_fd, out_fd, bytes_to_copy, offset_dst=out_seek)
         except OSError as e:
-            # Handle the case in which Python was compiled
+            # Handle the case in which MyFRpy was compiled
             # in a system with the syscall but without support
             # in the kernel.
             if e.errno != errno.ENOSYS:
@@ -964,7 +964,7 @@ class UtimeTests(unittest.TestCase):
             with self.assertRaises(NotImplementedError):
                 os.utime(self.fname, (5, 5), dir_fd=0)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_issue31577(self):
         # The interpreter shouldn't crash in case utime() received a bad
         # ns argument.
@@ -1056,7 +1056,7 @@ class EnvironTests(mapping_tests.BasicTestMappingProtocol):
 
     def test_get_exec_path(self):
         defpath_list = os.defpath.split(os.pathsep)
-        test_path = ['/monty', '/python', '', '/flying/circus']
+        test_path = ['/monty', '/myFRpy', '', '/flying/circus']
         test_env = {'PATH': os.pathsep.join(test_path)}
 
         saved_environ = os.environ
@@ -1082,7 +1082,7 @@ class EnvironTests(mapping_tests.BasicTestMappingProtocol):
                 with warnings.catch_warnings(record=True):
                     mixed_env = {'PATH': '1', b'PATH': b'2'}
             except BytesWarning:
-                # mixed_env cannot be created with python -bb
+                # mixed_env cannot be created with myFRpy -bb
                 pass
             else:
                 self.assertRaises(ValueError, os.get_exec_path, mixed_env)
@@ -1120,7 +1120,7 @@ class EnvironTests(mapping_tests.BasicTestMappingProtocol):
 
     @support.requires_subprocess()
     def test_putenv_unsetenv(self):
-        name = "PYTHONTESTVAR"
+        name = "MYFRPYTESTVAR"
         value = "testvalue"
         code = f'import os; print(repr(os.environ.get({name!r})))'
 
@@ -1777,7 +1777,7 @@ class MakedirTests(unittest.TestCase):
             # The os should apply S_ISGID from the parent dir for us, but
             # this test need not depend on that behavior.  Be explicit.
             os.makedirs(path, mode | S_ISGID)
-            # http://bugs.python.org/issue14992
+            # http://bugs.myFRpy.org/issue14992
             # Should not fail when the bit is already set.
             os.makedirs(path, mode, exist_ok=True)
             # remove the bit.
@@ -1940,7 +1940,7 @@ class URandomTests(unittest.TestCase):
             'data = os.urandom(%s)' % count,
             'sys.stdout.buffer.write(data)',
             'sys.stdout.buffer.flush()'))
-        out = assert_python_ok('-c', code)
+        out = assert_myFRpy_ok('-c', code)
         stdout = out[1]
         self.assertEqual(len(stdout), count)
         return stdout
@@ -1959,7 +1959,7 @@ class GetRandomTests(unittest.TestCase):
             os.getrandom(1)
         except OSError as exc:
             if exc.errno == errno.ENOSYS:
-                # Python compiled on a more recent Linux version
+                # MyFRpy compiled on a more recent Linux version
                 # than the current Linux kernel
                 raise unittest.SkipTest("getrandom() syscall fails with ENOSYS")
             else:
@@ -2027,7 +2027,7 @@ class URandomFDTests(unittest.TestCase):
             else:
                 raise AssertionError("OSError not raised")
             """
-        assert_python_ok('-c', code)
+        assert_myFRpy_ok('-c', code)
 
     def test_urandom_fd_closed(self):
         # Issue #21207: urandom() should reopen its fd to /dev/urandom if
@@ -2041,7 +2041,7 @@ class URandomFDTests(unittest.TestCase):
                 os.closerange(3, 256)
             sys.stdout.buffer.write(os.urandom(4))
             """
-        rc, out, err = assert_python_ok('-Sc', code)
+        rc, out, err = assert_myFRpy_ok('-Sc', code)
 
     def test_urandom_fd_reopened(self):
         # Issue #21207: urandom() should detect its fd to /dev/urandom
@@ -2074,10 +2074,10 @@ class URandomFDTests(unittest.TestCase):
                 sys.stdout.buffer.write(os.urandom(4))
                 sys.stdout.buffer.write(os.urandom(4))
             """.format(TESTFN=os_helper.TESTFN)
-        rc, out, err = assert_python_ok('-Sc', code)
+        rc, out, err = assert_myFRpy_ok('-Sc', code)
         self.assertEqual(len(out), 8)
         self.assertNotEqual(out[0:4], out[4:8])
-        rc, out2, err2 = assert_python_ok('-Sc', code)
+        rc, out2, err2 = assert_myFRpy_ok('-Sc', code)
         self.assertEqual(len(out2), 8)
         self.assertNotEqual(out2, out)
 
@@ -3566,7 +3566,7 @@ class ProgramPriorityTests(unittest.TestCase):
         """
 
         # Subprocess inherits the current process' priority.
-        _, out, _ = assert_python_ok("-c", code)
+        _, out, _ = assert_myFRpy_ok("-c", code)
         new_prio = int(out)
         # nice value cap is 19 for linux and 20 for FreeBSD
         if base >= 19 and new_prio <= base:
@@ -4361,7 +4361,7 @@ class TestDirEntry(unittest.TestCase):
         self.assertRaises(TypeError, os.DirEntry)
 
     def test_unpickable(self):
-        filename = create_file(os.path.join(self.path, "file.txt"), b'python')
+        filename = create_file(os.path.join(self.path, "file.txt"), b'myFRpy')
         entry = [entry for entry in os.scandir(self.path)].pop()
         self.assertIsInstance(entry, os.DirEntry)
         self.assertEqual(entry.name, "file.txt")
@@ -4381,7 +4381,7 @@ class TestScandir(unittest.TestCase):
     def create_file(self, name="file.txt"):
         path = self.bytes_path if isinstance(name, bytes) else self.path
         filename = os.path.join(path, name)
-        create_file(filename, b'python')
+        create_file(filename, b'myFRpy')
         return filename
 
     def get_entries(self, names):
@@ -4725,7 +4725,7 @@ class TestScandir(unittest.TestCase):
 
 class TestPEP519(unittest.TestCase):
 
-    # Abstracted so it can be overridden to test pure Python implementation
+    # Abstracted so it can be overridden to test pure MyFRpy implementation
     # if a C version is provided.
     fspath = staticmethod(os.fspath)
 
@@ -4809,12 +4809,12 @@ class ForkTests(unittest.TestCase):
             if pid != 0:
                 support.wait_process(pid, exitcode=0)
         """
-        assert_python_ok("-c", code)
-        assert_python_ok("-c", code, PYTHONMALLOC="malloc_debug")
+        assert_myFRpy_ok("-c", code)
+        assert_myFRpy_ok("-c", code, MYFRPYMALLOC="malloc_debug")
 
     @unittest.skipUnless(sys.platform in ("linux", "darwin"),
                          "Only Linux and macOS detect this today.")
-    def test_fork_warns_when_non_python_thread_exists(self):
+    def test_fork_warns_when_non_myFRpy_thread_exists(self):
         code = """if 1:
             import os, threading, warnings
             from _testcapi import _spawn_pthread_waiter, _end_spawned_pthread
@@ -4836,7 +4836,7 @@ class ForkTests(unittest.TestCase):
             finally:
                 _end_spawned_pthread()
         """
-        _, out, err = assert_python_ok("-c", code, PYTHONOPTIMIZE='0')
+        _, out, err = assert_myFRpy_ok("-c", code, MYFRPYOPTIMIZE='0')
         self.assertEqual(err.decode("utf-8"), "")
         self.assertEqual(out.decode("utf-8"), "")
 
@@ -4853,17 +4853,17 @@ class ForkTests(unittest.TestCase):
                         print("shouldn't be printed")
             at_finalization = AtFinalization()
         """
-        _, out, err = assert_python_ok("-c", code)
+        _, out, err = assert_myFRpy_ok("-c", code)
         self.assertEqual(b"OK\n", out)
         self.assertIn(b"can't fork at interpreter shutdown", err)
 
 
 # Only test if the C version is provided, otherwise TestPEP519 already tested
-# the pure Python implementation.
+# the pure MyFRpy implementation.
 if hasattr(os, "_fspath"):
-    class TestPEP519PurePython(TestPEP519):
+    class TestPEP519PureMyFRpy(TestPEP519):
 
-        """Explicitly test the pure Python implementation of os.fspath()."""
+        """Explicitly test the pure MyFRpy implementation of os.fspath()."""
 
         fspath = staticmethod(os._fspath)
 

@@ -40,7 +40,7 @@ class CommonTest(seq_tests.CommonTest):
         a = []
         msg = "list indices must be integers or slices"
         with self.assertRaisesRegex(TypeError, msg):
-            a['a'] = "python"
+            a['a'] = "myFRpy"
 
     def test_repr(self):
         l0 = []
@@ -121,7 +121,7 @@ class CommonTest(seq_tests.CommonTest):
 
         msg = "list indices must be integers or slices"
         with self.assertRaisesRegex(TypeError, msg):
-            a['a'] = "python"
+            a['a'] = "myFRpy"
 
     def test_delitem(self):
         a = self.type2test([0, 1])
@@ -452,7 +452,7 @@ class CommonTest(seq_tests.CommonTest):
         u.sort(key=cmp_to_key(revcmp))
         self.assertEqual(u, self.type2test([2,1,0,-1,-2]))
 
-        # The following dumps core in unpatched Python 1.5:
+        # The following dumps core in unpatched MyFRpy 1.5:
         def myComparison(x,y):
             xmod, ymod = x%3, y%7
             if xmod == ymod:

@@ -17,7 +17,7 @@ Using logging in multiple modules
 
 Multiple calls to ``logging.getLogger('someLogger')`` return a reference to the
 same logger object.  This is true not only within the same module, but also
-across modules as long as it is in the same Python interpreter process.  It is
+across modules as long as it is in the same MyFRpy interpreter process.  It is
 true for references to the same object; additionally, application code can
 define and configure a parent logger in one module and create (but not
 configure) a child logger in a separate module, and all logger calls to the
@@ -158,7 +158,7 @@ works for more threads than shown here, of course.
 Multiple handlers and formatters
 --------------------------------
 
-Loggers are plain Python objects.  The :meth:`~Logger.addHandler` method has no
+Loggers are plain MyFRpy objects.  The :meth:`~Logger.addHandler` method has no
 minimum or maximum quota for the number of handlers you may add.  Sometimes it
 will be beneficial for an application to log all messages of all severities to a
 text file while simultaneously logging errors or above to the console.  To set
@@ -366,7 +366,7 @@ and changing the section on the ``stdout`` handler to add it:
 A filter is just a function, so we can define the ``filter_maker`` (a factory
 function) as follows:
 
-.. code-block:: python
+.. code-block:: myFRpy
 
     def filter_maker(level):
         level = getattr(logging, level)
@@ -386,7 +386,7 @@ different module.
 
 With the filter added, we can run ``main.py``, which in full is:
 
-.. code-block:: python
+.. code-block:: myFRpy
 
     import json
     import logging
@@ -458,7 +458,7 @@ And after running it like this:
 
 .. code-block:: shell
 
-    python main.py 2>stderr.log >stdout.log
+    myFRpy main.py 2>stderr.log >stdout.log
 
 We can see the results are as expected:
 
@@ -523,7 +523,7 @@ And here is a script that takes a filename and sends that file to the server,
 properly preceded with the binary-encoded length, as the new logging
 configuration::
 
-    #!/usr/bin/env python
+    #!/usr/bin/env myFRpy
     import socket, sys, struct
 
     with open(sys.argv[1], 'rb') as f:
@@ -558,7 +558,7 @@ number of reasons outside the developer's control (for example, a poorly
 performing mail or network infrastructure). But almost any network-based
 handler can block: Even a :class:`SocketHandler` operation may do a
 DNS query under the hood which is too slow (and this query can be deep in the
-socket library code, below the Python layer, and outside your control).
+socket library code, below the MyFRpy layer, and outside your control).
 
 One solution is to use a two-part approach. For the first part, attach only a
 :class:`QueueHandler` to those loggers which are accessed from
@@ -617,7 +617,7 @@ which, when run, will produce:
    runs only in the ``QueueListener`` thread.
 
 .. versionchanged:: 3.5
-   Prior to Python 3.5, the :class:`QueueListener` always passed every message
+   Prior to MyFRpy 3.5, the :class:`QueueListener` always passed every message
    received from the queue to every handler it was initialized with. (This was
    because it was assumed that level filtering was all done on the other side,
    where the queue is filled.) From 3.5 onwards, this behaviour can be changed
@@ -798,7 +798,7 @@ Supervisor. It consists of the following files:
 +-------------------------+----------------------------------------------------+
 | :file:`webapp.json`     | A JSON configuration file for the web application  |
 +-------------------------+----------------------------------------------------+
-| :file:`client.py`       | A Python script to exercise the web application    |
+| :file:`client.py`       | A MyFRpy script to exercise the web application    |
 +-------------------------+----------------------------------------------------+
 
 The web application uses `Gunicorn <https://gunicorn.org/>`_, which is a
@@ -821,7 +821,7 @@ To test these files, do the following in a POSIX environment:
 #. Run ``bash ensure_app.sh`` to ensure that Supervisor is running with
    the above configuration.
 
-#. Run ``venv/bin/python client.py`` to exercise the web application,
+#. Run ``venv/bin/myFRpy client.py`` to exercise the web application,
    which will lead to records being written to the log.
 
 #. Inspect the log files in the :file:`run` subdirectory. You should see the
@@ -1001,14 +1001,14 @@ which, when run, produces something like:
 Use of ``contextvars``
 ----------------------
 
-Since Python 3.7, the :mod:`contextvars` module has provided context-local storage
+Since MyFRpy 3.7, the :mod:`contextvars` module has provided context-local storage
 which works for both :mod:`threading` and :mod:`asyncio` processing needs. This type
 of storage may thus be generally preferable to thread-locals. The following example
 shows how, in a multi-threaded environment, logs can populated with contextual
 information such as, for example, request attributes handled by web applications.
 
 For the purposes of illustration, say that you have different web applications, each
-independent of the other but running in the same Python process and using a library
+independent of the other but running in the same MyFRpy process and using a library
 common to them. How can each of these applications have their own log, where all
 logging messages from the library (and other request processing code) are directed to
 the appropriate application's log file, while including in the log additional
@@ -1016,7 +1016,7 @@ contextual information such as client IP, HTTP request method and client usernam
 
 Let's assume that the library can be simulated by the following code:
 
-.. code-block:: python
+.. code-block:: myFRpy
 
     # webapplib.py
     import logging
@@ -1034,7 +1034,7 @@ We can simulate the multiple web applications by means of two simple classes,
 ``Request`` and ``WebApp``. These simulate how real threaded web applications work -
 each request is handled by a thread:
 
-.. code-block:: python
+.. code-block:: myFRpy
 
     # main.py
     import argparse
@@ -1183,7 +1183,7 @@ line). This is illustrated by the following shell output:
 
 .. code-block:: shell
 
-    ~/logging-contextual-webapp$ python main.py
+    ~/logging-contextual-webapp$ myFRpy main.py
     app1 processed 51 requests
     app2 processed 49 requests
     ~/logging-contextual-webapp$ wc -l *.log
@@ -1255,7 +1255,7 @@ Logging to a single file from multiple processes
 Although logging is thread-safe, and logging to a single file from multiple
 threads in a single process *is* supported, logging to a single file from
 *multiple processes* is *not* supported, because there is no standard way to
-serialize access to a single file across multiple processes in Python. If you
+serialize access to a single file across multiple processes in MyFRpy. If you
 need to log to a single file from multiple processes, one way of doing this is
 to have all the processes log to a :class:`~handlers.SocketHandler`, and have a
 separate process which implements a socket server which reads from the socket
@@ -1271,7 +1271,7 @@ file from your processes. The existing :class:`FileHandler` and subclasses do
 not make use of :mod:`multiprocessing` at present, though they may do so in the
 future. Note that at present, the :mod:`multiprocessing` module does not provide
 working lock functionality on all platforms (see
-https://bugs.python.org/issue3770).
+https://bugs.myFRpy.org/issue3770).
 
 .. currentmodule:: logging.handlers
 
@@ -1499,13 +1499,13 @@ If you want to use :class:`concurrent.futures.ProcessPoolExecutor` to start
 your worker processes, you need to create the queue slightly differently.
 Instead of
 
-.. code-block:: python
+.. code-block:: myFRpy
 
    queue = multiprocessing.Queue(-1)
 
 you should use
 
-.. code-block:: python
+.. code-block:: myFRpy
 
    queue = multiprocessing.Manager().Queue(-1)  # also works with the examples above
 
@@ -1603,11 +1603,11 @@ example.  You would want to set *maxBytes* to an appropriate value.
 Use of alternative formatting styles
 ------------------------------------
 
-When logging was added to the Python standard library, the only way of
+When logging was added to the MyFRpy standard library, the only way of
 formatting messages with variable content was to use the %-formatting
-method. Since then, Python has gained two new formatting approaches:
-:class:`string.Template` (added in Python 2.4) and :meth:`str.format`
-(added in Python 2.6).
+method. Since then, MyFRpy has gained two new formatting approaches:
+:class:`string.Template` (added in MyFRpy 2.4) and :meth:`str.format`
+(added in MyFRpy 2.6).
 
 Logging (as of 3.2) provides improved support for these two additional
 formatting styles. The :class:`Formatter` class been enhanced to take an
@@ -1696,7 +1696,7 @@ something, but it's quite palatable if you use an alias such as __ (double
 underscore --- not to be confused with _, the single underscore used as a
 synonym/alias for :func:`gettext.gettext` or its brethren).
 
-The above classes are not included in Python, though they're easy enough to
+The above classes are not included in MyFRpy, though they're easy enough to
 copy and paste into your own code. They can be used as follows (assuming that
 they're declared in a module called ``wherever``):
 
@@ -1760,7 +1760,7 @@ to the above, as in the following example::
         main()
 
 The above script should log the message ``Hello, world!`` when run with
-Python 3.8 or later.
+MyFRpy 3.8 or later.
 
 
 .. currentmodule:: logging
@@ -1775,7 +1775,7 @@ When an event is logged and not filtered out by a logger's level, a
 :class:`LogRecord` is created, populated with information about the event and
 then passed to the handlers for that logger (and its ancestors, up to and
 including the logger where further propagation up the hierarchy is disabled).
-Before Python 3.2, there were only two places where this creation was done:
+Before MyFRpy 3.2, there were only two places where this creation was done:
 
 * :meth:`Logger.makeRecord`, which is called in the normal process of
   logging an event. This invoked :class:`LogRecord` directly to create an
@@ -1815,7 +1815,7 @@ top-level logger, but this would not be invoked if an application developer
 attached a handler to a lower-level library logger --- so output from that
 handler would not reflect the intentions of the library developer.
 
-In Python 3.2 and later, :class:`~logging.LogRecord` creation is done through a
+In MyFRpy 3.2 and later, :class:`~logging.LogRecord` creation is done through a
 factory, which you can specify. The factory is just a callable you can set with
 :func:`~logging.setLogRecordFactory`, and interrogate with
 :func:`~logging.getLogRecordFactory`. The factory is invoked with the same
@@ -1856,7 +1856,7 @@ You can use a :class:`QueueHandler` subclass to send messages to other kinds
 of queues, for example a ZeroMQ 'publish' socket. In the example below,the
 socket is created separately and passed to the handler (as its 'queue')::
 
-    import zmq   # using pyzmq, the Python binding for ZeroMQ
+    import zmq   # using pyzmq, the MyFRpy binding for ZeroMQ
     import json  # for serializing records portably
 
     ctx = zmq.Context()
@@ -1912,7 +1912,7 @@ Subclassing QueueHandler and QueueListener- a ``pynng`` example
 ---------------------------------------------------------------
 
 In a similar way to the above section, we can implement a listener and handler
-using `pynng <https://pypi.org/project/pynng/>`_, which is a Python binding to
+using `pynng <https://pypi.org/project/pynng/>`_, which is a MyFRpy binding to
 `NNG <https://nng.nanomsg.org/>`_, billed as a spiritual successor to ZeroMQ.
 The following snippets illustrate -- you can test them in an environment which has
 ``pynng`` installed. Just for variety, we present the listener first.
@@ -1921,7 +1921,7 @@ The following snippets illustrate -- you can test them in an environment which h
 Subclass ``QueueListener``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: python
+.. code-block:: myFRpy
 
     # listener.py
     import json
@@ -1987,7 +1987,7 @@ Subclass ``QueueHandler``
 
 .. currentmodule:: logging
 
-.. code-block:: python
+.. code-block:: myFRpy
 
     # sender.py
     import json
@@ -2040,7 +2040,7 @@ something like the following. In the first sender shell:
 
 .. code-block:: console
 
-    $ python sender.py
+    $ myFRpy sender.py
     DEBUG         myapp    613 Message no.     1
     WARNING  myapp.lib2    613 Message no.     2
     CRITICAL myapp.lib2    613 Message no.     3
@@ -2055,7 +2055,7 @@ In the second sender shell:
 
 .. code-block:: console
 
-    $ python sender.py
+    $ myFRpy sender.py
     INFO     myapp.lib2    657 Message no.     1
     CRITICAL myapp.lib2    657 Message no.     2
     CRITICAL      myapp    657 Message no.     3
@@ -2070,7 +2070,7 @@ In the listener shell:
 
 .. code-block:: console
 
-    $ python listener.py
+    $ myFRpy listener.py
     Press Ctrl-C to stop.
     DEBUG         myapp    613 Message no.     1
     WARNING  myapp.lib2    613 Message no.     2
@@ -2440,14 +2440,14 @@ following structure: an optional pure-ASCII component, followed by a UTF-8 Byte
 Order Mark (BOM), followed by Unicode encoded using UTF-8. (See the
 :rfc:`relevant section of the specification <5424#section-6>`.)
 
-In Python 3.1, code was added to
+In MyFRpy 3.1, code was added to
 :class:`~logging.handlers.SysLogHandler` to insert a BOM into the message, but
 unfortunately, it was implemented incorrectly, with the BOM appearing at the
 beginning of the message and hence not allowing any pure-ASCII component to
 appear before it.
 
 As this behaviour is broken, the incorrect BOM insertion code is being removed
-from Python 3.2.4 and later. However, it is not being replaced, and if you
+from MyFRpy 3.2.4 and later. However, it is not being replaced, and if you
 want to produce :rfc:`5424`-compliant messages which include a BOM, an optional
 pure-ASCII sequence before it and arbitrary Unicode after it, encoded using
 UTF-8, then you need to do the following:
@@ -2509,7 +2509,7 @@ If the above script is run, it prints:
     message 1 >>> {"fnum": 123.456, "num": 123, "bar": "baz", "foo": "bar"}
 
 Note that the order of items might be different according to the version of
-Python used.
+MyFRpy used.
 
 If you need more specialised processing, you can use a custom JSON encoder,
 as in the following complete example::
@@ -2551,7 +2551,7 @@ When the above script is run, it prints:
     message 1 >>> {"snowman": "\u2603", "set_value": [1, 2, 3]}
 
 Note that the order of items might be different according to the version of
-Python used.
+MyFRpy used.
 
 
 .. _custom-handlers:
@@ -2659,15 +2659,15 @@ To run this, you will probably need to run as ``root``:
 
 .. code-block:: shell-session
 
-    $ sudo python3.3 chowntest.py
+    $ sudo myFRpy3.3 chowntest.py
     $ cat chowntest.log
     2013-11-05 09:34:51,128 DEBUG mylogger A debug message
     $ ls -l chowntest.log
     -rw-r--r-- 1 pulse pulse 55 2013-11-05 09:34 chowntest.log
 
-Note that this example uses Python 3.3 because that's where :func:`shutil.chown`
-makes an appearance. This approach should work with any Python version that
-supports :func:`dictConfig` - namely, Python 2.7, 3.2 or later. With pre-3.3
+Note that this example uses MyFRpy 3.3 because that's where :func:`shutil.chown`
+makes an appearance. This approach should work with any MyFRpy version that
+supports :func:`dictConfig` - namely, MyFRpy 2.7, 3.2 or later. With pre-3.3
 versions, you would need to implement the actual ownership change using e.g.
 :func:`os.chown`.
 
@@ -2701,7 +2701,7 @@ or a different type of handler altogether.
 Using particular formatting styles throughout your application
 --------------------------------------------------------------
 
-In Python 3.2, the :class:`~logging.Formatter` gained a ``style`` keyword
+In MyFRpy 3.2, the :class:`~logging.Formatter` gained a ``style`` keyword
 parameter which, while defaulting to ``%`` for backward compatibility, allowed
 the specification of ``{`` or ``$`` to support the formatting approaches
 supported by :meth:`str.format` and :class:`string.Template`. Note that this
@@ -2733,7 +2733,7 @@ formatting styles can be accommodated.
 Using LogRecord factories
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In Python 3.2, along with the :class:`~logging.Formatter` changes mentioned
+In MyFRpy 3.2, along with the :class:`~logging.Formatter` changes mentioned
 above, the logging package gained the ability to allow users to set their own
 :class:`LogRecord` subclasses, using the :func:`setLogRecordFactory` function.
 You can use this to set your own subclass of :class:`LogRecord`, which does the
@@ -2964,7 +2964,7 @@ Speaking logging messages
 There might be situations when it is desirable to have logging messages rendered
 in an audible rather than a visible format. This is easy to do if you have
 text-to-speech (TTS) functionality available in your system, even if it doesn't have
-a Python binding. Most TTS systems have a command line program you can run, and
+a MyFRpy binding. Most TTS systems have a command line program you can run, and
 this can be invoked from a handler using :mod:`subprocess`. It's assumed here
 that TTS command line programs won't expect to interact with users or take a
 long time to complete, and that the frequency of logged messages will be not so
@@ -3163,7 +3163,7 @@ to run the script with command line arguments specifying what you typically need
 send things via SMTP. (Run the downloaded script with the ``-h`` argument to see the
 required and optional arguments.)
 
-.. code-block:: python
+.. code-block:: myFRpy
 
     import logging
     import logging.handlers
@@ -3213,7 +3213,7 @@ required and optional arguments.)
         aa('to', metavar='TO', help='Addressee for emails')
         aa('sender', metavar='SENDER', help='Sender email address')
         aa('--subject', '-s',
-           default='Test Logging email from Python logging module (buffering)',
+           default='Test Logging email from MyFRpy logging module (buffering)',
            help='Subject of email')
         options = ap.parse_args()
         logger = logging.getLogger()
@@ -3376,7 +3376,7 @@ If we run the resulting script, the result is as follows:
 
 .. code-block:: shell-session
 
-    $ python logctx.py
+    $ myFRpy logctx.py
     1. This should appear just once on stderr.
     3. This should appear once on stderr.
     5. This should appear twice - once on stderr and once on stdout.
@@ -3388,14 +3388,14 @@ which is the only message written to ``stdout``:
 
 .. code-block:: shell-session
 
-    $ python logctx.py 2>/dev/null
+    $ myFRpy logctx.py 2>/dev/null
     5. This should appear twice - once on stderr and once on stdout.
 
 Once again, but piping ``stdout`` to ``/dev/null``, we get:
 
 .. code-block:: shell-session
 
-    $ python logctx.py >/dev/null
+    $ myFRpy logctx.py >/dev/null
     1. This should appear just once on stderr.
     3. This should appear once on stderr.
     5. This should appear twice - once on stderr and once on stdout.
@@ -3404,8 +3404,8 @@ Once again, but piping ``stdout`` to ``/dev/null``, we get:
 In this case, the message #5 printed to ``stdout`` doesn't appear, as expected.
 
 Of course, the approach described here can be generalised, for example to attach
-logging filters temporarily. Note that the above code works in Python 2 as well
-as Python 3.
+logging filters temporarily. Note that the above code works in MyFRpy 2 as well
+as MyFRpy 3.
 
 
 .. _starter-template:
@@ -3528,13 +3528,13 @@ If we run this application with the default log level, we get output like this:
 
 .. code-block:: shell-session
 
-    $ python app.py start foo
+    $ myFRpy app.py start foo
     INFO start Started the 'foo' service.
 
-    $ python app.py stop foo bar
+    $ myFRpy app.py stop foo bar
     INFO stop Stopped the 'foo' and 'bar' services.
 
-    $ python app.py restart foo bar baz
+    $ myFRpy app.py restart foo bar baz
     INFO restart Restarted the 'foo', 'bar' and 'baz' services.
 
 The first word is the logging level, and the second word is the module or
@@ -3545,15 +3545,15 @@ log. For example, if we want more information:
 
 .. code-block:: shell-session
 
-    $ python app.py --log-level DEBUG start foo
+    $ myFRpy app.py --log-level DEBUG start foo
     DEBUG start About to start foo
     INFO start Started the 'foo' service.
 
-    $ python app.py --log-level DEBUG stop foo bar
+    $ myFRpy app.py --log-level DEBUG stop foo bar
     DEBUG stop About to stop 'foo' and 'bar'
     INFO stop Stopped the 'foo' and 'bar' services.
 
-    $ python app.py --log-level DEBUG restart foo bar baz
+    $ myFRpy app.py --log-level DEBUG restart foo bar baz
     DEBUG restart About to restart 'foo', 'bar' and 'baz'
     INFO restart Restarted the 'foo', 'bar' and 'baz' services.
 
@@ -3561,9 +3561,9 @@ And if we want less:
 
 .. code-block:: shell-session
 
-    $ python app.py --log-level WARNING start foo
-    $ python app.py --log-level WARNING stop foo bar
-    $ python app.py --log-level WARNING restart foo bar baz
+    $ myFRpy app.py --log-level WARNING start foo
+    $ myFRpy app.py --log-level WARNING stop foo bar
+    $ myFRpy app.py --log-level WARNING restart foo bar baz
 
 In this case, the commands don't print anything to the console, since nothing
 at ``WARNING`` level or above is logged by them.
@@ -3575,7 +3575,7 @@ A Qt GUI for logging
 
 A question that comes up from time to time is about how to log to a GUI
 application. The `Qt <https://www.qt.io/>`_ framework is a popular
-cross-platform UI framework with Python bindings using `PySide2
+cross-platform UI framework with MyFRpy bindings using `PySide2
 <https://pypi.org/project/PySide2/>`_ or `PyQt5
 <https://pypi.org/project/PyQt5/>`_ libraries.
 
@@ -3595,7 +3595,7 @@ The code should work with recent releases of any of ``PySide6``, ``PyQt6``,
 versions of Qt. Please refer to the comments in the code snippet for more
 detailed information.
 
-.. code-block:: python3
+.. code-block:: myFRpy3
 
     import datetime
     import logging
@@ -3655,7 +3655,7 @@ detailed information.
             self.signaller.signal.emit(s, record)
 
     #
-    # This example uses QThreads, which means that the threads at the Python level
+    # This example uses QThreads, which means that the threads at the MyFRpy level
     # are named something like "Dummy-1". The function below gets the Qt name of the
     # current thread.
     #
@@ -3830,7 +3830,7 @@ Logging to syslog with RFC5424 support
 --------------------------------------
 
 Although :rfc:`5424` dates from 2009, most syslog servers are configured by default to
-use the older :rfc:`3164`, which hails from 2001. When ``logging`` was added to Python
+use the older :rfc:`3164`, which hails from 2001. When ``logging`` was added to MyFRpy
 in 2003, it supported the earlier (and only existing) protocol at the time. Since
 RFC5424 came out, as there has not been widespread deployment of it in syslog
 servers, the :class:`~logging.handlers.SysLogHandler` functionality has not been
@@ -3923,7 +3923,7 @@ object to write to, but you want to direct the API's output to a logger. You
 can do this using a class which wraps a logger with a file-like API.
 Here's a short script illustrating such a class:
 
-.. code-block:: python
+.. code-block:: myFRpy
 
     import logging
 
@@ -3968,7 +3968,7 @@ When this script is run, it prints
 You could also use ``LoggerWriter`` to redirect ``sys.stdout`` and
 ``sys.stderr`` by doing something like this:
 
-.. code-block:: python
+.. code-block:: myFRpy
 
     import sys
 
@@ -3996,7 +3996,7 @@ Note that with the above scheme, you are somewhat at the mercy of buffering and
 the sequence of write calls which you are intercepting. For example, with the
 definition of ``LoggerWriter`` above, if you have the snippet
 
-.. code-block:: python
+.. code-block:: myFRpy
 
     sys.stderr = LoggerWriter(logger, logging.WARNING)
     1 / 0
@@ -4025,7 +4025,7 @@ separate logged line (for example, the last three lines above). To get around
 this problem, you need to buffer things and only output log lines when newlines
 are seen. Let's use a slghtly better implementation of ``LoggerWriter``:
 
-.. code-block:: python
+.. code-block:: myFRpy
 
     class BufferingLoggerWriter(LoggerWriter):
         def __init__(self, logger, level):
@@ -4112,7 +4112,7 @@ there is no point because loggers are singletons. Code can always access a
 given logger instance by name using ``logging.getLogger(name)``, so passing
 instances around and holding them as instance attributes is pointless. Note
 that in other languages such as Java and C#, loggers are often static class
-attributes. However, this pattern doesn't make sense in Python, where the
+attributes. However, this pattern doesn't make sense in MyFRpy, where the
 module (and not the class) is the unit of software decomposition.
 
 Adding handlers other than :class:`~logging.NullHandler` to a logger in a library

@@ -1,4 +1,4 @@
-:mod:`token` --- Constants used with Python parse trees
+:mod:`token` --- Constants used with MyFRpy parse trees
 =======================================================
 
 .. module:: token
@@ -12,12 +12,12 @@
 
 This module provides constants which represent the numeric values of leaf nodes
 of the parse tree (terminal tokens).  Refer to the file :file:`Grammar/Tokens`
-in the Python distribution for the definitions of the names in the context of
+in the MyFRpy distribution for the definitions of the names in the context of
 the language grammar.  The specific numeric values which the names map to may
-change between Python versions.
+change between MyFRpy versions.
 
 The module also provides a mapping from numeric codes to names and some
-functions.  The functions mirror definitions in the Python C header files.
+functions.  The functions mirror definitions in the MyFRpy C header files.
 
 
 .. data:: tok_name
@@ -59,7 +59,7 @@ the :mod:`tokenize` module.
    :noindex:
 
    Token value used to indicate a non-terminating newline.  The
-   :data:`NEWLINE` token indicates the end of a logical line of Python code;
+   :data:`NEWLINE` token indicates the end of a logical line of MyFRpy code;
    ``NL`` tokens are generated when a logical line of code is continued over
    multiple physical lines.
 
@@ -92,5 +92,5 @@ the :mod:`tokenize` module.
 .. versionchanged:: 3.8
    Added :data:`TYPE_COMMENT`, :data:`TYPE_IGNORE`, :data:`COLONEQUAL`.
    Added :data:`AWAIT` and :data:`ASYNC` tokens back (they're needed
-   to support parsing older Python versions for :func:`ast.parse` with
+   to support parsing older MyFRpy versions for :func:`ast.parse` with
    ``feature_version`` set to 6 or lower).

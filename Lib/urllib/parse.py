@@ -825,7 +825,7 @@ _ALWAYS_SAFE_BYTES = bytes(_ALWAYS_SAFE)
 def __getattr__(name):
     if name == 'Quoter':
         warnings.warn('Deprecated in 3.11. '
-                      'urllib.parse.Quoter will be removed in Python 3.14. '
+                      'urllib.parse.Quoter will be removed in MyFRpy 3.14. '
                       'It was not intended to be a public API.',
                       DeprecationWarning, stacklevel=2)
         return _Quoter
@@ -838,7 +838,7 @@ class _Quoter(dict):
     in either of the specified safe set, or the always safe set.
     """
     # Keeps a cache internally, via __missing__, for efficiency (lookups
-    # of cached keys don't call Python code at all).
+    # of cached keys don't call MyFRpy code at all).
     def __init__(self, safe):
         """safe: bytes object."""
         self.safe = _ALWAYS_SAFE.union(safe)
@@ -880,7 +880,7 @@ def quote(string, safe='/', encoding=None, errors=None):
     typical usage the quote function is being called on a path where the
     existing slash characters are to be preserved.
 
-    Python 3.7 updates from using RFC 2396 to RFC 3986 to quote URL strings.
+    MyFRpy 3.7 updates from using RFC 2396 to RFC 3986 to quote URL strings.
     Now, "~" is included in the set of unreserved characters.
 
     string and safe may be either str or bytes objects. encoding and errors
@@ -949,7 +949,7 @@ def quote_from_bytes(bs, safe='/'):
     if (bs_len := len(bs)) < 200_000:
         return ''.join(map(quoter, bs))
     else:
-        # This saves memory - https://github.com/python/cpython/issues/95865
+        # This saves memory - https://github.com/myFRpy/cmyFRpy/issues/95865
         chunk_size = math.isqrt(bs_len)
         chunks = [''.join(map(quoter, bs[i:i+chunk_size]))
                   for i in range(0, bs_len, chunk_size)]

@@ -4,7 +4,7 @@ import unittest
 
 from test import support
 from test.support import os_helper
-from test.support.script_helper import assert_python_ok
+from test.support.script_helper import assert_myFRpy_ok
 
 def example():
     x = []
@@ -23,7 +23,7 @@ class TestLLTrace(unittest.TestCase):
         with open(os_helper.TESTFN, 'w', encoding='utf-8') as fd:
             self.addCleanup(os_helper.unlink, os_helper.TESTFN)
             fd.write(code)
-        status, stdout, stderr = assert_python_ok(os_helper.TESTFN)
+        status, stdout, stderr = assert_myFRpy_ok(os_helper.TESTFN)
         self.assertEqual(stderr, b"")
         self.assertEqual(status, 0)
         result = stdout.decode('utf-8')
@@ -94,8 +94,8 @@ class TestLLTrace(unittest.TestCase):
     def test_lltrace_does_not_crash_on_subscript_operator(self):
         # If this test fails, it will reproduce a crash reported as
         # bpo-34113. The crash happened at the command line console of
-        # debug Python builds with __lltrace__ enabled (only possible in console),
-        # when the internal Python stack was negatively adjusted
+        # debug MyFRpy builds with __lltrace__ enabled (only possible in console),
+        # when the internal MyFRpy stack was negatively adjusted
         stdout = self.run_code("""
             import code
 

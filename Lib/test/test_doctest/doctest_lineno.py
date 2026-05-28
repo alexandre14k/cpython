@@ -65,11 +65,11 @@ class MethodWrapper:
         'property_with_doctest'
         """
 
-# https://github.com/python/cpython/issues/99433
+# https://github.com/myFRpy/cmyFRpy/issues/99433
 str_wrapper = object().__str__
 
 
-# https://github.com/python/cpython/issues/115392
+# https://github.com/myFRpy/cmyFRpy/issues/115392
 from test.test_doctest.decorator_mod import decorator
 
 @decorator

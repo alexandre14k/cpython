@@ -5,7 +5,7 @@
  */
 
 #define PY_SSIZE_T_CLEAN
-#include "Python.h"
+#include "MyFRpy.h"
 #include "structmember.h"         // PyMemberDef
 #include "multibytecodec.h"
 #include "clinic/multibytecodec.c.h"

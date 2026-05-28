@@ -1,5 +1,5 @@
-# Copyright (C) 2002-2006 Python Software Foundation
-# Contact: email-sig@python.org
+# Copyright (C) 2002-2006 MyFRpy Software Foundation
+# Contact: email-sig@myFRpy.org
 # email package unit tests for (optional) Asian codecs
 
 import unittest
@@ -9,7 +9,7 @@ from email.charset import Charset
 from email.header import Header, decode_header
 from email.message import Message
 
-# We're compatible with Python 2.3, but it doesn't have the built-in Asian
+# We're compatible with MyFRpy 2.3, but it doesn't have the built-in Asian
 # codecs, so we have to skip all these tests.
 try:
     str(b'foo', 'euc-jp')

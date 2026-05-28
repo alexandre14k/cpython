@@ -1,6 +1,6 @@
 /* Time module */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_fileutils.h"     // _Py_BEGIN_SUPPRESS_IPH
 #include "pycore_moduleobject.h"  // _PyModule_GetState()
 #include "pycore_namespace.h"     // _PyNamespace_New()
@@ -688,11 +688,11 @@ gettmarg(time_module_state *state, PyObject *args,
 static int
 checktm(struct tm* buf)
 {
-    /* Checks added to make sure strftime() and asctime() does not crash Python by
+    /* Checks added to make sure strftime() and asctime() does not crash MyFRpy by
        indexing blindly into some array for a textual representation
        by some bad index (fixes bug #897625 and #6608).
 
-       Also support values of zero from Python code for arguments in which
+       Also support values of zero from MyFRpy code for arguments in which
        that is out of range by forcing that value to the lowest value that
        is valid (fixed bug #1520914).
 
@@ -709,7 +709,7 @@ checktm(struct tm* buf)
        - tm_isdst: [-max(int), max(int)]
 
        (1) gettmarg() handles bounds-checking.
-       (2) Python's acceptable range is one greater than the range in C,
+       (2) MyFRpy's acceptable range is one greater than the range in C,
        thus need to check against automatic decrement by gettmarg().
     */
     if (buf->tm_mon == -1)
@@ -861,7 +861,7 @@ time_strftime(PyObject *module, PyObject *args)
         outbuf = strchr(outbuf+2, '%'))
     {
         if (outbuf[1] == '#')
-            ++outbuf; /* not documented by python, */
+            ++outbuf; /* not documented by myFRpy, */
         if (outbuf[1] == '\0')
             break;
         if ((outbuf[1] == 'y') && buf.tm_year < 0) {
@@ -1374,7 +1374,7 @@ _PyTime_GetProcessTimeWithInfo(_PyTime_t *tp, _Py_clock_info_t *info)
 #endif
 
     /* clock */
-    /* Currently, Python 3 requires clock() to build: see issue #22624 */
+    /* Currently, MyFRpy 3 requires clock() to build: see issue #22624 */
     return _PyTime_GetClockWithInfo(tp, info);
 #endif
 }

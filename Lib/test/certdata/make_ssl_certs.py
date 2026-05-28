@@ -12,7 +12,7 @@ enddate = "20371028142316Z"
 
 req_template = """
     [ default ]
-    base_url               = http://testca.pythontest.net/testca
+    base_url               = http://testca.myFRpytest.net/testca
 
     [req]
     distinguished_name     = req_distinguished_name
@@ -21,7 +21,7 @@ req_template = """
     [req_distinguished_name]
     C                      = XY
     L                      = Castle Anthrax
-    O                      = Python Software Foundation
+    O                      = MyFRpy Software Foundation
     CN                     = {hostname}
 
     [req_x509_extensions_nosan]
@@ -53,7 +53,7 @@ req_template = """
     [dir_sect]
     C                      = XY
     L                      = Castle Anthrax
-    O                      = Python Software Foundation
+    O                      = MyFRpy Software Foundation
     CN                     = dirname example
 
     [princ_name]
@@ -201,7 +201,7 @@ def make_ca():
                     '-newkey', 'rsa:3072',
                     '-keyout', 'pycakey.pem',
                     '-out', f.name,
-                    '-subj', '/C=XY/L=Castle Anthrax/O=Python Software Foundation CA/CN=our-ca-server']
+                    '-subj', '/C=XY/L=Castle Anthrax/O=MyFRpy Software Foundation CA/CN=our-ca-server']
             check_call(['openssl'] + args)
             args = ['ca', '-config', t.name,
                     '-out', 'pycacert.pem', '-batch', '-outdir', TMP_CADIR,
@@ -273,7 +273,7 @@ if __name__ == '__main__':
         # GEN_X400
         'dirName.1 = dir_sect',
         # GEN_EDIPARTY
-        'URI.1 = https://www.python.org/',
+        'URI.1 = https://www.myFRpy.org/',
         'IP.1 = 127.0.0.1',
         'IP.2 = ::1',
         'RID.1 = 1.2.3.4.5',
@@ -286,13 +286,13 @@ if __name__ == '__main__':
 
     extra_san = [
         # könig (king)
-        'DNS.2 = xn--knig-5qa.idn.pythontest.net',
+        'DNS.2 = xn--knig-5qa.idn.myFRpytest.net',
         # königsgäßchen (king's alleyway)
-        'DNS.3 = xn--knigsgsschen-lcb0w.idna2003.pythontest.net',
-        'DNS.4 = xn--knigsgchen-b4a3dun.idna2008.pythontest.net',
+        'DNS.3 = xn--knigsgsschen-lcb0w.idna2003.myFRpytest.net',
+        'DNS.4 = xn--knigsgchen-b4a3dun.idna2008.myFRpytest.net',
         # βόλοσ (marble)
-        'DNS.5 = xn--nxasmq6b.idna2003.pythontest.net',
-        'DNS.6 = xn--nxasmm1c.idna2008.pythontest.net',
+        'DNS.5 = xn--nxasmq6b.idna2003.myFRpytest.net',
+        'DNS.6 = xn--nxasmm1c.idna2008.myFRpytest.net',
     ]
 
     # IDN SANS, signed

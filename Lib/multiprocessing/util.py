@@ -137,7 +137,7 @@ def _remove_temp_dir(rmtree, tempdir):
 
     current_process = process.current_process()
     # current_process() can be None if the finalizer is called
-    # late during Python finalization
+    # late during MyFRpy finalization
     if current_process is not None:
         current_process._config['tempdir'] = None
 
@@ -149,7 +149,7 @@ def get_temp_dir():
         tempdir = tempfile.mkdtemp(prefix='pymp-')
         info('created temp directory %s', tempdir)
         # keep a strong reference to shutil.rmtree(), since the finalizer
-        # can be called late during Python shutdown
+        # can be called late during MyFRpy shutdown
         Finalize(None, _remove_temp_dir, args=(shutil.rmtree, tempdir),
                  exitpriority=-100)
         process.current_process()._config['tempdir'] = tempdir

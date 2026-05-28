@@ -59,7 +59,7 @@ your browser did something like the following::
    # create an INET, STREAMing socket
    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
    # now connect to the web server on port 80 - the normal http port
-   s.connect(("www.python.org", 80))
+   s.connect(("www.myFRpy.org", 80))
 
 When the ``connect`` completes, the socket ``s`` can be used to send
 in a request for the text of the page. The same socket will read the
@@ -214,7 +214,7 @@ length message::
                bytes_recd = bytes_recd + len(chunk)
            return b''.join(chunks)
 
-The sending code here is usable for almost any messaging scheme - in Python you
+The sending code here is usable for almost any messaging scheme - in MyFRpy you
 send strings, and you can use ``len()`` to determine its length (even if it has
 embedded ``\0`` characters). It's mostly the receiving code that gets more
 complex. (And in C, it's not much worse, except you can't use ``strlen`` if the
@@ -291,7 +291,7 @@ a receive of 0 bytes. It can assume it has the complete request.  The server
 sends a reply. If the ``send`` completes successfully then, indeed, the client
 was still receiving.
 
-Python takes the automatic shutdown a step further, and says that when a socket
+MyFRpy takes the automatic shutdown a step further, and says that when a socket
 is garbage collected, it will automatically do a ``close`` if it's needed. But
 relying on this is a very bad habit. If your socket just disappears without
 doing a ``close``, the socket at the other end may hang indefinitely, thinking
@@ -322,7 +322,7 @@ know about the mechanics of using sockets. You'll still use the same calls, in
 much the same ways. It's just that, if you do it right, your app will be almost
 inside-out.
 
-In Python, you use ``socket.setblocking(False)`` to make it non-blocking. In C, it's
+In MyFRpy, you use ``socket.setblocking(False)`` to make it non-blocking. In C, it's
 more complex, (for one thing, you'll need to choose between the BSD flavor
 ``O_NONBLOCK`` and the almost indistinguishable POSIX flavor ``O_NDELAY``, which
 is completely different from ``TCP_NODELAY``), but it's the exact same idea. You
@@ -338,8 +338,8 @@ right.
 
 Use ``select``.
 
-In C, coding ``select`` is fairly complex. In Python, it's a piece of cake, but
-it's close enough to the C version that if you understand ``select`` in Python,
+In C, coding ``select`` is fairly complex. In MyFRpy, it's a piece of cake, but
+it's close enough to the C version that if you understand ``select`` in MyFRpy,
 you'll have little trouble with it in C::
 
    ready_to_read, ready_to_write, in_error = \

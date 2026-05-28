@@ -49,7 +49,7 @@ requires_nonascii_filenames = unittest.skipUnless(
         supports_nonascii_filenames,
         'Requires non-ascii filenames support')
 
-ns_uri = "http://www.python.org/xml-ns/saxtest/"
+ns_uri = "http://www.myFRpy.org/xml-ns/saxtest/"
 
 class XmlTestBase(unittest.TestCase):
     def verify_empty_attrs(self, attrs):

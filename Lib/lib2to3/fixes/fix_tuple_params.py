@@ -13,7 +13,7 @@ It will also support lambdas:
 
     lambda (x, y): x + y -> lambda t: t[0] + t[1]
 
-    # The parens are a syntax error in Python 3
+    # The parens are a syntax error in MyFRpy 3
     lambda (x): x + y -> lambda x: x + y
 """
 # Author: Collin Winter

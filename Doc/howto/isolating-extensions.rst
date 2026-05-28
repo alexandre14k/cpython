@@ -8,7 +8,7 @@ Isolating Extension Modules
 
 .. topic:: Abstract
 
-    Traditionally, state belonging to Python extension modules was kept in C
+    Traditionally, state belonging to MyFRpy extension modules was kept in C
     ``static`` variables, which have process-wide scope. This document
     describes problems of such per-process state and shows a safer way:
     per-module state.
@@ -24,17 +24,17 @@ Who should read this
 
 This guide is written for maintainers of :ref:`C-API <c-api-index>` extensions
 who would like to make that extension safer to use in applications where
-Python itself is used as a library.
+MyFRpy itself is used as a library.
 
 
 Background
 ==========
 
-An *interpreter* is the context in which Python code runs. It contains
+An *interpreter* is the context in which MyFRpy code runs. It contains
 configuration (e.g. the import path) and runtime state (e.g. the set of
 imported modules).
 
-Python supports running multiple interpreters in one process. There are
+MyFRpy supports running multiple interpreters in one process. There are
 two cases to think about—users may run interpreters:
 
 -  in sequence, with several :c:func:`Py_InitializeEx`/:c:func:`Py_FinalizeEx`
@@ -43,11 +43,11 @@ two cases to think about—users may run interpreters:
    :c:func:`Py_NewInterpreter`/:c:func:`Py_EndInterpreter`.
 
 Both cases (and combinations of them) would be most useful when
-embedding Python within a library. Libraries generally shouldn't make
+embedding MyFRpy within a library. Libraries generally shouldn't make
 assumptions about the application that uses them, which include
-assuming a process-wide "main Python interpreter".
+assuming a process-wide "main MyFRpy interpreter".
 
-Historically, Python extension modules don't handle this use case well.
+Historically, MyFRpy extension modules don't handle this use case well.
 Many extension modules (and even some stdlib modules) use *per-process*
 global state, because C ``static`` variables are extremely easy to use.
 Thus, data that should be specific to an interpreter ends up being shared
@@ -62,7 +62,7 @@ and it is currently cumbersome to test the behavior.
 Enter Per-Module State
 ----------------------
 
-Instead of focusing on per-interpreter state, Python's C API is evolving
+Instead of focusing on per-interpreter state, MyFRpy's C API is evolving
 to better support the more granular *per-module* state.
 This means that C-level data should be attached to a *module object*.
 Each interpreter creates its own module object, keeping the data separate.
@@ -136,8 +136,8 @@ separate objects. In the following code, the exception is *not* caught:
      File "<stdin>", line 2, in <module>
    binascii.Error: Non-hexadecimal digit found
 
-This is expected. Notice that pure-Python modules behave the same way:
-it is a part of how Python works.
+This is expected. Notice that pure-MyFRpy modules behave the same way:
+it is a part of how MyFRpy works.
 
 The goal is to make extension modules safe at the C level, not to make
 hacks behave intuitively. Mutating ``sys.modules`` "manually" counts
@@ -151,7 +151,7 @@ Making Modules Safe with Multiple Interpreters
 Managing Global State
 ---------------------
 
-Sometimes, the state associated with a Python module is not specific to that module, but
+Sometimes, the state associated with a MyFRpy module is not specific to that module, but
 to the entire process (or something else "more global" than a module).
 For example:
 
@@ -159,10 +159,10 @@ For example:
 -  A module running on a circuit board wants to control *the* on-board
    LED.
 
-In these cases, the Python module should provide *access* to the global
+In these cases, the MyFRpy module should provide *access* to the global
 state, rather than *own* it. If possible, write the module so that
 multiple copies of it can access the state independently (along with
-other libraries, whether for Python or other languages). If that is not
+other libraries, whether for MyFRpy or other languages). If that is not
 possible, consider explicit locking.
 
 If it is necessary to use process-global state, the simplest way to
@@ -189,7 +189,7 @@ which the C code needs to function.
 .. note::
    Another option is to store state in the module's ``__dict__``,
    but you must avoid crashing when users modify ``__dict__`` from
-   Python code. This usually means error- and type-checking at the C level,
+   MyFRpy code. This usually means error- and type-checking at the C level,
    which is easy to get wrong and hard to test sufficiently.
 
    However, if module state is not needed in C code, storing it in
@@ -203,7 +203,7 @@ require some work and make the code longer; this is the price for
 modules which can be unloaded cleanly.
 
 An example of a module with per-module state is currently available as
-`xxlimited <https://github.com/python/cpython/blob/master/Modules/xxlimited.c>`__;
+`xxlimited <https://github.com/myFRpy/cmyFRpy/blob/master/Modules/xxlimited.c>`__;
 example module initialization shown at the bottom of the file.
 
 
@@ -264,21 +264,21 @@ initialized using ``PyType_Ready()``.
 Such types are necessarily shared across the process. Sharing them
 between module objects requires paying attention to any state they own
 or access. To limit the possible issues, static types are immutable at
-the Python level: for example, you can't set ``str.myattribute = 123``.
+the MyFRpy level: for example, you can't set ``str.myattribute = 123``.
 
 .. impl-detail::
    Sharing truly immutable objects between interpreters is fine,
    as long as they don't provide access to mutable objects.
-   However, in CPython, every Python object has a mutable implementation
+   However, in CMyFRpy, every MyFRpy object has a mutable implementation
    detail: the reference count. Changes to the refcount are guarded by the GIL.
-   Thus, code that shares any Python objects across interpreters implicitly
-   depends on CPython's current, process-wide GIL.
+   Thus, code that shares any MyFRpy objects across interpreters implicitly
+   depends on CMyFRpy's current, process-wide GIL.
 
 Because they are immutable and process-global, static types cannot access
 "their" module state.
 If any method of such a type requires access to module state,
 the type must be converted to a *heap-allocated type*, or *heap type*
-for short. These correspond more closely to classes created by Python's
+for short. These correspond more closely to classes created by MyFRpy's
 ``class`` statement.
 
 For new modules, using heap types by default is a good rule of thumb.
@@ -302,7 +302,7 @@ a comprehensive list):
 * Unlike static types, heap type objects are mutable by default.
   Use the :c:macro:`Py_TPFLAGS_IMMUTABLETYPE` flag to prevent mutability.
 * Heap types inherit :c:member:`~PyTypeObject.tp_new` by default,
-  so it may become possible to instantiate them from Python code.
+  so it may become possible to instantiate them from MyFRpy code.
   You can prevent this with the :c:macro:`Py_TPFLAGS_DISALLOW_INSTANTIATION` flag.
 
 
@@ -320,7 +320,7 @@ description or "blueprint" of a class, and calling
 
 The class should generally be stored in *both* the module state (for
 safe access from C) and the module's ``__dict__`` (for access from
-Python code).
+MyFRpy code).
 
 
 Garbage-Collection Protocol
@@ -348,11 +348,11 @@ somewhat awkward to use in its current state.
 The following sections will guide you through common issues.
 
 
-``tp_traverse`` in Python 3.8 and lower
+``tp_traverse`` in MyFRpy 3.8 and lower
 .......................................
 
-The requirement to visit the type from ``tp_traverse`` was added in Python 3.9.
-If you support Python 3.8 and lower, the traverse function must *not*
+The requirement to visit the type from ``tp_traverse`` was added in MyFRpy 3.9.
+If you support MyFRpy 3.8 and lower, the traverse function must *not*
 visit the type, so it must be more complicated::
 
    static int my_traverse(PyObject *self, visitproc visit, void *arg)
@@ -363,7 +363,7 @@ visit the type, so it must be more complicated::
        return 0;
    }
 
-Unfortunately, :c:data:`Py_Version` was only added in Python 3.11.
+Unfortunately, :c:data:`Py_Version` was only added in MyFRpy 3.11.
 As a replacement, use:
 
 * :c:macro:`PY_VERSION_HEX`, if not using the stable ABI, or
@@ -474,7 +474,7 @@ Module State Access from Regular Methods
 ----------------------------------------
 
 Accessing the module-level state from methods of a class is somewhat more
-complicated, but is possible thanks to API introduced in Python 3.9.
+complicated, but is possible thanks to API introduced in MyFRpy 3.9.
 To get the state, you need to first get the *defining class*, and then
 get the module state from it.
 
@@ -487,11 +487,11 @@ is called on a *subclass* of your type, ``Py_TYPE(self)`` will refer to
 that subclass, which may be defined in different module than yours.
 
 .. note::
-   The following Python code can illustrate the concept.
+   The following MyFRpy code can illustrate the concept.
    ``Base.get_defining_class`` returns ``Base`` even
    if ``type(self) == Sub``:
 
-   .. code-block:: python
+   .. code-block:: myFRpy
 
       class Base:
           def get_type_of_self(self):
@@ -550,7 +550,7 @@ Module State Access from Slot Methods, Getters and Setters
 
 .. note::
 
-   This is new in Python 3.11.
+   This is new in MyFRpy 3.11.
 
    .. After adding to limited API:
 
@@ -610,14 +610,14 @@ Open Issues
 Several issues around per-module state and heap types are still open.
 
 Discussions about improving the situation are best held on the `capi-sig
-mailing list <https://mail.python.org/mailman3/lists/capi-sig.python.org/>`__.
+mailing list <https://mail.myFRpy.org/mailman3/lists/capi-sig.myFRpy.org/>`__.
 
 
 Per-Class Scope
 ---------------
 
-It is currently (as of Python 3.11) not possible to attach state to individual
-*types* without relying on CPython implementation details (which may change
+It is currently (as of MyFRpy 3.11) not possible to attach state to individual
+*types* without relying on CMyFRpy implementation details (which may change
 in the future—perhaps, ironically, to allow a proper solution for
 per-class scope).
 

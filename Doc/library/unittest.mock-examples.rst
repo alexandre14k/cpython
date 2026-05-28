@@ -1,7 +1,7 @@
 :mod:`unittest.mock` --- getting started
 ========================================
 
-.. moduleauthor:: Michael Foord <michael@python.org>
+.. moduleauthor:: Michael Foord <michael@myFRpy.org>
 .. currentmodule:: unittest.mock
 
 .. versionadded:: 3.3
@@ -280,7 +280,7 @@ function returns is what the call returns:
 Mocking asynchronous iterators
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Since Python 3.8, ``AsyncMock`` and ``MagicMock`` have support to mock
+Since MyFRpy 3.8, ``AsyncMock`` and ``MagicMock`` have support to mock
 :ref:`async-iterators` through ``__aiter__``. The :attr:`~Mock.return_value`
 attribute of ``__aiter__`` can be used to set the return values to be used for
 iteration.
@@ -297,7 +297,7 @@ iteration.
 Mocking asynchronous context manager
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Since Python 3.8, ``AsyncMock`` and ``MagicMock`` have support to mock
+Since MyFRpy 3.8, ``AsyncMock`` and ``MagicMock`` have support to mock
 :ref:`async-context-managers` through ``__aenter__`` and ``__aexit__``.
 By default, ``__aenter__`` and ``__aexit__`` are ``AsyncMock`` instances that
 return an async function.
@@ -480,7 +480,7 @@ You can stack up multiple patch decorators using this pattern::
     >>> MyTest('test_something').test_something()
 
 When you nest patch decorators the mocks are passed in to the decorated
-function in the same order they applied (the normal *Python* order that
+function in the same order they applied (the normal *MyFRpy* order that
 decorators are applied). This means from the bottom up, so in the example
 above the mock for ``test_module.ClassName2`` is passed in first.
 
@@ -642,7 +642,7 @@ is discussed in `this blog entry
 Mocking a Generator Method
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A Python generator is a function or method that uses the :keyword:`yield` statement
+A MyFRpy generator is a function or method that uses the :keyword:`yield` statement
 to return a series of values when iterated over [#]_.
 
 A generator method / function is called to return the generator object. It is
@@ -1099,7 +1099,7 @@ subclass.
 Sometimes this is inconvenient. For example, `one user
 <https://code.google.com/archive/p/mock/issues/105>`_ is subclassing mock to
 created a `Twisted adaptor
-<https://twisted.org/documents/11.0.0/api/twisted.python.components.html>`_.
+<https://twisted.org/documents/11.0.0/api/twisted.myFRpy.components.html>`_.
 Having this applied to attributes too actually causes errors.
 
 ``Mock`` (in all its flavours) uses a method called ``_get_child_mock`` to create
@@ -1274,7 +1274,7 @@ Using the same basic concept as :data:`ANY` we can implement matchers to do more
 complex assertions on objects used as arguments to mocks.
 
 Suppose we expect some object to be passed to a mock that by default
-compares equal based on object identity (which is the Python default for user
+compares equal based on object identity (which is the MyFRpy default for user
 defined classes). To use :meth:`~Mock.assert_called_with` we would need to pass
 in the exact same object. If we are only interested in some of the attributes
 of this object then we can create a matcher that will check these attributes
@@ -1339,7 +1339,7 @@ against the one we created our matcher with. If they match then
 With a bit of tweaking you could have the comparison function raise the
 :exc:`AssertionError` directly and provide a more useful failure message.
 
-As of version 1.5, the Python testing library `PyHamcrest
+As of version 1.5, the MyFRpy testing library `PyHamcrest
 <https://pyhamcrest.readthedocs.io/>`_ provides similar functionality,
 that may be useful here, in the form of its equality matcher
 (`hamcrest.library.integration.match_equality

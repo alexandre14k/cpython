@@ -900,7 +900,7 @@ class DictTest(unittest.TestCase):
                 d[str(j)] = j
             d["foo"] = d
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_track_literals(self):
         # Test GC-optimization of dict literals
         x, y, z, w = 1.5, "a", (1, None), []
@@ -918,7 +918,7 @@ class DictTest(unittest.TestCase):
         self._tracked({1: {}})
         self._tracked({1: set()})
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_track_dynamic(self):
         # Test GC-optimization of dynamically-created dicts
         class MyObject(object):
@@ -982,7 +982,7 @@ class DictTest(unittest.TestCase):
         d.update([(x, y), (z, w)])
         self._tracked(d)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_track_subtypes(self):
         # Dict subtypes are always tracked
         class MyDict(dict):
@@ -1001,7 +1001,7 @@ class DictTest(unittest.TestCase):
 
         return dicts
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_splittable_setdefault(self):
         """split table must keep correct insertion
         order when attributes are adding using setdefault()"""
@@ -1017,7 +1017,7 @@ class DictTest(unittest.TestCase):
         self.assertEqual(list(a), ['x', 'y', 'z', 'a', 'b'])
         self.assertEqual(list(b), ['x', 'y', 'z', 'b', 'a'])
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_splittable_del(self):
         """split table must be combined when del d[k]"""
         a, b = self.make_shared_key_dict(2)
@@ -1036,7 +1036,7 @@ class DictTest(unittest.TestCase):
         self.assertEqual(list(a), ['x', 'z', 'y'])
         self.assertEqual(list(b), ['x', 'y', 'z'])
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_splittable_pop(self):
         a, b = self.make_shared_key_dict(2)
 
@@ -1052,7 +1052,7 @@ class DictTest(unittest.TestCase):
         self.assertEqual(list(a), ['x', 'z', 'y'])
         self.assertEqual(list(b), ['x', 'y', 'z'])
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_splittable_pop_pending(self):
         """pop a pending key in a split table should not crash"""
         a, b = self.make_shared_key_dict(2)
@@ -1061,7 +1061,7 @@ class DictTest(unittest.TestCase):
         with self.assertRaises(KeyError):
             b.pop('a')
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_splittable_popitem(self):
         """split table must be combined when d.popitem()"""
         a, b = self.make_shared_key_dict(2)
@@ -1077,7 +1077,7 @@ class DictTest(unittest.TestCase):
         self.assertEqual(list(a), ['x', 'y'])
         self.assertEqual(list(b), ['x', 'y', 'z'])
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_splittable_update(self):
         """dict.update(other) must preserve order in other."""
         class C:
@@ -1094,7 +1094,7 @@ class DictTest(unittest.TestCase):
         d.update(o.__dict__)
         self.assertEqual(list(d), ["c", "b", "a"])
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_splittable_to_generic_combinedtable(self):
         """split table must be correctly resized and converted to generic combined table"""
         class C:
@@ -1241,7 +1241,7 @@ class DictTest(unittest.TestCase):
     def check_reentrant_insertion(self, mutate):
         # This object will trigger mutation of the dict when replaced
         # by another value.  Note this relies on refcounting: the test
-        # won't achieve its purpose on fully-GCed Python implementations.
+        # won't achieve its purpose on fully-GCed MyFRpy implementations.
         class Mutating:
             def __del__(self):
                 mutate(d)
@@ -1457,7 +1457,7 @@ class DictTest(unittest.TestCase):
         d = CustomReversedDict(pairs)
         self.assertEqual(pairs[::-1], list(dict(d).items()))
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_dict_items_result_gc(self):
         # bpo-42536: dict.items's tuple-reuse speed trick breaks the GC's
         # assumptions about what can be untracked. Make sure we re-track result
@@ -1469,7 +1469,7 @@ class DictTest(unittest.TestCase):
         # when it's mutated and returned from __next__:
         self.assertTrue(gc.is_tracked(next(it)))
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_dict_items_result_gc_reversed(self):
         # Same as test_dict_items_result_gc above, but reversed.
         it = reversed({None: []}.items())
@@ -1477,7 +1477,7 @@ class DictTest(unittest.TestCase):
         self.assertTrue(gc.is_tracked(next(it)))
 
     def test_str_nonstr(self):
-        # cpython uses a different lookup function if the dict only contains
+        # cmyFRpy uses a different lookup function if the dict only contains
         # `str` keys. Make sure the unoptimized path is used when a non-`str`
         # key appears.
 
@@ -1552,10 +1552,10 @@ class DictTest(unittest.TestCase):
                 self.assertEqual(d.get('key1'), 42)
 
                 # Try to make an object that is of type `str` and is equal to
-                # `'key1'`, but (at least on cpython) is a different object.
+                # `'key1'`, but (at least on cmyFRpy) is a different object.
                 noninterned_key1 = 'ke'
                 noninterned_key1 += 'y1'
-                if support.check_impl_detail(cpython=True):
+                if support.check_impl_detail(cmyFRpy=True):
                     # suppress a SyntaxWarning
                     interned_key1 = 'key1'
                     self.assertFalse(noninterned_key1 is interned_key1)
@@ -1580,7 +1580,7 @@ class DictTest(unittest.TestCase):
 class CAPITest(unittest.TestCase):
 
     # Test _PyDict_GetItem_KnownHash()
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_getitem_knownhash(self):
         _testcapi = import_helper.import_module('_testcapi')
         dict_getitem_knownhash = _testcapi.dict_getitem_knownhash

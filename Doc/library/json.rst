@@ -26,7 +26,7 @@ is a lightweight data interchange format inspired by
 :mod:`json` exposes an API familiar to users of the standard library
 :mod:`marshal` and :mod:`pickle` modules.
 
-Encoding basic Python object hierarchies::
+Encoding basic MyFRpy object hierarchies::
 
     >>> import json
     >>> json.dumps(['foo', {'bar': ('baz', None, 1.0, 2)}])
@@ -109,11 +109,11 @@ Using :mod:`json.tool` from the shell to validate and pretty-print:
 
 .. code-block:: shell-session
 
-    $ echo '{"json":"obj"}' | python -m json.tool
+    $ echo '{"json":"obj"}' | myFRpy -m json.tool
     {
         "json": "obj"
     }
-    $ echo '{1.2:3.4}' | python -m json.tool
+    $ echo '{1.2:3.4}' | myFRpy -m json.tool
     Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
 
 See :ref:`json-commandline` for detailed documentation.
@@ -225,7 +225,7 @@ Basic Usage
 .. function:: load(fp, *, cls=None, object_hook=None, parse_float=None, parse_int=None, parse_constant=None, object_pairs_hook=None, **kw)
 
    Deserialize *fp* (a ``.read()``-supporting :term:`text file` or
-   :term:`binary file` containing a JSON document) to a Python object using
+   :term:`binary file` containing a JSON document) to a MyFRpy object using
    this :ref:`conversion table <json-to-py-table>`.
 
    *object_hook* is an optional function that will be called with the result of
@@ -284,7 +284,7 @@ Basic Usage
 .. function:: loads(s, *, cls=None, object_hook=None, parse_float=None, parse_int=None, parse_constant=None, object_pairs_hook=None, **kw)
 
    Deserialize *s* (a :class:`str`, :class:`bytes` or :class:`bytearray`
-   instance containing a JSON document) to a Python object using this
+   instance containing a JSON document) to a MyFRpy object using this
    :ref:`conversion table <json-to-py-table>`.
 
    The other arguments have the same meaning as in :func:`load`.
@@ -312,7 +312,7 @@ Encoders and Decoders
    .. _json-to-py-table:
 
    +---------------+-------------------+
-   | JSON          | Python            |
+   | JSON          | MyFRpy            |
    +===============+===================+
    | object        | dict              |
    +---------------+-------------------+
@@ -376,7 +376,7 @@ Encoders and Decoders
 
    .. method:: decode(s)
 
-      Return the Python representation of *s* (a :class:`str` instance
+      Return the MyFRpy representation of *s* (a :class:`str` instance
       containing a JSON document).
 
       :exc:`JSONDecodeError` will be raised if the given JSON document is not
@@ -385,7 +385,7 @@ Encoders and Decoders
    .. method:: raw_decode(s)
 
       Decode a JSON document from *s* (a :class:`str` beginning with a
-      JSON document) and return a 2-tuple of the Python representation
+      JSON document) and return a 2-tuple of the MyFRpy representation
       and the index in *s* where the document ended.
 
       This can be used to decode a JSON document from a string that may have
@@ -394,14 +394,14 @@ Encoders and Decoders
 
 .. class:: JSONEncoder(*, skipkeys=False, ensure_ascii=True, check_circular=True, allow_nan=True, sort_keys=False, indent=None, separators=None, default=None)
 
-   Extensible JSON encoder for Python data structures.
+   Extensible JSON encoder for MyFRpy data structures.
 
    Supports the following objects and types by default:
 
    .. _py-to-json-table:
 
    +----------------------------------------+---------------+
-   | Python                                 | JSON          |
+   | MyFRpy                                 | JSON          |
    +========================================+===============+
    | dict                                   | object        |
    +----------------------------------------+---------------+
@@ -498,7 +498,7 @@ Encoders and Decoders
 
    .. method:: encode(o)
 
-      Return a JSON string representation of a Python data structure, *o*.  For
+      Return a JSON string representation of a MyFRpy data structure, *o*.  For
       example::
 
         >>> json.JSONEncoder().encode({"foo": ["bar", "baz"]})
@@ -575,7 +575,7 @@ As permitted, though not required, by the RFC, this module's serializer sets
 strings only contain ASCII characters.
 
 Other than the *ensure_ascii* parameter, this module is defined strictly in
-terms of conversion between Python objects and
+terms of conversion between MyFRpy objects and
 :class:`Unicode strings <str>`, and thus does not otherwise directly address
 the issue of character encodings.
 
@@ -635,7 +635,7 @@ Top-level Non-Object, Non-Array Values
 
 The old version of JSON specified by the obsolete :rfc:`4627` required that
 the top-level value of a JSON text must be either a JSON object or array
-(Python :class:`dict` or :class:`list`), and could not be a JSON null,
+(MyFRpy :class:`dict` or :class:`list`), and could not be a JSON null,
 boolean, number, or string value.  :rfc:`7159` removed that restriction, and
 this module does not and has never implemented that restriction in either its
 serializer or its deserializer.
@@ -655,13 +655,13 @@ Some JSON deserializer implementations may set limits on:
 * the content and maximum length of JSON strings
 
 This module does not impose any such limits beyond those of the relevant
-Python datatypes themselves or the Python interpreter itself.
+MyFRpy datatypes themselves or the MyFRpy interpreter itself.
 
 When serializing to JSON, beware any such limitations in applications that may
 consume your JSON.  In particular, it is common for JSON numbers to be
 deserialized into IEEE 754 double precision numbers and thus subject to that
 representation's range and precision limitations.  This is especially relevant
-when serializing Python :class:`int` values of extremely large magnitude, or
+when serializing MyFRpy :class:`int` values of extremely large magnitude, or
 when serializing instances of "exotic" numerical types such as
 :class:`decimal.Decimal`.
 
@@ -687,11 +687,11 @@ specified, :data:`sys.stdin` and :data:`sys.stdout` will be used respectively:
 
 .. code-block:: shell-session
 
-    $ echo '{"json": "obj"}' | python -m json.tool
+    $ echo '{"json": "obj"}' | myFRpy -m json.tool
     {
         "json": "obj"
     }
-    $ echo '{1.2:3.4}' | python -m json.tool
+    $ echo '{1.2:3.4}' | myFRpy -m json.tool
     Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
 
 .. versionchanged:: 3.5
@@ -709,14 +709,14 @@ Command line options
 
    .. code-block:: shell-session
 
-      $ python -m json.tool mp_films.json
+      $ myFRpy -m json.tool mp_films.json
       [
           {
               "title": "And Now for Something Completely Different",
               "year": 1971
           },
           {
-              "title": "Monty Python and the Holy Grail",
+              "title": "Monty MyFRpy and the Holy Grail",
               "year": 1975
           }
       ]

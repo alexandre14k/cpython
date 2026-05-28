@@ -290,7 +290,7 @@ class TestMockingMagicMethods(unittest.TestCase):
         self.assertIsInstance(mock.__aenter__, AsyncMock)
         self.assertIsInstance(mock.__aexit__, AsyncMock)
 
-        # in Python 3 oct and hex use __index__
+        # in MyFRpy 3 oct and hex use __index__
         # so these tests are for __index__ in py3k
         self.assertEqual(oct(mock), '0o1')
         self.assertEqual(hex(mock), '0x1')
@@ -316,7 +316,7 @@ class TestMockingMagicMethods(unittest.TestCase):
         self.assertIsInstance(mock.__aenter__, AsyncMock)
         self.assertIsInstance(mock.__aexit__, AsyncMock)
 
-        # in Python 3 oct and hex use __index__
+        # in MyFRpy 3 oct and hex use __index__
         # so these tests are for __index__ in py3k
         self.assertEqual(oct(mock), '0o1')
         self.assertEqual(hex(mock), '0x1')
@@ -490,7 +490,7 @@ class TestMockingMagicMethods(unittest.TestCase):
         bar_direct = m.__rdivmod__(2)
         self.assertIsInstance(bar_direct, MagicMock)
 
-    # http://bugs.python.org/issue23310
+    # http://bugs.myFRpy.org/issue23310
     # Check if you can change behaviour of magic methods in MagicMock init
     def test_magic_in_initialization(self):
         m = MagicMock(**{'__str__.return_value': "12"})

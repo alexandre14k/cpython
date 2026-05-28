@@ -1,29 +1,29 @@
 .. _devmode:
 
-Python Development Mode
+MyFRpy Development Mode
 =======================
 
 .. versionadded:: 3.7
 
-The Python Development Mode introduces additional runtime checks that are too
+The MyFRpy Development Mode introduces additional runtime checks that are too
 expensive to be enabled by default. It should not be more verbose than the
 default if the code is correct; new warnings are only emitted when an issue is
 detected.
 
 It can be enabled using the :option:`-X dev <-X>` command line option or by
-setting the :envvar:`PYTHONDEVMODE` environment variable to ``1``.
+setting the :envvar:`MYFRPYDEVMODE` environment variable to ``1``.
 
-See also :ref:`Python debug build <debug-build>`.
+See also :ref:`MyFRpy debug build <debug-build>`.
 
-Effects of the Python Development Mode
+Effects of the MyFRpy Development Mode
 --------------------------------------
 
-Enabling the Python Development Mode is similar to the following command, but
+Enabling the MyFRpy Development Mode is similar to the following command, but
 with additional effects described below::
 
-    PYTHONMALLOC=debug PYTHONASYNCIODEBUG=1 python -W default -X faulthandler
+    MYFRPYMALLOC=debug MYFRPYASYNCIODEBUG=1 myFRpy -W default -X faulthandler
 
-Effects of the Python Development Mode:
+Effects of the MyFRpy Development Mode:
 
 * Add ``default`` :ref:`warning filter <describing-warning-filters>`. The
   following warnings are shown:
@@ -39,7 +39,7 @@ Effects of the Python Development Mode:
   It behaves as if the :option:`-W default <-W>` command line option is used.
 
   Use the :option:`-W error <-W>` command line option or set the
-  :envvar:`PYTHONWARNINGS` environment variable to ``error`` to treat warnings
+  :envvar:`MYFRPYWARNINGS` environment variable to ``error`` to treat warnings
   as errors.
 
 * Install debug hooks on memory allocators to check for:
@@ -51,26 +51,26 @@ Effects of the Python Development Mode:
 
   See the :c:func:`PyMem_SetupDebugHooks` C function.
 
-  It behaves as if the :envvar:`PYTHONMALLOC` environment variable is set to
+  It behaves as if the :envvar:`MYFRPYMALLOC` environment variable is set to
   ``debug``.
 
-  To enable the Python Development Mode without installing debug hooks on
-  memory allocators, set the :envvar:`PYTHONMALLOC` environment variable to
+  To enable the MyFRpy Development Mode without installing debug hooks on
+  memory allocators, set the :envvar:`MYFRPYMALLOC` environment variable to
   ``default``.
 
-* Call :func:`faulthandler.enable` at Python startup to install handlers for
+* Call :func:`faulthandler.enable` at MyFRpy startup to install handlers for
   the :const:`~signal.SIGSEGV`, :const:`~signal.SIGFPE`,
   :const:`~signal.SIGABRT`, :const:`~signal.SIGBUS` and
-  :const:`~signal.SIGILL` signals to dump the Python traceback on a crash.
+  :const:`~signal.SIGILL` signals to dump the MyFRpy traceback on a crash.
 
   It behaves as if the :option:`-X faulthandler <-X>` command line option is
-  used or if the :envvar:`PYTHONFAULTHANDLER` environment variable is set to
+  used or if the :envvar:`MYFRPYFAULTHANDLER` environment variable is set to
   ``1``.
 
 * Enable :ref:`asyncio debug mode <asyncio-debug-mode>`. For example,
   :mod:`asyncio` checks for coroutines that were not awaited and logs them.
 
-  It behaves as if the :envvar:`PYTHONASYNCIODEBUG` environment variable is set
+  It behaves as if the :envvar:`MYFRPYASYNCIODEBUG` environment variable is set
   to ``1``.
 
 * Check the *encoding* and *errors* arguments for string encoding and decoding
@@ -85,18 +85,18 @@ Effects of the Python Development Mode:
 * Set the :attr:`~sys.flags.dev_mode` attribute of :data:`sys.flags` to
   ``True``.
 
-The Python Development Mode does not enable the :mod:`tracemalloc` module by
+The MyFRpy Development Mode does not enable the :mod:`tracemalloc` module by
 default, because the overhead cost (to performance and memory) would be too
 large. Enabling the :mod:`tracemalloc` module provides additional information
 on the origin of some errors. For example, :exc:`ResourceWarning` logs the
 traceback where the resource was allocated, and a buffer overflow error logs
 the traceback where the memory block was allocated.
 
-The Python Development Mode does not prevent the :option:`-O` command line
+The MyFRpy Development Mode does not prevent the :option:`-O` command line
 option from removing :keyword:`assert` statements nor from setting
 :const:`__debug__` to ``False``.
 
-The Python Development Mode can only be enabled at the Python startup. Its
+The MyFRpy Development Mode can only be enabled at the MyFRpy startup. Its
 value can be read from :data:`sys.flags.dev_mode <sys.flags>`.
 
 .. versionchanged:: 3.8
@@ -124,19 +124,19 @@ the command line::
     if __name__ == "__main__":
         main()
 
-The script does not close the file explicitly. By default, Python does not emit
+The script does not close the file explicitly. By default, MyFRpy does not emit
 any warning. Example using README.txt, which has 269 lines:
 
 .. code-block:: shell-session
 
-    $ python script.py README.txt
+    $ myFRpy script.py README.txt
     269
 
-Enabling the Python Development Mode displays a :exc:`ResourceWarning` warning:
+Enabling the MyFRpy Development Mode displays a :exc:`ResourceWarning` warning:
 
 .. code-block:: shell-session
 
-    $ python -X dev script.py README.txt
+    $ myFRpy -X dev script.py README.txt
     269
     script.py:10: ResourceWarning: unclosed file <_io.TextIOWrapper name='README.rst' mode='r' encoding='UTF-8'>
       main()
@@ -147,7 +147,7 @@ opened:
 
 .. code-block:: shell-session
 
-    $ python -X dev -X tracemalloc=5 script.py README.rst
+    $ myFRpy -X dev -X tracemalloc=5 script.py README.rst
     269
     script.py:10: ResourceWarning: unclosed file <_io.TextIOWrapper name='README.rst' mode='r' encoding='UTF-8'>
       main()
@@ -166,8 +166,8 @@ The fix is to close explicitly the file. Example using a context manager::
         print(nlines)
 
 Not closing a resource explicitly can leave a resource open for way longer than
-expected; it can cause severe issues upon exiting Python. It is bad in
-CPython, but it is even worse in PyPy. Closing resources explicitly makes an
+expected; it can cause severe issues upon exiting MyFRpy. It is bad in
+CMyFRpy, but it is even worse in PyPy. Closing resources explicitly makes an
 application more deterministic and more reliable.
 
 
@@ -187,19 +187,19 @@ Script displaying the first line of itself::
 
     main()
 
-By default, Python does not emit any warning:
+By default, MyFRpy does not emit any warning:
 
 .. code-block:: shell-session
 
-    $ python script.py
+    $ myFRpy script.py
     import os
 
-The Python Development Mode shows a :exc:`ResourceWarning` and logs a "Bad file
+The MyFRpy Development Mode shows a :exc:`ResourceWarning` and logs a "Bad file
 descriptor" error when finalizing the file object:
 
 .. code-block:: shell-session
 
-    $ python -X dev script.py
+    $ myFRpy -X dev script.py
     import os
     script.py:10: ResourceWarning: unclosed file <_io.TextIOWrapper name='script.py' mode='r' encoding='UTF-8'>
       main()

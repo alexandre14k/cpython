@@ -13,7 +13,7 @@ struct pyruntimestate;
 
 /* --- PyStatus ----------------------------------------------- */
 
-/* Almost all errors causing Python initialization to fail */
+/* Almost all errors causing MyFRpy initialization to fail */
 #ifdef _MSC_VER
    /* Visual Studio 2015 doesn't implement C99 __func__ in C */
 #  define _PyStatus_GET_FUNC() __FUNCTION__
@@ -99,8 +99,8 @@ typedef struct {
     PyWideStringList xoptions;     /* "-X value" option */
     int isolated;             /* -I option */
     int use_environment;      /* -E option */
-    int dev_mode;             /* -X dev and PYTHONDEVMODE */
-    int warn_default_encoding;     /* -X warn_default_encoding and PYTHONWARNDEFAULTENCODING */
+    int dev_mode;             /* -X dev and MYFRPYDEVMODE */
+    int warn_default_encoding;     /* -X warn_default_encoding and MYFRPYWARNDEFAULTENCODING */
 } _PyPreCmdline;
 
 #define _PyPreCmdline_INIT \
@@ -140,9 +140,9 @@ extern PyStatus _PyPreConfig_Write(const PyPreConfig *preconfig);
 /* --- PyConfig ---------------------------------------------- */
 
 typedef enum {
-    /* Py_Initialize() API: backward compatibility with Python 3.6 and 3.7 */
+    /* Py_Initialize() API: backward compatibility with MyFRpy 3.6 and 3.7 */
     _PyConfig_INIT_COMPAT = 1,
-    _PyConfig_INIT_PYTHON = 2,
+    _PyConfig_INIT_MYFRPY = 2,
     _PyConfig_INIT_ISOLATED = 3
 } _PyConfigInitEnum;
 

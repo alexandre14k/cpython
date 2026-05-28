@@ -1,5 +1,5 @@
 ****************
-Configure Python
+Configure MyFRpy
 ****************
 
 .. highlight:: sh
@@ -7,7 +7,7 @@ Configure Python
 Build Requirements
 ==================
 
-Features required to build CPython:
+Features required to build CMyFRpy:
 
 * A `C11 <https://en.cppreference.com/w/c/11>`_ compiler. `Optional C11
   features
@@ -41,14 +41,14 @@ Features required to build CPython:
    C11 compiler, IEEE 754 and NaN support are now required.
    On Windows, Visual Studio 2017 or later is required.
 
-See also :pep:`7` "Style Guide for C Code" and :pep:`11` "CPython platform
+See also :pep:`7` "Style Guide for C Code" and :pep:`11` "CMyFRpy platform
 support".
 
 
 Generated files
 ===============
 
-To reduce build dependencies, Python source code contains multiple generated
+To reduce build dependencies, MyFRpy source code contains multiple generated
 files. Commands to regenerate all generated files::
 
     make regen-all
@@ -84,7 +84,7 @@ List all ``./configure`` script options using::
 
     ./configure --help
 
-See also the :file:`Misc/SpecialBuilds.txt` in the Python source distribution.
+See also the :file:`Misc/SpecialBuilds.txt` in the MyFRpy source distribution.
 
 General Options
 ---------------
@@ -106,7 +106,7 @@ General Options
 
 .. option:: --enable-big-digits=[15|30]
 
-   Define the size in bits of Python :class:`int` digits: 15 or 30 bits.
+   Define the size in bits of MyFRpy :class:`int` digits: 15 or 30 bits.
 
    By default, the digit size is 30.
 
@@ -116,11 +116,11 @@ General Options
 
 .. option:: --with-suffix=SUFFIX
 
-   Set the Python executable suffix to *SUFFIX*.
+   Set the MyFRpy executable suffix to *SUFFIX*.
 
-   The default suffix is ``.exe`` on Windows and macOS (``python.exe``
+   The default suffix is ``.exe`` on Windows and macOS (``myFRpy.exe``
    executable), ``.js`` on Emscripten node, ``.html`` on Emscripten browser,
-   ``.wasm`` on WASI, and an empty string on other platforms (``python``
+   ``.wasm`` on WASI, and an empty string on other platforms (``myFRpy``
    executable).
 
    .. versionchanged:: 3.11
@@ -164,7 +164,7 @@ General Options
 
    Don't define the ``PY_COERCE_C_LOCALE`` macro.
 
-   See :envvar:`PYTHONCOERCECLOCALE` and the :pep:`538`.
+   See :envvar:`MYFRPYCOERCECLOCALE` and the :pep:`538`.
 
 .. option:: --without-freelists
 
@@ -174,7 +174,7 @@ General Options
 
 .. option:: --with-platlibdir=DIRNAME
 
-   Python library directory name (default is ``lib``).
+   MyFRpy library directory name (default is ``lib``).
 
    Fedora and SuSE use ``lib64`` on 64-bit platforms.
 
@@ -189,7 +189,7 @@ General Options
 
    Some Linux distribution packaging policies recommend against bundling
    dependencies. For example, Fedora installs wheel packages in the
-   ``/usr/share/python-wheels/`` directory and don't install the
+   ``/usr/share/myFRpy-wheels/`` directory and don't install the
    :mod:`!ensurepip._bundled` package.
 
    .. versionadded:: 3.10
@@ -256,7 +256,7 @@ Install Options
    This value can be retrieved at runtime using :data:`sys.prefix`.
 
    As an example, one can use ``--prefix="$HOME/.local/"`` to install
-   a Python in its home directory.
+   a MyFRpy in its home directory.
 
 .. option:: --exec-prefix=EPREFIX
 
@@ -273,11 +273,11 @@ Install Options
 
 .. option:: --with-ensurepip=[upgrade|install|no]
 
-   Select the :mod:`ensurepip` command run on Python installation:
+   Select the :mod:`ensurepip` command run on MyFRpy installation:
 
-   * ``upgrade`` (default): run ``python -m ensurepip --altinstall --upgrade``
+   * ``upgrade`` (default): run ``myFRpy -m ensurepip --altinstall --upgrade``
      command.
-   * ``install``: run ``python -m ensurepip --altinstall`` command;
+   * ``install``: run ``myFRpy -m ensurepip --altinstall`` command;
    * ``no``: don't run ensurepip;
 
    .. versionadded:: 3.6
@@ -286,7 +286,7 @@ Install Options
 Performance options
 -------------------
 
-Configuring Python using ``--enable-optimizations --with-lto`` (PGO + LTO) is
+Configuring MyFRpy using ``--enable-optimizations --with-lto`` (PGO + LTO) is
 recommended for best performance. The experimental ``--enable-bolt`` flag can
 also be used to improve performance.
 
@@ -298,7 +298,7 @@ also be used to improve performance.
    The C compiler Clang requires ``llvm-profdata`` program for PGO. On
    macOS, GCC also requires it: GCC is just an alias to Clang on macOS.
 
-   Disable also semantic interposition in libpython if ``--enable-shared`` and
+   Disable also semantic interposition in libmyFRpy if ``--enable-shared`` and
    GCC is used: add ``-fno-semantic-interposition`` to the compiler and linker
    flags.
 
@@ -309,7 +309,7 @@ also be used to improve performance.
 
 .. envvar:: PROFILE_TASK
 
-   Environment variable used in the Makefile: Python command line arguments for
+   Environment variable used in the Makefile: MyFRpy command line arguments for
    the PGO generation task.
 
    Default: ``-m test --pgo --timeout=$(TESTTIMEOUT)``.
@@ -363,15 +363,15 @@ also be used to improve performance.
 
 .. option:: --without-pymalloc
 
-   Disable the specialized Python memory allocator :ref:`pymalloc <pymalloc>`
+   Disable the specialized MyFRpy memory allocator :ref:`pymalloc <pymalloc>`
    (enabled by default).
 
-   See also :envvar:`PYTHONMALLOC` environment variable.
+   See also :envvar:`MYFRPYMALLOC` environment variable.
 
 .. option:: --without-doc-strings
 
    Disable static documentation strings to reduce the memory footprint (enabled
-   by default). Documentation strings defined in Python are not affected.
+   by default). Documentation strings defined in MyFRpy are not affected.
 
    Don't define the ``WITH_DOC_STRINGS`` macro.
 
@@ -389,10 +389,10 @@ also be used to improve performance.
 
 .. _debug-build:
 
-Python Debug Build
+MyFRpy Debug Build
 ------------------
 
-A debug build is Python built with the :option:`--with-pydebug` configure
+A debug build is MyFRpy built with the :option:`--with-pydebug` configure
 option.
 
 Effects of a debug build:
@@ -402,7 +402,7 @@ Effects of a debug build:
 * Add ``d`` to :data:`sys.abiflags`.
 * Add :func:`!sys.gettotalrefcount` function.
 * Add :option:`-X showrefcount <-X>` command line option.
-* Add :option:`-d` command line option and :envvar:`PYTHONDEBUG` environment
+* Add :option:`-d` command line option and :envvar:`MYFRPYDEBUG` environment
   variable to debug the parser.
 * Add support for the ``__lltrace__`` variable: enable low-level tracing in the
   bytecode evaluation loop if the variable is defined.
@@ -425,7 +425,7 @@ Effects of a debug build:
   * The :c:macro:`!Py_SAFE_DOWNCAST()` macro checks for integer underflow and
     overflow when downcasting from wide types to narrow types.
 
-See also the :ref:`Python Development Mode <devmode>` and the
+See also the :ref:`MyFRpy Development Mode <devmode>` and the
 :option:`--with-trace-refs` configure option.
 
 .. versionchanged:: 3.8
@@ -440,7 +440,7 @@ Debug options
 
 .. option:: --with-pydebug
 
-   :ref:`Build Python in debug mode <debug-build>`: define the ``Py_DEBUG``
+   :ref:`Build MyFRpy in debug mode <debug-build>`: define the ``Py_DEBUG``
    macro (disabled by default).
 
 .. option:: --with-trace-refs
@@ -451,7 +451,7 @@ Debug options
 
    * Define the ``Py_TRACE_REFS`` macro.
    * Add :func:`!sys.getobjects` function.
-   * Add :envvar:`PYTHONDUMPREFS` environment variable.
+   * Add :envvar:`MYFRPYDUMPREFS` environment variable.
 
    This build is not ABI compatible with release build (default build) or debug
    build (``Py_DEBUG`` and ``Py_REF_DEBUG`` macros).
@@ -479,7 +479,7 @@ Debug options
 
    Enable DTrace support (default is no).
 
-   See :ref:`Instrumenting CPython with DTrace and SystemTap
+   See :ref:`Instrumenting CMyFRpy with DTrace and SystemTap
    <instrumentation>`.
 
    .. versionadded:: 3.6
@@ -509,11 +509,11 @@ Linker options
 
 .. option:: --enable-shared
 
-   Enable building a shared Python library: ``libpython`` (default is no).
+   Enable building a shared MyFRpy library: ``libmyFRpy`` (default is no).
 
-.. option:: --without-static-libpython
+.. option:: --without-static-libmyFRpy
 
-   Do not build ``libpythonMAJOR.MINOR.a`` and do not install ``python.o``
+   Do not build ``libmyFRpyMAJOR.MINOR.a`` and do not install ``myFRpy.o``
    (built and enabled by default).
 
    .. versionadded:: 3.10
@@ -585,7 +585,7 @@ Security Options
 
 .. option:: --with-hash-algorithm=[fnv|siphash13|siphash24]
 
-   Select hash algorithm for use in ``Python/pyhash.c``:
+   Select hash algorithm for use in ``MyFRpy/pyhash.c``:
 
    * ``siphash13`` (default);
    * ``siphash24``;
@@ -609,11 +609,11 @@ Security Options
 
    .. versionadded:: 3.9
 
-.. option:: --with-ssl-default-suites=[python|openssl|STRING]
+.. option:: --with-ssl-default-suites=[myFRpy|openssl|STRING]
 
    Override the OpenSSL default cipher suites string:
 
-   * ``python`` (default): use Python's preferred selection;
+   * ``myFRpy`` (default): use MyFRpy's preferred selection;
    * ``openssl``: leave OpenSSL's defaults untouched;
    * *STRING*: use a custom string
 
@@ -623,7 +623,7 @@ Security Options
 
    .. versionchanged:: 3.10
 
-      The settings ``python`` and *STRING* also set TLS 1.2 as minimum
+      The settings ``myFRpy`` and *STRING* also set TLS 1.2 as minimum
       protocol version.
 
 macOS Options
@@ -640,7 +640,7 @@ See ``Mac/README.rst``.
 .. option:: --enable-framework
 .. option:: --enable-framework=INSTALLDIR
 
-   Create a Python.framework rather than a traditional Unix install. Optional
+   Create a MyFRpy.framework rather than a traditional Unix install. Optional
    *INSTALLDIR* specifies the installation path (default is no).
 
 .. option:: --with-universal-archs=ARCH
@@ -661,17 +661,17 @@ See ``Mac/README.rst``.
 
 .. option:: --with-framework-name=FRAMEWORK
 
-   Specify the name for the python framework on macOS only valid when
-   :option:`--enable-framework` is set (default: ``Python``).
+   Specify the name for the myFRpy framework on macOS only valid when
+   :option:`--enable-framework` is set (default: ``MyFRpy``).
 
 
 Cross Compiling Options
 -----------------------
 
-Cross compiling, also known as cross building, can be used to build Python
-for another CPU architecture or platform. Cross compiling requires a Python
-interpreter for the build platform. The version of the build Python must match
-the version of the cross compiled host Python.
+Cross compiling, also known as cross building, can be used to build MyFRpy
+for another CPU architecture or platform. Cross compiling requires a MyFRpy
+interpreter for the build platform. The version of the build MyFRpy must match
+the version of the cross compiled host MyFRpy.
 
 .. option:: --build=BUILD
 
@@ -681,9 +681,9 @@ the version of the cross compiled host Python.
 
    cross-compile to build programs to run on HOST (target platform)
 
-.. option:: --with-build-python=path/to/python
+.. option:: --with-build-myFRpy=path/to/myFRpy
 
-   path to build ``python`` binary for cross compiling
+   path to build ``myFRpy`` binary for cross compiling
 
    .. versionadded:: 3.11
 
@@ -706,10 +706,10 @@ Cross compiling example::
    CONFIG_SITE=config.site-aarch64 ../configure \
        --build=x86_64-pc-linux-gnu \
        --host=aarch64-unknown-linux-gnu \
-       --with-build-python=../x86_64/python
+       --with-build-myFRpy=../x86_64/myFRpy
 
 
-Python Build System
+MyFRpy Build System
 ===================
 
 Main files of the build system
@@ -725,25 +725,25 @@ Main build steps
 ----------------
 
 * C files (``.c``) are built as object files (``.o``).
-* A static ``libpython`` library (``.a``) is created from objects files.
-* ``python.o`` and the static ``libpython`` library are linked into the
-  final ``python`` program.
+* A static ``libmyFRpy`` library (``.a``) is created from objects files.
+* ``myFRpy.o`` and the static ``libmyFRpy`` library are linked into the
+  final ``myFRpy`` program.
 * C extensions are built by the Makefile (see :file:`Modules/Setup`).
 
 Main Makefile targets
 ---------------------
 
-* ``make``: Build Python with the standard library.
-* ``make platform:``: build the ``python`` program, but don't build the
+* ``make``: Build MyFRpy with the standard library.
+* ``make platform:``: build the ``myFRpy`` program, but don't build the
   standard library extension modules.
-* ``make profile-opt``: build Python using Profile Guided Optimization (PGO).
+* ``make profile-opt``: build MyFRpy using Profile Guided Optimization (PGO).
   You can use the configure :option:`--enable-optimizations` option to make
   this the default target of the ``make`` command (``make all`` or just
   ``make``).
-* ``make buildbottest``: Build Python and run the Python test suite, the same
-  way than buildbots test Python. Set ``TESTTIMEOUT`` variable (in seconds)
+* ``make buildbottest``: Build MyFRpy and run the MyFRpy test suite, the same
+  way than buildbots test MyFRpy. Set ``TESTTIMEOUT`` variable (in seconds)
   to change the test timeout (1200 by default: 20 minutes).
-* ``make install``: Build and install Python.
+* ``make install``: Build and install MyFRpy.
 * ``make regen-all``: Regenerate (almost) all generated files;
   ``make regen-stdlib-module-names`` and ``autoconf`` must be run separately
   for the remaining generated files.
@@ -776,9 +776,9 @@ Example on Linux x86-64:
 
     >>> import _asyncio
     >>> _asyncio
-    <module '_asyncio' from '/usr/lib64/python3.9/lib-dynload/_asyncio.cpython-39-x86_64-linux-gnu.so'>
+    <module '_asyncio' from '/usr/lib64/myFRpy3.9/lib-dynload/_asyncio.cmyFRpy-39-x86_64-linux-gnu.so'>
     >>> _asyncio.__file__
-    '/usr/lib64/python3.9/lib-dynload/_asyncio.cpython-39-x86_64-linux-gnu.so'
+    '/usr/lib64/myFRpy3.9/lib-dynload/_asyncio.cmyFRpy-39-x86_64-linux-gnu.so'
 
 :file:`Modules/Setup` is used to generate Makefile targets to build C extensions.
 At the beginning of the files, C extensions are built as built-in modules.
@@ -855,7 +855,7 @@ Compiler flags
 
    :envvar:`CFLAGS_NODIST` is used for building the interpreter and stdlib C
    extensions.  Use it when a compiler flag should *not* be part of
-   :envvar:`CFLAGS` once Python is installed (:gh:`65320`).
+   :envvar:`CFLAGS` once MyFRpy is installed (:gh:`65320`).
 
    In particular, :envvar:`CFLAGS` should not contain:
 
@@ -905,7 +905,7 @@ Compiler flags
 
 .. envvar:: CFLAGS_ALIASING
 
-   Strict or non-strict aliasing flags used to compile ``Python/dtoa.c``.
+   Strict or non-strict aliasing flags used to compile ``MyFRpy/dtoa.c``.
 
    .. versionadded:: 3.7
 
@@ -967,7 +967,7 @@ Linker flags
 
 .. envvar:: LINKCC
 
-   Linker command used to build programs like ``python`` and ``_testembed``.
+   Linker command used to build programs like ``myFRpy`` and ``_testembed``.
 
    Default: ``$(PURIFY) $(CC)``.
 
@@ -985,7 +985,7 @@ Linker flags
 
    :envvar:`LDFLAGS_NODIST` is used in the same manner as
    :envvar:`CFLAGS_NODIST`.  Use it when a linker flag should *not* be part of
-   :envvar:`LDFLAGS` once Python is installed (:gh:`65320`).
+   :envvar:`LDFLAGS` once MyFRpy is installed (:gh:`65320`).
 
    In particular, :envvar:`LDFLAGS` should not contain:
 
@@ -1012,7 +1012,7 @@ Linker flags
 
 .. envvar:: LIBS
 
-   Linker flags to pass libraries to the linker when linking the Python
+   Linker flags to pass libraries to the linker when linking the MyFRpy
    executable.
 
    Example: ``-lrt``.
@@ -1025,7 +1025,7 @@ Linker flags
 
 .. envvar:: BLDSHARED
 
-   Command to build ``libpython`` shared library.
+   Command to build ``libmyFRpy`` shared library.
 
    Default: ``@BLDSHARED@ $(PY_CORE_LDFLAGS)``.
 

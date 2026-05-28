@@ -24,7 +24,7 @@ class FunctionalTest(unittest.TestCase):
             atexit.register(f, "one")
             atexit.register(f, "two")
         """)
-        res = script_helper.assert_python_ok("-c", code)
+        res = script_helper.assert_myFRpy_ok("-c", code)
         self.assertEqual(res.out.decode().splitlines(), ["two", "one"])
         self.assertFalse(res.err)
 
@@ -42,12 +42,12 @@ class FunctionalTest(unittest.TestCase):
             atexit1.register(print, "atexit1")
             atexit2.register(print, "atexit2")
         """)
-        res = script_helper.assert_python_ok("-c", code)
+        res = script_helper.assert_myFRpy_ok("-c", code)
         self.assertEqual(res.out.decode().splitlines(), ["atexit2", "atexit1"])
         self.assertFalse(res.err)
 
 
-@support.cpython_only
+@support.cmyFRpy_only
 class SubinterpreterTest(unittest.TestCase):
 
     def test_callbacks_leak(self):

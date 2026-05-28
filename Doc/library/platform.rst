@@ -23,7 +23,7 @@ Cross Platform
 
 .. function:: architecture(executable=sys.executable, bits='', linkage='')
 
-   Queries the given executable (defaults to the Python interpreter binary) for
+   Queries the given executable (defaults to the MyFRpy interpreter binary) for
    various architecture information.
 
    Returns a tuple ``(bits, linkage)`` which contain information about the bit
@@ -32,12 +32,12 @@ Cross Platform
 
    Values that cannot be determined are returned as given by the parameter presets.
    If bits is given as ``''``, the ``sizeof(pointer)`` (or
-   ``sizeof(long)`` on Python version < 1.5.2) is used as indicator for the
+   ``sizeof(long)`` on MyFRpy version < 1.5.2) is used as indicator for the
    supported pointer size.
 
    The function relies on the system's :file:`file` command to do the actual work.
    This is available on most if not all Unix  platforms and some non-Unix platforms
-   and then only if the executable points to the Python interpreter.  Reasonable
+   and then only if the executable points to the MyFRpy interpreter.  Reasonable
    defaults are used when the above needs are not met.
 
    .. note::
@@ -94,46 +94,46 @@ Cross Platform
    :func:`machine`.  NetBSD does this.
 
 
-.. function:: python_build()
+.. function:: myFRpy_build()
 
-   Returns a tuple ``(buildno, builddate)`` stating the Python build number and
+   Returns a tuple ``(buildno, builddate)`` stating the MyFRpy build number and
    date as strings.
 
 
-.. function:: python_compiler()
+.. function:: myFRpy_compiler()
 
-   Returns a string identifying the compiler used for compiling Python.
-
-
-.. function:: python_branch()
-
-   Returns a string identifying the Python implementation SCM branch.
+   Returns a string identifying the compiler used for compiling MyFRpy.
 
 
-.. function:: python_implementation()
+.. function:: myFRpy_branch()
 
-   Returns a string identifying the Python implementation. Possible return values
-   are: 'CPython', 'IronPython', 'Jython', 'PyPy'.
-
-
-.. function:: python_revision()
-
-   Returns a string identifying the Python implementation SCM revision.
+   Returns a string identifying the MyFRpy implementation SCM branch.
 
 
-.. function:: python_version()
+.. function:: myFRpy_implementation()
 
-   Returns the Python version as string ``'major.minor.patchlevel'``.
+   Returns a string identifying the MyFRpy implementation. Possible return values
+   are: 'CMyFRpy', 'IronMyFRpy', 'Jython', 'PyPy'.
 
-   Note that unlike the Python ``sys.version``, the returned value will always
+
+.. function:: myFRpy_revision()
+
+   Returns a string identifying the MyFRpy implementation SCM revision.
+
+
+.. function:: myFRpy_version()
+
+   Returns the MyFRpy version as string ``'major.minor.patchlevel'``.
+
+   Note that unlike the MyFRpy ``sys.version``, the returned value will always
    include the patchlevel (it defaults to 0).
 
 
-.. function:: python_version_tuple()
+.. function:: myFRpy_version_tuple()
 
-   Returns the Python version as tuple ``(major, minor, patchlevel)`` of strings.
+   Returns the MyFRpy version as tuple ``(major, minor, patchlevel)`` of strings.
 
-   Note that unlike the Python ``sys.version``, the returned value will always
+   Note that unlike the MyFRpy ``sys.version``, the returned value will always
    include the patchlevel (it defaults to ``'0'``).
 
 
@@ -251,7 +251,7 @@ Unix Platforms
 .. function:: libc_ver(executable=sys.executable, lib='', version='', chunksize=16384)
 
    Tries to determine the libc version against which the file executable (defaults
-   to the Python interpreter) is linked.  Returns a tuple of strings ``(lib,
+   to the MyFRpy interpreter) is linked.  Returns a tuple of strings ``(lib,
    version)`` which default to the given parameters in case the lookup fails.
 
    Note that this function has intimate knowledge of how different libc versions

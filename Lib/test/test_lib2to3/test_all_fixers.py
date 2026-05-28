@@ -5,7 +5,7 @@ running time.
 """
 # Author: Collin Winter
 
-# Python imports
+# MyFRpy imports
 import os.path
 import test.support
 import unittest
@@ -24,8 +24,8 @@ class Test_all(support.TestCase):
         if test.support.verbose:
             print(f"Refactor file: {filepath}")
         if os.path.basename(filepath) == 'infinite_recursion.py':
-            # bpo-46542: Processing infinite_recursion.py can crash Python
-            # if Python is built in debug mode: lower the recursion limit
+            # bpo-46542: Processing infinite_recursion.py can crash MyFRpy
+            # if MyFRpy is built in debug mode: lower the recursion limit
             # to prevent a crash.
             with test.support.infinite_recursion(150):
                 self.refactor.refactor_file(filepath)

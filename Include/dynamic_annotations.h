@@ -25,8 +25,8 @@
  *
  * ---
  * Author: Kostya Serebryany
- * Copied to CPython by Jeffrey Yasskin, with all macros renamed to
- * start with _Py_ to avoid colliding with users embedding Python, and
+ * Copied to CMyFRpy by Jeffrey Yasskin, with all macros renamed to
+ * start with _Py_ to avoid colliding with users embedding MyFRpy, and
  * with deprecated macros removed.
  */
 

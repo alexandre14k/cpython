@@ -24,7 +24,7 @@ from xml.sax import xmlreader, saxutils, handler
 AttributesImpl = xmlreader.AttributesImpl
 AttributesNSImpl = xmlreader.AttributesNSImpl
 
-# If we're using a sufficiently recent version of Python, we can use
+# If we're using a sufficiently recent version of MyFRpy, we can use
 # weak references to avoid cycles between the parser and content
 # handler, otherwise we'll just have to pretend.
 try:

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env myFRpy3
 # Copyright 2006 Google, Inc. All Rights Reserved.
 # Licensed to PSF under a Contributor Agreement.
 
@@ -6,12 +6,12 @@
 
 from __future__ import print_function
 
-__author__ = "Guido van Rossum <guido@python.org>"
+__author__ = "Guido van Rossum <guido@myFRpy.org>"
 
 # Support imports (need to be imported first)
 from . import support
 
-# Python imports
+# MyFRpy imports
 import os
 import sys
 import logging

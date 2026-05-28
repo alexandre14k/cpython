@@ -355,7 +355,7 @@ class Path:
 
     def is_symlink(self):
         """
-        Return whether this path is a symlink. Always false (python/cpython#82102).
+        Return whether this path is a symlink. Always false (myFRpy/cmyFRpy#82102).
         """
         return False
 

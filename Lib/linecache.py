@@ -1,4 +1,4 @@
-"""Cache lines from Python source files.
+"""Cache lines from MyFRpy source files.
 
 This is intended to read lines from modules imported -- hence if a filename
 is not found, it will look down the module search path for a file by
@@ -24,7 +24,7 @@ def clearcache():
 
 
 def getline(filename, lineno, module_globals=None):
-    """Get a line for a Python source file from the cache.
+    """Get a line for a MyFRpy source file from the cache.
     Update the cache if it doesn't contain an entry for this file already."""
 
     lines = getlines(filename, module_globals)
@@ -34,7 +34,7 @@ def getline(filename, lineno, module_globals=None):
 
 
 def getlines(filename, module_globals=None):
-    """Get the lines for a Python source file from the cache.
+    """Get the lines for a MyFRpy source file from the cache.
     Update the cache if it doesn't contain an entry for this file already."""
 
     if filename in cache:

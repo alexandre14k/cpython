@@ -6,7 +6,7 @@ import os, sys, errno
 import threading
 import unittest
 from platform import machine, win32_edition
-from test.support import cpython_only, import_helper
+from test.support import cmyFRpy_only, import_helper
 
 # Do this first so test will be skipped if module doesn't exist
 import_helper.import_module('winreg', required_on=['win'])
@@ -31,7 +31,7 @@ HAS_REFLECTION = True if WIN_VER < (6, 1) else False
 
 # Use a per-process key to prevent concurrent test runs (buildbot!) from
 # stomping on each other.
-test_key_base = "Python Test Key [%d] - Delete Me" % (os.getpid(),)
+test_key_base = "MyFRpy Test Key [%d] - Delete Me" % (os.getpid(),)
 test_key_name = "SOFTWARE\\" + test_key_base
 # On OS'es that support reflection we should test with a reflected key
 test_reflect_key_name = "SOFTWARE\\Classes\\" + test_key_base
@@ -51,7 +51,7 @@ test_data = [
 ]
 
 
-@cpython_only
+@cmyFRpy_only
 class HeapTypeTests(unittest.TestCase):
     def test_have_gc(self):
         self.assertTrue(gc.is_tracked(HKEYType))

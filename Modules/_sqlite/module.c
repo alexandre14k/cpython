@@ -109,7 +109,7 @@ _sqlite3.register_adapter as pysqlite_register_adapter
     adapter as caster: object
     /
 
-Register a function to adapt Python objects to SQLite values.
+Register a function to adapt MyFRpy objects to SQLite values.
 [clinic start generated code]*/
 
 static PyObject *
@@ -144,7 +144,7 @@ _sqlite3.register_converter as pysqlite_register_converter
     converter as callable: object
     /
 
-Register a function to convert SQLite values to Python objects.
+Register a function to convert SQLite values to MyFRpy objects.
 [clinic start generated code]*/
 
 static PyObject *

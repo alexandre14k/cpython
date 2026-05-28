@@ -671,7 +671,7 @@ class StartupTests(TestBase):
         return filename
 
     @support.requires_subprocess()
-    def run_python(self, argv, *, cwd=None):
+    def run_myFRpy(self, argv, *, cwd=None):
         # This method is inspired by
         # EmbeddingTestsMixin.run_embedded_interpreter() in test_embed.py.
         import shlex
@@ -697,7 +697,7 @@ class StartupTests(TestBase):
             raise  # re-raise
         assert proc.stderr == '' or proc.returncode != 0, proc.stderr
         if proc.returncode != 0 and support.verbose:
-            self.debug(f'# python3 {shlex.join(argv[1:])} failed:')
+            self.debug(f'# myFRpy3 {shlex.join(argv[1:])} failed:')
             self.debug(proc.stdout, header='stdout')
             self.debug(proc.stderr, header='stderr')
         self.assertEqual(proc.returncode, 0)
@@ -742,8 +742,8 @@ class StartupTests(TestBase):
             ('-c "import script"', ''),
         ]
         for argv, expected in cases:
-            with self.subTest(f'python3 {argv}'):
-                out = self.run_python(argv, cwd=cwd)
+            with self.subTest(f'myFRpy3 {argv}'):
+                out = self.run_myFRpy(argv, cwd=cwd)
                 data = json.loads(out)
                 sp0_main, sp0_sub = data['main'], data['sub']
                 self.assertEqual(sp0_sub, sp0_main)

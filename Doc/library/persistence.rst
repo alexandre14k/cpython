@@ -4,9 +4,9 @@
 Data Persistence
 ****************
 
-The modules described in this chapter support storing Python data in a
+The modules described in this chapter support storing MyFRpy data in a
 persistent form on disk.  The :mod:`pickle` and :mod:`marshal` modules can turn
-many Python data types into a stream of bytes and then recreate the objects from
+many MyFRpy data types into a stream of bytes and then recreate the objects from
 the bytes.  The various DBM-related modules support a family of hash-based file
 formats that store a mapping of strings to other strings.
 

@@ -38,7 +38,7 @@ def setup_test_dir():
 
 
 class AnyDBMTestCase:
-    _dict = {'a': b'Python:',
+    _dict = {'a': b'MyFRpy:',
              'b': b'Programming',
              'c': b'the',
              'd': b'way',
@@ -125,7 +125,7 @@ class AnyDBMTestCase:
         f = dbm.open(_fname, 'r')
         key = "a".encode("ascii")
         self.assertIn(key, f)
-        assert(f[key] == b"Python:")
+        assert(f[key] == b"MyFRpy:")
         f.close()
 
     def test_open_with_bytes(self):

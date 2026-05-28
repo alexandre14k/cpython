@@ -9,7 +9,7 @@ Argparse Tutorial
 .. currentmodule:: argparse
 
 This tutorial is intended to be a gentle introduction to :mod:`argparse`, the
-recommended command-line parsing module in the Python standard library.
+recommended command-line parsing module in the MyFRpy standard library.
 
 .. note::
 
@@ -29,12 +29,12 @@ introductory tutorial by making use of the :command:`ls` command:
 .. code-block:: shell-session
 
    $ ls
-   cpython  devguide  prog.py  pypy  rm-unused-function.patch
+   cmyFRpy  devguide  prog.py  pypy  rm-unused-function.patch
    $ ls pypy
-   ctypes_configure  demo  dotviewer  include  lib_pypy  lib-python ...
+   ctypes_configure  demo  dotviewer  include  lib_pypy  lib-myFRpy ...
    $ ls -l
    total 20
-   drwxr-xr-x 19 wena wena 4096 Feb 18 18:51 cpython
+   drwxr-xr-x 19 wena wena 4096 Feb 18 18:51 cmyFRpy
    drwxr-xr-x  4 wena wena 4096 Feb  8 12:04 devguide
    -rwxr-xr-x  1 wena wena  535 Feb 19 00:05 prog.py
    drwxr-xr-x 14 wena wena 4096 Feb  7 00:59 pypy
@@ -81,16 +81,16 @@ Following is a result of running the code:
 
 .. code-block:: shell-session
 
-   $ python prog.py
-   $ python prog.py --help
+   $ myFRpy prog.py
+   $ myFRpy prog.py --help
    usage: prog.py [-h]
 
    options:
      -h, --help  show this help message and exit
-   $ python prog.py --verbose
+   $ myFRpy prog.py --verbose
    usage: prog.py [-h]
    prog.py: error: unrecognized arguments: --verbose
-   $ python prog.py foo
+   $ myFRpy prog.py foo
    usage: prog.py [-h]
    prog.py: error: unrecognized arguments: foo
 
@@ -123,10 +123,10 @@ And running the code:
 
 .. code-block:: shell-session
 
-   $ python prog.py
+   $ myFRpy prog.py
    usage: prog.py [-h] echo
    prog.py: error: the following arguments are required: echo
-   $ python prog.py --help
+   $ myFRpy prog.py --help
    usage: prog.py [-h] echo
 
    positional arguments:
@@ -134,7 +134,7 @@ And running the code:
 
    options:
      -h, --help  show this help message and exit
-   $ python prog.py foo
+   $ myFRpy prog.py foo
    foo
 
 Here is what's happening:
@@ -168,7 +168,7 @@ And we get:
 
 .. code-block:: shell-session
 
-   $ python prog.py -h
+   $ myFRpy prog.py -h
    usage: prog.py [-h] echo
 
    positional arguments:
@@ -189,7 +189,7 @@ Following is a result of running the code:
 
 .. code-block:: shell-session
 
-   $ python prog.py 4
+   $ myFRpy prog.py 4
    Traceback (most recent call last):
      File "prog.py", line 5, in <module>
        print(args.square**2)
@@ -210,9 +210,9 @@ Following is a result of running the code:
 
 .. code-block:: shell-session
 
-   $ python prog.py 4
+   $ myFRpy prog.py 4
    16
-   $ python prog.py four
+   $ myFRpy prog.py four
    usage: prog.py [-h] square
    prog.py: error: argument square: invalid int value: 'four'
 
@@ -237,17 +237,17 @@ And the output:
 
 .. code-block:: shell-session
 
-   $ python prog.py --verbosity 1
+   $ myFRpy prog.py --verbosity 1
    verbosity turned on
-   $ python prog.py
-   $ python prog.py --help
+   $ myFRpy prog.py
+   $ myFRpy prog.py --help
    usage: prog.py [-h] [--verbosity VERBOSITY]
 
    options:
      -h, --help            show this help message and exit
      --verbosity VERBOSITY
                            increase output verbosity
-   $ python prog.py --verbosity
+   $ myFRpy prog.py --verbosity
    usage: prog.py [-h] [--verbosity VERBOSITY]
    prog.py: error: argument --verbosity: expected one argument
 
@@ -283,12 +283,12 @@ And the output:
 
 .. code-block:: shell-session
 
-   $ python prog.py --verbose
+   $ myFRpy prog.py --verbose
    verbosity turned on
-   $ python prog.py --verbose 1
+   $ myFRpy prog.py --verbose 1
    usage: prog.py [-h] [--verbose]
    prog.py: error: unrecognized arguments: 1
-   $ python prog.py --help
+   $ myFRpy prog.py --help
    usage: prog.py [-h] [--verbose]
 
    options:
@@ -329,9 +329,9 @@ And here goes:
 
 .. code-block:: shell-session
 
-   $ python prog.py -v
+   $ myFRpy prog.py -v
    verbosity turned on
-   $ python prog.py --help
+   $ myFRpy prog.py --help
    usage: prog.py [-h] [-v]
 
    options:
@@ -363,14 +363,14 @@ And now the output:
 
 .. code-block:: shell-session
 
-   $ python prog.py
+   $ myFRpy prog.py
    usage: prog.py [-h] [-v] square
    prog.py: error: the following arguments are required: square
-   $ python prog.py 4
+   $ myFRpy prog.py 4
    16
-   $ python prog.py 4 --verbose
+   $ myFRpy prog.py 4 --verbose
    the square of 4 equals 16
-   $ python prog.py --verbose 4
+   $ myFRpy prog.py --verbose 4
    the square of 4 equals 16
 
 * We've brought back a positional argument, hence the complaint.
@@ -399,16 +399,16 @@ And the output:
 
 .. code-block:: shell-session
 
-   $ python prog.py 4
+   $ myFRpy prog.py 4
    16
-   $ python prog.py 4 -v
+   $ myFRpy prog.py 4 -v
    usage: prog.py [-h] [-v VERBOSITY] square
    prog.py: error: argument -v/--verbosity: expected one argument
-   $ python prog.py 4 -v 1
+   $ myFRpy prog.py 4 -v 1
    4^2 == 16
-   $ python prog.py 4 -v 2
+   $ myFRpy prog.py 4 -v 2
    the square of 4 equals 16
-   $ python prog.py 4 -v 3
+   $ myFRpy prog.py 4 -v 3
    16
 
 These all look good except the last one, which exposes a bug in our program.
@@ -433,10 +433,10 @@ And the output:
 
 .. code-block:: shell-session
 
-   $ python prog.py 4 -v 3
+   $ myFRpy prog.py 4 -v 3
    usage: prog.py [-h] [-v {0,1,2}] square
    prog.py: error: argument -v/--verbosity: invalid choice: 3 (choose from 0, 1, 2)
-   $ python prog.py 4 -h
+   $ myFRpy prog.py 4 -h
    usage: prog.py [-h] [-v {0,1,2}] square
 
    positional arguments:
@@ -451,8 +451,8 @@ Note that the change also reflects both in the error message as well as the
 help string.
 
 Now, let's use a different approach of playing with verbosity, which is pretty
-common. It also matches the way the CPython executable handles its own
-verbosity argument (check the output of ``python --help``)::
+common. It also matches the way the CMyFRpy executable handles its own
+verbosity argument (check the output of ``myFRpy --help``)::
 
    import argparse
    parser = argparse.ArgumentParser()
@@ -475,18 +475,18 @@ to count the number of occurrences of specific options.
 
 .. code-block:: shell-session
 
-   $ python prog.py 4
+   $ myFRpy prog.py 4
    16
-   $ python prog.py 4 -v
+   $ myFRpy prog.py 4 -v
    4^2 == 16
-   $ python prog.py 4 -vv
+   $ myFRpy prog.py 4 -vv
    the square of 4 equals 16
-   $ python prog.py 4 --verbosity --verbosity
+   $ myFRpy prog.py 4 --verbosity --verbosity
    the square of 4 equals 16
-   $ python prog.py 4 -v 1
+   $ myFRpy prog.py 4 -v 1
    usage: prog.py [-h] [-v] square
    prog.py: error: unrecognized arguments: 1
-   $ python prog.py 4 -h
+   $ myFRpy prog.py 4 -h
    usage: prog.py [-h] [-v] square
 
    positional arguments:
@@ -495,7 +495,7 @@ to count the number of occurrences of specific options.
    options:
      -h, --help       show this help message and exit
      -v, --verbosity  increase output verbosity
-   $ python prog.py 4 -vvv
+   $ myFRpy prog.py 4 -vvv
    16
 
 * Yes, it's now more of a flag (similar to ``action="store_true"``) in the
@@ -542,11 +542,11 @@ And this is what it gives:
 
 .. code-block:: shell-session
 
-   $ python prog.py 4 -vvv
+   $ myFRpy prog.py 4 -vvv
    the square of 4 equals 16
-   $ python prog.py 4 -vvvv
+   $ myFRpy prog.py 4 -vvvv
    the square of 4 equals 16
-   $ python prog.py 4
+   $ myFRpy prog.py 4
    Traceback (most recent call last):
      File "prog.py", line 11, in <module>
        if args.verbosity >= 2:
@@ -586,7 +586,7 @@ And:
 
 .. code-block:: shell-session
 
-   $ python prog.py 4
+   $ myFRpy prog.py 4
    16
 
 You can go quite far just with what we've learned so far,
@@ -619,10 +619,10 @@ Output:
 
 .. code-block:: shell-session
 
-   $ python prog.py
+   $ myFRpy prog.py
    usage: prog.py [-h] [-v] x y
    prog.py: error: the following arguments are required: x, y
-   $ python prog.py -h
+   $ myFRpy prog.py -h
    usage: prog.py [-h] [-v] x y
 
    positional arguments:
@@ -632,7 +632,7 @@ Output:
    options:
      -h, --help       show this help message and exit
      -v, --verbosity
-   $ python prog.py 4 2 -v
+   $ myFRpy prog.py 4 2 -v
    4^2 == 16
 
 
@@ -657,11 +657,11 @@ Output:
 
 .. code-block:: shell-session
 
-   $ python prog.py 4 2
+   $ myFRpy prog.py 4 2
    16
-   $ python prog.py 4 2 -v
+   $ myFRpy prog.py 4 2 -v
    4^2 == 16
-   $ python prog.py 4 2 -vv
+   $ myFRpy prog.py 4 2 -vv
    Running 'prog.py'
    4^2 == 16
 
@@ -729,16 +729,16 @@ demonstration. Anyways, here's the output:
 
 .. code-block:: shell-session
 
-   $ python prog.py 4 2
+   $ myFRpy prog.py 4 2
    4^2 == 16
-   $ python prog.py 4 2 -q
+   $ myFRpy prog.py 4 2 -q
    16
-   $ python prog.py 4 2 -v
+   $ myFRpy prog.py 4 2 -v
    4 to the power 2 equals 16
-   $ python prog.py 4 2 -vq
+   $ myFRpy prog.py 4 2 -vq
    usage: prog.py [-h] [-v | -q] x y
    prog.py: error: argument -q/--quiet: not allowed with argument -v/--verbose
-   $ python prog.py 4 2 -v --quiet
+   $ myFRpy prog.py 4 2 -v --quiet
    usage: prog.py [-h] [-v | -q] x y
    prog.py: error: argument -q/--quiet: not allowed with argument -v/--verbose
 
@@ -773,7 +773,7 @@ but not both at the same time:
 
 .. code-block:: shell-session
 
-   $ python prog.py --help
+   $ myFRpy prog.py --help
    usage: prog.py [-h] [-v | -q] x y
 
    calculate X to the power of Y
@@ -800,7 +800,7 @@ For instance, in this :mod:`argparse` output:
 
 .. code-block:: shell-session
 
-   $ python prog.py --help
+   $ myFRpy prog.py --help
    usage: prog.py [-h] [-v | -q] x y
 
    calculate X to the power of Y
@@ -823,11 +823,11 @@ run this command:
 
 .. code-block:: shell-session
 
-  $ pybabel extract -o messages.po /usr/lib/python3.12/argparse.py
+  $ pybabel extract -o messages.po /usr/lib/myFRpy3.12/argparse.py
 
 This command will extract all translatable strings from the :mod:`argparse`
 module and output them into a file named ``messages.po``. This command assumes
-that your Python installation is in ``/usr/lib``.
+that your MyFRpy installation is in ``/usr/lib``.
 
 You can find out the location of the :mod:`argparse` module on your system
 using this script::

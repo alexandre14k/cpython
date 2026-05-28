@@ -11,7 +11,7 @@ import unittest
 from test import support
 from test.support import os_helper
 from test.support.script_helper import (
-    spawn_python, kill_python, assert_python_ok, assert_python_failure,
+    spawn_myFRpy, kill_myFRpy, assert_myFRpy_ok, assert_myFRpy_failure,
     interpreter_requires_environment
 )
 
@@ -19,52 +19,52 @@ if not support.has_subprocess_support:
     raise unittest.SkipTest("test module requires subprocess")
 
 
-# XXX (ncoghlan): Move to script_helper and make consistent with run_python
-def _kill_python_and_exit_code(p):
-    data = kill_python(p)
+# XXX (ncoghlan): Move to script_helper and make consistent with run_myFRpy
+def _kill_myFRpy_and_exit_code(p):
+    data = kill_myFRpy(p)
     returncode = p.wait()
     return data, returncode
 
 
 class CmdLineTest(unittest.TestCase):
     def test_directories(self):
-        assert_python_failure('.')
-        assert_python_failure('< .')
+        assert_myFRpy_failure('.')
+        assert_myFRpy_failure('< .')
 
     def verify_valid_flag(self, cmd_line):
-        rc, out, err = assert_python_ok(cmd_line)
+        rc, out, err = assert_myFRpy_ok(cmd_line)
         self.assertTrue(out == b'' or out.endswith(b'\n'))
         self.assertNotIn(b'Traceback', out)
         self.assertNotIn(b'Traceback', err)
         return out
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_help(self):
         self.verify_valid_flag('-h')
         self.verify_valid_flag('-?')
         out = self.verify_valid_flag('--help')
         lines = out.splitlines()
         self.assertIn(b'usage', lines[0])
-        self.assertNotIn(b'PYTHONHOME', out)
+        self.assertNotIn(b'MYFRPYHOME', out)
         self.assertNotIn(b'-X dev', out)
         self.assertLess(len(lines), 50)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_help_env(self):
         out = self.verify_valid_flag('--help-env')
-        self.assertIn(b'PYTHONHOME', out)
+        self.assertIn(b'MYFRPYHOME', out)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_help_xoptions(self):
         out = self.verify_valid_flag('--help-xoptions')
         self.assertIn(b'-X dev', out)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_help_all(self):
         out = self.verify_valid_flag('--help-all')
         lines = out.splitlines()
         self.assertIn(b'usage', lines[0])
-        self.assertIn(b'PYTHONHOME', out)
+        self.assertIn(b'MYFRPYHOME', out)
         self.assertIn(b'-X dev', out)
 
         # The first line contains the program name,
@@ -78,11 +78,11 @@ class CmdLineTest(unittest.TestCase):
     def test_site_flag(self):
         self.verify_valid_flag('-S')
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_version(self):
-        version = ('Python %d.%d' % sys.version_info[:2]).encode("ascii")
+        version = ('MyFRpy %d.%d' % sys.version_info[:2]).encode("ascii")
         for switch in '-V', '--version', '-VV':
-            rc, out, err = assert_python_ok(switch)
+            rc, out, err = assert_myFRpy_ok(switch)
             self.assertFalse(err.startswith(version))
             self.assertTrue(out.startswith(version))
 
@@ -90,13 +90,13 @@ class CmdLineTest(unittest.TestCase):
         # -v causes imports to write to stderr.  If the write to
         # stderr itself causes an import to happen (for the output
         # codec), a recursion loop can occur.
-        rc, out, err = assert_python_ok('-v')
+        rc, out, err = assert_myFRpy_ok('-v')
         self.assertNotIn(b'stack overflow', err)
-        rc, out, err = assert_python_ok('-vv')
+        rc, out, err = assert_myFRpy_ok('-vv')
         self.assertNotIn(b'stack overflow', err)
 
     @unittest.skipIf(interpreter_requires_environment(),
-                     'Cannot run -E tests when PYTHON env vars are required.')
+                     'Cannot run -E tests when MYFRPY env vars are required.')
     def test_xoptions(self):
         def get_xoptions(*args):
             # use subprocess module directly because test.support.script_helper adds
@@ -114,10 +114,10 @@ class CmdLineTest(unittest.TestCase):
         self.assertEqual(opts, {'a': True, 'b': 'c,d=e'})
 
     def test_showrefcount(self):
-        def run_python(*args):
-            # this is similar to assert_python_ok but doesn't strip
+        def run_myFRpy(*args):
+            # this is similar to assert_myFRpy_ok but doesn't strip
             # the refcount from stderr.  It can be replaced once
-            # assert_python_ok stops doing that.
+            # assert_myFRpy_ok stops doing that.
             cmd = [sys.executable]
             cmd.extend(args)
             PIPE = subprocess.PIPE
@@ -130,11 +130,11 @@ class CmdLineTest(unittest.TestCase):
             return rc, out, err
         code = 'import sys; print(sys._xoptions)'
         # normally the refcount is hidden
-        rc, out, err = run_python('-c', code)
+        rc, out, err = run_myFRpy('-c', code)
         self.assertEqual(out.rstrip(), b'{}')
         self.assertEqual(err, b'')
         # "-X showrefcount" shows the refcount, but only in debug builds
-        rc, out, err = run_python('-I', '-X', 'showrefcount', '-c', code)
+        rc, out, err = run_myFRpy('-I', '-X', 'showrefcount', '-c', code)
         self.assertEqual(out.rstrip(), b"{'showrefcount': True}")
         if support.Py_DEBUG:
             # bpo-46417: Tolerate negative reference count which can occur
@@ -144,7 +144,7 @@ class CmdLineTest(unittest.TestCase):
         else:
             self.assertEqual(err, b'')
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_xoption_frozen_modules(self):
         tests = {
             ('=on', 'FrozenImporter'),
@@ -156,68 +156,68 @@ class CmdLineTest(unittest.TestCase):
             cmd = ['-X', f'frozen_modules{raw}',
                    '-c', 'import os; print(os.__spec__.loader, end="")']
             with self.subTest(raw):
-                res = assert_python_ok(*cmd)
+                res = assert_myFRpy_ok(*cmd)
                 self.assertRegex(res.out.decode('utf-8'), expected)
 
     def test_run_module(self):
         # Test expected operation of the '-m' switch
         # Switch needs an argument
-        assert_python_failure('-m')
+        assert_myFRpy_failure('-m')
         # Check we get an error for a nonexistent module
-        assert_python_failure('-m', 'fnord43520xyz')
+        assert_myFRpy_failure('-m', 'fnord43520xyz')
         # Check the runpy module also gives an error for
         # a nonexistent module
-        assert_python_failure('-m', 'runpy', 'fnord43520xyz')
+        assert_myFRpy_failure('-m', 'runpy', 'fnord43520xyz')
         # All good if module is located and run successfully
-        assert_python_ok('-m', 'timeit', '-n', '1')
+        assert_myFRpy_ok('-m', 'timeit', '-n', '1')
 
     def test_run_module_bug1764407(self):
         # -m and -i need to play well together
         # Runs the timeit module and checks the __main__
         # namespace has been populated appropriately
-        p = spawn_python('-i', '-m', 'timeit', '-n', '1')
+        p = spawn_myFRpy('-i', '-m', 'timeit', '-n', '1')
         p.stdin.write(b'Timer\n')
         p.stdin.write(b'exit()\n')
-        data = kill_python(p)
+        data = kill_myFRpy(p)
         self.assertTrue(data.find(b'1 loop') != -1)
         self.assertTrue(data.find(b'__main__.Timer') != -1)
 
     def test_relativedir_bug46421(self):
-        # Test `python -m unittest` with a relative directory beginning with ./
+        # Test `myFRpy -m unittest` with a relative directory beginning with ./
         # Note: We have to switch to the project's top module's directory, as per
-        # the python unittest wiki. We will switch back when we are done.
+        # the myFRpy unittest wiki. We will switch back when we are done.
         projectlibpath = os.path.dirname(__file__).removesuffix("test")
         with os_helper.change_cwd(projectlibpath):
             # Testing with and without ./
-            assert_python_ok('-m', 'unittest', "test/test_longexp.py")
-            assert_python_ok('-m', 'unittest', "./test/test_longexp.py")
+            assert_myFRpy_ok('-m', 'unittest', "test/test_longexp.py")
+            assert_myFRpy_ok('-m', 'unittest', "./test/test_longexp.py")
 
     def test_run_code(self):
         # Test expected operation of the '-c' switch
         # Switch needs an argument
-        assert_python_failure('-c')
+        assert_myFRpy_failure('-c')
         # Check we get an error for an uncaught exception
-        assert_python_failure('-c', 'raise Exception')
+        assert_myFRpy_failure('-c', 'raise Exception')
         # All good if execution is successful
-        assert_python_ok('-c', 'pass')
+        assert_myFRpy_ok('-c', 'pass')
 
     @unittest.skipUnless(os_helper.FS_NONASCII, 'need os_helper.FS_NONASCII')
     def test_non_ascii(self):
         # Test handling of non-ascii data
         command = ("assert(ord(%r) == %s)"
                    % (os_helper.FS_NONASCII, ord(os_helper.FS_NONASCII)))
-        assert_python_ok('-c', command)
+        assert_myFRpy_ok('-c', command)
 
     @unittest.skipUnless(os_helper.FS_NONASCII, 'need os_helper.FS_NONASCII')
     def test_coding(self):
         # bpo-32381: the -c command ignores the coding cookie
         ch = os_helper.FS_NONASCII
         cmd = f"# coding: latin1\nprint(ascii('{ch}'))"
-        res = assert_python_ok('-c', cmd)
+        res = assert_myFRpy_ok('-c', cmd)
         self.assertEqual(res.out.rstrip(), ascii(ch).encode('ascii'))
 
-    # On Windows, pass bytes to subprocess doesn't test how Python decodes the
-    # command line, but how subprocess does decode bytes to unicode. Python
+    # On Windows, pass bytes to subprocess doesn't test how MyFRpy decodes the
+    # command line, but how subprocess does decode bytes to unicode. MyFRpy
     # doesn't decode the command line because Windows provides directly the
     # arguments as unicode (using wmain() instead of main()).
     @unittest.skipIf(sys.platform == 'win32',
@@ -227,7 +227,7 @@ class CmdLineTest(unittest.TestCase):
         env = os.environ.copy()
         # Use C locale to get ascii for the locale encoding
         env['LC_ALL'] = 'C'
-        env['PYTHONCOERCECLOCALE'] = '0'
+        env['MYFRPYCOERCECLOCALE'] = '0'
         code = (
             b'import locale; '
             b'print(ascii("' + undecodable + b'"), '
@@ -261,9 +261,9 @@ class CmdLineTest(unittest.TestCase):
         # bpo-35883: Py_DecodeLocale() must escape b'\xfd\xbf\xbf\xbb\xba\xba'
         # byte sequence with surrogateescape rather than decoding it as the
         # U+7fffbeba character which is outside the [U+0000; U+10ffff] range of
-        # Python Unicode characters.
+        # MyFRpy Unicode characters.
         #
-        # Test with default config, in the C locale, in the Python UTF-8 Mode.
+        # Test with default config, in the C locale, in the MyFRpy UTF-8 Mode.
         code = 'import sys, os; s=os.fsencode(sys.argv[1]); print(ascii(s))'
 
         def run_default(arg):
@@ -309,7 +309,7 @@ class CmdLineTest(unittest.TestCase):
         expected = ascii(decoded).encode('ascii') + b'\n'
 
         env = os.environ.copy()
-        # C locale gives ASCII locale encoding, but Python uses UTF-8
+        # C locale gives ASCII locale encoding, but MyFRpy uses UTF-8
         # to parse the command line arguments on Mac OS X and Android.
         env['LC_ALL'] = 'C'
 
@@ -342,27 +342,27 @@ class CmdLineTest(unittest.TestCase):
             # Binary is unbuffered
             code = ("import os, sys; sys.%s.buffer.write(b'x'); os._exit(0)"
                 % stream)
-            rc, out, err = assert_python_ok('-u', '-c', code)
+            rc, out, err = assert_myFRpy_ok('-u', '-c', code)
             data = err if stream == 'stderr' else out
             self.assertEqual(data, b'x', "binary %s not unbuffered" % stream)
             # Text is unbuffered
             code = ("import os, sys; sys.%s.write('x'); os._exit(0)"
                 % stream)
-            rc, out, err = assert_python_ok('-u', '-c', code)
+            rc, out, err = assert_myFRpy_ok('-u', '-c', code)
             data = err if stream == 'stderr' else out
             self.assertEqual(data, b'x', "text %s not unbuffered" % stream)
 
     def test_unbuffered_input(self):
         # sys.stdin still works with '-u'
         code = ("import sys; sys.stdout.write(sys.stdin.read(1))")
-        p = spawn_python('-u', '-c', code)
+        p = spawn_myFRpy('-u', '-c', code)
         p.stdin.write(b'x')
         p.stdin.flush()
-        data, rc = _kill_python_and_exit_code(p)
+        data, rc = _kill_myFRpy_and_exit_code(p)
         self.assertEqual(rc, 0)
         self.assertTrue(data.startswith(b'x'), data)
 
-    def test_large_PYTHONPATH(self):
+    def test_large_MYFRPYPATH(self):
         path1 = "ABCDE" * 100
         path2 = "FGHIJ" * 100
         path = path1 + os.pathsep + path2
@@ -372,14 +372,14 @@ class CmdLineTest(unittest.TestCase):
             path = ":".join(sys.path)
             path = path.encode("ascii", "backslashreplace")
             sys.stdout.buffer.write(path)"""
-        rc, out, err = assert_python_ok('-S', '-c', code,
-                                        PYTHONPATH=path)
+        rc, out, err = assert_myFRpy_ok('-S', '-c', code,
+                                        MYFRPYPATH=path)
         self.assertIn(path1.encode('ascii'), out)
         self.assertIn(path2.encode('ascii'), out)
 
     @unittest.skipIf(sys.flags.safe_path,
-                     'PYTHONSAFEPATH changes default sys.path')
-    def test_empty_PYTHONPATH_issue16309(self):
+                     'MYFRPYSAFEPATH changes default sys.path')
+    def test_empty_MYFRPYPATH_issue16309(self):
         # On Posix, it is documented that setting PATH to the
         # empty string is equivalent to not setting PATH at all,
         # which is an exception to the rule that in a string like
@@ -390,16 +390,16 @@ class CmdLineTest(unittest.TestCase):
             path = ":".join(sys.path)
             path = path.encode("ascii", "backslashreplace")
             sys.stdout.buffer.write(path)"""
-        rc1, out1, err1 = assert_python_ok('-c', code, PYTHONPATH="")
-        rc2, out2, err2 = assert_python_ok('-c', code, __isolated=False)
+        rc1, out1, err1 = assert_myFRpy_ok('-c', code, MYFRPYPATH="")
+        rc2, out2, err2 = assert_myFRpy_ok('-c', code, __isolated=False)
         # regarding to Posix specification, outputs should be equal
-        # for empty and unset PYTHONPATH
+        # for empty and unset MYFRPYPATH
         self.assertEqual(out1, out2)
 
     def test_displayhook_unencodable(self):
         for encoding in ('ascii', 'latin-1', 'utf-8'):
             env = os.environ.copy()
-            env['PYTHONIOENCODING'] = encoding
+            env['MYFRPYIOENCODING'] = encoding
             p = subprocess.Popen(
                 [sys.executable, '-i'],
                 stdin=subprocess.PIPE,
@@ -410,7 +410,7 @@ class CmdLineTest(unittest.TestCase):
             text = "a=\xe9 b=\uDC80 c=\U00010000 d=\U0010FFFF"
             p.stdin.write(ascii(text).encode('ascii') + b"\n")
             p.stdin.write(b'exit()\n')
-            data = kill_python(p)
+            data = kill_myFRpy(p)
             escaped = repr(text).encode(encoding, 'backslashreplace')
             self.assertIn(escaped, data)
 
@@ -447,7 +447,7 @@ class CmdLineTest(unittest.TestCase):
             print(2)
             print(3, file=sys.stderr)
             print(4, file=sys.stderr)"""
-        rc, out, err = assert_python_ok('-c', code)
+        rc, out, err = assert_myFRpy_ok('-c', code)
 
         if sys.platform == 'win32':
             self.assertEqual(b'1\r\n2\r\n', out)
@@ -457,9 +457,9 @@ class CmdLineTest(unittest.TestCase):
             self.assertEqual(b'3\n4\n', err)
 
     def test_unmached_quote(self):
-        # Issue #10206: python program starting with unmatched quote
+        # Issue #10206: myFRpy program starting with unmatched quote
         # spewed spaces to stdout
-        rc, out, err = assert_python_failure('-c', "'")
+        rc, out, err = assert_myFRpy_failure('-c', "'")
         self.assertRegex(err.decode('ascii', 'ignore'), 'SyntaxError')
         self.assertEqual(b'', out)
 
@@ -471,7 +471,7 @@ class CmdLineTest(unittest.TestCase):
             test.support.SuppressCrashReport().__enter__()
             sys.stdout.write('x')
             os.close(sys.stdout.fileno())"""
-        rc, out, err = assert_python_failure('-c', code)
+        rc, out, err = assert_myFRpy_failure('-c', code)
         self.assertEqual(b'', out)
         self.assertEqual(120, rc)
         self.assertRegex(err.decode('ascii', 'ignore'),
@@ -481,10 +481,10 @@ class CmdLineTest(unittest.TestCase):
         # Issue #13444: if stdout has been explicitly closed, we should
         # not attempt to flush it at shutdown.
         code = "import sys; sys.stdout.close()"
-        rc, out, err = assert_python_ok('-c', code)
+        rc, out, err = assert_myFRpy_ok('-c', code)
         self.assertEqual(b'', err)
 
-    # Issue #7111: Python should work without standard streams
+    # Issue #7111: MyFRpy should work without standard streams
 
     @unittest.skipIf(os.name != 'posix', "test needs POSIX semantics")
     @unittest.skipIf(sys.platform == "vxworks",
@@ -529,17 +529,17 @@ class CmdLineTest(unittest.TestCase):
         # Verify that -R enables hash randomization:
         self.verify_valid_flag('-R')
         hashes = []
-        if os.environ.get('PYTHONHASHSEED', 'random') != 'random':
+        if os.environ.get('MYFRPYHASHSEED', 'random') != 'random':
             env = dict(os.environ)  # copy
             # We need to test that it is enabled by default without
             # the environment variable enabling it for us.
-            del env['PYTHONHASHSEED']
-            env['__cleanenv'] = '1'  # consumed by assert_python_ok()
+            del env['MYFRPYHASHSEED']
+            env['__cleanenv'] = '1'  # consumed by assert_myFRpy_ok()
         else:
             env = {}
         for i in range(3):
             code = 'print(hash("spam"))'
-            rc, out, err = assert_python_ok('-c', code, **env)
+            rc, out, err = assert_myFRpy_ok('-c', code, **env)
             self.assertEqual(rc, 0)
             hashes.append(out)
         hashes = sorted(set(hashes))  # uniq
@@ -550,16 +550,16 @@ class CmdLineTest(unittest.TestCase):
 
         # Verify that sys.flags contains hash_randomization
         code = 'import sys; print("random is", sys.flags.hash_randomization)'
-        rc, out, err = assert_python_ok('-c', code, PYTHONHASHSEED='')
+        rc, out, err = assert_myFRpy_ok('-c', code, MYFRPYHASHSEED='')
         self.assertIn(b'random is 1', out)
 
-        rc, out, err = assert_python_ok('-c', code, PYTHONHASHSEED='random')
+        rc, out, err = assert_myFRpy_ok('-c', code, MYFRPYHASHSEED='random')
         self.assertIn(b'random is 1', out)
 
-        rc, out, err = assert_python_ok('-c', code, PYTHONHASHSEED='0')
+        rc, out, err = assert_myFRpy_ok('-c', code, MYFRPYHASHSEED='0')
         self.assertIn(b'random is 0', out)
 
-        rc, out, err = assert_python_ok('-R', '-c', code, PYTHONHASHSEED='0')
+        rc, out, err = assert_myFRpy_ok('-R', '-c', code, MYFRPYHASHSEED='0')
         self.assertIn(b'random is 1', out)
 
     def test_del___main__(self):
@@ -571,21 +571,21 @@ class CmdLineTest(unittest.TestCase):
         with open(filename, "w", encoding="utf-8") as script:
             print("import sys", file=script)
             print("del sys.modules['__main__']", file=script)
-        assert_python_ok(filename)
+        assert_myFRpy_ok(filename)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_unknown_options(self):
-        rc, out, err = assert_python_failure('-E', '-z')
+        rc, out, err = assert_myFRpy_failure('-E', '-z')
         self.assertIn(b'Unknown option: -z', err)
         self.assertEqual(err.splitlines().count(b'Unknown option: -z'), 1)
         self.assertEqual(b'', out)
-        # Add "without='-E'" to prevent _assert_python to append -E
+        # Add "without='-E'" to prevent _assert_myFRpy to append -E
         # to env_vars and change the output of stderr
-        rc, out, err = assert_python_failure('-z', without='-E')
+        rc, out, err = assert_myFRpy_failure('-z', without='-E')
         self.assertIn(b'Unknown option: -z', err)
         self.assertEqual(err.splitlines().count(b'Unknown option: -z'), 1)
         self.assertEqual(b'', out)
-        rc, out, err = assert_python_failure('-a', '-z', without='-E')
+        rc, out, err = assert_myFRpy_failure('-a', '-z', without='-E')
         self.assertIn(b'Unknown option: -a', err)
         # only the first unknown option is reported
         self.assertNotIn(b'Unknown option: -z', err)
@@ -593,11 +593,11 @@ class CmdLineTest(unittest.TestCase):
         self.assertEqual(b'', out)
 
     @unittest.skipIf(interpreter_requires_environment(),
-                     'Cannot run -I tests when PYTHON env vars are required.')
+                     'Cannot run -I tests when MYFRPY env vars are required.')
     def test_isolatedmode(self):
         self.verify_valid_flag('-I')
         self.verify_valid_flag('-IEPs')
-        rc, out, err = assert_python_ok('-I', '-c',
+        rc, out, err = assert_myFRpy_ok('-I', '-c',
             'from sys import flags as f; '
             'print(f.no_user_site, f.ignore_environment, f.isolated, f.safe_path)',
             # dummyvar to prevent extraneous -E
@@ -611,7 +611,7 @@ class CmdLineTest(unittest.TestCase):
             with open(main, "w", encoding="utf-8") as f:
                 f.write("import uuid\n")
                 f.write("print('ok')\n")
-            # Use -E to ignore PYTHONSAFEPATH env var
+            # Use -E to ignore MYFRPYSAFEPATH env var
             self.assertRaises(subprocess.CalledProcessError,
                               subprocess.check_output,
                               [sys.executable, '-E', main], cwd=tmpdir,
@@ -624,10 +624,10 @@ class CmdLineTest(unittest.TestCase):
         # Issue 31845: a startup refactoring broke reading flags from env vars
         for value, expected in (("", 0), ("1", 1), ("text", 1), ("2", 2)):
             env_vars = dict(
-                PYTHONDEBUG=value,
-                PYTHONOPTIMIZE=value,
-                PYTHONDONTWRITEBYTECODE=value,
-                PYTHONVERBOSE=value,
+                MYFRPYDEBUG=value,
+                MYFRPYOPTIMIZE=value,
+                MYFRPYDONTWRITEBYTECODE=value,
+                MYFRPYVERBOSE=value,
             )
             dont_write_bytecode = int(bool(value))
             code = (
@@ -641,14 +641,14 @@ class CmdLineTest(unittest.TestCase):
                 ))"""
             )
             with self.subTest(envar_value=value):
-                assert_python_ok('-c', code, **env_vars)
+                assert_myFRpy_ok('-c', code, **env_vars)
 
     def test_set_pycache_prefix(self):
         # sys.pycache_prefix can be set from either -X pycache_prefix or
-        # PYTHONPYCACHEPREFIX env var, with the former taking precedence.
+        # MYFRPYPYCACHEPREFIX env var, with the former taking precedence.
         NO_VALUE = object()  # `-X pycache_prefix` with no `=PATH`
         cases = [
-            # (PYTHONPYCACHEPREFIX, -X pycache_prefix, sys.pycache_prefix)
+            # (MYFRPYPYCACHEPREFIX, -X pycache_prefix, sys.pycache_prefix)
             (None, None, None),
             ('foo', None, 'foo'),
             (None, 'bar', 'bar'),
@@ -660,20 +660,20 @@ class CmdLineTest(unittest.TestCase):
             exp_clause = "is None" if expected is None else f'== "{expected}"'
             code = f"import sys; sys.exit(not sys.pycache_prefix {exp_clause})"
             args = ['-c', code]
-            env = {} if envval is None else {'PYTHONPYCACHEPREFIX': envval}
+            env = {} if envval is None else {'MYFRPYPYCACHEPREFIX': envval}
             if opt is NO_VALUE:
                 args[:0] = ['-X', 'pycache_prefix']
             elif opt is not None:
                 args[:0] = ['-X', f'pycache_prefix={opt}']
             with self.subTest(envval=envval, opt=opt):
                 with os_helper.temp_cwd():
-                    assert_python_ok(*args, **env)
+                    assert_myFRpy_ok(*args, **env)
 
     def run_xdev(self, *args, check_exitcode=True, xdev=True):
         env = dict(os.environ)
-        env.pop('PYTHONWARNINGS', None)
-        env.pop('PYTHONDEVMODE', None)
-        env.pop('PYTHONMALLOC', None)
+        env.pop('MYFRPYWARNINGS', None)
+        env.pop('MYFRPYDEVMODE', None)
+        env.pop('MYFRPYMALLOC', None)
 
         if xdev:
             args = (sys.executable, '-X', 'dev', *args)
@@ -688,7 +688,7 @@ class CmdLineTest(unittest.TestCase):
             self.assertEqual(proc.returncode, 0, proc)
         return proc.stdout.rstrip()
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_xdev(self):
         # sys.flags.dev_mode
         code = "import sys; print(sys.flags.dev_mode)"
@@ -759,8 +759,8 @@ class CmdLineTest(unittest.TestCase):
                                 "for f in warnings.filters))")
         args = (sys.executable, '-W', cmdline_option, '-bb', '-c', code)
         env = dict(os.environ)
-        env.pop('PYTHONDEVMODE', None)
-        env["PYTHONWARNINGS"] = envvar
+        env.pop('MYFRPYDEVMODE', None)
+        env["MYFRPYWARNINGS"] = envvar
         proc = subprocess.run(args,
                               stdout=subprocess.PIPE,
                               stderr=subprocess.STDOUT,
@@ -790,14 +790,14 @@ class CmdLineTest(unittest.TestCase):
                                           use_pywarning=True)
         self.assertEqual(out, expected_filters)
 
-    def check_pythonmalloc(self, env_var, name):
+    def check_myFRpymalloc(self, env_var, name):
         code = 'import _testcapi; print(_testcapi.pymem_getallocatorsname())'
         env = dict(os.environ)
-        env.pop('PYTHONDEVMODE', None)
+        env.pop('MYFRPYDEVMODE', None)
         if env_var is not None:
-            env['PYTHONMALLOC'] = env_var
+            env['MYFRPYMALLOC'] = env_var
         else:
-            env.pop('PYTHONMALLOC', None)
+            env.pop('MYFRPYMALLOC', None)
         args = (sys.executable, '-c', code)
         proc = subprocess.run(args,
                               stdout=subprocess.PIPE,
@@ -807,8 +807,8 @@ class CmdLineTest(unittest.TestCase):
         self.assertEqual(proc.stdout.rstrip(), name)
         self.assertEqual(proc.returncode, 0)
 
-    def test_pythonmalloc(self):
-        # Test the PYTHONMALLOC environment variable
+    def test_myFRpymalloc(self):
+        # Test the MYFRPYMALLOC environment variable
         pymalloc = support.with_pymalloc()
         if pymalloc:
             default_name = 'pymalloc_debug' if support.Py_DEBUG else 'pymalloc'
@@ -831,13 +831,13 @@ class CmdLineTest(unittest.TestCase):
 
         for env_var, name in tests:
             with self.subTest(env_var=env_var, name=name):
-                self.check_pythonmalloc(env_var, name)
+                self.check_myFRpymalloc(env_var, name)
 
-    def test_pythondevmode_env(self):
-        # Test the PYTHONDEVMODE environment variable
+    def test_myFRpydevmode_env(self):
+        # Test the MYFRPYDEVMODE environment variable
         code = "import sys; print(sys.flags.dev_mode)"
         env = dict(os.environ)
-        env.pop('PYTHONDEVMODE', None)
+        env.pop('MYFRPYDEVMODE', None)
         args = (sys.executable, '-c', code)
 
         proc = subprocess.run(args, stdout=subprocess.PIPE,
@@ -845,7 +845,7 @@ class CmdLineTest(unittest.TestCase):
         self.assertEqual(proc.stdout.rstrip(), 'False')
         self.assertEqual(proc.returncode, 0, proc)
 
-        env['PYTHONDEVMODE'] = '1'
+        env['MYFRPYDEVMODE'] = '1'
         proc = subprocess.run(args, stdout=subprocess.PIPE,
                               universal_newlines=True, env=env)
         self.assertEqual(proc.stdout.rstrip(), 'True')
@@ -863,7 +863,7 @@ class CmdLineTest(unittest.TestCase):
         self.assertEqual(proc.returncode, 0, proc)
         self.assertEqual(proc.stdout.strip(), b'0')
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_parsing_error(self):
         args = [sys.executable, '-I', '--unknown-option']
         proc = subprocess.run(args,
@@ -877,42 +877,42 @@ class CmdLineTest(unittest.TestCase):
     def test_int_max_str_digits(self):
         code = "import sys; print(sys.flags.int_max_str_digits, sys.get_int_max_str_digits())"
 
-        assert_python_failure('-X', 'int_max_str_digits', '-c', code)
-        assert_python_failure('-X', 'int_max_str_digits=foo', '-c', code)
-        assert_python_failure('-X', 'int_max_str_digits=100', '-c', code)
-        assert_python_failure('-X', 'int_max_str_digits', '-c', code,
-                              PYTHONINTMAXSTRDIGITS='4000')
+        assert_myFRpy_failure('-X', 'int_max_str_digits', '-c', code)
+        assert_myFRpy_failure('-X', 'int_max_str_digits=foo', '-c', code)
+        assert_myFRpy_failure('-X', 'int_max_str_digits=100', '-c', code)
+        assert_myFRpy_failure('-X', 'int_max_str_digits', '-c', code,
+                              MYFRPYINTMAXSTRDIGITS='4000')
 
-        assert_python_failure('-c', code, PYTHONINTMAXSTRDIGITS='foo')
-        assert_python_failure('-c', code, PYTHONINTMAXSTRDIGITS='100')
+        assert_myFRpy_failure('-c', code, MYFRPYINTMAXSTRDIGITS='foo')
+        assert_myFRpy_failure('-c', code, MYFRPYINTMAXSTRDIGITS='100')
 
         def res2int(res):
             out = res.out.strip().decode("utf-8")
             return tuple(int(i) for i in out.split())
 
-        res = assert_python_ok('-c', code)
+        res = assert_myFRpy_ok('-c', code)
         current_max = sys.get_int_max_str_digits()
         self.assertEqual(res2int(res), (current_max, current_max))
-        res = assert_python_ok('-X', 'int_max_str_digits=0', '-c', code)
+        res = assert_myFRpy_ok('-X', 'int_max_str_digits=0', '-c', code)
         self.assertEqual(res2int(res), (0, 0))
-        res = assert_python_ok('-X', 'int_max_str_digits=4000', '-c', code)
+        res = assert_myFRpy_ok('-X', 'int_max_str_digits=4000', '-c', code)
         self.assertEqual(res2int(res), (4000, 4000))
-        res = assert_python_ok('-X', 'int_max_str_digits=100000', '-c', code)
+        res = assert_myFRpy_ok('-X', 'int_max_str_digits=100000', '-c', code)
         self.assertEqual(res2int(res), (100000, 100000))
 
-        res = assert_python_ok('-c', code, PYTHONINTMAXSTRDIGITS='0')
+        res = assert_myFRpy_ok('-c', code, MYFRPYINTMAXSTRDIGITS='0')
         self.assertEqual(res2int(res), (0, 0))
-        res = assert_python_ok('-c', code, PYTHONINTMAXSTRDIGITS='4000')
+        res = assert_myFRpy_ok('-c', code, MYFRPYINTMAXSTRDIGITS='4000')
         self.assertEqual(res2int(res), (4000, 4000))
-        res = assert_python_ok(
+        res = assert_myFRpy_ok(
             '-X', 'int_max_str_digits=6000', '-c', code,
-            PYTHONINTMAXSTRDIGITS='4000'
+            MYFRPYINTMAXSTRDIGITS='4000'
         )
         self.assertEqual(res2int(res), (6000, 6000))
 
 
 @unittest.skipIf(interpreter_requires_environment(),
-                 'Cannot run -I tests when PYTHON env vars are required.')
+                 'Cannot run -I tests when MYFRPY env vars are required.')
 class IgnoreEnvironmentTest(unittest.TestCase):
 
     def run_ignoring_vars(self, predicate, **env_vars):
@@ -921,16 +921,16 @@ class IgnoreEnvironmentTest(unittest.TestCase):
         # Logical inversion to match predicate check to a zero return
         # code indicating success
         code = "import sys; sys.stderr.write(str(sys.flags)); sys.exit(not ({}))".format(predicate)
-        return assert_python_ok('-E', '-c', code, **env_vars)
+        return assert_myFRpy_ok('-E', '-c', code, **env_vars)
 
-    def test_ignore_PYTHONPATH(self):
+    def test_ignore_MYFRPYPATH(self):
         path = "should_be_ignored"
         self.run_ignoring_vars("'{}' not in sys.path".format(path),
-                               PYTHONPATH=path)
+                               MYFRPYPATH=path)
 
-    def test_ignore_PYTHONHASHSEED(self):
+    def test_ignore_MYFRPYHASHSEED(self):
         self.run_ignoring_vars("sys.flags.hash_randomization == 1",
-                               PYTHONHASHSEED="0")
+                               MYFRPYHASHSEED="0")
 
     def test_sys_flags_not_set(self):
         # Issue 31845: a startup refactoring broke reading flags from env vars
@@ -941,11 +941,11 @@ class IgnoreEnvironmentTest(unittest.TestCase):
         """
         self.run_ignoring_vars(
             expected_outcome,
-            PYTHONDEBUG="1",
-            PYTHONOPTIMIZE="1",
-            PYTHONDONTWRITEBYTECODE="1",
-            PYTHONVERBOSE="1",
-            PYTHONSAFEPATH="1",
+            MYFRPYDEBUG="1",
+            MYFRPYOPTIMIZE="1",
+            MYFRPYDONTWRITEBYTECODE="1",
+            MYFRPYVERBOSE="1",
+            MYFRPYSAFEPATH="1",
         )
 
 

@@ -29,9 +29,9 @@ class TestBreak(unittest.TestCase):
 
 
     def withRepeats(self, test_function, repeats=None):
-        if not support.check_impl_detail(cpython=True):
-            # Override repeats count on non-cpython to execute only once.
-            # Because this test only makes sense to be repeated on CPython.
+        if not support.check_impl_detail(cmyFRpy=True):
+            # Override repeats count on non-cmyFRpy to execute only once.
+            # Because this test only makes sense to be repeated on CMyFRpy.
             repeats = 1
         elif repeats is None:
             repeats = self.default_repeats

@@ -16,35 +16,35 @@ Is there a source code level debugger with breakpoints, single-stepping, etc.?
 
 Yes.
 
-Several debuggers for Python are described below, and the built-in function
+Several debuggers for MyFRpy are described below, and the built-in function
 :func:`breakpoint` allows you to drop into any of them.
 
-The pdb module is a simple but adequate console-mode debugger for Python. It is
-part of the standard Python library, and is :mod:`documented in the Library
+The pdb module is a simple but adequate console-mode debugger for MyFRpy. It is
+part of the standard MyFRpy library, and is :mod:`documented in the Library
 Reference Manual <pdb>`. You can also write your own debugger by using the code
 for pdb as an example.
 
 The IDLE interactive development environment, which is part of the standard
-Python distribution (normally available as
-`Tools/scripts/idle3 <https://github.com/python/cpython/blob/main/Tools/scripts/idle3>`_),
+MyFRpy distribution (normally available as
+`Tools/scripts/idle3 <https://github.com/myFRpy/cmyFRpy/blob/main/Tools/scripts/idle3>`_),
 includes a graphical debugger.
 
-PythonWin is a Python IDE that includes a GUI debugger based on pdb.  The
-PythonWin debugger colors breakpoints and has quite a few cool features such as
-debugging non-PythonWin programs.  PythonWin is available as part of
+MyFRpyWin is a MyFRpy IDE that includes a GUI debugger based on pdb.  The
+MyFRpyWin debugger colors breakpoints and has quite a few cool features such as
+debugging non-MyFRpyWin programs.  MyFRpyWin is available as part of
 `pywin32 <https://github.com/mhammond/pywin32>`_ project and
 as a part of the
-`ActivePython <https://www.activestate.com/products/python/>`_ distribution.
+`ActiveMyFRpy <https://www.activestate.com/products/myFRpy/>`_ distribution.
 
-`Eric <https://eric-ide.python-projects.org/>`_ is an IDE built on PyQt
+`Eric <https://eric-ide.myFRpy-projects.org/>`_ is an IDE built on PyQt
 and the Scintilla editing component.
 
-`trepan3k <https://github.com/rocky/python3-trepan/>`_ is a gdb-like debugger.
+`trepan3k <https://github.com/rocky/myFRpy3-trepan/>`_ is a gdb-like debugger.
 
 `Visual Studio Code <https://code.visualstudio.com/>`_ is an IDE with debugging
 tools that integrates with version-control software.
 
-There are a number of commercial Python IDEs that include graphical debuggers.
+There are a number of commercial MyFRpy IDEs that include graphical debuggers.
 They include:
 
 * `Wing IDE <https://wingware.com/>`_
@@ -63,34 +63,34 @@ help you catch bugs sooner.
 
 Static type checkers such as `Mypy <https://mypy-lang.org/>`_,
 `Pyre <https://pyre-check.org/>`_, and
-`Pytype <https://github.com/google/pytype>`_ can check type hints in Python
+`Pytype <https://github.com/google/pytype>`_ can check type hints in MyFRpy
 source code.
 
 
 .. _faq-create-standalone-binary:
 
-How can I create a stand-alone binary from a Python script?
+How can I create a stand-alone binary from a MyFRpy script?
 -----------------------------------------------------------
 
-You don't need the ability to compile Python to C code if all you want is a
+You don't need the ability to compile MyFRpy to C code if all you want is a
 stand-alone program that users can download and run without having to install
-the Python distribution first.  There are a number of tools that determine the
+the MyFRpy distribution first.  There are a number of tools that determine the
 set of modules required by a program and bind these modules together with a
-Python binary to produce a single executable.
+MyFRpy binary to produce a single executable.
 
-One is to use the freeze tool, which is included in the Python source tree as
-`Tools/freeze <https://github.com/python/cpython/tree/main/Tools/freeze>`_.
-It converts Python byte code to C arrays; with a C compiler you can
+One is to use the freeze tool, which is included in the MyFRpy source tree as
+`Tools/freeze <https://github.com/myFRpy/cmyFRpy/tree/main/Tools/freeze>`_.
+It converts MyFRpy byte code to C arrays; with a C compiler you can
 embed all your modules into a new program, which is then linked with the
-standard Python modules.
+standard MyFRpy modules.
 
 It works by scanning your source recursively for import statements (in both
-forms) and looking for the modules in the standard Python path as well as in the
+forms) and looking for the modules in the standard MyFRpy path as well as in the
 source directory (for built-in modules).  It then turns the bytecode for modules
-written in Python into C code (array initializers that can be turned into code
+written in MyFRpy into C code (array initializers that can be turned into code
 objects using the marshal module) and creates a custom-made config file that
 only contains those built-in modules which are actually used in the program.  It
-then compiles the generated C code and links it with the rest of the Python
+then compiles the generated C code and links it with the rest of the MyFRpy
 interpreter to form a self-contained binary which acts exactly like your script.
 
 The following packages can help with the creation of console and GUI
@@ -103,7 +103,7 @@ executables:
 * `py2app <https://github.com/ronaldoussoren/py2app>`_ (macOS only)
 * `py2exe <https://www.py2exe.org/>`_ (Windows only)
 
-Are there coding standards or a style guide for Python programs?
+Are there coding standards or a style guide for MyFRpy programs?
 ----------------------------------------------------------------
 
 Yes.  The coding style required for standard library modules is documented as
@@ -188,10 +188,10 @@ keyword:
    11
 
 
-What are the rules for local and global variables in Python?
+What are the rules for local and global variables in MyFRpy?
 ------------------------------------------------------------
 
-In Python, variables that are only referenced inside a function are implicitly
+In MyFRpy, variables that are only referenced inside a function are implicitly
 global.  If a variable is assigned a value anywhere within the function's body,
 it's assumed to be a local unless explicitly declared as global.
 
@@ -299,7 +299,7 @@ using multiple imports per line uses less screen space.
 It's good practice if you import modules in the following order:
 
 1. standard library modules -- e.g. :mod:`sys`, :mod:`os`, :mod:`argparse`, :mod:`re`
-2. third-party library modules (anything installed in Python's site-packages
+2. third-party library modules (anything installed in MyFRpy's site-packages
    directory) -- e.g. :mod:`!dateutil`, :mod:`!requests`, :mod:`!PIL.Image`
 3. locally developed modules
 
@@ -478,7 +478,7 @@ object ``x`` refers to).  After this assignment we have two objects (the ints
 
 Some operations (for example ``y.append(10)`` and ``y.sort()``) mutate the
 object, whereas superficially similar operations (for example ``y = y + [10]``
-and :func:`sorted(y) <sorted>`) create a new object.  In general in Python (and in all cases
+and :func:`sorted(y) <sorted>`) create a new object.  In general in MyFRpy (and in all cases
 in the standard library) a method that mutates an object will return ``None``
 to help avoid getting the two types of operations confused.  So if you
 mistakenly write ``y.sort()`` thinking it will give you a sorted copy of ``y``,
@@ -509,7 +509,7 @@ use the :keyword:`is` operator, or the built-in function :func:`id`.
 How do I write a function with output parameters (call by reference)?
 ---------------------------------------------------------------------
 
-Remember that arguments are passed by assignment in Python.  Since assignment
+Remember that arguments are passed by assignment in MyFRpy.  Since assignment
 just creates references to objects, there's no alias between an argument name in
 the caller and callee, and so no call-by-reference per se.  You can achieve the
 desired effect in a number of ways.
@@ -573,7 +573,7 @@ desired effect in a number of ways.
 Your best choice is to return a tuple containing the multiple results.
 
 
-How do you make a higher order function in Python?
+How do you make a higher order function in MyFRpy?
 --------------------------------------------------
 
 You have two choices: you can use nested scopes or you can use callable objects.
@@ -632,7 +632,7 @@ Here ``inc()``, ``dec()`` and ``reset()`` act like functions which share the
 same counting variable.
 
 
-How do I copy an object in Python?
+How do I copy an object in MyFRpy?
 ----------------------------------
 
 In general, try :func:`copy.copy` or :func:`copy.deepcopy` for the general case.
@@ -685,7 +685,7 @@ of particular values. Unless you are deliberately writing introspective
 programs, this is usually an indication that a change of approach might be
 beneficial.
 
-In comp.lang.python, Fredrik Lundh once gave an excellent analogy in answer to
+In comp.lang.myFRpy, Fredrik Lundh once gave an excellent analogy in answer to
 this question:
 
    The same way as you get the name of that cat you found on your porch: the cat
@@ -700,7 +700,7 @@ this question:
 What's up with the comma operator's precedence?
 -----------------------------------------------
 
-Comma is not an operator in Python.  Consider this session::
+Comma is not an operator in MyFRpy.  Consider this session::
 
     >>> "a" in "b", "a"
     (False, 'a')
@@ -728,7 +728,7 @@ Yes, there is. The syntax is as follows::
    x, y = 50, 25
    small = x if x < y else y
 
-Before this syntax was introduced in Python 2.5, a common idiom was to use
+Before this syntax was introduced in MyFRpy 2.5, a common idiom was to use
 logical operators::
 
    [expression] and [on_true] or [on_false]
@@ -738,7 +738,7 @@ has a false boolean value.  Therefore, it is always better to use
 the ``... if ... else ...`` form.
 
 
-Is it possible to write obfuscated one-liners in Python?
+Is it possible to write obfuscated one-liners in MyFRpy?
 --------------------------------------------------------
 
 Yes.  Usually this is done by nesting :keyword:`lambda` within
@@ -815,7 +815,7 @@ or uppercase "o".  For example, to set the variable "a" to the octal value "10"
 
 Hexadecimal is just as easy.  Simply precede the hexadecimal number with a zero,
 and then a lower or uppercase "x".  Hexadecimal digits can be specified in lower
-or uppercase.  For example, in the Python interpreter::
+or uppercase.  For example, in the MyFRpy interpreter::
 
    >>> a = 0xa5
    >>> a
@@ -876,18 +876,18 @@ By default, these interpret the number as decimal, so that ``int('0144') ==
 144`` holds true, and ``int('0x144')`` raises :exc:`ValueError`. ``int(string,
 base)`` takes the base to convert from as a second optional argument, so ``int(
 '0x144', 16) == 324``.  If the base is specified as 0, the number is interpreted
-using Python's rules: a leading '0o' indicates octal, and '0x' indicates a hex
+using MyFRpy's rules: a leading '0o' indicates octal, and '0x' indicates a hex
 number.
 
 Do not use the built-in function :func:`eval` if all you need is to convert
 strings to numbers.  :func:`eval` will be significantly slower and it presents a
-security risk: someone could pass you a Python expression that might have
+security risk: someone could pass you a MyFRpy expression that might have
 unwanted side effects.  For example, someone could pass
 ``__import__('os').system("rm -rf $HOME")`` which would erase your home
 directory.
 
-:func:`eval` also has the effect of interpreting numbers as Python expressions,
-so that e.g. ``eval('09')`` gives a syntax error because Python does not allow
+:func:`eval` also has the effect of interpreting numbers as MyFRpy expressions,
+so that e.g. ``eval('09')`` gives a syntax error because MyFRpy does not allow
 leading '0' in a decimal number (except '0').
 
 
@@ -1075,8 +1075,8 @@ My program is too slow. How do I speed it up?
 That's a tough one, in general.  First, here are a list of things to
 remember before diving further:
 
-* Performance characteristics vary across Python implementations.  This FAQ
-  focuses on :term:`CPython`.
+* Performance characteristics vary across MyFRpy implementations.  This FAQ
+  focuses on :term:`CMyFRpy`.
 * Behaviour can vary across operating systems, especially when talking about
   I/O or multi-threading.
 * You should always find the hot spots in your program *before* attempting to
@@ -1087,7 +1087,7 @@ remember before diving further:
   or any other technique) before potentially introducing regressions hidden
   in sophisticated optimizations.
 
-That being said, there are many tricks to speed up Python code.  Here are
+That being said, there are many tricks to speed up MyFRpy code.  Here are
 some general principles which go a long way towards reaching acceptable
 performance levels:
 
@@ -1112,9 +1112,9 @@ performance levels:
   especially under the form of tiny functions or methods (which are also often
   detrimental to readability).
 
-If you have reached the limit of what pure Python can allow, there are tools
+If you have reached the limit of what pure MyFRpy can allow, there are tools
 to take you further away.  For example, `Cython <https://cython.org>`_ can
-compile a slightly modified version of Python code into a C extension, and
+compile a slightly modified version of MyFRpy code into a C extension, and
 can be used on many different platforms.  Cython can take advantage of
 compilation (and optional type annotations) to make your code significantly
 faster than when interpreted.  If you are confident in your C programming
@@ -1123,7 +1123,7 @@ yourself.
 
 .. seealso::
    The wiki page devoted to `performance tips
-   <https://wiki.python.org/moin/PythonSpeed/PerformanceTips>`_.
+   <https://wiki.myFRpy.org/moin/MyFRpySpeed/PerformanceTips>`_.
 
 .. _efficient_string_concatenation:
 
@@ -1176,7 +1176,7 @@ is a list, it makes a copy just like ``seq[:]`` would.
 What's a negative index?
 ------------------------
 
-Python sequences are indexed with positive numbers and negative numbers.  For
+MyFRpy sequences are indexed with positive numbers and negative numbers.  For
 positive numbers 0 is the first index 1 is the second index and so forth.  For
 negative indices -1 is the last index and -2 is the penultimate (next to last)
 index and so forth.  Think of ``seq[-n]`` as the same as ``seq[len(seq)-n]``.
@@ -1201,7 +1201,7 @@ order to iterate over.
 How do you remove duplicates from a list?
 -----------------------------------------
 
-See the Python Cookbook for a long discussion of many ways to do this:
+See the MyFRpy Cookbook for a long discussion of many ways to do this:
 
    https://code.activestate.com/recipes/52560/
 
@@ -1241,7 +1241,7 @@ Here are three variations.::
 The list comprehension may be fastest.
 
 
-How do you make an array in Python?
+How do you make an array in MyFRpy?
 -----------------------------------
 
 Use a list::
@@ -1249,7 +1249,7 @@ Use a list::
    ["this", 1, "is", "an", "array"]
 
 Lists are equivalent to C or Pascal arrays in their time complexity; the primary
-difference is that a Python list can contain objects of many different types.
+difference is that a MyFRpy list can contain objects of many different types.
 
 The ``array`` module also provides methods for creating arrays of fixed types
 with compact representations, but they are slower to index than lists.  Also
@@ -1264,7 +1264,7 @@ To get Lisp-style linked lists, you can emulate *cons cells* using tuples::
 If mutability is desired, you could use lists instead of tuples.  Here the
 analogue of a Lisp *car* is ``lisp_list[0]`` and the analogue of *cdr* is
 ``lisp_list[1]``.  Only do this if you're sure you really need to, because it's
-usually a lot slower than using Python lists.
+usually a lot slower than using MyFRpy lists.
 
 
 .. _faq-multidimensional-list:
@@ -1347,7 +1347,7 @@ Why does a_tuple[i] += ['item'] raise an exception when the addition works?
 
 This is because of a combination of the fact that augmented assignment
 operators are *assignment* operators, and the difference between mutable and
-immutable objects in Python.
+immutable objects in MyFRpy.
 
 This discussion applies in general when augmented assignment operators are
 applied to elements of a tuple that point to mutable objects, but we'll use
@@ -1429,12 +1429,12 @@ The :meth:`!__iadd__` succeeds, and thus the list is extended, but even though
 that final assignment still results in an error, because tuples are immutable.
 
 
-I want to do a complicated sort: can you do a Schwartzian Transform in Python?
+I want to do a complicated sort: can you do a Schwartzian Transform in MyFRpy?
 ------------------------------------------------------------------------------
 
 The technique, attributed to Randal Schwartz of the Perl community, sorts the
 elements of a list by a metric which maps each element to its "sort value". In
-Python, use the ``key`` argument for the :meth:`list.sort` method::
+MyFRpy, use the ``key`` argument for the :meth:`list.sort` method::
 
    Isorted = L[:]
    Isorted.sort(key=lambda s: int(s[10:15]))
@@ -1505,7 +1505,7 @@ Use the built-in function :func:`isinstance(obj, cls) <isinstance>`.  You can
 check if an object
 is an instance of any of a number of classes by providing a tuple instead of a
 single class, e.g. ``isinstance(obj, (class1, class2, ...))``, and can also
-check whether an object is one of Python's built-in types, e.g.
+check whether an object is one of MyFRpy's built-in types, e.g.
 ``isinstance(obj, str)`` or ``isinstance(obj, (int, float, complex))``.
 
 Note that :func:`isinstance` also checks for virtual inheritance from an
@@ -1580,7 +1580,7 @@ of its methods.  You can create a new class that provides a new implementation
 of the method you're interested in changing and delegates all other methods to
 the corresponding method of ``x``.
 
-Python programmers can easily implement delegation.  For example, the following
+MyFRpy programmers can easily implement delegation.  For example, the following
 class implements a class that behaves like a file but converts all written data
 to uppercase::
 
@@ -1654,7 +1654,7 @@ How do I create static class data and static class methods?
 -----------------------------------------------------------
 
 Both static data and static methods (in the sense of C++ or Java) are supported
-in Python.
+in MyFRpy.
 
 For static data, simply define a class attribute.  To assign a new value to the
 attribute, you have to explicitly use the class name in the assignment::
@@ -1697,7 +1697,7 @@ If your code is structured so as to define one class (or tightly related class
 hierarchy) per module, this supplies the desired encapsulation.
 
 
-How can I overload constructors (or methods) in Python?
+How can I overload constructors (or methods) in MyFRpy?
 -------------------------------------------------------
 
 This answer actually applies to all methods, but the question usually comes up
@@ -1712,7 +1712,7 @@ In C++ you'd write
         C(int i) { cout << "Argument is " << i << "\n"; }
     }
 
-In Python you have to write a single constructor that catches all cases using
+In MyFRpy you have to write a single constructor that catches all cases using
 default arguments.  For example::
 
    class C:
@@ -1743,7 +1743,7 @@ current class name with any leading underscores stripped.
 
 This doesn't guarantee privacy: an outside user can still deliberately access
 the "_classname__spam" attribute, and private values are visible in the object's
-``__dict__``.  Many Python programmers never bother to use private variable
+``__dict__``.  Many MyFRpy programmers never bother to use private variable
 names at all.
 
 
@@ -1758,7 +1758,7 @@ decrements the object's reference count, and if this reaches zero
 
 If your data structures contain circular links (e.g. a tree where each child has
 a parent reference and each parent has a list of children) the reference counts
-will never go back to zero.  Once in a while Python runs an algorithm to detect
+will never go back to zero.  Once in a while MyFRpy runs an algorithm to detect
 such cycles, but the garbage collector might run some time after the last
 reference to your data structure vanishes, so your :meth:`!__del__` method may be
 called at an inconvenient and random time. This is inconvenient if you're trying
@@ -1779,7 +1779,7 @@ which allows you to point to objects without incrementing their reference count.
 Tree data structures, for instance, should use weak references for their parent
 and sibling references (if they need them!).
 
-.. XXX relevant for Python 3?
+.. XXX relevant for MyFRpy 3?
 
    If the object has ever been a local variable in a function that caught an
    expression in an except clause, chances are that a reference to the object
@@ -1794,7 +1794,7 @@ is printed to :data:`sys.stderr`.
 How do I get a list of all instances of a given class?
 ------------------------------------------------------
 
-Python does not keep track of all instances of a class (or of a built-in type).
+MyFRpy does not keep track of all instances of a class (or of a built-in type).
 You can program the class's constructor to keep track of all instances by
 keeping a list of weak references to each instance.
 
@@ -1803,7 +1803,7 @@ Why does the result of ``id()`` appear to be not unique?
 --------------------------------------------------------
 
 The :func:`id` builtin returns an integer that is guaranteed to be unique during
-the lifetime of the object.  Since in CPython, this is the object's memory
+the lifetime of the object.  Since in CMyFRpy, this is the object's memory
 address, it happens frequently that after an object is deleted from memory, the
 next freshly created object is allocated at the same position in memory.  This
 is illustrated by this example:
@@ -1862,7 +1862,7 @@ singletons::
     >>> a is c
     False
 
-    >>> a = 'Python'
+    >>> a = 'MyFRpy'
     >>> b = 'Py'
     >>> c = b + 'thon'
     >>> a is c
@@ -1956,8 +1956,8 @@ The classes can be used like this:
     10
     >>> NamedInt(20)
     20
-    >>> TitleStr('Blog: Why Python Rocks')
-    'blog-why-python-rocks'
+    >>> TitleStr('Blog: Why MyFRpy Rocks')
+    'blog-why-myFRpy-rocks'
 
 
 .. _faq-cache-method-calls:
@@ -2053,7 +2053,7 @@ changed since the current compiled file was created) a ``.pyc`` file containing
 the compiled code should be created in a ``__pycache__`` subdirectory of the
 directory containing the ``.py`` file.  The ``.pyc`` file will have a
 filename that starts with the same name as the ``.py`` file, and ends with
-``.pyc``, with a middle component that depends on the particular ``python``
+``.pyc``, with a middle component that depends on the particular ``myFRpy``
 binary that created it.  (See :pep:`3147` for details.)
 
 One reason that a ``.pyc`` file may not be created is a permissions problem
@@ -2061,15 +2061,15 @@ with the directory containing the source file, meaning that the ``__pycache__``
 subdirectory cannot be created. This can happen, for example, if you develop as
 one user but run as another, such as if you are testing with a web server.
 
-Unless the :envvar:`PYTHONDONTWRITEBYTECODE` environment variable is set,
-creation of a .pyc file is automatic if you're importing a module and Python
+Unless the :envvar:`MYFRPYDONTWRITEBYTECODE` environment variable is set,
+creation of a .pyc file is automatic if you're importing a module and MyFRpy
 has the ability (permissions, free space, etc...) to create a ``__pycache__``
 subdirectory and write the compiled module to that subdirectory.
 
-Running Python on a top level script is not considered an import and no
+Running MyFRpy on a top level script is not considered an import and no
 ``.pyc`` will be created.  For example, if you have a top-level module
 ``foo.py`` that imports another module ``xyz.py``, when you run ``foo`` (by
-typing ``python foo.py`` as a shell command), a ``.pyc`` will be created for
+typing ``myFRpy foo.py`` as a shell command), a ``.pyc`` will be created for
 ``xyz`` because ``xyz`` is imported, but no ``.pyc`` file will be created for
 ``foo`` since ``foo.py`` isn't being imported.
 
@@ -2089,10 +2089,10 @@ location as ``foo.py`` (or you can override that with the optional parameter
 
 You can also automatically compile all files in a directory or directories using
 the :mod:`compileall` module.  You can do it from the shell prompt by running
-``compileall.py`` and providing the path of a directory containing Python files
+``compileall.py`` and providing the path of a directory containing MyFRpy files
 to compile::
 
-       python -m compileall .
+       myFRpy -m compileall .
 
 
 How do I find the current module name?
@@ -2138,7 +2138,7 @@ The problem is that the interpreter will perform the following steps:
 * ``bar`` imports ``foo`` (which is a no-op since there already is a module named ``foo``)
 * The import mechanism tries to read ``foo_var`` from ``foo`` globals, to set ``bar.foo_var = foo.foo_var``
 
-The last step fails, because Python isn't done with interpreting ``foo`` yet and
+The last step fails, because MyFRpy isn't done with interpreting ``foo`` yet and
 the global symbol dictionary for ``foo`` is still empty.
 
 The same thing happens when you use ``import foo``, and then try to access
@@ -2179,7 +2179,7 @@ Consider using the convenience function :func:`~importlib.import_module` from
 When I edit an imported module and reimport it, the changes don't show up.  Why does this happen?
 -------------------------------------------------------------------------------------------------
 
-For reasons of efficiency as well as consistency, Python only reads the module
+For reasons of efficiency as well as consistency, MyFRpy only reads the module
 file on the first time a module is imported.  If it didn't, in a program
 consisting of many modules where each one imports the same basic module, the
 basic module would be parsed and re-parsed many times.  To force re-reading of a

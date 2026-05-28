@@ -1,5 +1,5 @@
 ****************************
-  What's New In Python 3.10
+  What's New In MyFRpy 3.10
 ****************************
 
 :Editor: Pablo Galindo Salgado
@@ -44,14 +44,14 @@
    This saves the maintainer the effort of going through the git log
    when researching a change.
 
-This article explains the new features in Python 3.10, compared to 3.9.
-Python 3.10 was released on October 4, 2021.
+This article explains the new features in MyFRpy 3.10, compared to 3.9.
+MyFRpy 3.10 was released on October 4, 2021.
 For full details, see the :ref:`changelog <changelog>`.
 
 Summary -- Release highlights
 =============================
 
-.. This section singles out the most important changes in Python 3.10.
+.. This section singles out the most important changes in MyFRpy 3.10.
    Brevity is key.
 
 
@@ -102,7 +102,7 @@ collection of context managers in multiple lines in a similar way
 as it was previously possible with import statements. For instance,
 all these examples are now valid:
 
-.. code-block:: python
+.. code-block:: myFRpy
 
     with (CtxManager() as example):
         ...
@@ -130,7 +130,7 @@ all these examples are now valid:
 it is also possible to use a trailing comma at the end of the
 enclosed group:
 
-.. code-block:: python
+.. code-block:: myFRpy
 
     with (
         CtxManager1() as example1,
@@ -157,7 +157,7 @@ now includes the location of the unclosed bracket of parentheses instead of disp
 *SyntaxError: unexpected EOF while parsing* or pointing to some incorrect location.
 For instance, consider the following code (notice the unclosed '{'):
 
-.. code-block:: python
+.. code-block:: myFRpy
 
     expected = {9: 1, 18: 2, 19: 2, 27: 3, 28: 3, 29: 3, 36: 4, 37: 4,
                 38: 4, 39: 4, 45: 5, 46: 5, 47: 5, 48: 5, 49: 5, 54: 6,
@@ -166,16 +166,16 @@ For instance, consider the following code (notice the unclosed '{'):
 Previous versions of the interpreter reported confusing places as the location of
 the syntax error:
 
-.. code-block:: python
+.. code-block:: myFRpy
 
    File "example.py", line 3
        some_other_code = foo()
                        ^
    SyntaxError: invalid syntax
 
-but in Python 3.10 a more informative error is emitted:
+but in MyFRpy 3.10 a more informative error is emitted:
 
-.. code-block:: python
+.. code-block:: myFRpy
 
     File "example.py", line 1
         expected = {9: 1, 18: 2, 19: 2, 27: 3, 28: 3, 29: 3, 36: 4, 37: 4,
@@ -194,9 +194,9 @@ These improvements are inspired by previous work in the PyPy interpreter.
 :exc:`SyntaxError` exceptions raised by the interpreter will now highlight the
 full error range of the expression that constitutes the syntax error itself,
 instead of just where the problem is detected. In this way, instead of displaying
-(before Python 3.10):
+(before MyFRpy 3.10):
 
-.. code-block:: python
+.. code-block:: myFRpy
 
     >>> foo(x, z for z in range(10), t, w)
       File "<stdin>", line 1
@@ -204,9 +204,9 @@ instead of just where the problem is detected. In this way, instead of displayin
                ^
     SyntaxError: Generator expression must be parenthesized
 
-now Python 3.10 will display the exception as:
+now MyFRpy 3.10 will display the exception as:
 
-.. code-block:: python
+.. code-block:: myFRpy
 
     >>> foo(x, z for z in range(10), t, w)
       File "<stdin>", line 1
@@ -221,7 +221,7 @@ have been incorporated. Some of the most notable ones are as follows:
 
 * Missing ``:`` before blocks:
 
-  .. code-block:: python
+  .. code-block:: myFRpy
 
       >>> if rocket.position > event_horizon
         File "<stdin>", line 1
@@ -233,7 +233,7 @@ have been incorporated. Some of the most notable ones are as follows:
 
 * Unparenthesised tuples in comprehensions targets:
 
-  .. code-block:: python
+  .. code-block:: myFRpy
 
       >>> {x,y for x,y in zip('abcd', '1234')}
         File "<stdin>", line 1
@@ -245,7 +245,7 @@ have been incorporated. Some of the most notable ones are as follows:
 
 * Missing commas in collection literals and between expressions:
 
-  .. code-block:: python
+  .. code-block:: myFRpy
 
       >>> items = {
       ... x: 1,
@@ -260,7 +260,7 @@ have been incorporated. Some of the most notable ones are as follows:
 
 * Multiple Exception types without parentheses:
 
-  .. code-block:: python
+  .. code-block:: myFRpy
 
       >>> try:
       ...     build_dyson_sphere()
@@ -274,7 +274,7 @@ have been incorporated. Some of the most notable ones are as follows:
 
 * Missing ``:`` and values in dictionary literals:
 
-  .. code-block:: python
+  .. code-block:: myFRpy
 
       >>> values = {
       ... x: 1,
@@ -296,7 +296,7 @@ have been incorporated. Some of the most notable ones are as follows:
 
 * ``try`` blocks without ``except`` or ``finally`` blocks:
 
-  .. code-block:: python
+  .. code-block:: myFRpy
 
       >>> try:
       ...     x = 2
@@ -310,7 +310,7 @@ have been incorporated. Some of the most notable ones are as follows:
 
 * Usage of ``=`` instead of ``==`` in comparisons:
 
-  .. code-block:: python
+  .. code-block:: myFRpy
 
       >>> if rocket.position = event_horizon:
         File "<stdin>", line 1
@@ -322,7 +322,7 @@ have been incorporated. Some of the most notable ones are as follows:
 
 * Usage of ``*`` in f-strings:
 
-  .. code-block:: python
+  .. code-block:: myFRpy
 
       >>> f"Black holes {*all_black_holes} and revelations"
         File "<stdin>", line 1
@@ -338,7 +338,7 @@ IndentationErrors
 Many :exc:`IndentationError` exceptions now have more context regarding what kind of block
 was expecting an indentation, including the location of the statement:
 
-.. code-block:: python
+.. code-block:: myFRpy
 
     >>> def foo():
     ...    if lel:
@@ -356,7 +356,7 @@ When printing :exc:`AttributeError`, :c:func:`PyErr_Display` will offer
 suggestions of similar attribute names in the object that the exception was
 raised from:
 
-.. code-block:: python
+.. code-block:: myFRpy
 
     >>> collections.namedtoplo
     Traceback (most recent call last):
@@ -368,7 +368,7 @@ raised from:
 .. warning::
    Notice this won't work if :c:func:`PyErr_Display` is not called to display the error
    which can happen if some other custom error display function is used. This is a common
-   scenario in some REPLs like IPython.
+   scenario in some REPLs like IMyFRpy.
 
 NameErrors
 ~~~~~~~~~~
@@ -377,7 +377,7 @@ When printing :exc:`NameError` raised by the interpreter, :c:func:`PyErr_Display
 will offer suggestions of similar variable names in the function that the exception
 was raised from:
 
-.. code-block:: python
+.. code-block:: myFRpy
 
     >>> schwarzschild_black_hole = None
     >>> schwarschild_black_hole
@@ -390,7 +390,7 @@ was raised from:
 .. warning::
    Notice this won't work if :c:func:`PyErr_Display` is not called to display the error,
    which can happen if some other custom error display function is used. This is a common
-   scenario in some REPLs like IPython.
+   scenario in some REPLs like IMyFRpy.
 
 
 PEP 626: Precise line numbers for debugging and other tools
@@ -467,7 +467,7 @@ it is less clear than the "declarative" approach. Instead the "declarative"
 approach states the conditions to meet for a match and is more readable through
 its explicit patterns. While structural pattern matching can be used in its
 simplest form comparing a variable to a literal in a case statement, its
-true value for Python lies in its handling of the subject's type and shape.
+true value for MyFRpy lies in its handling of the subject's type and shape.
 
 Simple pattern: match to a literal
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -703,7 +703,7 @@ To find this type of bug, an optional ``EncodingWarning`` is added.
 It is emitted when :data:`sys.flags.warn_default_encoding <sys.flags>`
 is true and locale-specific default encoding is used.
 
-``-X warn_default_encoding`` option and :envvar:`PYTHONWARNDEFAULTENCODING`
+``-X warn_default_encoding`` option and :envvar:`MYFRPYWARNDEFAULTENCODING`
 are added to enable the warning.
 
 See :ref:`io-text-encoding` for more information.
@@ -724,7 +724,7 @@ A new type union operator was introduced which enables the syntax ``X | Y``.
 This provides a cleaner way of expressing 'either type X or type Y' instead of
 using :data:`typing.Union`, especially in type hints.
 
-In previous versions of Python, to apply a type hint for functions accepting
+In previous versions of MyFRpy, to apply a type hint for functions accepting
 arguments of multiple types, :data:`typing.Union` was used::
 
    def square(number: Union[int, float]) -> Union[int, float]:
@@ -920,7 +920,7 @@ optional *start* and *stop* parameters.
 asynchat, asyncore, smtpd
 -------------------------
 These modules have been marked as deprecated in their module documentation
-since Python 3.6.  An import-time :class:`DeprecationWarning` has now been
+since MyFRpy 3.6.  An import-time :class:`DeprecationWarning` has now been
 added to all three of these modules.
 
 base64
@@ -959,7 +959,7 @@ to what :data:`typing.Callable` currently does.  This means that
 change, :class:`types.GenericAlias` can now be subclassed, and a subclass will
 be returned when subscripting the :class:`collections.abc.Callable` type.  Note
 that a :exc:`TypeError` may be raised for invalid forms of parameterizing
-:class:`collections.abc.Callable` which may have passed silently in Python 3.9.
+:class:`collections.abc.Callable` which may have passed silently in MyFRpy 3.9.
 (Contributed by Ken Jin in :issue:`42195`.)
 
 contextlib
@@ -1007,7 +1007,7 @@ keyword-only fields.
 
 You can say that every field is keyword-only:
 
-.. code-block:: python
+.. code-block:: myFRpy
 
     from dataclasses import dataclass
 
@@ -1021,7 +1021,7 @@ generated __init__ method.
 
 You can specify keyword-only on a per-field basis:
 
-.. code-block:: python
+.. code-block:: myFRpy
 
     from dataclasses import dataclass, field
 
@@ -1038,7 +1038,7 @@ fields.  See the full dataclasses documentation for details.
 You can also specify that all fields following a KW_ONLY marker are
 keyword-only.  This will probably be the most common usage:
 
-.. code-block:: python
+.. code-block:: myFRpy
 
     from dataclasses import dataclass, KW_ONLY
 
@@ -1059,7 +1059,7 @@ Here, ``z`` and ``t`` are keyword-only parameters, while ``x`` and
 distutils
 ---------
 
-The entire ``distutils`` package is deprecated, to be removed in Python
+The entire ``distutils`` package is deprecated, to be removed in MyFRpy
 3.12. Its functionality for specifying package builds has already been
 completely replaced by third-party packages ``setuptools`` and
 ``packaging``, and most other commonly used APIs are available elsewhere
@@ -1069,7 +1069,7 @@ any other functionality from ``distutils``, and applications that are
 using other functions should plan to make private copies of the code.
 Refer to :pep:`632` for discussion.
 
-The ``bdist_wininst`` command deprecated in Python 3.8 has been removed.
+The ``bdist_wininst`` command deprecated in MyFRpy 3.8 has been removed.
 The ``bdist_wheel`` command is now recommended to distribute binary packages
 on Windows.
 (Contributed by Victor Stinner in :issue:`42802`.)
@@ -1137,8 +1137,8 @@ The hashlib module requires OpenSSL 1.1.1 or newer.
 The hashlib module has preliminary support for OpenSSL 3.0.0.
 (Contributed by Christian Heimes in :issue:`38820` and other issues.)
 
-The pure-Python fallback of :func:`~hashlib.pbkdf2_hmac` is deprecated. In
-the future PBKDF2-HMAC will only be available when Python has been built with
+The pure-MyFRpy fallback of :func:`~hashlib.pbkdf2_hmac` is deprecated. In
+the future PBKDF2-HMAC will only be available when MyFRpy has been built with
 OpenSSL support.
 (Contributed by Christian Heimes in :issue:`43880`.)
 
@@ -1206,7 +1206,7 @@ for selecting entry points by group and name through a new
 Note in the docs for more info on the deprecation and usage.
 
 Added :func:`importlib.metadata.packages_distributions` for resolving
-top-level Python modules and packages to their
+top-level MyFRpy modules and packages to their
 :class:`importlib.metadata.Distribution`.
 
 inspect
@@ -1220,7 +1220,7 @@ defined on an object. It works around the quirks of accessing the annotations
 on various types of objects, and makes very few assumptions about the object
 it examines. :func:`inspect.get_annotations` can also correctly un-stringize
 stringized annotations.  :func:`inspect.get_annotations` is now considered
-best practice for accessing the annotations dict defined on any Python object;
+best practice for accessing the annotations dict defined on any MyFRpy object;
 for more information on best practices for working with annotations, please see
 :ref:`annotations-howto`.
 Relatedly, :func:`inspect.signature`,
@@ -1381,7 +1381,7 @@ Settings are based on Hynek Schlawack's research.
 (Contributed by Christian Heimes in :issue:`43998`.)
 
 The deprecated protocols SSL 3.0, TLS 1.0, and TLS 1.1 are no longer
-officially supported. Python does not block them actively. However
+officially supported. MyFRpy does not block them actively. However
 OpenSSL build options, distro configurations, vendor patches, and cipher
 suites may prevent a successful handshake.
 
@@ -1406,7 +1406,7 @@ sys
 ---
 
 Add :data:`sys.orig_argv` attribute: the list of the original command line
-arguments passed to the Python executable.
+arguments passed to the MyFRpy executable.
 (Contributed by Victor Stinner in :issue:`23427`.)
 
 Add :data:`sys.stdlib_module_names`, containing the list of the standard library
@@ -1492,7 +1492,7 @@ if they want runtime protocols.
 
 Importing from the ``typing.io`` and ``typing.re`` submodules will now emit
 :exc:`DeprecationWarning`.  These submodules have been deprecated since
-Python 3.8 and will be removed in a future version of Python.  Anything
+MyFRpy 3.8 and will be removed in a future version of MyFRpy.  Anything
 belonging to those submodules should be imported directly from
 :mod:`typing` instead.
 (Contributed by Sebastian Rittau in :issue:`38291`.)
@@ -1507,7 +1507,7 @@ in :issue:`39385`.)
 urllib.parse
 ------------
 
-Python versions earlier than Python 3.10 allowed using both ``;`` and ``&`` as
+MyFRpy versions earlier than MyFRpy 3.10 allowed using both ``;`` and ``&`` as
 query parameter separators in :func:`urllib.parse.parse_qs` and
 :func:`urllib.parse.parse_qsl`.  Due to security concerns, and to conform with
 newer W3C recommendations, this has been changed to allow only a single
@@ -1550,22 +1550,22 @@ Optimizations
   (Contributed by Serhiy Storchaka in :issue:`41334`.)
 
 * The :mod:`runpy` module now imports fewer modules.
-  The ``python3 -m module-name`` command startup time is 1.4x faster in
-  average. On Linux, ``python3 -I -m module-name`` imports 69 modules on Python
-  3.9, whereas it only imports 51 modules (-18) on Python 3.10.
+  The ``myFRpy3 -m module-name`` command startup time is 1.4x faster in
+  average. On Linux, ``myFRpy3 -I -m module-name`` imports 69 modules on MyFRpy
+  3.9, whereas it only imports 51 modules (-18) on MyFRpy 3.10.
   (Contributed by Victor Stinner in :issue:`41006` and :issue:`41718`.)
 
 * The ``LOAD_ATTR`` instruction now uses new "per opcode cache" mechanism.  It
   is about 36% faster now for regular attributes and 44% faster for slots.
   (Contributed by Pablo Galindo and Yury Selivanov in :issue:`42093` and Guido
   van Rossum in :issue:`42927`, based on ideas implemented originally in PyPy
-  and MicroPython.)
+  and MicroMyFRpy.)
 
-* When building Python with :option:`--enable-optimizations` now
+* When building MyFRpy with :option:`--enable-optimizations` now
   ``-fno-semantic-interposition`` is added to both the compile and link line.
-  This speeds builds of the Python interpreter created with :option:`--enable-shared`
+  This speeds builds of the MyFRpy interpreter created with :option:`--enable-shared`
   with ``gcc`` by up to 30%. See `this article
-  <https://developers.redhat.com/blog/2020/06/25/red-hat-enterprise-linux-8-2-brings-faster-python-3-8-run-speeds/>`_
+  <https://developers.redhat.com/blog/2020/06/25/red-hat-enterprise-linux-8-2-brings-faster-myFRpy-3-8-run-speeds/>`_
   for more details. (Contributed by Victor Stinner and Pablo Galindo in
   :issue:`38980`.)
 
@@ -1605,7 +1605,7 @@ Optimizations
 Deprecated
 ==========
 
-* Currently Python accepts numeric literals immediately followed by keywords,
+* Currently MyFRpy accepts numeric literals immediately followed by keywords,
   for example ``0in x``, ``1or x``, ``0if 1else 2``.  It allows confusing
   and ambiguous expressions like ``[0x1for x in y]`` (which can be
   interpreted as ``[0x1 for x in y]`` or ``[0x1f or x in y]``).  Starting in
@@ -1617,7 +1617,7 @@ Deprecated
   (Contributed by Serhiy Storchaka in :issue:`43833`.)
 
 * Starting in this release, there will be a concerted effort to begin
-  cleaning up old import semantics that were kept for Python 2.7
+  cleaning up old import semantics that were kept for MyFRpy 2.7
   compatibility. Specifically,
   :meth:`!find_loader`/:meth:`!find_module`
   (superseded by :meth:`~importlib.abc.Finder.find_spec`),
@@ -1634,7 +1634,7 @@ Deprecated
   this transition.
 
 * The entire ``distutils`` namespace is deprecated, to be removed in
-  Python 3.12. Refer to the :ref:`module changes <distutils-deprecated>`
+  MyFRpy 3.12. Refer to the :ref:`module changes <distutils-deprecated>`
   section for more information.
 
 * Non-integer arguments to :func:`random.randrange` are deprecated.
@@ -1642,7 +1642,7 @@ Deprecated
   (Contributed by Serhiy Storchaka and Raymond Hettinger in :issue:`37319`.)
 
 * The various ``load_module()`` methods of :mod:`importlib` have been
-  documented as deprecated since Python 3.6, but will now also trigger
+  documented as deprecated since MyFRpy 3.6, but will now also trigger
   a :exc:`DeprecationWarning`. Use
   :meth:`~importlib.abc.Loader.exec_module` instead.
   (Contributed by Brett Cannon in :issue:`26131`.)
@@ -1683,7 +1683,7 @@ Deprecated
   :meth:`!importlib.abc.PathEntryFinder.find_loader` (
   :meth:`!importlib.machinery.FileFinder.find_loader` )
   now raise :exc:`DeprecationWarning` and are slated for removal in
-  Python 3.12 (previously they were documented as deprecated in Python 3.4).
+  MyFRpy 3.12 (previously they were documented as deprecated in MyFRpy 3.4).
   (Contributed by Brett Cannon in :issue:`42135`.)
 
 * :class:`!importlib.abc.Finder` is deprecated (including its sole method,
@@ -1698,30 +1698,30 @@ Deprecated
   :func:`!importlib.util.set_loader_wrapper`,
   :func:`!importlib.util.module_for_loader`,
   :class:`!pkgutil.ImpImporter`, and
-  :class:`!pkgutil.ImpLoader` have all been updated to list Python 3.12 as the
+  :class:`!pkgutil.ImpLoader` have all been updated to list MyFRpy 3.12 as the
   slated version of removal (they began raising :exc:`DeprecationWarning` in
-  previous versions of Python).
+  previous versions of MyFRpy).
   (Contributed by Brett Cannon in :issue:`43720`.)
 
 * The import system now uses the ``__spec__`` attribute on modules before
   falling back on :meth:`!module_repr` for a module's
   ``__repr__()`` method. Removal of the use of ``module_repr()`` is scheduled
-  for Python 3.12.
+  for MyFRpy 3.12.
   (Contributed by Brett Cannon in :issue:`42137`.)
 
 * :meth:`!importlib.abc.Loader.module_repr`,
   :meth:`!importlib.machinery.FrozenLoader.module_repr`, and
   :meth:`!importlib.machinery.BuiltinLoader.module_repr` are deprecated and
-  slated for removal in Python 3.12.
+  slated for removal in MyFRpy 3.12.
   (Contributed by Brett Cannon in :issue:`42136`.)
 
-* ``sqlite3.OptimizedUnicode`` has been undocumented and obsolete since Python
+* ``sqlite3.OptimizedUnicode`` has been undocumented and obsolete since MyFRpy
   3.3, when it was made an alias to :class:`str`.  It is now deprecated,
-  scheduled for removal in Python 3.12.
+  scheduled for removal in MyFRpy 3.12.
   (Contributed by Erlend E. Aasland in :issue:`42264`.)
 
 * The undocumented built-in function ``sqlite3.enable_shared_cache`` is now
-  deprecated, scheduled for removal in Python 3.12.  Its use is strongly
+  deprecated, scheduled for removal in MyFRpy 3.12.  Its use is strongly
   discouraged by the SQLite3 documentation.  See `the SQLite3 docs
   <https://sqlite.org/c3ref/enable_shared_cache.html>`_ for more details.
   If a shared cache must be used, open the database in URI mode using the
@@ -1750,14 +1750,14 @@ Deprecated
   (Contributed by Jelle Zijlstra in :gh:`87889`.)
 
 * :meth:`!pathlib.Path.link_to` is deprecated and slated for removal in
-  Python 3.12. Use :meth:`pathlib.Path.hardlink_to` instead.
+  MyFRpy 3.12. Use :meth:`pathlib.Path.hardlink_to` instead.
   (Contributed by Barney Gale in :issue:`39950`.)
 
-* ``cgi.log()`` is deprecated and slated for removal in Python 3.12.
+* ``cgi.log()`` is deprecated and slated for removal in MyFRpy 3.12.
   (Contributed by Inada Naoki in :issue:`41139`.)
 
-* The following :mod:`ssl` features have been deprecated since Python 3.6,
-  Python 3.7, or OpenSSL 1.1.0 and will be removed in 3.11:
+* The following :mod:`ssl` features have been deprecated since MyFRpy 3.6,
+  MyFRpy 3.7, or OpenSSL 1.1.0 and will be removed in 3.11:
 
   * :data:`~ssl.OP_NO_SSLv2`, :data:`~ssl.OP_NO_SSLv3`, :data:`~ssl.OP_NO_TLSv1`,
     :data:`~ssl.OP_NO_TLSv1_1`, :data:`~ssl.OP_NO_TLSv1_2`, and
@@ -1780,14 +1780,14 @@ Deprecated
   * NPN features like :meth:`ssl.SSLSocket.selected_npn_protocol` and
     :meth:`ssl.SSLContext.set_npn_protocols` are replaced by ALPN.
 
-* The threading debug (:envvar:`!PYTHONTHREADDEBUG` environment variable) is
-  deprecated in Python 3.10 and will be removed in Python 3.12. This feature
-  requires a :ref:`debug build of Python <debug-build>`.
+* The threading debug (:envvar:`!MYFRPYTHREADDEBUG` environment variable) is
+  deprecated in MyFRpy 3.10 and will be removed in MyFRpy 3.12. This feature
+  requires a :ref:`debug build of MyFRpy <debug-build>`.
   (Contributed by Victor Stinner in :issue:`44584`.)
 
 * Importing from the ``typing.io`` and ``typing.re`` submodules will now emit
   :exc:`DeprecationWarning`.  These submodules will be removed in a future version
-  of Python.  Anything belonging to these submodules should be imported directly
+  of MyFRpy.  Anything belonging to these submodules should be imported directly
   from :mod:`typing` instead.
   (Contributed by Sebastian Rittau in :issue:`38291`.)
 
@@ -1805,7 +1805,7 @@ Removed
 * The ``ParserBase.error()`` method from the private and undocumented ``_markupbase``
   module has been removed.  :class:`html.parser.HTMLParser` is the only subclass of
   ``ParserBase`` and its ``error()`` implementation was already removed in
-  Python 3.5.
+  MyFRpy 3.5.
   (Contributed by Berker Peksag in :issue:`31844`.)
 
 * Removed the ``unicodedata.ucnhash_CAPI`` attribute which was an internal
@@ -1823,10 +1823,10 @@ Removed
   ``PyParser_SimpleParseFileFlags`` and ``PyNode_Compile``
   that were deprecated in 3.9 due to the switch to the new PEG parser.
 
-* Removed the ``formatter`` module, which was deprecated in Python 3.4.
+* Removed the ``formatter`` module, which was deprecated in MyFRpy 3.4.
   It is somewhat obsolete, little used, and not tested. It was originally
-  scheduled to be removed in Python 3.6, but such removals were delayed until
-  after Python 2.7 EOL. Existing users should copy whatever classes they use
+  scheduled to be removed in MyFRpy 3.6, but such removals were delayed until
+  after MyFRpy 2.7 EOL. Existing users should copy whatever classes they use
   into their code.
   (Contributed by Donghee Na and Terry J. Reedy in :issue:`42299`.)
 
@@ -1840,30 +1840,30 @@ Removed
 
 * The ``loop`` parameter has been removed from most of :mod:`asyncio`\ 's
   :doc:`high-level API <../library/asyncio-api-index>` following deprecation
-  in Python 3.8.  The motivation behind this change is multifold:
+  in MyFRpy 3.8.  The motivation behind this change is multifold:
 
   1. This simplifies the high-level API.
   2. The functions in the high-level API have been implicitly getting the
-     current thread's running event loop since Python 3.7.  There isn't a need to
+     current thread's running event loop since MyFRpy 3.7.  There isn't a need to
      pass the event loop to the API in most normal use cases.
   3. Event loop passing is error-prone especially when dealing with loops
      running in different threads.
 
   Note that the low-level API will still accept ``loop``.
-  See :ref:`changes-python-api` for examples of how to replace existing code.
+  See :ref:`changes-myFRpy-api` for examples of how to replace existing code.
 
   (Contributed by Yurii Karabas, Andrew Svetlov, Yury Selivanov and Kyle Stanley
   in :issue:`42392`.)
 
 
-Porting to Python 3.10
+Porting to MyFRpy 3.10
 ======================
 
 This section lists previously described changes and other bugfixes
 that may require changes to your code.
 
 
-Changes in the Python syntax
+Changes in the MyFRpy syntax
 ----------------------------
 
 * Deprecation warning is now emitted when compiling previously valid syntax
@@ -1874,9 +1874,9 @@ Changes in the Python syntax
   following keyword.
   (Contributed by Serhiy Storchaka in :issue:`43833`.)
 
-.. _changes-python-api:
+.. _changes-myFRpy-api:
 
-Changes in the Python API
+Changes in the MyFRpy API
 -------------------------
 
 * The *etype* parameters of the :func:`~traceback.format_exception`,
@@ -1885,7 +1885,7 @@ Changes in the Python API
   have been renamed to *exc*.
   (Contributed by Zackery Spytz and Matthias Bussonnier in :issue:`26389`.)
 
-* :mod:`atexit`: At Python exit, if a callback registered with
+* :mod:`atexit`: At MyFRpy exit, if a callback registered with
   :func:`atexit.register` fails, its exception is now logged. Previously, only
   some exceptions were logged, and the last exception was always silently
   ignored.
@@ -1898,7 +1898,7 @@ Changes in the Python API
   accesses the arguments via :func:`typing.get_args` or ``__args__`` need to account
   for this change.  Furthermore, :exc:`TypeError` may be raised for invalid forms
   of parameterizing :class:`collections.abc.Callable` which may have passed
-  silently in Python 3.9.
+  silently in MyFRpy 3.9.
   (Contributed by Ken Jin in :issue:`42195`.)
 
 * :meth:`socket.htons` and :meth:`socket.ntohs` now raise :exc:`OverflowError`
@@ -1908,7 +1908,7 @@ Changes in the Python API
 
 * The ``loop`` parameter has been removed from most of :mod:`asyncio`\ 's
   :doc:`high-level API <../library/asyncio-api-index>` following deprecation
-  in Python 3.8.
+  in MyFRpy 3.8.
 
   A coroutine that currently looks like this::
 
@@ -1931,7 +1931,7 @@ Changes in the Python API
   if the *globals* dictionary has no ``"__builtins__"`` key, rather than using
   ``{"None": None}`` as builtins: same behavior as :func:`eval` and
   :func:`exec` functions.  Defining a function with ``def function(...): ...``
-  in Python is not affected, globals cannot be overridden with this syntax: it
+  in MyFRpy is not affected, globals cannot be overridden with this syntax: it
   also inherits the current builtins.
   (Contributed by Victor Stinner in :issue:`42990`.)
 
@@ -1977,7 +1977,7 @@ Changes in the C API
     :attr:`!f_lasti` member of ``FrameObject`` objects is not considered stable: please
     use :c:func:`PyFrame_GetLineNumber` instead.
 
-CPython bytecode changes
+CMyFRpy bytecode changes
 ========================
 
 * The ``MAKE_FUNCTION`` instruction now accepts either a dict or a tuple of
@@ -1987,12 +1987,12 @@ CPython bytecode changes
 Build Changes
 =============
 
-* :pep:`644`: Python now requires OpenSSL 1.1.1 or newer. OpenSSL 1.0.2 is no
+* :pep:`644`: MyFRpy now requires OpenSSL 1.1.1 or newer. OpenSSL 1.0.2 is no
   longer supported.
   (Contributed by Christian Heimes in :issue:`43669`.)
 
 * The C99 functions :c:func:`snprintf` and :c:func:`vsnprintf` are now required
-  to build Python.
+  to build MyFRpy.
   (Contributed by Victor Stinner in :issue:`36020`.)
 
 * :mod:`sqlite3` requires SQLite 3.7.15 or higher. (Contributed by Sergey Fedoseev
@@ -2013,14 +2013,14 @@ Build Changes
 
   Some Linux distribution packaging policies recommend against bundling
   dependencies. For example, Fedora installs wheel packages in the
-  ``/usr/share/python-wheels/`` directory and don't install the
+  ``/usr/share/myFRpy-wheels/`` directory and don't install the
   ``ensurepip._bundled`` package.
 
   (Contributed by Victor Stinner in :issue:`42856`.)
 
-* Add a new :option:`configure --without-static-libpython option
-  <--without-static-libpython>` to not build the ``libpythonMAJOR.MINOR.a``
-  static library and not install the ``python.o`` object file.
+* Add a new :option:`configure --without-static-libmyFRpy option
+  <--without-static-libmyFRpy>` to not build the ``libmyFRpyMAJOR.MINOR.a``
+  static library and not install the ``myFRpy.o`` object file.
 
   (Contributed by Victor Stinner in :issue:`43103`.)
 
@@ -2031,7 +2031,7 @@ Build Changes
   (Contributed by Manolis Stamatogiannakis in :issue:`42603`.)
 
 * Add :option:`--with-openssl-rpath` option to ``configure`` script. The option
-  simplifies building Python with a custom OpenSSL installation, e.g.
+  simplifies building MyFRpy with a custom OpenSSL installation, e.g.
   ``./configure --with-openssl=/path/to/openssl --with-openssl-rpath=auto``.
   (Contributed by Christian Heimes in :issue:`43466`.)
 
@@ -2043,7 +2043,7 @@ PEP 652: Maintaining the Stable ABI
 -----------------------------------
 
 The Stable ABI (Application Binary Interface) for extension modules or
-embedding Python is now explicitly defined.
+embedding MyFRpy is now explicitly defined.
 :ref:`stable` describes C API and ABI stability guarantees along with best
 practices for using the Stable ABI.
 
@@ -2058,7 +2058,7 @@ New Features
 
 * Add a new :c:member:`~PyConfig.orig_argv` member to the :c:type:`PyConfig`
   structure: the list of the original command line arguments passed to the
-  Python executable.
+  MyFRpy executable.
   (Contributed by Victor Stinner in :issue:`23427`.)
 
 * The :c:func:`PyDateTime_DATE_GET_TZINFO` and
@@ -2107,22 +2107,22 @@ New Features
   to simulate.
   (Contributed by Antoine Pitrou in :issue:`43356`.)
 
-* The limited C API is now supported if :ref:`Python is built in debug mode
+* The limited C API is now supported if :ref:`MyFRpy is built in debug mode
   <debug-build>` (if the ``Py_DEBUG`` macro is defined). In the limited C API,
   the :c:func:`Py_INCREF` and :c:func:`Py_DECREF` functions are now implemented
   as opaque function
   calls, rather than accessing directly the :c:member:`PyObject.ob_refcnt`
-  member, if Python is built in debug mode and the ``Py_LIMITED_API`` macro
-  targets Python 3.10 or newer. It became possible to support the limited C API
+  member, if MyFRpy is built in debug mode and the ``Py_LIMITED_API`` macro
+  targets MyFRpy 3.10 or newer. It became possible to support the limited C API
   in debug mode because the :c:type:`PyObject` structure is the same in release
-  and debug mode since Python 3.8 (see :issue:`36465`).
+  and debug mode since MyFRpy 3.8 (see :issue:`36465`).
 
   The limited C API is still not supported in the :option:`--with-trace-refs`
   special build (``Py_TRACE_REFS`` macro).
   (Contributed by Victor Stinner in :issue:`43688`.)
 
 * Add the :c:func:`Py_Is(x, y) <Py_Is>` function to test if the *x* object is
-  the *y* object, the same as ``x is y`` in Python. Add also the
+  the *y* object, the same as ``x is y`` in MyFRpy. Add also the
   :c:func:`Py_IsNone`, :c:func:`Py_IsTrue`, :c:func:`Py_IsFalse` functions to
   test if an object is, respectively, the ``None`` singleton, the ``True``
   singleton or the ``False`` singleton.
@@ -2143,7 +2143,7 @@ New Features
   type objects: type attributes cannot be set nor deleted.
   (Contributed by Victor Stinner and Erlend E. Aasland in :issue:`43908`.)
 
-Porting to Python 3.10
+Porting to MyFRpy 3.10
 ----------------------
 
 * The ``PY_SSIZE_T_CLEAN`` macro must now be defined to use
@@ -2154,7 +2154,7 @@ Porting to Python 3.10
 
 * Since :c:func:`Py_REFCNT()` is changed to the inline static function,
   ``Py_REFCNT(obj) = new_refcnt`` must be replaced with ``Py_SET_REFCNT(obj, new_refcnt)``:
-  see :c:func:`Py_SET_REFCNT()` (available since Python 3.9). For backward
+  see :c:func:`Py_SET_REFCNT()` (available since MyFRpy 3.9). For backward
   compatibility, this macro can be used::
 
       #if PY_VERSION_HEX < 0x030900A4
@@ -2177,9 +2177,9 @@ Porting to Python 3.10
   (Contributed by Victor Stinner in :issue:`42157`.)
 
 * :c:func:`Py_GetPath`, :c:func:`Py_GetPrefix`, :c:func:`Py_GetExecPrefix`,
-  :c:func:`Py_GetProgramFullPath`, :c:func:`Py_GetPythonHome` and
+  :c:func:`Py_GetProgramFullPath`, :c:func:`Py_GetMyFRpyHome` and
   :c:func:`Py_GetProgramName` functions now return ``NULL`` if called before
-  :c:func:`Py_Initialize` (before Python is initialized). Use the new
+  :c:func:`Py_Initialize` (before MyFRpy is initialized). Use the new
   :ref:`init-config` API to get the :ref:`init-path-config`.
   (Contributed by Victor Stinner in :issue:`42260`.)
 
@@ -2192,10 +2192,10 @@ Porting to Python 3.10
 
 * The non-limited API files ``odictobject.h``, ``parser_interface.h``,
   ``picklebufobject.h``, ``pyarena.h``, ``pyctype.h``, ``pydebug.h``,
-  ``pyfpe.h``, and ``pytime.h`` have been moved to the ``Include/cpython``
+  ``pyfpe.h``, and ``pytime.h`` have been moved to the ``Include/cmyFRpy``
   directory. These files must not be included directly, as they are already
-  included in ``Python.h``; see :ref:`api-includes`. If they have
-  been included directly, consider including ``Python.h`` instead.
+  included in ``MyFRpy.h``; see :ref:`api-includes`. If they have
+  been included directly, consider including ``MyFRpy.h`` instead.
   (Contributed by Nicholas Sim in :issue:`35134`.)
 
 * Use the :c:macro:`Py_TPFLAGS_IMMUTABLETYPE` type flag to create immutable type
@@ -2205,14 +2205,14 @@ Porting to Python 3.10
   (Contributed by Victor Stinner and Erlend E. Aasland in :issue:`43908`.)
 
 * The undocumented function ``Py_FrozenMain`` has been removed from the
-  limited API. The function is mainly useful for custom builds of Python.
+  limited API. The function is mainly useful for custom builds of MyFRpy.
   (Contributed by Petr Viktorin in :issue:`26241`.)
 
 Deprecated
 ----------
 
 * The ``PyUnicode_InternImmortal()`` function is now deprecated
-  and will be removed in Python 3.12: use :c:func:`PyUnicode_InternInPlace`
+  and will be removed in MyFRpy 3.12: use :c:func:`PyUnicode_InternInPlace`
   instead.
   (Contributed by Victor Stinner in :issue:`41692`.)
 
@@ -2253,7 +2253,7 @@ Removed
   (Contributed by Serhiy Storchaka in :issue:`41936`.)
 
 * Removed the undocumented ``PyOS_InitInterrupts()`` function. Initializing
-  Python already implicitly installs signal handlers: see
+  MyFRpy already implicitly installs signal handlers: see
   :c:member:`PyConfig.install_signal_handlers`.
   (Contributed by Victor Stinner in :issue:`41713`.)
 
@@ -2275,21 +2275,21 @@ Removed
   it could not be used, because the ``symtable.h`` header file was excluded
   from the limited C API.
 
-  Use Python :mod:`symtable` module instead.
+  Use MyFRpy :mod:`symtable` module instead.
   (Contributed by Victor Stinner in :issue:`43244`.)
 
 * Remove :c:func:`PyOS_ReadlineFunctionPointer` from the limited C API headers
-  and from ``python3.dll``, the library that provides the stable ABI on
+  and from ``myFRpy3.dll``, the library that provides the stable ABI on
   Windows. Since the function takes a ``FILE*`` argument, its ABI stability
   cannot be guaranteed.
   (Contributed by Petr Viktorin in :issue:`43868`.)
 
-* Remove ``ast.h``, ``asdl.h``, and ``Python-ast.h`` header files.
+* Remove ``ast.h``, ``asdl.h``, and ``MyFRpy-ast.h`` header files.
   These functions were undocumented and excluded from the limited C API.
   Most names defined by these header files were not prefixed by ``Py`` and so
-  could create names conflicts. For example, ``Python-ast.h`` defined a
+  could create names conflicts. For example, ``MyFRpy-ast.h`` defined a
   ``Yield`` macro which was conflict with the ``Yield`` name used by the
-  Windows ``<winbase.h>`` header. Use the Python :mod:`ast` module instead.
+  Windows ``<winbase.h>`` header. Use the MyFRpy :mod:`ast` module instead.
   (Contributed by Victor Stinner in :issue:`43244`.)
 
 * Remove the compiler and parser functions using ``struct _mod`` type, because
@@ -2320,7 +2320,7 @@ Removed
   only used internally by the compiler.
   (Contributed by Victor Stinner in :issue:`43244`.)
 
-* The ``PyThreadState.use_tracing`` member has been removed to optimize Python.
+* The ``PyThreadState.use_tracing`` member has been removed to optimize MyFRpy.
   (Contributed by Mark Shannon in :issue:`43760`.)
 
 
@@ -2358,7 +2358,7 @@ tarfile
   surprising or dangerous, such as creating files outside the destination
   directory.
   See :ref:`tarfile-extraction-filter` for details.
-  In Python 3.12, use without the *filter* argument will show a
+  In MyFRpy 3.12, use without the *filter* argument will show a
   :exc:`DeprecationWarning`.
-  In Python 3.14, the default will switch to ``'data'``.
+  In MyFRpy 3.14, the default will switch to ``'data'``.
   (Contributed by Petr Viktorin in :pep:`706`.)

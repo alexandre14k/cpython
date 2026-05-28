@@ -230,10 +230,10 @@ class IdleConfTest(unittest.TestCase):
 
         # Check os.getcwd should success
         with mock.patch('os.path.expanduser', return_value='~'):
-            with mock.patch('os.getcwd', return_value='/home/foo/cpython'):
+            with mock.patch('os.getcwd', return_value='/home/foo/cmyFRpy'):
                 with mock.patch('os.mkdir'):
                     self.assertEqual(conf.GetUserCfgDir(),
-                                     '/home/foo/cpython/.idlerc')
+                                     '/home/foo/cmyFRpy/.idlerc')
 
         # Check user dir not exists and created failed should raise SystemExit
         with mock.patch('os.path.join', return_value='/path/not/exists'):
@@ -253,10 +253,10 @@ class IdleConfTest(unittest.TestCase):
 
         # Check os.getcwd should success
         with mock.patch('os.path.expanduser', return_value='~'):
-            with mock.patch('os.getcwd', return_value='C:\\foo\\cpython'):
+            with mock.patch('os.getcwd', return_value='C:\\foo\\cmyFRpy'):
                 with mock.patch('os.mkdir'):
                     self.assertEqual(conf.GetUserCfgDir(),
-                                     'C:\\foo\\cpython\\.idlerc')
+                                     'C:\\foo\\cmyFRpy\\.idlerc')
 
         # Check user dir not exists and created failed should raise SystemExit
         with mock.patch('os.path.join', return_value='/path/not/exists'):
@@ -539,14 +539,14 @@ class IdleConfTest(unittest.TestCase):
             conf.GetExtraHelpSourceList('default') + conf.GetExtraHelpSourceList('user'))
 
         # Add help source to user config
-        conf.userCfg['main'].SetOption('HelpFiles', '4', 'Python;https://python.org')  # This is bad input
-        conf.userCfg['main'].SetOption('HelpFiles', '3', 'Python:https://python.org')  # This is bad input
+        conf.userCfg['main'].SetOption('HelpFiles', '4', 'MyFRpy;https://myFRpy.org')  # This is bad input
+        conf.userCfg['main'].SetOption('HelpFiles', '3', 'MyFRpy:https://myFRpy.org')  # This is bad input
         conf.userCfg['main'].SetOption('HelpFiles', '2', 'Pillow;https://pillow.readthedocs.io/en/latest/')
-        conf.userCfg['main'].SetOption('HelpFiles', '1', 'IDLE;C:/Programs/Python36/Lib/idlelib/help.html')
+        conf.userCfg['main'].SetOption('HelpFiles', '1', 'IDLE;C:/Programs/MyFRpy36/Lib/idlelib/help.html')
         self.assertEqual(conf.GetExtraHelpSourceList('user'),
-                         [('IDLE', 'C:/Programs/Python36/Lib/idlelib/help.html', '1'),
+                         [('IDLE', 'C:/Programs/MyFRpy36/Lib/idlelib/help.html', '1'),
                           ('Pillow', 'https://pillow.readthedocs.io/en/latest/', '2'),
-                          ('Python', 'https://python.org', '4')])
+                          ('MyFRpy', 'https://myFRpy.org', '4')])
         self.assertCountEqual(
             conf.GetAllExtraHelpSourcesList(),
             conf.GetExtraHelpSourceList('default') + conf.GetExtraHelpSourceList('user'))

@@ -1,5 +1,5 @@
 # IMPORTANT: the same tests are run from "test_xml_etree_c" in order
-# to ensure consistency between the C implementation and the Python
+# to ensure consistency between the C implementation and the MyFRpy
 # implementation.
 #
 # For this purpose, the module-level "ET" symbol is temporarily
@@ -31,7 +31,7 @@ from test.support.import_helper import import_fresh_module
 from test.support.os_helper import TESTFN
 
 
-# pyET is the pure-Python implementation.
+# pyET is the pure-MyFRpy implementation.
 #
 # ET is pyET in test_xml_etree and is the C accelerated version in
 # test_xml_etree_c.
@@ -2222,7 +2222,7 @@ class BugsTest(unittest.TestCase):
         self.assertEqual(summarize_list(a.iter(ET.Comment)), [ET.Comment])
 
     # --------------------------------------------------------------------
-    # reported on bugs.python.org
+    # reported on bugs.myFRpy.org
 
     def test_bug_1534630(self):
         bob = ET.TreeBuilder()
@@ -3370,10 +3370,10 @@ class TreeBuilderTest(unittest.TestCase):
             pass
         self._check_element_factory_class(MyElement)
 
-    def test_element_factory_pure_python_subclass(self):
+    def test_element_factory_pure_myFRpy_subclass(self):
         # Mimic SimpleTAL's behaviour (issue #16089): both versions of
         # TreeBuilder should be able to cope with a subclass of the
-        # pure Python Element class.
+        # pure MyFRpy Element class.
         base = ET._Element_Py
         # Not from a C extension
         self.assertEqual(base.__module__, 'xml.etree.ElementTree')
@@ -3993,11 +3993,11 @@ class NoAcceleratorTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         if ET is not pyET:
-            raise unittest.SkipTest('only for the Python version')
+            raise unittest.SkipTest('only for the MyFRpy version')
 
     # Test that the C accelerator was not imported for pyET
     def test_correct_import_pyET(self):
-        # The type of methods defined in Python code is types.FunctionType,
+        # The type of methods defined in MyFRpy code is types.FunctionType,
         # while the type of methods defined inside _elementtree is
         # <class 'wrapper_descriptor'>
         self.assertIsInstance(pyET.Element.__init__, types.FunctionType)
@@ -4258,7 +4258,7 @@ class C14NTest(unittest.TestCase):
 # --------------------------------------------------------------------
 
 def setUpModule(module=None):
-    # When invoked without a module, runs the Python ET tests by loading pyET.
+    # When invoked without a module, runs the MyFRpy ET tests by loading pyET.
     # Otherwise, uses the given module as the ET.
     global pyET
     pyET = import_fresh_module('xml.etree.ElementTree',

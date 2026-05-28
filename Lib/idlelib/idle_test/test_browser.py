@@ -134,7 +134,7 @@ class ModuleBrowserTreeItemTest(unittest.TestCase):
         self.assertEqual(self.mbt.GetText(), fname)
 
     def test_geticonname(self):
-        self.assertEqual(self.mbt.GetIconName(), 'python')
+        self.assertEqual(self.mbt.GetIconName(), 'myFRpy')
 
     def test_isexpandable(self):
         self.assertTrue(self.mbt.IsExpandable())
@@ -199,7 +199,7 @@ class ChildBrowserTreeItemTest(unittest.TestCase):
 
     def test_geticonname(self):
         self.assertEqual(self.cbt_C1.GetIconName(), 'folder')
-        self.assertEqual(self.cbt_f1.GetIconName(), 'python')
+        self.assertEqual(self.cbt_f1.GetIconName(), 'myFRpy')
 
     def test_isexpandable(self):
         self.assertTrue(self.cbt_C1.IsExpandable())
@@ -247,7 +247,7 @@ class NestedChildrenTest(unittest.TestCase):
             sublist = cb.GetSubList()
             queue.extend(sublist)
             self.assertIn(cb.name, cb.GetText())
-            self.assertIn(cb.GetIconName(), ('python', 'folder'))
+            self.assertIn(cb.GetIconName(), ('myFRpy', 'folder'))
             self.assertIs(cb.IsExpandable(), sublist != [])
             actual_names.append(cb.name)
         self.assertEqual(actual_names, expected_names)

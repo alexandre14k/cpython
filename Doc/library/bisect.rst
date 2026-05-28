@@ -4,8 +4,8 @@
 .. module:: bisect
    :synopsis: Array bisection algorithms for binary searching.
 .. sectionauthor:: Fred L. Drake, Jr. <fdrake@acm.org>
-.. sectionauthor:: Raymond Hettinger <python at rcn.com>
-.. example based on the PyModules FAQ entry by Aaron Watters <arw@pythonpros.com>
+.. sectionauthor:: Raymond Hettinger <myFRpy at rcn.com>
+.. example based on the PyModules FAQ entry by Aaron Watters <arw@myFRpypros.com>
 
 **Source code:** :source:`Lib/bisect.py`
 

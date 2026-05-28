@@ -96,7 +96,7 @@ CYGWIN*) if test $libdir = .
 	 else
 	 	ExtraLibDir='$(LIBPL)'
 	 fi
-	 ExtraLibs="-L$ExtraLibDir -lpython\$(LDVERSION)";;
+	 ExtraLibs="-L$ExtraLibDir -lmyFRpy\$(LDVERSION)";;
 esac
 
 # Main loop
@@ -264,11 +264,11 @@ sed -e 's/[ 	]*#.*//' -e '/^[ 	]*$/d' |
 			case $doconfig in
 			no)
 				cc="$cc $cpps \$(PY_STDMODULE_CFLAGS) \$(CCSHARED)"
-				rule="$obj: $src \$(MODULE_${mods_upper}_DEPS) \$(MODULE_DEPS_SHARED) \$(PYTHON_HEADERS); $cc -c $src -o $obj"
+				rule="$obj: $src \$(MODULE_${mods_upper}_DEPS) \$(MODULE_DEPS_SHARED) \$(MYFRPY_HEADERS); $cc -c $src -o $obj"
 				;;
 			*)
 				cc="$cc $cpps \$(PY_BUILTIN_MODULE_CFLAGS)"
-				rule="$obj: $src \$(MODULE_${mods_upper}_DEPS) \$(MODULE_DEPS_STATIC) \$(PYTHON_HEADERS); $cc -c $src -o $obj"
+				rule="$obj: $src \$(MODULE_${mods_upper}_DEPS) \$(MODULE_DEPS_STATIC) \$(MYFRPY_HEADERS); $cc -c $src -o $obj"
 				;;
 			esac
 			echo "$rule" >>$rulesf

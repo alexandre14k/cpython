@@ -193,7 +193,7 @@ connection_exec_stmt(pysqlite_Connection *self, const char *sql)
     return 0;
 }
 
-/*[python input]
+/*[myFRpy input]
 class IsolationLevel_converter(CConverter):
     type = "const char *"
     converter = "isolation_level_converter"
@@ -206,8 +206,8 @@ class sqlite3_int64_converter(CConverter):
     type = "sqlite3_int64"
     converter = "sqlite3_int64_converter"
 
-[python start generated code]*/
-/*[python end generated code: output=da39a3ee5e6b4b0d input=dff8760fb1eba6a1]*/
+[myFRpy start generated code]*/
+/*[myFRpy end generated code: output=da39a3ee5e6b4b0d input=dff8760fb1eba6a1]*/
 
 // NB: This needs to be in sync with the sqlite3.connect docstring
 /*[clinic input]
@@ -459,7 +459,7 @@ connection_finalize(PyObject *self)
     PyObject *exc = PyErr_GetRaisedException();
 
     /* If close is implicitly called as a result of interpreter
-     * tear-down, we must not call back into Python. */
+     * tear-down, we must not call back into MyFRpy. */
     PyInterpreterState *interp = PyInterpreterState_Get();
     int teardown = _Py_IsInterpreterFinalizing(interp);
     if (teardown && con->db) {
@@ -866,7 +866,7 @@ print_or_clear_traceback(callback_context *ctx)
     }
 }
 
-// Checks the Python exception and sets the appropriate SQLite error code.
+// Checks the MyFRpy exception and sets the appropriate SQLite error code.
 static void
 set_sqlite_error(sqlite3_context *context, const char *msg)
 {
@@ -1974,7 +1974,7 @@ finally:
 }
 
 /* Function author: Paul Kippes <kippesp@gmail.com>
- * Class method of Connection to call the Python function _iterdump
+ * Class method of Connection to call the MyFRpy function _iterdump
  * of the sqlite3 module.
  */
 /*[clinic input]

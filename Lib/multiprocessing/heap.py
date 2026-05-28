@@ -274,7 +274,7 @@ class Heap(object):
         # immediately, the block is added to a list of blocks to be freed
         # synchronously sometimes later from malloc() or free(), by calling
         # _free_pending_blocks() (appending and retrieving from a list is not
-        # strictly thread-safe but under CPython it's atomic thanks to the GIL).
+        # strictly thread-safe but under CMyFRpy it's atomic thanks to the GIL).
         if os.getpid() != self._lastpid:
             raise ValueError(
                 "My pid ({0:n}) is not last pid {1:n}".format(

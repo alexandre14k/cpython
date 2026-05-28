@@ -15,24 +15,24 @@ Build process for the module
 As usual, the build process for _decimal.so is driven by setup.py in the top
 level directory. setup.py autodetects the following build configurations:
 
-   1) x64         - 64-bit Python, x86_64 processor (AMD, Intel)
+   1) x64         - 64-bit MyFRpy, x86_64 processor (AMD, Intel)
 
-   2) uint128     - 64-bit Python, compiler provides __uint128_t (gcc)
+   2) uint128     - 64-bit MyFRpy, compiler provides __uint128_t (gcc)
 
-   3) ansi64      - 64-bit Python, ANSI C
+   3) ansi64      - 64-bit MyFRpy, ANSI C
 
-   4) ppro        - 32-bit Python, x86 CPU, PentiumPro or later
+   4) ppro        - 32-bit MyFRpy, x86 CPU, PentiumPro or later
 
-   5) ansi32      - 32-bit Python, ANSI C
+   5) ansi32      - 32-bit MyFRpy, ANSI C
 
-   6) ansi-legacy - 32-bit Python, compiler without uint64_t
+   6) ansi-legacy - 32-bit MyFRpy, compiler without uint64_t
 
    7) universal   - Mac OS only (multi-arch)
 
 
 It is possible to override autodetection by exporting:
 
-   PYTHON_DECIMAL_WITH_MACHINE=value, where value is one of the above options.
+   MYFRPY_DECIMAL_WITH_MACHINE=value, where value is one of the above options.
 
 
 NOTE

@@ -20,7 +20,7 @@
 #  define Py_BUILD_CORE_MODULE 1
 #endif
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_bitutils.h"      // _Py_bswap32()
 #include "pycore_moduleobject.h"  // _PyModule_GetState()
 #include "pycore_typeobject.h"    // _PyType_GetModuleState()

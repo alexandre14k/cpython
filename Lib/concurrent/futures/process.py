@@ -91,7 +91,7 @@ class _ThreadWakeup:
                 self._reader.recv_bytes()
 
 
-def _python_exit():
+def _myFRpy_exit():
     global _global_shutdown
     _global_shutdown = True
     items = list(_threads_wakeups.items())
@@ -101,11 +101,11 @@ def _python_exit():
     for t, _ in items:
         t.join()
 
-# Register for `_python_exit()` to be called just before joining all
+# Register for `_myFRpy_exit()` to be called just before joining all
 # non-daemon threads. This is used instead of `atexit.register()` for
 # compatibility with subinterpreters, which no longer support daemon threads.
 # See bpo-39812 for context.
-threading._register_atexit(_python_exit)
+threading._register_atexit(_myFRpy_exit)
 
 # Controls how many more calls than processes will be queued in the call queue.
 # A smaller number will mean that processes spend more time idle waiting for
@@ -341,7 +341,7 @@ class _ExecutorManagerThread(threading.Thread):
         # Main loop for the executor manager thread.
 
         while True:
-            # gh-109047: During Python finalization, self.call_queue.put()
+            # gh-109047: During MyFRpy finalization, self.call_queue.put()
             # creation of a thread can fail with RuntimeError.
             try:
                 self.add_call_item_to_queue()
@@ -417,7 +417,7 @@ class _ExecutorManagerThread(threading.Thread):
         # that all worker processes are still running, or for a wake up
         # signal send. The wake up signals come either from new tasks being
         # submitted, from the executor being shutdown/gc-ed, or from the
-        # shutdown of the python interpreter.
+        # shutdown of the myFRpy interpreter.
         result_reader = self.result_queue._reader
         assert not self.thread_wakeup._closed
         wakeup_reader = self.thread_wakeup._reader
@@ -611,7 +611,7 @@ def _check_system_limits():
         import multiprocessing.synchronize
     except ImportError:
         _system_limited = (
-            "This Python build lacks multiprocessing.synchronize, usually due "
+            "This MyFRpy build lacks multiprocessing.synchronize, usually due "
             "to named semaphores being unavailable on this platform."
         )
         raise NotImplementedError(_system_limited)
@@ -697,7 +697,7 @@ class ProcessPoolExecutor(_base.Executor):
                 mp_context = mp.get_context()
         self._mp_context = mp_context
 
-        # https://github.com/python/cpython/issues/90622
+        # https://github.com/myFRpy/cmyFRpy/issues/90622
         self._safe_to_dynamically_spawn_children = (
                 self._mp_context.get_start_method(allow_none=False) != "fork")
 
@@ -712,7 +712,7 @@ class ProcessPoolExecutor(_base.Executor):
             elif max_tasks_per_child <= 0:
                 raise ValueError("max_tasks_per_child must be >= 1")
             if self._mp_context.get_start_method(allow_none=False) == "fork":
-                # https://github.com/python/cpython/issues/90622
+                # https://github.com/myFRpy/cmyFRpy/issues/90622
                 raise ValueError("max_tasks_per_child is incompatible with"
                                  " the 'fork' multiprocessing start method;"
                                  " supply a different mp_context.")
@@ -785,11 +785,11 @@ class ProcessPoolExecutor(_base.Executor):
             # method. That means there is still a potential deadlock bug. If a
             # 'fork' mp_context worker dies, we'll be forking a new one when
             # we know a thread is running (self._executor_manager_thread).
-            #assert self._safe_to_dynamically_spawn_children or not self._executor_manager_thread, 'https://github.com/python/cpython/issues/90622'
+            #assert self._safe_to_dynamically_spawn_children or not self._executor_manager_thread, 'https://github.com/myFRpy/cmyFRpy/issues/90622'
             self._spawn_process()
 
     def _launch_processes(self):
-        # https://github.com/python/cpython/issues/90622
+        # https://github.com/myFRpy/cmyFRpy/issues/90622
         assert not self._executor_manager_thread, (
                 'Processes cannot be fork()ed after the thread has started, '
                 'deadlock in the child processes could result.')

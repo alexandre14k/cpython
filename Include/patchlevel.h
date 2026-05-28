@@ -1,5 +1,5 @@
 
-/* Python version identification scheme.
+/* MyFRpy version identification scheme.
 
    When the major or minor version changes, the VERSION variable in
    configure.ac must also be changed.

@@ -31,7 +31,7 @@ introduced with RFC 2965.
    The various named parameters found in :mailheader:`Set-Cookie` and
    :mailheader:`Set-Cookie2` headers (eg. ``domain`` and ``expires``) are
    conventionally referred to as :dfn:`attributes`.  To distinguish them from
-   Python attributes, the documentation for this module uses the term
+   MyFRpy attributes, the documentation for this module uses the term
    :dfn:`cookie-attribute` instead.
 
 
@@ -612,7 +612,7 @@ combinations of the above flags:
 Cookie Objects
 --------------
 
-:class:`Cookie` instances have Python attributes roughly corresponding to the
+:class:`Cookie` instances have MyFRpy attributes roughly corresponding to the
 standard cookie-attributes specified in the various cookie standards.  The
 correspondence is not one-to-one, because there are complicated rules for
 assigning default values, because the ``max-age`` and ``expires``

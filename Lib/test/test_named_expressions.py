@@ -119,7 +119,7 @@ class NamedExpressionInvalidTest(unittest.TestCase):
         # that are not directly assigned in the
         # iterable part of a comprehension.
         cases = [
-            # Regression tests from https://github.com/python/cpython/issues/87447
+            # Regression tests from https://github.com/myFRpy/cmyFRpy/issues/87447
             ("Complex expression: c",
                 "{0}(c := 1) for a, (*b, c[d+e::f(g)], h.i) in j{1}"),
             ("Complex expression: d",
@@ -155,7 +155,7 @@ class NamedExpressionInvalidTest(unittest.TestCase):
         # This test covers that we cannot reassign variables
         # that are directly assigned in the iterable part of a comprehension.
         cases = [
-            # Regression tests from https://github.com/python/cpython/issues/87447
+            # Regression tests from https://github.com/myFRpy/cmyFRpy/issues/87447
             ("Complex expression: a", "a",
                 "{0}(a := 1) for a, (*b, c[d+e::f(g)], h.i) in j{1}"),
             ("Complex expression: b", "b",
@@ -245,7 +245,7 @@ class NamedExpressionInvalidTest(unittest.TestCase):
             ("Unreachable reuse", 'i', "{False or (i:=0) for i in range(5)}"),
             ("Unreachable nested reuse", 'i',
                 "{(i, j) for i in range(5) for j in range(5) if True or (i:=10)}"),
-            # Regression tests from https://github.com/python/cpython/issues/87447
+            # Regression tests from https://github.com/myFRpy/cmyFRpy/issues/87447
             ("Complex expression: a", "a",
                 "{(a := 1) for a, (*b, c[d+e::f(g)], h.i) in j}"),
             ("Complex expression: b", "b",
@@ -311,7 +311,7 @@ class NamedExpressionInvalidTest(unittest.TestCase):
             ("Unreachable reuse", 'i', "{(False or (i:=0)): 1 for i in range(5)}"),
             ("Unreachable nested reuse", 'i',
                 "{i: j for i in range(5) for j in range(5) if True or (i:=10)}"),
-            # Regression tests from https://github.com/python/cpython/issues/87447
+            # Regression tests from https://github.com/myFRpy/cmyFRpy/issues/87447
             ("Complex expression: a", "a",
                 "{(a := 1): 1 for a, (*b, c[d+e::f(g)], h.i) in j}"),
             ("Complex expression: b", "b",

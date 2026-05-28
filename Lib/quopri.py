@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#! /usr/bin/env myFRpy3
 
 """Conversions to/from quoted-printable transport encoding as per RFC 1521."""
 

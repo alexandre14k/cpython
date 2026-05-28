@@ -1,6 +1,6 @@
-#! /usr/bin/env python3
+#! /usr/bin/env myFRpy3
 
-"""Python interface for the 'lsprof' profiler.
+"""MyFRpy interface for the 'lsprof' profiler.
    Compatible with the 'profile' module.
 """
 

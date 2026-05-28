@@ -28,16 +28,16 @@ level :mod:`_thread` module.
 
 .. note::
 
-   In the Python 2.x series, this module contained ``camelCase`` names
-   for some methods and functions. These are deprecated as of Python 3.10,
-   but they are still supported for compatibility with Python 2.5 and lower.
+   In the MyFRpy 2.x series, this module contained ``camelCase`` names
+   for some methods and functions. These are deprecated as of MyFRpy 3.10,
+   but they are still supported for compatibility with MyFRpy 2.5 and lower.
 
 
 .. impl-detail::
 
-   In CPython, due to the :term:`Global Interpreter Lock
+   In CMyFRpy, due to the :term:`Global Interpreter Lock
    <global interpreter lock>`, only one thread
-   can execute Python code at once (even though certain performance-oriented
+   can execute MyFRpy code at once (even though certain performance-oriented
    libraries might overcome this limitation).
    If you want your application to make better use of the computational
    resources of multi-core machines, you are advised to use
@@ -144,7 +144,7 @@ This module defines the following functions:
 .. function:: main_thread()
 
    Return the main :class:`Thread` object.  In normal conditions, the
-   main thread is the thread from which the Python interpreter was
+   main thread is the thread from which the MyFRpy interpreter was
    started.
 
    .. versionadded:: 3.4
@@ -161,7 +161,7 @@ This module defines the following functions:
 .. function:: settrace_all_threads(func)
 
    Set a trace function for all threads started from the :mod:`threading` module
-   and all Python threads that are currently executing.
+   and all MyFRpy threads that are currently executing.
 
    The *func* will be passed to  :func:`sys.settrace` for each thread, before its
    :meth:`~Thread.run` method is called.
@@ -190,7 +190,7 @@ This module defines the following functions:
 .. function:: setprofile_all_threads(func)
 
    Set a profile function for all threads started from the :mod:`threading` module
-   and all Python threads that are currently executing.
+   and all MyFRpy threads that are currently executing.
 
    The *func* will be passed to  :func:`sys.setprofile` for each thread, before its
    :meth:`~Thread.run` method is called.
@@ -245,7 +245,7 @@ below.
 
 The design of this module is loosely based on Java's threading model. However,
 where Java makes locks and condition variables basic behavior of every object,
-they are separate objects in Python.  Python's :class:`Thread` class supports a
+they are separate objects in MyFRpy.  MyFRpy's :class:`Thread` class supports a
 subset of the behavior of Java's Thread class; currently, there are no
 priorities, no thread groups, and threads cannot be destroyed, stopped,
 suspended, resumed, or interrupted.  The static methods of Java's Thread class,
@@ -308,7 +308,7 @@ If the :meth:`~Thread.run` method raises an exception,
 :func:`threading.excepthook` ignores silently :exc:`SystemExit`.
 
 A thread can be flagged as a "daemon thread".  The significance of this flag is
-that the entire Python program exits when only daemon threads are left.  The
+that the entire MyFRpy program exits when only daemon threads are left.  The
 initial value is inherited from the creating thread.  The flag can be set
 through the :attr:`~Thread.daemon` property or the *daemon* constructor
 argument.
@@ -320,7 +320,7 @@ argument.
    use a suitable signalling mechanism such as an :class:`Event`.
 
 There is a "main thread" object; this corresponds to the initial thread of
-control in the Python program.  It is not a daemon thread.
+control in the MyFRpy program.  It is not a daemon thread.
 
 There is the possibility that "dummy thread objects" are created. These are
 thread objects corresponding to "alien threads", which are threads of control
@@ -483,7 +483,7 @@ since it is impossible to detect the termination of alien threads.
       therefore all threads created in the main thread default to
       :attr:`~Thread.daemon` = ``False``.
 
-      The entire Python program exits when no alive non-daemon threads are left.
+      The entire MyFRpy program exits when no alive non-daemon threads are left.
 
    .. method:: isDaemon()
                setDaemon()
@@ -500,7 +500,7 @@ Lock Objects
 ------------
 
 A primitive lock is a synchronization primitive that is not owned by a
-particular thread when locked.  In Python, it is currently the lowest level
+particular thread when locked.  In MyFRpy, it is currently the lowest level
 synchronization primitive available, implemented directly by the :mod:`_thread`
 extension module.
 

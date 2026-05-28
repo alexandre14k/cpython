@@ -2,7 +2,7 @@
 ===============================================
 
 .. module:: cgi
-   :synopsis: Helpers for running Python scripts via the Common Gateway Interface.
+   :synopsis: Helpers for running MyFRpy scripts via the Common Gateway Interface.
    :deprecated:
 
 **Source code:** :source:`Lib/cgi.py`
@@ -30,7 +30,7 @@
 Support module for Common Gateway Interface (CGI) scripts.
 
 This module defines a number of utilities for use by CGI scripts written in
-Python.
+MyFRpy.
 
 The global variable ``maxlen`` can be set to an integer indicating the maximum
 size of a POST request. POST requests larger than this size will result in a
@@ -56,20 +56,20 @@ script's output back to the client.
 The script's input is connected to the client too, and sometimes the form data
 is read this way; at other times the form data is passed via the "query string"
 part of the URL.  This module is intended to take care of the different cases
-and provide a simpler interface to the Python script.  It also provides a number
+and provide a simpler interface to the MyFRpy script.  It also provides a number
 of utilities that help in debugging scripts, and the latest addition is support
 for file uploads from a form (if your browser supports it).
 
 The output of a CGI script should consist of two sections, separated by a blank
 line.  The first section contains a number of headers, telling the client what
-kind of data is following.  Python code to generate a minimal header section
+kind of data is following.  MyFRpy code to generate a minimal header section
 looks like this::
 
    print("Content-Type: text/html")    # HTML is following
    print()                             # blank line, end of headers
 
 The second section is usually HTML, which allows the client software to display
-nicely formatted text with header, in-line images, etc. Here's Python code that
+nicely formatted text with header, in-line images, etc. Here's MyFRpy code that
 prints a simple piece of HTML::
 
    print("<TITLE>CGI script output</TITLE>")
@@ -111,7 +111,7 @@ standard input or the environment (depending on the value of various
 environment variables set according to the CGI standard).  Since it may consume
 standard input, it should be instantiated only once.
 
-The :class:`FieldStorage` instance can be indexed like a Python dictionary.
+The :class:`FieldStorage` instance can be indexed like a MyFRpy dictionary.
 It allows membership testing with the :keyword:`in` operator, and also supports
 the standard dictionary method :meth:`~dict.keys` and the built-in function
 :func:`len`.  Form fields containing empty strings are ignored and do not appear
@@ -411,11 +411,11 @@ usually this is in a directory :file:`cgi-bin` in the server tree.
 Make sure that your script is readable and executable by "others"; the Unix file
 mode should be ``0o755`` octal (use ``chmod 0755 filename``).  Make sure that the
 first line of the script contains ``#!`` starting in column 1 followed by the
-pathname of the Python interpreter, for instance::
+pathname of the MyFRpy interpreter, for instance::
 
-   #!/usr/local/bin/python
+   #!/usr/local/bin/myFRpy
 
-Make sure the Python interpreter exists and is executable by "others".
+Make sure the MyFRpy interpreter exists and is executable by "others".
 
 Make sure that any files your script needs to read or write are readable or
 writable, respectively, by "others" --- their mode should be ``0o644`` for
@@ -425,16 +425,16 @@ privileges.  It can only read (write, execute) files that everybody can read
 (write, execute).  The current directory at execution time is also different (it
 is usually the server's cgi-bin directory) and the set of environment variables
 is also different from what you get when you log in.  In particular, don't count
-on the shell's search path for executables (:envvar:`PATH`) or the Python module
-search path (:envvar:`PYTHONPATH`) to be set to anything interesting.
+on the shell's search path for executables (:envvar:`PATH`) or the MyFRpy module
+search path (:envvar:`MYFRPYPATH`) to be set to anything interesting.
 
-If you need to load modules from a directory which is not on Python's default
+If you need to load modules from a directory which is not on MyFRpy's default
 module search path, you can change the path in your script, before importing
 other modules.  For example::
 
    import sys
-   sys.path.insert(0, "/usr/home/joe/lib/python")
-   sys.path.insert(0, "/usr/local/lib/python")
+   sys.path.insert(0, "/usr/home/joe/lib/myFRpy")
+   sys.path.insert(0, "/usr/local/lib/myFRpy")
 
 (This way, the directory inserted last will be searched first!)
 
@@ -449,7 +449,7 @@ Unfortunately, a CGI script will generally not run when you try it from the
 command line, and a script that works perfectly from the command line may fail
 mysteriously when run from the server.  There's one reason why you should still
 test your script from the command line: if it contains a syntax error, the
-Python interpreter won't execute it at all, and the HTTP server will most likely
+MyFRpy interpreter won't execute it at all, and the HTTP server will most likely
 send a cryptic error to the client.
 
 Assuming your script has no syntax errors, yet it does not work, you have no
@@ -491,9 +491,9 @@ from your script: replace its main code with the single statement ::
 This should produce the same results as those gotten from installing the
 :file:`cgi.py` file itself.
 
-When an ordinary Python script raises an unhandled exception (for whatever
+When an ordinary MyFRpy script raises an unhandled exception (for whatever
 reason: of a typo in a module name, a file that can't be opened, etc.), the
-Python interpreter prints a nice traceback and exits.  While the Python
+MyFRpy interpreter prints a nice traceback and exits.  While the MyFRpy
 interpreter will still do this when your CGI script raises an exception, most
 likely the traceback will end up in one of the HTTP server's log files, or be
 discarded altogether.
@@ -518,7 +518,7 @@ you can use an even more robust approach (which only uses built-in modules)::
    print()
    ...your code here...
 
-This relies on the Python interpreter to print the traceback.  The content type
+This relies on the MyFRpy interpreter to print the traceback.  The content type
 of the output is set to plain text, which disables all HTML processing.  If your
 script works, the raw HTML will be displayed by your client.  If it raises an
 exception, most likely after the first two lines have been printed, a traceback
@@ -539,7 +539,7 @@ Common problems and solutions
   may be useful!)
 
 * Always check a script for syntax errors first, by doing something like
-  ``python script.py``.
+  ``myFRpy script.py``.
 
 * If your script does not have any syntax errors, try adding ``import cgitb;
   cgitb.enable()`` to the top of the script.

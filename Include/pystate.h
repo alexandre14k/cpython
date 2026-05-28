@@ -19,7 +19,7 @@ PyAPI_FUNC(void) PyInterpreterState_Delete(PyInterpreterState *);
 /* New in 3.9 */
 /* Get the current interpreter state.
 
-   Issue a fatal error if there no current Python thread state or no current
+   Issue a fatal error if there no current MyFRpy thread state or no current
    interpreter. It cannot return NULL.
 
    The caller must hold the GIL. */
@@ -78,8 +78,8 @@ typedef
         PyGILState_STATE;
 
 
-/* Ensure that the current thread is ready to call the Python
-   C API, regardless of the current state of Python, or of its
+/* Ensure that the current thread is ready to call the MyFRpy
+   C API, regardless of the current state of MyFRpy, or of its
    thread lock.  This may be called as many times as desired
    by a thread so long as each call is matched with a call to
    PyGILState_Release().  In general, other thread-state APIs may
@@ -90,7 +90,7 @@ typedef
 
    The return value is an opaque "handle" to the thread state when
    PyGILState_Ensure() was called, and must be passed to
-   PyGILState_Release() to ensure Python is left in the same state. Even
+   PyGILState_Release() to ensure MyFRpy is left in the same state. Even
    though recursive calls are allowed, these handles can *not* be shared -
    each unique call to PyGILState_Ensure must save the handle for its
    call to PyGILState_Release.
@@ -101,7 +101,7 @@ typedef
 */
 PyAPI_FUNC(PyGILState_STATE) PyGILState_Ensure(void);
 
-/* Release any resources previously acquired.  After this call, Python's
+/* Release any resources previously acquired.  After this call, MyFRpy's
    state will be the same as it was prior to the corresponding
    PyGILState_Ensure() call (but generally this state will be unknown to
    the caller, hence the use of the GILState API.)
@@ -121,9 +121,9 @@ PyAPI_FUNC(PyThreadState *) PyGILState_GetThisThreadState(void);
 
 
 #ifndef Py_LIMITED_API
-#  define Py_CPYTHON_PYSTATE_H
-#  include "cpython/pystate.h"
-#  undef Py_CPYTHON_PYSTATE_H
+#  define Py_CMYFRPY_PYSTATE_H
+#  include "cmyFRpy/pystate.h"
+#  undef Py_CMYFRPY_PYSTATE_H
 #endif
 
 #ifdef __cplusplus

@@ -28,7 +28,7 @@
         </Directory>
 
         <CustomAction Id="SetLauncherInstallDirectoryLM" Property="LauncherInstallDirectory" Value="[WindowsFolder]" />
-        <CustomAction Id="SetLauncherInstallDirectoryCU" Property="LauncherInstallDirectory" Value="[LocalAppDataFolder]Programs\Python\Launcher" />
+        <CustomAction Id="SetLauncherInstallDirectoryCU" Property="LauncherInstallDirectory" Value="[LocalAppDataFolder]Programs\MyFRpy\Launcher" />
 
         <InstallExecuteSequence>
             <Custom Before="SetLauncherInstallDirectoryLM" Action="SetLauncherInstallDirectoryCU">NOT Installed AND NOT ALLUSERS=1</Custom>
@@ -63,11 +63,11 @@
             <UpgradeVersion Property="UPGRADE_3_11_1" Minimum="3.11.8009.0" IncludeMinimum="yes" Maximum="3.11.8009.0" IncludeMaximum="yes" />
             <?endif ?>
         </Upgrade>
-        <!-- Python 3.5.0 shipped with a different UpgradeCode -->
+        <!-- MyFRpy 3.5.0 shipped with a different UpgradeCode -->
         <Upgrade Id="A71530B9-E89D-53DB-9C2D-C6D7551876D8">
             <UpgradeVersion Minimum="0.0.0.0" Property="REMOVE_350_LAUNCHER" />
         </Upgrade>
-        <!-- Python 3.6.0a1 shipped with a different UpgradeCode -->
+        <!-- MyFRpy 3.6.0a1 shipped with a different UpgradeCode -->
         <Upgrade Id="394750C0-7880-5A8F-999F-933965FBCFB4">
             <UpgradeVersion Minimum="0.0.0.0" Property="REMOVE_360A1_LAUNCHER" />
         </Upgrade>

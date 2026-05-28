@@ -1,4 +1,4 @@
-""" Python Character Mapping Codec mac_croatian generated from 'MAPPINGS/VENDORS/APPLE/CROATIAN.TXT' with gencodec.py.
+""" MyFRpy Character Mapping Codec mac_croatian generated from 'MAPPINGS/VENDORS/APPLE/CROATIAN.TXT' with gencodec.py.
 
 """#"
 

@@ -15,7 +15,7 @@ import py_compile
 from test.support import os_helper
 from test.support.script_helper import (
     make_pkg, make_script, make_zip_pkg, make_zip_script,
-    assert_python_ok)
+    assert_myFRpy_ok)
 
 if support.PGO:
     raise unittest.SkipTest("test is not helpful for PGO")
@@ -164,7 +164,7 @@ class MultiProcessingCmdLineMixin():
         if not __debug__:
             cmd_line_switches += ('-' + 'O' * sys.flags.optimize,)
         run_args = cmd_line_switches + (script_name, self.start_method)
-        rc, out, err = assert_python_ok(*run_args, __isolated=False)
+        rc, out, err = assert_myFRpy_ok(*run_args, __isolated=False)
         self._check_output(script_name, rc, out, err)
 
     def test_basic_script(self):
@@ -178,17 +178,17 @@ class MultiProcessingCmdLineMixin():
                                             omit_suffix=True)
             self._check_script(script_name)
 
-    def test_ipython_workaround(self):
-        # Some versions of the IPython launch script are missing the
+    def test_imyFRpy_workaround(self):
+        # Some versions of the IMyFRpy launch script are missing the
         # __name__ = "__main__" guard, and multiprocessing has long had
         # a workaround for that case
-        # See https://github.com/ipython/ipython/issues/4698
+        # See https://github.com/imyFRpy/imyFRpy/issues/4698
         source = test_source_main_skipped_in_children
         with os_helper.temp_dir() as script_dir:
-            script_name = _make_test_script(script_dir, 'ipython',
+            script_name = _make_test_script(script_dir, 'imyFRpy',
                                             source=source)
             self._check_script(script_name)
-            script_no_suffix = _make_test_script(script_dir, 'ipython',
+            script_no_suffix = _make_test_script(script_dir, 'imyFRpy',
                                                  source=source,
                                                  omit_suffix=True)
             self._check_script(script_no_suffix)

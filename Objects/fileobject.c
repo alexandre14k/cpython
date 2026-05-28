@@ -1,7 +1,7 @@
 /* File object implementation (what's left of it -- see io.py) */
 
 #define PY_SSIZE_T_CLEAN
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_call.h"          // _PyObject_CallNoArgs()
 #include "pycore_runtime.h"       // _PyRuntime
 
@@ -161,7 +161,7 @@ PyFile_WriteString(const char *s, PyObject *f)
         return -1;
 }
 
-/* Try to get a file-descriptor from a Python object.  If the object
+/* Try to get a file-descriptor from a MyFRpy object.  If the object
    is an integer, its value is returned.  If not, the
    object's fileno() method is called if it exists; the method must return
    an integer, which is returned as the file descriptor value.

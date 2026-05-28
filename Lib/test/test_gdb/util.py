@@ -13,18 +13,18 @@ GDB_PROGRAM = shutil.which('gdb') or 'gdb'
 
 # Location of custom hooks file in a repository checkout.
 CHECKOUT_HOOK_PATH = os.path.join(os.path.dirname(sys.executable),
-                                  'python-gdb.py')
+                                  'myFRpy-gdb.py')
 
 SAMPLE_SCRIPT = os.path.join(os.path.dirname(__file__), 'gdb_sample.py')
 BREAKPOINT_FN = 'builtin_id'
 
-PYTHONHASHSEED = '123'
+MYFRPYHASHSEED = '123'
 
 
 def clean_environment():
-    # Remove PYTHON* environment variables such as PYTHONHOME
+    # Remove MYFRPY* environment variables such as MYFRPYHOME
     return {name: value for name, value in os.environ.items()
-            if not name.startswith('PYTHON')}
+            if not name.startswith('MYFRPY')}
 
 
 # Temporary value until it's initialized by get_gdb_version() below
@@ -98,17 +98,17 @@ def get_gdb_version():
 GDB_VERSION_TEXT, GDB_VERSION = get_gdb_version()
 if GDB_VERSION < (7, 0):
     raise unittest.SkipTest(
-        f"gdb versions before 7.0 didn't support python embedding. "
+        f"gdb versions before 7.0 didn't support myFRpy embedding. "
         f"Saw gdb version {GDB_VERSION[0]}.{GDB_VERSION[1]}:\n"
         f"{GDB_VERSION_TEXT}")
 
 
 def check_usable_gdb():
-    # Verify that "gdb" was built with the embedded Python support enabled and
+    # Verify that "gdb" was built with the embedded MyFRpy support enabled and
     # verify that "gdb" can load our custom hooks, as OS security settings may
     # disallow this without a customized .gdbinit.
     stdout, stderr = run_gdb(
-        '--eval-command=python import sys; print(sys.version_info)',
+        '--eval-command=myFRpy import sys; print(sys.version_info)',
         '--args', sys.executable,
         check=False)
 
@@ -119,11 +119,11 @@ def check_usable_gdb():
 
     if not stdout:
         raise unittest.SkipTest(
-            f"gdb not built with embedded python support; "
+            f"gdb not built with embedded myFRpy support; "
             f"stderr: {stderr!r}")
 
     if "major=2" in stdout:
-        raise unittest.SkipTest("gdb built with Python 2")
+        raise unittest.SkipTest("gdb built with MyFRpy 2")
 
 check_usable_gdb()
 
@@ -154,7 +154,7 @@ def setup_module():
 
 class DebuggerTests(unittest.TestCase):
 
-    """Test that the debugger can debug Python."""
+    """Test that the debugger can debug MyFRpy."""
 
     def get_stack_trace(self, source=None, script=None,
                         breakpoint=BREAKPOINT_FN,
@@ -162,7 +162,7 @@ class DebuggerTests(unittest.TestCase):
                         import_site=False,
                         ignore_stderr=False):
         '''
-        Run 'python -c SOURCE' under gdb with a breakpoint.
+        Run 'myFRpy -c SOURCE' under gdb with a breakpoint.
 
         Support injecting commands after the breakpoint is reached
 
@@ -173,7 +173,7 @@ class DebuggerTests(unittest.TestCase):
         # We use "set breakpoint pending yes" to avoid blocking with a:
         #   Function "foo" not defined.
         #   Make breakpoint pending on future shared library load? (y or [n])
-        # error, which typically happens python is dynamically linked (the
+        # error, which typically happens myFRpy is dynamically linked (the
         # breakpoints of interest are to be found in the shared library)
         # When this happens, we still get:
         #   Function "textiowrapper_write" not defined.
@@ -212,7 +212,7 @@ class DebuggerTests(unittest.TestCase):
 
         if cmds_after_breakpoint:
             if CET_PROTECTION:
-                # bpo-32962: When Python is compiled with -mcet
+                # bpo-32962: When MyFRpy is compiled with -mcet
                 # -fcf-protection, function arguments are unusable before
                 # running the first instruction of the function entry point.
                 # The 'next' command makes the required first step.
@@ -239,7 +239,7 @@ class DebuggerTests(unittest.TestCase):
             args += [script]
 
         # Use "args" to invoke gdb, capturing stdout, stderr:
-        out, err = run_gdb(*args, PYTHONHASHSEED=PYTHONHASHSEED)
+        out, err = run_gdb(*args, MYFRPYHASHSEED=MYFRPYHASHSEED)
 
         if not ignore_stderr:
             for line in err.splitlines():
@@ -248,7 +248,7 @@ class DebuggerTests(unittest.TestCase):
         # bpo-34007: Sometimes some versions of the shared libraries that
         # are part of the traceback are compiled in optimised mode and the
         # Program Counter (PC) is not present, not allowing gdb to walk the
-        # frames back. When this happens, the Python bindings of gdb raise
+        # frames back. When this happens, the MyFRpy bindings of gdb raise
         # an exception, making the test impossible to succeed.
         if "PC not saved" in err:
             raise unittest.SkipTest("gdb cannot walk the frame object"
@@ -256,16 +256,16 @@ class DebuggerTests(unittest.TestCase):
                                     " not present")
 
         # bpo-40019: Skip the test if gdb failed to read debug information
-        # because the Python binary is optimized.
+        # because the MyFRpy binary is optimized.
         for pattern in (
             '(frame information optimized out)',
-            'Unable to read information on python frame',
+            'Unable to read information on myFRpy frame',
 
-            # gh-91960: On Python built with "clang -Og", gdb gets
+            # gh-91960: On MyFRpy built with "clang -Og", gdb gets
             # "frame=<optimized out>" for _PyEval_EvalFrameDefault() parameter
-            '(unable to read python frame information)',
+            '(unable to read myFRpy frame information)',
 
-            # gh-104736: On Python built with "clang -Og" on ppc64le,
+            # gh-104736: On MyFRpy built with "clang -Og" on ppc64le,
             # "py-bt" displays a truncated or not traceback, but "where"
             # logs this error message:
             'Backtrace stopped: frame did not save the PC',

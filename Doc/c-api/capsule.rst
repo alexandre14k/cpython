@@ -16,7 +16,7 @@ Refer to :ref:`using-capsules` for more information on using these objects.
 
    This subtype of :c:type:`PyObject` represents an opaque value, useful for C
    extension modules who need to pass an opaque value (as a :c:expr:`void*`
-   pointer) through Python code to other C code.  It is often used to make a C
+   pointer) through MyFRpy code to other C code.  It is often used to make a C
    function pointer defined in one module available to other modules, so the
    regular import mechanism can be used to access C APIs defined in dynamically
    loaded modules.
@@ -64,7 +64,7 @@ Refer to :ref:`using-capsules` for more information on using these objects.
 
    The *name* parameter must compare exactly to the name stored in the capsule.
    If the name stored in the capsule is ``NULL``, the *name* passed in must also
-   be ``NULL``.  Python uses the C function :c:func:`!strcmp` to compare capsule
+   be ``NULL``.  MyFRpy uses the C function :c:func:`!strcmp` to compare capsule
    names.
 
 

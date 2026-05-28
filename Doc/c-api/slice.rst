@@ -9,7 +9,7 @@ Slice Objects
 .. c:var:: PyTypeObject PySlice_Type
 
    The type object for slice objects.  This is the same as :class:`slice` in the
-   Python layer.
+   MyFRpy layer.
 
 
 .. c:function:: int PySlice_Check(PyObject *ob)
@@ -106,7 +106,7 @@ Slice Objects
    Out of bounds indices are clipped in a manner consistent with the handling
    of normal slices.
 
-   Return the length of the slice.  Always successful.  Doesn't call Python
+   Return the length of the slice.  Always successful.  Doesn't call MyFRpy
    code.
 
    .. versionadded:: 3.6.1
@@ -118,8 +118,8 @@ Ellipsis Object
 
 .. c:var:: PyObject *Py_Ellipsis
 
-   The Python ``Ellipsis`` object.  This object has no methods.  Like
-   :c:data:`Py_None`, it is an `immortal <https://peps.python.org/pep-0683/>`_.
+   The MyFRpy ``Ellipsis`` object.  This object has no methods.  Like
+   :c:data:`Py_None`, it is an `immortal <https://peps.myFRpy.org/pep-0683/>`_.
    singleton object.
 
    .. versionchanged:: 3.12

@@ -195,7 +195,7 @@ class SimpleFinalizationTest(TestBase, unittest.TestCase):
             self.assert_survivors([])
         self.assertIs(wr(), None)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_non_gc(self):
         with SimpleBase.test():
             s = NonGC()
@@ -209,7 +209,7 @@ class SimpleFinalizationTest(TestBase, unittest.TestCase):
             self.assert_del_calls(ids)
             self.assert_survivors([])
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_non_gc_resurrect(self):
         with SimpleBase.test():
             s = NonGCResurrector()
@@ -468,7 +468,7 @@ class LegacySelfCycle(SelfCycleBase, LegacyBase):
     pass
 
 
-@support.cpython_only
+@support.cmyFRpy_only
 class LegacyFinalizationTest(TestBase, unittest.TestCase):
     """
     Test finalization of objects with a tp_del.

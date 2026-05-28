@@ -15,9 +15,9 @@ PyAPI_FUNC(char*) Py_EncodeLocale(
 #endif
 
 #ifndef Py_LIMITED_API
-#  define Py_CPYTHON_FILEUTILS_H
-#  include "cpython/fileutils.h"
-#  undef Py_CPYTHON_FILEUTILS_H
+#  define Py_CMYFRPY_FILEUTILS_H
+#  include "cmyFRpy/fileutils.h"
+#  undef Py_CMYFRPY_FILEUTILS_H
 #endif
 
 #ifdef __cplusplus

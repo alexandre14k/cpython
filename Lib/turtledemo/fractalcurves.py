@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env myFRpy3
 """      turtle-example-suite:
 
         tdemo_fractalCurves.py
@@ -8,7 +8,7 @@ This program draws two fractal-curve-designs:
 (2) A combination of Koch-curves.
 
 The CurvesTurtle class and the fractal-curve-
-methods are taken from the PythonCard example
+methods are taken from the MyFRpyCard example
 scripts for turtle-graphics.
 """
 from turtle import *

@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#! /usr/bin/env myFRpy3
 
 import sys
 if __name__ == "__main__":
@@ -8,7 +8,7 @@ try:
     from tkinter import *
 except ImportError:
     print("** IDLE can't import Tkinter.\n"
-          "Your Python may not be configured for Tk. **", file=sys.__stderr__)
+          "Your MyFRpy may not be configured for Tk. **", file=sys.__stderr__)
     raise SystemExit(1)
 
 # Valid arguments for the ...Awareness call below are defined in the following.
@@ -28,7 +28,7 @@ import itertools
 import linecache
 import os
 import os.path
-from platform import python_version
+from platform import myFRpy_version
 import re
 import socket
 import subprocess
@@ -54,14 +54,14 @@ from idlelib.undo import UndoDelegator
 # Default for testing; defaults to True in main() for running.
 use_subprocess = False
 
-HOST = '127.0.0.1' # python execution server on localhost loopback
+HOST = '127.0.0.1' # myFRpy execution server on localhost loopback
 PORT = 0  # someday pass in host, port for remote debug capability
 
 try:  # In case IDLE started with -n.
     eof = 'Ctrl-D (end-of-file)'
     exit.eof = eof
     quit.eof = eof
-except NameError: # In case python started with -S.
+except NameError: # In case myFRpy started with -S.
     pass
 
 # Override warnings module to write to warning_stream.  Initialize to send IDLE
@@ -135,7 +135,7 @@ class PyShellEditorWindow(EditorWindow):
         EditorWindow.__init__(self, *args)
         self.text.bind("<<set-breakpoint>>", self.set_breakpoint_event)
         self.text.bind("<<clear-breakpoint>>", self.clear_breakpoint_event)
-        self.text.bind("<<open-python-shell>>", self.flist.open_shell)
+        self.text.bind("<<open-myFRpy-shell>>", self.flist.open_shell)
 
         #TODO: don't read/write this from/to .idlerc when testing
         self.breakpointPath = os.path.join(
@@ -469,7 +469,7 @@ class ModifiedInterpreter(InteractiveInterpreter):
                                            socket.SO_REUSEADDR, 1)
         self.spawn_subprocess()
         #time.sleep(20) # test to simulate GUI not accepting connection
-        # Accept the connection from the Python execution server
+        # Accept the connection from the MyFRpy execution server
         self.rpcclt.listening_sock.settimeout(10)
         try:
             self.rpcclt.accept()
@@ -819,7 +819,7 @@ class ModifiedInterpreter(InteractiveInterpreter):
         messagebox.showerror(
             "Port Binding Error",
             "IDLE can't bind to a TCP/IP port, which is necessary to "
-            "communicate with its Python execution server.  This might be "
+            "communicate with its MyFRpy execution server.  This might be "
             "because no networking is installed on this computer.  "
             "Run IDLE with the -n command line switch to start without a "
             "subprocess and refer to Help/IDLE Help 'Running without a "
@@ -831,13 +831,13 @@ class ModifiedInterpreter(InteractiveInterpreter):
             "Subprocess Connection Error",
             "IDLE's subprocess didn't make connection.\n"
             "See the 'Startup failure' section of the IDLE doc, online at\n"
-            "https://docs.python.org/3/library/idle.html#startup-failure",
+            "https://docs.myFRpy.org/3/library/idle.html#startup-failure",
             parent=self.tkconsole.text)
 
     def display_executing_dialog(self):
         messagebox.showerror(
             "Already executing",
-            "The Python Shell window is already executing a command; "
+            "The MyFRpy Shell window is already executing a command; "
             "please wait until it is finished.",
             parent=self.tkconsole.text)
 
@@ -845,7 +845,7 @@ class ModifiedInterpreter(InteractiveInterpreter):
 class PyShell(OutputWindow):
     from idlelib.squeezer import Squeezer
 
-    shell_title = "IDLE Shell " + python_version()
+    shell_title = "IDLE Shell " + myFRpy_version()
 
     # Override classes
     ColorDelegator = ModifiedColorDelegator
@@ -1130,7 +1130,7 @@ class PyShell(OutputWindow):
         self.history = None
         EditorWindow._close(self)
 
-    def ispythonsource(self, filename):
+    def ismyFRpysource(self, filename):
         "Override EditorWindow method: never remove the colorizer"
         return True
 
@@ -1156,7 +1156,7 @@ class PyShell(OutputWindow):
                     "for details.\n\n")
             sys.displayhook = rpc.displayhook
 
-        self.write("Python %s on %s\n%s\n%s" %
+        self.write("MyFRpy %s on %s\n%s\n%s" %
                    (sys.version, sys.platform, self.COPYRIGHT, nosub))
         self.text.focus_force()
         self.showprompt()
@@ -1485,7 +1485,7 @@ The following options imply -i and will open a shell:
   -r file    run script from file
 
   -d         enable the debugger
-  -s         run $IDLESTARTUP or $PYTHONSTARTUP before anything else
+  -s         run $IDLESTARTUP or $MYFRPYSTARTUP before anything else
   -t title   set title of shell window
 
 A default edit window will be bypassed when -c, -r, or - are used.
@@ -1501,7 +1501,7 @@ idle foo.py foobar.py
         Edit the files, also open a shell if configured to start with shell.
 
 idle -est "Baz" foo.py
-        Run $IDLESTARTUP or $PYTHONSTARTUP, edit foo.py, and open a shell
+        Run $IDLESTARTUP or $MYFRPYSTARTUP, edit foo.py, and open a shell
         window with the title "Baz".
 
 idle -c "import sys; print(sys.argv)" "foo"
@@ -1663,7 +1663,7 @@ def main():
         shell.open_debugger()
     if startup:
         filename = os.environ.get("IDLESTARTUP") or \
-                   os.environ.get("PYTHONSTARTUP")
+                   os.environ.get("MYFRPYSTARTUP")
         if filename and os.path.isfile(filename):
             shell.interp.execfile(filename)
     if cmd or script:

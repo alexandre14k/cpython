@@ -10,11 +10,11 @@
 #  error "limits.h must define UCHAR_MAX"
 #endif
 #if UCHAR_MAX != 255
-#  error "Python's source code assumes C's unsigned char is an 8-bit type"
+#  error "MyFRpy's source code assumes C's unsigned char is an 8-bit type"
 #endif
 
 
-// Macro to use C++ static_cast<> in the Python C API.
+// Macro to use C++ static_cast<> in the MyFRpy C API.
 #ifdef __cplusplus
 #  define _Py_STATIC_CAST(type, expr) static_cast<type>(expr)
 #else
@@ -33,12 +33,12 @@
 #endif
 
 
-/* Defines to build Python and its standard library:
+/* Defines to build MyFRpy and its standard library:
  *
- * - Py_BUILD_CORE: Build Python core. Give access to Python internals, but
+ * - Py_BUILD_CORE: Build MyFRpy core. Give access to MyFRpy internals, but
  *   should not be used by third-party modules.
- * - Py_BUILD_CORE_BUILTIN: Build a Python stdlib module as a built-in module.
- * - Py_BUILD_CORE_MODULE: Build a Python stdlib module as a dynamic library.
+ * - Py_BUILD_CORE_BUILTIN: Build a MyFRpy stdlib module as a built-in module.
+ * - Py_BUILD_CORE_MODULE: Build a MyFRpy stdlib module as a dynamic library.
  *
  * Py_BUILD_CORE_BUILTIN and Py_BUILD_CORE_MODULE imply Py_BUILD_CORE.
  *
@@ -75,13 +75,13 @@ Used in:  Py_SAFE_DOWNCAST
 
 /* typedefs for some C9X-defined synonyms for integral types.
  *
- * The names in Python are exactly the same as the C9X names, except with a
+ * The names in MyFRpy are exactly the same as the C9X names, except with a
  * Py_ prefix.  Until C9X is universally implemented, this is the only way
- * to ensure that Python gets reliable names that don't conflict with names
- * in non-Python code that are playing their own tricks to define the C9X
+ * to ensure that MyFRpy gets reliable names that don't conflict with names
+ * in non-MyFRpy code that are playing their own tricks to define the C9X
  * names.
  *
- * NOTE: don't go nuts here!  Python has no use for *most* of the C9X
+ * NOTE: don't go nuts here!  MyFRpy has no use for *most* of the C9X
  * integral synonyms.  Only define the ones we actually need.
  */
 
@@ -134,7 +134,7 @@ typedef ssize_t         Py_ssize_t;
 typedef Py_intptr_t     Py_ssize_t;
 #   define PY_SSIZE_T_MAX INTPTR_MAX
 #else
-#   error "Python needs a typedef for Py_ssize_t in pyport.h."
+#   error "MyFRpy needs a typedef for Py_ssize_t in pyport.h."
 #endif
 
 /* Smallest negative value of type Py_ssize_t. */
@@ -323,7 +323,7 @@ extern "C" {
 #endif
 
 // _Py_DEPRECATED_EXTERNALLY(version)
-// Deprecated outside CPython core.
+// Deprecated outside CMyFRpy core.
 #ifdef Py_BUILD_CORE
 #define _Py_DEPRECATED_EXTERNALLY(VERSION_UNUSED)
 #else
@@ -363,7 +363,7 @@ extern "C" {
  *    int _Py_HOT_FUNCTION x(void) { return 3; }
  *
  * Issue #28618: This attribute must not be abused, otherwise it can have a
- * negative effect on performance. Only the functions were Python spend most of
+ * negative effect on performance. Only the functions were MyFRpy spend most of
  * its time must use it. Use a profiler when running performance benchmark
  * suite to find these functions.
  */
@@ -378,24 +378,24 @@ extern "C" {
 // ignore it and decides to not inline the function.
 //
 // It can be used to inline performance critical static inline functions when
-// building Python in debug mode with function inlining disabled. For example,
+// building MyFRpy in debug mode with function inlining disabled. For example,
 // MSC disables function inlining when building in debug mode.
 //
 // Marking blindly a static inline function with Py_ALWAYS_INLINE can result in
 // worse performances (due to increased code size for example). The compiler is
 // usually smarter than the developer for the cost/benefit analysis.
 //
-// If Python is built in debug mode (if the Py_DEBUG macro is defined), the
+// If MyFRpy is built in debug mode (if the Py_DEBUG macro is defined), the
 // Py_ALWAYS_INLINE macro does nothing.
 //
 // It must be specified before the function return type. Usage:
 //
 //     static inline Py_ALWAYS_INLINE int random(void) { return 4; }
 #if defined(Py_DEBUG)
-   // If Python is built in debug mode, usually compiler optimizations are
+   // If MyFRpy is built in debug mode, usually compiler optimizations are
    // disabled. In this case, Py_ALWAYS_INLINE can increase a lot the stack
    // memory usage. For example, forcing inlining using gcc -O0 increases the
-   // stack usage from 6 KB to 15 KB per Python function call.
+   // stack usage from 6 KB to 15 KB per MyFRpy function call.
 #  define Py_ALWAYS_INLINE
 #elif defined(__GNUC__) || defined(__clang__) || defined(__INTEL_COMPILER)
 #  define Py_ALWAYS_INLINE __attribute__((always_inline))
@@ -482,10 +482,10 @@ extern char * _getpty(int *, int, mode_t, int);
 
 /* Declarations for symbol visibility.
 
-  PyAPI_FUNC(type): Declares a public Python API function and return type
-  PyAPI_DATA(type): Declares public Python data and its type
-  PyMODINIT_FUNC:   A Python module init function.  If these functions are
-                    inside the Python core, they are private to the core.
+  PyAPI_FUNC(type): Declares a public MyFRpy API function and return type
+  PyAPI_DATA(type): Declares public MyFRpy data and its type
+  PyMODINIT_FUNC:   A MyFRpy module init function.  If these functions are
+                    inside the MyFRpy core, they are private to the core.
                     If in an extension module, it may be declared with
                     external linkage depending on the platform.
 
@@ -520,10 +520,10 @@ extern char * _getpty(int *, int, mode_t, int);
 #                       endif /* __CYGWIN__ */
 #               else /* Py_BUILD_CORE */
         /* Building an extension module, or an embedded situation */
-        /* public Python functions and data are imported */
+        /* public MyFRpy functions and data are imported */
         /* Under Cygwin, auto-import functions to prevent compilation */
         /* failures similar to those described at the bottom of 4.1: */
-        /* http://docs.python.org/extending/windows.html#a-cookbook-approach */
+        /* http://docs.myFRpy.org/extending/windows.html#a-cookbook-approach */
 #                       if !defined(__CYGWIN__)
 #                               define PyAPI_FUNC(RTYPE) Py_IMPORTED_SYMBOL RTYPE
 #                       endif /* !__CYGWIN__ */
@@ -649,7 +649,7 @@ extern char * _getpty(int *, int, mode_t, int);
 /* Maximum value of the Windows DWORD type */
 #define PY_DWORD_MAX 4294967295U
 
-/* This macro used to tell whether Python was built with multithreading
+/* This macro used to tell whether MyFRpy was built with multithreading
  * enabled.  Now multithreading is always enabled, but keep the macro
  * for compatibility.
  */

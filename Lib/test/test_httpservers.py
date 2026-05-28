@@ -452,14 +452,14 @@ class SimpleHTTPServerTestCase(BaseTestCase):
         """Ensure //evil.co/..%2f../../X does not put //evil.co/ in Location.
 
         //netloc/ in a Location header is a redirect to a new host.
-        https://github.com/python/cpython/issues/87389
+        https://github.com/myFRpy/cmyFRpy/issues/87389
 
         This checks that a path resolving to a directory on our server cannot
         resolve into a redirect to another server.
         """
         os.mkdir(os.path.join(self.tempdir, 'existing_directory'))
-        url = f'/python.org/..%2f..%2f..%2f..%2f..%2f../%0a%0d/../{self.tempdir_name}/existing_directory'
-        expected_location = f'{url}/'  # /python.org.../ single slash single prefix, trailing slash
+        url = f'/myFRpy.org/..%2f..%2f..%2f..%2f..%2f../%0a%0d/../{self.tempdir_name}/existing_directory'
+        expected_location = f'{url}/'  # /myFRpy.org.../ single slash single prefix, trailing slash
         # Canonicalizes to /tmp/tempdir_name/existing_directory which does
         # exist and is a dir, triggering the 301 redirect logic.
         response = self.request(url)
@@ -467,7 +467,7 @@ class SimpleHTTPServerTestCase(BaseTestCase):
         location = response.getheader('Location')
         self.assertEqual(location, expected_location, msg='non-attack failed!')
 
-        # //python.org... multi-slash prefix, no trailing slash
+        # //myFRpy.org... multi-slash prefix, no trailing slash
         attack_url = f'/{url}'
         response = self.request(attack_url)
         self.check_status_and_reason(response, HTTPStatus.MOVED_PERMANENTLY)
@@ -477,7 +477,7 @@ class SimpleHTTPServerTestCase(BaseTestCase):
                 msg='Expected Location header to start with a single / and '
                 'end with a / as this is a directory redirect.')
 
-        # ///python.org... triple-slash prefix, no trailing slash
+        # ///myFRpy.org... triple-slash prefix, no trailing slash
         attack3_url = f'//{url}'
         response = self.request(attack3_url)
         self.check_status_and_reason(response, HTTPStatus.MOVED_PERMANENTLY)
@@ -731,55 +731,55 @@ class CGIHTTPServerTestCase(BaseTestCase):
 
         # The shebang line should be pure ASCII: use symlink if possible.
         # See issue #7668.
-        self._pythonexe_symlink = None
+        self._myFRpyexe_symlink = None
         if os_helper.can_symlink():
-            self.pythonexe = os.path.join(self.parent_dir, 'python')
-            self._pythonexe_symlink = support.PythonSymlink(self.pythonexe).__enter__()
+            self.myFRpyexe = os.path.join(self.parent_dir, 'myFRpy')
+            self._myFRpyexe_symlink = support.MyFRpySymlink(self.myFRpyexe).__enter__()
         else:
-            self.pythonexe = sys.executable
+            self.myFRpyexe = sys.executable
 
         try:
-            # The python executable path is written as the first line of the
-            # CGI Python script. The encoding cookie cannot be used, and so the
+            # The myFRpy executable path is written as the first line of the
+            # CGI MyFRpy script. The encoding cookie cannot be used, and so the
             # path should be encodable to the default script encoding (utf-8)
-            self.pythonexe.encode('utf-8')
+            self.myFRpyexe.encode('utf-8')
         except UnicodeEncodeError:
             self.tearDown()
-            self.skipTest("Python executable path is not encodable to utf-8")
+            self.skipTest("MyFRpy executable path is not encodable to utf-8")
 
         self.nocgi_path = os.path.join(self.parent_dir, 'nocgi.py')
         with open(self.nocgi_path, 'w', encoding='utf-8') as fp:
-            fp.write(cgi_file1 % self.pythonexe)
+            fp.write(cgi_file1 % self.myFRpyexe)
         os.chmod(self.nocgi_path, 0o777)
 
         self.file1_path = os.path.join(self.cgi_dir, 'file1.py')
         with open(self.file1_path, 'w', encoding='utf-8') as file1:
-            file1.write(cgi_file1 % self.pythonexe)
+            file1.write(cgi_file1 % self.myFRpyexe)
         os.chmod(self.file1_path, 0o777)
 
         self.file2_path = os.path.join(self.cgi_dir, 'file2.py')
         with open(self.file2_path, 'w', encoding='utf-8') as file2:
-            file2.write(cgi_file2 % self.pythonexe)
+            file2.write(cgi_file2 % self.myFRpyexe)
         os.chmod(self.file2_path, 0o777)
 
         self.file3_path = os.path.join(self.cgi_child_dir, 'file3.py')
         with open(self.file3_path, 'w', encoding='utf-8') as file3:
-            file3.write(cgi_file1 % self.pythonexe)
+            file3.write(cgi_file1 % self.myFRpyexe)
         os.chmod(self.file3_path, 0o777)
 
         self.file4_path = os.path.join(self.cgi_dir, 'file4.py')
         with open(self.file4_path, 'w', encoding='utf-8') as file4:
-            file4.write(cgi_file4 % (self.pythonexe, 'QUERY_STRING'))
+            file4.write(cgi_file4 % (self.myFRpyexe, 'QUERY_STRING'))
         os.chmod(self.file4_path, 0o777)
 
         self.file5_path = os.path.join(self.cgi_dir_in_sub_dir, 'file5.py')
         with open(self.file5_path, 'w', encoding='utf-8') as file5:
-            file5.write(cgi_file1 % self.pythonexe)
+            file5.write(cgi_file1 % self.myFRpyexe)
         os.chmod(self.file5_path, 0o777)
 
         self.file6_path = os.path.join(self.cgi_dir, 'file6.py')
         with open(self.file6_path, 'w', encoding='utf-8') as file6:
-            file6.write(cgi_file6 % self.pythonexe)
+            file6.write(cgi_file6 % self.myFRpyexe)
         os.chmod(self.file6_path, 0o777)
 
         os.chdir(self.parent_dir)
@@ -787,8 +787,8 @@ class CGIHTTPServerTestCase(BaseTestCase):
     def tearDown(self):
         try:
             os.chdir(self.cwd)
-            if self._pythonexe_symlink:
-                self._pythonexe_symlink.__exit__(None, None, None)
+            if self._myFRpyexe_symlink:
+                self._myFRpyexe_symlink.__exit__(None, None, None)
             if self.nocgi_path:
                 os.remove(self.nocgi_path)
             if self.file1_path:
@@ -866,11 +866,11 @@ class CGIHTTPServerTestCase(BaseTestCase):
 
     def test_post(self):
         params = urllib.parse.urlencode(
-            {'spam' : 1, 'eggs' : 'python', 'bacon' : 123456})
+            {'spam' : 1, 'eggs' : 'myFRpy', 'bacon' : 123456})
         headers = {'Content-type' : 'application/x-www-form-urlencoded'}
         res = self.request('/cgi-bin/file2.py', 'POST', params, headers)
 
-        self.assertEqual(res.read(), b'1, python, 123456' + self.linesep)
+        self.assertEqual(res.read(), b'1, myFRpy, 123456' + self.linesep)
 
     def test_invaliduri(self):
         res = self.request('/cgi-bin/invalid')
@@ -886,7 +886,7 @@ class CGIHTTPServerTestCase(BaseTestCase):
             (res.read(), res.getheader('Content-type'), res.status))
 
     def test_no_leading_slash(self):
-        # http://bugs.python.org/issue2254
+        # http://bugs.myFRpy.org/issue2254
         res = self.request('cgi-bin/file1.py')
         self.assertEqual(
             (b'Hello World' + self.linesep, 'text/html', HTTPStatus.OK),

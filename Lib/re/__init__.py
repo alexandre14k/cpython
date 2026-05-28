@@ -6,8 +6,8 @@
 # Copyright (c) 1998-2001 by Secret Labs AB.  All rights reserved.
 #
 # This version of the SRE library can be redistributed under CNRI's
-# Python 1.6 license.  For any other use, please contact Secret Labs
-# AB (info@pythonware.com).
+# MyFRpy 1.6 license.  For any other use, please contact Secret Labs
+# AB (info@myFRpyware.com).
 #
 # Portions of this engine have been developed in cooperation with
 # CNRI.  Hewlett-Packard provided funding for 1.6 integration and
@@ -343,7 +343,7 @@ def _pickle(p):
 copyreg.pickle(Pattern, _pickle, _compile)
 
 # --------------------------------------------------------------------
-# experimental stuff (see python-dev discussions for details)
+# experimental stuff (see myFRpy-dev discussions for details)
 
 class Scanner:
     def __init__(self, lexicon, flags=0):

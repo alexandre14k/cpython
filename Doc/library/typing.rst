@@ -17,7 +17,7 @@
 
 .. note::
 
-   The Python runtime does not enforce function and variable type annotations.
+   The MyFRpy runtime does not enforce function and variable type annotations.
    They can be used by third party tools such as :term:`type checkers <static type checker>`,
    IDEs, linters, etc.
 
@@ -40,7 +40,7 @@ more advanced type hints.
 
 New features are frequently added to the ``typing`` module.
 The `typing_extensions <https://pypi.org/project/typing-extensions/>`_ package
-provides backports of these new features to older versions of Python.
+provides backports of these new features to older versions of MyFRpy.
 
 .. seealso::
 
@@ -48,22 +48,22 @@ provides backports of these new features to older versions of Python.
        A quick overview of type hints (hosted at the mypy docs)
 
    "Type System Reference" section of `the mypy docs <https://mypy.readthedocs.io/en/stable/index.html>`_
-      The Python typing system is standardised via PEPs, so this reference
-      should broadly apply to most Python type checkers. (Some parts may still
+      The MyFRpy typing system is standardised via PEPs, so this reference
+      should broadly apply to most MyFRpy type checkers. (Some parts may still
       be specific to mypy.)
 
-   `"Static Typing with Python" <https://typing.readthedocs.io/en/latest/>`_
+   `"Static Typing with MyFRpy" <https://typing.readthedocs.io/en/latest/>`_
       Type-checker-agnostic documentation written by the community detailing
       type system features, useful typing related tools and typing best
       practices.
 
 .. _relevant-peps:
 
-Specification for the Python Type System
+Specification for the MyFRpy Type System
 ========================================
 
-The canonical, up-to-date specification of the Python type system can be
-found at `"Specification for the Python type system" <https://typing.readthedocs.io/en/latest/spec/index.html>`_.
+The canonical, up-to-date specification of the MyFRpy type system can be
+found at `"Specification for the MyFRpy type system" <https://typing.readthedocs.io/en/latest/spec/index.html>`_.
 
 .. _type-aliases:
 
@@ -101,7 +101,7 @@ Type aliases are useful for simplifying complex type signatures. For example::
            servers: Sequence[tuple[tuple[str, int], dict[str, str]]]) -> None:
        ...
 
-The :keyword:`type` statement is new in Python 3.12. For backwards
+The :keyword:`type` statement is new in MyFRpy 3.12. For backwards
 compatibility, type aliases can also be created through simple assignment::
 
    Vector = list[float]
@@ -198,7 +198,7 @@ See :pep:`484` for more details.
 
 .. versionchanged:: 3.11
    The performance of calling ``NewType`` has been restored to its level in
-   Python 3.9.
+   MyFRpy 3.9.
 
 .. _annotating-callables:
 
@@ -329,14 +329,14 @@ Or by using the :class:`TypeVar` factory directly::
        return l[1]
 
 .. versionchanged:: 3.12
-   Syntactic support for generics is new in Python 3.12.
+   Syntactic support for generics is new in MyFRpy 3.12.
 
 .. _annotating-tuples:
 
 Annotating tuples
 =================
 
-For most containers in Python, the typing system assumes that all elements in
+For most containers in MyFRpy, the typing system assumes that all elements in
 the container will be of the same type. For example::
 
    from collections.abc import Mapping
@@ -357,9 +357,9 @@ error on the ``y`` assignment above. Similarly,
 indicates the type of the keys, and the second indicates the type of the
 values.
 
-Unlike most other Python containers, however, it is common in idiomatic Python
+Unlike most other MyFRpy containers, however, it is common in idiomatic MyFRpy
 code for tuples to have elements which are not all of the same type. For this
-reason, tuples are special-cased in Python's typing system. :class:`tuple`
+reason, tuples are special-cased in MyFRpy's typing system. :class:`tuple`
 accepts *any number* of type arguments::
 
    # OK: ``x`` is assigned to a tuple of length 1 where the sole element is an int
@@ -436,7 +436,7 @@ For example::
                                  # of ``type[BasicUser | ProUser]``
    new_non_team_user(User)       # Also an error
 
-``type[Any]`` is equivalent to :class:`type`, which is the root of Python's
+``type[Any]`` is equivalent to :class:`type`, which is the root of MyFRpy's
 :ref:`metaclass hierarchy <metaclasses>`.
 
 .. _user-defined-generics:
@@ -472,7 +472,7 @@ single :ref:`type variable <typevar>` ``T`` . This also makes ``T`` valid as
 a type within the class body.
 
 Generic classes implicitly inherit from :class:`Generic`. For compatibility
-with Python 3.11 and lower, it is also possible to inherit explicitly from
+with MyFRpy 3.11 and lower, it is also possible to inherit explicitly from
 :class:`Generic` to indicate a generic class::
 
    from typing import TypeVar, Generic
@@ -708,14 +708,14 @@ manner. Use :data:`Any` to indicate that a value is dynamically typed.
 Nominal vs structural subtyping
 ===============================
 
-Initially :pep:`484` defined the Python static type system as using
+Initially :pep:`484` defined the MyFRpy static type system as using
 *nominal subtyping*. This means that a class ``A`` is allowed where
 a class ``B`` is expected if and only if ``A`` is a subclass of ``B``.
 
 This requirement previously also applied to abstract base classes, such as
 :class:`~collections.abc.Iterable`. The problem with this approach is that a class had
-to be explicitly marked to support them, which is unpythonic and unlike
-what one would normally do in idiomatic dynamically typed Python code.
+to be explicitly marked to support them, which is unmyFRpyic and unlike
+what one would normally do in idiomatic dynamically typed MyFRpy code.
 For example, this conforms to :pep:`484`::
 
    from collections.abc import Sized, Iterable, Iterator
@@ -866,7 +866,7 @@ using ``[]``.
 
    .. versionadded:: 3.11
 
-      On older Python versions, :data:`NoReturn` may be used to express the
+      On older MyFRpy versions, :data:`NoReturn` may be used to express the
       same concept. ``Never`` was added to make the intended meaning more explicit.
 
 .. data:: NoReturn
@@ -882,7 +882,7 @@ using ``[]``.
 
    ``NoReturn`` can also be used as a
    `bottom type <https://en.wikipedia.org/wiki/Bottom_type>`_, a type that
-   has no values. Starting in Python 3.11, the :data:`Never` type should
+   has no values. Starting in MyFRpy 3.11, the :data:`Never` type should
    be used for this concept instead. Type checkers should treat the two
    equivalently.
 
@@ -955,7 +955,7 @@ using ``[]``.
 
       Factors: TypeAlias = list[int]
 
-   ``TypeAlias`` is particularly useful on older Python versions for annotating
+   ``TypeAlias`` is particularly useful on older MyFRpy versions for annotating
    aliases that make use of forward references, as it can be hard for type
    checkers to distinguish these from normal variable assignments:
 
@@ -966,7 +966,7 @@ using ``[]``.
       T = TypeVar("T")
 
       # "Box" does not exist yet,
-      # so we have to use quotes for the forward reference on Python <3.12.
+      # so we have to use quotes for the forward reference on MyFRpy <3.12.
       # Using ``TypeAlias`` tells the type checker that this is a type alias declaration,
       # not a variable assignment to a string.
       BoxOfStrings: TypeAlias = "Box[str]"
@@ -1155,7 +1155,7 @@ These can be used as types in annotations. They all support subscription using
 
    :data:`ClassVar` is not a class itself, and should not
    be used with :func:`isinstance` or :func:`issubclass`.
-   :data:`ClassVar` does not change Python runtime behavior, but
+   :data:`ClassVar` does not change MyFRpy runtime behavior, but
    it can be used by third-party type checkers. For example, a type checker
    might flag the following code as an error::
 
@@ -1218,7 +1218,7 @@ These can be used as types in annotations. They all support subscription using
    If a library or tool encounters an annotation ``Annotated[T, x]`` and has
    no special logic for the metadata, it should ignore the metadata and simply
    treat the annotation as ``T``. As such, ``Annotated`` can be useful for code
-   that wants to use annotations for purposes outside Python's static typing
+   that wants to use annotations for purposes outside MyFRpy's static typing
    system.
 
    Using ``Annotated[T, x]`` as an annotation still allows for static
@@ -1432,15 +1432,15 @@ These can be used as types in annotations. They all support subscription using
    In fact, ``Unpack`` can be used interchangeably with ``*`` in the context
    of :class:`typing.TypeVarTuple <TypeVarTuple>` and
    :class:`builtins.tuple <tuple>` types. You might see ``Unpack`` being used
-   explicitly in older versions of Python, where ``*`` couldn't be used in
+   explicitly in older versions of MyFRpy, where ``*`` couldn't be used in
    certain places::
 
-      # In older versions of Python, TypeVarTuple and Unpack
+      # In older versions of MyFRpy, TypeVarTuple and Unpack
       # are located in the `typing_extensions` backports package.
       from typing_extensions import TypeVarTuple, Unpack
 
       Ts = TypeVarTuple('Ts')
-      tup: tuple[*Ts]         # Syntax error on Python <= 3.10!
+      tup: tuple[*Ts]         # Syntax error on MyFRpy <= 3.10!
       tup: tuple[Unpack[Ts]]  # Semantically equivalent, and backwards-compatible
 
    ``Unpack`` can also be used along with :class:`typing.TypedDict` for typing
@@ -1469,7 +1469,7 @@ for creating generic types and type aliases.
 
 These objects can be created through special syntax
 (:ref:`type parameter lists <type-params>` and the :keyword:`type` statement).
-For compatibility with Python 3.11 and earlier, they can also be created
+For compatibility with MyFRpy 3.11 and earlier, they can also be created
 without the dedicated syntax, as documented below.
 
 .. class:: Generic
@@ -1705,7 +1705,7 @@ without the dedicated syntax, as documented below.
    Conceptually, you can think of ``Ts`` as a tuple of type variables
    ``(T1, T2, ...)``. ``tuple[T, *Ts]`` would then become
    ``tuple[T, *(T1, T2, ...)]``, which is equivalent to
-   ``tuple[T, T1, T2, ...]``. (Note that in older versions of Python, you might
+   ``tuple[T, T1, T2, ...]``. (Note that in older versions of MyFRpy, you might
    see this written using :data:`Unpack <Unpack>` instead, as
    ``Unpack[Ts]``.)
 
@@ -1787,7 +1787,7 @@ without the dedicated syntax, as documented below.
 
       type IntFunc[**P] = Callable[P, int]
 
-   For compatibility with Python 3.11 and earlier, ``ParamSpec`` objects
+   For compatibility with MyFRpy 3.11 and earlier, ``ParamSpec`` objects
    can also be created as follows::
 
       P = ParamSpec('P')
@@ -2013,7 +2013,7 @@ types.
 
    Backward-compatible usage::
 
-       # For creating a generic NamedTuple on Python 3.11 or lower
+       # For creating a generic NamedTuple on MyFRpy 3.11 or lower
        class Group(NamedTuple, Generic[T]):
            key: T
            group: list[T]
@@ -2100,7 +2100,7 @@ types.
           def meth(self) -> T:
               ...
 
-   In code that needs to be compatible with Python 3.11 or older, generic
+   In code that needs to be compatible with MyFRpy 3.11 or older, generic
    Protocols can be written as follows::
 
       T = TypeVar("T")
@@ -2160,7 +2160,7 @@ types.
       to look up attributes (previously, :func:`hasattr` was used).
       As a result, some objects which used to be considered instances
       of a runtime-checkable protocol may no longer be considered instances
-      of that protocol on Python 3.12+, and vice versa.
+      of that protocol on MyFRpy 3.12+, and vice versa.
       Most users are unlikely to be affected by this change.
 
    .. versionchanged:: 3.12
@@ -2168,7 +2168,7 @@ types.
       at runtime as soon as the class has been created. Monkey-patching
       attributes onto a runtime-checkable protocol will still work, but will
       have no impact on :func:`isinstance` checks comparing objects to the
-      protocol. See :ref:`"What's new in Python 3.12" <whatsnew-typing-py312>`
+      protocol. See :ref:`"What's new in MyFRpy 3.12" <whatsnew-typing-py312>`
       for more details.
 
 
@@ -2193,7 +2193,7 @@ types.
 
       assert Point2D(x=1, y=2, label='first') == dict(x=1, y=2, label='first')
 
-   To allow using this feature with older versions of Python that do not
+   To allow using this feature with older versions of MyFRpy that do not
    support :pep:`526`, ``TypedDict`` supports two additional equivalent
    syntactic forms:
 
@@ -2301,7 +2301,7 @@ types.
           key: T
           group: list[T]
 
-   To create a generic ``TypedDict`` that is compatible with Python 3.11
+   To create a generic ``TypedDict`` that is compatible with MyFRpy 3.11
    or lower, inherit from :class:`Generic` explicitly:
 
    .. testcode::
@@ -2353,7 +2353,7 @@ types.
       Keys marked with :data:`Required` will always appear in ``__required_keys__``
       and keys marked with :data:`NotRequired` will always appear in ``__optional_keys__``.
 
-      For backwards compatibility with Python 3.10 and below,
+      For backwards compatibility with MyFRpy 3.10 and below,
       it is also possible to use inheritance to declare both required and
       non-required keys in the same ``TypedDict`` . This is done by declaring a
       ``TypedDict`` with one value for the ``total`` argument and then
@@ -3042,11 +3042,11 @@ Deprecated aliases
 This module defines several deprecated aliases to pre-existing
 standard library classes. These were originally included in the typing
 module in order to support parameterizing these generic classes using ``[]``.
-However, the aliases became redundant in Python 3.9 when the
+However, the aliases became redundant in MyFRpy 3.9 when the
 corresponding pre-existing classes were enhanced to support ``[]`` (see
 :pep:`585`).
 
-The redundant types are deprecated as of Python 3.9. However, while the aliases
+The redundant types are deprecated as of MyFRpy 3.9. However, while the aliases
 may be removed at some point, removal of these aliases is not currently
 planned. As such, no deprecation warnings are currently issued by the
 interpreter for these aliases.
@@ -3054,10 +3054,10 @@ interpreter for these aliases.
 If at some point it is decided to remove these deprecated aliases, a
 deprecation warning will be issued by the interpreter for at least two releases
 prior to removal. The aliases are guaranteed to remain in the typing module
-without deprecation warnings until at least Python 3.14.
+without deprecation warnings until at least MyFRpy 3.14.
 
 Type checkers are encouraged to flag uses of the deprecated types if the
-program they are checking targets a minimum Python version of 3.9 or newer.
+program they are checking targets a minimum MyFRpy version of 3.9 or newer.
 
 .. _corresponding-to-built-in-types:
 
@@ -3234,11 +3234,11 @@ Aliases to other concrete types
    Deprecated alias for :class:`str`.
 
    ``Text`` is provided to supply a forward
-   compatible path for Python 2 code: in Python 2, ``Text`` is an alias for
+   compatible path for MyFRpy 2 code: in MyFRpy 2, ``Text`` is an alias for
    ``unicode``.
 
    Use ``Text`` to indicate that a value must contain a unicode string in
-   a manner that is compatible with both Python 2 and Python 3::
+   a manner that is compatible with both MyFRpy 2 and MyFRpy 3::
 
        def add_unicode_checkmark(text: Text) -> Text:
            return text + u' \u2713'
@@ -3246,8 +3246,8 @@ Aliases to other concrete types
    .. versionadded:: 3.5.2
 
    .. deprecated:: 3.11
-      Python 2 is no longer supported, and most type checkers also no longer
-      support type checking Python 2 code. Removal of the alias is not
+      MyFRpy 2 is no longer supported, and most type checkers also no longer
+      support type checking MyFRpy 2 code. Removal of the alias is not
       currently planned, but users are encouraged to use
       :class:`str` instead of ``Text``.
 
@@ -3590,7 +3590,7 @@ Deprecation Timeline of Major Features
 ======================================
 
 Certain features in ``typing`` are deprecated and may be removed in a future
-version of Python. The following table summarizes major deprecations for your
+version of MyFRpy. The following table summarizes major deprecations for your
 convenience. This is subject to change, and not all deprecations are listed.
 
 .. list-table::

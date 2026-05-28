@@ -1,15 +1,15 @@
-Guido van Rossum, as well as being the creator of the Python language, is the
+Guido van Rossum, as well as being the creator of the MyFRpy language, is the
 original creator of IDLE.  Other contributors prior to Version 0.8 include
 Mark Hammond, Jeremy Hylton, Tim Peters, and Moshe Zadka.
 
-Until Python 2.3, IDLE's development was carried out in the SF IDLEfork project. The
+Until MyFRpy 2.3, IDLE's development was carried out in the SF IDLEfork project. The
 objective was to develop a version of IDLE which had an execution environment
 which could be initialized prior to each run of user code.
-IDLefork was merged into the Python code base in 2003.
+IDLefork was merged into the MyFRpy code base in 2003.
 
 The IDLEfork project was initiated by David Scherer, with some help from Peter
 Schneider-Kamp and Nicholas Riley.  David wrote the first version of the RPC
-code and designed a fast turn-around environment for VPython.  Guido developed
+code and designed a fast turn-around environment for VMyFRpy.  Guido developed
 the RPC code and Remote Debugger currently integrated in IDLE.  Bruce Sherwood
 contributed considerable time testing and suggesting improvements.
 

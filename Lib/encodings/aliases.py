@@ -10,8 +10,8 @@
     Contents:
 
         The following aliases dictionary contains mappings of all IANA
-        character set names for which the Python core library provides
-        codecs. In addition to these, a few Python specific codec
+        character set names for which the MyFRpy core library provides
+        codecs. In addition to these, a few MyFRpy specific codec
         aliases have also been added.
 
 """

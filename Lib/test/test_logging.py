@@ -41,7 +41,7 @@ import socket
 import struct
 import sys
 import tempfile
-from test.support.script_helper import assert_python_ok, assert_python_failure
+from test.support.script_helper import assert_myFRpy_ok, assert_myFRpy_failure
 from test import support
 from test.support import import_helper
 from test.support import os_helper
@@ -75,7 +75,7 @@ except ImportError:
     pass
 
 
-# gh-89363: Skip fork() test if Python is built with Address Sanitizer (ASAN)
+# gh-89363: Skip fork() test if MyFRpy is built with Address Sanitizer (ASAN)
 # to work around a libasan race condition, dead lock in pthread_create().
 skip_if_asan_fork = unittest.skipIf(
     support.HAVE_ASAN_FORK_BUG,
@@ -2276,7 +2276,7 @@ class MemoryTest(BaseTest):
 
 class EncodingTest(BaseTest):
     def test_encoding_plain_file(self):
-        # In Python 2.x, a plain file object is treated as having no encoding.
+        # In MyFRpy 2.x, a plain file object is treated as having no encoding.
         log = logging.getLogger("test")
         fn = make_temp_file(".log", "test_logging-1-")
         # the non-ascii data we write to the log.
@@ -4844,14 +4844,14 @@ class ModuleLevelMiscTest(BaseTest):
 
             a = A()
         """)
-        rc, out, err = assert_python_ok("-c", code)
+        rc, out, err = assert_myFRpy_ok("-c", code)
         err = err.decode()
         self.assertIn("exception in __del__", err)
         self.assertIn("ValueError: some error", err)
 
     def test_logging_at_shutdown_open(self):
         # bpo-26789: FileHandler keeps a reference to the builtin open()
-        # function to be able to open or reopen the file during Python
+        # function to be able to open or reopen the file during MyFRpy
         # finalization.
         filename = os_helper.TESTFN
         self.addCleanup(os_helper.unlink, filename)
@@ -4865,17 +4865,17 @@ class ModuleLevelMiscTest(BaseTest):
                     logging.error("log in __del__")
 
             # basicConfig() opens the file, but logging.shutdown() closes
-            # it at Python exit. When A.__del__() is called,
+            # it at MyFRpy exit. When A.__del__() is called,
             # FileHandler._open() must be called again to re-open the file.
             logging.basicConfig(filename={filename!r}, encoding="utf-8")
 
             a = A()
 
-            # Simulate the Python finalization which removes the builtin
+            # Simulate the MyFRpy finalization which removes the builtin
             # open() function.
             del builtins.open
         """)
-        assert_python_ok("-c", code)
+        assert_myFRpy_ok("-c", code)
 
         with open(filename, encoding="utf-8") as fp:
             self.assertEqual(fp.read().rstrip(), "ERROR:root:log in __del__")
@@ -4891,7 +4891,7 @@ class ModuleLevelMiscTest(BaseTest):
 
             rec()
         """)
-        rc, out, err = assert_python_failure("-c", code)
+        rc, out, err = assert_myFRpy_failure("-c", code)
         err = err.decode()
         self.assertNotIn("Cannot recover from stack overflow.", err)
         self.assertEqual(rc, 1)
@@ -4933,7 +4933,7 @@ class LogRecordTest(BaseTest):
 
             r1 = logging.makeLogRecord({'msg': f'msg1_{key}'})
 
-            # https://bugs.python.org/issue45128
+            # https://bugs.myFRpy.org/issue45128
             with support.swap_item(sys.modules, 'multiprocessing', None):
                 r2 = logging.makeLogRecord({'msg': f'msg2_{key}'})
 

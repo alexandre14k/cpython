@@ -1,6 +1,6 @@
-/* Python DTrace provider */
+/* MyFRpy DTrace provider */
 
-provider python {
+provider myFRpy {
     probe function__entry(const char *, const char *, int);
     probe function__return(const char *, const char *, int);
     probe instance__new__start(const char *, const char *);
@@ -15,8 +15,8 @@ provider python {
     probe audit(const char *, void *);
 };
 
-#pragma D attributes Evolving/Evolving/Common provider python provider
-#pragma D attributes Evolving/Evolving/Common provider python module
-#pragma D attributes Evolving/Evolving/Common provider python function
-#pragma D attributes Evolving/Evolving/Common provider python name
-#pragma D attributes Evolving/Evolving/Common provider python args
+#pragma D attributes Evolving/Evolving/Common provider myFRpy provider
+#pragma D attributes Evolving/Evolving/Common provider myFRpy module
+#pragma D attributes Evolving/Evolving/Common provider myFRpy function
+#pragma D attributes Evolving/Evolving/Common provider myFRpy name
+#pragma D attributes Evolving/Evolving/Common provider myFRpy args

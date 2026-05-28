@@ -46,7 +46,7 @@ import typing
 import weakref
 import types
 
-from test.support import captured_stderr, cpython_only
+from test.support import captured_stderr, cmyFRpy_only
 from test.typinganndata import mod_generics_cache, _typed_dict_helper
 
 
@@ -688,7 +688,7 @@ class GenericAliasSubstitutionTests(BaseTestCase):
     For variadic cases, these tests should be regarded as the source of truth,
     since we hadn't realised the full complexity of variadic substitution
     at the time of finalizing PEP 646. For full discussion, see
-    https://github.com/python/cpython/issues/91162.
+    https://github.com/myFRpy/cmyFRpy/issues/91162.
     """
 
     def test_one_parameter(self):
@@ -1902,13 +1902,13 @@ class UnionTests(BaseTestCase):
         self.assertEqual(repr(Union[fun, int]), 'typing.Union[fun, int]')
 
     def test_union_str_pattern(self):
-        # Shouldn't crash; see http://bugs.python.org/issue25390
+        # Shouldn't crash; see http://bugs.myFRpy.org/issue25390
         A = Union[str, Pattern]
         A
 
     def test_etree(self):
-        # See https://github.com/python/typing/issues/229
-        # (Only relevant for Python 2.)
+        # See https://github.com/myFRpy/typing/issues/229
+        # (Only relevant for MyFRpy 2.)
         from xml.etree.ElementTree import Element
 
         Union[Element, str]  # Shouldn't crash
@@ -2081,7 +2081,7 @@ class BaseCallableTests:
 
     def test_ellipsis_in_generic(self):
         Callable = self.Callable
-        # Shouldn't crash; see https://github.com/python/typing/issues/259
+        # Shouldn't crash; see https://github.com/myFRpy/typing/issues/259
         typing.List[Callable[..., str]]
 
     def test_or_and_ror(self):
@@ -2647,7 +2647,7 @@ class ProtocolTests(BaseTestCase):
 
     def test_protocol_defining_init_does_not_get_overridden(self):
         # check that P.__init__ doesn't get clobbered
-        # see https://bugs.python.org/issue44807
+        # see https://bugs.myFRpy.org/issue44807
 
         class P(Protocol):
             x: int
@@ -3312,7 +3312,7 @@ class ProtocolTests(BaseTestCase):
                 self.assertNotIsInstance(WhyWouldYouDoThis(), protocol_class)
 
     def test_protocols_isinstance___slots__(self):
-        # As per the consensus in https://github.com/python/typing/issues/1367,
+        # As per the consensus in https://github.com/myFRpy/typing/issues/1367,
         # this is desirable behaviour
         @runtime_checkable
         class HasX(Protocol):
@@ -4461,7 +4461,7 @@ class GenericTests(BaseTestCase):
         self.assertIs(get_type_hints(barfoo2, globals(), locals())['x'], CT)
 
     def test_generic_pep585_forward_ref(self):
-        # See https://bugs.python.org/issue41370
+        # See https://bugs.myFRpy.org/issue41370
 
         class C1:
             a: list['C1']
@@ -5727,7 +5727,7 @@ class ForwardRefTests(BaseTestCase):
         self.assertEqual(get_type_hints(Child.foo), {'x': int})
 
     def test_no_type_check_nested_types(self):
-        # See https://bugs.python.org/issue46571
+        # See https://bugs.myFRpy.org/issue46571
         class Other:
             o: int
         class B:  # Has the same `__name__`` as `A.B` and different `__qualname__`
@@ -5914,7 +5914,7 @@ class OverloadTests(BaseTestCase):
 
         blah()
 
-    @cpython_only  # gh-98713
+    @cmyFRpy_only  # gh-98713
     def test_overload_on_compiled_functions(self):
         with patch("typing._overload_registry",
                    defaultdict(lambda: defaultdict(dict))):
@@ -5985,7 +5985,7 @@ class OverloadTests(BaseTestCase):
             self.assertEqual(list(get_overloads(impl)), overloads)
 
 
-# Definitions needed for features introduced in Python 3.6
+# Definitions needed for features introduced in MyFRpy 3.6
 
 from test.typinganndata import (
     ann_module, ann_module2, ann_module3, ann_module5, ann_module6,
@@ -6351,7 +6351,7 @@ class GetTypeHintTests(BaseTestCase):
         )
 
     def test_get_type_hints_annotated_with_none_default(self):
-        # See: https://bugs.python.org/issue46195
+        # See: https://bugs.myFRpy.org/issue46195
         def annotated_with_none_default(x: Annotated[int, 'data'] = None): ...
         self.assertEqual(
             get_type_hints(annotated_with_none_default),
@@ -6378,7 +6378,7 @@ class GetTypeHintTests(BaseTestCase):
         self.assertEqual(get_type_hints(BadModule), {})
 
     def test_get_type_hints_annotated_bad_module(self):
-        # See https://bugs.python.org/issue44468
+        # See https://bugs.myFRpy.org/issue44468
         class BadBase:
             foo: tuple
         class BadType(BadBase):
@@ -6388,7 +6388,7 @@ class GetTypeHintTests(BaseTestCase):
         self.assertEqual(get_type_hints(BadType), {'foo': tuple, 'bar': list})
 
     def test_forward_ref_and_final(self):
-        # https://bugs.python.org/issue45166
+        # https://bugs.myFRpy.org/issue45166
         hints = get_type_hints(ann_module5)
         self.assertEqual(hints, {'name': Final[str]})
 
@@ -6396,7 +6396,7 @@ class GetTypeHintTests(BaseTestCase):
         self.assertEqual(hints, {'value': Final})
 
     def test_top_level_class_var(self):
-        # https://bugs.python.org/issue45166
+        # https://bugs.myFRpy.org/issue45166
         with self.assertRaisesRegex(
             TypeError,
             r'typing.ClassVar\[int\] is not valid as type argument',
@@ -6445,7 +6445,7 @@ class GetTypeHintTests(BaseTestCase):
         })
 
     def test_get_type_hints_collections_abc_callable(self):
-        # https://github.com/python/cpython/issues/91621
+        # https://github.com/myFRpy/cmyFRpy/issues/91621
         P = ParamSpec('P')
         def f(x: collections.abc.Callable[[int], int]): ...
         def g(x: collections.abc.Callable[..., int]): ...

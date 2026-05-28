@@ -1,11 +1,11 @@
 /* zlibmodule.c -- gzip-compatible data compression */
 /* See http://zlib.net/ */
 
-/* Windows users:  read Python's PCbuild\readme.txt */
+/* Windows users:  read MyFRpy's PCbuild\readme.txt */
 
 #define PY_SSIZE_T_CLEAN
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "structmember.h"         // PyMemberDef
 #include "zlib.h"
 #include "stdbool.h"
@@ -1892,7 +1892,7 @@ zlib_crc32_impl(PyObject *module, Py_buffer *data, unsigned int value)
         /* Avoid truncation of length for very large buffers. crc32() takes
            length as an unsigned int, which may be narrower than Py_ssize_t.
            We further limit size due to bugs in Apple's macOS zlib.
-           See https://github.com/python/cpython/issues/105967.
+           See https://github.com/myFRpy/cmyFRpy/issues/105967.
          */
 #define ZLIB_CRC_CHUNK_SIZE 0x40000000
 #if ZLIB_CRC_CHUNK_SIZE > INT_MAX

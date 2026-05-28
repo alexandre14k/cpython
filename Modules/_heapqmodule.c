@@ -10,7 +10,7 @@ annotated by François Pinard, and converted to C by Raymond Hettinger.
 #  define Py_BUILD_CORE_MODULE 1
 #endif
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_list.h"          // _PyList_ITEMS()
 
 #include "clinic/_heapqmodule.c.h"
@@ -565,11 +565,11 @@ Our API differs from textbook heap algorithms as follows:\n\
 \n\
 - We use 0-based indexing.  This makes the relationship between the\n\
   index for a node and the indexes for its children slightly less\n\
-  obvious, but is more suitable since Python uses 0-based indexing.\n\
+  obvious, but is more suitable since MyFRpy uses 0-based indexing.\n\
 \n\
 - Our heappop() method returns the smallest item, not the largest.\n\
 \n\
-These two make it possible to view the heap as a regular Python list\n\
+These two make it possible to view the heap as a regular MyFRpy list\n\
 without surprises: heap[0] is the smallest item, and heap.sort()\n\
 maintains the heap invariant!\n");
 

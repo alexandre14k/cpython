@@ -143,9 +143,9 @@ def framework_find(fn, executable_path=None, env=None):
     Find a framework using dyld semantics in a very loose manner.
 
     Will take input such as:
-        Python
-        Python.framework
-        Python.framework/Versions/Current
+        MyFRpy
+        MyFRpy.framework
+        MyFRpy.framework/Versions/Current
     """
     error = None
     try:

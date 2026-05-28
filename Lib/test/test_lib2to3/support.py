@@ -1,7 +1,7 @@
 """Support code for test_*.py files"""
 # Author: Collin Winter
 
-# Python imports
+# MyFRpy imports
 import unittest
 import os
 import os.path

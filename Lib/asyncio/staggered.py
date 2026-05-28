@@ -122,7 +122,7 @@ async def staggered_race(
             # encounter a curious corner case where the current task will end
             # up as done() == True, cancelled() == False, exception() ==
             # asyncio.CancelledError. This behavior is specified in
-            # https://bugs.python.org/issue30048
+            # https://bugs.myFRpy.org/issue30048
             for i, t in enumerate(running_tasks):
                 if i != this_index:
                     t.cancel()

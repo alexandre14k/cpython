@@ -23,7 +23,7 @@ def sleep_and_raise(t):
 
 class WaitTests:
     def test_20369(self):
-        # See https://bugs.python.org/issue20369
+        # See https://bugs.myFRpy.org/issue20369
         future = self.executor.submit(time.sleep, 1.5)
         done, not_done = futures.wait([future, future],
                             return_when=futures.ALL_COMPLETED)

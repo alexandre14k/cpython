@@ -25,7 +25,7 @@
 
 #if !defined(HAVE_CURSES_IS_PAD) && defined(WINDOW_HAS_FLAGS)
 /* The following definition is necessary for ncurses 5.7; without it,
-   some of [n]curses.h set NCURSES_OPAQUE to 1, and then Python
+   some of [n]curses.h set NCURSES_OPAQUE to 1, and then MyFRpy
    can't get at the WINDOW flags field. */
 #define NCURSES_OPAQUE 0
 #endif

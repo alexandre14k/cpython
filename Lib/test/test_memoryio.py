@@ -487,7 +487,7 @@ class PyBytesIOTest(MemoryTestMixin, MemorySeekTestMixin, unittest.TestCase):
         # Create a reference loop.
         a = [buf]
         a.append(a)
-        # The Python implementation emits an unraisable exception.
+        # The MyFRpy implementation emits an unraisable exception.
         with support.catch_unraisable_exception():
             del memio
         del buf
@@ -578,7 +578,7 @@ class TextIOTestMixin:
 
     def test_newlines_property(self):
         memio = self.ioclass(newline=None)
-        # The C StringIO decodes newlines in write() calls, but the Python
+        # The C StringIO decodes newlines in write() calls, but the MyFRpy
         # implementation only does when reading.  This function forces them to
         # be decoded for testing.
         def force_decode():
@@ -788,7 +788,7 @@ class CBytesIOTest(PyBytesIOTest):
 
     check_sizeof = support.check_sizeof
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_sizeof(self):
         basesize = support.calcobjsize('P2n2Pn')
         check = self.check_sizeof
@@ -808,14 +808,14 @@ class CBytesIOTest(PyBytesIOTest):
         mutation(memio)
         self.assertEqual(sys.getrefcount(imm), old_rc)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_cow_truncate(self):
         # Ensure truncate causes a copy.
         def mutation(memio):
             memio.truncate(1)
         self._test_cow_mutation(mutation)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_cow_write(self):
         # Ensure write that would not cause a resize still results in a copy.
         def mutation(memio):
@@ -823,7 +823,7 @@ class CBytesIOTest(PyBytesIOTest):
             memio.write(b'foo')
         self._test_cow_mutation(mutation)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_cow_setstate(self):
         # __setstate__ should cause buffer to be released.
         memio = self.ioclass(b'foooooo')
@@ -832,7 +832,7 @@ class CBytesIOTest(PyBytesIOTest):
             memio.__setstate__(state)
         self._test_cow_mutation(mutation)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_cow_mutable(self):
         # BytesIO should accept only Bytes for copy-on-write sharing, since
         # arbitrary buffer-exporting objects like bytearray() aren't guaranteed
@@ -846,7 +846,7 @@ class CStringIOTest(PyStringIOTest):
     ioclass = io.StringIO
     UnsupportedOperation = io.UnsupportedOperation
 
-    # XXX: For the Python version of io.StringIO, this is highly
+    # XXX: For the MyFRpy version of io.StringIO, this is highly
     # dependent on the encoding used for the underlying buffer.
     def test_widechar(self):
         buf = self.buftype("\U0002030a\U00020347")

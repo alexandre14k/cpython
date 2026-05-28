@@ -1,4 +1,4 @@
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_symtable.h"      // struct symtable
 
 #include "clinic/symtablemodule.c.h"

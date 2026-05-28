@@ -15,10 +15,10 @@ from xml.parsers.expat import ExpatError
 
 tstfile = support.findfile("test.xml", subdir="xmltestdata")
 sample = ("<?xml version='1.0' encoding='us-ascii'?>\n"
-          "<!DOCTYPE doc PUBLIC 'http://xml.python.org/public'"
-          " 'http://xml.python.org/system' [\n"
+          "<!DOCTYPE doc PUBLIC 'http://xml.myFRpy.org/public'"
+          " 'http://xml.myFRpy.org/system' [\n"
           "  <!ELEMENT e EMPTY>\n"
-          "  <!ENTITY ent SYSTEM 'http://xml.python.org/entity'>\n"
+          "  <!ENTITY ent SYSTEM 'http://xml.myFRpy.org/entity'>\n"
           "]><doc attr='value'> text\n"
           "<?pi sample?> <!-- comment --> <e/> </doc>")
 
@@ -33,10 +33,10 @@ def create_nonempty_doctype():
     doctype.entities._seq = []
     doctype.notations._seq = []
     notation = xml.dom.minidom.Notation("my-notation", None,
-                                        "http://xml.python.org/notations/my")
+                                        "http://xml.myFRpy.org/notations/my")
     doctype.notations._seq.append(notation)
     entity = xml.dom.minidom.Entity("my-entity", None,
-                                    "http://xml.python.org/entities/my",
+                                    "http://xml.myFRpy.org/entities/my",
                                     "my-notation")
     entity.version = "1.0"
     entity.encoding = "utf-8"
@@ -322,14 +322,14 @@ class MinidomTest(unittest.TestCase):
     def testRemoveAttrNS(self):
         dom = Document()
         child = dom.appendChild(
-                dom.createElementNS("http://www.python.org", "python:abc"))
-        child.setAttributeNS("http://www.w3.org", "xmlns:python",
-                                                "http://www.python.org")
-        child.setAttributeNS("http://www.python.org", "python:abcattr", "foo")
+                dom.createElementNS("http://www.myFRpy.org", "myFRpy:abc"))
+        child.setAttributeNS("http://www.w3.org", "xmlns:myFRpy",
+                                                "http://www.myFRpy.org")
+        child.setAttributeNS("http://www.myFRpy.org", "myFRpy:abcattr", "foo")
         self.assertRaises(xml.dom.NotFoundErr, child.removeAttributeNS,
-            "foo", "http://www.python.org")
+            "foo", "http://www.myFRpy.org")
         self.confirm(len(child.attributes) == 2)
-        child.removeAttributeNS("http://www.python.org", "abcattr")
+        child.removeAttributeNS("http://www.myFRpy.org", "abcattr")
         self.confirm(len(child.attributes) == 1)
         dom.unlink()
 
@@ -407,21 +407,21 @@ class MinidomTest(unittest.TestCase):
     def testGetAttribute(self):
         dom = Document()
         child = dom.appendChild(
-            dom.createElementNS("http://www.python.org", "python:abc"))
+            dom.createElementNS("http://www.myFRpy.org", "myFRpy:abc"))
         self.assertEqual(child.getAttribute('missing'), '')
 
     def testGetAttributeNS(self):
         dom = Document()
         child = dom.appendChild(
-                dom.createElementNS("http://www.python.org", "python:abc"))
-        child.setAttributeNS("http://www.w3.org", "xmlns:python",
-                                                "http://www.python.org")
-        self.assertEqual(child.getAttributeNS("http://www.w3.org", "python"),
-            'http://www.python.org')
+                dom.createElementNS("http://www.myFRpy.org", "myFRpy:abc"))
+        child.setAttributeNS("http://www.w3.org", "xmlns:myFRpy",
+                                                "http://www.myFRpy.org")
+        self.assertEqual(child.getAttributeNS("http://www.w3.org", "myFRpy"),
+            'http://www.myFRpy.org')
         self.assertEqual(child.getAttributeNS("http://www.w3.org", "other"),
             '')
         child2 = child.appendChild(dom.createElement('abc'))
-        self.assertEqual(child2.getAttributeNS("http://www.python.org", "missing"),
+        self.assertEqual(child2.getAttributeNS("http://www.myFRpy.org", "missing"),
                          '')
 
     def testGetAttributeNode(self): pass
@@ -449,15 +449,15 @@ class MinidomTest(unittest.TestCase):
     def testGetEmptyNodeListFromElementsByTagNameNS(self):
         doc = parseString('<doc/>')
         self.get_empty_nodelist_from_elements_by_tagName_ns_helper(
-            doc, 'http://xml.python.org/namespaces/a', 'localname')
+            doc, 'http://xml.myFRpy.org/namespaces/a', 'localname')
         self.get_empty_nodelist_from_elements_by_tagName_ns_helper(
             doc, '*', 'splat')
         self.get_empty_nodelist_from_elements_by_tagName_ns_helper(
-            doc, 'http://xml.python.org/namespaces/a', '*')
+            doc, 'http://xml.myFRpy.org/namespaces/a', '*')
 
-        doc = parseString('<doc xmlns="http://xml.python.org/splat"><e/></doc>')
+        doc = parseString('<doc xmlns="http://xml.myFRpy.org/splat"><e/></doc>')
         self.get_empty_nodelist_from_elements_by_tagName_ns_helper(
-            doc, "http://xml.python.org/splat", "not-there")
+            doc, "http://xml.myFRpy.org/splat", "not-there")
         self.get_empty_nodelist_from_elements_by_tagName_ns_helper(
             doc, "*", "not-there")
         self.get_empty_nodelist_from_elements_by_tagName_ns_helper(
@@ -607,14 +607,14 @@ class MinidomTest(unittest.TestCase):
         self.assertRaises(xml.dom.NotFoundErr, attrs.removeNamedItem, "a")
 
     def testRemoveNamedItemNS(self):
-        doc = parseString("<doc xmlns:a='http://xml.python.org/' a:b=''/>")
+        doc = parseString("<doc xmlns:a='http://xml.myFRpy.org/' a:b=''/>")
         e = doc.documentElement
         attrs = e.attributes
-        a1 = e.getAttributeNodeNS("http://xml.python.org/", "b")
-        a2 = attrs.removeNamedItemNS("http://xml.python.org/", "b")
+        a1 = e.getAttributeNodeNS("http://xml.myFRpy.org/", "b")
+        a2 = attrs.removeNamedItemNS("http://xml.myFRpy.org/", "b")
         self.confirm(a1.isSameNode(a2))
         self.assertRaises(xml.dom.NotFoundErr, attrs.removeNamedItemNS,
-                          "http://xml.python.org/", "b")
+                          "http://xml.myFRpy.org/", "b")
 
     def testAttrListValues(self): pass
 
@@ -702,7 +702,7 @@ class MinidomTest(unittest.TestCase):
         doc = parseString("<?xml version='1.0'?>\n"
                     "<!-- comment -->"
                     "<!DOCTYPE doc [\n"
-                    "<!NOTATION notation SYSTEM 'http://xml.python.org/'>\n"
+                    "<!NOTATION notation SYSTEM 'http://xml.myFRpy.org/'>\n"
                     "]>\n"
                     "<doc attr='value'/>")
         doc2 = doc.cloneNode(0)
@@ -714,7 +714,7 @@ class MinidomTest(unittest.TestCase):
         doc = parseString("<?xml version='1.0'?>\n"
                     "<!-- comment -->"
                     "<!DOCTYPE doc [\n"
-                    "<!NOTATION notation SYSTEM 'http://xml.python.org/'>\n"
+                    "<!NOTATION notation SYSTEM 'http://xml.myFRpy.org/'>\n"
                     "]>\n"
                     "<doc attr='value'/>")
         doc2 = doc.cloneNode(1)
@@ -1219,7 +1219,7 @@ class MinidomTest(unittest.TestCase):
     def checkRenameNodeSharedConstraints(self, doc, node):
         # Make sure illegal NS usage is detected:
         self.assertRaises(xml.dom.NamespaceErr, doc.renameNode, node,
-                          "http://xml.python.org/ns", "xmlns:foo")
+                          "http://xml.myFRpy.org/ns", "xmlns:foo")
         doc2 = parseString("<doc/>")
         self.assertRaises(xml.dom.WrongDocumentErr, doc2.renameNode, node,
                           xml.dom.EMPTY_NAMESPACE, "foo")
@@ -1245,39 +1245,39 @@ class MinidomTest(unittest.TestCase):
                 and attr.ownerElement.isSameNode(elem))
 
         # Rename to have a namespace, no prefix
-        attr = doc.renameNode(attr, "http://xml.python.org/ns", "c")
+        attr = doc.renameNode(attr, "http://xml.myFRpy.org/ns", "c")
         self.confirm(attr.name == "c"
                 and attr.nodeName == "c"
                 and attr.localName == "c"
-                and attr.namespaceURI == "http://xml.python.org/ns"
+                and attr.namespaceURI == "http://xml.myFRpy.org/ns"
                 and attr.prefix is None
                 and attr.value == "v"
                 and elem.getAttributeNode("a") is None
                 and elem.getAttributeNode("b") is None
                 and elem.getAttributeNode("c").isSameNode(attr)
                 and elem.getAttributeNodeNS(
-                    "http://xml.python.org/ns", "c").isSameNode(attr)
+                    "http://xml.myFRpy.org/ns", "c").isSameNode(attr)
                 and attrmap["c"].isSameNode(attr)
-                and attrmap[("http://xml.python.org/ns", "c")].isSameNode(attr))
+                and attrmap[("http://xml.myFRpy.org/ns", "c")].isSameNode(attr))
 
         # Rename to have a namespace, with prefix
-        attr = doc.renameNode(attr, "http://xml.python.org/ns2", "p:d")
+        attr = doc.renameNode(attr, "http://xml.myFRpy.org/ns2", "p:d")
         self.confirm(attr.name == "p:d"
                 and attr.nodeName == "p:d"
                 and attr.localName == "d"
-                and attr.namespaceURI == "http://xml.python.org/ns2"
+                and attr.namespaceURI == "http://xml.myFRpy.org/ns2"
                 and attr.prefix == "p"
                 and attr.value == "v"
                 and elem.getAttributeNode("a") is None
                 and elem.getAttributeNode("b") is None
                 and elem.getAttributeNode("c") is None
                 and elem.getAttributeNodeNS(
-                    "http://xml.python.org/ns", "c") is None
+                    "http://xml.myFRpy.org/ns", "c") is None
                 and elem.getAttributeNode("p:d").isSameNode(attr)
                 and elem.getAttributeNodeNS(
-                    "http://xml.python.org/ns2", "d").isSameNode(attr)
+                    "http://xml.myFRpy.org/ns2", "d").isSameNode(attr)
                 and attrmap["p:d"].isSameNode(attr)
-                and attrmap[("http://xml.python.org/ns2", "d")].isSameNode(attr))
+                and attrmap[("http://xml.myFRpy.org/ns2", "d")].isSameNode(attr))
 
         # Rename back to a simple non-NS node
         attr = doc.renameNode(attr, xml.dom.EMPTY_NAMESPACE, "e")
@@ -1292,12 +1292,12 @@ class MinidomTest(unittest.TestCase):
                 and elem.getAttributeNode("c") is None
                 and elem.getAttributeNode("p:d") is None
                 and elem.getAttributeNodeNS(
-                    "http://xml.python.org/ns", "c") is None
+                    "http://xml.myFRpy.org/ns", "c") is None
                 and elem.getAttributeNode("e").isSameNode(attr)
                 and attrmap["e"].isSameNode(attr))
 
         self.assertRaises(xml.dom.NamespaceErr, doc.renameNode, attr,
-                          "http://xml.python.org/ns", "xmlns")
+                          "http://xml.myFRpy.org/ns", "xmlns")
         self.checkRenameNodeSharedConstraints(doc, attr)
         doc.unlink()
 
@@ -1315,20 +1315,20 @@ class MinidomTest(unittest.TestCase):
                 and elem.ownerDocument.isSameNode(doc))
 
         # Rename to have a namespace, no prefix
-        elem = doc.renameNode(elem, "http://xml.python.org/ns", "b")
+        elem = doc.renameNode(elem, "http://xml.myFRpy.org/ns", "b")
         self.confirm(elem.tagName == "b"
                 and elem.nodeName == "b"
                 and elem.localName == "b"
-                and elem.namespaceURI == "http://xml.python.org/ns"
+                and elem.namespaceURI == "http://xml.myFRpy.org/ns"
                 and elem.prefix is None
                 and elem.ownerDocument.isSameNode(doc))
 
         # Rename to have a namespace, with prefix
-        elem = doc.renameNode(elem, "http://xml.python.org/ns2", "p:c")
+        elem = doc.renameNode(elem, "http://xml.myFRpy.org/ns2", "p:c")
         self.confirm(elem.tagName == "p:c"
                 and elem.nodeName == "p:c"
                 and elem.localName == "c"
-                and elem.namespaceURI == "http://xml.python.org/ns2"
+                and elem.namespaceURI == "http://xml.myFRpy.org/ns2"
                 and elem.prefix == "p"
                 and elem.ownerDocument.isSameNode(doc))
 
@@ -1431,8 +1431,8 @@ class MinidomTest(unittest.TestCase):
     def testSchemaType(self):
         doc = parseString(
             "<!DOCTYPE doc [\n"
-            "  <!ENTITY e1 SYSTEM 'http://xml.python.org/e1'>\n"
-            "  <!ENTITY e2 SYSTEM 'http://xml.python.org/e2'>\n"
+            "  <!ENTITY e1 SYSTEM 'http://xml.myFRpy.org/e1'>\n"
+            "  <!ENTITY e2 SYSTEM 'http://xml.myFRpy.org/e2'>\n"
             "  <!ATTLIST doc id   ID       #IMPLIED \n"
             "                ref  IDREF    #IMPLIED \n"
             "                refs IDREFS   #IMPLIED \n"
@@ -1493,8 +1493,8 @@ class MinidomTest(unittest.TestCase):
                 and a2.isId)
 
     def testSetIdAttributeNS(self):
-        NS1 = "http://xml.python.org/ns1"
-        NS2 = "http://xml.python.org/ns2"
+        NS1 = "http://xml.myFRpy.org/ns1"
+        NS2 = "http://xml.myFRpy.org/ns2"
         doc = parseString("<doc"
                           " xmlns:ns1='" + NS1 + "'"
                           " xmlns:ns2='" + NS2 + "'"
@@ -1529,8 +1529,8 @@ class MinidomTest(unittest.TestCase):
                 and a2.isId)
 
     def testSetIdAttributeNode(self):
-        NS1 = "http://xml.python.org/ns1"
-        NS2 = "http://xml.python.org/ns2"
+        NS1 = "http://xml.myFRpy.org/ns1"
+        NS2 = "http://xml.myFRpy.org/ns2"
         doc = parseString("<doc"
                           " xmlns:ns1='" + NS1 + "'"
                           " xmlns:ns2='" + NS2 + "'"

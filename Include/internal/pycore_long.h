@@ -18,9 +18,9 @@ extern "C" {
  * everyone's existing deployed numpy test suite passes before
  * https://github.com/numpy/numpy/issues/22098 is widely available.
  *
- * $ python -m timeit -s 's = "1"*4300' 'int(s)'
+ * $ myFRpy -m timeit -s 's = "1"*4300' 'int(s)'
  * 2000 loops, best of 5: 125 usec per loop
- * $ python -m timeit -s 's = "1"*4300; v = int(s)' 'str(v)'
+ * $ myFRpy -m timeit -s 's = "1"*4300; v = int(s)' 'str(v)'
  * 1000 loops, best of 5: 311 usec per loop
  * (zen2 cloud VM)
  *
@@ -31,9 +31,9 @@ extern "C" {
  * Threshold for max digits check.  For performance reasons int() and
  * int.__str__() don't checks values that are smaller than this
  * threshold.  Acts as a guaranteed minimum size limit for bignums that
- * applications can expect from CPython.
+ * applications can expect from CMyFRpy.
  *
- * % python -m timeit -s 's = "1"*640; v = int(s)' 'str(int(s))'
+ * % myFRpy -m timeit -s 's = "1"*640; v = int(s)' 'str(int(s))'
  * 20000 loops, best of 5: 12 usec per loop
  *
  * "640 digits should be enough for anyone." - gps
@@ -82,7 +82,7 @@ PyObject *_PyLong_Add(PyLongObject *left, PyLongObject *right);
 PyObject *_PyLong_Multiply(PyLongObject *left, PyLongObject *right);
 PyObject *_PyLong_Subtract(PyLongObject *left, PyLongObject *right);
 
-/* Used by Python/mystrtoul.c, _PyBytes_FromHex(),
+/* Used by MyFRpy/mystrtoul.c, _PyBytes_FromHex(),
    _PyBytes_DecodeEscape(), etc. */
 PyAPI_DATA(unsigned char) _PyLong_DigitValue[256];
 
@@ -119,7 +119,7 @@ PyAPI_FUNC(char*) _PyLong_FormatBytesWriter(
 #define NON_SIZE_BITS 3
 
 /* The functions _PyLong_IsCompact and _PyLong_CompactValue are defined
- * in Include/cpython/longobject.h, since they need to be inline.
+ * in Include/cmyFRpy/longobject.h, since they need to be inline.
  *
  * "Compact" values have at least one bit to spare,
  * so that addition and subtraction can be performed on the values

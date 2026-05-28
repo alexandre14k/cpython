@@ -1,4 +1,4 @@
-# Top-level Makefile for Python
+# Top-level Makefile for MyFRpy
 #
 # As distributed, this file is called Makefile.pre.in; it is processed
 # into the real Makefile by running the script ./configure, which
@@ -11,7 +11,7 @@
 #	make test
 #	make install
 #
-# If you have a previous version of Python installed that you don't
+# If you have a previous version of MyFRpy installed that you don't
 # want to overwrite, you can use "make altinstall" instead of "make
 # install".  Refer to the "Installing" section in the README file for
 # additional details.
@@ -41,7 +41,7 @@ AR=		@AR@
 READELF=	@READELF@
 SOABI=		@SOABI@
 LDVERSION=	@LDVERSION@
-LIBPYTHON=	@LIBPYTHON@
+LIBMYFRPY=	@LIBMYFRPY@
 GITVERSION=	@GITVERSION@
 GITTAG=		@GITTAG@
 GITBRANCH=	@GITBRANCH@
@@ -62,7 +62,7 @@ GNULD=		@GNULD@
 # Shell used by make (some versions default to the login shell, which is bad)
 SHELL=		/bin/sh -e
 
-# Use this to make a link between python$(VERSION) and python in $(BINDIR)
+# Use this to make a link between myFRpy$(VERSION) and myFRpy in $(BINDIR)
 LN=		@LN@
 
 # Portable install script (configure doesn't always guess right)
@@ -85,14 +85,14 @@ BASECPPFLAGS=	@BASECPPFLAGS@
 CONFIGURE_CFLAGS=	@CFLAGS@
 # CFLAGS_NODIST is used for building the interpreter and stdlib C extensions.
 # Use it when a compiler flag should _not_ be part of the distutils CFLAGS
-# once Python is installed (Issue #21121).
+# once MyFRpy is installed (Issue #21121).
 CONFIGURE_CFLAGS_NODIST=@CFLAGS_NODIST@
 # LDFLAGS_NODIST is used in the same manner as CFLAGS_NODIST.
 # Use it when a linker flag should _not_ be part of the distutils LDFLAGS
-# once Python is installed (bpo-35257)
+# once MyFRpy is installed (bpo-35257)
 CONFIGURE_LDFLAGS_NODIST=@LDFLAGS_NODIST@
 # LDFLAGS_NOLTO is an extra flag to disable lto. It is used to speed up building
-# of _bootstrap_python and _freeze_module tools, which don't need LTO.
+# of _bootstrap_myFRpy and _freeze_module tools, which don't need LTO.
 CONFIGURE_LDFLAGS_NOLTO=@LDFLAGS_NOLTO@
 CONFIGURE_CPPFLAGS=	@CPPFLAGS@
 CONFIGURE_LDFLAGS=	@LDFLAGS@
@@ -111,7 +111,7 @@ PY_LDFLAGS_NOLTO=$(PY_LDFLAGS) $(CONFIGURE_LDFLAGS_NOLTO) $(LDFLAGS_NODIST)
 NO_AS_NEEDED=	@NO_AS_NEEDED@
 CCSHARED=	@CCSHARED@
 # LINKFORSHARED are the flags passed to the $(CC) command that links
-# the python executable -- this is only needed for a few systems
+# the myFRpy executable -- this is only needed for a few systems
 LINKFORSHARED=	@LINKFORSHARED@
 ARFLAGS=	@ARFLAGS@
 # Extra C flags added for building the interpreter object files.
@@ -152,15 +152,15 @@ PLATLIBDIR=	@PLATLIBDIR@
 SCRIPTDIR=	$(prefix)/$(PLATLIBDIR)
 ABIFLAGS=	@ABIFLAGS@
 # executable name for shebangs
-EXENAME=	$(BINDIR)/python$(LDVERSION)$(EXE)
+EXENAME=	$(BINDIR)/myFRpy$(LDVERSION)$(EXE)
 # Variable used by ensurepip
 WHEEL_PKG_DIR=	@WHEEL_PKG_DIR@
 
 # Detailed destination directories
 BINLIBDEST=	@BINLIBDEST@
-LIBDEST=	$(SCRIPTDIR)/python$(VERSION)
-INCLUDEPY=	$(INCLUDEDIR)/python$(LDVERSION)
-CONFINCLUDEPY=	$(CONFINCLUDEDIR)/python$(LDVERSION)
+LIBDEST=	$(SCRIPTDIR)/myFRpy$(VERSION)
+INCLUDEPY=	$(INCLUDEDIR)/myFRpy$(LDVERSION)
+CONFINCLUDEPY=	$(CONFINCLUDEDIR)/myFRpy$(LDVERSION)
 
 # Symbols used for using shared libraries
 SHLIB_SUFFIX=	@SHLIB_SUFFIX@
@@ -178,12 +178,12 @@ EXPORTSFROM=	@EXPORTSFROM@
 EXE=		@EXEEXT@
 BUILDEXE=	@BUILDEXEEXT@
 
-# Short name and location for Mac OS X Python framework
+# Short name and location for Mac OS X MyFRpy framework
 UNIVERSALSDK=@UNIVERSALSDK@
-PYTHONFRAMEWORK=	@PYTHONFRAMEWORK@
-PYTHONFRAMEWORKDIR=	@PYTHONFRAMEWORKDIR@
-PYTHONFRAMEWORKPREFIX=	@PYTHONFRAMEWORKPREFIX@
-PYTHONFRAMEWORKINSTALLDIR= @PYTHONFRAMEWORKINSTALLDIR@
+MYFRPYFRAMEWORK=	@MYFRPYFRAMEWORK@
+MYFRPYFRAMEWORKDIR=	@MYFRPYFRAMEWORKDIR@
+MYFRPYFRAMEWORKPREFIX=	@MYFRPYFRAMEWORKPREFIX@
+MYFRPYFRAMEWORKINSTALLDIR= @MYFRPYFRAMEWORKINSTALLDIR@
 # Deployment target selected during configure, to be checked
 # by distutils. The export statement is needed to ensure that the
 # deployment target is active during build.
@@ -199,7 +199,7 @@ LIPO_32BIT_FLAGS=@LIPO_32BIT_FLAGS@
 # Flags to lipo to produce an intel-64-only universal executable
 LIPO_INTEL64_FLAGS=@LIPO_INTEL64_FLAGS@
 
-# Environment to run shared python without installed libraries
+# Environment to run shared myFRpy without installed libraries
 RUNSHARED=       @RUNSHARED@
 
 # ensurepip options
@@ -243,7 +243,7 @@ SUBDIRSTOO=	Include Lib Misc
 
 # assets for Emscripten browser builds
 WASM_ASSETS_DIR=.$(prefix)
-WASM_STDLIB=$(WASM_ASSETS_DIR)/lib/python$(VERSION)/os.py
+WASM_STDLIB=$(WASM_ASSETS_DIR)/lib/myFRpy$(VERSION)/os.py
 
 # Files and directories to be distributed
 CONFIGFILES=	configure configure.ac acconfig.h pyconfig.h.in Makefile.pre.in
@@ -260,9 +260,9 @@ DLLLIBRARY=	@DLLLIBRARY@
 LDLIBRARYDIR=   @LDLIBRARYDIR@
 INSTSONAME=	@INSTSONAME@
 LIBRARY_DEPS=	@LIBRARY_DEPS@
-LINK_PYTHON_DEPS=@LINK_PYTHON_DEPS@
+LINK_MYFRPY_DEPS=@LINK_MYFRPY_DEPS@
 PY_ENABLE_SHARED=	@PY_ENABLE_SHARED@
-STATIC_LIBPYTHON=	@STATIC_LIBPYTHON@
+STATIC_LIBMYFRPY=	@STATIC_LIBMYFRPY@
 
 
 LIBS=		@LIBS@
@@ -274,31 +274,31 @@ SHLIBS=		@SHLIBS@
 DLINCLDIR=	@DLINCLDIR@
 DYNLOADFILE=	@DYNLOADFILE@
 MACHDEP_OBJS=	@MACHDEP_OBJS@
-LIBOBJDIR=	Python/
+LIBOBJDIR=	MyFRpy/
 LIBOBJS=	@LIBOBJS@
 
-PYTHON=		myFRpy$(EXE)
-BUILDPYTHON=	myFRpy$(BUILDEXE)
+MYFRPY=		myFRpy$(EXE)
+BUILDMYFRPY=	myFRpy$(BUILDEXE)
 
 HOSTRUNNER= @HOSTRUNNER@
 
-PYTHON_FOR_REGEN?=@PYTHON_FOR_REGEN@
-UPDATE_FILE=$(PYTHON_FOR_REGEN) $(srcdir)/Tools/build/update_file.py
-PYTHON_FOR_BUILD=@PYTHON_FOR_BUILD@
-# Single-platform builds depend on $(BUILDPYTHON). Cross builds use an
-# external "build Python" and have an empty PYTHON_FOR_BUILD_DEPS.
-PYTHON_FOR_BUILD_DEPS=@PYTHON_FOR_BUILD_DEPS@
+MYFRPY_FOR_REGEN?=@MYFRPY_FOR_REGEN@
+UPDATE_FILE=$(MYFRPY_FOR_REGEN) $(srcdir)/Tools/build/update_file.py
+MYFRPY_FOR_BUILD=@MYFRPY_FOR_BUILD@
+# Single-platform builds depend on $(BUILDMYFRPY). Cross builds use an
+# external "build MyFRpy" and have an empty MYFRPY_FOR_BUILD_DEPS.
+MYFRPY_FOR_BUILD_DEPS=@MYFRPY_FOR_BUILD_DEPS@
 
 # Single-platform builds use Programs/_freeze_module.c for bootstrapping and
-# ./_bootstrap_python Programs/_freeze_module.py for remaining modules
-# Cross builds use an external "build Python" for all modules.
-PYTHON_FOR_FREEZE=@PYTHON_FOR_FREEZE@
+# ./_bootstrap_myFRpy Programs/_freeze_module.py for remaining modules
+# Cross builds use an external "build MyFRpy" for all modules.
+MYFRPY_FOR_FREEZE=@MYFRPY_FOR_FREEZE@
 FREEZE_MODULE_BOOTSTRAP=@FREEZE_MODULE_BOOTSTRAP@
 FREEZE_MODULE_BOOTSTRAP_DEPS=@FREEZE_MODULE_BOOTSTRAP_DEPS@
 FREEZE_MODULE=@FREEZE_MODULE@
 FREEZE_MODULE_DEPS=@FREEZE_MODULE_DEPS@
 
-_PYTHON_HOST_PLATFORM=@_PYTHON_HOST_PLATFORM@
+_MYFRPY_HOST_PLATFORM=@_MYFRPY_HOST_PLATFORM@
 BUILD_GNU_TYPE=	@build@
 HOST_GNU_TYPE=	@host@
 
@@ -312,7 +312,7 @@ PROFILE_TASK=	@PROFILE_TASK@
 COVERAGE_INFO=	$(abs_builddir)/coverage.info
 COVERAGE_REPORT=$(abs_builddir)/lcov-report
 COVERAGE_LCOV_OPTIONS=--rc lcov_branch_coverage=1
-COVERAGE_REPORT_OPTIONS=--rc lcov_branch_coverage=1 --branch-coverage --title "CPython $(VERSION) LCOV report [commit $(shell $(GITVERSION))]"
+COVERAGE_REPORT_OPTIONS=--rc lcov_branch_coverage=1 --branch-coverage --title "CMyFRpy $(VERSION) LCOV report [commit $(shell $(GITVERSION))]"
 
 
 # === Definitions added by makesetup ===
@@ -363,75 +363,75 @@ PARSER_HEADERS= \
 		$(srcdir)/Parser/tokenizer.h
 
 ##########################################################################
-# Python
+# MyFRpy
 
-PYTHON_OBJS=	\
-		Python/_warnings.o \
-		Python/Python-ast.o \
-		Python/Python-tokenize.o \
-		Python/asdl.o \
-		Python/assemble.o \
-		Python/ast.o \
-		Python/ast_opt.o \
-		Python/ast_unparse.o \
-		Python/bltinmodule.o \
-		Python/ceval.o \
-		Python/codecs.o \
-		Python/compile.o \
-		Python/context.o \
-		Python/dynamic_annotations.o \
-		Python/errors.o \
-		Python/flowgraph.o \
-		Python/frame.o \
-		Python/frozenmain.o \
-		Python/future.o \
-		Python/getargs.o \
-		Python/getcompiler.o \
-		Python/getcopyright.o \
-		Python/getplatform.o \
-		Python/getversion.o \
-		Python/ceval_gil.o \
-		Python/hamt.o \
-		Python/hashtable.o \
-		Python/import.o \
-		Python/importdl.o \
-		Python/initconfig.o \
-		Python/instrumentation.o \
-		Python/intrinsics.o \
-		Python/legacy_tracing.o \
-		Python/marshal.o \
-		Python/modsupport.o \
-		Python/mysnprintf.o \
-		Python/mystrtoul.o \
-		Python/pathconfig.o \
-		Python/preconfig.o \
-		Python/pyarena.o \
-		Python/pyctype.o \
-		Python/pyfpe.o \
-		Python/pyhash.o \
-		Python/pylifecycle.o \
-		Python/pymath.o \
-		Python/pystate.o \
-		Python/pythonrun.o \
-		Python/pytime.o \
-		Python/bootstrap_hash.o \
-		Python/specialize.o \
-		Python/structmember.o \
-		Python/symtable.o \
-		Python/sysmodule.o \
-		Python/thread.o \
-		Python/traceback.o \
-		Python/tracemalloc.o \
-		Python/getopt.o \
-		Python/pystrcmp.o \
-		Python/pystrtod.o \
-		Python/pystrhex.o \
-		Python/dtoa.o \
-		Python/formatter_unicode.o \
-		Python/fileutils.o \
-		Python/suggestions.o \
-		Python/perf_trampoline.o \
-		Python/$(DYNLOADFILE) \
+MYFRPY_OBJS=	\
+		MyFRpy/_warnings.o \
+		MyFRpy/MyFRpy-ast.o \
+		MyFRpy/MyFRpy-tokenize.o \
+		MyFRpy/asdl.o \
+		MyFRpy/assemble.o \
+		MyFRpy/ast.o \
+		MyFRpy/ast_opt.o \
+		MyFRpy/ast_unparse.o \
+		MyFRpy/bltinmodule.o \
+		MyFRpy/ceval.o \
+		MyFRpy/codecs.o \
+		MyFRpy/compile.o \
+		MyFRpy/context.o \
+		MyFRpy/dynamic_annotations.o \
+		MyFRpy/errors.o \
+		MyFRpy/flowgraph.o \
+		MyFRpy/frame.o \
+		MyFRpy/frozenmain.o \
+		MyFRpy/future.o \
+		MyFRpy/getargs.o \
+		MyFRpy/getcompiler.o \
+		MyFRpy/getcopyright.o \
+		MyFRpy/getplatform.o \
+		MyFRpy/getversion.o \
+		MyFRpy/ceval_gil.o \
+		MyFRpy/hamt.o \
+		MyFRpy/hashtable.o \
+		MyFRpy/import.o \
+		MyFRpy/importdl.o \
+		MyFRpy/initconfig.o \
+		MyFRpy/instrumentation.o \
+		MyFRpy/intrinsics.o \
+		MyFRpy/legacy_tracing.o \
+		MyFRpy/marshal.o \
+		MyFRpy/modsupport.o \
+		MyFRpy/mysnprintf.o \
+		MyFRpy/mystrtoul.o \
+		MyFRpy/pathconfig.o \
+		MyFRpy/preconfig.o \
+		MyFRpy/pyarena.o \
+		MyFRpy/pyctype.o \
+		MyFRpy/pyfpe.o \
+		MyFRpy/pyhash.o \
+		MyFRpy/pylifecycle.o \
+		MyFRpy/pymath.o \
+		MyFRpy/pystate.o \
+		MyFRpy/myFRpyrun.o \
+		MyFRpy/pytime.o \
+		MyFRpy/bootstrap_hash.o \
+		MyFRpy/specialize.o \
+		MyFRpy/structmember.o \
+		MyFRpy/symtable.o \
+		MyFRpy/sysmodule.o \
+		MyFRpy/thread.o \
+		MyFRpy/traceback.o \
+		MyFRpy/tracemalloc.o \
+		MyFRpy/getopt.o \
+		MyFRpy/pystrcmp.o \
+		MyFRpy/pystrtod.o \
+		MyFRpy/pystrhex.o \
+		MyFRpy/dtoa.o \
+		MyFRpy/formatter_unicode.o \
+		MyFRpy/fileutils.o \
+		MyFRpy/suggestions.o \
+		MyFRpy/perf_trampoline.o \
+		MyFRpy/$(DYNLOADFILE) \
 		$(LIBOBJS) \
 		$(MACHDEP_OBJS) \
 		$(DTRACE_OBJS) \
@@ -487,16 +487,16 @@ OBJECT_OBJS=	\
 		Objects/weakrefobject.o \
 		@PERF_TRAMPOLINE_OBJ@
 
-DEEPFREEZE_C = Python/deepfreeze/deepfreeze.c
-DEEPFREEZE_OBJS = Python/deepfreeze/deepfreeze.o
+DEEPFREEZE_C = MyFRpy/deepfreeze/deepfreeze.c
+DEEPFREEZE_OBJS = MyFRpy/deepfreeze/deepfreeze.o
 
 ##########################################################################
-# objects that get linked into the Python library
+# objects that get linked into the MyFRpy library
 LIBRARY_OBJS_OMIT_FROZEN=	\
 		Modules/getbuildinfo.o \
 		$(PARSER_OBJS) \
 		$(OBJECT_OBJS) \
-		$(PYTHON_OBJS) \
+		$(MYFRPY_OBJS) \
 		$(MODULE_OBJS) \
 		$(MODOBJS)
 
@@ -504,9 +504,9 @@ LIBRARY_OBJS=	\
 		$(LIBRARY_OBJS_OMIT_FROZEN) \
 		$(DEEPFREEZE_OBJS) \
 		Modules/getpath.o \
-		Python/frozen.o
+		MyFRpy/frozen.o
 
-LINK_PYTHON_OBJS=@LINK_PYTHON_OBJS@
+LINK_MYFRPY_OBJS=@LINK_MYFRPY_OBJS@
 
 ##########################################################################
 # DTrace
@@ -514,7 +514,7 @@ LINK_PYTHON_OBJS=@LINK_PYTHON_OBJS@
 # On some systems, object files that reference DTrace probes need to be modified
 # in-place by dtrace(1).
 DTRACE_DEPS = \
-	Python/ceval.o Python/import.o Python/sysmodule.o Modules/gcmodule.o
+	MyFRpy/ceval.o MyFRpy/import.o MyFRpy/sysmodule.o Modules/gcmodule.o
 
 ##########################################################################
 # decimal's libmpdec
@@ -594,7 +594,7 @@ LIBHACL_HEADERS= \
                 Modules/_hacl/include/krml/lowstar_endianness.h \
                 Modules/_hacl/include/krml/types.h \
 		Modules/_hacl/Hacl_Streaming_Types.h \
-                Modules/_hacl/python_hacl_namespaces.h
+                Modules/_hacl/myFRpy_hacl_namespaces.h
 
 LIBHACL_SHA2_HEADERS= \
                 Modules/_hacl/Hacl_Hash_SHA2.h \
@@ -612,24 +612,24 @@ all:		@DEF_MAKE_ALL_RULE@
 .PHONY: all
 
 .PHONY: build_all
-build_all:	check-clean-src $(BUILDPYTHON) platform sharedmods \
+build_all:	check-clean-src $(BUILDMYFRPY) platform sharedmods \
 		gdbhooks Programs/_testembed scripts checksharedmods rundsymutil
 
 .PHONY: build_wasm
-build_wasm: check-clean-src $(BUILDPYTHON) platform sharedmods \
-		python-config checksharedmods
+build_wasm: check-clean-src $(BUILDMYFRPY) platform sharedmods \
+		myFRpy-config checksharedmods
 
 # Check that the source is clean when building out of source.
 .PHONY: check-clean-src
 check-clean-src:
 	@if test -n "$(VPATH)" -a \( \
-	    -f "$(srcdir)/$(BUILDPYTHON)" \
-	    -o -f "$(srcdir)/Programs/python.o" \
-	    -o -f "$(srcdir)/Python/frozen_modules/importlib._bootstrap.h" \
+	    -f "$(srcdir)/$(BUILDMYFRPY)" \
+	    -o -f "$(srcdir)/Programs/myFRpy.o" \
+	    -o -f "$(srcdir)/MyFRpy/frozen_modules/importlib._bootstrap.h" \
 	\); then \
 		echo "Error: The source directory ($(srcdir)) is not clean" ; \
-		echo "Building Python out of the source tree (in $(abs_builddir)) requires a clean source tree ($(abs_srcdir))" ; \
-		echo "Build artifacts such as .o files, executables, and Python/frozen_modules/*.h must not exist within $(srcdir)." ; \
+		echo "Building MyFRpy out of the source tree (in $(abs_builddir)) requires a clean source tree ($(abs_srcdir))" ; \
+		echo "Build artifacts such as .o files, executables, and MyFRpy/frozen_modules/*.h must not exist within $(srcdir)." ; \
 		echo "Try to run:" ; \
 		echo "  (cd \"$(srcdir)\" && make clean || git clean -fdx -e Doc/venv)" ; \
 		exit 1; \
@@ -659,7 +659,7 @@ profile-run-stamp:
 	$(MAKE) profile-gen-stamp
 	# Next, run the profile task to generate the profile information.
 	@ # FIXME: can't run for a cross build
-	$(LLVM_PROF_FILE) $(RUNSHARED) ./$(BUILDPYTHON) $(PROFILE_TASK) || true
+	$(LLVM_PROF_FILE) $(RUNSHARED) ./$(BUILDMYFRPY) $(PROFILE_TASK) || true
 	$(LLVM_PROF_MERGER)
 	# Remove profile generation binary since we are done with it.
 	$(MAKE) clean-retain-profile
@@ -668,7 +668,7 @@ profile-run-stamp:
 	# to record its completion and avoid re-running it.
 	touch $@
 
-# Compile Python binary with profile guided optimization.
+# Compile MyFRpy binary with profile guided optimization.
 # To force re-running of the profile task, remove the profile-run-stamp file.
 .PHONY: profile-opt
 profile-opt: profile-run-stamp
@@ -691,7 +691,7 @@ clean-bolt:
 	# BOLT instrumented binaries.
 	rm -f *.bolt_inst
 
-profile-bolt-stamp: $(BUILDPYTHON)
+profile-bolt-stamp: $(BUILDMYFRPY)
 	# Ensure a pristine, pre-BOLT copy of the binary and no profile data from last run.
 	for bin in $(BOLT_BINARIES); do \
 	  prebolt="$${bin}.prebolt"; \
@@ -708,7 +708,7 @@ profile-bolt-stamp: $(BUILDPYTHON)
 	  mv "$${bin}.bolt_inst" "$${bin}"; \
 	done
 	# Run instrumented binaries to collect data.
-	$(RUNSHARED) ./$(BUILDPYTHON) $(PROFILE_TASK) || true
+	$(RUNSHARED) ./$(BUILDMYFRPY) $(PROFILE_TASK) || true
 	# Merge all the data files together.
 	for bin in $(BOLT_BINARIES); do \
 	  @MERGE_FDATA@ $${bin}.*.fdata > "$${bin}.fdata"; \
@@ -751,8 +751,8 @@ coverage-lcov:
 	    '*/Modules/_decimal/libmpdec/*' \
 	    '*/Modules/expat/*' \
 	    '*/Modules/xx*.c' \
-	    '*/Python/pyfpe.c' \
-	    '*/Python/pystrcmp.c' \
+	    '*/MyFRpy/pyfpe.c' \
+	    '*/MyFRpy/pystrcmp.c' \
 	    '/usr/include/*' \
 	    '/usr/local/include/*' \
 	    '/usr/lib/gcc/*' \
@@ -777,14 +777,14 @@ coverage-report: regen-token regen-frozen
 # Run "Argument Clinic" over all source files
 .PHONY: clinic
 clinic: check-clean-src $(srcdir)/Modules/_blake2/blake2s_impl.c
-	$(PYTHON_FOR_REGEN) $(srcdir)/Tools/clinic/clinic.py --make --srcdir $(srcdir)
+	$(MYFRPY_FOR_REGEN) $(srcdir)/Tools/clinic/clinic.py --make --srcdir $(srcdir)
 
 # Build the interpreter
-$(BUILDPYTHON):	Programs/python.o $(LINK_PYTHON_DEPS)
-	$(LINKCC) $(PY_CORE_LDFLAGS) $(LINKFORSHARED) -o $@ Programs/python.o $(LINK_PYTHON_OBJS) $(LIBS) $(MODLIBS) $(SYSLIBS)
+$(BUILDMYFRPY):	Programs/myFRpy.o $(LINK_MYFRPY_DEPS)
+	$(LINKCC) $(PY_CORE_LDFLAGS) $(LINKFORSHARED) -o $@ Programs/myFRpy.o $(LINK_MYFRPY_OBJS) $(LIBS) $(MODLIBS) $(SYSLIBS)
 
-platform: $(PYTHON_FOR_BUILD_DEPS) pybuilddir.txt
-	$(RUNSHARED) $(PYTHON_FOR_BUILD) -c 'import sys ; from sysconfig import get_platform ; print("%s-%d.%d" % (get_platform(), *sys.version_info[:2]))' >platform
+platform: $(MYFRPY_FOR_BUILD_DEPS) pybuilddir.txt
+	$(RUNSHARED) $(MYFRPY_FOR_BUILD) -c 'import sys ; from sysconfig import get_platform ; print("%s-%d.%d" % (get_platform(), *sys.version_info[:2]))' >platform
 
 # Create build directory and generate the sysconfig build-time data there.
 # pybuilddir.txt contains the name of the build dir and is used for
@@ -793,9 +793,9 @@ platform: $(PYTHON_FOR_BUILD_DEPS) pybuilddir.txt
 # problems by creating a dummy pybuilddir.txt just to allow interpreter
 # initialization to succeed.  It will be overwritten by generate-posix-vars
 # or removed in case of failure.
-pybuilddir.txt: $(PYTHON_FOR_BUILD_DEPS)
+pybuilddir.txt: $(MYFRPY_FOR_BUILD_DEPS)
 	@echo "none" > ./pybuilddir.txt
-	$(RUNSHARED) $(PYTHON_FOR_BUILD) -S -m sysconfig --generate-posix-vars ;\
+	$(RUNSHARED) $(MYFRPY_FOR_BUILD) -S -m sysconfig --generate-posix-vars ;\
 	if test $$? -ne 0 ; then \
 		echo "generate-posix-vars failed" ; \
 		rm -f ./pybuilddir.txt ; \
@@ -804,15 +804,15 @@ pybuilddir.txt: $(PYTHON_FOR_BUILD_DEPS)
 
 # blake2s is auto-generated from blake2b
 $(srcdir)/Modules/_blake2/blake2s_impl.c: $(srcdir)/Modules/_blake2/blake2b_impl.c $(srcdir)/Modules/_blake2/blake2b2s.py
-	$(PYTHON_FOR_REGEN) $(srcdir)/Modules/_blake2/blake2b2s.py
-	$(PYTHON_FOR_REGEN) $(srcdir)/Tools/clinic/clinic.py -f $@
+	$(MYFRPY_FOR_REGEN) $(srcdir)/Modules/_blake2/blake2b2s.py
+	$(MYFRPY_FOR_REGEN) $(srcdir)/Tools/clinic/clinic.py -f $@
 
 # Build static library
 $(LIBRARY): $(LIBRARY_OBJS)
 	-rm -f $@
 	$(AR) $(ARFLAGS) $@ $(LIBRARY_OBJS)
 
-libpython$(LDVERSION).so: $(LIBRARY_OBJS) $(DTRACE_OBJS)
+libmyFRpy$(LDVERSION).so: $(LIBRARY_OBJS) $(DTRACE_OBJS)
 	if test $(INSTSONAME) != $(LDLIBRARY); then \
 		$(BLDSHARED) -Wl,-h$(INSTSONAME) -o $(INSTSONAME) $(LIBRARY_OBJS) $(MODLIBS) $(SHLIBS) $(LIBC) $(LIBM); \
 		$(LN) -f $(INSTSONAME) $@; \
@@ -820,57 +820,57 @@ libpython$(LDVERSION).so: $(LIBRARY_OBJS) $(DTRACE_OBJS)
 		$(BLDSHARED) -o $@ $(LIBRARY_OBJS) $(MODLIBS) $(SHLIBS) $(LIBC) $(LIBM); \
 	fi
 
-libpython3.so:	libpython$(LDVERSION).so
+libmyFRpy3.so:	libmyFRpy$(LDVERSION).so
 	$(BLDSHARED) $(NO_AS_NEEDED) -o $@ -Wl,-h$@ $^
 
-libpython$(LDVERSION).dylib: $(LIBRARY_OBJS)
-	 $(CC) -dynamiclib -Wl,-single_module $(PY_CORE_LDFLAGS) -undefined dynamic_lookup -Wl,-install_name,$(prefix)/lib/libpython$(LDVERSION).dylib -Wl,-compatibility_version,$(VERSION) -Wl,-current_version,$(VERSION) -o $@ $(LIBRARY_OBJS) $(DTRACE_OBJS) $(SHLIBS) $(LIBC) $(LIBM); \
+libmyFRpy$(LDVERSION).dylib: $(LIBRARY_OBJS)
+	 $(CC) -dynamiclib -Wl,-single_module $(PY_CORE_LDFLAGS) -undefined dynamic_lookup -Wl,-install_name,$(prefix)/lib/libmyFRpy$(LDVERSION).dylib -Wl,-compatibility_version,$(VERSION) -Wl,-current_version,$(VERSION) -o $@ $(LIBRARY_OBJS) $(DTRACE_OBJS) $(SHLIBS) $(LIBC) $(LIBM); \
 
 
-libpython$(VERSION).sl: $(LIBRARY_OBJS)
+libmyFRpy$(VERSION).sl: $(LIBRARY_OBJS)
 	$(LDSHARED) -o $@ $(LIBRARY_OBJS) $(MODLIBS) $(SHLIBS) $(LIBC) $(LIBM)
 
 # List of exported symbols for AIX
-Modules/python.exp: $(LIBRARY)
+Modules/myFRpy.exp: $(LIBRARY)
 	$(srcdir)/Modules/makexp_aix $@ "$(EXPORTSFROM)" $?
 
-# Copy up the gdb python hooks into a position where they can be automatically
+# Copy up the gdb myFRpy hooks into a position where they can be automatically
 # loaded by gdb during Lib/test/test_gdb.py
 #
 # Distributors are likely to want to install this somewhere else e.g. relative
 # to the stripped DWARF data for the shared library.
 .PHONY: gdbhooks
-gdbhooks: $(BUILDPYTHON)-gdb.py
+gdbhooks: $(BUILDMYFRPY)-gdb.py
 
-SRC_GDB_HOOKS=$(srcdir)/Tools/gdb/libpython.py
-$(BUILDPYTHON)-gdb.py: $(SRC_GDB_HOOKS)
-	$(INSTALL_DATA) $(SRC_GDB_HOOKS) $(BUILDPYTHON)-gdb.py
+SRC_GDB_HOOKS=$(srcdir)/Tools/gdb/libmyFRpy.py
+$(BUILDMYFRPY)-gdb.py: $(SRC_GDB_HOOKS)
+	$(INSTALL_DATA) $(SRC_GDB_HOOKS) $(BUILDMYFRPY)-gdb.py
 
 # This rule is here for OPENSTEP/Rhapsody/MacOSX. It builds a temporary
 # minimal framework (not including the Lib directory and such) in the current
 # directory.
 RESSRCDIR=Mac/Resources/framework
-$(PYTHONFRAMEWORKDIR)/Versions/$(VERSION)/$(PYTHONFRAMEWORK): \
+$(MYFRPYFRAMEWORKDIR)/Versions/$(VERSION)/$(MYFRPYFRAMEWORK): \
 		$(LIBRARY) \
 		$(RESSRCDIR)/Info.plist
-	$(INSTALL) -d -m $(DIRMODE) $(PYTHONFRAMEWORKDIR)/Versions/$(VERSION)
+	$(INSTALL) -d -m $(DIRMODE) $(MYFRPYFRAMEWORKDIR)/Versions/$(VERSION)
 	$(CC) -o $(LDLIBRARY) $(PY_CORE_LDFLAGS) -dynamiclib \
 		-all_load $(LIBRARY) -Wl,-single_module \
-		-install_name $(DESTDIR)$(PYTHONFRAMEWORKINSTALLDIR)/Versions/$(VERSION)/$(PYTHONFRAMEWORK) \
+		-install_name $(DESTDIR)$(MYFRPYFRAMEWORKINSTALLDIR)/Versions/$(VERSION)/$(MYFRPYFRAMEWORK) \
 		-compatibility_version $(VERSION) \
 		-current_version $(VERSION) \
 		-framework CoreFoundation $(LIBS);
 	$(INSTALL) -d -m $(DIRMODE)  \
-		$(PYTHONFRAMEWORKDIR)/Versions/$(VERSION)/Resources/English.lproj
+		$(MYFRPYFRAMEWORKDIR)/Versions/$(VERSION)/Resources/English.lproj
 	$(INSTALL_DATA) $(RESSRCDIR)/Info.plist \
-		$(PYTHONFRAMEWORKDIR)/Versions/$(VERSION)/Resources/Info.plist
-	$(LN) -fsn $(VERSION) $(PYTHONFRAMEWORKDIR)/Versions/Current
-	$(LN) -fsn Versions/Current/$(PYTHONFRAMEWORK) $(PYTHONFRAMEWORKDIR)/$(PYTHONFRAMEWORK)
-	$(LN) -fsn Versions/Current/Resources $(PYTHONFRAMEWORKDIR)/Resources
+		$(MYFRPYFRAMEWORKDIR)/Versions/$(VERSION)/Resources/Info.plist
+	$(LN) -fsn $(VERSION) $(MYFRPYFRAMEWORKDIR)/Versions/Current
+	$(LN) -fsn Versions/Current/$(MYFRPYFRAMEWORK) $(MYFRPYFRAMEWORKDIR)/$(MYFRPYFRAMEWORK)
+	$(LN) -fsn Versions/Current/Resources $(MYFRPYFRAMEWORKDIR)/Resources
 
-# This rule builds the Cygwin Python DLL and import library if configured
+# This rule builds the Cygwin MyFRpy DLL and import library if configured
 # for a shared core library; otherwise, this rule is a noop.
-$(DLLLIBRARY) libpython$(LDVERSION).dll.a: $(LIBRARY_OBJS)
+$(DLLLIBRARY) libmyFRpy$(LDVERSION).dll.a: $(LIBRARY_OBJS)
 	if test -n "$(DLLLIBRARY)"; then \
 		$(LDSHARED) -Wl,--out-implib=$@ -o $(DLLLIBRARY) $^ \
 			$(LIBS) $(MODLIBS) $(SYSLIBS); \
@@ -886,63 +886,63 @@ wasm_stdlib: $(WASM_STDLIB)
 $(WASM_STDLIB): $(srcdir)/Lib/*.py $(srcdir)/Lib/*/*.py \
 	    $(srcdir)/Tools/wasm/wasm_assets.py \
 	    Makefile pybuilddir.txt Modules/Setup.local
-	$(PYTHON_FOR_BUILD) $(srcdir)/Tools/wasm/wasm_assets.py \
+	$(MYFRPY_FOR_BUILD) $(srcdir)/Tools/wasm/wasm_assets.py \
 	    --buildroot . --prefix $(prefix)
 
-python.html: $(srcdir)/Tools/wasm/python.html python.worker.js
-	@cp $(srcdir)/Tools/wasm/python.html $@
+myFRpy.html: $(srcdir)/Tools/wasm/myFRpy.html myFRpy.worker.js
+	@cp $(srcdir)/Tools/wasm/myFRpy.html $@
 
-python.worker.js: $(srcdir)/Tools/wasm/python.worker.js
-	@cp $(srcdir)/Tools/wasm/python.worker.js $@
+myFRpy.worker.js: $(srcdir)/Tools/wasm/myFRpy.worker.js
+	@cp $(srcdir)/Tools/wasm/myFRpy.worker.js $@
 
 ##########################################################################
 # Build static libmpdec.a
 LIBMPDEC_CFLAGS=@LIBMPDEC_CFLAGS@ $(PY_STDMODULE_CFLAGS) $(CCSHARED)
 
 # "%.o: %c" is not portable
-Modules/_decimal/libmpdec/basearith.o: $(srcdir)/Modules/_decimal/libmpdec/basearith.c $(LIBMPDEC_HEADERS) $(PYTHON_HEADERS)
+Modules/_decimal/libmpdec/basearith.o: $(srcdir)/Modules/_decimal/libmpdec/basearith.c $(LIBMPDEC_HEADERS) $(MYFRPY_HEADERS)
 	$(CC) -c $(LIBMPDEC_CFLAGS) -o $@ $(srcdir)/Modules/_decimal/libmpdec/basearith.c
 
-Modules/_decimal/libmpdec/constants.o: $(srcdir)/Modules/_decimal/libmpdec/constants.c $(LIBMPDEC_HEADERS) $(PYTHON_HEADERS)
+Modules/_decimal/libmpdec/constants.o: $(srcdir)/Modules/_decimal/libmpdec/constants.c $(LIBMPDEC_HEADERS) $(MYFRPY_HEADERS)
 	$(CC) -c $(LIBMPDEC_CFLAGS) -o $@ $(srcdir)/Modules/_decimal/libmpdec/constants.c
 
-Modules/_decimal/libmpdec/context.o: $(srcdir)/Modules/_decimal/libmpdec/context.c $(LIBMPDEC_HEADERS) $(PYTHON_HEADERS)
+Modules/_decimal/libmpdec/context.o: $(srcdir)/Modules/_decimal/libmpdec/context.c $(LIBMPDEC_HEADERS) $(MYFRPY_HEADERS)
 	$(CC) -c $(LIBMPDEC_CFLAGS) -o $@ $(srcdir)/Modules/_decimal/libmpdec/context.c
 
-Modules/_decimal/libmpdec/convolute.o: $(srcdir)/Modules/_decimal/libmpdec/convolute.c $(LIBMPDEC_HEADERS) $(PYTHON_HEADERS)
+Modules/_decimal/libmpdec/convolute.o: $(srcdir)/Modules/_decimal/libmpdec/convolute.c $(LIBMPDEC_HEADERS) $(MYFRPY_HEADERS)
 	$(CC) -c $(LIBMPDEC_CFLAGS) -o $@ $(srcdir)/Modules/_decimal/libmpdec/convolute.c
 
-Modules/_decimal/libmpdec/crt.o: $(srcdir)/Modules/_decimal/libmpdec/crt.c $(LIBMPDEC_HEADERS) $(PYTHON_HEADERS)
+Modules/_decimal/libmpdec/crt.o: $(srcdir)/Modules/_decimal/libmpdec/crt.c $(LIBMPDEC_HEADERS) $(MYFRPY_HEADERS)
 	$(CC) -c $(LIBMPDEC_CFLAGS) -o $@ $(srcdir)/Modules/_decimal/libmpdec/crt.c
 
-Modules/_decimal/libmpdec/difradix2.o: $(srcdir)/Modules/_decimal/libmpdec/difradix2.c $(LIBMPDEC_HEADERS) $(PYTHON_HEADERS)
+Modules/_decimal/libmpdec/difradix2.o: $(srcdir)/Modules/_decimal/libmpdec/difradix2.c $(LIBMPDEC_HEADERS) $(MYFRPY_HEADERS)
 	$(CC) -c $(LIBMPDEC_CFLAGS) -o $@ $(srcdir)/Modules/_decimal/libmpdec/difradix2.c
 
-Modules/_decimal/libmpdec/fnt.o: $(srcdir)/Modules/_decimal/libmpdec/fnt.c $(LIBMPDEC_HEADERS) $(PYTHON_HEADERS)
+Modules/_decimal/libmpdec/fnt.o: $(srcdir)/Modules/_decimal/libmpdec/fnt.c $(LIBMPDEC_HEADERS) $(MYFRPY_HEADERS)
 	$(CC) -c $(LIBMPDEC_CFLAGS) -o $@ $(srcdir)/Modules/_decimal/libmpdec/fnt.c
 
-Modules/_decimal/libmpdec/fourstep.o: $(srcdir)/Modules/_decimal/libmpdec/fourstep.c $(LIBMPDEC_HEADERS) $(PYTHON_HEADERS)
+Modules/_decimal/libmpdec/fourstep.o: $(srcdir)/Modules/_decimal/libmpdec/fourstep.c $(LIBMPDEC_HEADERS) $(MYFRPY_HEADERS)
 	$(CC) -c $(LIBMPDEC_CFLAGS) -o $@ $(srcdir)/Modules/_decimal/libmpdec/fourstep.c
 
-Modules/_decimal/libmpdec/io.o: $(srcdir)/Modules/_decimal/libmpdec/io.c $(LIBMPDEC_HEADERS) $(PYTHON_HEADERS)
+Modules/_decimal/libmpdec/io.o: $(srcdir)/Modules/_decimal/libmpdec/io.c $(LIBMPDEC_HEADERS) $(MYFRPY_HEADERS)
 	$(CC) -c $(LIBMPDEC_CFLAGS) -o $@ $(srcdir)/Modules/_decimal/libmpdec/io.c
 
-Modules/_decimal/libmpdec/mpalloc.o: $(srcdir)/Modules/_decimal/libmpdec/mpalloc.c $(LIBMPDEC_HEADERS) $(PYTHON_HEADERS)
+Modules/_decimal/libmpdec/mpalloc.o: $(srcdir)/Modules/_decimal/libmpdec/mpalloc.c $(LIBMPDEC_HEADERS) $(MYFRPY_HEADERS)
 	$(CC) -c $(LIBMPDEC_CFLAGS) -o $@ $(srcdir)/Modules/_decimal/libmpdec/mpalloc.c
 
-Modules/_decimal/libmpdec/mpdecimal.o: $(srcdir)/Modules/_decimal/libmpdec/mpdecimal.c $(LIBMPDEC_HEADERS) $(PYTHON_HEADERS)
+Modules/_decimal/libmpdec/mpdecimal.o: $(srcdir)/Modules/_decimal/libmpdec/mpdecimal.c $(LIBMPDEC_HEADERS) $(MYFRPY_HEADERS)
 	$(CC) -c $(LIBMPDEC_CFLAGS) -o $@ $(srcdir)/Modules/_decimal/libmpdec/mpdecimal.c
 
-Modules/_decimal/libmpdec/mpsignal.o: $(srcdir)/Modules/_decimal/libmpdec/mpsignal.c $(LIBMPDEC_HEADERS) $(PYTHON_HEADERS)
+Modules/_decimal/libmpdec/mpsignal.o: $(srcdir)/Modules/_decimal/libmpdec/mpsignal.c $(LIBMPDEC_HEADERS) $(MYFRPY_HEADERS)
 	$(CC) -c $(LIBMPDEC_CFLAGS) -o $@ $(srcdir)/Modules/_decimal/libmpdec/mpsignal.c
 
-Modules/_decimal/libmpdec/numbertheory.o: $(srcdir)/Modules/_decimal/libmpdec/numbertheory.c $(LIBMPDEC_HEADERS) $(PYTHON_HEADERS)
+Modules/_decimal/libmpdec/numbertheory.o: $(srcdir)/Modules/_decimal/libmpdec/numbertheory.c $(LIBMPDEC_HEADERS) $(MYFRPY_HEADERS)
 	$(CC) -c $(LIBMPDEC_CFLAGS) -o $@ $(srcdir)/Modules/_decimal/libmpdec/numbertheory.c
 
-Modules/_decimal/libmpdec/sixstep.o: $(srcdir)/Modules/_decimal/libmpdec/sixstep.c $(LIBMPDEC_HEADERS) $(PYTHON_HEADERS)
+Modules/_decimal/libmpdec/sixstep.o: $(srcdir)/Modules/_decimal/libmpdec/sixstep.c $(LIBMPDEC_HEADERS) $(MYFRPY_HEADERS)
 	$(CC) -c $(LIBMPDEC_CFLAGS) -o $@ $(srcdir)/Modules/_decimal/libmpdec/sixstep.c
 
-Modules/_decimal/libmpdec/transpose.o: $(srcdir)/Modules/_decimal/libmpdec/transpose.c $(LIBMPDEC_HEADERS) $(PYTHON_HEADERS)
+Modules/_decimal/libmpdec/transpose.o: $(srcdir)/Modules/_decimal/libmpdec/transpose.c $(LIBMPDEC_HEADERS) $(MYFRPY_HEADERS)
 	$(CC) -c $(LIBMPDEC_CFLAGS) -o $@ $(srcdir)/Modules/_decimal/libmpdec/transpose.c
 
 $(LIBMPDEC_A): $(LIBMPDEC_OBJS)
@@ -953,13 +953,13 @@ $(LIBMPDEC_A): $(LIBMPDEC_OBJS)
 # Build static libexpat.a
 LIBEXPAT_CFLAGS=@LIBEXPAT_CFLAGS@ $(PY_STDMODULE_CFLAGS) $(CCSHARED)
 
-Modules/expat/xmlparse.o: $(srcdir)/Modules/expat/xmlparse.c $(LIBEXPAT_HEADERS) $(PYTHON_HEADERS)
+Modules/expat/xmlparse.o: $(srcdir)/Modules/expat/xmlparse.c $(LIBEXPAT_HEADERS) $(MYFRPY_HEADERS)
 	$(CC) -c $(LIBEXPAT_CFLAGS) -o $@ $(srcdir)/Modules/expat/xmlparse.c
 
-Modules/expat/xmlrole.o: $(srcdir)/Modules/expat/xmlrole.c $(LIBEXPAT_HEADERS) $(PYTHON_HEADERS)
+Modules/expat/xmlrole.o: $(srcdir)/Modules/expat/xmlrole.c $(LIBEXPAT_HEADERS) $(MYFRPY_HEADERS)
 	$(CC) -c $(LIBEXPAT_CFLAGS) -o $@ $(srcdir)/Modules/expat/xmlrole.c
 
-Modules/expat/xmltok.o: $(srcdir)/Modules/expat/xmltok.c $(LIBEXPAT_HEADERS) $(PYTHON_HEADERS)
+Modules/expat/xmltok.o: $(srcdir)/Modules/expat/xmltok.c $(LIBEXPAT_HEADERS) $(MYFRPY_HEADERS)
 	$(CC) -c $(LIBEXPAT_CFLAGS) -o $@ $(srcdir)/Modules/expat/xmltok.c
 
 $(LIBEXPAT_A): $(LIBEXPAT_OBJS)
@@ -990,16 +990,16 @@ sharedmods: $(SHAREDMODS) pybuilddir.txt
 		fi; \
 	done
 
-# dependency on BUILDPYTHON ensures that the target is run last
+# dependency on BUILDMYFRPY ensures that the target is run last
 .PHONY: checksharedmods
-checksharedmods: sharedmods $(PYTHON_FOR_BUILD_DEPS) $(BUILDPYTHON)
-	@$(RUNSHARED) $(PYTHON_FOR_BUILD) $(srcdir)/Tools/build/check_extension_modules.py
+checksharedmods: sharedmods $(MYFRPY_FOR_BUILD_DEPS) $(BUILDMYFRPY)
+	@$(RUNSHARED) $(MYFRPY_FOR_BUILD) $(srcdir)/Tools/build/check_extension_modules.py
 
 .PHONY: rundsymutil
-rundsymutil: sharedmods $(PYTHON_FOR_BUILD_DEPS) $(BUILDPYTHON)
+rundsymutil: sharedmods $(MYFRPY_FOR_BUILD_DEPS) $(BUILDMYFRPY)
 	@if [ ! -z $(DSYMUTIL) ] ; then \
-		echo $(DSYMUTIL_PATH) $(BUILDPYTHON); \
-		$(DSYMUTIL_PATH) $(BUILDPYTHON); \
+		echo $(DSYMUTIL_PATH) $(BUILDMYFRPY); \
+		$(DSYMUTIL_PATH) $(BUILDMYFRPY); \
 		if test -f $(LDLIBRARY); then \
 			echo $(DSYMUTIL_PATH) $(LDLIBRARY); \
 			$(DSYMUTIL_PATH) $(LDLIBRARY); \
@@ -1039,39 +1039,39 @@ Makefile Modules/config.c: Makefile.pre \
 	@echo "The Makefile was updated, you may need to re-run make."
 
 .PHONY: regen-test-frozenmain
-regen-test-frozenmain: $(BUILDPYTHON)
+regen-test-frozenmain: $(BUILDMYFRPY)
 	# Regenerate Programs/test_frozenmain.h
 	# from Programs/test_frozenmain.py
 	# using Programs/freeze_test_frozenmain.py
-	$(RUNSHARED) ./$(BUILDPYTHON) $(srcdir)/Programs/freeze_test_frozenmain.py Programs/test_frozenmain.h
+	$(RUNSHARED) ./$(BUILDMYFRPY) $(srcdir)/Programs/freeze_test_frozenmain.py Programs/test_frozenmain.h
 
 .PHONY: regen-test-levenshtein
 regen-test-levenshtein:
 	# Regenerate Lib/test/levenshtein_examples.json
-	$(PYTHON_FOR_REGEN) $(srcdir)/Tools/build/generate_levenshtein_examples.py $(srcdir)/Lib/test/levenshtein_examples.json
+	$(MYFRPY_FOR_REGEN) $(srcdir)/Tools/build/generate_levenshtein_examples.py $(srcdir)/Lib/test/levenshtein_examples.json
 
 .PHONY: regen-re
-regen-re: $(BUILDPYTHON)
+regen-re: $(BUILDMYFRPY)
 	# Regenerate Lib/re/_casefix.py
 	# using Tools/build/generate_re_casefix.py
-	$(RUNSHARED) ./$(BUILDPYTHON) $(srcdir)/Tools/build/generate_re_casefix.py $(srcdir)/Lib/re/_casefix.py
+	$(RUNSHARED) ./$(BUILDMYFRPY) $(srcdir)/Tools/build/generate_re_casefix.py $(srcdir)/Lib/re/_casefix.py
 
-Programs/_testembed: Programs/_testembed.o $(LINK_PYTHON_DEPS)
-	$(LINKCC) $(PY_CORE_LDFLAGS) $(LINKFORSHARED) -o $@ Programs/_testembed.o $(LINK_PYTHON_OBJS) $(LIBS) $(MODLIBS) $(SYSLIBS)
+Programs/_testembed: Programs/_testembed.o $(LINK_MYFRPY_DEPS)
+	$(LINKCC) $(PY_CORE_LDFLAGS) $(LINKFORSHARED) -o $@ Programs/_testembed.o $(LINK_MYFRPY_OBJS) $(LIBS) $(MODLIBS) $(SYSLIBS)
 
 ############################################################################
-# "Bootstrap Python" used to run deepfreeze.py
+# "Bootstrap MyFRpy" used to run deepfreeze.py
 
 BOOTSTRAP_HEADERS = \
-	Python/frozen_modules/importlib._bootstrap.h \
-	Python/frozen_modules/importlib._bootstrap_external.h \
-	Python/frozen_modules/zipimport.h
+	MyFRpy/frozen_modules/importlib._bootstrap.h \
+	MyFRpy/frozen_modules/importlib._bootstrap_external.h \
+	MyFRpy/frozen_modules/zipimport.h
 
-Programs/_bootstrap_python.o: Programs/_bootstrap_python.c $(BOOTSTRAP_HEADERS) $(PYTHON_HEADERS)
+Programs/_bootstrap_myFRpy.o: Programs/_bootstrap_myFRpy.c $(BOOTSTRAP_HEADERS) $(MYFRPY_HEADERS)
 
-_bootstrap_python: $(LIBRARY_OBJS_OMIT_FROZEN) Programs/_bootstrap_python.o Modules/getpath.o Modules/Setup.local
+_bootstrap_myFRpy: $(LIBRARY_OBJS_OMIT_FROZEN) Programs/_bootstrap_myFRpy.o Modules/getpath.o Modules/Setup.local
 	$(LINKCC) $(PY_LDFLAGS_NOLTO) -o $@ $(LIBRARY_OBJS_OMIT_FROZEN) \
-		Programs/_bootstrap_python.o Modules/getpath.o $(LIBS) $(MODLIBS) $(SYSLIBS)
+		Programs/_bootstrap_myFRpy.o Modules/getpath.o $(LIBS) $(MODLIBS) $(SYSLIBS)
 
 
 ############################################################################
@@ -1079,9 +1079,9 @@ _bootstrap_python: $(LIBRARY_OBJS_OMIT_FROZEN) Programs/_bootstrap_python.o Modu
 #
 # Freezing is a multi step process. It works differently for standard builds
 # and cross builds. Standard builds use Programs/_freeze_module and
-# _bootstrap_python for freezing and deepfreezing, so users can build Python
-# without an existing Python installation. Cross builds cannot execute
-# compiled binaries and therefore rely on an external build Python
+# _bootstrap_myFRpy for freezing and deepfreezing, so users can build MyFRpy
+# without an existing MyFRpy installation. Cross builds cannot execute
+# compiled binaries and therefore rely on an external build MyFRpy
 # interpreter. The build interpreter must have same version and same bytecode
 # as the host (target) binary.
 #
@@ -1089,16 +1089,16 @@ _bootstrap_python: $(LIBRARY_OBJS_OMIT_FROZEN) Programs/_bootstrap_python.o Modu
 # 1) compile minimal core objects for Py_Compile*() and PyMarshal_Write*().
 # 2) build Programs/_freeze_module binary.
 # 3) create frozen module headers for importlib and getpath.
-# 4) build _bootstrap_python binary.
+# 4) build _bootstrap_myFRpy binary.
 # 5) create remaining frozen module headers with
-#    ``./_bootstrap_python Programs/_freeze_module.py``. The pure Python
+#    ``./_bootstrap_myFRpy Programs/_freeze_module.py``. The pure MyFRpy
 #    script is used to test the cross compile code path.
-# 6) deepfreeze modules with _bootstrap_python
+# 6) deepfreeze modules with _bootstrap_myFRpy
 #
 # Cross compile process:
-# 1) create all frozen module headers with external build Python and
+# 1) create all frozen module headers with external build MyFRpy and
 #    Programs/_freeze_module.py script.
-# 2) deepfreeze modules with external build Python.
+# 2) deepfreeze modules with external build MyFRpy.
 #
 
 # FROZEN_FILES_* are auto-generated by Tools/build/freeze_modules.py.
@@ -1128,29 +1128,29 @@ FROZEN_FILES_IN = \
 		Tools/freeze/flag.py
 # End FROZEN_FILES_IN
 FROZEN_FILES_OUT = \
-		Python/frozen_modules/importlib._bootstrap.h \
-		Python/frozen_modules/importlib._bootstrap_external.h \
-		Python/frozen_modules/zipimport.h \
-		Python/frozen_modules/abc.h \
-		Python/frozen_modules/codecs.h \
-		Python/frozen_modules/io.h \
-		Python/frozen_modules/_collections_abc.h \
-		Python/frozen_modules/_sitebuiltins.h \
-		Python/frozen_modules/genericpath.h \
-		Python/frozen_modules/ntpath.h \
-		Python/frozen_modules/posixpath.h \
-		Python/frozen_modules/os.h \
-		Python/frozen_modules/site.h \
-		Python/frozen_modules/stat.h \
-		Python/frozen_modules/importlib.util.h \
-		Python/frozen_modules/importlib.machinery.h \
-		Python/frozen_modules/runpy.h \
-		Python/frozen_modules/__hello__.h \
-		Python/frozen_modules/__phello__.h \
-		Python/frozen_modules/__phello__.ham.h \
-		Python/frozen_modules/__phello__.ham.eggs.h \
-		Python/frozen_modules/__phello__.spam.h \
-		Python/frozen_modules/frozen_only.h
+		MyFRpy/frozen_modules/importlib._bootstrap.h \
+		MyFRpy/frozen_modules/importlib._bootstrap_external.h \
+		MyFRpy/frozen_modules/zipimport.h \
+		MyFRpy/frozen_modules/abc.h \
+		MyFRpy/frozen_modules/codecs.h \
+		MyFRpy/frozen_modules/io.h \
+		MyFRpy/frozen_modules/_collections_abc.h \
+		MyFRpy/frozen_modules/_sitebuiltins.h \
+		MyFRpy/frozen_modules/genericpath.h \
+		MyFRpy/frozen_modules/ntpath.h \
+		MyFRpy/frozen_modules/posixpath.h \
+		MyFRpy/frozen_modules/os.h \
+		MyFRpy/frozen_modules/site.h \
+		MyFRpy/frozen_modules/stat.h \
+		MyFRpy/frozen_modules/importlib.util.h \
+		MyFRpy/frozen_modules/importlib.machinery.h \
+		MyFRpy/frozen_modules/runpy.h \
+		MyFRpy/frozen_modules/__hello__.h \
+		MyFRpy/frozen_modules/__phello__.h \
+		MyFRpy/frozen_modules/__phello__.ham.h \
+		MyFRpy/frozen_modules/__phello__.ham.eggs.h \
+		MyFRpy/frozen_modules/__phello__.spam.h \
+		MyFRpy/frozen_modules/frozen_only.h
 # End FROZEN_FILES_OUT
 
 Programs/_freeze_module.o: Programs/_freeze_module.c Makefile
@@ -1161,79 +1161,79 @@ Programs/_freeze_module: Programs/_freeze_module.o Modules/getpath_noop.o $(LIBR
 	$(LINKCC) $(PY_CORE_LDFLAGS) -o $@ Programs/_freeze_module.o Modules/getpath_noop.o $(LIBRARY_OBJS_OMIT_FROZEN) $(LIBS) $(MODLIBS) $(SYSLIBS)
 
 # We manually freeze getpath.py rather than through freeze_modules
-Python/frozen_modules/getpath.h: Modules/getpath.py $(FREEZE_MODULE_BOOTSTRAP_DEPS)
-	$(FREEZE_MODULE_BOOTSTRAP) getpath $(srcdir)/Modules/getpath.py Python/frozen_modules/getpath.h
+MyFRpy/frozen_modules/getpath.h: Modules/getpath.py $(FREEZE_MODULE_BOOTSTRAP_DEPS)
+	$(FREEZE_MODULE_BOOTSTRAP) getpath $(srcdir)/Modules/getpath.py MyFRpy/frozen_modules/getpath.h
 
 # BEGIN: freezing modules
 
-Python/frozen_modules/importlib._bootstrap.h: Lib/importlib/_bootstrap.py $(FREEZE_MODULE_BOOTSTRAP_DEPS)
-	$(FREEZE_MODULE_BOOTSTRAP) importlib._bootstrap $(srcdir)/Lib/importlib/_bootstrap.py Python/frozen_modules/importlib._bootstrap.h
+MyFRpy/frozen_modules/importlib._bootstrap.h: Lib/importlib/_bootstrap.py $(FREEZE_MODULE_BOOTSTRAP_DEPS)
+	$(FREEZE_MODULE_BOOTSTRAP) importlib._bootstrap $(srcdir)/Lib/importlib/_bootstrap.py MyFRpy/frozen_modules/importlib._bootstrap.h
 
-Python/frozen_modules/importlib._bootstrap_external.h: Lib/importlib/_bootstrap_external.py $(FREEZE_MODULE_BOOTSTRAP_DEPS)
-	$(FREEZE_MODULE_BOOTSTRAP) importlib._bootstrap_external $(srcdir)/Lib/importlib/_bootstrap_external.py Python/frozen_modules/importlib._bootstrap_external.h
+MyFRpy/frozen_modules/importlib._bootstrap_external.h: Lib/importlib/_bootstrap_external.py $(FREEZE_MODULE_BOOTSTRAP_DEPS)
+	$(FREEZE_MODULE_BOOTSTRAP) importlib._bootstrap_external $(srcdir)/Lib/importlib/_bootstrap_external.py MyFRpy/frozen_modules/importlib._bootstrap_external.h
 
-Python/frozen_modules/zipimport.h: Lib/zipimport.py $(FREEZE_MODULE_BOOTSTRAP_DEPS)
-	$(FREEZE_MODULE_BOOTSTRAP) zipimport $(srcdir)/Lib/zipimport.py Python/frozen_modules/zipimport.h
+MyFRpy/frozen_modules/zipimport.h: Lib/zipimport.py $(FREEZE_MODULE_BOOTSTRAP_DEPS)
+	$(FREEZE_MODULE_BOOTSTRAP) zipimport $(srcdir)/Lib/zipimport.py MyFRpy/frozen_modules/zipimport.h
 
-Python/frozen_modules/abc.h: Lib/abc.py $(FREEZE_MODULE_DEPS)
-	$(FREEZE_MODULE) abc $(srcdir)/Lib/abc.py Python/frozen_modules/abc.h
+MyFRpy/frozen_modules/abc.h: Lib/abc.py $(FREEZE_MODULE_DEPS)
+	$(FREEZE_MODULE) abc $(srcdir)/Lib/abc.py MyFRpy/frozen_modules/abc.h
 
-Python/frozen_modules/codecs.h: Lib/codecs.py $(FREEZE_MODULE_DEPS)
-	$(FREEZE_MODULE) codecs $(srcdir)/Lib/codecs.py Python/frozen_modules/codecs.h
+MyFRpy/frozen_modules/codecs.h: Lib/codecs.py $(FREEZE_MODULE_DEPS)
+	$(FREEZE_MODULE) codecs $(srcdir)/Lib/codecs.py MyFRpy/frozen_modules/codecs.h
 
-Python/frozen_modules/io.h: Lib/io.py $(FREEZE_MODULE_DEPS)
-	$(FREEZE_MODULE) io $(srcdir)/Lib/io.py Python/frozen_modules/io.h
+MyFRpy/frozen_modules/io.h: Lib/io.py $(FREEZE_MODULE_DEPS)
+	$(FREEZE_MODULE) io $(srcdir)/Lib/io.py MyFRpy/frozen_modules/io.h
 
-Python/frozen_modules/_collections_abc.h: Lib/_collections_abc.py $(FREEZE_MODULE_DEPS)
-	$(FREEZE_MODULE) _collections_abc $(srcdir)/Lib/_collections_abc.py Python/frozen_modules/_collections_abc.h
+MyFRpy/frozen_modules/_collections_abc.h: Lib/_collections_abc.py $(FREEZE_MODULE_DEPS)
+	$(FREEZE_MODULE) _collections_abc $(srcdir)/Lib/_collections_abc.py MyFRpy/frozen_modules/_collections_abc.h
 
-Python/frozen_modules/_sitebuiltins.h: Lib/_sitebuiltins.py $(FREEZE_MODULE_DEPS)
-	$(FREEZE_MODULE) _sitebuiltins $(srcdir)/Lib/_sitebuiltins.py Python/frozen_modules/_sitebuiltins.h
+MyFRpy/frozen_modules/_sitebuiltins.h: Lib/_sitebuiltins.py $(FREEZE_MODULE_DEPS)
+	$(FREEZE_MODULE) _sitebuiltins $(srcdir)/Lib/_sitebuiltins.py MyFRpy/frozen_modules/_sitebuiltins.h
 
-Python/frozen_modules/genericpath.h: Lib/genericpath.py $(FREEZE_MODULE_DEPS)
-	$(FREEZE_MODULE) genericpath $(srcdir)/Lib/genericpath.py Python/frozen_modules/genericpath.h
+MyFRpy/frozen_modules/genericpath.h: Lib/genericpath.py $(FREEZE_MODULE_DEPS)
+	$(FREEZE_MODULE) genericpath $(srcdir)/Lib/genericpath.py MyFRpy/frozen_modules/genericpath.h
 
-Python/frozen_modules/ntpath.h: Lib/ntpath.py $(FREEZE_MODULE_DEPS)
-	$(FREEZE_MODULE) ntpath $(srcdir)/Lib/ntpath.py Python/frozen_modules/ntpath.h
+MyFRpy/frozen_modules/ntpath.h: Lib/ntpath.py $(FREEZE_MODULE_DEPS)
+	$(FREEZE_MODULE) ntpath $(srcdir)/Lib/ntpath.py MyFRpy/frozen_modules/ntpath.h
 
-Python/frozen_modules/posixpath.h: Lib/posixpath.py $(FREEZE_MODULE_DEPS)
-	$(FREEZE_MODULE) posixpath $(srcdir)/Lib/posixpath.py Python/frozen_modules/posixpath.h
+MyFRpy/frozen_modules/posixpath.h: Lib/posixpath.py $(FREEZE_MODULE_DEPS)
+	$(FREEZE_MODULE) posixpath $(srcdir)/Lib/posixpath.py MyFRpy/frozen_modules/posixpath.h
 
-Python/frozen_modules/os.h: Lib/os.py $(FREEZE_MODULE_DEPS)
-	$(FREEZE_MODULE) os $(srcdir)/Lib/os.py Python/frozen_modules/os.h
+MyFRpy/frozen_modules/os.h: Lib/os.py $(FREEZE_MODULE_DEPS)
+	$(FREEZE_MODULE) os $(srcdir)/Lib/os.py MyFRpy/frozen_modules/os.h
 
-Python/frozen_modules/site.h: Lib/site.py $(FREEZE_MODULE_DEPS)
-	$(FREEZE_MODULE) site $(srcdir)/Lib/site.py Python/frozen_modules/site.h
+MyFRpy/frozen_modules/site.h: Lib/site.py $(FREEZE_MODULE_DEPS)
+	$(FREEZE_MODULE) site $(srcdir)/Lib/site.py MyFRpy/frozen_modules/site.h
 
-Python/frozen_modules/stat.h: Lib/stat.py $(FREEZE_MODULE_DEPS)
-	$(FREEZE_MODULE) stat $(srcdir)/Lib/stat.py Python/frozen_modules/stat.h
+MyFRpy/frozen_modules/stat.h: Lib/stat.py $(FREEZE_MODULE_DEPS)
+	$(FREEZE_MODULE) stat $(srcdir)/Lib/stat.py MyFRpy/frozen_modules/stat.h
 
-Python/frozen_modules/importlib.util.h: Lib/importlib/util.py $(FREEZE_MODULE_DEPS)
-	$(FREEZE_MODULE) importlib.util $(srcdir)/Lib/importlib/util.py Python/frozen_modules/importlib.util.h
+MyFRpy/frozen_modules/importlib.util.h: Lib/importlib/util.py $(FREEZE_MODULE_DEPS)
+	$(FREEZE_MODULE) importlib.util $(srcdir)/Lib/importlib/util.py MyFRpy/frozen_modules/importlib.util.h
 
-Python/frozen_modules/importlib.machinery.h: Lib/importlib/machinery.py $(FREEZE_MODULE_DEPS)
-	$(FREEZE_MODULE) importlib.machinery $(srcdir)/Lib/importlib/machinery.py Python/frozen_modules/importlib.machinery.h
+MyFRpy/frozen_modules/importlib.machinery.h: Lib/importlib/machinery.py $(FREEZE_MODULE_DEPS)
+	$(FREEZE_MODULE) importlib.machinery $(srcdir)/Lib/importlib/machinery.py MyFRpy/frozen_modules/importlib.machinery.h
 
-Python/frozen_modules/runpy.h: Lib/runpy.py $(FREEZE_MODULE_DEPS)
-	$(FREEZE_MODULE) runpy $(srcdir)/Lib/runpy.py Python/frozen_modules/runpy.h
+MyFRpy/frozen_modules/runpy.h: Lib/runpy.py $(FREEZE_MODULE_DEPS)
+	$(FREEZE_MODULE) runpy $(srcdir)/Lib/runpy.py MyFRpy/frozen_modules/runpy.h
 
-Python/frozen_modules/__hello__.h: Lib/__hello__.py $(FREEZE_MODULE_DEPS)
-	$(FREEZE_MODULE) __hello__ $(srcdir)/Lib/__hello__.py Python/frozen_modules/__hello__.h
+MyFRpy/frozen_modules/__hello__.h: Lib/__hello__.py $(FREEZE_MODULE_DEPS)
+	$(FREEZE_MODULE) __hello__ $(srcdir)/Lib/__hello__.py MyFRpy/frozen_modules/__hello__.h
 
-Python/frozen_modules/__phello__.h: Lib/__phello__/__init__.py $(FREEZE_MODULE_DEPS)
-	$(FREEZE_MODULE) __phello__ $(srcdir)/Lib/__phello__/__init__.py Python/frozen_modules/__phello__.h
+MyFRpy/frozen_modules/__phello__.h: Lib/__phello__/__init__.py $(FREEZE_MODULE_DEPS)
+	$(FREEZE_MODULE) __phello__ $(srcdir)/Lib/__phello__/__init__.py MyFRpy/frozen_modules/__phello__.h
 
-Python/frozen_modules/__phello__.ham.h: Lib/__phello__/ham/__init__.py $(FREEZE_MODULE_DEPS)
-	$(FREEZE_MODULE) __phello__.ham $(srcdir)/Lib/__phello__/ham/__init__.py Python/frozen_modules/__phello__.ham.h
+MyFRpy/frozen_modules/__phello__.ham.h: Lib/__phello__/ham/__init__.py $(FREEZE_MODULE_DEPS)
+	$(FREEZE_MODULE) __phello__.ham $(srcdir)/Lib/__phello__/ham/__init__.py MyFRpy/frozen_modules/__phello__.ham.h
 
-Python/frozen_modules/__phello__.ham.eggs.h: Lib/__phello__/ham/eggs.py $(FREEZE_MODULE_DEPS)
-	$(FREEZE_MODULE) __phello__.ham.eggs $(srcdir)/Lib/__phello__/ham/eggs.py Python/frozen_modules/__phello__.ham.eggs.h
+MyFRpy/frozen_modules/__phello__.ham.eggs.h: Lib/__phello__/ham/eggs.py $(FREEZE_MODULE_DEPS)
+	$(FREEZE_MODULE) __phello__.ham.eggs $(srcdir)/Lib/__phello__/ham/eggs.py MyFRpy/frozen_modules/__phello__.ham.eggs.h
 
-Python/frozen_modules/__phello__.spam.h: Lib/__phello__/spam.py $(FREEZE_MODULE_DEPS)
-	$(FREEZE_MODULE) __phello__.spam $(srcdir)/Lib/__phello__/spam.py Python/frozen_modules/__phello__.spam.h
+MyFRpy/frozen_modules/__phello__.spam.h: Lib/__phello__/spam.py $(FREEZE_MODULE_DEPS)
+	$(FREEZE_MODULE) __phello__.spam $(srcdir)/Lib/__phello__/spam.py MyFRpy/frozen_modules/__phello__.spam.h
 
-Python/frozen_modules/frozen_only.h: Tools/freeze/flag.py $(FREEZE_MODULE_DEPS)
-	$(FREEZE_MODULE) frozen_only $(srcdir)/Tools/freeze/flag.py Python/frozen_modules/frozen_only.h
+MyFRpy/frozen_modules/frozen_only.h: Tools/freeze/flag.py $(FREEZE_MODULE_DEPS)
+	$(FREEZE_MODULE) frozen_only $(srcdir)/Tools/freeze/flag.py MyFRpy/frozen_modules/frozen_only.h
 
 # END: freezing modules
 
@@ -1241,7 +1241,7 @@ Tools/build/freeze_modules.py: $(FREEZE_MODULE)
 
 .PHONY: regen-frozen
 regen-frozen: Tools/build/freeze_modules.py $(FROZEN_FILES_IN)
-	$(PYTHON_FOR_REGEN) $(srcdir)/Tools/build/freeze_modules.py --frozen-modules
+	$(MYFRPY_FOR_REGEN) $(srcdir)/Tools/build/freeze_modules.py --frozen-modules
 	@echo "The Makefile was updated, you may need to re-run make."
 
 ############################################################################
@@ -1254,31 +1254,31 @@ DEEPFREEZE_DEPS=$(srcdir)/Tools/build/deepfreeze.py $(FREEZE_MODULE_DEPS) $(FROZ
 
 # BEGIN: deepfreeze modules
 $(DEEPFREEZE_C): $(DEEPFREEZE_DEPS)
-	$(PYTHON_FOR_FREEZE) $(srcdir)/Tools/build/deepfreeze.py \
-	Python/frozen_modules/importlib._bootstrap.h:importlib._bootstrap \
-	Python/frozen_modules/importlib._bootstrap_external.h:importlib._bootstrap_external \
-	Python/frozen_modules/zipimport.h:zipimport \
-	Python/frozen_modules/abc.h:abc \
-	Python/frozen_modules/codecs.h:codecs \
-	Python/frozen_modules/io.h:io \
-	Python/frozen_modules/_collections_abc.h:_collections_abc \
-	Python/frozen_modules/_sitebuiltins.h:_sitebuiltins \
-	Python/frozen_modules/genericpath.h:genericpath \
-	Python/frozen_modules/ntpath.h:ntpath \
-	Python/frozen_modules/posixpath.h:posixpath \
-	Python/frozen_modules/os.h:os \
-	Python/frozen_modules/site.h:site \
-	Python/frozen_modules/stat.h:stat \
-	Python/frozen_modules/importlib.util.h:importlib.util \
-	Python/frozen_modules/importlib.machinery.h:importlib.machinery \
-	Python/frozen_modules/runpy.h:runpy \
-	Python/frozen_modules/__hello__.h:__hello__ \
-	Python/frozen_modules/__phello__.h:__phello__ \
-	Python/frozen_modules/__phello__.ham.h:__phello__.ham \
-	Python/frozen_modules/__phello__.ham.eggs.h:__phello__.ham.eggs \
-	Python/frozen_modules/__phello__.spam.h:__phello__.spam \
-	Python/frozen_modules/frozen_only.h:frozen_only \
-	-o Python/deepfreeze/deepfreeze.c
+	$(MYFRPY_FOR_FREEZE) $(srcdir)/Tools/build/deepfreeze.py \
+	MyFRpy/frozen_modules/importlib._bootstrap.h:importlib._bootstrap \
+	MyFRpy/frozen_modules/importlib._bootstrap_external.h:importlib._bootstrap_external \
+	MyFRpy/frozen_modules/zipimport.h:zipimport \
+	MyFRpy/frozen_modules/abc.h:abc \
+	MyFRpy/frozen_modules/codecs.h:codecs \
+	MyFRpy/frozen_modules/io.h:io \
+	MyFRpy/frozen_modules/_collections_abc.h:_collections_abc \
+	MyFRpy/frozen_modules/_sitebuiltins.h:_sitebuiltins \
+	MyFRpy/frozen_modules/genericpath.h:genericpath \
+	MyFRpy/frozen_modules/ntpath.h:ntpath \
+	MyFRpy/frozen_modules/posixpath.h:posixpath \
+	MyFRpy/frozen_modules/os.h:os \
+	MyFRpy/frozen_modules/site.h:site \
+	MyFRpy/frozen_modules/stat.h:stat \
+	MyFRpy/frozen_modules/importlib.util.h:importlib.util \
+	MyFRpy/frozen_modules/importlib.machinery.h:importlib.machinery \
+	MyFRpy/frozen_modules/runpy.h:runpy \
+	MyFRpy/frozen_modules/__hello__.h:__hello__ \
+	MyFRpy/frozen_modules/__phello__.h:__phello__ \
+	MyFRpy/frozen_modules/__phello__.ham.h:__phello__.ham \
+	MyFRpy/frozen_modules/__phello__.ham.eggs.h:__phello__.ham.eggs \
+	MyFRpy/frozen_modules/__phello__.spam.h:__phello__.spam \
+	MyFRpy/frozen_modules/frozen_only.h:frozen_only \
+	-o MyFRpy/deepfreeze/deepfreeze.c
 # END: deepfreeze modules
 
 # We keep this renamed target around for folks with muscle memory.
@@ -1293,7 +1293,7 @@ regen-importlib: regen-frozen
 # - "make clinic"
 .PHONY: regen-global-objects
 regen-global-objects: $(srcdir)/Tools/build/generate_global_objects.py $(DEEPFREEZE_C) clinic
-	$(PYTHON_FOR_REGEN) $(srcdir)/Tools/build/generate_global_objects.py
+	$(MYFRPY_FOR_REGEN) $(srcdir)/Tools/build/generate_global_objects.py
 
 ############################################################################
 # ABI
@@ -1301,16 +1301,16 @@ regen-global-objects: $(srcdir)/Tools/build/generate_global_objects.py $(DEEPFRE
 .PHONY: regen-abidump
 regen-abidump: all
 	@$(MKDIR_P) $(srcdir)/Doc/data/
-	abidw "libpython$(LDVERSION).so" --no-architecture --out-file $(srcdir)/Doc/data/python$(LDVERSION).abi.new
-	@$(UPDATE_FILE) --create $(srcdir)/Doc/data/python$(LDVERSION).abi $(srcdir)/Doc/data/python$(LDVERSION).abi.new
+	abidw "libmyFRpy$(LDVERSION).so" --no-architecture --out-file $(srcdir)/Doc/data/myFRpy$(LDVERSION).abi.new
+	@$(UPDATE_FILE) --create $(srcdir)/Doc/data/myFRpy$(LDVERSION).abi $(srcdir)/Doc/data/myFRpy$(LDVERSION).abi.new
 
 .PHONY: check-abidump
 check-abidump: all
-	abidiff $(srcdir)/Doc/data/python$(LDVERSION).abi "libpython$(LDVERSION).so" --drop-private-types --no-architecture --no-added-syms
+	abidiff $(srcdir)/Doc/data/myFRpy$(LDVERSION).abi "libmyFRpy$(LDVERSION).so" --drop-private-types --no-architecture --no-added-syms
 
 .PHONY: regen-limited-abi
 regen-limited-abi: all
-	$(RUNSHARED) ./$(BUILDPYTHON) $(srcdir)/Tools/build/stable_abi.py --generate-all $(srcdir)/Misc/stable_abi.toml
+	$(RUNSHARED) ./$(BUILDMYFRPY) $(srcdir)/Tools/build/stable_abi.py --generate-all $(srcdir)/Misc/stable_abi.toml
 
 ############################################################################
 # Regenerate all generated files
@@ -1329,7 +1329,7 @@ regen-all: regen-cases regen-opcode regen-opcode-targets regen-typeslots \
 
 Modules/getbuildinfo.o: $(PARSER_OBJS) \
 		$(OBJECT_OBJS) \
-		$(PYTHON_OBJS) \
+		$(MYFRPY_OBJS) \
 		$(MODULE_OBJS) \
 		$(MODOBJS) \
 		$(DTRACE_OBJS) \
@@ -1340,18 +1340,18 @@ Modules/getbuildinfo.o: $(PARSER_OBJS) \
 	      -DGITBRANCH="\"`LC_ALL=C $(GITBRANCH)`\"" \
 	      -o $@ $(srcdir)/Modules/getbuildinfo.c
 
-Modules/getpath.o: $(srcdir)/Modules/getpath.c Python/frozen_modules/getpath.h Makefile $(PYTHON_HEADERS)
-	$(CC) -c $(PY_CORE_CFLAGS) -DPYTHONPATH='"$(PYTHONPATH)"' \
+Modules/getpath.o: $(srcdir)/Modules/getpath.c MyFRpy/frozen_modules/getpath.h Makefile $(MYFRPY_HEADERS)
+	$(CC) -c $(PY_CORE_CFLAGS) -DMYFRPYPATH='"$(MYFRPYPATH)"' \
 		-DPREFIX='"$(prefix)"' \
 		-DEXEC_PREFIX='"$(exec_prefix)"' \
 		-DVERSION='"$(VERSION)"' \
 		-DVPATH='"$(VPATH)"' \
 		-DPLATLIBDIR='"$(PLATLIBDIR)"' \
-		-DPYTHONFRAMEWORK='"$(PYTHONFRAMEWORK)"' \
+		-DMYFRPYFRAMEWORK='"$(MYFRPYFRAMEWORK)"' \
 		-o $@ $(srcdir)/Modules/getpath.c
 
-Programs/python.o: $(srcdir)/Programs/python.c
-	$(CC) -c $(PY_CORE_CFLAGS) -o $@ $(srcdir)/Programs/python.c
+Programs/myFRpy.o: $(srcdir)/Programs/myFRpy.c
+	$(CC) -c $(PY_CORE_CFLAGS) -o $@ $(srcdir)/Programs/myFRpy.c
 
 Programs/_testembed.o: $(srcdir)/Programs/_testembed.c Programs/test_frozenmain.h
 	$(CC) -c $(PY_CORE_CFLAGS) -o $@ $(srcdir)/Programs/_testembed.c
@@ -1366,28 +1366,28 @@ Modules/pwdmodule.o: $(srcdir)/Modules/pwdmodule.c $(srcdir)/Modules/posixmodule
 
 Modules/signalmodule.o: $(srcdir)/Modules/signalmodule.c $(srcdir)/Modules/posixmodule.h
 
-Python/dynload_shlib.o: $(srcdir)/Python/dynload_shlib.c Makefile
+MyFRpy/dynload_shlib.o: $(srcdir)/MyFRpy/dynload_shlib.c Makefile
 	$(CC) -c $(PY_CORE_CFLAGS) \
 		-DSOABI='"$(SOABI)"' \
-		-o $@ $(srcdir)/Python/dynload_shlib.c
+		-o $@ $(srcdir)/MyFRpy/dynload_shlib.c
 
-Python/dynload_hpux.o: $(srcdir)/Python/dynload_hpux.c Makefile
+MyFRpy/dynload_hpux.o: $(srcdir)/MyFRpy/dynload_hpux.c Makefile
 	$(CC) -c $(PY_CORE_CFLAGS) \
 		-DSHLIB_EXT='"$(EXT_SUFFIX)"' \
-		-o $@ $(srcdir)/Python/dynload_hpux.c
+		-o $@ $(srcdir)/MyFRpy/dynload_hpux.c
 
-Python/sysmodule.o: $(srcdir)/Python/sysmodule.c Makefile $(srcdir)/Include/pydtrace.h
+MyFRpy/sysmodule.o: $(srcdir)/MyFRpy/sysmodule.c Makefile $(srcdir)/Include/pydtrace.h
 	$(CC) -c $(PY_CORE_CFLAGS) \
 		-DABIFLAGS='"$(ABIFLAGS)"' \
 		$(MULTIARCH_CPPFLAGS) \
-		-o $@ $(srcdir)/Python/sysmodule.c
+		-o $@ $(srcdir)/MyFRpy/sysmodule.c
 
 $(IO_OBJS): $(IO_H)
 
 .PHONY: regen-pegen-metaparser
 regen-pegen-metaparser:
 	@$(MKDIR_P) $(srcdir)/Tools/peg_generator/pegen
-	PYTHONPATH=$(srcdir)/Tools/peg_generator $(PYTHON_FOR_REGEN) -m pegen -q python \
+	MYFRPYPATH=$(srcdir)/Tools/peg_generator $(MYFRPY_FOR_REGEN) -m pegen -q myFRpy \
 	$(srcdir)/Tools/peg_generator/pegen/metagrammar.gram \
 	-o $(srcdir)/Tools/peg_generator/pegen/grammar_parser.py.new
 	$(UPDATE_FILE) $(srcdir)/Tools/peg_generator/pegen/grammar_parser.py \
@@ -1396,8 +1396,8 @@ regen-pegen-metaparser:
 .PHONY: regen-pegen
 regen-pegen:
 	@$(MKDIR_P) $(srcdir)/Parser
-	PYTHONPATH=$(srcdir)/Tools/peg_generator $(PYTHON_FOR_REGEN) -m pegen -q c \
-		$(srcdir)/Grammar/python.gram \
+	MYFRPYPATH=$(srcdir)/Tools/peg_generator $(MYFRPY_FOR_REGEN) -m pegen -q c \
+		$(srcdir)/Grammar/myFRpy.gram \
 		$(srcdir)/Grammar/Tokens \
 		-o $(srcdir)/Parser/parser.c.new
 	$(UPDATE_FILE) $(srcdir)/Parser/parser.c $(srcdir)/Parser/parser.c.new
@@ -1407,24 +1407,24 @@ regen-ast:
 	# Regenerate 3 files using using Parser/asdl_c.py:
 	# - Include/internal/pycore_ast.h
 	# - Include/internal/pycore_ast_state.h
-	# - Python/Python-ast.c
+	# - MyFRpy/MyFRpy-ast.c
 	$(MKDIR_P) $(srcdir)/Include
-	$(MKDIR_P) $(srcdir)/Python
-	$(PYTHON_FOR_REGEN) $(srcdir)/Parser/asdl_c.py \
-		$(srcdir)/Parser/Python.asdl \
+	$(MKDIR_P) $(srcdir)/MyFRpy
+	$(MYFRPY_FOR_REGEN) $(srcdir)/Parser/asdl_c.py \
+		$(srcdir)/Parser/MyFRpy.asdl \
 		-H $(srcdir)/Include/internal/pycore_ast.h.new \
 		-I $(srcdir)/Include/internal/pycore_ast_state.h.new \
-		-C $(srcdir)/Python/Python-ast.c.new
+		-C $(srcdir)/MyFRpy/MyFRpy-ast.c.new
 
 	$(UPDATE_FILE) $(srcdir)/Include/internal/pycore_ast.h $(srcdir)/Include/internal/pycore_ast.h.new
 	$(UPDATE_FILE) $(srcdir)/Include/internal/pycore_ast_state.h $(srcdir)/Include/internal/pycore_ast_state.h.new
-	$(UPDATE_FILE) $(srcdir)/Python/Python-ast.c $(srcdir)/Python/Python-ast.c.new
+	$(UPDATE_FILE) $(srcdir)/MyFRpy/MyFRpy-ast.c $(srcdir)/MyFRpy/MyFRpy-ast.c.new
 
 .PHONY: regen-opcode
 regen-opcode:
 	# Regenerate Include/opcode.h from Lib/opcode.py
 	# using Tools/build/generate_opcode_h.py
-	$(PYTHON_FOR_REGEN) $(srcdir)/Tools/build/generate_opcode_h.py \
+	$(MYFRPY_FOR_REGEN) $(srcdir)/Tools/build/generate_opcode_h.py \
 		$(srcdir)/Lib/opcode.py \
 		$(srcdir)/Include/opcode.h.new \
 		$(srcdir)/Include/internal/pycore_opcode.h.new \
@@ -1437,60 +1437,60 @@ regen-opcode:
 regen-token:
 	# Regenerate Doc/library/token-list.inc from Grammar/Tokens
 	# using Tools/build/generate_token.py
-	$(PYTHON_FOR_REGEN) $(srcdir)/Tools/build/generate_token.py rst \
+	$(MYFRPY_FOR_REGEN) $(srcdir)/Tools/build/generate_token.py rst \
 		$(srcdir)/Grammar/Tokens \
 		$(srcdir)/Doc/library/token-list.inc
 	# Regenerate Include/internal/pycore_token.h from Grammar/Tokens
 	# using Tools/build/generate_token.py
-	$(PYTHON_FOR_REGEN) $(srcdir)/Tools/build/generate_token.py h \
+	$(MYFRPY_FOR_REGEN) $(srcdir)/Tools/build/generate_token.py h \
 		$(srcdir)/Grammar/Tokens \
 		$(srcdir)/Include/internal/pycore_token.h
 	# Regenerate Parser/token.c from Grammar/Tokens
 	# using Tools/build/generate_token.py
-	$(PYTHON_FOR_REGEN) $(srcdir)/Tools/build/generate_token.py c \
+	$(MYFRPY_FOR_REGEN) $(srcdir)/Tools/build/generate_token.py c \
 		$(srcdir)/Grammar/Tokens \
 		$(srcdir)/Parser/token.c
 	# Regenerate Lib/token.py from Grammar/Tokens
 	# using Tools/build/generate_token.py
-	$(PYTHON_FOR_REGEN) $(srcdir)/Tools/build/generate_token.py py \
+	$(MYFRPY_FOR_REGEN) $(srcdir)/Tools/build/generate_token.py py \
 		$(srcdir)/Grammar/Tokens \
 		$(srcdir)/Lib/token.py
 
 .PHONY: regen-keyword
 regen-keyword:
-	# Regenerate Lib/keyword.py from Grammar/python.gram and Grammar/Tokens
+	# Regenerate Lib/keyword.py from Grammar/myFRpy.gram and Grammar/Tokens
 	# using Tools/peg_generator/pegen
-	PYTHONPATH=$(srcdir)/Tools/peg_generator $(PYTHON_FOR_REGEN) -m pegen.keywordgen \
-		$(srcdir)/Grammar/python.gram \
+	MYFRPYPATH=$(srcdir)/Tools/peg_generator $(MYFRPY_FOR_REGEN) -m pegen.keywordgen \
+		$(srcdir)/Grammar/myFRpy.gram \
 		$(srcdir)/Grammar/Tokens \
 		$(srcdir)/Lib/keyword.py.new
 	$(UPDATE_FILE) $(srcdir)/Lib/keyword.py $(srcdir)/Lib/keyword.py.new
 
 .PHONY: regen-stdlib-module-names
 regen-stdlib-module-names: all Programs/_testembed
-	# Regenerate Python/stdlib_module_names.h
+	# Regenerate MyFRpy/stdlib_module_names.h
 	# using Tools/build/generate_stdlib_module_names.py
-	$(RUNSHARED) ./$(BUILDPYTHON) \
+	$(RUNSHARED) ./$(BUILDMYFRPY) \
 		$(srcdir)/Tools/build/generate_stdlib_module_names.py \
-		> $(srcdir)/Python/stdlib_module_names.h.new
-	$(UPDATE_FILE) $(srcdir)/Python/stdlib_module_names.h $(srcdir)/Python/stdlib_module_names.h.new
+		> $(srcdir)/MyFRpy/stdlib_module_names.h.new
+	$(UPDATE_FILE) $(srcdir)/MyFRpy/stdlib_module_names.h $(srcdir)/MyFRpy/stdlib_module_names.h.new
 
 .PHONY: regen-sre
 regen-sre:
 	# Regenerate Modules/_sre/sre_constants.h and Modules/_sre/sre_targets.h
 	# from Lib/re/_constants.py using Tools/build/generate_sre_constants.py
-	$(PYTHON_FOR_REGEN) $(srcdir)/Tools/build/generate_sre_constants.py \
+	$(MYFRPY_FOR_REGEN) $(srcdir)/Tools/build/generate_sre_constants.py \
 		$(srcdir)/Lib/re/_constants.py \
 		$(srcdir)/Modules/_sre/sre_constants.h \
 		$(srcdir)/Modules/_sre/sre_targets.h
 
-Python/compile.o Python/symtable.o Python/ast_unparse.o Python/ast.o Python/future.o: $(srcdir)/Include/internal/pycore_ast.h
+MyFRpy/compile.o MyFRpy/symtable.o MyFRpy/ast_unparse.o MyFRpy/ast.o MyFRpy/future.o: $(srcdir)/Include/internal/pycore_ast.h
 
-Python/getplatform.o: $(srcdir)/Python/getplatform.c
-		$(CC) -c $(PY_CORE_CFLAGS) -DPLATFORM='"$(MACHDEP)"' -o $@ $(srcdir)/Python/getplatform.c
+MyFRpy/getplatform.o: $(srcdir)/MyFRpy/getplatform.c
+		$(CC) -c $(PY_CORE_CFLAGS) -DPLATFORM='"$(MACHDEP)"' -o $@ $(srcdir)/MyFRpy/getplatform.c
 
-Python/importdl.o: $(srcdir)/Python/importdl.c
-		$(CC) -c $(PY_CORE_CFLAGS) -I$(DLINCLDIR) -o $@ $(srcdir)/Python/importdl.c
+MyFRpy/importdl.o: $(srcdir)/MyFRpy/importdl.c
+		$(CC) -c $(PY_CORE_CFLAGS) -I$(DLINCLDIR) -o $@ $(srcdir)/MyFRpy/importdl.c
 
 Objects/unicodectype.o:	$(srcdir)/Objects/unicodectype.c \
 				$(srcdir)/Objects/unicodetype_db.h
@@ -1534,54 +1534,54 @@ Objects/setobject.o: $(srcdir)/Objects/stringlib/eq.h
 
 .PHONY: regen-opcode-targets
 regen-opcode-targets:
-	# Regenerate Python/opcode_targets.h from Lib/opcode.py
-	# using Python/makeopcodetargets.py
-	$(PYTHON_FOR_REGEN) $(srcdir)/Python/makeopcodetargets.py \
-		$(srcdir)/Python/opcode_targets.h.new
-	$(UPDATE_FILE) $(srcdir)/Python/opcode_targets.h $(srcdir)/Python/opcode_targets.h.new
+	# Regenerate MyFRpy/opcode_targets.h from Lib/opcode.py
+	# using MyFRpy/makeopcodetargets.py
+	$(MYFRPY_FOR_REGEN) $(srcdir)/MyFRpy/makeopcodetargets.py \
+		$(srcdir)/MyFRpy/opcode_targets.h.new
+	$(UPDATE_FILE) $(srcdir)/MyFRpy/opcode_targets.h $(srcdir)/MyFRpy/opcode_targets.h.new
 
 .PHONY: regen-cases
 regen-cases:
-	# Regenerate Python/generated_cases.c.h
-	# and Python/opcode_metadata.h
-	# from Python/bytecodes.c
+	# Regenerate MyFRpy/generated_cases.c.h
+	# and MyFRpy/opcode_metadata.h
+	# from MyFRpy/bytecodes.c
 	# using Tools/cases_generator/generate_cases.py
-	PYTHONPATH=$(srcdir)/Tools/cases_generator \
-	$(PYTHON_FOR_REGEN) \
+	MYFRPYPATH=$(srcdir)/Tools/cases_generator \
+	$(MYFRPY_FOR_REGEN) \
 	    $(srcdir)/Tools/cases_generator/generate_cases.py \
 		--emit-line-directives \
-		-o $(srcdir)/Python/generated_cases.c.h.new \
-		-m $(srcdir)/Python/opcode_metadata.h.new \
-		$(srcdir)/Python/bytecodes.c
-	$(UPDATE_FILE) $(srcdir)/Python/generated_cases.c.h $(srcdir)/Python/generated_cases.c.h.new
-	$(UPDATE_FILE) $(srcdir)/Python/opcode_metadata.h $(srcdir)/Python/opcode_metadata.h.new
+		-o $(srcdir)/MyFRpy/generated_cases.c.h.new \
+		-m $(srcdir)/MyFRpy/opcode_metadata.h.new \
+		$(srcdir)/MyFRpy/bytecodes.c
+	$(UPDATE_FILE) $(srcdir)/MyFRpy/generated_cases.c.h $(srcdir)/MyFRpy/generated_cases.c.h.new
+	$(UPDATE_FILE) $(srcdir)/MyFRpy/opcode_metadata.h $(srcdir)/MyFRpy/opcode_metadata.h.new
 
-Python/compile.o: $(srcdir)/Python/opcode_metadata.h
+MyFRpy/compile.o: $(srcdir)/MyFRpy/opcode_metadata.h
 
-Python/ceval.o: \
-		$(srcdir)/Python/ceval_macros.h \
-		$(srcdir)/Python/condvar.h \
-		$(srcdir)/Python/generated_cases.c.h \
-		$(srcdir)/Python/opcode_metadata.h \
-		$(srcdir)/Python/opcode_targets.h
+MyFRpy/ceval.o: \
+		$(srcdir)/MyFRpy/ceval_macros.h \
+		$(srcdir)/MyFRpy/condvar.h \
+		$(srcdir)/MyFRpy/generated_cases.c.h \
+		$(srcdir)/MyFRpy/opcode_metadata.h \
+		$(srcdir)/MyFRpy/opcode_targets.h
 
-Python/frozen.o: $(FROZEN_FILES_OUT)
+MyFRpy/frozen.o: $(FROZEN_FILES_OUT)
 
-# Generate DTrace probe macros, then rename them (PYTHON_ -> PyDTrace_) to
+# Generate DTrace probe macros, then rename them (MYFRPY_ -> PyDTrace_) to
 # follow our naming conventions. dtrace(1) uses the output filename to generate
 # an include guard, so we can't use a pipeline to transform its output.
 Include/pydtrace_probes.h: $(srcdir)/Include/pydtrace.d
 	$(MKDIR_P) Include
 	$(DTRACE) $(DFLAGS) -o $@ -h -s $<
 	: sed in-place edit with POSIX-only tools
-	sed 's/PYTHON_/PyDTrace_/' $@ > $@.tmp
+	sed 's/MYFRPY_/PyDTrace_/' $@ > $@.tmp
 	mv $@.tmp $@
 
-Python/ceval.o: $(srcdir)/Include/pydtrace.h
-Python/import.o: $(srcdir)/Include/pydtrace.h
+MyFRpy/ceval.o: $(srcdir)/Include/pydtrace.h
+MyFRpy/import.o: $(srcdir)/Include/pydtrace.h
 Modules/gcmodule.o: $(srcdir)/Include/pydtrace.h
 
-Python/pydtrace.o: $(srcdir)/Include/pydtrace.d $(DTRACE_DEPS)
+MyFRpy/pydtrace.o: $(srcdir)/Include/pydtrace.d $(DTRACE_DEPS)
 	$(DTRACE) $(DFLAGS) -o $@ -G -s $< $(DTRACE_DEPS)
 
 Objects/typeobject.o: Objects/typeslots.inc
@@ -1590,7 +1590,7 @@ Objects/typeobject.o: Objects/typeslots.inc
 regen-typeslots:
 	# Regenerate Objects/typeslots.inc from Include/typeslotsh
 	# using Objects/typeslots.py
-	$(PYTHON_FOR_REGEN) $(srcdir)/Objects/typeslots.py \
+	$(MYFRPY_FOR_REGEN) $(srcdir)/Objects/typeslots.py \
 		< $(srcdir)/Include/typeslots.h \
 		$(srcdir)/Objects/typeslots.inc.new
 	$(UPDATE_FILE) $(srcdir)/Objects/typeslots.inc $(srcdir)/Objects/typeslots.inc.new
@@ -1598,8 +1598,8 @@ regen-typeslots:
 ############################################################################
 # Header files
 
-PYTHON_HEADERS= \
-		$(srcdir)/Include/Python.h \
+MYFRPY_HEADERS= \
+		$(srcdir)/Include/MyFRpy.h \
 		$(srcdir)/Include/abstract.h \
 		$(srcdir)/Include/bltinmodule.h \
 		$(srcdir)/Include/boolobject.h \
@@ -1651,7 +1651,7 @@ PYTHON_HEADERS= \
 		$(srcdir)/Include/pystats.h \
 		$(srcdir)/Include/pystrcmp.h \
 		$(srcdir)/Include/pystrtod.h \
-		$(srcdir)/Include/pythonrun.h \
+		$(srcdir)/Include/myFRpyrun.h \
 		$(srcdir)/Include/pythread.h \
 		$(srcdir)/Include/pytypedefs.h \
 		$(srcdir)/Include/rangeobject.h \
@@ -1670,56 +1670,56 @@ PYTHON_HEADERS= \
 		pyconfig.h \
 		$(PARSER_HEADERS) \
 		\
-		$(srcdir)/Include/cpython/abstract.h \
-		$(srcdir)/Include/cpython/bytearrayobject.h \
-		$(srcdir)/Include/cpython/bytesobject.h \
-		$(srcdir)/Include/cpython/cellobject.h \
-		$(srcdir)/Include/cpython/ceval.h \
-		$(srcdir)/Include/cpython/classobject.h \
-		$(srcdir)/Include/cpython/code.h \
-		$(srcdir)/Include/cpython/compile.h \
-		$(srcdir)/Include/cpython/complexobject.h \
-		$(srcdir)/Include/cpython/context.h \
-		$(srcdir)/Include/cpython/descrobject.h \
-		$(srcdir)/Include/cpython/dictobject.h \
-		$(srcdir)/Include/cpython/fileobject.h \
-		$(srcdir)/Include/cpython/fileutils.h \
-		$(srcdir)/Include/cpython/floatobject.h \
-		$(srcdir)/Include/cpython/frameobject.h \
-		$(srcdir)/Include/cpython/funcobject.h \
-		$(srcdir)/Include/cpython/genobject.h \
-		$(srcdir)/Include/cpython/import.h \
-		$(srcdir)/Include/cpython/initconfig.h \
-		$(srcdir)/Include/cpython/interpreteridobject.h \
-		$(srcdir)/Include/cpython/listobject.h \
-		$(srcdir)/Include/cpython/longintrepr.h \
-		$(srcdir)/Include/cpython/longobject.h \
-		$(srcdir)/Include/cpython/memoryobject.h \
-		$(srcdir)/Include/cpython/methodobject.h \
-		$(srcdir)/Include/cpython/modsupport.h \
-		$(srcdir)/Include/cpython/object.h \
-		$(srcdir)/Include/cpython/objimpl.h \
-		$(srcdir)/Include/cpython/odictobject.h \
-		$(srcdir)/Include/cpython/picklebufobject.h \
-		$(srcdir)/Include/cpython/pthread_stubs.h \
-		$(srcdir)/Include/cpython/pyctype.h \
-		$(srcdir)/Include/cpython/pydebug.h \
-		$(srcdir)/Include/cpython/pyerrors.h \
-		$(srcdir)/Include/cpython/pyfpe.h \
-		$(srcdir)/Include/cpython/pyframe.h \
-		$(srcdir)/Include/cpython/pylifecycle.h \
-		$(srcdir)/Include/cpython/pymem.h \
-		$(srcdir)/Include/cpython/pystate.h \
-		$(srcdir)/Include/cpython/pythonrun.h \
-		$(srcdir)/Include/cpython/pythread.h \
-		$(srcdir)/Include/cpython/pytime.h \
-		$(srcdir)/Include/cpython/setobject.h \
-		$(srcdir)/Include/cpython/sysmodule.h \
-		$(srcdir)/Include/cpython/traceback.h \
-		$(srcdir)/Include/cpython/tupleobject.h \
-		$(srcdir)/Include/cpython/unicodeobject.h \
-		$(srcdir)/Include/cpython/warnings.h \
-		$(srcdir)/Include/cpython/weakrefobject.h \
+		$(srcdir)/Include/cmyFRpy/abstract.h \
+		$(srcdir)/Include/cmyFRpy/bytearrayobject.h \
+		$(srcdir)/Include/cmyFRpy/bytesobject.h \
+		$(srcdir)/Include/cmyFRpy/cellobject.h \
+		$(srcdir)/Include/cmyFRpy/ceval.h \
+		$(srcdir)/Include/cmyFRpy/classobject.h \
+		$(srcdir)/Include/cmyFRpy/code.h \
+		$(srcdir)/Include/cmyFRpy/compile.h \
+		$(srcdir)/Include/cmyFRpy/complexobject.h \
+		$(srcdir)/Include/cmyFRpy/context.h \
+		$(srcdir)/Include/cmyFRpy/descrobject.h \
+		$(srcdir)/Include/cmyFRpy/dictobject.h \
+		$(srcdir)/Include/cmyFRpy/fileobject.h \
+		$(srcdir)/Include/cmyFRpy/fileutils.h \
+		$(srcdir)/Include/cmyFRpy/floatobject.h \
+		$(srcdir)/Include/cmyFRpy/frameobject.h \
+		$(srcdir)/Include/cmyFRpy/funcobject.h \
+		$(srcdir)/Include/cmyFRpy/genobject.h \
+		$(srcdir)/Include/cmyFRpy/import.h \
+		$(srcdir)/Include/cmyFRpy/initconfig.h \
+		$(srcdir)/Include/cmyFRpy/interpreteridobject.h \
+		$(srcdir)/Include/cmyFRpy/listobject.h \
+		$(srcdir)/Include/cmyFRpy/longintrepr.h \
+		$(srcdir)/Include/cmyFRpy/longobject.h \
+		$(srcdir)/Include/cmyFRpy/memoryobject.h \
+		$(srcdir)/Include/cmyFRpy/methodobject.h \
+		$(srcdir)/Include/cmyFRpy/modsupport.h \
+		$(srcdir)/Include/cmyFRpy/object.h \
+		$(srcdir)/Include/cmyFRpy/objimpl.h \
+		$(srcdir)/Include/cmyFRpy/odictobject.h \
+		$(srcdir)/Include/cmyFRpy/picklebufobject.h \
+		$(srcdir)/Include/cmyFRpy/pthread_stubs.h \
+		$(srcdir)/Include/cmyFRpy/pyctype.h \
+		$(srcdir)/Include/cmyFRpy/pydebug.h \
+		$(srcdir)/Include/cmyFRpy/pyerrors.h \
+		$(srcdir)/Include/cmyFRpy/pyfpe.h \
+		$(srcdir)/Include/cmyFRpy/pyframe.h \
+		$(srcdir)/Include/cmyFRpy/pylifecycle.h \
+		$(srcdir)/Include/cmyFRpy/pymem.h \
+		$(srcdir)/Include/cmyFRpy/pystate.h \
+		$(srcdir)/Include/cmyFRpy/myFRpyrun.h \
+		$(srcdir)/Include/cmyFRpy/pythread.h \
+		$(srcdir)/Include/cmyFRpy/pytime.h \
+		$(srcdir)/Include/cmyFRpy/setobject.h \
+		$(srcdir)/Include/cmyFRpy/sysmodule.h \
+		$(srcdir)/Include/cmyFRpy/traceback.h \
+		$(srcdir)/Include/cmyFRpy/tupleobject.h \
+		$(srcdir)/Include/cmyFRpy/unicodeobject.h \
+		$(srcdir)/Include/cmyFRpy/warnings.h \
+		$(srcdir)/Include/cmyFRpy/weakrefobject.h \
 		\
 		$(srcdir)/Include/internal/pycore_abstract.h \
 		$(srcdir)/Include/internal/pycore_asdl.h \
@@ -1804,19 +1804,19 @@ PYTHON_HEADERS= \
 		$(DTRACE_HEADERS) \
 		@PLATFORM_HEADERS@ \
 		\
-		$(srcdir)/Python/stdlib_module_names.h
+		$(srcdir)/MyFRpy/stdlib_module_names.h
 
-$(LIBRARY_OBJS) $(MODOBJS) Programs/python.o: $(PYTHON_HEADERS)
+$(LIBRARY_OBJS) $(MODOBJS) Programs/myFRpy.o: $(MYFRPY_HEADERS)
 
 
 ######################################################################
 
 TESTOPTS=	$(EXTRATESTOPTS)
-TESTPYTHON=	$(RUNSHARED) $(PYTHON_FOR_BUILD) $(TESTPYTHONOPTS)
-TESTRUNNER=	$(TESTPYTHON) $(srcdir)/Tools/scripts/run_tests.py
+TESTMYFRPY=	$(RUNSHARED) $(MYFRPY_FOR_BUILD) $(TESTMYFRPYOPTS)
+TESTRUNNER=	$(TESTMYFRPY) $(srcdir)/Tools/scripts/run_tests.py
 TESTTIMEOUT=	1200
 
-# Remove "test_python_*" directories of previous failed test jobs.
+# Remove "test_myFRpy_*" directories of previous failed test jobs.
 # Pass TESTOPTS options because it can contain --tempdir option.
 .PHONY: cleantest
 cleantest: all
@@ -1838,7 +1838,7 @@ test: all
 .PHONY: testall
 testall: all
 		-find $(srcdir)/Lib -name '*.py[co]' -print | xargs rm -f
-		$(TESTPYTHON) -E $(srcdir)/Lib/compileall.py
+		$(TESTMYFRPY) -E $(srcdir)/Lib/compileall.py
 		-find $(srcdir)/Lib -name '*.py[co]' -print | xargs rm -f
 		-$(TESTRUNNER) -u all $(TESTOPTS)
 		$(TESTRUNNER) -u all $(TESTOPTS)
@@ -1853,7 +1853,7 @@ testuniversal: all
 		fi
 		$(TESTRUNNER) -u all $(TESTOPTS)
 		$(RUNSHARED) /usr/libexec/oah/translate \
-			./$(BUILDPYTHON) -E -m test -j 0 -u all $(TESTOPTS)
+			./$(BUILDMYFRPY) -E -m test -j 0 -u all $(TESTOPTS)
 
 # Like testall, but with only one pass and without multiple processes.
 # Run an optional script to include information about the build environment.
@@ -1864,14 +1864,14 @@ buildbottest: all
 		fi
 		$(TESTRUNNER) -j 1 -u all -W --slowest --fail-env-changed --timeout=$(TESTTIMEOUT) $(TESTOPTS)
 
-# Like testall, but run Python tests with HOSTRUNNER directly.
+# Like testall, but run MyFRpy tests with HOSTRUNNER directly.
 .PHONY: hostrunnertest
 hostrunnertest: all
-	$(RUNSHARED) $(HOSTRUNNER) ./$(BUILDPYTHON) -m test -u all $(TESTOPTS)
+	$(RUNSHARED) $(HOSTRUNNER) ./$(BUILDMYFRPY) -m test -u all $(TESTOPTS)
 
-.PHONY: pythoninfo
-pythoninfo: all
-		$(RUNSHARED) $(HOSTRUNNER) ./$(BUILDPYTHON) -m test.pythoninfo
+.PHONY: myFRpyinfo
+myFRpyinfo: all
+		$(RUNSHARED) $(HOSTRUNNER) ./$(BUILDMYFRPY) -m test.myFRpyinfo
 
 QUICKTESTOPTS=	$(TESTOPTS) -x test_subprocess test_io test_lib2to3 \
 		test_multibytecodec test_urllib2_localnet test_itertools \
@@ -1887,15 +1887,15 @@ quicktest: all
 # SSL tests
 .PHONY: multisslcompile
 multisslcompile: all
-	$(RUNSHARED) ./$(BUILDPYTHON) $(srcdir)/Tools/ssl/multissltests.py --steps=modules
+	$(RUNSHARED) ./$(BUILDMYFRPY) $(srcdir)/Tools/ssl/multissltests.py --steps=modules
 
 .PHONY: multissltest
 multissltest: all
-	$(RUNSHARED) ./$(BUILDPYTHON) $(srcdir)/Tools/ssl/multissltests.py
+	$(RUNSHARED) ./$(BUILDMYFRPY) $(srcdir)/Tools/ssl/multissltests.py
 
 # All install targets use the "all" target as synchronization point to
 # prevent race conditions with PGO builds. PGO builds use recursive make,
-# which can lead to two parallel `./python setup.py build` processes that
+# which can lead to two parallel `./myFRpy setup.py build` processes that
 # step on each others toes.
 .PHONY: install
 install: @FRAMEWORKINSTALLFIRST@ commoninstall bininstall maninstall @FRAMEWORKINSTALLLAST@
@@ -1904,7 +1904,7 @@ install: @FRAMEWORKINSTALLFIRST@ commoninstall bininstall maninstall @FRAMEWORKI
 			upgrade) ensurepip="--upgrade" ;; \
 			install|*) ensurepip="" ;; \
 		esac; \
-		$(RUNSHARED) $(PYTHON_FOR_BUILD) -m ensurepip \
+		$(RUNSHARED) $(MYFRPY_FOR_BUILD) -m ensurepip \
 			$$ensurepip --root=$(DESTDIR)/ ; \
 	fi
 
@@ -1915,7 +1915,7 @@ altinstall: commoninstall
 			upgrade) ensurepip="--altinstall --upgrade" ;; \
 			install|*) ensurepip="--altinstall" ;; \
 		esac; \
-		$(RUNSHARED) $(PYTHON_FOR_BUILD) -m ensurepip \
+		$(RUNSHARED) $(MYFRPY_FOR_BUILD) -m ensurepip \
 			$$ensurepip --root=$(DESTDIR)/ ; \
 	fi
 
@@ -1951,7 +1951,7 @@ sharedinstall: all
 # Install the interpreter with $(VERSION) affixed
 # This goes into $(exec_prefix)
 .PHONY: altbininstall
-altbininstall: $(BUILDPYTHON) @FRAMEWORKPYTHONW@
+altbininstall: $(BUILDMYFRPY) @FRAMEWORKMYFRPYW@
 	@for i in $(BINDIR) $(LIBDIR); \
 	do \
 		if test ! -d $(DESTDIR)$$i; then \
@@ -1960,19 +1960,19 @@ altbininstall: $(BUILDPYTHON) @FRAMEWORKPYTHONW@
 		else	true; \
 		fi; \
 	done
-	if test "$(PYTHONFRAMEWORKDIR)" = "no-framework" ; then \
-		$(INSTALL_PROGRAM) $(BUILDPYTHON) $(DESTDIR)$(BINDIR)/python$(LDVERSION)$(EXE); \
+	if test "$(MYFRPYFRAMEWORKDIR)" = "no-framework" ; then \
+		$(INSTALL_PROGRAM) $(BUILDMYFRPY) $(DESTDIR)$(BINDIR)/myFRpy$(LDVERSION)$(EXE); \
 	else \
-		$(INSTALL_PROGRAM) $(STRIPFLAG) Mac/pythonw $(DESTDIR)$(BINDIR)/python$(LDVERSION)$(EXE); \
+		$(INSTALL_PROGRAM) $(STRIPFLAG) Mac/myFRpyw $(DESTDIR)$(BINDIR)/myFRpy$(LDVERSION)$(EXE); \
 	fi
 	-if test "$(VERSION)" != "$(LDVERSION)"; then \
-		if test -f $(DESTDIR)$(BINDIR)/python$(VERSION)$(EXE) -o -h $(DESTDIR)$(BINDIR)/python$(VERSION)$(EXE); \
-		then rm -f $(DESTDIR)$(BINDIR)/python$(VERSION)$(EXE); \
+		if test -f $(DESTDIR)$(BINDIR)/myFRpy$(VERSION)$(EXE) -o -h $(DESTDIR)$(BINDIR)/myFRpy$(VERSION)$(EXE); \
+		then rm -f $(DESTDIR)$(BINDIR)/myFRpy$(VERSION)$(EXE); \
 		fi; \
-		(cd $(DESTDIR)$(BINDIR); $(LN) python$(LDVERSION)$(EXE) python$(VERSION)$(EXE)); \
+		(cd $(DESTDIR)$(BINDIR); $(LN) myFRpy$(LDVERSION)$(EXE) myFRpy$(VERSION)$(EXE)); \
 	fi
-	@if test "$(PY_ENABLE_SHARED)" = 1 -o "$(STATIC_LIBPYTHON)" = 1; then \
-		if test -f $(LDLIBRARY) && test "$(PYTHONFRAMEWORKDIR)" = "no-framework" ; then \
+	@if test "$(PY_ENABLE_SHARED)" = 1 -o "$(STATIC_LIBMYFRPY)" = 1; then \
+		if test -f $(LDLIBRARY) && test "$(MYFRPYFRAMEWORKDIR)" = "no-framework" ; then \
 			if test -n "$(DLLLIBRARY)" ; then \
 				$(INSTALL_SHARED) $(DLLLIBRARY) $(DESTDIR)$(BINDIR); \
 			else \
@@ -1988,63 +1988,63 @@ altbininstall: $(BUILDPYTHON) @FRAMEWORKPYTHONW@
 		fi; \
 	fi
 	if test "x$(LIPO_32BIT_FLAGS)" != "x" ; then \
-		rm -f $(DESTDIR)$(BINDIR)/python$(VERSION)-32$(EXE); \
+		rm -f $(DESTDIR)$(BINDIR)/myFRpy$(VERSION)-32$(EXE); \
 		lipo $(LIPO_32BIT_FLAGS) \
-			-output $(DESTDIR)$(BINDIR)/python$(VERSION)-32$(EXE) \
-			$(DESTDIR)$(BINDIR)/python$(VERSION)$(EXE); \
+			-output $(DESTDIR)$(BINDIR)/myFRpy$(VERSION)-32$(EXE) \
+			$(DESTDIR)$(BINDIR)/myFRpy$(VERSION)$(EXE); \
 	fi
 	if test "x$(LIPO_INTEL64_FLAGS)" != "x" ; then \
-		rm -f $(DESTDIR)$(BINDIR)/python$(VERSION)-intel64$(EXE); \
+		rm -f $(DESTDIR)$(BINDIR)/myFRpy$(VERSION)-intel64$(EXE); \
 		lipo $(LIPO_INTEL64_FLAGS) \
-			-output $(DESTDIR)$(BINDIR)/python$(VERSION)-intel64$(EXE) \
-			$(DESTDIR)$(BINDIR)/python$(VERSION)$(EXE); \
+			-output $(DESTDIR)$(BINDIR)/myFRpy$(VERSION)-intel64$(EXE) \
+			$(DESTDIR)$(BINDIR)/myFRpy$(VERSION)$(EXE); \
 	fi
 	# Install macOS debug information (if available)
-	if test -d "$(BUILDPYTHON).dSYM"; then \
-		echo $(DSYMUTIL_PATH) $(DESTDIR)$(BINDIR)/python$(LDVERSION)$(EXE); \
-		$(DSYMUTIL_PATH) $(DESTDIR)$(BINDIR)/python$(LDVERSION)$(EXE); \
+	if test -d "$(BUILDMYFRPY).dSYM"; then \
+		echo $(DSYMUTIL_PATH) $(DESTDIR)$(BINDIR)/myFRpy$(LDVERSION)$(EXE); \
+		$(DSYMUTIL_PATH) $(DESTDIR)$(BINDIR)/myFRpy$(LDVERSION)$(EXE); \
 	fi
-	if test "$(PYTHONFRAMEWORKDIR)" = "no-framework" ; then \
+	if test "$(MYFRPYFRAMEWORKDIR)" = "no-framework" ; then \
 		if test -d "$(LDLIBRARY).dSYM"; then \
 			echo $(DSYMUTIL_PATH) $(DESTDIR)$(LIBDIR)/$(INSTSONAME); \
 			$(DSYMUTIL_PATH) $(DESTDIR)$(LIBDIR)/$(INSTSONAME); \
 		fi \
 	else \
 		if test -d "$(LDLIBRARY).dSYM"; then \
-			echo $(DSYMUTIL_PATH) $(DESTDIR)$(PYTHONFRAMEWORKPREFIX)/$(INSTSONAME); \
-      $(DSYMUTIL_PATH) $(DESTDIR)$(PYTHONFRAMEWORKPREFIX)/$(INSTSONAME); \
+			echo $(DSYMUTIL_PATH) $(DESTDIR)$(MYFRPYFRAMEWORKPREFIX)/$(INSTSONAME); \
+      $(DSYMUTIL_PATH) $(DESTDIR)$(MYFRPYFRAMEWORKPREFIX)/$(INSTSONAME); \
 		fi \
 	fi
 
 .PHONY: bininstall
 # We depend on commoninstall here to make sure the installation is already usable
-# before we possibly overwrite the global 'python3' symlink to avoid causing
-# problems for anything else trying to run 'python3' while we install, particularly
+# before we possibly overwrite the global 'myFRpy3' symlink to avoid causing
+# problems for anything else trying to run 'myFRpy3' while we install, particularly
 # if we're installing in parallel with -j.
 bininstall: commoninstall altbininstall
 	if test ! -d $(DESTDIR)$(LIBPC); then \
 		echo "Creating directory $(LIBPC)"; \
 		$(INSTALL) -d -m $(DIRMODE) $(DESTDIR)$(LIBPC); \
 	fi
-	-if test -f $(DESTDIR)$(BINDIR)/python3$(EXE) -o -h $(DESTDIR)$(BINDIR)/python3$(EXE); \
-	then rm -f $(DESTDIR)$(BINDIR)/python3$(EXE); \
+	-if test -f $(DESTDIR)$(BINDIR)/myFRpy3$(EXE) -o -h $(DESTDIR)$(BINDIR)/myFRpy3$(EXE); \
+	then rm -f $(DESTDIR)$(BINDIR)/myFRpy3$(EXE); \
 	else true; \
 	fi
-	(cd $(DESTDIR)$(BINDIR); $(LN) -s python$(VERSION)$(EXE) python3$(EXE))
+	(cd $(DESTDIR)$(BINDIR); $(LN) -s myFRpy$(VERSION)$(EXE) myFRpy3$(EXE))
 	-if test "$(VERSION)" != "$(LDVERSION)"; then \
-		rm -f $(DESTDIR)$(BINDIR)/python$(VERSION)-config; \
-		(cd $(DESTDIR)$(BINDIR); $(LN) -s python$(LDVERSION)-config python$(VERSION)-config); \
-		rm -f $(DESTDIR)$(LIBPC)/python-$(LDVERSION).pc; \
-		(cd $(DESTDIR)$(LIBPC); $(LN) -s python-$(VERSION).pc python-$(LDVERSION).pc); \
-		rm -f $(DESTDIR)$(LIBPC)/python-$(LDVERSION)-embed.pc; \
-		(cd $(DESTDIR)$(LIBPC); $(LN) -s python-$(VERSION)-embed.pc python-$(LDVERSION)-embed.pc); \
+		rm -f $(DESTDIR)$(BINDIR)/myFRpy$(VERSION)-config; \
+		(cd $(DESTDIR)$(BINDIR); $(LN) -s myFRpy$(LDVERSION)-config myFRpy$(VERSION)-config); \
+		rm -f $(DESTDIR)$(LIBPC)/myFRpy-$(LDVERSION).pc; \
+		(cd $(DESTDIR)$(LIBPC); $(LN) -s myFRpy-$(VERSION).pc myFRpy-$(LDVERSION).pc); \
+		rm -f $(DESTDIR)$(LIBPC)/myFRpy-$(LDVERSION)-embed.pc; \
+		(cd $(DESTDIR)$(LIBPC); $(LN) -s myFRpy-$(VERSION)-embed.pc myFRpy-$(LDVERSION)-embed.pc); \
 	fi
-	-rm -f $(DESTDIR)$(BINDIR)/python3-config
-	(cd $(DESTDIR)$(BINDIR); $(LN) -s python$(VERSION)-config python3-config)
-	-rm -f $(DESTDIR)$(LIBPC)/python3.pc
-	(cd $(DESTDIR)$(LIBPC); $(LN) -s python-$(VERSION).pc python3.pc)
-	-rm -f $(DESTDIR)$(LIBPC)/python3-embed.pc
-	(cd $(DESTDIR)$(LIBPC); $(LN) -s python-$(VERSION)-embed.pc python3-embed.pc)
+	-rm -f $(DESTDIR)$(BINDIR)/myFRpy3-config
+	(cd $(DESTDIR)$(BINDIR); $(LN) -s myFRpy$(VERSION)-config myFRpy3-config)
+	-rm -f $(DESTDIR)$(LIBPC)/myFRpy3.pc
+	(cd $(DESTDIR)$(LIBPC); $(LN) -s myFRpy-$(VERSION).pc myFRpy3.pc)
+	-rm -f $(DESTDIR)$(LIBPC)/myFRpy3-embed.pc
+	(cd $(DESTDIR)$(LIBPC); $(LN) -s myFRpy-$(VERSION)-embed.pc myFRpy3-embed.pc)
 	-rm -f $(DESTDIR)$(BINDIR)/idle3
 	(cd $(DESTDIR)$(BINDIR); $(LN) -s idle$(VERSION) idle3)
 	-rm -f $(DESTDIR)$(BINDIR)/pydoc3
@@ -2052,12 +2052,12 @@ bininstall: commoninstall altbininstall
 	-rm -f $(DESTDIR)$(BINDIR)/2to3
 	(cd $(DESTDIR)$(BINDIR); $(LN) -s 2to3-$(VERSION) 2to3)
 	if test "x$(LIPO_32BIT_FLAGS)" != "x" ; then \
-		rm -f $(DESTDIR)$(BINDIR)/python3-32$(EXE); \
-		(cd $(DESTDIR)$(BINDIR); $(LN) -s python$(VERSION)-32$(EXE) python3-32$(EXE)) \
+		rm -f $(DESTDIR)$(BINDIR)/myFRpy3-32$(EXE); \
+		(cd $(DESTDIR)$(BINDIR); $(LN) -s myFRpy$(VERSION)-32$(EXE) myFRpy3-32$(EXE)) \
 	fi
 	if test "x$(LIPO_INTEL64_FLAGS)" != "x" ; then \
-		rm -f $(DESTDIR)$(BINDIR)/python3-intel64$(EXE); \
-		(cd $(DESTDIR)$(BINDIR); $(LN) -s python$(VERSION)-intel64$(EXE) python3-intel64$(EXE)) \
+		rm -f $(DESTDIR)$(BINDIR)/myFRpy3-intel64$(EXE); \
+		(cd $(DESTDIR)$(BINDIR); $(LN) -s myFRpy$(VERSION)-intel64$(EXE) myFRpy3-intel64$(EXE)) \
 	fi
 
 # Install the versioned manual page
@@ -2071,14 +2071,14 @@ altmaninstall:
 		else	true; \
 		fi; \
 	done
-	$(INSTALL_DATA) $(srcdir)/Misc/python.man \
-		$(DESTDIR)$(MANDIR)/man1/python$(VERSION).1
+	$(INSTALL_DATA) $(srcdir)/Misc/myFRpy.man \
+		$(DESTDIR)$(MANDIR)/man1/myFRpy$(VERSION).1
 
 # Install the unversioned manual page
 .PHONY: maninstall
 maninstall:	altmaninstall
-	-rm -f $(DESTDIR)$(MANDIR)/man1/python3.1
-	(cd $(DESTDIR)$(MANDIR)/man1; $(LN) -s python$(VERSION).1 python3.1)
+	-rm -f $(DESTDIR)$(MANDIR)/man1/myFRpy3.1
+	(cd $(DESTDIR)$(MANDIR)/man1; $(LN) -s myFRpy$(VERSION).1 myFRpy3.1)
 
 # Install the library
 XMLLIBSUBDIRS=  xml xml/dom xml/etree xml/parsers xml/sax
@@ -2325,33 +2325,33 @@ libinstall:	all $(srcdir)/Modules/xxmodule.c
 		$(DESTDIR)$(LIBDEST); \
 	$(INSTALL_DATA) $(srcdir)/LICENSE $(DESTDIR)$(LIBDEST)/LICENSE.txt
 	@ # Build PYC files for the 3 optimization levels (0, 1, 2)
-	-PYTHONPATH=$(DESTDIR)$(LIBDEST) $(RUNSHARED) \
-		$(PYTHON_FOR_BUILD) -Wi $(DESTDIR)$(LIBDEST)/compileall.py \
+	-MYFRPYPATH=$(DESTDIR)$(LIBDEST) $(RUNSHARED) \
+		$(MYFRPY_FOR_BUILD) -Wi $(DESTDIR)$(LIBDEST)/compileall.py \
 		-o 0 -o 1 -o 2 $(COMPILEALL_OPTS) -d $(LIBDEST) -f \
 		-x 'bad_coding|badsyntax|site-packages|test/test_lib2to3/data' \
 		$(DESTDIR)$(LIBDEST)
-	-PYTHONPATH=$(DESTDIR)$(LIBDEST) $(RUNSHARED) \
-		$(PYTHON_FOR_BUILD) -Wi $(DESTDIR)$(LIBDEST)/compileall.py \
+	-MYFRPYPATH=$(DESTDIR)$(LIBDEST) $(RUNSHARED) \
+		$(MYFRPY_FOR_BUILD) -Wi $(DESTDIR)$(LIBDEST)/compileall.py \
 		-o 0 -o 1 -o 2 $(COMPILEALL_OPTS) -d $(LIBDEST)/site-packages -f \
 		-x badsyntax $(DESTDIR)$(LIBDEST)/site-packages
-	-PYTHONPATH=$(DESTDIR)$(LIBDEST) $(RUNSHARED) \
-		$(PYTHON_FOR_BUILD) -m lib2to3.pgen2.driver $(DESTDIR)$(LIBDEST)/lib2to3/Grammar.txt
-	-PYTHONPATH=$(DESTDIR)$(LIBDEST) $(RUNSHARED) \
-		$(PYTHON_FOR_BUILD) -m lib2to3.pgen2.driver $(DESTDIR)$(LIBDEST)/lib2to3/PatternGrammar.txt
+	-MYFRPYPATH=$(DESTDIR)$(LIBDEST) $(RUNSHARED) \
+		$(MYFRPY_FOR_BUILD) -m lib2to3.pgen2.driver $(DESTDIR)$(LIBDEST)/lib2to3/Grammar.txt
+	-MYFRPYPATH=$(DESTDIR)$(LIBDEST) $(RUNSHARED) \
+		$(MYFRPY_FOR_BUILD) -m lib2to3.pgen2.driver $(DESTDIR)$(LIBDEST)/lib2to3/PatternGrammar.txt
 
-# bpo-21536: Misc/python-config.sh is generated in the build directory
-# from $(srcdir)Misc/python-config.sh.in.
-python-config: $(srcdir)/Misc/python-config.in Misc/python-config.sh
+# bpo-21536: Misc/myFRpy-config.sh is generated in the build directory
+# from $(srcdir)Misc/myFRpy-config.sh.in.
+myFRpy-config: $(srcdir)/Misc/myFRpy-config.in Misc/myFRpy-config.sh
 	@ # Substitution happens here, as the completely-expanded BINDIR
 	@ # is not available in configure
-	sed -e "s,@EXENAME@,$(EXENAME)," < $(srcdir)/Misc/python-config.in >python-config.py
+	sed -e "s,@EXENAME@,$(EXENAME)," < $(srcdir)/Misc/myFRpy-config.in >myFRpy-config.py
 	@ # Replace makefile compat. variable references with shell script compat. ones; $(VAR) -> ${VAR}
-	LC_ALL=C sed -e 's,\$$(\([A-Za-z0-9_]*\)),\$$\{\1\},g' < Misc/python-config.sh >python-config
-	@ # On Darwin, always use the python version of the script, the shell
+	LC_ALL=C sed -e 's,\$$(\([A-Za-z0-9_]*\)),\$$\{\1\},g' < Misc/myFRpy-config.sh >myFRpy-config
+	@ # On Darwin, always use the myFRpy version of the script, the shell
 	@ # version doesn't use the compiler customizations that are provided
-	@ # in python (_osx_support.py).
+	@ # in myFRpy (_osx_support.py).
 	@if test `uname -s` = Darwin; then \
-		cp python-config.py python-config; \
+		cp myFRpy-config.py myFRpy-config; \
 	fi
 
 # macOS' make seems to ignore a dependency on a
@@ -2363,21 +2363,21 @@ SCRIPT_PYDOC=$(BUILD_SCRIPTS_DIR)/pydoc$(VERSION)
 
 $(SCRIPT_2TO3): $(srcdir)/Tools/scripts/2to3
 	@$(MKDIR_P) $(BUILD_SCRIPTS_DIR)
-	sed -e "s,/usr/bin/env python3,$(EXENAME)," < $(srcdir)/Tools/scripts/2to3 > $@
+	sed -e "s,/usr/bin/env myFRpy3,$(EXENAME)," < $(srcdir)/Tools/scripts/2to3 > $@
 	@chmod +x $@
 
 $(SCRIPT_IDLE): $(srcdir)/Tools/scripts/idle3
 	@$(MKDIR_P) $(BUILD_SCRIPTS_DIR)
-	sed -e "s,/usr/bin/env python3,$(EXENAME)," < $(srcdir)/Tools/scripts/idle3 > $@
+	sed -e "s,/usr/bin/env myFRpy3,$(EXENAME)," < $(srcdir)/Tools/scripts/idle3 > $@
 	@chmod +x $@
 
 $(SCRIPT_PYDOC): $(srcdir)/Tools/scripts/pydoc3
 	@$(MKDIR_P) $(BUILD_SCRIPTS_DIR)
-	sed -e "s,/usr/bin/env python3,$(EXENAME)," < $(srcdir)/Tools/scripts/pydoc3 > $@
+	sed -e "s,/usr/bin/env myFRpy3,$(EXENAME)," < $(srcdir)/Tools/scripts/pydoc3 > $@
 	@chmod +x $@
 
 .PHONY: scripts
-scripts: $(SCRIPT_2TO3) $(SCRIPT_IDLE) $(SCRIPT_PYDOC) python-config
+scripts: $(SCRIPT_2TO3) $(SCRIPT_IDLE) $(SCRIPT_PYDOC) myFRpy-config
 
 # Install the include files
 INCLDIRSTOMAKE=$(INCLUDEDIR) $(CONFINCLUDEDIR) $(INCLUDEPY) $(CONFINCLUDEPY)
@@ -2392,9 +2392,9 @@ inclinstall:
 		else	true; \
 		fi; \
 	done
-	@if test ! -d $(DESTDIR)$(INCLUDEPY)/cpython; then \
-		echo "Creating directory $(DESTDIR)$(INCLUDEPY)/cpython"; \
-		$(INSTALL) -d -m $(DIRMODE) $(DESTDIR)$(INCLUDEPY)/cpython; \
+	@if test ! -d $(DESTDIR)$(INCLUDEPY)/cmyFRpy; then \
+		echo "Creating directory $(DESTDIR)$(INCLUDEPY)/cmyFRpy"; \
+		$(INSTALL) -d -m $(DIRMODE) $(DESTDIR)$(INCLUDEPY)/cmyFRpy; \
 	else	true; \
 	fi
 	@if test ! -d $(DESTDIR)$(INCLUDEPY)/internal; then \
@@ -2407,10 +2407,10 @@ inclinstall:
 		echo $(INSTALL_DATA) $$i $(INCLUDEPY); \
 		$(INSTALL_DATA) $$i $(DESTDIR)$(INCLUDEPY); \
 	done
-	@for i in $(srcdir)/Include/cpython/*.h; \
+	@for i in $(srcdir)/Include/cmyFRpy/*.h; \
 	do \
-		echo $(INSTALL_DATA) $$i $(INCLUDEPY)/cpython; \
-		$(INSTALL_DATA) $$i $(DESTDIR)$(INCLUDEPY)/cpython; \
+		echo $(INSTALL_DATA) $$i $(INCLUDEPY)/cmyFRpy; \
+		$(INSTALL_DATA) $$i $(DESTDIR)$(INCLUDEPY)/cmyFRpy; \
 	done
 	@for i in $(srcdir)/Include/internal/*.h; \
 	do \
@@ -2436,9 +2436,9 @@ libainstall: all scripts
 		else	true; \
 		fi; \
 	done
-	@if test "$(STATIC_LIBPYTHON)" = 1; then \
+	@if test "$(STATIC_LIBMYFRPY)" = 1; then \
 		if test -d $(LIBRARY); then :; else \
-			if test "$(PYTHONFRAMEWORKDIR)" = no-framework; then \
+			if test "$(MYFRPYFRAMEWORKDIR)" = no-framework; then \
 				if test "$(SHLIB_SUFFIX)" = .dll; then \
 					$(INSTALL_DATA) $(LDLIBRARY) $(DESTDIR)$(LIBPL) ; \
 				else \
@@ -2448,7 +2448,7 @@ libainstall: all scripts
 				echo Skip install of $(LIBRARY) - use make frameworkinstall; \
 			fi; \
 		fi; \
-		$(INSTALL_DATA) Programs/python.o $(DESTDIR)$(LIBPL)/python.o; \
+		$(INSTALL_DATA) Programs/myFRpy.o $(DESTDIR)$(LIBPL)/myFRpy.o; \
 	fi
 	$(INSTALL_DATA) Modules/config.c $(DESTDIR)$(LIBPL)/config.c
 	$(INSTALL_DATA) $(srcdir)/Modules/config.c.in $(DESTDIR)$(LIBPL)/config.c.in
@@ -2457,21 +2457,21 @@ libainstall: all scripts
 	$(INSTALL_DATA) Modules/Setup.bootstrap $(DESTDIR)$(LIBPL)/Setup.bootstrap
 	$(INSTALL_DATA) Modules/Setup.stdlib $(DESTDIR)$(LIBPL)/Setup.stdlib
 	$(INSTALL_DATA) Modules/Setup.local $(DESTDIR)$(LIBPL)/Setup.local
-	$(INSTALL_DATA) Misc/python.pc $(DESTDIR)$(LIBPC)/python-$(VERSION).pc
-	$(INSTALL_DATA) Misc/python-embed.pc $(DESTDIR)$(LIBPC)/python-$(VERSION)-embed.pc
+	$(INSTALL_DATA) Misc/myFRpy.pc $(DESTDIR)$(LIBPC)/myFRpy-$(VERSION).pc
+	$(INSTALL_DATA) Misc/myFRpy-embed.pc $(DESTDIR)$(LIBPC)/myFRpy-$(VERSION)-embed.pc
 	$(INSTALL_SCRIPT) $(srcdir)/Modules/makesetup $(DESTDIR)$(LIBPL)/makesetup
 	$(INSTALL_SCRIPT) $(srcdir)/install-sh $(DESTDIR)$(LIBPL)/install-sh
-	$(INSTALL_SCRIPT) python-config.py $(DESTDIR)$(LIBPL)/python-config.py
-	$(INSTALL_SCRIPT) python-config $(DESTDIR)$(BINDIR)/python$(LDVERSION)-config
+	$(INSTALL_SCRIPT) myFRpy-config.py $(DESTDIR)$(LIBPL)/myFRpy-config.py
+	$(INSTALL_SCRIPT) myFRpy-config $(DESTDIR)$(BINDIR)/myFRpy$(LDVERSION)-config
 	$(INSTALL_SCRIPT) $(SCRIPT_2TO3) $(DESTDIR)$(BINDIR)/2to3-$(VERSION)
 	$(INSTALL_SCRIPT) $(SCRIPT_IDLE) $(DESTDIR)$(BINDIR)/idle$(VERSION)
 	$(INSTALL_SCRIPT) $(SCRIPT_PYDOC) $(DESTDIR)$(BINDIR)/pydoc$(VERSION)
-	@if [ -s Modules/python.exp -a \
+	@if [ -s Modules/myFRpy.exp -a \
 		"`echo $(MACHDEP) | sed 's/^\(...\).*/\1/'`" = "aix" ]; then \
 		echo; echo "Installing support files for building shared extension modules on AIX:"; \
-		$(INSTALL_DATA) Modules/python.exp		\
-				$(DESTDIR)$(LIBPL)/python.exp;		\
-		echo; echo "$(LIBPL)/python.exp";		\
+		$(INSTALL_DATA) Modules/myFRpy.exp		\
+				$(DESTDIR)$(LIBPL)/myFRpy.exp;		\
+		echo; echo "$(LIBPL)/myFRpy.exp";		\
 		$(INSTALL_SCRIPT) $(srcdir)/Modules/makexp_aix	\
 				$(DESTDIR)$(LIBPL)/makexp_aix;		\
 		echo "$(LIBPL)/makexp_aix";			\
@@ -2483,12 +2483,12 @@ libainstall: all scripts
 	fi
 
 # Here are a couple of targets for MacOSX again, to install a full
-# framework-based Python. frameworkinstall installs everything, the
+# framework-based MyFRpy. frameworkinstall installs everything, the
 # subtargets install specific parts. Much of the actual work is offloaded to
 # the Makefile in Mac
 #
 #
-# This target is here for backward compatibility, previous versions of Python
+# This target is here for backward compatibility, previous versions of MyFRpy
 # hadn't integrated framework installation in the normal install process.
 .PHONY: frameworkinstall
 frameworkinstall: install
@@ -2504,7 +2504,7 @@ frameworkinstallframework: frameworkinstallstructure install frameworkinstallmac
 
 .PHONY: frameworkinstallstructure
 frameworkinstallstructure:	$(LDLIBRARY)
-	@if test "$(PYTHONFRAMEWORKDIR)" = no-framework; then \
+	@if test "$(MYFRPYFRAMEWORKDIR)" = no-framework; then \
 		echo Not configured with --enable-framework; \
 		exit 1; \
 	else true; \
@@ -2516,25 +2516,25 @@ frameworkinstallstructure:	$(LDLIBRARY)
 		else	true; \
 		fi; \
 	done
-	$(LN) -fsn include/python$(LDVERSION) $(DESTDIR)$(prefix)/Headers
-	sed 's/%VERSION%/'"`$(RUNSHARED) ./$(BUILDPYTHON) -c 'import platform; print(platform.python_version())'`"'/g' < $(RESSRCDIR)/Info.plist > $(DESTDIR)$(prefix)/Resources/Info.plist
-	$(LN) -fsn $(VERSION) $(DESTDIR)$(PYTHONFRAMEWORKINSTALLDIR)/Versions/Current
-	$(LN) -fsn Versions/Current/$(PYTHONFRAMEWORK) $(DESTDIR)$(PYTHONFRAMEWORKINSTALLDIR)/$(PYTHONFRAMEWORK)
-	$(LN) -fsn Versions/Current/Headers $(DESTDIR)$(PYTHONFRAMEWORKINSTALLDIR)/Headers
-	$(LN) -fsn Versions/Current/Resources $(DESTDIR)$(PYTHONFRAMEWORKINSTALLDIR)/Resources
-	$(INSTALL_SHARED) $(LDLIBRARY) $(DESTDIR)$(PYTHONFRAMEWORKPREFIX)/$(LDLIBRARY)
+	$(LN) -fsn include/myFRpy$(LDVERSION) $(DESTDIR)$(prefix)/Headers
+	sed 's/%VERSION%/'"`$(RUNSHARED) ./$(BUILDMYFRPY) -c 'import platform; print(platform.myFRpy_version())'`"'/g' < $(RESSRCDIR)/Info.plist > $(DESTDIR)$(prefix)/Resources/Info.plist
+	$(LN) -fsn $(VERSION) $(DESTDIR)$(MYFRPYFRAMEWORKINSTALLDIR)/Versions/Current
+	$(LN) -fsn Versions/Current/$(MYFRPYFRAMEWORK) $(DESTDIR)$(MYFRPYFRAMEWORKINSTALLDIR)/$(MYFRPYFRAMEWORK)
+	$(LN) -fsn Versions/Current/Headers $(DESTDIR)$(MYFRPYFRAMEWORKINSTALLDIR)/Headers
+	$(LN) -fsn Versions/Current/Resources $(DESTDIR)$(MYFRPYFRAMEWORKINSTALLDIR)/Resources
+	$(INSTALL_SHARED) $(LDLIBRARY) $(DESTDIR)$(MYFRPYFRAMEWORKPREFIX)/$(LDLIBRARY)
 
 # This installs Mac/Lib into the framework
 # Install a number of symlinks to keep software that expects a normal unix
-# install (which includes python-config) happy.
+# install (which includes myFRpy-config) happy.
 .PHONY: frameworkinstallmaclib
 frameworkinstallmaclib:
-	$(LN) -fs "../../../$(PYTHONFRAMEWORK)" "$(DESTDIR)$(LIBPL)/libpython$(LDVERSION).a"
-	$(LN) -fs "../../../$(PYTHONFRAMEWORK)" "$(DESTDIR)$(LIBPL)/libpython$(LDVERSION).dylib"
-	$(LN) -fs "../../../$(PYTHONFRAMEWORK)" "$(DESTDIR)$(LIBPL)/libpython$(VERSION).a"
-	$(LN) -fs "../../../$(PYTHONFRAMEWORK)" "$(DESTDIR)$(LIBPL)/libpython$(VERSION).dylib"
-	$(LN) -fs "../$(PYTHONFRAMEWORK)" "$(DESTDIR)$(prefix)/lib/libpython$(LDVERSION).dylib"
-	$(LN) -fs "../$(PYTHONFRAMEWORK)" "$(DESTDIR)$(prefix)/lib/libpython$(VERSION).dylib"
+	$(LN) -fs "../../../$(MYFRPYFRAMEWORK)" "$(DESTDIR)$(LIBPL)/libmyFRpy$(LDVERSION).a"
+	$(LN) -fs "../../../$(MYFRPYFRAMEWORK)" "$(DESTDIR)$(LIBPL)/libmyFRpy$(LDVERSION).dylib"
+	$(LN) -fs "../../../$(MYFRPYFRAMEWORK)" "$(DESTDIR)$(LIBPL)/libmyFRpy$(VERSION).a"
+	$(LN) -fs "../../../$(MYFRPYFRAMEWORK)" "$(DESTDIR)$(LIBPL)/libmyFRpy$(VERSION).dylib"
+	$(LN) -fs "../$(MYFRPYFRAMEWORK)" "$(DESTDIR)$(prefix)/lib/libmyFRpy$(LDVERSION).dylib"
+	$(LN) -fs "../$(MYFRPYFRAMEWORK)" "$(DESTDIR)$(prefix)/lib/libmyFRpy$(VERSION).dylib"
 
 # This installs the IDE, the Launcher and other apps into /Applications
 .PHONY: frameworkinstallapps
@@ -2544,11 +2544,11 @@ frameworkinstallapps:
 # Build the bootstrap executable that will spawn the interpreter inside
 # an app bundle within the framework.  This allows the interpreter to
 # run OS X GUI APIs.
-.PHONY: frameworkpythonw
-frameworkpythonw:
-	cd Mac && $(MAKE) pythonw
+.PHONY: frameworkmyFRpyw
+frameworkmyFRpyw:
+	cd Mac && $(MAKE) myFRpyw
 
-# This installs the python* and other bin symlinks in $prefix/bin or in
+# This installs the myFRpy* and other bin symlinks in $prefix/bin or in
 # a bin directory relative to the framework root
 .PHONY: frameworkinstallunixtools
 frameworkinstallunixtools:
@@ -2573,9 +2573,9 @@ Makefile.pre: $(srcdir)/Makefile.pre.in config.status
 config.status:	$(srcdir)/configure
 	$(srcdir)/configure $(CONFIG_ARGS)
 
-.PRECIOUS: config.status $(BUILDPYTHON) Makefile Makefile.pre
+.PRECIOUS: config.status $(BUILDMYFRPY) Makefile Makefile.pre
 
-Python/asm_trampoline.o: $(srcdir)/Python/asm_trampoline.S
+MyFRpy/asm_trampoline.o: $(srcdir)/MyFRpy/asm_trampoline.S
 	$(CC) -c $(PY_CORE_CFLAGS) -o $@ $<
 
 # Some make's put the object file in the current directory
@@ -2586,13 +2586,13 @@ Python/asm_trampoline.o: $(srcdir)/Python/asm_trampoline.S
 # with -O2 or higher and strict aliasing miscompiles the ratio() function
 # causing rounding issues. Compile dtoa.c using -fno-strict-aliasing on clang.
 # https://bugs.llvm.org//show_bug.cgi?id=31928
-Python/dtoa.o: Python/dtoa.c
+MyFRpy/dtoa.o: MyFRpy/dtoa.c
 	$(CC) -c $(PY_CORE_CFLAGS) $(CFLAGS_ALIASING) -o $@ $<
 
 # Run reindent on the library
 .PHONY: reindent
 reindent:
-	./$(BUILDPYTHON) $(srcdir)/Tools/patchcheck/reindent.py -r $(srcdir)/Lib
+	./$(BUILDMYFRPY) $(srcdir)/Tools/patchcheck/reindent.py -r $(srcdir)/Lib
 
 # Rerun configure with the same options as it was run last time,
 # provided the config.status script exists
@@ -2612,11 +2612,11 @@ regen-configure:
 
 .PHONY: regen-sbom
 regen-sbom:
-	$(PYTHON_FOR_REGEN) $(srcdir)/Tools/build/generate_sbom.py
+	$(MYFRPY_FOR_REGEN) $(srcdir)/Tools/build/generate_sbom.py
 
 # Create a tags file for vi
 tags::
-	ctags -w $(srcdir)/Include/*.h $(srcdir)/Include/cpython/*.h $(srcdir)/Include/internal/*.h
+	ctags -w $(srcdir)/Include/*.h $(srcdir)/Include/cmyFRpy/*.h $(srcdir)/Include/internal/*.h
 	for i in $(SRCDIRS); do ctags -f tags -w -a $(srcdir)/$$i/*.[ch]; done
 	ctags -f tags -w -a $(srcdir)/Modules/_ctypes/*.[ch]
 	find $(srcdir)/Lib -type f -name "*.py" -not -name "test_*.py" -not -path "*/test/*" -not -path "*/tests/*" -not -path "*/*_test/*" | ctags -f tags -w -a -L -
@@ -2625,7 +2625,7 @@ tags::
 # Create a tags file for GNU Emacs
 TAGS::
 	cd $(srcdir); \
-	etags Include/*.h Include/cpython/*.h Include/internal/*.h; \
+	etags Include/*.h Include/cmyFRpy/*.h Include/internal/*.h; \
 	for i in $(SRCDIRS); do etags -a $$i/*.[ch]; done
 	etags -a $(srcdir)/Modules/_ctypes/*.[ch]
 	find $(srcdir)/Lib -type f -name "*.py" -not -name "test_*.py" -not -path "*/test/*" -not -path "*/tests/*" -not -path "*/*_test/*" | etags - -a
@@ -2664,13 +2664,13 @@ clean-retain-profile: pycremoval
 	find build -name '*.py[co]' -exec rm -f {} ';' || true
 	-rm -f pybuilddir.txt
 	-rm -f Lib/lib2to3/*Grammar*.pickle
-	-rm -f _bootstrap_python
-	-rm -f python.html python*.js python.data python*.symbols python*.map
+	-rm -f _bootstrap_myFRpy
+	-rm -f myFRpy.html myFRpy*.js myFRpy.data myFRpy*.symbols myFRpy*.map
 	-rm -f $(WASM_STDLIB)
 	-rm -f Programs/_testembed Programs/_freeze_module
-	-rm -f Python/deepfreeze/*.[co]
-	-rm -f Python/frozen_modules/*.h
-	-rm -f Python/frozen_modules/MANIFEST
+	-rm -f MyFRpy/deepfreeze/*.[co]
+	-rm -f MyFRpy/frozen_modules/*.h
+	-rm -f MyFRpy/frozen_modules/MANIFEST
 	-find build -type f -a ! -name '*.gc??' -exec rm -f {} ';'
 	-rm -f Include/pydtrace_probes.h
 	-rm -f profile-gen-stamp
@@ -2694,16 +2694,16 @@ clean: clean-retain-profile clean-bolt
 
 .PHONY: clobber
 clobber: clean
-	-rm -f $(BUILDPYTHON) $(LIBRARY) $(LDLIBRARY) $(DLLLIBRARY) \
+	-rm -f $(BUILDMYFRPY) $(LIBRARY) $(LDLIBRARY) $(DLLLIBRARY) \
 		tags TAGS \
 		config.cache config.log pyconfig.h Modules/config.c
 	-rm -rf build platform
-	-rm -rf $(PYTHONFRAMEWORKDIR)
-	-rm -f python-config.py python-config
+	-rm -rf $(MYFRPYFRAMEWORKDIR)
+	-rm -f myFRpy-config.py myFRpy-config
 
 # Make things extra clean, before making a distribution:
 # remove all generated files, even Makefile[.pre]
-# Keep configure and Python-ast.[ch], it's possible they can't be generated
+# Keep configure and MyFRpy-ast.[ch], it's possible they can't be generated
 .PHONY: distclean
 distclean: clobber docclean
 	for file in $(srcdir)/Lib/test/data/* ; do \
@@ -2711,9 +2711,9 @@ distclean: clobber docclean
 	done
 	-rm -f core Makefile Makefile.pre config.status Modules/Setup.local \
 	    Modules/Setup.bootstrap Modules/Setup.stdlib \
-		Modules/ld_so_aix Modules/python.exp Misc/python.pc \
-		Misc/python-embed.pc Misc/python-config.sh
-	-rm -f python*-gdb.py
+		Modules/ld_so_aix Modules/myFRpy.exp Misc/myFRpy.pc \
+		Misc/myFRpy-embed.pc Misc/myFRpy-config.sh
+	-rm -f myFRpy*-gdb.py
 	# Issue #28258: set LC_ALL to avoid issues with Estonian locale.
 	# Expansion is performed here by shell (spawned by make) itself before
 	# arguments are passed to find. So LC_ALL=C must be set as a separate
@@ -2724,15 +2724,15 @@ distclean: clobber docclean
 				     -o -name '*.bak' ')' \
 				     -exec rm -f {} ';'
 
-# Check that all symbols exported by libpython start with "Py" or "_Py"
+# Check that all symbols exported by libmyFRpy start with "Py" or "_Py"
 .PHONY: smelly
 smelly: all
-	$(RUNSHARED) ./$(BUILDPYTHON) $(srcdir)/Tools/build/smelly.py
+	$(RUNSHARED) ./$(BUILDMYFRPY) $(srcdir)/Tools/build/smelly.py
 
 # Check if any unsupported C global variables have been added.
 .PHONY: check-c-globals
 check-c-globals:
-	$(PYTHON_FOR_REGEN) $(srcdir)/Tools/c-analyzer/check-c-globals.py \
+	$(MYFRPY_FOR_REGEN) $(srcdir)/Tools/c-analyzer/check-c-globals.py \
 		--format summary \
 		--traceback
 
@@ -2771,11 +2771,11 @@ funny:
 # Perform some verification checks on any modified files.
 .PHONY: patchcheck
 patchcheck: all
-	$(RUNSHARED) ./$(BUILDPYTHON) $(srcdir)/Tools/patchcheck/patchcheck.py
+	$(RUNSHARED) ./$(BUILDMYFRPY) $(srcdir)/Tools/patchcheck/patchcheck.py
 
 .PHONY: check-limited-abi
 check-limited-abi: all
-	$(RUNSHARED) ./$(BUILDPYTHON) $(srcdir)/Tools/build/stable_abi.py --all $(srcdir)/Misc/stable_abi.toml
+	$(RUNSHARED) ./$(BUILDMYFRPY) $(srcdir)/Tools/build/stable_abi.py --all $(srcdir)/Misc/stable_abi.toml
 
 .PHONY: update-config
 update-config:
@@ -2785,7 +2785,7 @@ update-config:
 
 # Dependencies
 
-Python/thread.o: @THREADHEADERS@ $(srcdir)/Python/condvar.h
+MyFRpy/thread.o: @THREADHEADERS@ $(srcdir)/MyFRpy/condvar.h
 
 ##########################################################################
 # Module dependencies and platform-specific files

@@ -55,7 +55,7 @@ The :mod:`uu` module defines the following functions:
    exists, a :exc:`uu.Error` is raised.
 
    :func:`decode` may print a warning to standard error if the input was produced
-   by an incorrect uuencoder and Python could recover from that error.  Setting
+   by an incorrect uuencoder and MyFRpy could recover from that error.  Setting
    *quiet* to a true value silences this warning.
 
 

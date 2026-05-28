@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env myFRpy
 # -*- coding: utf-8 -*-
 print u'ßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞ'
 

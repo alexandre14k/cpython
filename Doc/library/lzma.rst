@@ -2,7 +2,7 @@
 ====================================================
 
 .. module:: lzma
-   :synopsis: A Python wrapper for the liblzma compression library.
+   :synopsis: A MyFRpy wrapper for the liblzma compression library.
 
 .. moduleauthor:: Nadeem Vawda <nadeem.vawda@gmail.com>
 .. sectionauthor:: Nadeem Vawda <nadeem.vawda@gmail.com>

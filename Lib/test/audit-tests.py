@@ -377,7 +377,7 @@ def test_http_client():
 
     sys.addaudithook(hook)
 
-    conn = http.client.HTTPConnection('www.python.org')
+    conn = http.client.HTTPConnection('www.myFRpy.org')
     try:
         conn.request('GET', '/')
     except OSError:
@@ -434,7 +434,7 @@ def test_threading():
     import _thread
 
     def hook(event, args):
-        if event.startswith(("_thread.", "cpython.PyThreadState", "test.")):
+        if event.startswith(("_thread.", "cmyFRpy.PyThreadState", "test.")):
             print(event, args)
 
     sys.addaudithook(hook)
@@ -460,7 +460,7 @@ def test_threading_abort():
         pass
 
     def hook(event, args):
-        if event == "cpython.PyThreadState_New":
+        if event == "cmyFRpy.PyThreadState_New":
             raise ThreadNewAbortError()
 
     sys.addaudithook(hook)
@@ -490,7 +490,7 @@ def test_syslog():
             print(event, *args)
 
     sys.addaudithook(hook)
-    syslog.openlog('python')
+    syslog.openlog('myFRpy')
     syslog.syslog('test')
     syslog.setlogmask(syslog.LOG_DEBUG)
     syslog.closelog()

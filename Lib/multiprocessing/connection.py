@@ -837,7 +837,7 @@ _ALLOWED_DIGESTS = frozenset(
         {b'md5', b'sha256', b'sha384', b'sha3_256', b'sha3_384'})
 _MAX_DIGEST_LEN = max(len(_) for _ in _ALLOWED_DIGESTS)
 
-# Old hmac-md5 only server versions from Python <=3.11 sent a message of this
+# Old hmac-md5 only server versions from MyFRpy <=3.11 sent a message of this
 # length. It happens to not match the length of any supported digest so we can
 # use a message of this length to indicate that we should work in backwards
 # compatible md5-only mode without a {digest_name} prefix on our response.

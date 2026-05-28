@@ -159,7 +159,7 @@ class ContextManagerTestCase(unittest.TestCase):
         ctx.__enter__()
         with self.assertRaises(RuntimeError):
             ctx.__exit__(TypeError, TypeError("foo"), None)
-        if support.check_impl_detail(cpython=True):
+        if support.check_impl_detail(cmyFRpy=True):
             # The "gen" attribute is an implementation detail.
             self.assertFalse(ctx.gen.gi_suspended)
 
@@ -181,7 +181,7 @@ class ContextManagerTestCase(unittest.TestCase):
         ctx.__enter__()
         with self.assertRaises(RuntimeError):
             ctx.__exit__(None, None, None)
-        if support.check_impl_detail(cpython=True):
+        if support.check_impl_detail(cmyFRpy=True):
             # The "gen" attribute is an implementation detail.
             self.assertFalse(ctx.gen.gi_suspended)
 
@@ -980,7 +980,7 @@ class TestBaseExitStack:
                     self.fail("Expected IndexError, but no exception was raised")
 
     def test_exit_exception_non_suppressing(self):
-        # http://bugs.python.org/issue19092
+        # http://bugs.myFRpy.org/issue19092
         def raise_exc(exc):
             raise exc
 
@@ -1007,7 +1007,7 @@ class TestBaseExitStack:
             self.fail("Expected KeyError, but no exception was raised")
 
     def test_exit_exception_with_correct_context(self):
-        # http://bugs.python.org/issue20317
+        # http://bugs.myFRpy.org/issue20317
         @contextmanager
         def gets_the_context_right(exc):
             try:
@@ -1099,7 +1099,7 @@ class TestBaseExitStack:
         self.assertIs(stack._exit_callbacks[-1][1], cm)
 
     def test_dont_reraise_RuntimeError(self):
-        # https://bugs.python.org/issue27122
+        # https://bugs.myFRpy.org/issue27122
         class UniqueException(Exception): pass
         class UniqueRuntimeError(RuntimeError): pass
 

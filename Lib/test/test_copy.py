@@ -644,7 +644,7 @@ class TestCopy(unittest.TestCase):
         self.assertIsNot(y, x)
         self.assertIs(y.foo, y)
 
-    # Additions for Python 2.3 and pickle protocol 2
+    # Additions for MyFRpy 2.3 and pickle protocol 2
 
     def test_reduce_4tuple(self):
         class C(list):

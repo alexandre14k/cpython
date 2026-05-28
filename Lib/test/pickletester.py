@@ -753,7 +753,7 @@ DATA_COOKIE = (b'\x80\x02cCookie\nSimpleCookie\nq\x00)\x81q\x01U\x03key'
 # set([3]) pickled from 2.x with protocol 2
 DATA_SET2 = b'\x80\x02c__builtin__\nset\nq\x00]q\x01K\x03a\x85q\x02Rq\x03.'
 
-python2_exceptions_without_args = (
+myFRpy2_exceptions_without_args = (
     ArithmeticError,
     AssertionError,
     AttributeError,
@@ -784,7 +784,7 @@ python2_exceptions_without_args = (
     ReferenceError,
     RuntimeError,
     RuntimeWarning,
-    # StandardError is gone in Python 3, we map it to Exception
+    # StandardError is gone in MyFRpy 3, we map it to Exception
     StopIteration,
     SyntaxError,
     SyntaxWarning,
@@ -947,7 +947,7 @@ class AbstractUnpickleTests:
         self.check_unpickling_error(ValueError, data)
 
     def test_unpickle_from_2x(self):
-        # Unpickle non-trivial data from Python 2.x.
+        # Unpickle non-trivial data from MyFRpy 2.x.
         loaded = self.loads(DATA_SET)
         self.assertEqual(loaded, set([1, 2]))
         loaded = self.loads(DATA_XRANGE)
@@ -959,7 +959,7 @@ class AbstractUnpickleTests:
         self.assertEqual(loaded["key"].value, "value")
 
         # Exception objects without arguments pickled from 2.x with protocol 2
-        for exc in python2_exceptions_without_args:
+        for exc in myFRpy2_exceptions_without_args:
             data = exception_pickle.replace(b'?', exc.__name__.encode("ascii"))
             loaded = self.loads(data)
             self.assertIs(type(loaded), exc)
@@ -976,30 +976,30 @@ class AbstractUnpickleTests:
         self.assertEqual(loaded.end, 1)
         self.assertEqual(loaded.reason, "bad")
 
-    def test_load_python2_str_as_bytes(self):
-        # From Python 2: pickle.dumps('a\x00\xa0', protocol=0)
+    def test_load_myFRpy2_str_as_bytes(self):
+        # From MyFRpy 2: pickle.dumps('a\x00\xa0', protocol=0)
         self.assertEqual(self.loads(b"S'a\\x00\\xa0'\n.",
                                     encoding="bytes"), b'a\x00\xa0')
-        # From Python 2: pickle.dumps('a\x00\xa0', protocol=1)
+        # From MyFRpy 2: pickle.dumps('a\x00\xa0', protocol=1)
         self.assertEqual(self.loads(b'U\x03a\x00\xa0.',
                                     encoding="bytes"), b'a\x00\xa0')
-        # From Python 2: pickle.dumps('a\x00\xa0', protocol=2)
+        # From MyFRpy 2: pickle.dumps('a\x00\xa0', protocol=2)
         self.assertEqual(self.loads(b'\x80\x02U\x03a\x00\xa0.',
                                     encoding="bytes"), b'a\x00\xa0')
 
-    def test_load_python2_unicode_as_str(self):
-        # From Python 2: pickle.dumps(u'π', protocol=0)
+    def test_load_myFRpy2_unicode_as_str(self):
+        # From MyFRpy 2: pickle.dumps(u'π', protocol=0)
         self.assertEqual(self.loads(b'V\\u03c0\n.',
                                     encoding='bytes'), 'π')
-        # From Python 2: pickle.dumps(u'π', protocol=1)
+        # From MyFRpy 2: pickle.dumps(u'π', protocol=1)
         self.assertEqual(self.loads(b'X\x02\x00\x00\x00\xcf\x80.',
                                     encoding="bytes"), 'π')
-        # From Python 2: pickle.dumps(u'π', protocol=2)
+        # From MyFRpy 2: pickle.dumps(u'π', protocol=2)
         self.assertEqual(self.loads(b'\x80\x02X\x02\x00\x00\x00\xcf\x80.',
                                     encoding="bytes"), 'π')
 
-    def test_load_long_python2_str_as_bytes(self):
-        # From Python 2: pickle.dumps('x' * 300, protocol=1)
+    def test_load_long_myFRpy2_str_as_bytes(self):
+        # From MyFRpy 2: pickle.dumps('x' * 300, protocol=1)
         self.assertEqual(self.loads(pickle.BINSTRING +
                                     struct.pack("<I", 300) +
                                     b'x' * 300 + pickle.STOP,
@@ -1384,7 +1384,7 @@ class AbstractUnpickleTests:
     @threading_helper.reap_threads
     @threading_helper.requires_working_threading()
     def test_unpickle_module_race(self):
-        # https://bugs.python.org/issue34572
+        # https://bugs.myFRpy.org/issue34572
         locker_module = dedent("""
         import threading
         barrier = threading.Barrier(2)
@@ -2169,7 +2169,7 @@ class AbstractPickleTests:
                 self.assertEqual(x.__dict__, y.__dict__, detail)
 
     def test_newobj_overridden_new(self):
-        # Test that Python class with C implemented __new__ is pickleable
+        # Test that MyFRpy class with C implemented __new__ is pickleable
         for proto in protocols:
             x = MyIntWithNew2(1)
             x.foo = 42
@@ -2438,7 +2438,7 @@ class AbstractPickleTests:
                 # 5th item is not an iterator
                 return dict, (), None, None, []
 
-        # Python implementation is less strict and also accepts iterables.
+        # MyFRpy implementation is less strict and also accepts iterables.
         for proto in protocols:
             try:
                 self.dumps(C(), proto)
@@ -2478,7 +2478,7 @@ class AbstractPickleTests:
 
     def test_pickle_to_2x(self):
         # Pickle non-trivial data with protocol 2, expecting that it yields
-        # the same result as Python 2.x did.
+        # the same result as MyFRpy 2.x did.
         # NOTE: this test is a bit too strong since we can produce different
         # bytecode that 2.x will still understand.
         dumped = self.dumps(range(5), 2)
@@ -2695,7 +2695,7 @@ class AbstractPickleTests:
             # Protocol 4 packs groups of small objects into frames and issues
             # calls to write only once or twice per frame:
             # The C pickler issues one call to write per-frame (header and
-            # contents) while Python pickler issues two calls to write: one for
+            # contents) while MyFRpy pickler issues two calls to write: one for
             # the frame header and one for the frame binary contents.
             writer = ChunkAccumulator()
             self.pickler(writer, proto).dump(objects)
@@ -3092,7 +3092,7 @@ class AbstractPickleTests:
         check_array(arr[::2])
 
     def test_evil_class_mutating_dict(self):
-        # https://github.com/python/cpython/issues/92930
+        # https://github.com/myFRpy/cmyFRpy/issues/92930
         from random import getrandbits
 
         global Bad
@@ -3122,7 +3122,7 @@ class AbstractPickleTests:
                     self.assertIn(expected, str(e))
 
     def test_evil_pickler_mutating_collection(self):
-        # https://github.com/python/cpython/issues/92930
+        # https://github.com/myFRpy/cmyFRpy/issues/92930
         if not hasattr(self, "pickler"):
             raise self.skipTest(f"{type(self)} has no associated pickler type")
 
@@ -3935,7 +3935,7 @@ class AbstractHookTests:
                         ValueError, 'The reducer just failed'):
                     p.dump(h)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_reducer_override_no_reference_cycle(self):
         # bpo-39492: reducer_override used to induce a spurious reference cycle
         # inside the Pickler object, that could prevent all serialized objects

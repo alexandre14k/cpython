@@ -9,7 +9,7 @@ MemoryView objects
 ------------------
 
 A :class:`memoryview` object exposes the C level :ref:`buffer interface
-<bufferobjects>` as a Python object which can then be passed around like
+<bufferobjects>` as a MyFRpy object which can then be passed around like
 any other object.
 
 

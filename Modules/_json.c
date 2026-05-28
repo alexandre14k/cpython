@@ -8,7 +8,7 @@
 #  define Py_BUILD_CORE_MODULE 1
 #endif
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_ceval.h"           // _Py_EnterRecursiveCall()
 #include "pycore_runtime.h"         // _PyRuntime
 #include "structmember.h"           // PyMemberDef
@@ -574,14 +574,14 @@ py_scanstring(PyObject* Py_UNUSED(self), PyObject *args)
 PyDoc_STRVAR(pydoc_encode_basestring_ascii,
     "encode_basestring_ascii(string) -> string\n"
     "\n"
-    "Return an ASCII-only JSON representation of a Python string"
+    "Return an ASCII-only JSON representation of a MyFRpy string"
 );
 
 static PyObject *
 py_encode_basestring_ascii(PyObject* Py_UNUSED(self), PyObject *pystr)
 {
     PyObject *rval;
-    /* Return an ASCII-only JSON representation of a Python string */
+    /* Return an ASCII-only JSON representation of a MyFRpy string */
     /* METH_O */
     if (PyUnicode_Check(pystr)) {
         rval = ascii_escape_unicode(pystr);
@@ -599,14 +599,14 @@ py_encode_basestring_ascii(PyObject* Py_UNUSED(self), PyObject *pystr)
 PyDoc_STRVAR(pydoc_encode_basestring,
     "encode_basestring(string) -> string\n"
     "\n"
-    "Return a JSON representation of a Python string"
+    "Return a JSON representation of a MyFRpy string"
 );
 
 static PyObject *
 py_encode_basestring(PyObject* Py_UNUSED(self), PyObject *pystr)
 {
     PyObject *rval;
-    /* Return a JSON representation of a Python string */
+    /* Return a JSON representation of a MyFRpy string */
     /* METH_O */
     if (PyUnicode_Check(pystr)) {
         rval = escape_unicode(pystr);
@@ -1118,7 +1118,7 @@ scan_once_unicode(PyScannerObject *s, PyObject *pystr, Py_ssize_t idx, Py_ssize_
 static PyObject *
 scanner_call(PyScannerObject *self, PyObject *args, PyObject *kwds)
 {
-    /* Python callable interface to scan_once_{str,unicode} */
+    /* MyFRpy callable interface to scan_once_{str,unicode} */
     PyObject *pystr;
     PyObject *rval;
     Py_ssize_t idx;
@@ -1266,7 +1266,7 @@ encoder_new(PyTypeObject *type, PyObject *args, PyObject *kwds)
 static PyObject *
 encoder_call(PyEncoderObject *self, PyObject *args, PyObject *kwds)
 {
-    /* Python callable interface to encode_listencode_obj */
+    /* MyFRpy callable interface to encode_listencode_obj */
     static char *kwlist[] = {"obj", "_current_indent_level", NULL};
     PyObject *obj, *result;
     Py_ssize_t indent_level;
@@ -1372,7 +1372,7 @@ static int
 encoder_listencode_obj(PyEncoderObject *s, _PyUnicodeWriter *writer,
                        PyObject *obj, Py_ssize_t indent_level)
 {
-    /* Encode Python object obj to a JSON term */
+    /* Encode MyFRpy object obj to a JSON term */
     PyObject *newobj;
     int rv;
 
@@ -1533,7 +1533,7 @@ static int
 encoder_listencode_dict(PyEncoderObject *s, _PyUnicodeWriter *writer,
                         PyObject *dct, Py_ssize_t indent_level)
 {
-    /* Encode Python dict dct a JSON term */
+    /* Encode MyFRpy dict dct a JSON term */
     PyObject *ident = NULL;
     PyObject *items = NULL;
     PyObject *key, *value;

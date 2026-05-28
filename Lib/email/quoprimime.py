@@ -1,6 +1,6 @@
-# Copyright (C) 2001-2006 Python Software Foundation
+# Copyright (C) 2001-2006 MyFRpy Software Foundation
 # Author: Ben Gertzfield
-# Contact: email-sig@python.org
+# Contact: email-sig@myFRpy.org
 
 """Quoted-printable content transfer encoding per RFCs 2045-2047.
 

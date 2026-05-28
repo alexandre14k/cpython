@@ -2,7 +2,7 @@
 #define PEGEN_H
 
 #define PY_SSIZE_T_CLEAN
-#include <Python.h>
+#include <MyFRpy.h>
 #include <pycore_ast.h>
 #include <pycore_token.h>
 
@@ -286,7 +286,7 @@ INVALID_VERSION_CHECK(Parser *p, int version, char *msg, void *node)
     }
     if (p->feature_version < version) {
         p->error_indicator = 1;
-        return RAISE_SYNTAX_ERROR("%s only supported in Python 3.%i and greater",
+        return RAISE_SYNTAX_ERROR("%s only supported in MyFRpy 3.%i and greater",
                                   msg, version);
     }
     return node;
@@ -362,7 +362,7 @@ asdl_stmt_seq *_PyPegen_interactive_exit(Parser *);
 // TODO: move to the correct place in this file
 expr_ty _PyPegen_joined_str(Parser *p, Token* a, asdl_expr_seq* expr, Token*b);
 
-// Generated function in parse.c - function definition in python.gram
+// Generated function in parse.c - function definition in myFRpy.gram
 void *_PyPegen_parse(Parser *);
 
 #endif

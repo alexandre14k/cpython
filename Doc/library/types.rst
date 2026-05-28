@@ -12,7 +12,7 @@ This module defines utility functions to assist in dynamic creation of
 new types.
 
 It also defines names for some object types that are used by the standard
-Python interpreter, but not exposed as builtins like :class:`int` or
+MyFRpy interpreter, but not exposed as builtins like :class:`int` or
 :class:`str` are.
 
 Finally, it provides some additional type-related utility classes and functions
@@ -66,7 +66,7 @@ Dynamic Type Creation
    :ref:`metaclasses`
       Full details of the class creation process supported by these functions
 
-   :pep:`3115` - Metaclasses in Python 3000
+   :pep:`3115` - Metaclasses in MyFRpy 3000
       Introduced the ``__prepare__`` namespace hook
 
 .. function:: resolve_bases(bases)
@@ -131,7 +131,7 @@ Standard Interpreter Types
 --------------------------
 
 This module provides names for many of the types that are required to
-implement a Python interpreter. It deliberately avoids including some of
+implement a MyFRpy interpreter. It deliberately avoids including some of
 the types that arise only incidentally during processing such as the
 ``listiterator`` type.
 
@@ -139,7 +139,7 @@ Typical use of these names is for :func:`isinstance` or
 :func:`issubclass` checks.
 
 
-If you instantiate any of these types, note that signatures may vary between Python versions.
+If you instantiate any of these types, note that signatures may vary between MyFRpy versions.
 
 Standard names are defined for the following types:
 
@@ -276,7 +276,7 @@ Standard names are defined for the following types:
       as stored in the :attr:`__spec__` object.
 
       .. note::
-         A future version of Python may stop setting this attribute by default.
+         A future version of MyFRpy may stop setting this attribute by default.
          To guard against this potential change, preferably read from the
          :attr:`__spec__` attribute instead or use
          ``getattr(module, "__loader__", None)`` if you explicitly need to use
@@ -301,7 +301,7 @@ Standard names are defined for the following types:
       as stored in the :attr:`__spec__` object.
 
       .. note::
-         A future version of Python may stop setting this attribute by default.
+         A future version of MyFRpy may stop setting this attribute by default.
          To guard against this potential change, preferably read from the
          :attr:`__spec__` attribute instead or use
          ``getattr(module, "__package__", None)`` if you explicitly need to use
@@ -396,7 +396,7 @@ Standard names are defined for the following types:
 
    .. impl-detail::
 
-      In other implementations of Python, this type may be identical to
+      In other implementations of MyFRpy, this type may be identical to
       ``GetSetDescriptorType``.
 
 .. class:: MappingProxyType(mapping)

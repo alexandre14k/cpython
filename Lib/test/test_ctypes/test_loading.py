@@ -107,7 +107,7 @@ class LoaderTest(unittest.TestCase):
         # NOT fit into a 32-bit integer.  FreeLibrary must be able
         # to accept this address.
 
-        # These are tests for https://bugs.python.org/issue1703286
+        # These are tests for https://bugs.myFRpy.org/issue1703286
         handle = LoadLibrary("advapi32")
         FreeLibrary(handle)
 

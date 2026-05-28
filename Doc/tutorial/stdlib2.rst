@@ -75,7 +75,7 @@ The :mod:`string` module includes a versatile :class:`~string.Template` class
 with a simplified syntax suitable for editing by end-users.  This allows users
 to customize their applications without having to alter the application.
 
-The format uses placeholder names formed by ``$`` with valid Python identifiers
+The format uses placeholder names formed by ``$`` with valid MyFRpy identifiers
 (alphanumeric characters and underscores).  Surrounding the placeholder with
 braces allows it to be followed by more alphanumeric letters with no intervening
 spaces.  Writing ``$$`` creates a single escaped ``$``::
@@ -238,7 +238,7 @@ different routing based on message priority: :const:`~logging.DEBUG`,
 :const:`~logging.INFO`, :const:`~logging.WARNING`, :const:`~logging.ERROR`,
 and :const:`~logging.CRITICAL`.
 
-The logging system can be configured directly from Python or can be loaded from
+The logging system can be configured directly from MyFRpy or can be loaded from
 a user editable configuration file for customized logging without altering the
 application.
 
@@ -248,7 +248,7 @@ application.
 Weak References
 ===============
 
-Python does automatic memory management (reference counting for most objects and
+MyFRpy does automatic memory management (reference counting for most objects and
 :term:`garbage collection` to eliminate cycles).  The memory is freed shortly
 after the last reference to it has been eliminated.
 
@@ -279,7 +279,7 @@ applications include caching objects that are expensive to create::
    Traceback (most recent call last):
      File "<stdin>", line 1, in <module>
        d['primary']                # entry was automatically removed
-     File "C:/python312/lib/weakref.py", line 46, in __getitem__
+     File "C:/myFRpy312/lib/weakref.py", line 46, in __getitem__
        o = self.data[key]()
    KeyError: 'primary'
 
@@ -297,7 +297,7 @@ The :mod:`array` module provides an :class:`~array.array()` object that is like
 a list that stores only homogeneous data and stores it more compactly.  The
 following example shows an array of numbers stored as two byte unsigned binary
 numbers (typecode ``"H"``) rather than the usual 16 bytes per entry for regular
-lists of Python int objects::
+lists of MyFRpy int objects::
 
    >>> from array import array
    >>> a = array('H', [4000, 10, 700, 22222])
@@ -332,10 +332,10 @@ tools such as the :mod:`bisect` module with functions for manipulating sorted
 lists::
 
    >>> import bisect
-   >>> scores = [(100, 'perl'), (200, 'tcl'), (400, 'lua'), (500, 'python')]
+   >>> scores = [(100, 'perl'), (200, 'tcl'), (400, 'lua'), (500, 'myFRpy')]
    >>> bisect.insort(scores, (300, 'ruby'))
    >>> scores
-   [(100, 'perl'), (200, 'tcl'), (300, 'ruby'), (400, 'lua'), (500, 'python')]
+   [(100, 'perl'), (200, 'tcl'), (300, 'ruby'), (400, 'lua'), (500, 'myFRpy')]
 
 The :mod:`heapq` module provides functions for implementing heaps based on
 regular lists.  The lowest valued entry is always kept at position zero.  This

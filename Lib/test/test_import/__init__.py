@@ -26,7 +26,7 @@ import _imp
 
 from test.support import os_helper
 from test.support import (
-    STDLIB_DIR, swap_attr, swap_item, cpython_only, is_emscripten,
+    STDLIB_DIR, swap_attr, swap_item, cmyFRpy_only, is_emscripten,
     is_wasi, run_in_subinterp, run_in_subinterp_with_config)
 from test.support.import_helper import (
     forget, make_legacy_pyc, unlink, unload, ready_to_import,
@@ -64,7 +64,7 @@ def _require_loader(module, loader, skip):
         BuiltinImporter: 'built-in',
         ExtensionFileLoader: 'extension',
         FrozenImporter: 'frozen',
-        SourceFileLoader: 'pure Python',
+        SourceFileLoader: 'pure MyFRpy',
     }
 
     expected = loader
@@ -94,7 +94,7 @@ def require_frozen(module, *, skip=True):
     module = _require_loader(module, FrozenImporter, skip)
     assert module.__spec__.origin == 'frozen', module.__spec__
 
-def require_pure_python(module, *, skip=False):
+def require_pure_myFRpy(module, *, skip=False):
     _require_loader(module, SourceFileLoader, skip)
 
 def remove_files(name):
@@ -143,7 +143,7 @@ def requires_singlephase_init(meth):
                 return _meth(self)
             finally:
                 restore__testsinglephase()
-    meth = cpython_only(meth)
+    meth = cmyFRpy_only(meth)
     return unittest.skipIf(_testsinglephase is None,
                            'test requires _testsinglephase module')(meth)
 
@@ -347,7 +347,7 @@ class ImportTests(unittest.TestCase):
         self.assertEqual(cm.exception.path, os.__file__)
         self.assertRegex(str(cm.exception), r"cannot import name 'i_dont_exist' from 'os' \(.*os.py\)")
 
-    @cpython_only
+    @cmyFRpy_only
     def test_from_import_missing_attr_has_name_and_so_path(self):
         import _testcapi
         with self.assertRaises(ImportError) as cm:
@@ -420,7 +420,7 @@ class ImportTests(unittest.TestCase):
             pyc = TESTFN + ".pyc"
 
             with open(source, "w", encoding='utf-8') as f:
-                print("# This tests Python's ability to import a",
+                print("# This tests MyFRpy's ability to import a",
                       ext, "file.", file=f)
                 a = random.randrange(1000)
                 b = random.randrange(1000)
@@ -455,7 +455,7 @@ class ImportTests(unittest.TestCase):
             del sys.path[0]
 
     def test_module_with_large_stack(self, module='longlist'):
-        # Regression test for http://bugs.python.org/issue561858.
+        # Regression test for http://bugs.myFRpy.org/issue561858.
         filename = module + '.py'
 
         # Create a file with a list of 65000 elements.
@@ -623,7 +623,7 @@ class ImportTests(unittest.TestCase):
                   import importlib
             sys.argv.insert(0, C())
             """))
-        script_helper.assert_python_ok(testfn)
+        script_helper.assert_myFRpy_ok(testfn)
 
     @skip_if_dont_write_bytecode
     def test_timestamp_overflow(self):
@@ -657,10 +657,10 @@ class ImportTests(unittest.TestCase):
         except ImportError:
             self.fail("fromlist must allow bogus names")
 
-    @cpython_only
+    @cmyFRpy_only
     def test_delete_builtins_import(self):
         args = ["-c", "del __builtins__.__import__; import os"]
-        popen = script_helper.spawn_python(*args)
+        popen = script_helper.spawn_myFRpy(*args)
         stdout, stderr = popen.communicate()
         self.assertIn(b"ImportError", stdout)
 
@@ -688,7 +688,7 @@ class ImportTests(unittest.TestCase):
         self.assertEqual(str(cm.exception),
             "cannot import name 'does_not_exist' from '<unknown module name>' (unknown location)")
 
-    @cpython_only
+    @cmyFRpy_only
     def test_issue31492(self):
         # There shouldn't be an assertion failure in case of failing to import
         # from a module with a bad __name__ attribute, or in case of failing
@@ -758,7 +758,7 @@ class ImportTests(unittest.TestCase):
 
             env = None
             env = {k.upper(): os.environ[k] for k in os.environ}
-            env["PYTHONPATH"] = tmp2 + ";" + STDLIB_DIR
+            env["MYFRPYPATH"] = tmp2 + ";" + STDLIB_DIR
 
             # Test 1: import with added DLL directory
             subprocess.check_call([
@@ -851,7 +851,7 @@ class FilePermissionTests(unittest.TestCase):
         # Initially read-only .pyc files on Windows used to cause problems
         # with later updates, see issue #6074 for details
         with ready_to_import() as (name, path):
-            # Write a Python file, make it read-only and import it
+            # Write a MyFRpy file, make it read-only and import it
             with open(path, 'w', encoding='utf-8') as f:
                 f.write("x = 'original'\n")
             # Tweak the mtime of the source to ensure pyc gets updated later
@@ -980,7 +980,7 @@ class PathsTests(unittest.TestCase):
         rmtree(self.path)
         sys.path[:] = self.syspath
 
-    # Regression test for http://bugs.python.org/issue1293.
+    # Regression test for http://bugs.myFRpy.org/issue1293.
     def test_trailing_slash(self):
         with open(os.path.join(self.path, 'test_trailing_slash.py'),
                   'w', encoding='utf-8') as f:
@@ -990,7 +990,7 @@ class PathsTests(unittest.TestCase):
         self.assertEqual(mod.testdata, 'test_trailing_slash')
         unload("test_trailing_slash")
 
-    # Regression test for http://bugs.python.org/issue3677.
+    # Regression test for http://bugs.myFRpy.org/issue3677.
     @unittest.skipUnless(sys.platform == 'win32', 'Windows-specific')
     def test_UNC_path(self):
         with open(os.path.join(self.path, 'test_unc_path.py'), 'w') as f:
@@ -1037,7 +1037,7 @@ class RelativeImportTests(unittest.TestCase):
         # are missing in Py3k because implicit relative imports are
         # a thing of the past
         #
-        # Regression test for http://bugs.python.org/issue3221.
+        # Regression test for http://bugs.myFRpy.org/issue3221.
         def check_relative():
             exec("from . import relimport", ns)
 
@@ -1063,7 +1063,7 @@ class RelativeImportTests(unittest.TestCase):
 
     def test_parentless_import_shadowed_by_global(self):
         # Test as if this were done from the REPL where this error most commonly occurs (bpo-37409).
-        script_helper.assert_python_failure('-W', 'ignore', '-c',
+        script_helper.assert_myFRpy_failure('-W', 'ignore', '-c',
             "foo = 1; from . import foo")
 
     def test_absolute_import_without_future(self):
@@ -1318,7 +1318,7 @@ class TestSymbolicallyLinkedPackage(unittest.TestCase):
         importlib.import_module(self.package_name)
 
 
-@cpython_only
+@cmyFRpy_only
 class ImportlibBootstrapTests(unittest.TestCase):
     # These tests check that importlib is bootstrapped.
 
@@ -1351,7 +1351,7 @@ class ImportlibBootstrapTests(unittest.TestCase):
         self.assertIs(machinery.ModuleSpec, mod.ModuleSpec)
 
 
-@cpython_only
+@cmyFRpy_only
 class GetSourcefileTests(unittest.TestCase):
 
     """Test importlib._bootstrap_external._get_sourcefile() as used by the C API.
@@ -1523,7 +1523,7 @@ class ImportTracebackTests(unittest.TestCase):
             self.fail("ZeroDivisionError should have been raised")
         self.assert_traceback(tb, [__file__, init_path])
 
-    @cpython_only
+    @cmyFRpy_only
     def test_import_bug(self):
         # We simulate a bug in importlib and check that it's not stripped
         # away from the traceback.
@@ -1552,12 +1552,12 @@ class ImportTracebackTests(unittest.TestCase):
 
     @unittest.skipUnless(TESTFN_UNENCODABLE, 'need TESTFN_UNENCODABLE')
     def test_unencodable_filename(self):
-        # Issue #11619: The Python parser and the import machinery must not
+        # Issue #11619: The MyFRpy parser and the import machinery must not
         # encode filenames, especially on Windows
         pyname = script_helper.make_script('', TESTFN_UNENCODABLE, 'pass')
         self.addCleanup(unlink, pyname)
         name = pyname[:-3]
-        script_helper.assert_python_ok("-c", "mod = __import__(%a)" % name,
+        script_helper.assert_myFRpy_ok("-c", "mod = __import__(%a)" % name,
                                        __isolated=False)
 
 
@@ -1786,7 +1786,7 @@ class SubinterpImportTests(unittest.TestCase):
             **(self.ISOLATED if isolated else self.NOT_ISOLATED),
             check_multi_interp_extensions=strict,
         )
-        _, out, err = script_helper.assert_python_ok('-c', textwrap.dedent(f'''
+        _, out, err = script_helper.assert_myFRpy_ok('-c', textwrap.dedent(f'''
             import _testcapi, sys
             assert (
                 {name!r} in sys.builtin_module_names or
@@ -1810,7 +1810,7 @@ class SubinterpImportTests(unittest.TestCase):
             **(self.ISOLATED if isolated else self.NOT_ISOLATED),
             check_multi_interp_extensions=True,
         )
-        _, out, err = script_helper.assert_python_ok('-c', textwrap.dedent(f'''
+        _, out, err = script_helper.assert_myFRpy_ok('-c', textwrap.dedent(f'''
             import _testcapi, sys
             assert {name!r} not in sys.modules, {name!r}
             ret = _testcapi.run_in_subinterp_with_config(
@@ -1835,7 +1835,7 @@ class SubinterpImportTests(unittest.TestCase):
         with self.subTest(f'{module}: strict, not fresh'):
             self.check_compatible_here(module, strict=True)
 
-    @cpython_only
+    @cmyFRpy_only
     def test_frozen_compat(self):
         module = '_frozen_importlib'
         require_frozen(module, skip=True)
@@ -1906,9 +1906,9 @@ class SubinterpImportTests(unittest.TestCase):
             self.check_compatible_here(modname, filename,
                                        strict=False, isolated=False)
 
-    def test_python_compat(self):
+    def test_myFRpy_compat(self):
         module = 'threading'
-        require_pure_python(module)
+        require_pure_myFRpy(module)
         with self.subTest(f'{module}: not strict'):
             self.check_compatible_here(module, strict=False)
         with self.subTest(f'{module}: strict, not fresh'):
@@ -1953,7 +1953,7 @@ class SubinterpImportTests(unittest.TestCase):
 
     def test_isolated_config(self):
         module = 'threading'
-        require_pure_python(module)
+        require_pure_myFRpy(module)
         with self.subTest(f'{module}: strict, not fresh'):
             self.check_compatible_here(module, strict=True, isolated=True)
         with self.subTest(f'{module}: strict, fresh'):
@@ -1962,7 +1962,7 @@ class SubinterpImportTests(unittest.TestCase):
     @requires_subinterpreters
     @requires_singlephase_init
     def test_disallowed_reimport(self):
-        # See https://github.com/python/cpython/issues/104621.
+        # See https://github.com/myFRpy/cmyFRpy/issues/104621.
         script = textwrap.dedent('''
             import _testsinglephase
             print(_testsinglephase)
@@ -2287,7 +2287,7 @@ class SinglephaseInitTests(unittest.TestCase):
         self.assertEqual(init_count, -1)
 
     def test_variants(self):
-        # Exercise the most meaningful variants described in Python/import.c.
+        # Exercise the most meaningful variants described in MyFRpy/import.c.
         self.maxDiff = None
 
         # Check the "basic" module.

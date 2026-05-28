@@ -86,9 +86,9 @@ parser.add_argument(
     action=argparse.BooleanOptionalAction,
     help=(
         "Strict check, fail when a module is missing or fails to import"
-        "(default: no, unless env var PYTHONSTRICTEXTENSIONBUILD is set)"
+        "(default: no, unless env var MYFRPYSTRICTEXTENSIONBUILD is set)"
     ),
-    default=bool(os.environ.get("PYTHONSTRICTEXTENSIONBUILD")),
+    default=bool(os.environ.get("MYFRPYSTRICTEXTENSIONBUILD")),
 )
 
 parser.add_argument(
@@ -96,9 +96,9 @@ parser.add_argument(
     action=argparse.BooleanOptionalAction,
     help=(
         "Use cross-compiling checks "
-        "(default: no, unless env var _PYTHON_HOST_PLATFORM is set)."
+        "(default: no, unless env var _MYFRPY_HOST_PLATFORM is set)."
     ),
-    default="_PYTHON_HOST_PLATFORM" in os.environ,
+    default="_MYFRPY_HOST_PLATFORM" in os.environ,
 )
 
 parser.add_argument(
@@ -237,7 +237,7 @@ class ModuleChecker:
             modinfo.name == "_ssl" for modinfo in self.missing + self.failed_on_import
         ):
             print("Could not build the ssl module!")
-            print("Python requires a OpenSSL 1.1.1 or newer")
+            print("MyFRpy requires a OpenSSL 1.1.1 or newer")
             if sysconfig.get_config_var("OPENSSL_LDFLAGS"):
                 print("Custom linker flags may require --with-openssl-rpath=auto")
             print()

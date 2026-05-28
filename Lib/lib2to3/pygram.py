@@ -1,9 +1,9 @@
 # Copyright 2006 Google, Inc. All Rights Reserved.
 # Licensed to PSF under a Contributor Agreement.
 
-"""Export the Python grammar and symbols."""
+"""Export the MyFRpy grammar and symbols."""
 
-# Python imports
+# MyFRpy imports
 import os
 
 # Local imports
@@ -29,15 +29,15 @@ class Symbols(object):
             setattr(self, name, symbol)
 
 
-python_grammar = driver.load_packaged_grammar("lib2to3", _GRAMMAR_FILE)
+myFRpy_grammar = driver.load_packaged_grammar("lib2to3", _GRAMMAR_FILE)
 
-python_symbols = Symbols(python_grammar)
+myFRpy_symbols = Symbols(myFRpy_grammar)
 
-python_grammar_no_print_statement = python_grammar.copy()
-del python_grammar_no_print_statement.keywords["print"]
+myFRpy_grammar_no_print_statement = myFRpy_grammar.copy()
+del myFRpy_grammar_no_print_statement.keywords["print"]
 
-python_grammar_no_print_and_exec_statement = python_grammar_no_print_statement.copy()
-del python_grammar_no_print_and_exec_statement.keywords["exec"]
+myFRpy_grammar_no_print_and_exec_statement = myFRpy_grammar_no_print_statement.copy()
+del myFRpy_grammar_no_print_and_exec_statement.keywords["exec"]
 
 pattern_grammar = driver.load_packaged_grammar("lib2to3", _PATTERN_GRAMMAR_FILE)
 pattern_symbols = Symbols(pattern_grammar)

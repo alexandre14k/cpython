@@ -1,9 +1,9 @@
-#!/usr/bin/env python3.8
+#!/usr/bin/env myFRpy3.8
 """Find the maximum amount of nesting for an expression that can be parsed
 without causing a parse error.
 
 Starting at the INITIAL_NESTING_DEPTH, an expression containing n parenthesis
-around a 0 is generated then tested with both the C and Python parsers. We
+around a 0 is generated then tested with both the C and MyFRpy parsers. We
 continue incrementing the number of parenthesis by 10 until both parsers have
 failed. As soon as a single parser fails, we stop testing that parser.
 
@@ -11,12 +11,12 @@ The grammar file, initial nesting size, and amount by which the nested size is
 incremented on each success can be controlled by changing the GRAMMAR_FILE,
 INITIAL_NESTING_DEPTH, or NESTED_INCR_AMT variables.
 
-Usage: python -m scripts.find_max_nesting
+Usage: myFRpy -m scripts.find_max_nesting
 """
 import sys
 import ast
 
-GRAMMAR_FILE = "data/python.gram"
+GRAMMAR_FILE = "data/myFRpy.gram"
 INITIAL_NESTING_DEPTH = 10
 NESTED_INCR_AMT = 10
 

@@ -52,7 +52,7 @@ IDLEfork ChangeLog
 	debugger -i	    open an interactive shell -i file(s) open a
 	shell and also an editor window for each file -r script  run a file
 	as a script in a shell -s	  run $IDLESTARTUP or
-	$PYTHONSTARTUP before anything else -t title   set title of shell
+	$MYFRPYSTARTUP before anything else -t title   set title of shell
 	window
 
 	Remaining arguments are applied to the command (-c) or script (-r).
@@ -73,7 +73,7 @@ IDLEfork ChangeLog
 
 2001-07-16 15:50  kbk
 
-	* idles: Add a script "idles" which opens a Python Shell window.
+	* idles: Add a script "idles" which opens a MyFRpy Shell window.
 
 	The default behaviour of idlefork idle is to open an editor window
 	instead of a shell. Complex expressions may be run in a fresh
@@ -88,7 +88,7 @@ IDLEfork ChangeLog
 
 2001-07-16 14:00  kbk
 
-	* PyShell.py, setup.py: Add a script "idles" which opens a Python
+	* PyShell.py, setup.py: Add a script "idles" which opens a MyFRpy
 	Shell window.
 
 	The default behaviour of idlefork idle is to open an editor window
@@ -111,7 +111,7 @@ IDLEfork ChangeLog
 	* setup.py: Installing Idle to site-packages via Distutils does not
 	copy the Idle help.txt file.
 
-	Ref SF Python Patch 422471
+	Ref SF MyFRpy Patch 422471
 
 2001-07-14 15:26  kbk
 
@@ -172,7 +172,7 @@ IDLEfork ChangeLog
 	all this work w/ a future-stmt just looks harder and harder."
 	--tim_one
 
-	(From Rel 1.8: "Hack to make this still work with Python 1.5.2.
+	(From Rel 1.8: "Hack to make this still work with MyFRpy 1.5.2.
 	;-( " --fdrake)
 
 2001-07-14 14:51  kbk
@@ -201,20 +201,20 @@ IDLEfork ChangeLog
 
 	* EditorWindow.py: py-cvs-2000_07_13 (Rev 1.38) merge "Remove
 	legacy support for the BrowserControl module; the webbrowser module
-	has been included since Python 2.0, and that is the preferred
+	has been included since MyFRpy 2.0, and that is the preferred
 	interface." --fdrake
 
 2001-07-14 13:32  kbk
 
 	* EditorWindow.py, FileList.py, IdleConf.py, PyParse.py,
 	PyShell.py, StackViewer.py, extend.txt, idle.py, keydefs.py: Import
-	the 2001 July 13 23:59 GMT version of Python CVS IDLE on the
+	the 2001 July 13 23:59 GMT version of MyFRpy CVS IDLE on the
 	existing 1.1.3 vendor branch named py-cvs-vendor-branch. Release
 	tag is py-cvs-2001_07_13.
 
 2001-07-14 12:02  kbk
 
-	* Icons/python.gif: py-cvs-rel2_1 (Rev 1.2) merge Copied py-cvs rev
+	* Icons/myFRpy.gif: py-cvs-rel2_1 (Rev 1.2) merge Copied py-cvs rev
 	1.2 changed file to idlefork MAIN
 
 2001-07-14 11:58  kbk
@@ -319,7 +319,7 @@ IDLEfork ChangeLog
 	* EditorWindow.py: py-cvs-rel2_1 (Rev 1.33 - 1.37) merge
 
 	VP IDLE version depended on VP's ExecBinding.py and spawn.py to get
-	the path to the Windows Doc directory (relative to python.exe).
+	the path to the Windows Doc directory (relative to myFRpy.exe).
 	Removed this conflicting code in favor of py-cvs updates which on
 	Windows use a hard coded path relative to the location of this
 	module. py-cvs updates include support for webbrowser.py.  Module
@@ -378,7 +378,7 @@ IDLEfork ChangeLog
 
 2001-07-12 16:54  elguavas
 
-	* ReplaceDialog.py: py-cvs merge, python 1.5.2 compatibility
+	* ReplaceDialog.py: py-cvs merge, myFRpy 1.5.2 compatibility
 
 2001-07-12 16:46  elguavas
 
@@ -424,7 +424,7 @@ IDLEfork ChangeLog
 	ScrolledList.py, Separator.py, StackViewer.py, TODO.txt,
 	ToolTip.py, WindowList.py, config.txt, help.txt, idle, idle.bat,
 	idle.py, idlever.py, setup.py, Icons/minusnode.gif,
-	Icons/python.gif: Import the release 2.1 version of Python CVS IDLE
+	Icons/myFRpy.gif: Import the release 2.1 version of MyFRpy CVS IDLE
 	on the existing 1.1.3 vendor branch named py-cvs-vendor-branch,
 	with release tag py-cvs-rel2_1.
 
@@ -446,14 +446,14 @@ IDLEfork ChangeLog
 	config-win.txt, config.txt, eventparse.py, extend.txt, help.txt,
 	idle.bat, idle.py, idle.pyw, idlever.py, keydefs.py, pyclbr.py,
 	tabnanny.py, testcode.py, Icons/folder.gif, Icons/minusnode.gif,
-	Icons/openfolder.gif, Icons/plusnode.gif, Icons/python.gif,
-	Icons/tk.gif: Import the 9 March 2000 version of Python CVS IDLE as
+	Icons/openfolder.gif, Icons/plusnode.gif, Icons/myFRpy.gif,
+	Icons/tk.gif: Import the 9 March 2000 version of MyFRpy CVS IDLE as
 	1.1.3 vendor branch named py-cvs-vendor-branch.
 
 2001-07-04 13:43  kbk
 
 	* Icons/: folder.gif, minusnode.gif, openfolder.gif, plusnode.gif,
-	python.gif, tk.gif: Null commit with -f option to force an uprev
+	myFRpy.gif, tk.gif: Null commit with -f option to force an uprev
 	and put HEADs firmly on the trunk.
 
 2001-07-04 13:15  kbk
@@ -488,7 +488,7 @@ IDLEfork ChangeLog
 
 2001-06-25 17:23  elguavas
 
-	* idle, RemoteInterp.py, setup.py: import current python cvs idle
+	* idle, RemoteInterp.py, setup.py: import current myFRpy cvs idle
 	as a vendor branch
 
 2001-06-24 15:10  elguavas
@@ -506,12 +506,12 @@ IDLEfork ChangeLog
 
 2000-09-24 17:29  nriley
 
-	* protocol.py: Fixes for Python 1.6 compatibility - socket bind and
+	* protocol.py: Fixes for MyFRpy 1.6 compatibility - socket bind and
 	connect get a tuple instead two arguments.
 
 2000-09-24 17:28  nriley
 
-	* spawn.py: Change for Python 1.6 compatibility - UNIX's 'os'
+	* spawn.py: Change for MyFRpy 1.6 compatibility - UNIX's 'os'
 	module defines 'spawnv' now, so we check for 'fork' first.
 
 2000-08-15 22:51  nowonder
@@ -543,7 +543,7 @@ IDLEfork ChangeLog
 	keydefs.py, loader.py, pyclbr.py, tabnanny.py, testcode.py,
 	EditorWindow.py, ExecBinding.py, Remote.py, protocol.py, spawn.py,
 	Icons/folder.gif, Icons/minusnode.gif, Icons/openfolder.gif,
-	Icons/plusnode.gif, Icons/python.gif, Icons/tk.gif: Initial
+	Icons/plusnode.gif, Icons/myFRpy.gif, Icons/tk.gif: Initial
 	revision
 
 2000-08-15 11:13  dscherer
@@ -565,8 +565,8 @@ IDLEfork ChangeLog
 	keydefs.py, loader.py, pyclbr.py, tabnanny.py, testcode.py,
 	EditorWindow.py, ExecBinding.py, Remote.py, protocol.py, spawn.py,
 	Icons/folder.gif, Icons/minusnode.gif, Icons/openfolder.gif,
-	Icons/plusnode.gif, Icons/python.gif, Icons/tk.gif: Modified IDLE
-	from VPython 0.2
+	Icons/plusnode.gif, Icons/myFRpy.gif, Icons/tk.gif: Modified IDLE
+	from VMyFRpy 0.2
 
 
 original IDLE ChangeLog:
@@ -607,14 +607,14 @@ Thu Sep  9 14:16:02 1999  Guido van Rossum  <guido@cnri.reston.va.us>
 
 Thu Aug 26 23:06:22 1999  Guido van Rossum  <guido@cnri.reston.va.us>
 
-	* Bindings.py: Add Python Documentation entry to Help menu.
+	* Bindings.py: Add MyFRpy Documentation entry to Help menu.
 
 	* EditorWindow.py:
 	Find the help.txt file relative to __file__ or ".", not in sys.path.
 	(Suggested by Moshe Zadka, but implemented differently.)
 
-	Add <<python-docs>> event which, on Unix, brings up Netscape pointing
-	to http://www.python.doc/current/ (a local copy would be nice but its
+	Add <<myFRpy-docs>> event which, on Unix, brings up Netscape pointing
+	to http://www.myFRpy.doc/current/ (a local copy would be nice but its
 	location can't be predicted).  Windows solution TBD.
 
 Wed Aug 11 14:55:43 1999  Guido van Rossum  <guido@cnri.reston.va.us>
@@ -717,7 +717,7 @@ Thu Jun 10 17:48:02 1999  Guido van Rossum  <guido@cnri.reston.va.us>
 	* ClassBrowser.py:
 	Adapt to the new pyclbr's support of listing top-level functions.  If
 	this functionality is not present (e.g. when used with a vintage
-	Python 1.5.2 installation) top-level functions are not listed.
+	MyFRpy 1.5.2 installation) top-level functions are not listed.
 
 	(Hmm...  Any distribution of IDLE 0.5 should probably include a copy
 	of the new pyclbr.py!)
@@ -760,7 +760,7 @@ Tue Jun  8 13:06:07 1999  Guido van Rossum  <guido@cnri.reston.va.us>
 	turned off.  The only implication is that if you open a file whose first
 	indent is a single tab, IDLE will now magically use tabs for that file (and
 	set indentwidth to 8).  Note that the whole scheme doesn't work right for
-	PythonWin, though, since Windows users typically set tabwidth to 4; Mark
+	MyFRpyWin, though, since Windows users typically set tabwidth to 4; Mark
 	probably has to hide the IDLE algorithm from them (which he already knows).
 
 	+ Changed comment_region_event to stick "##" in front of every line.  The
@@ -796,7 +796,7 @@ Thu Jun  3 14:32:16 1999  Guido van Rossum  <guido@cnri.reston.va.us>
 	* AutoIndent.py, EditorWindow.py, PyParse.py:
 	New offerings by Tim Peters; he writes:
 
-	IDLE is now the first Python editor in the Universe not confused by my
+	IDLE is now the first MyFRpy editor in the Universe not confused by my
 	doctest.py <wink>.
 
 	As threatened, this defines IDLE's is_char_in_string function as a
@@ -827,15 +827,15 @@ Wed Jun  2 18:18:57 1999  Guido van Rossum  <guido@cnri.reston.va.us>
 
 	* IdleHistory.py:
 	Changes by Mark Hammond: (1) support optional output_sep argument to
-	the constructor so he can eliminate the sys.ps2 that PythonWin leaves
+	the constructor so he can eliminate the sys.ps2 that MyFRpyWin leaves
 	in the source; (2) remove duplicate history items.
 
 	* AutoIndent.py:
-	Changes by Mark Hammond to allow using IDLE extensions in PythonWin as
+	Changes by Mark Hammond to allow using IDLE extensions in MyFRpyWin as
 	well: make three dialog routines instance variables.
 
 	* EditorWindow.py:
-	Change by Mark Hammond to allow using IDLE extensions in PythonWin as
+	Change by Mark Hammond to allow using IDLE extensions in MyFRpyWin as
 	well: make three dialog routines instance variables.
 
 Tue Jun  1 20:06:44 1999  Guido van Rossum  <guido@cnri.reston.va.us>
@@ -871,7 +871,7 @@ Tue Jun  1 20:06:44 1999  Guido van Rossum  <guido@cnri.reston.va.us>
 	the fancy stuff requires looking backward for a parsing synch point; ps1
 	lines are the only sensible thing to look for in a shell window, but are a
 	bad thing to look for in a file window (ps1 lines show up in my module
-	docstrings often).  PythonWin's shell should set this true too.
+	docstrings often).  MyFRpyWin's shell should set this true too.
 
 	Persistent problem:  strings containing def/class can still screw things up
 	completely.  No improvement.  Simplest workaround is on the user's head, and
@@ -956,7 +956,7 @@ Tue Jun  1 20:06:44 1999  Guido van Rossum  <guido@cnri.reston.va.us>
 
 	* ZoomHeight.py: Move zoom height functionality to separate function.
 
-	* Icons/folder.gif, Icons/openfolder.gif, Icons/python.gif, Icons/tk.gif:
+	* Icons/folder.gif, Icons/openfolder.gif, Icons/myFRpy.gif, Icons/tk.gif:
 	A few icons used by ../TreeWidget.py and its callers.
 
 	* AutoIndent.py: New version by Tim Peters improves block opening test.
@@ -1063,8 +1063,8 @@ Thu Apr 22 23:20:17 1999  Guido van Rossum  <guido@cnri.reston.va.us>
 	  idle.py -c cmd arg ... -- to run a command
 	Other options, see also the usage message (also new!) for more details:
 	  -d       -- enable debugger
-	  -s       -- run $IDLESTARTUP or $PYTHONSTARTUP
-	  -t title -- set Python Shell window's title
+	  -s       -- run $IDLESTARTUP or $MYFRPYSTARTUP
+	  -t title -- set MyFRpy Shell window's title
 	sys.argv is set accordingly, unless -e is used.
 	sys.path is absolutized, and all relevant paths are inserted into it.
 
@@ -1135,7 +1135,7 @@ Mon Apr 19 16:26:02 1999  Guido van Rossum  <guido@cnri.reston.va.us>
 	functions to avoid that in finite time.
 
 ======================================================================
-	Python release 1.5.2c1, IDLE version 0.4
+	MyFRpy release 1.5.2c1, IDLE version 0.4
 ======================================================================
 
 Wed Apr  7 18:41:59 1999  Guido van Rossum  <guido@cnri.reston.va.us>
@@ -1192,7 +1192,7 @@ Wed Mar 10 05:18:02 1999  Guido van Rossum  <guido@cnri.reston.va.us>
 	- Don't set the focus.
 
 ======================================================================
-	Python release 1.5.2b2, IDLE version 0.3
+	MyFRpy release 1.5.2b2, IDLE version 0.3
 ======================================================================
 
 Wed Feb 17 22:47:41 1999  Guido van Rossum  <guido@cnri.reston.va.us>
@@ -1270,7 +1270,7 @@ Mon Jan 18 15:18:57 1999  Guido van Rossum  <guido@cnri.reston.va.us>
 Tue Jan 12 22:14:34 1999  Guido van Rossum  <guido@cnri.reston.va.us>
 
 	* testcode.py, Attic/test.py:
-	Renamed test.py to testcode.py so one can import Python's
+	Renamed test.py to testcode.py so one can import MyFRpy's
 	test package from inside IDLE.  (Suggested by Jack Jansen.)
 
 	* EditorWindow.py, ColorDelegator.py:
@@ -1328,7 +1328,7 @@ Sat Jan  9 22:01:33 1999  Guido van Rossum  <guido@cnri.reston.va.us>
 	goes to a fresh output window, only created when needed.
 
 ======================================================================
-	Python release 1.5.2b1, IDLE version 0.2
+	MyFRpy release 1.5.2b1, IDLE version 0.2
 ======================================================================
 
 Fri Jan  8 17:26:02 1999  Guido van Rossum  <guido@cnri.reston.va.us>
@@ -1406,7 +1406,7 @@ Fri Dec 18 15:52:54 1998  Guido van Rossum  <guido@cnri.reston.va.us>
 
 Tue Dec  8 20:39:36 1998  Guido van Rossum  <guido@cnri.reston.va.us>
 
-	* Attic/turtle.py: Moved to Python 1.5.2/Lib
+	* Attic/turtle.py: Moved to MyFRpy 1.5.2/Lib
 
 Fri Nov 27 03:19:20 1998  Guido van Rossum  <guido@cnri.reston.va.us>
 
@@ -1585,7 +1585,7 @@ Sat Oct 10 19:15:32 1998  Guido van Rossum  <guido@cnri.reston.va.us>
 	* Attic/test.py, Attic/idle: Add Unix main script and test program.
 
 	* idle.pyw, help.txt, WidgetRedirector.py, UndoDelegator.py, StackViewer.py, SearchBinding.py, Attic/README, PyShell.py, Attic/PopupMenu.py, Percolator.py, Outline.py, IOBinding.py, History.py, Attic/HelpWindow.py, FrameViewer.py, FileList.py, EditorWindow.py, Delegator.py, ColorDelegator.py, Bindings.py, AutoIndent.py, AutoExpand.py:
-	Initial checking of Tk-based Python IDE.
+	Initial checking of Tk-based MyFRpy IDE.
 	Features: text editor with syntax coloring and undo;
-	subclassed into interactive Python shell which adds history.
+	subclassed into interactive MyFRpy shell which adds history.
 

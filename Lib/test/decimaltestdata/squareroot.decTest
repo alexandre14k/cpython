@@ -3441,7 +3441,7 @@ sqtx8424 squareroot 8.7025E-24 -> 3.0E-12 Underflow Subnormal Inexact Rounded
 sqtx8425 squareroot 9.3025E-24 -> 3.0E-12 Underflow Subnormal Inexact Rounded
 sqtx8426 squareroot 9.9225E-24 -> 3.2E-12 Underflow Subnormal Inexact Rounded
 
--- a random selection of values that Python2.5.1 rounds incorrectly
+-- a random selection of values that MyFRpy2.5.1 rounds incorrectly
 precision: 1
 sqtx8427 squareroot 227 -> 2E+1 Inexact Rounded
 sqtx8428 squareroot 625 -> 2E+1 Inexact Rounded
@@ -3708,7 +3708,7 @@ sqtx8652 squareroot 1.000000000E+18 -> 1.00000E+9
 sqtx8653 squareroot 1E+20 -> Infinity Overflow Inexact Rounded
 clamp: 0
 
--- The following example causes a TypeError in Python 2.5.1
+-- The following example causes a TypeError in MyFRpy 2.5.1
 precision: 3
 maxexponent: 9
 minexponent: -9

@@ -20,7 +20,7 @@ class LegacyBase64TestCase(unittest.TestCase):
 
     def test_encodebytes(self):
         eq = self.assertEqual
-        eq(base64.encodebytes(b"www.python.org"), b"d3d3LnB5dGhvbi5vcmc=\n")
+        eq(base64.encodebytes(b"www.myFRpy.org"), b"d3d3LnB5dGhvbi5vcmc=\n")
         eq(base64.encodebytes(b"a"), b"YQ==\n")
         eq(base64.encodebytes(b"ab"), b"YWI=\n")
         eq(base64.encodebytes(b"abc"), b"YWJj\n")
@@ -41,7 +41,7 @@ class LegacyBase64TestCase(unittest.TestCase):
 
     def test_decodebytes(self):
         eq = self.assertEqual
-        eq(base64.decodebytes(b"d3d3LnB5dGhvbi5vcmc=\n"), b"www.python.org")
+        eq(base64.decodebytes(b"d3d3LnB5dGhvbi5vcmc=\n"), b"www.myFRpy.org")
         eq(base64.decodebytes(b"YQ==\n"), b"a")
         eq(base64.decodebytes(b"YWI=\n"), b"ab")
         eq(base64.decodebytes(b"YWJj\n"), b"abc")
@@ -82,7 +82,7 @@ class LegacyBase64TestCase(unittest.TestCase):
         infp = BytesIO(b'd3d3LnB5dGhvbi5vcmc=')
         outfp = BytesIO()
         base64.decode(infp, outfp)
-        self.assertEqual(outfp.getvalue(), b'www.python.org')
+        self.assertEqual(outfp.getvalue(), b'www.myFRpy.org')
         # Non-binary files
         self.assertRaises(TypeError, base64.encode, StringIO('YWJj\n'), BytesIO())
         self.assertRaises(TypeError, base64.encode, BytesIO(b'YWJj\n'), StringIO())
@@ -129,7 +129,7 @@ class BaseXYTestCase(unittest.TestCase):
     def test_b64encode(self):
         eq = self.assertEqual
         # Test default alphabet
-        eq(base64.b64encode(b"www.python.org"), b"d3d3LnB5dGhvbi5vcmc=")
+        eq(base64.b64encode(b"www.myFRpy.org"), b"d3d3LnB5dGhvbi5vcmc=")
         eq(base64.b64encode(b'\x00'), b'AA==')
         eq(base64.b64encode(b"a"), b"YQ==")
         eq(base64.b64encode(b"ab"), b"YWI=")
@@ -154,7 +154,7 @@ class BaseXYTestCase(unittest.TestCase):
         self.check_encode_type_errors(base64.b64encode)
         self.assertRaises(TypeError, base64.b64encode, b"", altchars="*$")
         # Test standard alphabet
-        eq(base64.standard_b64encode(b"www.python.org"), b"d3d3LnB5dGhvbi5vcmc=")
+        eq(base64.standard_b64encode(b"www.myFRpy.org"), b"d3d3LnB5dGhvbi5vcmc=")
         eq(base64.standard_b64encode(b"a"), b"YQ==")
         eq(base64.standard_b64encode(b"ab"), b"YWI=")
         eq(base64.standard_b64encode(b"abc"), b"YWJj")
@@ -179,7 +179,7 @@ class BaseXYTestCase(unittest.TestCase):
     def test_b64decode(self):
         eq = self.assertEqual
 
-        tests = {b"d3d3LnB5dGhvbi5vcmc=": b"www.python.org",
+        tests = {b"d3d3LnB5dGhvbi5vcmc=": b"www.myFRpy.org",
                  b'AA==': b'\x00',
                  b"YQ==": b"a",
                  b"YWI=": b"ab",
@@ -466,7 +466,7 @@ class BaseXYTestCase(unittest.TestCase):
 
         tests = {
             b'': b'',
-            b"www.python.org": b'GB\\6`E-ZP=Df.1GEb>',
+            b"www.myFRpy.org": b'GB\\6`E-ZP=Df.1GEb>',
             bytes(range(255)): b"""!!*-'"9eu7#RLhG$k3[W&.oNg'GVB"(`=52*$$"""
                b"""(B+<_pR,UFcb-n-Vr/1iJ-0JP==1c70M3&s#]4?Ykm5X@_(6q'R884cE"""
                b"""H9MJ8X:f1+h<)lt#=BSg3>[:ZC?t!MSA7]@cBPD3sCi+'.E,fo>FEMbN"""
@@ -494,16 +494,16 @@ class BaseXYTestCase(unittest.TestCase):
             eq(base64.a85encode(data, adobe=False), res, data)
             eq(base64.a85encode(data, adobe=True), b'<~' + res + b'~>', data)
 
-        self.check_other_types(base64.a85encode, b"www.python.org",
+        self.check_other_types(base64.a85encode, b"www.myFRpy.org",
                                b'GB\\6`E-ZP=Df.1GEb>')
 
         self.assertRaises(TypeError, base64.a85encode, "")
 
-        eq(base64.a85encode(b"www.python.org", wrapcol=7, adobe=False),
+        eq(base64.a85encode(b"www.myFRpy.org", wrapcol=7, adobe=False),
            b'GB\\6`E-\nZP=Df.1\nGEb>')
-        eq(base64.a85encode(b"\0\0\0\0www.python.org", wrapcol=7, adobe=False),
+        eq(base64.a85encode(b"\0\0\0\0www.myFRpy.org", wrapcol=7, adobe=False),
            b'zGB\\6`E\n-ZP=Df.\n1GEb>')
-        eq(base64.a85encode(b"www.python.org", wrapcol=7, adobe=True),
+        eq(base64.a85encode(b"www.myFRpy.org", wrapcol=7, adobe=True),
            b'<~GB\\6`\nE-ZP=Df\n.1GEb>\n~>')
 
         eq(base64.a85encode(b' '*8, foldspaces=True, adobe=False), b'yy')
@@ -516,7 +516,7 @@ class BaseXYTestCase(unittest.TestCase):
 
         tests = {
             b'': b'',
-            b'www.python.org': b'cXxL#aCvlSZ*DGca%T',
+            b'www.myFRpy.org': b'cXxL#aCvlSZ*DGca%T',
             bytes(range(255)): b"""009C61O)~M2nh-c3=Iws5D^j+6crX17#SKH9337X"""
                 b"""AR!_nBqb&%C@Cr{EG;fCFflSSG&MFiI5|2yJUu=?KtV!7L`6nNNJ&ad"""
                 b"""OifNtP*GA-R8>}2SXo+ITwPvYU}0ioWMyV&XlZI|Y;A6DaB*^Tbai%j"""
@@ -542,7 +542,7 @@ class BaseXYTestCase(unittest.TestCase):
         for data, res in tests.items():
             eq(base64.b85encode(data), res)
 
-        self.check_other_types(base64.b85encode, b"www.python.org",
+        self.check_other_types(base64.b85encode, b"www.myFRpy.org",
                                b'cXxL#aCvlSZ*DGca%T')
 
     def test_a85decode(self):
@@ -550,7 +550,7 @@ class BaseXYTestCase(unittest.TestCase):
 
         tests = {
             b'': b'',
-            b'GB\\6`E-ZP=Df.1GEb>': b'www.python.org',
+            b'GB\\6`E-ZP=Df.1GEb>': b'www.myFRpy.org',
             b"""! ! * -'"\n\t\t9eu\r\n7#  RL\vhG$k3[W&.oNg'GVB"(`=52*$$"""
                b"""(B+<_pR,UFcb-n-Vr/1iJ-0JP==1c70M3&s#]4?Ykm5X@_(6q'R884cE"""
                b"""H9MJ8X:f1+h<)lt#=BSg3>[:ZC?t!MSA7]@cBPD3sCi+'.E,fo>FEMbN"""
@@ -589,14 +589,14 @@ class BaseXYTestCase(unittest.TestCase):
         eq(base64.a85decode(b'aaaaay', foldspaces=True), b'\xc9\x80\x0b@    ')
 
         self.check_other_types(base64.a85decode, b'GB\\6`E-ZP=Df.1GEb>',
-                               b"www.python.org")
+                               b"www.myFRpy.org")
 
     def test_b85decode(self):
         eq = self.assertEqual
 
         tests = {
             b'': b'',
-            b'cXxL#aCvlSZ*DGca%T': b'www.python.org',
+            b'cXxL#aCvlSZ*DGca%T': b'www.myFRpy.org',
             b"""009C61O)~M2nh-c3=Iws5D^j+6crX17#SKH9337X"""
                 b"""AR!_nBqb&%C@Cr{EG;fCFflSSG&MFiI5|2yJUu=?KtV!7L`6nNNJ&ad"""
                 b"""OifNtP*GA-R8>}2SXo+ITwPvYU}0ioWMyV&XlZI|Y;A6DaB*^Tbai%j"""
@@ -624,7 +624,7 @@ class BaseXYTestCase(unittest.TestCase):
             eq(base64.b85decode(data.decode("ascii")), res)
 
         self.check_other_types(base64.b85decode, b'cXxL#aCvlSZ*DGca%T',
-                               b"www.python.org")
+                               b"www.myFRpy.org")
 
     def test_a85_padding(self):
         eq = self.assertEqual
@@ -767,7 +767,7 @@ class TestMain(unittest.TestCase):
             os.unlink(os_helper.TESTFN)
 
     def get_output(self, *args):
-        return script_helper.assert_python_ok('-m', 'base64', *args).out
+        return script_helper.assert_myFRpy_ok('-m', 'base64', *args).out
 
     def test_encode_file(self):
         with open(os_helper.TESTFN, 'wb') as fp:
@@ -776,7 +776,7 @@ class TestMain(unittest.TestCase):
         self.assertEqual(output.rstrip(), b'Yf9iCg==')
 
     def test_encode_from_stdin(self):
-        with script_helper.spawn_python('-m', 'base64', '-e') as proc:
+        with script_helper.spawn_myFRpy('-m', 'base64', '-e') as proc:
             out, err = proc.communicate(b'a\xffb\n')
         self.assertEqual(out.rstrip(), b'Yf9iCg==')
         self.assertIsNone(err)
@@ -793,7 +793,7 @@ class TestMain(unittest.TestCase):
         self.assertIn(b'-d, -u: decode', output)
 
     def test_prints_usage_with_invalid_flag(self):
-        output = script_helper.assert_python_failure('-m', 'base64', '-x').err
+        output = script_helper.assert_myFRpy_failure('-m', 'base64', '-x').err
         self.assertIn(b'usage: ', output)
         self.assertIn(b'-d, -u: decode', output)
 

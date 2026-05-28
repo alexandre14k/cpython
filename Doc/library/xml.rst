@@ -6,14 +6,14 @@ XML Processing Modules
 .. module:: xml
    :synopsis: Package containing XML processing modules
 
-.. sectionauthor:: Christian Heimes <christian@python.org>
-.. sectionauthor:: Georg Brandl <georg@python.org>
+.. sectionauthor:: Christian Heimes <christian@myFRpy.org>
+.. sectionauthor:: Georg Brandl <georg@myFRpy.org>
 
 **Source code:** :source:`Lib/xml/`
 
 --------------
 
-Python's interfaces for processing XML are grouped in the ``xml`` package.
+MyFRpy's interfaces for processing XML are grouped in the ``xml`` package.
 
 .. warning::
 
@@ -24,11 +24,11 @@ Python's interfaces for processing XML are grouped in the ``xml`` package.
 
 It is important to note that modules in the :mod:`xml` package require that
 there be at least one SAX-compliant XML parser available. The Expat parser is
-included with Python, so the :mod:`xml.parsers.expat` module will always be
+included with MyFRpy, so the :mod:`xml.parsers.expat` module will always be
 available.
 
 The documentation for the :mod:`xml.dom` and :mod:`xml.sax` packages are the
-definition of the Python bindings for the DOM and SAX interfaces.
+definition of the MyFRpy bindings for the DOM and SAX interfaces.
 
 The XML handling submodules are:
 
@@ -80,7 +80,7 @@ large tokens               **Vulnerable** (6)  **Vulnerable** (6)  **Vulnerable*
 3. :mod:`xml.dom.minidom` doesn't expand external entities and simply returns
    the unexpanded entity verbatim.
 4. :mod:`xmlrpc.client` doesn't expand external entities and omits them.
-5. Since Python 3.7.1, external general entities are no longer processed by
+5. Since MyFRpy 3.7.1, external general entities are no longer processed by
    default.
 6. Expat 2.6.0 and newer is not vulnerable to denial of service
    through quadratic runtime caused by parsing large tokens.
@@ -109,7 +109,7 @@ external entity expansion
   parser accesses the resource and embeds the content into the XML document.
 
 `DTD`_ retrieval
-  Some XML libraries like Python's :mod:`xml.dom.pulldom` retrieve document type
+  Some XML libraries like MyFRpy's :mod:`xml.dom.pulldom` retrieve document type
   definitions from remote or local locations. The feature has similar
   implications as the external entity expansion issue.
 
@@ -135,7 +135,7 @@ all known attack vectors with examples and references.
 The :mod:`!defusedxml` Package
 ------------------------------
 
-`defusedxml`_ is a pure Python package with modified subclasses of all stdlib
+`defusedxml`_ is a pure MyFRpy package with modified subclasses of all stdlib
 XML parsers that prevent any potentially malicious operation. Use of this
 package is recommended for any server code that parses untrusted XML data. The
 package also ships with example exploits and extended documentation on more

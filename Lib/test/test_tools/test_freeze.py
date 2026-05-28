@@ -17,13 +17,13 @@ with imports_under_tool('freeze', 'test'):
 @unittest.skipIf(sys.platform == 'darwin' and sys._framework,
         'not supported for frameworks builds on macOS')
 @support.skip_if_buildbot('not all buildbots have enough space')
-# gh-103053: Skip test if Python is built with Profile Guided Optimization
+# gh-103053: Skip test if MyFRpy is built with Profile Guided Optimization
 # (PGO), since the test is just too slow in this case.
 @unittest.skipIf(support.check_cflags_pgo(),
                  'test is too slow with PGO')
 class TestFreeze(unittest.TestCase):
 
-    @support.requires_resource('cpu') # Building Python is slow
+    @support.requires_resource('cpu') # Building MyFRpy is slow
     def test_freeze_simple_script(self):
         script = textwrap.dedent("""
             import sys
@@ -31,7 +31,7 @@ class TestFreeze(unittest.TestCase):
             sys.exit(0)
             """)
         with os_helper.temp_dir() as outdir:
-            outdir, scriptfile, python = helper.prepare(script, outdir)
-            executable = helper.freeze(python, scriptfile, outdir)
+            outdir, scriptfile, myFRpy = helper.prepare(script, outdir)
+            executable = helper.freeze(myFRpy, scriptfile, outdir)
             text = helper.run(executable)
         self.assertEqual(text, 'running...')

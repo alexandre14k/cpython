@@ -1,5 +1,5 @@
 #define PY_SSIZE_T_CLEAN
-#include "Python.h"
+#include "MyFRpy.h"
 #include <stddef.h>               // offsetof()
 #include "pycore_object.h"
 #include "_iomodule.h"
@@ -83,7 +83,7 @@ resize_buffer(stringio *self, size_t size)
 
     /* Reserve one more char for line ending detection. */
     size = size + 1;
-    /* For simplicity, stay in the range of the signed type. Anyway, Python
+    /* For simplicity, stay in the range of the signed type. Anyway, MyFRpy
        doesn't allow strings to be longer than this. */
     if (size > PY_SSIZE_T_MAX)
         goto overflow;
@@ -998,7 +998,7 @@ static struct PyMethodDef stringio_methods[] = {
 static PyGetSetDef stringio_getset[] = {
     {"closed",         (getter)stringio_closed,         NULL, NULL},
     {"newlines",       (getter)stringio_newlines,       NULL, NULL},
-    /*  (following comments straight off of the original Python wrapper:)
+    /*  (following comments straight off of the original MyFRpy wrapper:)
         XXX Cruft to support the TextIOWrapper API. This would only
         be meaningful if StringIO supported the buffer attribute.
         Hopefully, a better solution, than adding these pseudo-attributes,

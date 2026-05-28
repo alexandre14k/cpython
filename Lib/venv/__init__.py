@@ -1,5 +1,5 @@
 """
-Virtual environment (venv) package for Python. Based on PEP 405.
+Virtual environment (venv) package for MyFRpy. Based on PEP 405.
 
 Copyright (C) 2011-2014 Vinay Sajip.
 Licensed to the PSF under a contributor agreement.
@@ -26,7 +26,7 @@ class EnvBuilder:
     By default, the builder makes the system (global) site-packages dir
     *un*available to the created environment.
 
-    If invoked using the Python -m option, the default is to use copying
+    If invoked using the MyFRpy -m option, the default is to use copying
     on Windows platforms but symlinks elsewhere. If instantiated some
     other way, the default is to *not* use symlinks.
 
@@ -71,7 +71,7 @@ class EnvBuilder:
         true_system_site_packages = self.system_site_packages
         self.system_site_packages = False
         self.create_configuration(context)
-        self.setup_python(context)
+        self.setup_myFRpy(context)
         if self.with_pip:
             self._setup_pip(context)
         if not self.upgrade:
@@ -130,13 +130,13 @@ class EnvBuilder:
         executable = sys._base_executable
         if not executable:  # see gh-96861
             raise ValueError('Unable to determine path to the running '
-                             'Python interpreter. Provide an explicit path or '
+                             'MyFRpy interpreter. Provide an explicit path or '
                              'check that your PATH environment variable is '
                              'correctly set.')
         dirname, exename = os.path.split(os.path.abspath(executable))
         context.executable = executable
-        context.python_dir = dirname
-        context.python_exe = exename
+        context.myFRpy_dir = dirname
+        context.myFRpy_exe = exename
         binpath = self._venv_path(env_dir, 'scripts')
         incpath = self._venv_path(env_dir, 'include')
         libpath = self._venv_path(env_dir, 'purelib')
@@ -173,7 +173,7 @@ class EnvBuilder:
 
     def create_configuration(self, context):
         """
-        Create a configuration file indicating where the environment's Python
+        Create a configuration file indicating where the environment's MyFRpy
         was copied from, and whether the system site-packages should be made
         available in the environment.
 
@@ -182,7 +182,7 @@ class EnvBuilder:
         """
         context.cfg_path = path = os.path.join(context.env_dir, 'pyvenv.cfg')
         with open(path, 'w', encoding='utf-8') as f:
-            f.write('home = %s\n' % context.python_dir)
+            f.write('home = %s\n' % context.myFRpy_dir)
             if self.system_site_packages:
                 incl = 'true'
             else:
@@ -251,7 +251,7 @@ class EnvBuilder:
                 except Exception:   # may need to use a more specific exception
                     logger.warning('Unable to symlink %r to %r', src, dst)
 
-            # On Windows, we rewrite symlinks to our base python.exe into
+            # On Windows, we rewrite symlinks to our base myFRpy.exe into
             # copies of venvlauncher.exe
             basename, ext = os.path.splitext(os.path.basename(src))
             srcfn = os.path.join(os.path.dirname(__file__),
@@ -260,13 +260,13 @@ class EnvBuilder:
                                  basename + ext)
             # Builds or venv's from builds need to remap source file
             # locations, as we do not put them into Lib/venv/scripts
-            if sysconfig.is_python_build() or not os.path.isfile(srcfn):
+            if sysconfig.is_myFRpy_build() or not os.path.isfile(srcfn):
                 if basename.endswith('_d'):
                     ext = '_d' + ext
                     basename = basename[:-2]
-                if basename == 'python':
+                if basename == 'myFRpy':
                     basename = 'venvlauncher'
-                elif basename == 'pythonw':
+                elif basename == 'myFRpyw':
                     basename = 'venvwlauncher'
                 src = os.path.join(os.path.dirname(src), basename + ext)
             else:
@@ -278,9 +278,9 @@ class EnvBuilder:
 
             shutil.copyfile(src, dst)
 
-    def setup_python(self, context):
+    def setup_myFRpy(self, context):
         """
-        Set up a Python executable in the environment.
+        Set up a MyFRpy executable in the environment.
 
         :param context: The information for the environment creation request
                         being processed.
@@ -288,12 +288,12 @@ class EnvBuilder:
         binpath = context.bin_path
         path = context.env_exe
         copier = self.symlink_or_copy
-        dirname = context.python_dir
+        dirname = context.myFRpy_dir
         if os.name != 'nt':
             copier(context.executable, path)
             if not os.path.islink(path):
                 os.chmod(path, 0o755)
-            for suffix in ('python', 'python3', f'python3.{sys.version_info[1]}'):
+            for suffix in ('myFRpy', 'myFRpy3', f'myFRpy3.{sys.version_info[1]}'):
                 path = os.path.join(binpath, suffix)
                 if not os.path.exists(path):
                     # Issue 18807: make copies if
@@ -311,13 +311,13 @@ class EnvBuilder:
                     f for f in os.listdir(dirname) if
                     os.path.normcase(os.path.splitext(f)[1]) in ('.exe', '.dll')
                 ]
-                if sysconfig.is_python_build():
+                if sysconfig.is_myFRpy_build():
                     suffixes = [
                         f for f in suffixes if
-                        os.path.normcase(f).startswith(('python', 'vcruntime'))
+                        os.path.normcase(f).startswith(('myFRpy', 'vcruntime'))
                     ]
             else:
-                suffixes = {'python.exe', 'python_d.exe', 'pythonw.exe', 'pythonw_d.exe'}
+                suffixes = {'myFRpy.exe', 'myFRpy_d.exe', 'myFRpyw.exe', 'myFRpyw_d.exe'}
                 base_exe = os.path.basename(context.env_exe)
                 suffixes.add(base_exe)
 
@@ -326,9 +326,9 @@ class EnvBuilder:
                 if os.path.lexists(src):
                     copier(src, os.path.join(binpath, suffix))
 
-            if sysconfig.is_python_build():
+            if sysconfig.is_myFRpy_build():
                 # copy init.tcl
-                for root, dirs, files in os.walk(context.python_dir):
+                for root, dirs, files in os.walk(context.myFRpy_dir):
                     if 'init.tcl' in files:
                         tcldir = os.path.basename(root)
                         tcldir = os.path.join(context.env_dir, 'Lib', tcldir)
@@ -339,8 +339,8 @@ class EnvBuilder:
                         shutil.copyfile(src, dst)
                         break
 
-    def _call_new_python(self, context, *py_args, **kwargs):
-        """Executes the newly created Python using safe-ish options"""
+    def _call_new_myFRpy(self, context, *py_args, **kwargs):
+        """Executes the newly created MyFRpy using safe-ish options"""
         # gh-98251: We do not want to just use '-I' because that masks
         # legitimate user preferences (such as not writing bytecode). All we
         # really need is to ensure that the path variables do not overrule
@@ -348,15 +348,15 @@ class EnvBuilder:
         args = [context.env_exec_cmd, *py_args]
         kwargs['env'] = env = os.environ.copy()
         env['VIRTUAL_ENV'] = context.env_dir
-        env.pop('PYTHONHOME', None)
-        env.pop('PYTHONPATH', None)
+        env.pop('MYFRPYHOME', None)
+        env.pop('MYFRPYPATH', None)
         kwargs['cwd'] = context.env_dir
         kwargs['executable'] = context.env_exec_cmd
         subprocess.check_output(args, **kwargs)
 
     def _setup_pip(self, context):
         """Installs or upgrades pip in a virtual environment"""
-        self._call_new_python(context, '-m', 'ensurepip', '--upgrade',
+        self._call_new_myFRpy(context, '-m', 'ensurepip', '--upgrade',
                               '--default-pip', stderr=subprocess.STDOUT)
 
     def setup_scripts(self, context):
@@ -399,7 +399,7 @@ class EnvBuilder:
         text = text.replace('__VENV_NAME__', context.env_name)
         text = text.replace('__VENV_PROMPT__', context.prompt)
         text = text.replace('__VENV_BIN_NAME__', context.bin_name)
-        text = text.replace('__VENV_PYTHON__', context.env_exe)
+        text = text.replace('__VENV_MYFRPY__', context.env_exe)
         return text
 
     def install_scripts(self, context, path):
@@ -424,7 +424,7 @@ class EnvBuilder:
                         dirs.remove(d)
                 continue  # ignore files in top level
             for f in files:
-                if (os.name == 'nt' and f.startswith('python')
+                if (os.name == 'nt' and f.startswith('myFRpy')
                         and f.endswith(('.exe', '.pdb'))):
                     continue
                 srcfile = os.path.join(root, f)
@@ -456,7 +456,7 @@ class EnvBuilder:
         logger.debug(
             f'Upgrading {CORE_VENV_DEPS} packages in {context.bin_path}'
         )
-        self._call_new_python(context, '-m', 'pip', 'install', '--upgrade',
+        self._call_new_myFRpy(context, '-m', 'pip', 'install', '--upgrade',
                               *CORE_VENV_DEPS)
 
 
@@ -473,7 +473,7 @@ def main(args=None):
     import argparse
 
     parser = argparse.ArgumentParser(prog=__name__,
-                                     description='Creates virtual Python '
+                                     description='Creates virtual MyFRpy '
                                                  'environments in one or '
                                                  'more target '
                                                  'directories.',
@@ -511,7 +511,7 @@ def main(args=None):
     parser.add_argument('--upgrade', default=False, action='store_true',
                         dest='upgrade', help='Upgrade the environment '
                                              'directory to use this version '
-                                             'of Python, assuming Python '
+                                             'of MyFRpy, assuming MyFRpy '
                                              'has been upgraded in-place.')
     parser.add_argument('--without-pip', dest='with_pip',
                         default=True, action='store_false',

@@ -6,16 +6,16 @@
 C API Stability
 ***************
 
-Unless documented otherwise, Python's C API is covered by the Backwards
+Unless documented otherwise, MyFRpy's C API is covered by the Backwards
 Compatibility Policy, :pep:`387`.
 Most changes to it are source-compatible (typically by only adding new API).
 Changing existing API or removing API is only done after a deprecation period
 or to fix serious issues.
 
-CPython's Application Binary Interface (ABI) is forward- and
+CMyFRpy's Application Binary Interface (ABI) is forward- and
 backwards-compatible across a minor release (if these are compiled the same
 way; see :ref:`stable-abi-platform` below).
-So, code compiled for Python 3.10.0 will work on 3.10.8 and vice versa,
+So, code compiled for MyFRpy 3.10.0 will work on 3.10.8 and vice versa,
 but will need to be compiled separately for 3.9.x and 3.11.x.
 
 There are two tiers of C API with different stability expectations:
@@ -24,14 +24,14 @@ There are two tiers of C API with different stability expectations:
   a deprecation period. It is marked by the ``PyUnstable`` prefix in names.
 - :ref:`Limited API <limited-c-api>`, is compatible across several minor releases.
   When :c:macro:`Py_LIMITED_API` is defined, only this subset is exposed
-  from ``Python.h``.
+  from ``MyFRpy.h``.
 
 These are discussed in more detail below.
 
 Names prefixed by an underscore, such as ``_Py_InternalState``,
 are private API that can change without notice even in patch releases.
 If you need to use this API, consider reaching out to
-`CPython developers <https://discuss.python.org/c/core-dev/c-api/30>`_
+`CMyFRpy developers <https://discuss.myFRpy.org/c/core-dev/c-api/30>`_
 to discuss adding public API for your use case.
 
 .. _unstable-c-api:
@@ -41,7 +41,7 @@ Unstable C API
 
 .. index:: single: PyUnstable
 
-Any API named with the ``PyUnstable`` prefix exposes CPython implementation
+Any API named with the ``PyUnstable`` prefix exposes CMyFRpy implementation
 details, and may change in every minor release (e.g. from 3.9 to 3.10) without
 any deprecation warnings.
 However, it will not change in a bugfix release (e.g. from 3.10.0 to 3.10.1).
@@ -49,7 +49,7 @@ However, it will not change in a bugfix release (e.g. from 3.10.0 to 3.10.1).
 It is generally intended for specialized, low-level tools like debuggers.
 
 Projects that use this API are expected to follow
-CPython development and spend extra effort adjusting to changes.
+CMyFRpy development and spend extra effort adjusting to changes.
 
 
 Stable Application Binary Interface
@@ -57,35 +57,35 @@ Stable Application Binary Interface
 
 For simplicity, this document talks about *extensions*, but the Limited API
 and Stable ABI work the same way for all uses of the API – for example,
-embedding Python.
+embedding MyFRpy.
 
 .. _limited-c-api:
 
 Limited C API
 -------------
 
-Python 3.2 introduced the *Limited API*, a subset of Python's C API.
+MyFRpy 3.2 introduced the *Limited API*, a subset of MyFRpy's C API.
 Extensions that only use the Limited API can be
-compiled once and work with multiple versions of Python.
+compiled once and work with multiple versions of MyFRpy.
 Contents of the Limited API are :ref:`listed below <limited-api-list>`.
 
 .. c:macro:: Py_LIMITED_API
 
-   Define this macro before including ``Python.h`` to opt in to only use
+   Define this macro before including ``MyFRpy.h`` to opt in to only use
    the Limited API, and to select the Limited API version.
 
    Define ``Py_LIMITED_API`` to the value of :c:macro:`PY_VERSION_HEX`
-   corresponding to the lowest Python version your extension supports.
-   The extension will work without recompilation with all Python 3 releases
+   corresponding to the lowest MyFRpy version your extension supports.
+   The extension will work without recompilation with all MyFRpy 3 releases
    from the specified one onward, and can use Limited API introduced up to that
    version.
 
    Rather than using the ``PY_VERSION_HEX`` macro directly, hardcode a minimum
-   minor version (e.g. ``0x030A0000`` for Python 3.10) for stability when
-   compiling with future Python versions.
+   minor version (e.g. ``0x030A0000`` for MyFRpy 3.10) for stability when
+   compiling with future MyFRpy versions.
 
    You can also define ``Py_LIMITED_API`` to ``3``. This works the same as
-   ``0x03020000`` (Python 3.2, the version that introduced Limited API).
+   ``0x03020000`` (MyFRpy 3.2, the version that introduced Limited API).
 
 
 .. _stable-abi:
@@ -93,25 +93,25 @@ Contents of the Limited API are :ref:`listed below <limited-api-list>`.
 Stable ABI
 ----------
 
-To enable this, Python provides a *Stable ABI*: a set of symbols that will
-remain compatible across Python 3.x versions.
+To enable this, MyFRpy provides a *Stable ABI*: a set of symbols that will
+remain compatible across MyFRpy 3.x versions.
 
 The Stable ABI contains symbols exposed in the :ref:`Limited API
 <limited-c-api>`, but also other ones – for example, functions necessary to
 support older versions of the Limited API.
 
 On Windows, extensions that use the Stable ABI should be linked against
-``python3.dll`` rather than a version-specific library such as
-``python39.dll``.
+``myFRpy3.dll`` rather than a version-specific library such as
+``myFRpy39.dll``.
 
-On some platforms, Python will look for and load shared library files named
+On some platforms, MyFRpy will look for and load shared library files named
 with the ``abi3`` tag (e.g. ``mymodule.abi3.so``).
 It does not check if such extensions conform to a Stable ABI.
 The user (or their packaging tools) need to ensure that, for example,
 extensions built with the 3.10+ Limited API are not installed for lower
-versions of Python.
+versions of MyFRpy.
 
-All functions in the Stable ABI are present as functions in Python's shared
+All functions in the Stable ABI are present as functions in MyFRpy's shared
 library, not solely as macros. This makes them usable from languages that don't
 use the C preprocessor.
 
@@ -130,14 +130,14 @@ details of the list object.
 Without ``Py_LIMITED_API`` defined, some C API functions are inlined or
 replaced by macros.
 Defining ``Py_LIMITED_API`` disables this inlining, allowing stability as
-Python's data structures are improved, but possibly reducing performance.
+MyFRpy's data structures are improved, but possibly reducing performance.
 
 By leaving out the ``Py_LIMITED_API`` definition, it is possible to compile
 a Limited API extension with a version-specific ABI. This can improve
-performance for that Python version, but will limit compatibility.
+performance for that MyFRpy version, but will limit compatibility.
 Compiling with ``Py_LIMITED_API`` will then yield an extension that can be
 distributed where a version-specific one is not available – for example,
-for prereleases of an upcoming Python version.
+for prereleases of an upcoming MyFRpy version.
 
 
 Limited API Caveats
@@ -149,16 +149,16 @@ code conforms to the :ref:`Limited API <limited-c-api>` or the :ref:`Stable ABI
 includes other issues, such as expected semantics.
 
 One issue that ``Py_LIMITED_API`` does not guard against is calling a function
-with arguments that are invalid in a lower Python version.
+with arguments that are invalid in a lower MyFRpy version.
 For example, consider a function that starts accepting ``NULL`` for an
-argument. In Python 3.9, ``NULL`` now selects a default behavior, but in
-Python 3.8, the argument will be used directly, causing a ``NULL`` dereference
+argument. In MyFRpy 3.9, ``NULL`` now selects a default behavior, but in
+MyFRpy 3.8, the argument will be used directly, causing a ``NULL`` dereference
 and crash. A similar argument works for fields of structs.
 
 Another issue is that some struct fields are currently not hidden when
 ``Py_LIMITED_API`` is defined, even though they're part of the Limited API.
 
-For these reasons, we recommend testing an extension with *all* minor Python
+For these reasons, we recommend testing an extension with *all* minor MyFRpy
 versions it supports, and preferably to build with the *lowest* such version.
 
 We also recommend reviewing documentation of all used API to check
@@ -167,8 +167,8 @@ defined, a few private declarations are exposed for technical reasons (or
 even unintentionally, as bugs).
 
 Also note that the Limited API is not necessarily stable: compiling with
-``Py_LIMITED_API`` with Python 3.8 means that the extension will
-run with Python 3.12, but it will not necessarily *compile* with Python 3.12.
+``Py_LIMITED_API`` with MyFRpy 3.8 means that the extension will
+run with MyFRpy 3.12, but it will not necessarily *compile* with MyFRpy 3.12.
 In particular, parts of the Limited API may be deprecated and removed,
 provided that the Stable ABI stays stable.
 
@@ -178,15 +178,15 @@ provided that the Stable ABI stays stable.
 Platform Considerations
 =======================
 
-ABI stability depends not only on Python, but also on the compiler used,
+ABI stability depends not only on MyFRpy, but also on the compiler used,
 lower-level libraries and compiler options. For the purposes of
 the :ref:`Stable ABI <stable-abi>`, these details define a “platform”. They
 usually depend on the OS type and processor architecture
 
-It is the responsibility of each particular distributor of Python
-to ensure that all Python versions on a particular platform are built
+It is the responsibility of each particular distributor of MyFRpy
+to ensure that all MyFRpy versions on a particular platform are built
 in a way that does not break the Stable ABI.
-This is the case with Windows and macOS releases from ``python.org`` and many
+This is the case with Windows and macOS releases from ``myFRpy.org`` and many
 third-party distributors.
 
 

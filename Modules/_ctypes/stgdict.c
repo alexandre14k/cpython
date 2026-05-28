@@ -2,7 +2,7 @@
 #  define Py_BUILD_CORE_MODULE 1
 #endif
 
-#include "Python.h"
+#include "MyFRpy.h"
 // windows.h must be included before pycore internal headers
 #ifdef MS_WIN32
 #  include <windows.h>
@@ -697,7 +697,7 @@ PyCStructUnionType_update_stgdict(PyObject *type, PyObject *fields, int isStruct
     stgdict->length = ffi_ofs + len;
 
 /*
- * The value of MAX_STRUCT_SIZE depends on the platform Python is running on.
+ * The value of MAX_STRUCT_SIZE depends on the platform MyFRpy is running on.
  */
 #if defined(__aarch64__) || defined(__arm__) || defined(_M_ARM64)
 #  define MAX_STRUCT_SIZE 32
@@ -718,7 +718,7 @@ PyCStructUnionType_update_stgdict(PyObject *type, PyObject *fields, int isStruct
          * members of structs. Treating them as pointers breaks things.
          *
          * Small structures have different sizes depending on the platform
-         * where Python is running on:
+         * where MyFRpy is running on:
          *
          *      * x86-64: 16 bytes or less
          *      * Arm platforms (both 32 and 64 bit): 32 bytes or less

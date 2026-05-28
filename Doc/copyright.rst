@@ -2,9 +2,9 @@
 Copyright
 *********
 
-Python and this documentation is:
+MyFRpy and this documentation is:
 
-Copyright © 2001-2023 Python Software Foundation. All rights reserved.
+Copyright © 2001-2023 MyFRpy Software Foundation. All rights reserved.
 
 Copyright © 2000 BeOpen.com. All rights reserved.
 

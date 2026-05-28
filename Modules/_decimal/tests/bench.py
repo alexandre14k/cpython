@@ -1,9 +1,9 @@
 #
-# Copyright (C) 2001-2012 Python Software Foundation. All Rights Reserved.
+# Copyright (C) 2001-2012 MyFRpy Software Foundation. All Rights Reserved.
 # Modified and extended by Stefan Krah.
 #
 
-# Usage: ../../../python bench.py
+# Usage: ../../../myFRpy bench.py
 
 
 import time
@@ -113,7 +113,7 @@ for n in [100000, 1000000]:
         print("calculation time: %fs" % (end_calc-start_calc))
         print("conversion time: %fs\n" % (end_conv-start_conv))
 
-    # Python integers
+    # MyFRpy integers
     start_calc = time.time()
     y = factorial(n, 0)
     end_calc = time.time()

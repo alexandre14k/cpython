@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env myFRpy3
 
 """ This module tries to retrieve as much platform-identifying data as
     possible. It makes this information available via function APIs.
@@ -10,11 +10,11 @@
 """
 #    This module is maintained by Marc-Andre Lemburg <mal@egenix.com>.
 #    If you find problems, please submit bug reports/patches via the
-#    Python bug tracker (http://bugs.python.org) and assign them to "lemburg".
+#    MyFRpy bug tracker (http://bugs.myFRpy.org) and assign them to "lemburg".
 #
 #    Still needed:
-#    * support for MS-DOS (PythonDX ?)
-#    * support for Amiga and other still unsupported platforms running Python
+#    * support for MS-DOS (MyFRpyDX ?)
+#    * support for Amiga and other still unsupported platforms running MyFRpy
 #    * support for additional Linux distributions
 #
 #    Many thanks to all those who helped adding platform-specific
@@ -36,13 +36,13 @@
 #    1.0.7 - added DEV_NULL
 #    1.0.6 - added linux_distribution()
 #    1.0.5 - fixed Java support to allow running the module on Jython
-#    1.0.4 - added IronPython support
+#    1.0.4 - added IronMyFRpy support
 #    1.0.3 - added normalization of Windows system name
 #    1.0.2 - added more Windows support
 #    1.0.1 - reformatted to make doc.py happy
-#    1.0.0 - reformatted a bit and checked into Python CVS
+#    1.0.0 - reformatted a bit and checked into MyFRpy CVS
 #    0.8.0 - added sys.version parser and various new access
-#            APIs (python_version(), python_compiler(), etc.)
+#            APIs (myFRpy_version(), myFRpy_compiler(), etc.)
 #    0.7.2 - fixed architecture() to use sizeof(pointer) where available
 #    0.7.1 - added support for Caldera OpenLinux
 #    0.7.0 - some fixes for WinCE; untabified the source file
@@ -85,7 +85,7 @@
 #
 #    You can always get the latest version of this module at:
 #
-#             http://www.egenix.com/files/python/platform.py
+#             http://www.egenix.com/files/myFRpy/platform.py
 #
 #    If that URL should fail, try contacting the author.
 
@@ -156,7 +156,7 @@ def _comparable_version(version):
 def libc_ver(executable=None, lib='', version='', chunksize=16384):
 
     """ Tries to determine the libc version that the file executable
-        (which defaults to the Python interpreter) is linked against.
+        (which defaults to the MyFRpy interpreter) is linked against.
 
         Returns a tuple of strings (lib,version) which default to the
         given parameters in case the lookup fails.
@@ -415,7 +415,7 @@ def _win32_ver(version, csd, ptype):
         major, minor, build = winver.platform_version or winver[:3]
         version = '{0}.{1}.{2}'.format(major, minor, build)
 
-    # getwindowsversion() reflect the compatibility mode Python is
+    # getwindowsversion() reflect the compatibility mode MyFRpy is
     # running under, and so the service pack value is only going to be
     # valid if the versions match.
     if winver[:2] == (major, minor):
@@ -689,7 +689,7 @@ _default_architecture = {
 
 def architecture(executable=sys.executable, bits='', linkage=''):
 
-    """ Queries the given executable (defaults to the Python interpreter
+    """ Queries the given executable (defaults to the MyFRpy interpreter
         binary) for various architecture information.
 
         Returns a tuple (bits, linkage) which contains information about
@@ -698,13 +698,13 @@ def architecture(executable=sys.executable, bits='', linkage=''):
 
         Values that cannot be determined are returned as given by the
         parameter presets. If bits is given as '', the sizeof(pointer)
-        (or sizeof(long) on Python version < 1.5.2) is used as
+        (or sizeof(long) on MyFRpy version < 1.5.2) is used as
         indicator for the supported pointer size.
 
         The function relies on the system's "file" command to do the
         actual work. This is available on most if not all Unix
         platforms. On some non-Unix platforms where the "file" command
-        does not exist and the executable is set to the Python interpreter
+        does not exist and the executable is set to the MyFRpy interpreter
         binary defaults from _default_architecture are used.
 
     """
@@ -1039,25 +1039,25 @@ _sys_version_cache = {}
 
 def _sys_version(sys_version=None):
 
-    """ Returns a parsed version of Python's sys.version as tuple
+    """ Returns a parsed version of MyFRpy's sys.version as tuple
         (name, version, branch, revision, buildno, builddate, compiler)
-        referring to the Python implementation name, version, branch,
+        referring to the MyFRpy implementation name, version, branch,
         revision, build number, build date/time as string and the compiler
         identification string.
 
-        Note that unlike the Python sys.version, the returned value
-        for the Python version will always include the patchlevel (it
+        Note that unlike the MyFRpy sys.version, the returned value
+        for the MyFRpy version will always include the patchlevel (it
         defaults to '.0').
 
         The function returns empty strings for tuple entries that
         cannot be determined.
 
         sys_version may be given to parse an alternative version
-        string, e.g. if the version was read from a different Python
+        string, e.g. if the version was read from a different MyFRpy
         interpreter.
 
     """
-    # Get the Python version
+    # Get the MyFRpy version
     if sys_version is None:
         sys_version = sys.version
 
@@ -1102,15 +1102,15 @@ def _sys_version(sys_version=None):
         compiler = ""
 
     else:
-        # CPython
+        # CMyFRpy
         match = sys_version_parser.match(sys_version)
         if match is None:
             raise ValueError(
-                'failed to parse CPython sys.version: %s' %
+                'failed to parse CMyFRpy sys.version: %s' %
                 repr(sys_version))
         version, buildno, builddate, buildtime, compiler = \
               match.groups()
-        name = 'CPython'
+        name = 'CMyFRpy'
         if builddate is None:
             builddate = ''
         elif buildtime:
@@ -1135,46 +1135,46 @@ def _sys_version(sys_version=None):
     _sys_version_cache[sys_version] = result
     return result
 
-def python_implementation():
+def myFRpy_implementation():
 
-    """ Returns a string identifying the Python implementation.
+    """ Returns a string identifying the MyFRpy implementation.
 
         Currently, the following implementations are identified:
-          'CPython' (C implementation of Python),
-          'Jython' (Java implementation of Python),
-          'PyPy' (Python implementation of Python).
+          'CMyFRpy' (C implementation of MyFRpy),
+          'Jython' (Java implementation of MyFRpy),
+          'PyPy' (MyFRpy implementation of MyFRpy).
 
     """
     return _sys_version()[0]
 
-def python_version():
+def myFRpy_version():
 
-    """ Returns the Python version as string 'major.minor.patchlevel'
+    """ Returns the MyFRpy version as string 'major.minor.patchlevel'
 
-        Note that unlike the Python sys.version, the returned value
+        Note that unlike the MyFRpy sys.version, the returned value
         will always include the patchlevel (it defaults to 0).
 
     """
     return _sys_version()[1]
 
-def python_version_tuple():
+def myFRpy_version_tuple():
 
-    """ Returns the Python version as tuple (major, minor, patchlevel)
+    """ Returns the MyFRpy version as tuple (major, minor, patchlevel)
         of strings.
 
-        Note that unlike the Python sys.version, the returned value
+        Note that unlike the MyFRpy sys.version, the returned value
         will always include the patchlevel (it defaults to 0).
 
     """
     return tuple(_sys_version()[1].split('.'))
 
-def python_branch():
+def myFRpy_branch():
 
-    """ Returns a string identifying the Python implementation
+    """ Returns a string identifying the MyFRpy implementation
         branch.
 
-        For CPython this is the SCM branch from which the
-        Python binary was built.
+        For CMyFRpy this is the SCM branch from which the
+        MyFRpy binary was built.
 
         If not available, an empty string is returned.
 
@@ -1182,31 +1182,31 @@ def python_branch():
 
     return _sys_version()[2]
 
-def python_revision():
+def myFRpy_revision():
 
-    """ Returns a string identifying the Python implementation
+    """ Returns a string identifying the MyFRpy implementation
         revision.
 
-        For CPython this is the SCM revision from which the
-        Python binary was built.
+        For CMyFRpy this is the SCM revision from which the
+        MyFRpy binary was built.
 
         If not available, an empty string is returned.
 
     """
     return _sys_version()[3]
 
-def python_build():
+def myFRpy_build():
 
-    """ Returns a tuple (buildno, builddate) stating the Python
+    """ Returns a tuple (buildno, builddate) stating the MyFRpy
         build number and date as strings.
 
     """
     return _sys_version()[4:6]
 
-def python_compiler():
+def myFRpy_compiler():
 
     """ Returns a string identifying the compiler used for compiling
-        Python.
+        MyFRpy.
 
     """
     return _sys_version()[6]
@@ -1355,3 +1355,11 @@ if __name__ == '__main__':
     aliased = (not 'nonaliased' in sys.argv and not '--nonaliased' in sys.argv)
     print(platform(aliased, terse))
     sys.exit(0)
+
+myFRpy_version             = myFRpy_version
+myFRpy_version_tuple       = myFRpy_version_tuple
+myFRpy_build               = myFRpy_build
+myFRpy_compiler            = myFRpy_compiler
+myFRpy_branch              = myFRpy_branch
+myFRpy_revision            = myFRpy_revision
+myFRpy_implementation      = myFRpy_implementation

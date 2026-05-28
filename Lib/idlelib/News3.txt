@@ -50,7 +50,7 @@ Released on 2022-10-24
 =========================
 
 gh-97527: Fix a bug in the previous bugfix that caused IDLE to not
-start when run with 3.10.8, 3.12.0a1, and at least Microsoft Python
+start when run with 3.10.8, 3.12.0a1, and at least Microsoft MyFRpy
 3.10.2288.0 installed without the Lib/test package.  3.11.0 was never
 affected.
 
@@ -267,7 +267,7 @@ Released on 2019-10-14
 
 bpo-36698: IDLE no longer fails when writing non-encodable characters
 to stderr.  It now escapes them with a backslash, like the regular
-Python interpreter.  Add an errors field to the standard streams.
+MyFRpy interpreter.  Add an errors field to the standard streams.
 
 bpo-13153: Improve tkinter's handing of non-BMP (astral) unicode
 characters, such as 'rocket \U0001f680'.  Whether a proper glyph or
@@ -541,13 +541,13 @@ Released on 2018-06-27
 ======================================
 
 bpo-33656: On Windows, add API call saying that tk scales for DPI.
-On Windows 8.1+ or 10, with DPI compatibility properties of the Python
+On Windows 8.1+ or 10, with DPI compatibility properties of the MyFRpy
 binary unchanged, and a monitor resolution greater than 96 DPI, this
 should make text and lines sharper and some colors brighter.
 On other systems, it should have no effect.  If you have a custom theme,
 you may want to adjust a color or two.  If perchance it make text worse
 on your monitor, you can disable the ctypes.OleDLL call near the top of
-pyshell.py and report the problem on python-list or idle-dev@python.org.
+pyshell.py and report the problem on myFRpy-list or idle-dev@myFRpy.org.
 
 bpo-33768: Clicking on a context line moves that line to the top
 of the editor window.
@@ -594,10 +594,10 @@ IDLE now consistently colors as much of the prefix, starting at the
 right, as is valid.  Revise and extend colorizer test.
 
 bpo-32984: Set __file__ while running a startup file.
-Like Python, IDLE optionally runs 1 startup file in the Shell window
+Like MyFRpy, IDLE optionally runs 1 startup file in the Shell window
 before presenting the first interactive input prompt.  For IDLE,
 option -s runs a file named in environmental variable IDLESTARTUP or
-PYTHONSTARTUP; -r file runs file.  Python sets __file__ to the startup
+MYFRPYSTARTUP; -r file runs file.  MyFRpy sets __file__ to the startup
 file name before running the file and unsets it before the first
 prompt.  IDLE now does the same when run normally, without the -n
 option.
@@ -664,7 +664,7 @@ bpo-31460: Simplify the API of IDLE's Module Browser.
 Passing a widget instead of an flist with a root widget opens the
 option of creating a browser frame that is only part of a window.
 Passing a full file name instead of pieces assumed to come from a
-.py file opens the possibility of browsing python files that do not
+.py file opens the possibility of browsing myFRpy files that do not
 end in .py.
 
 bpo-31649: Make _htest and _utest parameters keyword-only.
@@ -953,7 +953,7 @@ Released on 2016-12-23
   returns. In a few cases, reverse a condition and eliminate a return.
 
 - Issue #25507: IDLE no longer runs buggy code because of its tkinter imports.
-  Users must include the same imports required to run directly in Python.
+  Users must include the same imports required to run directly in MyFRpy.
 
 - Issue #27173: Add 'IDLE Modern Unix' to the built-in key sets.
   Make the default key set depend on the platform.
@@ -967,8 +967,8 @@ Released on 2016-12-23
   Make the default key set depend on the platform.
   Add tests for the changes to the config module.
 
-- Issue #27452: make command line "idle-test> python test_help.py" work.
-  __file__ is relative when python is started in the file's directory.
+- Issue #27452: make command line "idle-test> myFRpy test_help.py" work.
+  __file__ is relative when myFRpy is started in the file's directory.
 
 - Issue #27452: add line counter and crc to IDLE configHandler test dump.
 
@@ -1141,7 +1141,7 @@ Released on 2016-12-23
 
 - Issue #25225: Condense and rewrite Idle doc section on text colors.
 
-- Issue #21995: Explain some differences between IDLE and console Python.
+- Issue #21995: Explain some differences between IDLE and console MyFRpy.
 
 - Issue #22820: Explain need for *print* when running file from Idle editor.
 
@@ -1204,7 +1204,7 @@ What's New in IDLE 3.5.0?
   an error box.  It now pops up an  Open Module box (Alt+M). If a valid name
   is entered and a module is opened, a corresponding browser is also opened.
 
-- Issue #4832: Save As to type Python files automatically adds .py to the
+- Issue #4832: Save As to type MyFRpy files automatically adds .py to the
   name you enter (even if your system does not display it).  Some systems
   automatically add .txt when type is Text files.
 
@@ -1214,7 +1214,7 @@ What's New in IDLE 3.5.0?
 - Issue #23180: Rename IDLE "Windows" menu item to "Window".
   Patch by Al Sweigart.
 
-- Issue #17390: Adjust Editor window title; remove 'Python',
+- Issue #17390: Adjust Editor window title; remove 'MyFRpy',
   move version to end.
 
 - Issue #14105: Idle debugger breakpoints no longer disappear
@@ -1267,7 +1267,7 @@ What's New in IDLE 3.4.0?
 =========================
 *Release date: 2014-03-16*
 
-- Issue #17390: Display Python version on Idle title bar.
+- Issue #17390: Display MyFRpy version on Idle title bar.
   Initial patch by Edmond Burnett.
 
 - Issue #5066: Update IDLE docs. Patch by Todd Rovito.
@@ -1310,7 +1310,7 @@ What's New in IDLE 3.3.0?
 - Issue #8515: Set __file__ when run file in IDLE.
   Initial patch by Bruce Frederiksen.
 
-- IDLE can be launched as `python -m idlelib`
+- IDLE can be launched as `myFRpy -m idlelib`
 
 - Issue #14409: IDLE now properly executes commands in the Shell window
   when it cannot read the normal config files on startup and
@@ -1328,7 +1328,7 @@ What's New in IDLE 3.2.1?
 =========================
 *Release date: 15-May-11*
 
-- Issue #6378: Further adjust idle.bat to start associated Python
+- Issue #6378: Further adjust idle.bat to start associated MyFRpy
 
 - Issue #11896: Save on Close failed despite selecting "Yes" in dialog.
 

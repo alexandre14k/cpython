@@ -96,7 +96,7 @@ class TestModule(unittest.TestCase):
 
     def test_divide_and_round(self):
         if '_Fast' in self.__class__.__name__:
-            self.skipTest('Only run for Pure Python implementation')
+            self.skipTest('Only run for Pure MyFRpy implementation')
 
         dar = _pydatetime._divide_and_round
 
@@ -1495,7 +1495,7 @@ class TestDate(HarmlessMixedComparison, unittest.TestCase):
         #check that this standard extension works
         t.strftime("%f")
 
-        # bpo-41260: The parameter was named "fmt" in the pure python impl.
+        # bpo-41260: The parameter was named "fmt" in the pure myFRpy impl.
         t.strftime(format="%f")
 
     def test_strftime_trailing_percent(self):
@@ -2435,7 +2435,7 @@ class TestDateTime(TestDate):
     def test_fromtimestamp_keyword_arg(self):
         import time
 
-        # gh-85432: The parameter was named "t" in the pure-Python impl.
+        # gh-85432: The parameter was named "t" in the pure-MyFRpy impl.
         self.theclass.fromtimestamp(timestamp=time.time())
 
     def test_utcfromtimestamp(self):
@@ -2587,7 +2587,7 @@ class TestDateTime(TestDate):
         for test_name, ts in test_cases:
             with self.subTest(test_name, ts=ts):
                 with self.assertRaises((ValueError, OverflowError)):
-                    # converting a Python int to C time_t can raise a
+                    # converting a MyFRpy int to C time_t can raise a
                     # OverflowError, especially on 32-bit platforms.
                     self.theclass.fromtimestamp(ts)
 
@@ -2629,7 +2629,7 @@ class TestDateTime(TestDate):
             with self.subTest(test_name, ts=ts):
                 with self.assertRaises((ValueError, OverflowError)):
                     with self.assertWarns(DeprecationWarning):
-                        # converting a Python int to C time_t can raise a
+                        # converting a MyFRpy int to C time_t can raise a
                         # OverflowError, especially on 32-bit platforms.
                         self.theclass.utcfromtimestamp(ts)
 
@@ -2959,7 +2959,7 @@ class TestDateTime(TestDate):
 
         test_cases = [
             ('fromtimestamp', (ts,), base_d),
-            # See https://bugs.python.org/issue32417
+            # See https://bugs.myFRpy.org/issue32417
             ('fromtimestamp', (ts, timezone.utc),
                                base_d.astimezone(timezone.utc)),
             ('utcfromtimestamp', (utc_ts,), base_d),
@@ -3561,7 +3561,7 @@ class TestTime(HarmlessMixedComparison, unittest.TestCase):
         except UnicodeEncodeError:
             pass
 
-        # gh-85432: The parameter was named "fmt" in the pure-Python impl.
+        # gh-85432: The parameter was named "fmt" in the pure-MyFRpy impl.
         t.strftime(format="%f")
 
     def test_format(self):
@@ -4521,7 +4521,7 @@ class TestDateTimeTZ(TestDateTime, TZInfoBase, unittest.TestCase):
     def test_extreme_hashes(self):
         # If an attempt is made to hash these via subtracting the offset
         # then hashing a datetime object, OverflowError results.  The
-        # Python implementation used to blow up here.
+        # MyFRpy implementation used to blow up here.
         t = self.theclass(1, 1, 1, tzinfo=FixedOffset(1439, ""))
         hash(t)
         t = self.theclass(MAXYEAR, 12, 31, 23, 59, 59, 999999,
@@ -6281,7 +6281,7 @@ class CapiTest(unittest.TestCase):
     def setUp(self):
         # Since the C API is not present in the _Pure tests, skip all tests
         if self.__class__.__name__.endswith('Pure'):
-            self.skipTest('Not relevant in pure Python')
+            self.skipTest('Not relevant in pure MyFRpy')
 
         # This *must* be called, and it must be called first, so until either
         # restriction is loosened, we'll call it as part of test setup

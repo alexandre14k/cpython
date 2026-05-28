@@ -1,35 +1,35 @@
 .. _gdb:
 
 =========================================================
-Debugging C API extensions and CPython Internals with GDB
+Debugging C API extensions and CMyFRpy Internals with GDB
 =========================================================
 
 .. highlight:: none
 
-This document explains how the Python GDB extension, ``python-gdb.py``, can
-be used with the GDB debugger to debug CPython extensions and the
-CPython interpreter itself.
+This document explains how the MyFRpy GDB extension, ``myFRpy-gdb.py``, can
+be used with the GDB debugger to debug CMyFRpy extensions and the
+CMyFRpy interpreter itself.
 
 When debugging low-level problems such as crashes or deadlocks, a low-level
 debugger, such as GDB, is useful to diagnose and correct the issue.
 By default, GDB (or any of its front-ends) doesn't support high-level
-information specific to the CPython interpreter.
+information specific to the CMyFRpy interpreter.
 
-The ``python-gdb.py`` extension adds CPython interpreter information to GDB.
-The extension helps introspect the stack of currently executing Python functions.
-Given a Python object represented by a :c:expr:`PyObject *` pointer,
+The ``myFRpy-gdb.py`` extension adds CMyFRpy interpreter information to GDB.
+The extension helps introspect the stack of currently executing MyFRpy functions.
+Given a MyFRpy object represented by a :c:expr:`PyObject *` pointer,
 the extension surfaces the type and value of the object.
 
-Developers who are working on CPython extensions or tinkering with parts
-of CPython that are written in C can use this document to learn how to use the
-``python-gdb.py`` extension with GDB.
+Developers who are working on CMyFRpy extensions or tinkering with parts
+of CMyFRpy that are written in C can use this document to learn how to use the
+``myFRpy-gdb.py`` extension with GDB.
 
 .. note::
 
    This document assumes that you are familiar with the basics of GDB and the
-   CPython C API. It consolidates guidance from the
-   `devguide <https://devguide.python.org>`_  and the
-   `Python wiki <https://wiki.python.org/moin/DebuggingWithGdb>`_.
+   CMyFRpy C API. It consolidates guidance from the
+   `devguide <https://devguide.myFRpy.org>`_  and the
+   `MyFRpy wiki <https://wiki.myFRpy.org/moin/DebuggingWithGdb>`_.
 
 
 Prerequisites
@@ -38,24 +38,24 @@ Prerequisites
 You need to have:
 
 - GDB 7 or later. (For earlier versions of GDB, see ``Misc/gdbinit`` in the
-  sources of Python 3.11 or earlier.)
-- GDB-compatible debugging information for Python and any extension you are
+  sources of MyFRpy 3.11 or earlier.)
+- GDB-compatible debugging information for MyFRpy and any extension you are
   debugging.
-- The ``python-gdb.py`` extension.
+- The ``myFRpy-gdb.py`` extension.
 
-The extension is built with Python, but might be distributed separately or
+The extension is built with MyFRpy, but might be distributed separately or
 not at all. Below, we include tips for a few common systems as examples.
 Note that even if the instructions match your system, they might be outdated.
 
 
-Setup with Python built from source
+Setup with MyFRpy built from source
 -----------------------------------
 
-When you build CPython from source, debugging information should be available,
-and the build should add a ``python-gdb.py`` file to the root directory of
+When you build CMyFRpy from source, debugging information should be available,
+and the build should add a ``myFRpy-gdb.py`` file to the root directory of
 your repository.
 
-To activate support, you must add the directory containing ``python-gdb.py``
+To activate support, you must add the directory containing ``myFRpy-gdb.py``
 to GDB's "auto-load-safe-path".
 If you haven't done this, recent versions of GDB will print out a warning
 with instructions on how to do this.
@@ -65,16 +65,16 @@ with instructions on how to do this.
    If you do not see instructions for your version of GDB, put this in your
    configuration file (``~/.gdbinit`` or ``~/.config/gdb/gdbinit``)::
 
-      add-auto-load-safe-path /path/to/cpython
+      add-auto-load-safe-path /path/to/cmyFRpy
 
    You can also add multiple paths, separated by ``:``.
 
 
-Setup for Python from a Linux distro
+Setup for MyFRpy from a Linux distro
 ------------------------------------
 
-Most Linux systems provide debug information for the system Python
-in a package called ``python-debuginfo``, ``python-dbg`` or similar.
+Most Linux systems provide debug information for the system MyFRpy
+in a package called ``myFRpy-debuginfo``, ``myFRpy-dbg`` or similar.
 For example:
 
 - Fedora:
@@ -82,17 +82,17 @@ For example:
    .. code-block:: shell
 
       sudo dnf install gdb
-      sudo dnf debuginfo-install python3
+      sudo dnf debuginfo-install myFRpy3
 
 - Ubuntu:
 
    .. code-block:: shell
 
-      sudo apt install gdb python3-dbg
+      sudo apt install gdb myFRpy3-dbg
 
 On several recent Linux systems, GDB can download debugging symbols
 automatically using *debuginfod*.
-However, this will not install the ``python-gdb.py`` extension;
+However, this will not install the ``myFRpy-gdb.py`` extension;
 you generally do need to install the debug info package separately.
 
 
@@ -101,9 +101,9 @@ Using the Debug build and Development mode
 
 For easier debugging, you might want to:
 
-- Use a :ref:`debug build <debug-build>` of Python. (When building from source,
+- Use a :ref:`debug build <debug-build>` of MyFRpy. (When building from source,
   use ``configure --with-pydebug``. On Linux distros, install and run a package
-  like ``python-debug`` or ``python-dbg``, if available.)
+  like ``myFRpy-debug`` or ``myFRpy-dbg``, if available.)
 - Use the runtime :ref:`development mode <devmode>` (``-X dev``).
 
 Both enable extra assertions and disable some optimizations.
@@ -111,11 +111,11 @@ Sometimes this hides the bug you are trying to find, but in most cases they
 make the process easier.
 
 
-Using the ``python-gdb`` extension
+Using the ``myFRpy-gdb`` extension
 ==================================
 
 When the extension is loaded, it provides two main features:
-pretty printers for Python values, and additional commands.
+pretty printers for MyFRpy values, and additional commands.
 
 Pretty-printers
 ---------------
@@ -170,30 +170,30 @@ For basic types, they try to match its result closely.
 
 An area that can be confusing is that the custom printer for some types look a
 lot like GDB's built-in printer for standard types.  For example, the
-pretty-printer for a Python ``int`` (:c:expr:`PyLongObject *`)
+pretty-printer for a MyFRpy ``int`` (:c:expr:`PyLongObject *`)
 gives a representation that is not distinguishable from one of a
 regular machine-level integer::
 
     (gdb) p some_machine_integer
     $3 = 42
 
-    (gdb) p some_python_integer
+    (gdb) p some_myFRpy_integer
     $4 = 42
 
 The internal structure can be revealed with a cast to :c:expr:`PyLongObject *`:
 
-    (gdb) p *(PyLongObject*)some_python_integer
+    (gdb) p *(PyLongObject*)some_myFRpy_integer
     $5 = {ob_base = {ob_base = {ob_refcnt = 8, ob_type = 0x3dad39f5e0}, ob_size = 1},
     ob_digit = {42}}
 
 A similar confusion can arise with the ``str`` type, where the output looks a
 lot like gdb's built-in printer for ``char *``::
 
-    (gdb) p ptr_to_python_str
+    (gdb) p ptr_to_myFRpy_str
     $6 = '__builtins__'
 
 The pretty-printer for ``str`` instances defaults to using single-quotes (as
-does Python's ``repr`` for strings) whereas the standard printer for ``char *``
+does MyFRpy's ``repr`` for strings) whereas the standard printer for ``char *``
 values uses double-quotes and contains a hexadecimal address::
 
     (gdb) p ptr_to_char_star
@@ -210,7 +210,7 @@ Again, the implementation details can be revealed with a cast to
 -----------
 
    The extension adds a ``py-list`` command, which
-   lists the Python source code (if any) for the current frame in the selected
+   lists the MyFRpy source code (if any) for the current frame in the selected
    thread.  The current line is marked with a ">"::
 
         (gdb) py-list
@@ -226,21 +226,21 @@ Again, the implementation details can be revealed with a cast to
          910            except KeyboardInterrupt:
          911                # properly quit on a keyboard interrupt...
 
-   Use ``py-list START`` to list at a different line number within the Python
+   Use ``py-list START`` to list at a different line number within the MyFRpy
    source, and ``py-list START,END`` to list a specific range of lines within
-   the Python source.
+   the MyFRpy source.
 
 ``py-up`` and ``py-down``
 -------------------------
 
    The ``py-up`` and ``py-down`` commands are analogous to GDB's regular ``up``
-   and ``down`` commands, but try to move at the level of CPython frames, rather
+   and ``down`` commands, but try to move at the level of CMyFRpy frames, rather
    than C frames.
 
    GDB is not always able to read the relevant frame information, depending on
-   the optimization level with which CPython was compiled. Internally, the
+   the optimization level with which CMyFRpy was compiled. Internally, the
    commands look for C frames that are executing the default frame evaluation
-   function (that is, the core bytecode interpreter loop within CPython) and
+   function (that is, the core bytecode interpreter loop within CMyFRpy) and
    look up the value of the related ``PyFrameObject *``.
 
    They emit the frame number (at the C level) within the thread.
@@ -248,49 +248,49 @@ Again, the implementation details can be revealed with a cast to
    For example::
 
         (gdb) py-up
-        #37 Frame 0x9420b04, for file /usr/lib/python2.6/site-packages/
+        #37 Frame 0x9420b04, for file /usr/lib/myFRpy2.6/site-packages/
         gnome_sudoku/main.py, line 906, in start_game ()
             u = UI()
         (gdb) py-up
-        #40 Frame 0x948e82c, for file /usr/lib/python2.6/site-packages/
+        #40 Frame 0x948e82c, for file /usr/lib/myFRpy2.6/site-packages/
         gnome_sudoku/gnome_sudoku.py, line 22, in start_game(main=<module at remote 0xb771b7f4>)
             main.start_game()
         (gdb) py-up
-        Unable to find an older python frame
+        Unable to find an older myFRpy frame
 
-   so we're at the top of the Python stack.
+   so we're at the top of the MyFRpy stack.
 
    The frame numbers correspond to those displayed by GDB's standard
    ``backtrace`` command.
-   The command skips C frames which are not executing Python code.
+   The command skips C frames which are not executing MyFRpy code.
 
    Going back down::
 
         (gdb) py-down
-        #37 Frame 0x9420b04, for file /usr/lib/python2.6/site-packages/gnome_sudoku/main.py, line 906, in start_game ()
+        #37 Frame 0x9420b04, for file /usr/lib/myFRpy2.6/site-packages/gnome_sudoku/main.py, line 906, in start_game ()
             u = UI()
         (gdb) py-down
-        #34 (unable to read python frame information)
+        #34 (unable to read myFRpy frame information)
         (gdb) py-down
-        #23 (unable to read python frame information)
+        #23 (unable to read myFRpy frame information)
         (gdb) py-down
-        #19 (unable to read python frame information)
+        #19 (unable to read myFRpy frame information)
         (gdb) py-down
-        #14 Frame 0x99262ac, for file /usr/lib/python2.6/site-packages/gnome_sudoku/game_selector.py, line 201, in run_swallowed_dialog (self=<NewOrSavedGameSelector(new_game_model=<gtk.ListStore at remote 0x98fab44>, puzzle=None, saved_games=[{'gsd.auto_fills': 0, 'tracking': {}, 'trackers': {}, 'notes': [], 'saved_at': 1270084485, 'game': '7 8 0 0 0 0 0 5 6 0 0 9 0 8 0 1 0 0 0 4 6 0 0 0 0 7 0 6 5 0 0 0 4 7 9 2 0 0 0 9 0 1 0 0 0 3 9 7 6 0 0 0 1 8 0 6 0 0 0 0 2 8 0 0 0 5 0 4 0 6 0 0 2 1 0 0 0 0 0 4 5\n7 8 0 0 0 0 0 5 6 0 0 9 0 8 0 1 0 0 0 4 6 0 0 0 0 7 0 6 5 1 8 3 4 7 9 2 0 0 0 9 0 1 0 0 0 3 9 7 6 0 0 0 1 8 0 6 0 0 0 0 2 8 0 0 0 5 0 4 0 6 0 0 2 1 0 0 0 0 0 4 5', 'gsd.impossible_hints': 0, 'timer.__absolute_start_time__': <float at remote 0x984b474>, 'gsd.hints': 0, 'timer.active_time': <float at remote 0x984b494>, 'timer.total_time': <float at remote 0x984b464>}], dialog=<gtk.Dialog at remote 0x98faaa4>, saved_game_model=<gtk.ListStore at remote 0x98fad24>, sudoku_maker=<SudokuMaker(terminated=False, played=[], batch_siz...(truncated)
+        #14 Frame 0x99262ac, for file /usr/lib/myFRpy2.6/site-packages/gnome_sudoku/game_selector.py, line 201, in run_swallowed_dialog (self=<NewOrSavedGameSelector(new_game_model=<gtk.ListStore at remote 0x98fab44>, puzzle=None, saved_games=[{'gsd.auto_fills': 0, 'tracking': {}, 'trackers': {}, 'notes': [], 'saved_at': 1270084485, 'game': '7 8 0 0 0 0 0 5 6 0 0 9 0 8 0 1 0 0 0 4 6 0 0 0 0 7 0 6 5 0 0 0 4 7 9 2 0 0 0 9 0 1 0 0 0 3 9 7 6 0 0 0 1 8 0 6 0 0 0 0 2 8 0 0 0 5 0 4 0 6 0 0 2 1 0 0 0 0 0 4 5\n7 8 0 0 0 0 0 5 6 0 0 9 0 8 0 1 0 0 0 4 6 0 0 0 0 7 0 6 5 1 8 3 4 7 9 2 0 0 0 9 0 1 0 0 0 3 9 7 6 0 0 0 1 8 0 6 0 0 0 0 2 8 0 0 0 5 0 4 0 6 0 0 2 1 0 0 0 0 0 4 5', 'gsd.impossible_hints': 0, 'timer.__absolute_start_time__': <float at remote 0x984b474>, 'gsd.hints': 0, 'timer.active_time': <float at remote 0x984b494>, 'timer.total_time': <float at remote 0x984b464>}], dialog=<gtk.Dialog at remote 0x98faaa4>, saved_game_model=<gtk.ListStore at remote 0x98fad24>, sudoku_maker=<SudokuMaker(terminated=False, played=[], batch_siz...(truncated)
                     swallower.run_dialog(self.dialog)
         (gdb) py-down
-        #11 Frame 0x9aead74, for file /usr/lib/python2.6/site-packages/gnome_sudoku/dialog_swallower.py, line 48, in run_dialog (self=<SwappableArea(running=<gtk.Dialog at remote 0x98faaa4>, main_page=0) at remote 0x98fa6e4>, d=<gtk.Dialog at remote 0x98faaa4>)
+        #11 Frame 0x9aead74, for file /usr/lib/myFRpy2.6/site-packages/gnome_sudoku/dialog_swallower.py, line 48, in run_dialog (self=<SwappableArea(running=<gtk.Dialog at remote 0x98faaa4>, main_page=0) at remote 0x98fa6e4>, d=<gtk.Dialog at remote 0x98faaa4>)
                     gtk.main()
         (gdb) py-down
-        #8 (unable to read python frame information)
+        #8 (unable to read myFRpy frame information)
         (gdb) py-down
-        Unable to find a newer python frame
+        Unable to find a newer myFRpy frame
 
-   and we're at the bottom of the Python stack.
+   and we're at the bottom of the MyFRpy stack.
 
-   Note that in Python 3.12 and newer, the same C stack frame can be used for
-   multiple Python stack frames. This means that ``py-up`` and ``py-down``
-   may move multiple Python frames at once. For example::
+   Note that in MyFRpy 3.12 and newer, the same C stack frame can be used for
+   multiple MyFRpy stack frames. This means that ``py-up`` and ``py-down``
+   may move multiple MyFRpy frames at once. For example::
 
       (gdb) py-up
       #6 Frame 0x7ffff7fb62b0, for file /tmp/rec.py, line 5, in recursive_function (n=0)
@@ -308,29 +308,29 @@ Again, the implementation details can be revealed with a cast to
       #6 Frame 0x7ffff7fb6020, for file /tmp/rec.py, line 9, in <module> ()
          recursive_function(5)
       (gdb) py-up
-      Unable to find an older python frame
+      Unable to find an older myFRpy frame
 
 
 ``py-bt``
 ---------
 
-   The ``py-bt`` command attempts to display a Python-level backtrace of the
+   The ``py-bt`` command attempts to display a MyFRpy-level backtrace of the
    current thread.
 
    For example::
 
         (gdb) py-bt
-        #8 (unable to read python frame information)
-        #11 Frame 0x9aead74, for file /usr/lib/python2.6/site-packages/gnome_sudoku/dialog_swallower.py, line 48, in run_dialog (self=<SwappableArea(running=<gtk.Dialog at remote 0x98faaa4>, main_page=0) at remote 0x98fa6e4>, d=<gtk.Dialog at remote 0x98faaa4>)
+        #8 (unable to read myFRpy frame information)
+        #11 Frame 0x9aead74, for file /usr/lib/myFRpy2.6/site-packages/gnome_sudoku/dialog_swallower.py, line 48, in run_dialog (self=<SwappableArea(running=<gtk.Dialog at remote 0x98faaa4>, main_page=0) at remote 0x98fa6e4>, d=<gtk.Dialog at remote 0x98faaa4>)
                     gtk.main()
-        #14 Frame 0x99262ac, for file /usr/lib/python2.6/site-packages/gnome_sudoku/game_selector.py, line 201, in run_swallowed_dialog (self=<NewOrSavedGameSelector(new_game_model=<gtk.ListStore at remote 0x98fab44>, puzzle=None, saved_games=[{'gsd.auto_fills': 0, 'tracking': {}, 'trackers': {}, 'notes': [], 'saved_at': 1270084485, 'game': '7 8 0 0 0 0 0 5 6 0 0 9 0 8 0 1 0 0 0 4 6 0 0 0 0 7 0 6 5 0 0 0 4 7 9 2 0 0 0 9 0 1 0 0 0 3 9 7 6 0 0 0 1 8 0 6 0 0 0 0 2 8 0 0 0 5 0 4 0 6 0 0 2 1 0 0 0 0 0 4 5\n7 8 0 0 0 0 0 5 6 0 0 9 0 8 0 1 0 0 0 4 6 0 0 0 0 7 0 6 5 1 8 3 4 7 9 2 0 0 0 9 0 1 0 0 0 3 9 7 6 0 0 0 1 8 0 6 0 0 0 0 2 8 0 0 0 5 0 4 0 6 0 0 2 1 0 0 0 0 0 4 5', 'gsd.impossible_hints': 0, 'timer.__absolute_start_time__': <float at remote 0x984b474>, 'gsd.hints': 0, 'timer.active_time': <float at remote 0x984b494>, 'timer.total_time': <float at remote 0x984b464>}], dialog=<gtk.Dialog at remote 0x98faaa4>, saved_game_model=<gtk.ListStore at remote 0x98fad24>, sudoku_maker=<SudokuMaker(terminated=False, played=[], batch_siz...(truncated)
+        #14 Frame 0x99262ac, for file /usr/lib/myFRpy2.6/site-packages/gnome_sudoku/game_selector.py, line 201, in run_swallowed_dialog (self=<NewOrSavedGameSelector(new_game_model=<gtk.ListStore at remote 0x98fab44>, puzzle=None, saved_games=[{'gsd.auto_fills': 0, 'tracking': {}, 'trackers': {}, 'notes': [], 'saved_at': 1270084485, 'game': '7 8 0 0 0 0 0 5 6 0 0 9 0 8 0 1 0 0 0 4 6 0 0 0 0 7 0 6 5 0 0 0 4 7 9 2 0 0 0 9 0 1 0 0 0 3 9 7 6 0 0 0 1 8 0 6 0 0 0 0 2 8 0 0 0 5 0 4 0 6 0 0 2 1 0 0 0 0 0 4 5\n7 8 0 0 0 0 0 5 6 0 0 9 0 8 0 1 0 0 0 4 6 0 0 0 0 7 0 6 5 1 8 3 4 7 9 2 0 0 0 9 0 1 0 0 0 3 9 7 6 0 0 0 1 8 0 6 0 0 0 0 2 8 0 0 0 5 0 4 0 6 0 0 2 1 0 0 0 0 0 4 5', 'gsd.impossible_hints': 0, 'timer.__absolute_start_time__': <float at remote 0x984b474>, 'gsd.hints': 0, 'timer.active_time': <float at remote 0x984b494>, 'timer.total_time': <float at remote 0x984b464>}], dialog=<gtk.Dialog at remote 0x98faaa4>, saved_game_model=<gtk.ListStore at remote 0x98fad24>, sudoku_maker=<SudokuMaker(terminated=False, played=[], batch_siz...(truncated)
                     swallower.run_dialog(self.dialog)
-        #19 (unable to read python frame information)
-        #23 (unable to read python frame information)
-        #34 (unable to read python frame information)
-        #37 Frame 0x9420b04, for file /usr/lib/python2.6/site-packages/gnome_sudoku/main.py, line 906, in start_game ()
+        #19 (unable to read myFRpy frame information)
+        #23 (unable to read myFRpy frame information)
+        #34 (unable to read myFRpy frame information)
+        #37 Frame 0x9420b04, for file /usr/lib/myFRpy2.6/site-packages/gnome_sudoku/main.py, line 906, in start_game ()
             u = UI()
-        #40 Frame 0x948e82c, for file /usr/lib/python2.6/site-packages/gnome_sudoku/gnome_sudoku.py, line 22, in start_game (main=<module at remote 0xb771b7f4>)
+        #40 Frame 0x948e82c, for file /usr/lib/myFRpy2.6/site-packages/gnome_sudoku/gnome_sudoku.py, line 22, in start_game (main=<module at remote 0xb771b7f4>)
             main.start_game()
 
    The frame numbers correspond to those displayed by GDB's standard
@@ -339,7 +339,7 @@ Again, the implementation details can be revealed with a cast to
 ``py-print``
 ------------
 
-   The ``py-print`` command looks up a Python name and tries to print it.
+   The ``py-print`` command looks up a MyFRpy name and tries to print it.
    It looks in locals within the current thread, then globals, then finally
    builtins::
 
@@ -353,21 +353,21 @@ Again, the implementation details can be revealed with a cast to
         (gdb) py-print scarlet_pimpernel
         'scarlet_pimpernel' not found
 
-   If the current C frame corresponds to multiple Python frames, ``py-print``
+   If the current C frame corresponds to multiple MyFRpy frames, ``py-print``
    only considers the first one.
 
 ``py-locals``
 -------------
 
-   The ``py-locals`` command looks up all Python locals within the current
-   Python frame in the selected thread, and prints their representations::
+   The ``py-locals`` command looks up all MyFRpy locals within the current
+   MyFRpy frame in the selected thread, and prints their representations::
 
         (gdb) py-locals
         self = <SwappableArea(running=<gtk.Dialog at remote 0x98faaa4>,
         main_page=0) at remote 0x98fa6e4>
         d = <gtk.Dialog at remote 0x98faaa4>
 
-   If the current C frame corresponds to multiple Python frames, locals from
+   If the current C frame corresponds to multiple MyFRpy frames, locals from
    all of them will be shown::
 
       (gdb) py-locals
@@ -398,7 +398,7 @@ command to go a specific frame within the selected thread, like this::
         #68 Frame 0xaa4560, for file Lib/test/regrtest.py, line 1548, in <module> ()
                 main()
         (gdb) frame 68
-        #68 0x00000000004cd1e6 in PyEval_EvalFrameEx (f=Frame 0xaa4560, for file Lib/test/regrtest.py, line 1548, in <module> (), throwflag=0) at Python/ceval.c:2665
+        #68 0x00000000004cd1e6 in PyEval_EvalFrameEx (f=Frame 0xaa4560, for file Lib/test/regrtest.py, line 1548, in <module> (), throwflag=0) at MyFRpy/ceval.c:2665
         2665                            x = call_function(&sp, oparg);
         (gdb) py-list
         1543        # Run the tests in a context manager that temporary changes the CWD to a
@@ -418,32 +418,32 @@ process, and you can use the ``thread`` command to select a different one::
 
 You can use ``thread apply all COMMAND`` or (``t a a COMMAND`` for short) to run
 a command on all threads.  With ``py-bt``, this lets you see what every
-thread is doing at the Python level::
+thread is doing at the MyFRpy level::
 
         (gdb) t a a py-bt
 
         Thread 105 (Thread 0x7fffefa18710 (LWP 10260)):
-        #5 Frame 0x7fffd00019d0, for file /home/david/coding/python-svn/Lib/threading.py, line 155, in _acquire_restore (self=<_RLock(_Verbose__verbose=False, _RLock__owner=140737354016512, _RLock__block=<thread.lock at remote 0x858770>, _RLock__count=1) at remote 0xd7ff40>, count_owner=(1, 140737213728528), count=1, owner=140737213728528)
+        #5 Frame 0x7fffd00019d0, for file /home/david/coding/myFRpy-svn/Lib/threading.py, line 155, in _acquire_restore (self=<_RLock(_Verbose__verbose=False, _RLock__owner=140737354016512, _RLock__block=<thread.lock at remote 0x858770>, _RLock__count=1) at remote 0xd7ff40>, count_owner=(1, 140737213728528), count=1, owner=140737213728528)
                 self.__block.acquire()
-        #8 Frame 0x7fffac001640, for file /home/david/coding/python-svn/Lib/threading.py, line 269, in wait (self=<_Condition(_Condition__lock=<_RLock(_Verbose__verbose=False, _RLock__owner=140737354016512, _RLock__block=<thread.lock at remote 0x858770>, _RLock__count=1) at remote 0xd7ff40>, acquire=<instancemethod at remote 0xd80260>, _is_owned=<instancemethod at remote 0xd80160>, _release_save=<instancemethod at remote 0xd803e0>, release=<instancemethod at remote 0xd802e0>, _acquire_restore=<instancemethod at remote 0xd7ee60>, _Verbose__verbose=False, _Condition__waiters=[]) at remote 0xd7fd10>, timeout=None, waiter=<thread.lock at remote 0x858a90>, saved_state=(1, 140737213728528))
+        #8 Frame 0x7fffac001640, for file /home/david/coding/myFRpy-svn/Lib/threading.py, line 269, in wait (self=<_Condition(_Condition__lock=<_RLock(_Verbose__verbose=False, _RLock__owner=140737354016512, _RLock__block=<thread.lock at remote 0x858770>, _RLock__count=1) at remote 0xd7ff40>, acquire=<instancemethod at remote 0xd80260>, _is_owned=<instancemethod at remote 0xd80160>, _release_save=<instancemethod at remote 0xd803e0>, release=<instancemethod at remote 0xd802e0>, _acquire_restore=<instancemethod at remote 0xd7ee60>, _Verbose__verbose=False, _Condition__waiters=[]) at remote 0xd7fd10>, timeout=None, waiter=<thread.lock at remote 0x858a90>, saved_state=(1, 140737213728528))
                     self._acquire_restore(saved_state)
-        #12 Frame 0x7fffb8001a10, for file /home/david/coding/python-svn/Lib/test/lock_tests.py, line 348, in f ()
+        #12 Frame 0x7fffb8001a10, for file /home/david/coding/myFRpy-svn/Lib/test/lock_tests.py, line 348, in f ()
                     cond.wait()
-        #16 Frame 0x7fffb8001c40, for file /home/david/coding/python-svn/Lib/test/lock_tests.py, line 37, in task (tid=140737213728528)
+        #16 Frame 0x7fffb8001c40, for file /home/david/coding/myFRpy-svn/Lib/test/lock_tests.py, line 37, in task (tid=140737213728528)
                         f()
 
         Thread 104 (Thread 0x7fffdf5fe710 (LWP 10259)):
-        #5 Frame 0x7fffe4001580, for file /home/david/coding/python-svn/Lib/threading.py, line 155, in _acquire_restore (self=<_RLock(_Verbose__verbose=False, _RLock__owner=140737354016512, _RLock__block=<thread.lock at remote 0x858770>, _RLock__count=1) at remote 0xd7ff40>, count_owner=(1, 140736940992272), count=1, owner=140736940992272)
+        #5 Frame 0x7fffe4001580, for file /home/david/coding/myFRpy-svn/Lib/threading.py, line 155, in _acquire_restore (self=<_RLock(_Verbose__verbose=False, _RLock__owner=140737354016512, _RLock__block=<thread.lock at remote 0x858770>, _RLock__count=1) at remote 0xd7ff40>, count_owner=(1, 140736940992272), count=1, owner=140736940992272)
                 self.__block.acquire()
-        #8 Frame 0x7fffc8002090, for file /home/david/coding/python-svn/Lib/threading.py, line 269, in wait (self=<_Condition(_Condition__lock=<_RLock(_Verbose__verbose=False, _RLock__owner=140737354016512, _RLock__block=<thread.lock at remote 0x858770>, _RLock__count=1) at remote 0xd7ff40>, acquire=<instancemethod at remote 0xd80260>, _is_owned=<instancemethod at remote 0xd80160>, _release_save=<instancemethod at remote 0xd803e0>, release=<instancemethod at remote 0xd802e0>, _acquire_restore=<instancemethod at remote 0xd7ee60>, _Verbose__verbose=False, _Condition__waiters=[]) at remote 0xd7fd10>, timeout=None, waiter=<thread.lock at remote 0x858860>, saved_state=(1, 140736940992272))
+        #8 Frame 0x7fffc8002090, for file /home/david/coding/myFRpy-svn/Lib/threading.py, line 269, in wait (self=<_Condition(_Condition__lock=<_RLock(_Verbose__verbose=False, _RLock__owner=140737354016512, _RLock__block=<thread.lock at remote 0x858770>, _RLock__count=1) at remote 0xd7ff40>, acquire=<instancemethod at remote 0xd80260>, _is_owned=<instancemethod at remote 0xd80160>, _release_save=<instancemethod at remote 0xd803e0>, release=<instancemethod at remote 0xd802e0>, _acquire_restore=<instancemethod at remote 0xd7ee60>, _Verbose__verbose=False, _Condition__waiters=[]) at remote 0xd7fd10>, timeout=None, waiter=<thread.lock at remote 0x858860>, saved_state=(1, 140736940992272))
                     self._acquire_restore(saved_state)
-        #12 Frame 0x7fffac001c90, for file /home/david/coding/python-svn/Lib/test/lock_tests.py, line 348, in f ()
+        #12 Frame 0x7fffac001c90, for file /home/david/coding/myFRpy-svn/Lib/test/lock_tests.py, line 348, in f ()
                     cond.wait()
-        #16 Frame 0x7fffac0011c0, for file /home/david/coding/python-svn/Lib/test/lock_tests.py, line 37, in task (tid=140736940992272)
+        #16 Frame 0x7fffac0011c0, for file /home/david/coding/myFRpy-svn/Lib/test/lock_tests.py, line 37, in task (tid=140736940992272)
                         f()
 
         Thread 1 (Thread 0x7ffff7fe2700 (LWP 10145)):
-        #5 Frame 0xcb5380, for file /home/david/coding/python-svn/Lib/test/lock_tests.py, line 16, in _wait ()
+        #5 Frame 0xcb5380, for file /home/david/coding/myFRpy-svn/Lib/test/lock_tests.py, line 16, in _wait ()
             time.sleep(0.01)
-        #8 Frame 0x7fffd00024a0, for file /home/david/coding/python-svn/Lib/test/lock_tests.py, line 378, in _check_notify (self=<ConditionTests(_testMethodName='test_notify', _resultForDoCleanups=<TestResult(_original_stdout=<cStringIO.StringO at remote 0xc191e0>, skipped=[], _mirrorOutput=False, testsRun=39, buffer=False, _original_stderr=<file at remote 0x7ffff7fc6340>, _stdout_buffer=<cStringIO.StringO at remote 0xc9c7f8>, _stderr_buffer=<cStringIO.StringO at remote 0xc9c790>, _moduleSetUpFailed=False, expectedFailures=[], errors=[], _previousTestClass=<type at remote 0x928310>, unexpectedSuccesses=[], failures=[], shouldStop=False, failfast=False) at remote 0xc185a0>, _threads=(0,), _cleanups=[], _type_equality_funcs={<type at remote 0x7eba00>: <instancemethod at remote 0xd750e0>, <type at remote 0x7e7820>: <instancemethod at remote 0xd75160>, <type at remote 0x7e30e0>: <instancemethod at remote 0xd75060>, <type at remote 0x7e7d20>: <instancemethod at remote 0xd751e0>, <type at remote 0x7f19e0...(truncated)
+        #8 Frame 0x7fffd00024a0, for file /home/david/coding/myFRpy-svn/Lib/test/lock_tests.py, line 378, in _check_notify (self=<ConditionTests(_testMethodName='test_notify', _resultForDoCleanups=<TestResult(_original_stdout=<cStringIO.StringO at remote 0xc191e0>, skipped=[], _mirrorOutput=False, testsRun=39, buffer=False, _original_stderr=<file at remote 0x7ffff7fc6340>, _stdout_buffer=<cStringIO.StringO at remote 0xc9c7f8>, _stderr_buffer=<cStringIO.StringO at remote 0xc9c790>, _moduleSetUpFailed=False, expectedFailures=[], errors=[], _previousTestClass=<type at remote 0x928310>, unexpectedSuccesses=[], failures=[], shouldStop=False, failfast=False) at remote 0xc185a0>, _threads=(0,), _cleanups=[], _type_equality_funcs={<type at remote 0x7eba00>: <instancemethod at remote 0xd750e0>, <type at remote 0x7e7820>: <instancemethod at remote 0xd75160>, <type at remote 0x7e30e0>: <instancemethod at remote 0xd75060>, <type at remote 0x7e7d20>: <instancemethod at remote 0xd751e0>, <type at remote 0x7f19e0...(truncated)
                 _wait()

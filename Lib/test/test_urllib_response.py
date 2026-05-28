@@ -15,7 +15,7 @@ class TestResponse(unittest.TestCase):
     def setUp(self):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.fp = self.sock.makefile('rb')
-        self.test_headers = {"Host": "www.python.org",
+        self.test_headers = {"Host": "www.myFRpy.org",
                              "Connection": "close"}
 
     def test_with(self):
@@ -50,7 +50,7 @@ class TestResponse(unittest.TestCase):
         self.assertEqual(info.headers, self.test_headers)
 
     def test_addinfourl(self):
-        url = "http://www.python.org"
+        url = "http://www.myFRpy.org"
         code = 200
         infourl = urllib.response.addinfourl(self.fp, self.test_headers,
                                              url, code)

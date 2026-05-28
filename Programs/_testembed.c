@@ -5,7 +5,7 @@
 /* Always enable assertion (even in release mode) */
 #undef NDEBUG
 
-#include <Python.h>
+#include <MyFRpy.h>
 #include "pycore_initconfig.h"    // _PyConfig_InitCompatConfig()
 #include "pycore_runtime.h"       // _PyRuntime
 #include "pycore_import.h"        // _PyImport_FrozenBootstrap
@@ -154,11 +154,11 @@ PyInit_embedded_ext(void)
 }
 
 /****************************************************************************
- * Call Py_Initialize()/Py_Finalize() multiple times and execute Python code
+ * Call Py_Initialize()/Py_Finalize() multiple times and execute MyFRpy code
  ***************************************************************************/
 
 // Used by bpo-46417 to test that structseq types used by the sys module are
-// cleared properly and initialized again properly when Python is finalized
+// cleared properly and initialized again properly when MyFRpy is finalized
 // multiple times.
 static int test_repeated_init_exec(void)
 {
@@ -266,7 +266,7 @@ static int test_forced_io_encoding(void)
 static int test_pre_initialization_api(void)
 {
     /* the test doesn't support custom memory allocators */
-    putenv("PYTHONMALLOC=");
+    putenv("MYFRPYMALLOC=");
 
     /* Leading "./" ensures getpath.c can still find the standard library */
     _Py_EMBED_PREINIT_CHECK("Checking Py_DecodeLocale\n");
@@ -363,9 +363,9 @@ static void bpo20891_thread(void *lockp)
 static int test_bpo20891(void)
 {
     /* the test doesn't support custom memory allocators */
-    putenv("PYTHONMALLOC=");
+    putenv("MYFRPYMALLOC=");
 
-    /* bpo-20891: Calling PyGILState_Ensure in a non-Python thread must not
+    /* bpo-20891: Calling PyGILState_Ensure in a non-MyFRpy thread must not
        crash. */
     PyThread_type_lock lock = PyThread_allocate_lock();
     if (!lock) {
@@ -409,7 +409,7 @@ static int test_initialize_twice(void)
 
 static int test_initialize_pymain(void)
 {
-    wchar_t *argv[] = {L"PYTHON", L"-c",
+    wchar_t *argv[] = {L"MYFRPY", L"-c",
                        (L"import sys; "
                         L"print(f'Py_Main() after Py_Initialize: "
                         L"sys.argv={sys.argv}')"),
@@ -508,7 +508,7 @@ static int test_init_global_config(void)
 {
     /* FIXME: test Py_IgnoreEnvironmentFlag */
 
-    putenv("PYTHONUTF8=0");
+    putenv("MYFRPYUTF8=0");
     Py_UTF8Mode = 1;
 
     /* Test initialization from global configuration variables (Py_xxx) */
@@ -518,27 +518,27 @@ static int test_init_global_config(void)
     Py_NoSiteFlag = 1;
     Py_BytesWarningFlag = 1;
 
-    putenv("PYTHONINSPECT=");
+    putenv("MYFRPYINSPECT=");
     Py_InspectFlag = 1;
 
-    putenv("PYTHONOPTIMIZE=0");
+    putenv("MYFRPYOPTIMIZE=0");
     Py_InteractiveFlag = 1;
 
-    putenv("PYTHONDEBUG=0");
+    putenv("MYFRPYDEBUG=0");
     Py_OptimizeFlag = 2;
 
     /* Py_DebugFlag is not tested */
 
-    putenv("PYTHONDONTWRITEBYTECODE=");
+    putenv("MYFRPYDONTWRITEBYTECODE=");
     Py_DontWriteBytecodeFlag = 1;
 
-    putenv("PYTHONVERBOSE=0");
+    putenv("MYFRPYVERBOSE=0");
     Py_VerboseFlag = 1;
 
     Py_QuietFlag = 1;
     Py_NoUserSiteDirectory = 1;
 
-    putenv("PYTHONUNBUFFERED=");
+    putenv("MYFRPYUNBUFFERED=");
     Py_UnbufferedStdioFlag = 1;
 
     Py_FrozenFlag = 1;
@@ -558,10 +558,10 @@ static int test_init_from_config(void)
     PyPreConfig preconfig;
     _PyPreConfig_InitCompatConfig(&preconfig);
 
-    putenv("PYTHONMALLOC=malloc_debug");
+    putenv("MYFRPYMALLOC=malloc_debug");
     preconfig.allocator = PYMEM_ALLOCATOR_MALLOC;
 
-    putenv("PYTHONUTF8=0");
+    putenv("MYFRPYUTF8=0");
     Py_UTF8Mode = 0;
     preconfig.utf8_mode = 1;
 
@@ -577,38 +577,38 @@ static int test_init_from_config(void)
 
     /* FIXME: test use_environment */
 
-    putenv("PYTHONHASHSEED=42");
+    putenv("MYFRPYHASHSEED=42");
     config.use_hash_seed = 1;
     config.hash_seed = 123;
 
     /* dev_mode=1 is tested in test_init_dev_mode() */
 
-    putenv("PYTHONFAULTHANDLER=");
+    putenv("MYFRPYFAULTHANDLER=");
     config.faulthandler = 1;
 
-    putenv("PYTHONTRACEMALLOC=0");
+    putenv("MYFRPYTRACEMALLOC=0");
     config.tracemalloc = 2;
 
-    putenv("PYTHONPROFILEIMPORTTIME=0");
+    putenv("MYFRPYPROFILEIMPORTTIME=0");
     config.import_time = 1;
 
-    putenv("PYTHONNODEBUGRANGES=0");
+    putenv("MYFRPYNODEBUGRANGES=0");
     config.code_debug_ranges = 0;
 
     config.show_ref_count = 1;
     /* FIXME: test dump_refs: bpo-34223 */
 
-    putenv("PYTHONMALLOCSTATS=0");
+    putenv("MYFRPYMALLOCSTATS=0");
     config.malloc_stats = 1;
 
-    putenv("PYTHONPYCACHEPREFIX=env_pycache_prefix");
+    putenv("MYFRPYPYCACHEPREFIX=env_pycache_prefix");
     config_set_string(&config, &config.pycache_prefix, L"conf_pycache_prefix");
 
     Py_SetProgramName(L"./globalvar");
     config_set_string(&config, &config.program_name, L"./conf_program_name");
 
     wchar_t* argv[] = {
-        L"python3",
+        L"myFRpy3",
         L"-W",
         L"cmdline_warnoption",
         L"-X",
@@ -634,18 +634,18 @@ static int test_init_from_config(void)
     config_set_wide_string_list(&config, &config.warnoptions,
                                 Py_ARRAY_LENGTH(warnoptions), warnoptions);
 
-    /* FIXME: test pythonpath_env */
+    /* FIXME: test myFRpypath_env */
     /* FIXME: test home */
     /* FIXME: test path config: module_search_path .. dll_path */
 
-    putenv("PYTHONPLATLIBDIR=env_platlibdir");
+    putenv("MYFRPYPLATLIBDIR=env_platlibdir");
     status = PyConfig_SetBytesString(&config, &config.platlibdir, "my_platlibdir");
     if (PyStatus_Exception(status)) {
         PyConfig_Clear(&config);
         Py_ExitStatusException(status);
     }
 
-    putenv("PYTHONVERBOSE=0");
+    putenv("MYFRPYVERBOSE=0");
     Py_VerboseFlag = 0;
     config.verbose = 1;
 
@@ -655,20 +655,20 @@ static int test_init_from_config(void)
     Py_BytesWarningFlag = 0;
     config.bytes_warning = 1;
 
-    putenv("PYTHONINSPECT=");
+    putenv("MYFRPYINSPECT=");
     Py_InspectFlag = 0;
     config.inspect = 1;
 
     Py_InteractiveFlag = 0;
     config.interactive = 1;
 
-    putenv("PYTHONOPTIMIZE=0");
+    putenv("MYFRPYOPTIMIZE=0");
     Py_OptimizeFlag = 1;
     config.optimization_level = 2;
 
     /* FIXME: test parser_debug */
 
-    putenv("PYTHONDONTWRITEBYTECODE=");
+    putenv("MYFRPYDONTWRITEBYTECODE=");
     Py_DontWriteBytecodeFlag = 0;
     config.write_bytecode = 0;
 
@@ -677,11 +677,11 @@ static int test_init_from_config(void)
 
     config.configure_c_stdio = 1;
 
-    putenv("PYTHONUNBUFFERED=");
+    putenv("MYFRPYUNBUFFERED=");
     Py_UnbufferedStdioFlag = 0;
     config.buffered_stdio = 0;
 
-    putenv("PYTHONIOENCODING=cp424");
+    putenv("MYFRPYIOENCODING=cp424");
     Py_SetStandardStreamEncoding("ascii", "ignore");
 #ifdef MS_WINDOWS
     /* Py_SetStandardStreamEncoding() sets Py_LegacyWindowsStdioFlag to 1.
@@ -691,7 +691,7 @@ static int test_init_from_config(void)
     config_set_string(&config, &config.stdio_encoding, L"iso8859-1");
     config_set_string(&config, &config.stdio_errors, L"replace");
 
-    putenv("PYTHONNOUSERSITE=");
+    putenv("MYFRPYNOUSERSITE=");
     Py_NoUserSiteDirectory = 0;
     config.user_site_directory = 0;
 
@@ -702,7 +702,7 @@ static int test_init_from_config(void)
 
     config.safe_path = 1;
 
-    putenv("PYTHONINTMAXSTRDIGITS=6666");
+    putenv("MYFRPYINTMAXSTRDIGITS=6666");
     config.int_max_str_digits = 31337;
 
     init_from_config_clear(&config);
@@ -716,7 +716,7 @@ static int test_init_from_config(void)
 static int check_init_parse_argv(int parse_argv)
 {
     PyConfig config;
-    PyConfig_InitPythonConfig(&config);
+    PyConfig_InitMyFRpyConfig(&config);
 
     config.parse_argv = parse_argv;
 
@@ -752,25 +752,25 @@ static int test_init_dont_parse_argv(void)
 
 static void set_most_env_vars(void)
 {
-    putenv("PYTHONHASHSEED=42");
-    putenv("PYTHONMALLOC=malloc");
-    putenv("PYTHONTRACEMALLOC=2");
-    putenv("PYTHONPROFILEIMPORTTIME=1");
-    putenv("PYTHONNODEBUGRANGES=1");
-    putenv("PYTHONMALLOCSTATS=1");
-    putenv("PYTHONUTF8=1");
-    putenv("PYTHONVERBOSE=1");
-    putenv("PYTHONINSPECT=1");
-    putenv("PYTHONOPTIMIZE=2");
-    putenv("PYTHONDONTWRITEBYTECODE=1");
-    putenv("PYTHONUNBUFFERED=1");
-    putenv("PYTHONPYCACHEPREFIX=env_pycache_prefix");
-    putenv("PYTHONNOUSERSITE=1");
-    putenv("PYTHONFAULTHANDLER=1");
-    putenv("PYTHONIOENCODING=iso8859-1:replace");
-    putenv("PYTHONPLATLIBDIR=env_platlibdir");
-    putenv("PYTHONSAFEPATH=1");
-    putenv("PYTHONINTMAXSTRDIGITS=4567");
+    putenv("MYFRPYHASHSEED=42");
+    putenv("MYFRPYMALLOC=malloc");
+    putenv("MYFRPYTRACEMALLOC=2");
+    putenv("MYFRPYPROFILEIMPORTTIME=1");
+    putenv("MYFRPYNODEBUGRANGES=1");
+    putenv("MYFRPYMALLOCSTATS=1");
+    putenv("MYFRPYUTF8=1");
+    putenv("MYFRPYVERBOSE=1");
+    putenv("MYFRPYINSPECT=1");
+    putenv("MYFRPYOPTIMIZE=2");
+    putenv("MYFRPYDONTWRITEBYTECODE=1");
+    putenv("MYFRPYUNBUFFERED=1");
+    putenv("MYFRPYPYCACHEPREFIX=env_pycache_prefix");
+    putenv("MYFRPYNOUSERSITE=1");
+    putenv("MYFRPYFAULTHANDLER=1");
+    putenv("MYFRPYIOENCODING=iso8859-1:replace");
+    putenv("MYFRPYPLATLIBDIR=env_platlibdir");
+    putenv("MYFRPYSAFEPATH=1");
+    putenv("MYFRPYINTMAXSTRDIGITS=4567");
 }
 
 
@@ -778,8 +778,8 @@ static void set_all_env_vars(void)
 {
     set_most_env_vars();
 
-    putenv("PYTHONWARNINGS=EnvVar");
-    putenv("PYTHONPATH=/my/path");
+    putenv("MYFRPYWARNINGS=EnvVar");
+    putenv("MYFRPYPATH=/my/path");
 }
 
 
@@ -795,12 +795,12 @@ static int test_init_compat_env(void)
 }
 
 
-static int test_init_python_env(void)
+static int test_init_myFRpy_env(void)
 {
     set_all_env_vars();
 
     PyConfig config;
-    PyConfig_InitPythonConfig(&config);
+    PyConfig_InitMyFRpyConfig(&config);
 
     config_set_program_name(&config);
     init_from_config_clear(&config);
@@ -813,9 +813,9 @@ static int test_init_python_env(void)
 
 static void set_all_env_vars_dev_mode(void)
 {
-    putenv("PYTHONMALLOC=");
-    putenv("PYTHONFAULTHANDLER=");
-    putenv("PYTHONDEVMODE=1");
+    putenv("MYFRPYMALLOC=");
+    putenv("MYFRPYFAULTHANDLER=");
+    putenv("MYFRPYDEVMODE=1");
 }
 
 
@@ -836,7 +836,7 @@ static int test_init_env_dev_mode_alloc(void)
     /* Test initialization from environment variables */
     Py_IgnoreEnvironmentFlag = 0;
     set_all_env_vars_dev_mode();
-    putenv("PYTHONMALLOC=malloc");
+    putenv("MYFRPYMALLOC=malloc");
     _testembed_Py_InitializeFromConfig();
     dump_config();
     Py_Finalize();
@@ -848,7 +848,7 @@ static int test_init_isolated_flag(void)
 {
     /* Test PyConfig.isolated=1 */
     PyConfig config;
-    PyConfig_InitPythonConfig(&config);
+    PyConfig_InitMyFRpyConfig(&config);
 
     Py_IsolatedFlag = 0;
     config.isolated = 1;
@@ -931,7 +931,7 @@ static int test_preinit_dont_parse_argv(void)
     preconfig.isolated = 0;
 
     /* -X dev must be ignored by isolated preconfiguration */
-    wchar_t *argv[] = {L"python3",
+    wchar_t *argv[] = {L"myFRpy3",
                        L"-E",
                        L"-I",
                        L"-P",
@@ -964,11 +964,11 @@ static int test_preinit_dont_parse_argv(void)
 static int test_preinit_parse_argv(void)
 {
     PyConfig config;
-    PyConfig_InitPythonConfig(&config);
+    PyConfig_InitMyFRpyConfig(&config);
 
     /* Pre-initialize implicitly using argv: make sure that -X dev
        is used to configure the allocation in preinitialization */
-    wchar_t *argv[] = {L"python3", L"-X", L"dev", L"-P", L"script.py"};
+    wchar_t *argv[] = {L"myFRpy3", L"-X", L"dev", L"-P", L"script.py"};
     config_set_argv(&config, Py_ARRAY_LENGTH(argv), argv);
     config_set_program_name(&config);
     init_from_config_clear(&config);
@@ -1056,7 +1056,7 @@ static int test_init_isolated_config(void)
 }
 
 
-static int check_init_python_config(int preinit)
+static int check_init_myFRpy_config(int preinit)
 {
     /* global configuration variables must be ignored */
     set_all_global_config_variables();
@@ -1073,7 +1073,7 @@ static int check_init_python_config(int preinit)
 
     if (preinit) {
         PyPreConfig preconfig;
-        PyPreConfig_InitPythonConfig(&preconfig);
+        PyPreConfig_InitMyFRpyConfig(&preconfig);
 
         PyStatus status = Py_PreInitialize(&preconfig);
         if (PyStatus_Exception(status)) {
@@ -1082,7 +1082,7 @@ static int check_init_python_config(int preinit)
     }
 
     PyConfig config;
-    PyConfig_InitPythonConfig(&config);
+    PyConfig_InitMyFRpyConfig(&config);
 
     config_set_program_name(&config);
     init_from_config_clear(&config);
@@ -1093,22 +1093,22 @@ static int check_init_python_config(int preinit)
 }
 
 
-static int test_preinit_python_config(void)
+static int test_preinit_myFRpy_config(void)
 {
-    return check_init_python_config(1);
+    return check_init_myFRpy_config(1);
 }
 
 
-static int test_init_python_config(void)
+static int test_init_myFRpy_config(void)
 {
-    return check_init_python_config(0);
+    return check_init_myFRpy_config(0);
 }
 
 
 static int test_init_dont_configure_locale(void)
 {
     PyPreConfig preconfig;
-    PyPreConfig_InitPythonConfig(&preconfig);
+    PyPreConfig_InitMyFRpyConfig(&preconfig);
 
     preconfig.configure_locale = 0;
     preconfig.coerce_c_locale = 1;
@@ -1120,7 +1120,7 @@ static int test_init_dont_configure_locale(void)
     }
 
     PyConfig config;
-    PyConfig_InitPythonConfig(&config);
+    PyConfig_InitMyFRpyConfig(&config);
 
     config_set_program_name(&config);
     init_from_config_clear(&config);
@@ -1134,10 +1134,10 @@ static int test_init_dont_configure_locale(void)
 static int test_init_dev_mode(void)
 {
     PyConfig config;
-    PyConfig_InitPythonConfig(&config);
+    PyConfig_InitMyFRpyConfig(&config);
 
-    putenv("PYTHONFAULTHANDLER=");
-    putenv("PYTHONMALLOC=");
+    putenv("MYFRPYFAULTHANDLER=");
+    putenv("MYFRPYMALLOC=");
     config.dev_mode = 1;
     config_set_program_name(&config);
     init_from_config_clear(&config);
@@ -1229,7 +1229,7 @@ static int _audit_hook(const char *event, PyObject *args, void *userdata)
             return -1;
         }
         return 0;
-    } else if (strcmp(event, "cpython._PySys_ClearAuditHooks") == 0) {
+    } else if (strcmp(event, "cmyFRpy._PySys_ClearAuditHooks") == 0) {
         _audit_hook_clear_count += 1;
     }
     return 0;
@@ -1287,7 +1287,7 @@ static volatile int _audit_subinterpreter_interpreter_count = 0;
 static int _audit_subinterpreter_hook(const char *event, PyObject *args, void *userdata)
 {
     printf("%s\n", event);
-    if (strcmp(event, "cpython.PyInterpreterState_New") == 0) {
+    if (strcmp(event, "cmyFRpy.PyInterpreterState_New") == 0) {
         _audit_subinterpreter_interpreter_count += 1;
     }
     return 0;
@@ -1339,7 +1339,7 @@ static int _audit_hook_run(const char *eventName, PyObject *args, void *userData
 
 static int test_audit_run_command(void)
 {
-    AuditRunCommandTest test = {"cpython.run_command"};
+    AuditRunCommandTest test = {"cmyFRpy.run_command"};
     wchar_t *argv[] = {PROGRAM_NAME, L"-c", L"pass"};
 
     Py_IgnoreEnvironmentFlag = 0;
@@ -1350,7 +1350,7 @@ static int test_audit_run_command(void)
 
 static int test_audit_run_file(void)
 {
-    AuditRunCommandTest test = {"cpython.run_file"};
+    AuditRunCommandTest test = {"cmyFRpy.run_file"};
     wchar_t *argv[] = {PROGRAM_NAME, L"filename.py"};
 
     Py_IgnoreEnvironmentFlag = 0;
@@ -1362,7 +1362,7 @@ static int test_audit_run_file(void)
 static int run_audit_run_test(int argc, wchar_t **argv, void *test)
 {
     PyConfig config;
-    PyConfig_InitPythonConfig(&config);
+    PyConfig_InitMyFRpyConfig(&config);
 
     config.argv.length = argc;
     config.argv.items = argv;
@@ -1385,21 +1385,21 @@ static int run_audit_run_test(int argc, wchar_t **argv, void *test)
 
 static int test_audit_run_interactivehook(void)
 {
-    AuditRunCommandTest test = {"cpython.run_interactivehook", 10};
+    AuditRunCommandTest test = {"cmyFRpy.run_interactivehook", 10};
     wchar_t *argv[] = {PROGRAM_NAME};
     return run_audit_run_test(Py_ARRAY_LENGTH(argv), argv, &test);
 }
 
 static int test_audit_run_startup(void)
 {
-    AuditRunCommandTest test = {"cpython.run_startup", 10};
+    AuditRunCommandTest test = {"cmyFRpy.run_startup", 10};
     wchar_t *argv[] = {PROGRAM_NAME};
     return run_audit_run_test(Py_ARRAY_LENGTH(argv), argv, &test);
 }
 
 static int test_audit_run_stdin(void)
 {
-    AuditRunCommandTest test = {"cpython.run_stdin"};
+    AuditRunCommandTest test = {"cmyFRpy.run_stdin"};
     wchar_t *argv[] = {PROGRAM_NAME};
     return run_audit_run_test(Py_ARRAY_LENGTH(argv), argv, &test);
 }
@@ -1408,7 +1408,7 @@ static int test_init_read_set(void)
 {
     PyStatus status;
     PyConfig config;
-    PyConfig_InitPythonConfig(&config);
+    PyConfig_InitMyFRpyConfig(&config);
 
     status = PyConfig_SetBytesString(&config, &config.program_name,
                                      "./init_read_set");
@@ -1454,10 +1454,10 @@ static int test_init_sys_add(void)
     PySys_AddWarnOption(L"ignore:::sysadd_warnoption");
 
     PyConfig config;
-    PyConfig_InitPythonConfig(&config);
+    PyConfig_InitMyFRpyConfig(&config);
 
     wchar_t* argv[] = {
-        L"python3",
+        L"myFRpy3",
         L"-W",
         L"ignore:::cmdline_warnoption",
         L"-X",
@@ -1518,9 +1518,9 @@ static int test_init_setpath(void)
 static int test_init_setpath_config(void)
 {
     PyPreConfig preconfig;
-    PyPreConfig_InitPythonConfig(&preconfig);
+    PyPreConfig_InitMyFRpyConfig(&preconfig);
 
-    /* Explicitly preinitializes with Python preconfiguration to avoid
+    /* Explicitly preinitializes with MyFRpy preconfiguration to avoid
       Py_SetPath() implicit preinitialization with compat preconfiguration. */
     PyStatus status = Py_PreInitialize(&preconfig);
     if (PyStatus_Exception(status)) {
@@ -1542,7 +1542,7 @@ static int test_init_setpath_config(void)
     putenv("TESTPATH=");
 
     PyConfig config;
-    PyConfig_InitPythonConfig(&config);
+    PyConfig_InitMyFRpyConfig(&config);
 
     config_set_string(&config, &config.program_name, L"conf_program_name");
     config_set_string(&config, &config.executable, L"conf_executable");
@@ -1554,7 +1554,7 @@ static int test_init_setpath_config(void)
 }
 
 
-static int test_init_setpythonhome(void)
+static int test_init_setmyFRpyhome(void)
 {
     char *env = getenv("TESTHOME");
     if (!env) {
@@ -1566,7 +1566,7 @@ static int test_init_setpythonhome(void)
         error("failed to decode TESTHOME");
         return 1;
     }
-    Py_SetPythonHome(home);
+    Py_SetMyFRpyHome(home);
     PyMem_RawFree(home);
     putenv("TESTHOME=");
 
@@ -1577,10 +1577,10 @@ static int test_init_setpythonhome(void)
 }
 
 
-static int test_init_is_python_build(void)
+static int test_init_is_myFRpy_build(void)
 {
     // gh-91985: in-tree builds fail to check for build directory landmarks
-    // under the effect of 'home' or PYTHONHOME environment variable.
+    // under the effect of 'home' or MYFRPYHOME environment variable.
     char *env = getenv("TESTHOME");
     if (!env) {
         error("missing TESTHOME env var");
@@ -1601,17 +1601,17 @@ static int test_init_is_python_build(void)
 
     // Use an impossible value so we can detect whether it isn't updated
     // during initialization.
-    config._is_python_build = INT_MAX;
-    env = getenv("NEGATIVE_ISPYTHONBUILD");
+    config._is_myFRpy_build = INT_MAX;
+    env = getenv("NEGATIVE_ISMYFRPYBUILD");
     if (env && strcmp(env, "0") != 0) {
-        config._is_python_build = INT_MIN;
+        config._is_myFRpy_build = INT_MIN;
     }
     init_from_config_clear(&config);
     Py_Finalize();
     // Second initialization
-    config._is_python_build = -1;
+    config._is_myFRpy_build = -1;
     init_from_config_clear(&config);
-    dump_config();  // home and _is_python_build are cached in _Py_path_config
+    dump_config();  // home and _is_myFRpy_build are cached in _Py_path_config
     Py_Finalize();
     return 0;
 }
@@ -1619,13 +1619,13 @@ static int test_init_is_python_build(void)
 
 static int test_init_warnoptions(void)
 {
-    putenv("PYTHONWARNINGS=ignore:::env1,ignore:::env2");
+    putenv("MYFRPYWARNINGS=ignore:::env1,ignore:::env2");
 
     PySys_AddWarnOption(L"ignore:::PySys_AddWarnOption1");
     PySys_AddWarnOption(L"ignore:::PySys_AddWarnOption2");
 
     PyConfig config;
-    PyConfig_InitPythonConfig(&config);
+    PyConfig_InitMyFRpyConfig(&config);
 
     config.dev_mode = 1;
     config.bytes_warning = 1;
@@ -1640,7 +1640,7 @@ static int test_init_warnoptions(void)
     }
 
     wchar_t* argv[] = {
-        L"python3",
+        L"myFRpy3",
         L"-Wignore:::cmdline1",
         L"-Wignore:::cmdline2"};
     config_set_argv(&config, Py_ARRAY_LENGTH(argv), argv);
@@ -1673,7 +1673,7 @@ static int test_init_warnoptions(void)
 static int tune_config(void)
 {
     PyConfig config;
-    PyConfig_InitPythonConfig(&config);
+    PyConfig_InitMyFRpyConfig(&config);
     if (_PyInterpreterState_GetConfigCopy(&config) < 0) {
         PyConfig_Clear(&config);
         PyErr_Print();
@@ -1722,7 +1722,7 @@ static int test_init_set_config(void)
 static void configure_init_main(PyConfig *config)
 {
     wchar_t* argv[] = {
-        L"python3", L"-c",
+        L"myFRpy3", L"-c",
         (L"import _testinternalcapi, json; "
          L"print(json.dumps(_testinternalcapi.get_configs()))"),
         L"arg2"};
@@ -1730,14 +1730,14 @@ static void configure_init_main(PyConfig *config)
     config->parse_argv = 1;
 
     config_set_argv(config, Py_ARRAY_LENGTH(argv), argv);
-    config_set_string(config, &config->program_name, L"./python3");
+    config_set_string(config, &config->program_name, L"./myFRpy3");
 }
 
 
 static int test_init_run_main(void)
 {
     PyConfig config;
-    PyConfig_InitPythonConfig(&config);
+    PyConfig_InitMyFRpyConfig(&config);
 
     configure_init_main(&config);
     init_from_config_clear(&config);
@@ -1749,7 +1749,7 @@ static int test_init_run_main(void)
 static int test_init_main(void)
 {
     PyConfig config;
-    PyConfig_InitPythonConfig(&config);
+    PyConfig_InitMyFRpyConfig(&config);
 
     configure_init_main(&config);
     config._init_main = 0;
@@ -1758,7 +1758,7 @@ static int test_init_main(void)
     /* sys.stdout don't exist yet: it is created by _Py_InitializeMain() */
     int res = PyRun_SimpleString(
         "import sys; "
-        "print('Run Python code before _Py_InitializeMain', "
+        "print('Run MyFRpy code before _Py_InitializeMain', "
                "file=sys.stderr)");
     if (res < 0) {
         exit(1);
@@ -1776,14 +1776,14 @@ static int test_init_main(void)
 static int test_run_main(void)
 {
     PyConfig config;
-    PyConfig_InitPythonConfig(&config);
+    PyConfig_InitMyFRpyConfig(&config);
 
-    wchar_t *argv[] = {L"python3", L"-c",
+    wchar_t *argv[] = {L"myFRpy3", L"-c",
                        (L"import sys; "
                         L"print(f'Py_RunMain(): sys.argv={sys.argv}')"),
                        L"arg2"};
     config_set_argv(&config, Py_ARRAY_LENGTH(argv), argv);
-    config_set_string(&config, &config.program_name, L"./python3");
+    config_set_string(&config, &config.program_name, L"./myFRpy3");
     init_from_config_clear(&config);
 
     return Py_RunMain();
@@ -1807,11 +1807,11 @@ static int test_run_main_loop(void)
 static int test_get_argc_argv(void)
 {
     PyConfig config;
-    PyConfig_InitPythonConfig(&config);
+    PyConfig_InitMyFRpyConfig(&config);
 
-    wchar_t *argv[] = {L"python3", L"-c", L"pass", L"arg2"};
+    wchar_t *argv[] = {L"myFRpy3", L"-c", L"pass", L"arg2"};
     config_set_argv(&config, Py_ARRAY_LENGTH(argv), argv);
-    config_set_string(&config, &config.program_name, L"./python3");
+    config_set_string(&config, &config.program_name, L"./myFRpy3");
 
     // Calling PyConfig_Read() twice must not change Py_GetArgcArgv() result.
     // The second call is done by Py_InitializeFromConfig().
@@ -1859,7 +1859,7 @@ static int check_use_frozen_modules(const char *rawval)
     }
 
     PyConfig config;
-    PyConfig_InitPythonConfig(&config);
+    PyConfig_InitMyFRpyConfig(&config);
 
     config.parse_argv = 1;
 
@@ -1888,7 +1888,7 @@ static int test_init_use_frozen_modules(void)
 static int test_unicode_id_init(void)
 {
     // bpo-42882: Test that _PyUnicode_FromId() works
-    // when Python is initialized multiples times.
+    // when MyFRpy is initialized multiples times.
 
     // This is equivalent to `_Py_IDENTIFIER(test_unicode_id_init)`
     // but since `_Py_IDENTIFIER` is disabled when `Py_BUILD_CORE`
@@ -1898,11 +1898,11 @@ static int test_unicode_id_init(void)
         .index = -1,
     };
 
-    // Initialize Python once without using the identifier
+    // Initialize MyFRpy once without using the identifier
     _testembed_Py_InitializeFromConfig();
     Py_Finalize();
 
-    // Now initialize Python multiple times and use the identifier.
+    // Now initialize MyFRpy multiple times and use the identifier.
     // The first _PyUnicode_FromId() call initializes the identifier index.
     for (int i=0; i<3; i++) {
         _testembed_Py_InitializeFromConfig();
@@ -1963,7 +1963,7 @@ static int test_repeated_init_and_inittab(void)
 {
     // bpo-44441: Py_RunMain() must reset PyImport_Inittab at exit.
     // It must be possible to call PyImport_AppendInittab() or
-    // PyImport_ExtendInittab() before each Python initialization.
+    // PyImport_ExtendInittab() before each MyFRpy initialization.
     for (int i=1; i <= INIT_LOOPS; i++) {
         printf("--- Pass %d ---\n", i);
 
@@ -1974,10 +1974,10 @@ static int test_repeated_init_and_inittab(void)
             return 1;
         }
 
-        // Initialize Python
+        // Initialize MyFRpy
         wchar_t* argv[] = {PROGRAM_NAME, L"-c", L"pass"};
         PyConfig config;
-        PyConfig_InitPythonConfig(&config);
+        PyConfig_InitMyFRpyConfig(&config);
         config.isolated = 1;
         config_set_argv(&config, Py_ARRAY_LENGTH(argv), argv);
         init_from_config_clear(&config);
@@ -2078,7 +2078,7 @@ struct TestCase
 };
 
 static struct TestCase TestCases[] = {
-    // Python initialization
+    // MyFRpy initialization
     {"test_repeated_init_exec", test_repeated_init_exec},
     {"test_repeated_simple_init", test_repeated_simple_init},
     {"test_forced_io_encoding", test_forced_io_encoding},
@@ -2097,7 +2097,7 @@ static struct TestCase TestCases[] = {
     {"test_init_parse_argv", test_init_parse_argv},
     {"test_init_dont_parse_argv", test_init_dont_parse_argv},
     {"test_init_compat_env", test_init_compat_env},
-    {"test_init_python_env", test_init_python_env},
+    {"test_init_myFRpy_env", test_init_myFRpy_env},
     {"test_init_env_dev_mode", test_init_env_dev_mode},
     {"test_init_env_dev_mode_alloc", test_init_env_dev_mode_alloc},
     {"test_init_dont_configure_locale", test_init_dont_configure_locale},
@@ -2105,8 +2105,8 @@ static struct TestCase TestCases[] = {
     {"test_init_isolated_flag", test_init_isolated_flag},
     {"test_preinit_isolated_config", test_preinit_isolated_config},
     {"test_init_isolated_config", test_init_isolated_config},
-    {"test_preinit_python_config", test_preinit_python_config},
-    {"test_init_python_config", test_init_python_config},
+    {"test_preinit_myFRpy_config", test_preinit_myFRpy_config},
+    {"test_init_myFRpy_config", test_init_myFRpy_config},
     {"test_preinit_isolated1", test_preinit_isolated1},
     {"test_preinit_isolated2", test_preinit_isolated2},
     {"test_preinit_parse_argv", test_preinit_parse_argv},
@@ -2117,8 +2117,8 @@ static struct TestCase TestCases[] = {
     {"test_init_sys_add", test_init_sys_add},
     {"test_init_setpath", test_init_setpath},
     {"test_init_setpath_config", test_init_setpath_config},
-    {"test_init_setpythonhome", test_init_setpythonhome},
-    {"test_init_is_python_build", test_init_is_python_build},
+    {"test_init_setmyFRpyhome", test_init_setmyFRpyhome},
+    {"test_init_is_myFRpy_build", test_init_is_myFRpy_build},
     {"test_init_warnoptions", test_init_warnoptions},
     {"test_init_set_config", test_init_set_config},
     {"test_run_main", test_run_main},
@@ -2161,7 +2161,7 @@ int main(int argc, char *argv[])
     }
 
     /* No match found, or no test name provided, so display usage */
-    printf("Python " PY_VERSION " _testembed executable for embedded interpreter tests\n"
+    printf("MyFRpy " PY_VERSION " _testembed executable for embedded interpreter tests\n"
            "Normally executed via 'EmbeddingTests' in Lib/test/test_embed.py\n\n"
            "Usage: %s TESTNAME\n\nAll available tests:\n", argv[0]);
     for (struct TestCase *tc = TestCases; tc && tc->name; tc++) {

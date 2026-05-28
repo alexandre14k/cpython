@@ -7,7 +7,7 @@
 
 #define PY_SSIZE_T_CLEAN
 
-#include "Python.h"
+#include "MyFRpy.h"
 
 
 // Used for clone_with_conv_f1 and clone_with_conv_v2
@@ -1155,7 +1155,7 @@ clone_f2_impl(PyObject *module, const char *path)
 }
 
 
-/*[python input]
+/*[myFRpy input]
 class custom_t_converter(CConverter):
     type = 'custom_t'
     converter = 'custom_converter'
@@ -1165,8 +1165,8 @@ class custom_t_converter(CConverter):
             .name = "{self.function.name}",
         }}'''
 
-[python start generated code]*/
-/*[python end generated code: output=da39a3ee5e6b4b0d input=b2fb801e99a06bf6]*/
+[myFRpy start generated code]*/
+/*[myFRpy end generated code: output=da39a3ee5e6b4b0d input=b2fb801e99a06bf6]*/
 
 
 /*[clinic input]

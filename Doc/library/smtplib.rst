@@ -410,7 +410,7 @@ An :class:`SMTP` instance has the following methods:
      The server does not support the STARTTLS extension.
 
    :exc:`RuntimeError`
-     SSL/TLS support is not available to your Python interpreter.
+     SSL/TLS support is not available to your MyFRpy interpreter.
 
    .. versionchanged:: 3.3
       *context* was added.

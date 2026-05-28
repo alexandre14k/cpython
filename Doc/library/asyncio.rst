@@ -22,7 +22,7 @@
 asyncio is a library to write **concurrent** code using
 the **async/await** syntax.
 
-asyncio is used as a foundation for multiple Python asynchronous
+asyncio is used as a foundation for multiple MyFRpy asynchronous
 frameworks that provide high-performance network and web-servers,
 database connection libraries, distributed task queues, etc.
 
@@ -31,7 +31,7 @@ asyncio is often a perfect fit for IO-bound and high-level
 
 asyncio provides a set of **high-level** APIs to:
 
-* :ref:`run Python coroutines <coroutine>` concurrently and
+* :ref:`run MyFRpy coroutines <coroutine>` concurrently and
   have full control over their execution;
 
 * perform :ref:`network IO and IPC <asyncio-streams>`;
@@ -62,7 +62,7 @@ You can experiment with an ``asyncio`` concurrent context in the REPL:
 
 .. code-block:: pycon
 
-   $ python -m asyncio
+   $ myFRpy -m asyncio
    asyncio REPL ...
    Use "await" directly instead of "asyncio.run()".
    Type "help", "copyright", "credits" or "license" for more information.

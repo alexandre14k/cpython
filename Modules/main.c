@@ -1,6 +1,6 @@
-/* Python interpreter main program */
+/* MyFRpy interpreter main program */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_call.h"          // _PyObject_CallNoArgs()
 #include "pycore_initconfig.h"    // _PyArgv
 #include "pycore_interp.h"        // _PyInterpreterState.sysdict
@@ -42,7 +42,7 @@ pymain_init(const _PyArgv *args)
     }
 
     PyPreConfig preconfig;
-    PyPreConfig_InitPythonConfig(&preconfig);
+    PyPreConfig_InitMyFRpyConfig(&preconfig);
 
     status = _Py_PreInitializeFromPyArgv(&preconfig, args);
     if (_PyStatus_EXCEPTION(status)) {
@@ -50,7 +50,7 @@ pymain_init(const _PyArgv *args)
     }
 
     PyConfig config;
-    PyConfig_InitPythonConfig(&config);
+    PyConfig_InitMyFRpyConfig(&config);
 
     /* pass NULL as the config: config is read from command line arguments,
        environment variables, configuration files */
@@ -76,7 +76,7 @@ done:
 }
 
 
-/* --- pymain_run_python() ---------------------------------------- */
+/* --- pymain_run_myFRpy() ---------------------------------------- */
 
 /* Non-zero if filename, command (-c) or module (-m) is set
    on the command line */
@@ -96,7 +96,7 @@ stdin_is_interactive(const PyConfig *config)
 }
 
 
-/* Display the current Python exception and return an exitcode */
+/* Display the current MyFRpy exception and return an exitcode */
 static int
 pymain_err_print(int *exitcode_p)
 {
@@ -120,7 +120,7 @@ pymain_exit_err_print(void)
 }
 
 
-/* Write an exitcode into *exitcode and return 1 if we have to exit Python.
+/* Write an exitcode into *exitcode and return 1 if we have to exit MyFRpy.
    Return 0 otherwise. */
 static int
 pymain_get_importer(const wchar_t *filename, PyObject **importer_p, int *exitcode)
@@ -240,7 +240,7 @@ pymain_run_command(wchar_t *command)
         goto error;
     }
 
-    if (PySys_Audit("cpython.run_command", "O", unicode) < 0) {
+    if (PySys_Audit("cmyFRpy.run_command", "O", unicode) < 0) {
         return pymain_exit_err_print();
     }
 
@@ -266,7 +266,7 @@ static int
 pymain_run_module(const wchar_t *modname, int set_argv0)
 {
     PyObject *module, *runpy, *runmodule, *runargs, *result;
-    if (PySys_Audit("cpython.run_module", "u", modname) < 0) {
+    if (PySys_Audit("cmyFRpy.run_module", "u", modname) < 0) {
         return pymain_exit_err_print();
     }
     runpy = PyImport_ImportModule("runpy");
@@ -317,7 +317,7 @@ static int
 pymain_run_file_obj(PyObject *program_name, PyObject *filename,
                     int skip_source_first_line)
 {
-    if (PySys_Audit("cpython.run_file", "O", filename) < 0) {
+    if (PySys_Audit("cmyFRpy.run_file", "O", filename) < 0) {
         return pymain_exit_err_print();
     }
 
@@ -393,7 +393,7 @@ pymain_run_startup(PyConfig *config, int *exitcode)
     }
     PyObject *startup = NULL;
 #ifdef MS_WINDOWS
-    const wchar_t *env = _wgetenv(L"PYTHONSTARTUP");
+    const wchar_t *env = _wgetenv(L"MYFRPYSTARTUP");
     if (env == NULL || env[0] == L'\0') {
         return 0;
     }
@@ -402,7 +402,7 @@ pymain_run_startup(PyConfig *config, int *exitcode)
         goto error;
     }
 #else
-    const char *env = _Py_GetEnv(config->use_environment, "PYTHONSTARTUP");
+    const char *env = _Py_GetEnv(config->use_environment, "MYFRPYSTARTUP");
     if (env == NULL) {
         return 0;
     }
@@ -411,7 +411,7 @@ pymain_run_startup(PyConfig *config, int *exitcode)
         goto error;
     }
 #endif
-    if (PySys_Audit("cpython.run_startup", "O", startup) < 0) {
+    if (PySys_Audit("cmyFRpy.run_startup", "O", startup) < 0) {
         goto error;
     }
 
@@ -419,7 +419,7 @@ pymain_run_startup(PyConfig *config, int *exitcode)
     if (fp == NULL) {
         int save_errno = errno;
         PyErr_Clear();
-        PySys_WriteStderr("Could not open PYTHONSTARTUP\n");
+        PySys_WriteStderr("Could not open MYFRPYSTARTUP\n");
 
         errno = save_errno;
         PyErr_SetFromErrnoWithFilenameObjects(PyExc_OSError, startup, NULL);
@@ -442,7 +442,7 @@ error:
 }
 
 
-/* Write an exitcode into *exitcode and return 1 if we have to exit Python.
+/* Write an exitcode into *exitcode and return 1 if we have to exit MyFRpy.
    Return 0 otherwise. */
 static int
 pymain_run_interactive_hook(int *exitcode)
@@ -460,7 +460,7 @@ pymain_run_interactive_hook(int *exitcode)
         return 0;
     }
 
-    if (PySys_Audit("cpython.run_interactivehook", "O", hook) < 0) {
+    if (PySys_Audit("cmyFRpy.run_interactivehook", "O", hook) < 0) {
         goto error;
     }
 
@@ -512,7 +512,7 @@ pymain_run_stdin(PyConfig *config)
         return pymain_exit_err_print();
     }
 
-    if (PySys_Audit("cpython.run_stdin", NULL) < 0) {
+    if (PySys_Audit("cmyFRpy.run_stdin", NULL) < 0) {
         return pymain_exit_err_print();
     }
 
@@ -526,8 +526,8 @@ static void
 pymain_repl(PyConfig *config, int *exitcode)
 {
     /* Check this environment variable at the end, to give programs the
-       opportunity to set it from Python. */
-    if (!config->inspect && _Py_GetEnv(config->use_environment, "PYTHONINSPECT")) {
+       opportunity to set it from MyFRpy. */
+    if (!config->inspect && _Py_GetEnv(config->use_environment, "MYFRPYINSPECT")) {
         pymain_set_inspect(config, 1);
     }
 
@@ -547,7 +547,7 @@ pymain_repl(PyConfig *config, int *exitcode)
 
 
 static void
-pymain_run_python(int *exitcode)
+pymain_run_myFRpy(int *exitcode)
 {
     PyObject *main_importer_path = NULL;
     PyInterpreterState *interp = _PyInterpreterState_GET();
@@ -692,7 +692,7 @@ static void _Py_NO_RETURN
 pymain_exit_error(PyStatus status)
 {
     if (_PyStatus_IS_EXIT(status)) {
-        /* If it's an error rather than a regular exit, leave Python runtime
+        /* If it's an error rather than a regular exit, leave MyFRpy runtime
            alive: Py_ExitStatusException() uses the current exception and use
            sys.stdout in this case. */
         pymain_free();
@@ -706,7 +706,7 @@ Py_RunMain(void)
 {
     int exitcode = 0;
 
-    pymain_run_python(&exitcode);
+    pymain_run_myFRpy(&exitcode);
 
     if (Py_FinalizeEx() < 0) {
         /* Value unlikely to be confused with a non-error exit status or

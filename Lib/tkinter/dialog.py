@@ -27,7 +27,7 @@ class Dialog(Widget):
 def _test():
     d = Dialog(None, {'title': 'File Modified',
                       'text':
-                      'File "Python.h" has been modified'
+                      'File "MyFRpy.h" has been modified'
                       ' since the last time it was saved.'
                       ' Do you want to save it before'
                       ' exiting the application.',

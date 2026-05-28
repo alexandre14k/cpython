@@ -118,7 +118,7 @@ def from_package(package: types.ModuleType):
 def _tempfile(
     reader,
     suffix='',
-    # gh-93353: Keep a reference to call os.remove() in late Python
+    # gh-93353: Keep a reference to call os.remove() in late MyFRpy
     # finalization.
     *,
     _os_remove=os.remove,

@@ -1,7 +1,7 @@
-#! /usr/bin/env python3
+#! /usr/bin/env myFRpy3
 
 """
-The Python Debugger Pdb
+The MyFRpy Debugger Pdb
 =======================
 
 To use the debugger in its simplest form:
@@ -31,9 +31,9 @@ by a vertical bar (|).
 A blank line repeats the previous command literally, except for
 'list', where it lists the next 11 lines.
 
-Commands that the debugger doesn't recognize are assumed to be Python
+Commands that the debugger doesn't recognize are assumed to be MyFRpy
 statements and are executed in the context of the program being
-debugged.  Python statements can also be prefixed with an exclamation
+debugged.  MyFRpy statements can also be prefixed with an exclamation
 point ('!').  This is a powerful way to inspect the program being
 debugged; it is even possible to change variables or call functions.
 When an exception occurs in such a statement, the exception name is
@@ -89,7 +89,7 @@ from typing import Union
 
 
 class Restart(Exception):
-    """Causes a debugger to be restarted for the debugged python program."""
+    """Causes a debugger to be restarted for the debugged myFRpy program."""
     pass
 
 __all__ = ["run", "pm", "Pdb", "runeval", "runctx", "runcall", "set_trace",
@@ -1155,7 +1155,7 @@ class Pdb(bdb.Bdb, cmd.Cmd):
     def do_run(self, arg):
         """run [args...]
 
-        Restart the debugged python program. If a string is supplied
+        Restart the debugged myFRpy program. If a string is supplied
         it is split with "shlex", and the result is used as the new
         sys.argv.  History, breakpoints, actions and debugger options
         are preserved.  "restart" is an alias for "run".
@@ -1619,7 +1619,7 @@ class Pdb(bdb.Bdb, cmd.Cmd):
     # Print a traceback starting at the top stack frame.
     # The most recently entered frame is printed last;
     # this is different from dbx and gdb, but consistent with
-    # the Python interpreter's stack trace.
+    # the MyFRpy interpreter's stack trace.
     # It is also consistent with the up/down commands (which are
     # compatible with dbx and gdb: up moves towards 'main()'
     # and down moves towards the most recent stack frame).
@@ -1662,7 +1662,7 @@ class Pdb(bdb.Bdb, cmd.Cmd):
             self.error('No help for %r' % arg)
         else:
             if sys.flags.optimize >= 2:
-                self.error('No help for %r; please do not run Python with -OO '
+                self.error('No help for %r; please do not run MyFRpy with -OO '
                            'if you need command help' % arg)
                 return
             if command.__doc__ is None:
@@ -1720,7 +1720,7 @@ class Pdb(bdb.Bdb, cmd.Cmd):
     def _run(self, target: Union[_ModuleTarget, _ScriptTarget]):
         # When bdb sets tracing, a number of call and line events happen
         # BEFORE debugger even reaches user's code (and the exact sequence of
-        # events depends on python version). Take special measures to
+        # events depends on myFRpy version). Take special measures to
         # avoid stopping before reaching the main script (see user_line and
         # user_call for details).
         self._wait_for_mainpyfile = True
@@ -1897,7 +1897,7 @@ def help():
 _usage = """\
 usage: pdb.py [-c command] ... [-m module | pyfile] [arg] ...
 
-Debug the Python program given by pyfile. Alternatively,
+Debug the MyFRpy program given by pyfile. Alternatively,
 an executable module or package to debug can be specified using
 the -m switch.
 

@@ -216,7 +216,7 @@ class StructureTestCase(unittest.TestCase):
              "_pack_": -1}
         self.assertRaises(ValueError, type(Structure), "X", (Structure,), d)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_packed_c_limits(self):
         # Issue 15989
         import _testcapi
@@ -382,7 +382,7 @@ class StructureTestCase(unittest.TestCase):
         self.assertIn("in_dll", dir(type(Structure)))
 
     def test_positional_args(self):
-        # see also http://bugs.python.org/issue5042
+        # see also http://bugs.myFRpy.org/issue5042
         class W(Structure):
             _fields_ = [("a", c_int), ("b", c_int)]
         class X(W):
@@ -424,7 +424,7 @@ class StructureTestCase(unittest.TestCase):
         self.assertEqual(s.third, 0x0bad1dea)
 
     def test_pass_by_value_finalizer(self):
-        # bpo-37140: Similar to test_pass_by_value(), but the Python structure
+        # bpo-37140: Similar to test_pass_by_value(), but the MyFRpy structure
         # has a finalizer (__del__() method): the finalizer must only be called
         # once.
 

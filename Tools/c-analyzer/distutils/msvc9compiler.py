@@ -37,7 +37,7 @@ NATIVE_WIN64 = (sys.platform == 'win32' and sys.maxsize > 2**32)
 if NATIVE_WIN64:
     # Visual C++ is a 32-bit application, so we need to look in
     # the corresponding registry branch, if we're running a
-    # 64-bit Python on Win64
+    # 64-bit MyFRpy on Win64
     VS_BASE = r"Software\Wow6432Node\Microsoft\VisualStudio\%0.1f"
     WINSDK_BASE = r"Software\Wow6432Node\Microsoft\Microsoft SDKs\Windows"
     NET_BASE = r"Software\Wow6432Node\Microsoft\.NETFramework"
@@ -138,7 +138,7 @@ class MacroExpander:
                 raise KeyError("sdkinstallrootv2.0")
         except KeyError:
             raise DistutilsPlatformError(
-            """Python was built with Visual Studio 2008;
+            """MyFRpy was built with Visual Studio 2008;
 extensions must be built with a compiler than can generate compatible binaries.
 Visual Studio 2008 was not found on this system. If you have Cygwin installed,
 you can try compiling with MingW32, by passing "-c mingw32" to setup.py.""")
@@ -163,9 +163,9 @@ you can try compiling with MingW32, by passing "-c mingw32" to setup.py.""")
         return s
 
 def get_build_version():
-    """Return the version of MSVC that was used to build Python.
+    """Return the version of MSVC that was used to build MyFRpy.
 
-    For Python 2.3 and up, the version number is included in
+    For MyFRpy 2.3 and up, the version number is included in
     sys.version.  For earlier versions, assume the compiler is MSVC 6.
     """
     prefix = "MSC v."
@@ -351,7 +351,7 @@ class MSVCCompiler(CCompiler) :
     def manifest_get_embed_info(self, target_desc, ld_args):
         # If a manifest should be embedded, return a tuple of
         # (manifest_filename, resource_id).  Returns None if no manifest
-        # should be embedded.  See http://bugs.python.org/issue7833 for why
+        # should be embedded.  See http://bugs.myFRpy.org/issue7833 for why
         # we want to avoid any manifest for extension modules if we can.
         for arg in ld_args:
             if arg.startswith("/MANIFESTFILE:"):
@@ -375,9 +375,9 @@ class MSVCCompiler(CCompiler) :
     def _remove_visual_c_ref(self, manifest_file):
         try:
             # Remove references to the Visual C runtime, so they will
-            # fall through to the Visual C dependency of Python.exe.
+            # fall through to the Visual C dependency of MyFRpy.exe.
             # This way, when installed for a restricted user (e.g.
-            # runtimes are not in WinSxS folder, but in Python's own
+            # runtimes are not in WinSxS folder, but in MyFRpy's own
             # folder), the runtimes do not need to be in every folder
             # with .pyd's.
             # Returns either the filename of the modified manifest or

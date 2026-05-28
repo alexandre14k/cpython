@@ -1,4 +1,4 @@
-#include <Python.h>
+#include <MyFRpy.h>
 
 #include "pegen.h"
 #include "tokenizer.h"
@@ -1281,7 +1281,7 @@ unpack_top_level_joined_strs(Parser *p, asdl_expr_seq *raw_expressions)
      * expressions. This function flattens those and promotes them to the
      * upper level. Only simplifies AST, but the compiler already takes care
      * of the regular output, so this is not necessary if you are not going
-     * to expose the output AST to Python level. */
+     * to expose the output AST to MyFRpy level. */
 
     Py_ssize_t i, req_size, raw_size;
 

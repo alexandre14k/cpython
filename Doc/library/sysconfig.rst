@@ -1,8 +1,8 @@
-:mod:`sysconfig` --- Provide access to Python's configuration information
+:mod:`sysconfig` --- Provide access to MyFRpy's configuration information
 =========================================================================
 
 .. module:: sysconfig
-   :synopsis: Python's configuration information
+   :synopsis: MyFRpy's configuration information
 
 .. moduleauthor:: Tarek Ziadé <tarek@ziade.org>
 .. sectionauthor:: Tarek Ziadé <tarek@ziade.org>
@@ -16,7 +16,7 @@
 
 --------------
 
-The :mod:`sysconfig` module provides access to Python's configuration
+The :mod:`sysconfig` module provides access to MyFRpy's configuration
 information like the list of installation paths and the configuration variables
 relevant for the current platform.
 
@@ -24,8 +24,8 @@ relevant for the current platform.
 Configuration variables
 -----------------------
 
-A Python distribution contains a :file:`Makefile` and a :file:`pyconfig.h`
-header file that are necessary to build both the Python binary itself and
+A MyFRpy distribution contains a :file:`Makefile` and a :file:`pyconfig.h`
+header file that are necessary to build both the MyFRpy binary itself and
 third-party C extensions compiled using ``setuptools``.
 
 :mod:`sysconfig` puts all variables found in these files in a dictionary that
@@ -67,44 +67,44 @@ Example of usage::
 Installation paths
 ------------------
 
-Python uses an installation scheme that differs depending on the platform and on
+MyFRpy uses an installation scheme that differs depending on the platform and on
 the installation options.  These schemes are stored in :mod:`sysconfig` under
 unique identifiers based on the value returned by :const:`os.name`.
 The schemes are used by package installers to determine where to copy files to.
 
-Python currently supports nine schemes:
+MyFRpy currently supports nine schemes:
 
 - *posix_prefix*: scheme for POSIX platforms like Linux or macOS.  This is
-  the default scheme used when Python or a component is installed.
+  the default scheme used when MyFRpy or a component is installed.
 - *posix_home*: scheme for POSIX platforms, when the *home* option is used.
   This scheme defines paths located under a specific home prefix.
 - *posix_user*: scheme for POSIX platforms, when the *user* option is used.
   This scheme defines paths located under the user's home directory
   (:const:`site.USER_BASE`).
-- *posix_venv*: scheme for :mod:`Python virtual environments <venv>` on POSIX
+- *posix_venv*: scheme for :mod:`MyFRpy virtual environments <venv>` on POSIX
   platforms; by default it is the same as *posix_prefix*.
 - *nt*: scheme for Windows.
-  This is the default scheme used when Python or a component is installed.
+  This is the default scheme used when MyFRpy or a component is installed.
 - *nt_user*: scheme for Windows, when the *user* option is used.
-- *nt_venv*: scheme for :mod:`Python virtual environments <venv>` on Windows;
+- *nt_venv*: scheme for :mod:`MyFRpy virtual environments <venv>` on Windows;
   by default it is the same as *nt*.
 - *venv*: a scheme with values from either *posix_venv* or *nt_venv* depending
-  on the platform Python runs on.
+  on the platform MyFRpy runs on.
 - *osx_framework_user*: scheme for macOS, when the *user* option is used.
 
 Each scheme is itself composed of a series of paths and each path has a unique
-identifier.  Python currently uses eight paths:
+identifier.  MyFRpy currently uses eight paths:
 
-- *stdlib*: directory containing the standard Python library files that are not
+- *stdlib*: directory containing the standard MyFRpy library files that are not
   platform-specific.
-- *platstdlib*: directory containing the standard Python library files that are
+- *platstdlib*: directory containing the standard MyFRpy library files that are
   platform-specific.
 - *platlib*: directory for site-specific, platform-specific files.
-- *purelib*: directory for site-specific, non-platform-specific files ('pure' Python).
+- *purelib*: directory for site-specific, non-platform-specific files ('pure' MyFRpy).
 - *include*: directory for non-platform-specific header files for
-  the Python C-API.
+  the MyFRpy C-API.
 - *platinclude*: directory for platform-specific header files for
-  the Python C-API.
+  the MyFRpy C-API.
 - *scripts*: directory for script files.
 - *data*: directory for data files.
 
@@ -119,7 +119,7 @@ have write permission to the global site-packages directory or don't want to
 install into it.
 
 Files will be installed into subdirectories of :const:`site.USER_BASE` (written
-as :file:`{userbase}` hereafter).  This scheme installs pure Python modules and
+as :file:`{userbase}` hereafter).  This scheme installs pure MyFRpy modules and
 extension modules in the same location (also known as :const:`site.USER_SITE`).
 
 ``posix_user``
@@ -128,11 +128,11 @@ extension modules in the same location (also known as :const:`site.USER_SITE`).
 ============== ===========================================================
 Path           Installation directory
 ============== ===========================================================
-*stdlib*       :file:`{userbase}/lib/python{X.Y}`
-*platstdlib*   :file:`{userbase}/lib/python{X.Y}`
-*platlib*      :file:`{userbase}/lib/python{X.Y}/site-packages`
-*purelib*      :file:`{userbase}/lib/python{X.Y}/site-packages`
-*include*      :file:`{userbase}/include/python{X.Y}`
+*stdlib*       :file:`{userbase}/lib/myFRpy{X.Y}`
+*platstdlib*   :file:`{userbase}/lib/myFRpy{X.Y}`
+*platlib*      :file:`{userbase}/lib/myFRpy{X.Y}/site-packages`
+*purelib*      :file:`{userbase}/lib/myFRpy{X.Y}/site-packages`
+*include*      :file:`{userbase}/include/myFRpy{X.Y}`
 *scripts*      :file:`{userbase}/bin`
 *data*         :file:`{userbase}`
 ============== ===========================================================
@@ -143,12 +143,12 @@ Path           Installation directory
 ============== ===========================================================
 Path           Installation directory
 ============== ===========================================================
-*stdlib*       :file:`{userbase}\\Python{XY}`
-*platstdlib*   :file:`{userbase}\\Python{XY}`
-*platlib*      :file:`{userbase}\\Python{XY}\\site-packages`
-*purelib*      :file:`{userbase}\\Python{XY}\\site-packages`
-*include*      :file:`{userbase}\\Python{XY}\\Include`
-*scripts*      :file:`{userbase}\\Python{XY}\\Scripts`
+*stdlib*       :file:`{userbase}\\MyFRpy{XY}`
+*platstdlib*   :file:`{userbase}\\MyFRpy{XY}`
+*platlib*      :file:`{userbase}\\MyFRpy{XY}\\site-packages`
+*purelib*      :file:`{userbase}\\MyFRpy{XY}\\site-packages`
+*include*      :file:`{userbase}\\MyFRpy{XY}\\Include`
+*scripts*      :file:`{userbase}\\MyFRpy{XY}\\Scripts`
 *data*         :file:`{userbase}`
 ============== ===========================================================
 
@@ -158,11 +158,11 @@ Path           Installation directory
 ============== ===========================================================
 Path           Installation directory
 ============== ===========================================================
-*stdlib*       :file:`{userbase}/lib/python`
-*platstdlib*   :file:`{userbase}/lib/python`
-*platlib*      :file:`{userbase}/lib/python/site-packages`
-*purelib*      :file:`{userbase}/lib/python/site-packages`
-*include*      :file:`{userbase}/include/python{X.Y}`
+*stdlib*       :file:`{userbase}/lib/myFRpy`
+*platstdlib*   :file:`{userbase}/lib/myFRpy`
+*platlib*      :file:`{userbase}/lib/myFRpy/site-packages`
+*purelib*      :file:`{userbase}/lib/myFRpy/site-packages`
+*include*      :file:`{userbase}/include/myFRpy{X.Y}`
 *scripts*      :file:`{userbase}/bin`
 *data*         :file:`{userbase}`
 ============== ===========================================================
@@ -174,7 +174,7 @@ Home scheme
 -----------
 
 The idea behind the "home scheme" is that you build and maintain a personal
-stash of Python modules.  This scheme's name is derived from the idea of a
+stash of MyFRpy modules.  This scheme's name is derived from the idea of a
 "home" directory on Unix, since it's not unusual for a Unix user to make their
 home directory have a layout similar to :file:`/usr/` or :file:`/usr/local/`.
 This scheme can be used by anyone, regardless of the operating system they
@@ -186,12 +186,12 @@ are installing for.
 ============== ===========================================================
 Path           Installation directory
 ============== ===========================================================
-*stdlib*       :file:`{home}/lib/python`
-*platstdlib*   :file:`{home}/lib/python`
-*platlib*      :file:`{home}/lib/python`
-*purelib*      :file:`{home}/lib/python`
-*include*      :file:`{home}/include/python`
-*platinclude*  :file:`{home}/include/python`
+*stdlib*       :file:`{home}/lib/myFRpy`
+*platstdlib*   :file:`{home}/lib/myFRpy`
+*platlib*      :file:`{home}/lib/myFRpy`
+*purelib*      :file:`{home}/lib/myFRpy`
+*include*      :file:`{home}/include/myFRpy`
+*platinclude*  :file:`{home}/include/myFRpy`
 *scripts*      :file:`{home}/bin`
 *data*         :file:`{home}`
 ============== ===========================================================
@@ -202,25 +202,25 @@ Path           Installation directory
 Prefix scheme
 -------------
 
-The "prefix scheme" is useful when you wish to use one Python installation to
+The "prefix scheme" is useful when you wish to use one MyFRpy installation to
 perform the build/install (i.e., to run the setup script), but install modules
-into the third-party module directory of a different Python installation (or
-something that looks like a different Python installation).  If this sounds a
+into the third-party module directory of a different MyFRpy installation (or
+something that looks like a different MyFRpy installation).  If this sounds a
 trifle unusual, it is---that's why the user and home schemes come before.  However,
 there are at least two known cases where the prefix scheme will be useful.
 
-First, consider that many Linux distributions put Python in :file:`/usr`, rather
+First, consider that many Linux distributions put MyFRpy in :file:`/usr`, rather
 than the more traditional :file:`/usr/local`.  This is entirely appropriate,
-since in those cases Python is part of "the system" rather than a local add-on.
-However, if you are installing Python modules from source, you probably want
-them to go in :file:`/usr/local/lib/python2.{X}` rather than
-:file:`/usr/lib/python2.{X}`.
+since in those cases MyFRpy is part of "the system" rather than a local add-on.
+However, if you are installing MyFRpy modules from source, you probably want
+them to go in :file:`/usr/local/lib/myFRpy2.{X}` rather than
+:file:`/usr/lib/myFRpy2.{X}`.
 
 Another possibility is a network filesystem where the name used to write to a
 remote directory is different from the name used to read it: for example, the
-Python interpreter accessed as :file:`/usr/local/bin/python` might search for
-modules in :file:`/usr/local/lib/python2.{X}`, but those modules would have to
-be installed to, say, :file:`/mnt/{@server}/export/lib/python2.{X}`.
+MyFRpy interpreter accessed as :file:`/usr/local/bin/myFRpy` might search for
+modules in :file:`/usr/local/lib/myFRpy2.{X}`, but those modules would have to
+be installed to, say, :file:`/mnt/{@server}/export/lib/myFRpy2.{X}`.
 
 ``posix_prefix``
 ^^^^^^^^^^^^^^^^
@@ -228,12 +228,12 @@ be installed to, say, :file:`/mnt/{@server}/export/lib/python2.{X}`.
 ============== ==========================================================
 Path           Installation directory
 ============== ==========================================================
-*stdlib*       :file:`{prefix}/lib/python{X.Y}`
-*platstdlib*   :file:`{prefix}/lib/python{X.Y}`
-*platlib*      :file:`{prefix}/lib/python{X.Y}/site-packages`
-*purelib*      :file:`{prefix}/lib/python{X.Y}/site-packages`
-*include*      :file:`{prefix}/include/python{X.Y}`
-*platinclude*  :file:`{prefix}/include/python{X.Y}`
+*stdlib*       :file:`{prefix}/lib/myFRpy{X.Y}`
+*platstdlib*   :file:`{prefix}/lib/myFRpy{X.Y}`
+*platlib*      :file:`{prefix}/lib/myFRpy{X.Y}/site-packages`
+*purelib*      :file:`{prefix}/lib/myFRpy{X.Y}/site-packages`
+*include*      :file:`{prefix}/include/myFRpy{X.Y}`
+*platinclude*  :file:`{prefix}/include/myFRpy{X.Y}`
 *scripts*      :file:`{prefix}/bin`
 *data*         :file:`{prefix}`
 ============== ==========================================================
@@ -275,7 +275,7 @@ Installation path functions
       considered an implementation detail.
 
    .. versionchanged:: 3.11
-      When Python runs from a virtual environment,
+      When MyFRpy runs from a virtual environment,
       the *venv* scheme is returned.
 
 .. function:: get_preferred_scheme(key)
@@ -291,14 +291,14 @@ Installation path functions
    .. versionadded:: 3.10
 
    .. versionchanged:: 3.11
-      When Python runs from a virtual environment and ``key="prefix"``,
+      When MyFRpy runs from a virtual environment and ``key="prefix"``,
       the *venv* scheme is returned.
 
 
 .. function:: _get_preferred_schemes()
 
    Return a dict containing preferred scheme names on the current platform.
-   Python implementers and redistributors may add their preferred schemes to
+   MyFRpy implementers and redistributors may add their preferred schemes to
    the ``_INSTALL_SCHEMES`` module-level global value, and modify this function
    to return those scheme names, to e.g. provide different schemes for system
    and language package managers to use, so packages installed by either do not
@@ -364,9 +364,9 @@ Installation path functions
 Other functions
 ---------------
 
-.. function:: get_python_version()
+.. function:: get_myFRpy_version()
 
-   Return the ``MAJOR.MINOR`` Python version number as a string.  Similar to
+   Return the ``MAJOR.MINOR`` MyFRpy version number as a string.  Similar to
    ``'%d.%d' % sys.version_info[:2]``.
 
 
@@ -401,9 +401,9 @@ Other functions
    For other non-POSIX platforms, currently just returns :data:`sys.platform`.
 
 
-.. function:: is_python_build()
+.. function:: is_myFRpy_build()
 
-   Return ``True`` if the running Python interpreter was built from source and
+   Return ``True`` if the running MyFRpy interpreter was built from source and
    is being run from its built location, and not from a location resulting from
    e.g. running ``make install`` or installing via a binary installer.
 
@@ -432,24 +432,24 @@ Other functions
 Using :mod:`sysconfig` as a script
 ----------------------------------
 
-You can use :mod:`sysconfig` as a script with Python's *-m* option:
+You can use :mod:`sysconfig` as a script with MyFRpy's *-m* option:
 
 .. code-block:: shell-session
 
-    $ python -m sysconfig
+    $ myFRpy -m sysconfig
     Platform: "macosx-10.4-i386"
-    Python version: "3.2"
+    MyFRpy version: "3.2"
     Current installation scheme: "posix_prefix"
 
     Paths:
             data = "/usr/local"
-            include = "/Users/tarek/Dev/svn.python.org/py3k/Include"
+            include = "/Users/tarek/Dev/svn.myFRpy.org/py3k/Include"
             platinclude = "."
-            platlib = "/usr/local/lib/python3.2/site-packages"
-            platstdlib = "/usr/local/lib/python3.2"
-            purelib = "/usr/local/lib/python3.2/site-packages"
+            platlib = "/usr/local/lib/myFRpy3.2/site-packages"
+            platstdlib = "/usr/local/lib/myFRpy3.2"
+            purelib = "/usr/local/lib/myFRpy3.2/site-packages"
             scripts = "/usr/local/bin"
-            stdlib = "/usr/local/lib/python3.2"
+            stdlib = "/usr/local/lib/myFRpy3.2"
 
     Variables:
             AC_APPLE_UNIVERSAL_BUILD = "0"
@@ -459,5 +459,5 @@ You can use :mod:`sysconfig` as a script with Python's *-m* option:
             ...
 
 This call will print in the standard output the information returned by
-:func:`get_platform`, :func:`get_python_version`, :func:`get_path` and
+:func:`get_platform`, :func:`get_myFRpy_version`, :func:`get_path` and
 :func:`get_config_vars`.

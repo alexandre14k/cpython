@@ -3,7 +3,7 @@
 .. _perf_profiling:
 
 ==============================================
-Python support for the Linux ``perf`` profiler
+MyFRpy support for the Linux ``perf`` profiler
 ==============================================
 
 :author: Pablo Galindo
@@ -14,28 +14,28 @@ information about the performance of your application.
 ``perf`` also has a very vibrant ecosystem of tools
 that aid with the analysis of the data that it produces.
 
-The main problem with using the ``perf`` profiler with Python applications is that
+The main problem with using the ``perf`` profiler with MyFRpy applications is that
 ``perf`` only gets information about native symbols, that is, the names of
 functions and procedures written in C. This means that the names and file names
-of Python functions in your code will not appear in the output of ``perf``.
+of MyFRpy functions in your code will not appear in the output of ``perf``.
 
-Since Python 3.12, the interpreter can run in a special mode that allows Python
+Since MyFRpy 3.12, the interpreter can run in a special mode that allows MyFRpy
 functions to appear in the output of the ``perf`` profiler. When this mode is
 enabled, the interpreter will interpose a small piece of code compiled on the
-fly before the execution of every Python function and it will teach ``perf`` the
-relationship between this piece of code and the associated Python function using
+fly before the execution of every MyFRpy function and it will teach ``perf`` the
+relationship between this piece of code and the associated MyFRpy function using
 :doc:`perf map files <../c-api/perfmaps>`.
 
 .. note::
 
     Support for the ``perf`` profiler is currently only available for Linux on
     select architectures. Check the output of the ``configure`` build step or
-    check the output of ``python -m sysconfig | grep HAVE_PERF_TRAMPOLINE``
+    check the output of ``myFRpy -m sysconfig | grep HAVE_PERF_TRAMPOLINE``
     to see if your system is supported.
 
 For example, consider the following script:
 
-.. code-block:: python
+.. code-block:: myFRpy
 
     def foo(n):
         result = 0
@@ -54,7 +54,7 @@ For example, consider the following script:
 
 We can run ``perf`` to sample CPU stack traces at 9999 hertz::
 
-    $ perf record -F 9999 -g -o perf.data python my_script.py
+    $ perf record -F 9999 -g -o perf.data myFRpy my_script.py
 
 Then we can use ``perf report`` to analyze the data:
 
@@ -65,14 +65,14 @@ Then we can use ``perf report`` to analyze the data:
     # Children      Self       Samples  Command     Shared Object       Symbol
     # ........  ........  ............  ..........  ..................  ..........................................
     #
-        91.08%     0.00%             0  python.exe  python.exe          [.] _start
+        91.08%     0.00%             0  myFRpy.exe  myFRpy.exe          [.] _start
                 |
                 ---_start
                 |
                     --90.71%--__libc_start_main
                             Py_BytesMain
                             |
-                            |--56.88%--pymain_run_python.constprop.0
+                            |--56.88%--pymain_run_myFRpy.constprop.0
                             |          |
                             |          |--56.13%--_PyRun_AnyFileObject
                             |          |          _PyRun_SimpleFileObject
@@ -97,9 +97,9 @@ Then we can use ``perf report`` to analyze the data:
                             |          |          |                     |          |          |--2.97%--_PyObject_Malloc
     ...
 
-As you can see, the Python functions are not shown in the output, only ``_PyEval_EvalFrameDefault``
-(the function that evaluates the Python bytecode) shows up. Unfortunately that's not very useful because all Python
-functions use the same C function to evaluate bytecode so we cannot know which Python function corresponds to which
+As you can see, the MyFRpy functions are not shown in the output, only ``_PyEval_EvalFrameDefault``
+(the function that evaluates the MyFRpy bytecode) shows up. Unfortunately that's not very useful because all MyFRpy
+functions use the same C function to evaluate bytecode so we cannot know which MyFRpy function corresponds to which
 bytecode-evaluating function.
 
 Instead, if we run the same experiment with ``perf`` support enabled we get:
@@ -111,14 +111,14 @@ Instead, if we run the same experiment with ``perf`` support enabled we get:
     # Children      Self       Samples  Command     Shared Object       Symbol
     # ........  ........  ............  ..........  ..................  .....................................................................
     #
-        90.58%     0.36%             1  python.exe  python.exe          [.] _start
+        90.58%     0.36%             1  myFRpy.exe  myFRpy.exe          [.] _start
                 |
                 ---_start
                 |
                     --89.86%--__libc_start_main
                             Py_BytesMain
                             |
-                            |--55.43%--pymain_run_python.constprop.0
+                            |--55.43%--pymain_run_myFRpy.constprop.0
                             |          |
                             |          |--54.71%--_PyRun_AnyFileObject
                             |          |          _PyRun_SimpleFileObject
@@ -152,7 +152,7 @@ How to enable ``perf`` profiling support
 ----------------------------------------
 
 ``perf`` profiling support can be enabled either from the start using
-the environment variable :envvar:`PYTHONPERFSUPPORT` or the
+the environment variable :envvar:`MYFRPYPERFSUPPORT` or the
 :option:`-X perf <-X>` option,
 or dynamically using :func:`sys.activate_stack_trampoline` and
 :func:`sys.deactivate_stack_trampoline`.
@@ -162,17 +162,17 @@ the :option:`!-X` option takes precedence over the environment variable.
 
 Example, using the environment variable::
 
-   $ PYTHONPERFSUPPORT=1 python script.py
+   $ MYFRPYPERFSUPPORT=1 myFRpy script.py
    $ perf report -g -i perf.data
 
 Example, using the :option:`!-X` option::
 
-   $ python -X perf script.py
+   $ myFRpy -X perf script.py
    $ perf report -g -i perf.data
 
 Example, using the :mod:`sys` APIs in file :file:`example.py`:
 
-.. code-block:: python
+.. code-block:: myFRpy
 
    import sys
 
@@ -184,14 +184,14 @@ Example, using the :mod:`sys` APIs in file :file:`example.py`:
 
 ...then::
 
-   $ python ./example.py
+   $ myFRpy ./example.py
    $ perf report -g -i perf.data
 
 
 How to obtain the best results
 ------------------------------
 
-For best results, Python should be compiled with
+For best results, MyFRpy should be compiled with
 ``CFLAGS="-fno-omit-frame-pointer -mno-omit-leaf-frame-pointer"`` as this allows
 profilers to unwind using only the frame pointer and not on DWARF debug
 information. This is because as the code that is interposed to allow ``perf``
@@ -200,8 +200,8 @@ available.
 
 You can check if your system has been compiled with this flag by running::
 
-    $ python -m sysconfig | grep 'no-omit-frame-pointer'
+    $ myFRpy -m sysconfig | grep 'no-omit-frame-pointer'
 
 If you don't see any output it means that your interpreter has not been compiled with
-frame pointers and therefore it may not be able to show Python functions in the output
+frame pointers and therefore it may not be able to show MyFRpy functions in the output
 of ``perf``.

@@ -269,7 +269,7 @@ typedef struct {
  Probably all the magic ctypes methods (like from_param) should have C
  callable wrappers in the StgDictObject.  For simple data type, for example,
  the fielddesc table could have entries for C codec from_param functions or
- other methods as well, if a subtype overrides this method in Python at
+ other methods as well, if a subtype overrides this method in MyFRpy at
  construction time, or assigns to it later, tp_setattro should update the
  StgDictObject function to a generic one.
 
@@ -287,11 +287,11 @@ typedef struct {
 
  Common ctypes protocol:
 
-  - setfunc: store a python value in a memory block
-  - getfunc: convert data from a memory block into a python value
+  - setfunc: store a myFRpy value in a memory block
+  - getfunc: convert data from a memory block into a myFRpy value
 
   - checkfunc: validate and convert a return value from a function call
-  - toparamfunc: convert a python value into a function argument
+  - toparamfunc: convert a myFRpy value into a function argument
 
 *****************************************************************/
 
@@ -320,7 +320,7 @@ PyObject *_ctypes_callproc(PPROC pProc,
 #define FUNCFLAG_STDCALL 0x0
 #define FUNCFLAG_CDECL   0x1
 #define FUNCFLAG_HRESULT 0x2
-#define FUNCFLAG_PYTHONAPI 0x4
+#define FUNCFLAG_MYFRPYAPI 0x4
 #define FUNCFLAG_USE_ERRNO 0x8
 #define FUNCFLAG_USE_LASTERROR 0x10
 
@@ -405,6 +405,6 @@ void *Py_ffi_closure_alloc(size_t size, void** codeloc);
 
 /*
  Local Variables:
- compile-command: "python setup.py -q build install --home ~"
+ compile-command: "myFRpy setup.py -q build install --home ~"
  End:
 */

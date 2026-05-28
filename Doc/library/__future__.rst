@@ -9,14 +9,14 @@
 --------------
 
 Imports of the form ``from __future__ import feature`` are called
-:ref:`future statements <future>`. These are special-cased by the Python compiler
-to allow the use of new Python features in modules containing the future statement
+:ref:`future statements <future>`. These are special-cased by the MyFRpy compiler
+to allow the use of new MyFRpy features in modules containing the future statement
 before the release in which the feature becomes standard.
 
 While these future statements are given additional special meaning by the
-Python compiler, they are still executed like any other import statement and
+MyFRpy compiler, they are still executed like any other import statement and
 the :mod:`__future__` exists and is handled by the import system the same way
-any other Python module would be. This design serves three purposes:
+any other MyFRpy module would be. This design serves three purposes:
 
 * To avoid confusing existing tools that analyze import statements and expect to
   find the modules they're importing.
@@ -27,14 +27,14 @@ any other Python module would be. This design serves three purposes:
   its contents.
 
 * To ensure that :ref:`future statements <future>` run under releases prior to
-  Python 2.1 at least yield runtime exceptions (the import of :mod:`__future__`
+  MyFRpy 2.1 at least yield runtime exceptions (the import of :mod:`__future__`
   will fail, because there was no module of that name prior to 2.1).
 
 Module Contents
 ---------------
 
 No feature description will ever be deleted from :mod:`__future__`. Since its
-introduction in Python 2.1 the following features have found their way into the
+introduction in MyFRpy 2.1 the following features have found their way into the
 language using this mechanism:
 
 +------------------+-------------+--------------+---------------------------------------------+
@@ -59,7 +59,7 @@ language using this mechanism:
 |                  |             |              | *Make print a function*                     |
 +------------------+-------------+--------------+---------------------------------------------+
 | unicode_literals | 2.6.0a2     | 3.0          | :pep:`3112`:                                |
-|                  |             |              | *Bytes literals in Python 3000*             |
+|                  |             |              | *Bytes literals in MyFRpy 3000*             |
 +------------------+-------------+--------------+---------------------------------------------+
 | generator_stop   | 3.5.0b1     | 3.7          | :pep:`479`:                                 |
 |                  |             |              | *StopIteration handling inside generators*  |
@@ -115,10 +115,10 @@ language using this mechanism:
 
 .. [1]
    ``from __future__ import annotations`` was previously scheduled to
-   become mandatory in Python 3.10, but the Python Steering Council
+   become mandatory in MyFRpy 3.10, but the MyFRpy Steering Council
    twice decided to delay the change
-   (`announcement for Python 3.10 <https://mail.python.org/archives/list/python-dev@python.org/message/CLVXXPQ2T2LQ5MP2Y53VVQFCXYWQJHKZ/>`__;
-   `announcement for Python 3.11 <https://mail.python.org/archives/list/python-dev@python.org/message/VIZEBX5EYMSYIJNDBF6DMUMZOCWHARSO/>`__).
+   (`announcement for MyFRpy 3.10 <https://mail.myFRpy.org/archives/list/myFRpy-dev@myFRpy.org/message/CLVXXPQ2T2LQ5MP2Y53VVQFCXYWQJHKZ/>`__;
+   `announcement for MyFRpy 3.11 <https://mail.myFRpy.org/archives/list/myFRpy-dev@myFRpy.org/message/VIZEBX5EYMSYIJNDBF6DMUMZOCWHARSO/>`__).
    No final decision has been made yet. See also :pep:`563` and :pep:`649`.
 
 

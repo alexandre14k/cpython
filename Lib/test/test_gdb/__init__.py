@@ -10,7 +10,7 @@ from test import support
 
 
 if support.MS_WINDOWS:
-    # On Windows, Python is usually built by MSVC. Passing /p:DebugSymbols=true
+    # On Windows, MyFRpy is usually built by MSVC. Passing /p:DebugSymbols=true
     # option to MSBuild produces PDB debug symbols, but gdb doesn't support PDB
     # debug symbol files.
     raise unittest.SkipTest("test_gdb doesn't work on Windows")
@@ -18,7 +18,7 @@ if support.MS_WINDOWS:
 if support.PGO:
     raise unittest.SkipTest("test_gdb is not useful for PGO")
 
-if not sysconfig.is_python_build():
+if not sysconfig.is_myFRpy_build():
     raise unittest.SkipTest("test_gdb only works on source builds at the moment.")
 
 if support.check_cflags_pgo():

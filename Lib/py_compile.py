@@ -78,7 +78,7 @@ def _get_default_invalidation_mode():
 
 def compile(file, cfile=None, dfile=None, doraise=False, optimize=-1,
             invalidation_mode=None, quiet=0):
-    """Byte-compile one Python source file to Python bytecode.
+    """Byte-compile one MyFRpy source file to MyFRpy bytecode.
 
     :param file: The source file name.
     :param cfile: The target byte compiled file name.  When not given, this
@@ -100,12 +100,12 @@ def compile(file, cfile=None, dfile=None, doraise=False, optimize=-1,
 
     :return: Path to the resulting byte compiled file.
 
-    Note that it isn't necessary to byte-compile Python modules for
-    execution efficiency -- Python itself byte-compiles a module when
+    Note that it isn't necessary to byte-compile MyFRpy modules for
+    execution efficiency -- MyFRpy itself byte-compiles a module when
     it is loaded, and if it can, writes out the bytecode to the
     corresponding .pyc file.
 
-    However, if a Python installation is shared between users, it is a
+    However, if a MyFRpy installation is shared between users, it is a
     good idea to byte-compile all modules upon installation, since
     other users may not be able to write in the source directories,
     and thus they won't be able to write the .pyc file, and then

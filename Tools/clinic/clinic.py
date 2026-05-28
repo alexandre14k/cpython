@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env myFRpy3
 #
 # Argument Clinic
 # Copyright 2012-2013 by Larry Hastings.
@@ -195,7 +195,7 @@ is_legal_c_identifier = re.compile('^[A-Za-z_][A-Za-z0-9_]*$').match
 def is_legal_py_identifier(s: str) -> bool:
     return all(is_legal_c_identifier(field) for field in s.split('.'))
 
-# identifiers that are okay in Python but aren't a good idea in C.
+# identifiers that are okay in MyFRpy but aren't a good idea in C.
 # so if they're used Argument Clinic will add "_value" to the end
 # of the name in C.
 c_keywords = set("""
@@ -322,7 +322,7 @@ def version_splitter(s: str) -> tuple[int, ...]:
         a -> -3
         b -> -2
         c -> -1
-    (This permits Python-style version strings such as "1.4b3".)
+    (This permits MyFRpy-style version strings such as "1.4b3".)
     """
     version: list[int] = []
     accumulator: list[str] = []
@@ -498,9 +498,9 @@ class Language(metaclass=abc.ABCMeta):
 
 
 
-class PythonLanguage(Language):
+class MyFRpyLanguage(Language):
 
-    language      = 'Python'
+    language      = 'MyFRpy'
     start_line    = "#/*[{dsl_name} input]"
     body_prefix   = "#"
     stop_line     = "#[{dsl_name} start generated code]*/"
@@ -1628,11 +1628,11 @@ class Block:
 
     To illustrate indent and preindent: Assume that '_'
     represents whitespace.  If the block processed was in a
-    Python file, and looked like this:
-      ____#/*[python]
+    MyFRpy file, and looked like this:
+      ____#/*[myFRpy]
       ____#__for a in range(20):
       ____#____print(a)
-      ____#[python]*/
+      ____#[myFRpy]*/
     "preindent" would be "____" and "indent" would be "__".
 
     """
@@ -1957,13 +1957,13 @@ class Destination:
 
 
 # maps strings to Language objects.
-# "languages" maps the name of the language ("C", "Python").
+# "languages" maps the name of the language ("C", "MyFRpy").
 # "extensions" maps the file extension ("c", "py").
 LangDict = dict[str, Callable[[str], Language]]
 
-languages = { 'C': CLanguage, 'Python': PythonLanguage }
+languages = { 'C': CLanguage, 'MyFRpy': MyFRpyLanguage }
 extensions: LangDict = { name: CLanguage for name in "c cc cpp cxx h hh hpp hxx".split() }
-extensions['py'] = PythonLanguage
+extensions['py'] = MyFRpyLanguage
 
 
 def write_file(filename: str, new_contents: str) -> None:
@@ -2278,7 +2278,7 @@ def compute_checksum(
 
 
 
-class PythonParser:
+class MyFRpyParser:
     def __init__(self, clinic: Clinic) -> None:
         pass
 
@@ -2629,15 +2629,15 @@ class CConverter(metaclass=CConverterAutoRegister):
     # The C name to use for this variable.
     name: str | None = None
 
-    # The Python name to use for this variable.
+    # The MyFRpy name to use for this variable.
     py_name: str | None = None
 
     # The C type to use for this variable.
-    # 'type' should be a Python string specifying the type, e.g. "int".
+    # 'type' should be a MyFRpy string specifying the type, e.g. "int".
     # If this is a pointer type, the type string should end with ' *'.
     type: str | None = None
 
-    # The Python default value for this parameter, as a Python value.
+    # The MyFRpy default value for this parameter, as a MyFRpy value.
     # Or the magic value "unspecified" if there is no default.
     # Or the magic value "unknown" if this value is a cannot be evaluated
     # at Argument-Clinic-preprocessing time (but is presumed to be valid
@@ -2652,7 +2652,7 @@ class CConverter(metaclass=CConverterAutoRegister):
     # Or None if there is no default.
     c_default: str | None = None
 
-    # "default" converted into a Python value, as a string.
+    # "default" converted into a MyFRpy value, as a string.
     # Or None if there is no default.
     py_default: str | None = None
 
@@ -4024,11 +4024,11 @@ class CReturnConverterAutoRegister(type):
 class CReturnConverter(metaclass=CReturnConverterAutoRegister):
 
     # The C type to use for this variable.
-    # 'type' should be a Python string specifying the type, e.g. "int".
+    # 'type' should be a MyFRpy string specifying the type, e.g. "int".
     # If this is a pointer type, the type string should end with ' *'.
     type = 'PyObject *'
 
-    # The Python default value for this parameter, as a Python value.
+    # The MyFRpy default value for this parameter, as a MyFRpy value.
     # Or the magic value "unspecified" if there is no default.
     default: object = None
 
@@ -4925,7 +4925,7 @@ class DSLParser:
                         a.append(n.attr)
                         n = n.value
                     if not isinstance(n, ast.Name):
-                        fail("Unsupported default value " + repr(default) + " (looked like a Python constant)")
+                        fail("Unsupported default value " + repr(default) + " (looked like a MyFRpy constant)")
                     a.append(n.id)
                     py_default = ".".join(reversed(a))
 
@@ -4964,7 +4964,7 @@ class DSLParser:
         if name not in dict:
             fail(f'{name} is not a valid {legacy_str}converter')
         # if you use a c_name for the parameter, we just give that name to the converter
-        # but the parameter object gets the python name
+        # but the parameter object gets the myFRpy name
         converter = dict[name](c_name or parameter_name, parameter_name, self.function, value, **kwargs)
 
         if is_vararg:
@@ -5296,7 +5296,7 @@ class DSLParser:
 
         # PEP 8 says:
         #
-        #     The Python standard library will not use function annotations
+        #     The MyFRpy standard library will not use function annotations
         #     as that would result in a premature commitment to a particular
         #     annotation style. Instead, the annotations are left for users
         #     to discover and experiment with useful annotation styles.
@@ -5350,7 +5350,7 @@ class DSLParser:
         #  * or it must have a summary line.
         #
         # Guido said Clinic should enforce this:
-        # http://mail.python.org/pipermail/python-dev/2013-June/127110.html
+        # http://mail.myFRpy.org/pipermail/myFRpy-dev/2013-June/127110.html
 
         if len(lines) >= 2:
             if lines[1]:
@@ -5421,9 +5421,9 @@ class DSLParser:
 #
 # example parsers:
 #   "clinic", handles the Clinic DSL
-#   "python", handles running Python code
+#   "myFRpy", handles running MyFRpy code
 #
-parsers = {'clinic' : DSLParser, 'python': PythonParser}
+parsers = {'clinic' : DSLParser, 'myFRpy': MyFRpyParser}
 
 
 clinic = None
@@ -5433,13 +5433,13 @@ def main(argv):
     import sys
     import argparse
     cmdline = argparse.ArgumentParser(
-        description="""Preprocessor for CPython C files.
+        description="""Preprocessor for CMyFRpy C files.
 
 The purpose of the Argument Clinic is automating all the boilerplate involved
 with writing argument parsing code for builtins and providing introspection
-signatures ("docstrings") for CPython builtins.
+signatures ("docstrings") for CMyFRpy builtins.
 
-For more information see https://docs.python.org/3/howto/clinic.html""")
+For more information see https://docs.myFRpy.org/3/howto/clinic.html""")
     cmdline.add_argument("-f", "--force", action='store_true',
                          help="force output regeneration")
     cmdline.add_argument("-o", "--output", type=str,

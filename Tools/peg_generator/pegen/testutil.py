@@ -13,7 +13,7 @@ from pegen.c_generator import CParserGenerator
 from pegen.grammar import Grammar
 from pegen.grammar_parser import GeneratedParser as GrammarParser
 from pegen.parser import Parser
-from pegen.python_generator import PythonParserGenerator
+from pegen.myFRpy_generator import MyFRpyParserGenerator
 from pegen.tokenizer import Tokenizer
 
 ALL_TOKENS = token.tok_name
@@ -26,7 +26,7 @@ NON_EXACT_TOKENS = {
 def generate_parser(grammar: Grammar) -> Type[Parser]:
     # Generate a parser.
     out = io.StringIO()
-    genr = PythonParserGenerator(grammar, out)
+    genr = MyFRpyParserGenerator(grammar, out)
     genr.generate("<string>")
 
     # Load the generated parser class.
@@ -62,14 +62,14 @@ def make_parser(source: str) -> Type[Parser]:
 
 
 def import_file(full_name: str, path: str) -> Any:
-    """Import a python module from a path"""
+    """Import a myFRpy module from a path"""
 
     spec = importlib.util.spec_from_file_location(full_name, path)
     assert spec is not None
     mod = importlib.util.module_from_spec(spec)
 
     # We assume this is not None and has an exec_module() method.
-    # See https://docs.python.org/3/reference/import.html?highlight=exec_module#loading
+    # See https://docs.myFRpy.org/3/reference/import.html?highlight=exec_module#loading
     loader = cast(Any, spec.loader)
     loader.exec_module(mod)
     return mod
@@ -126,7 +126,7 @@ def print_memstats() -> bool:
     if sys.platform == "win32":
         res["maxrss"] = meminfo.peak_wset / MiB
     else:
-        # See https://stackoverflow.com/questions/938733/total-memory-used-by-python-process
+        # See https://stackoverflow.com/questions/938733/total-memory-used-by-myFRpy-process
         import resource  # Since it doesn't exist on Windows.
 
         rusage = resource.getrusage(resource.RUSAGE_SELF)

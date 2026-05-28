@@ -1,6 +1,6 @@
-# Copyright (C) 2004-2006 Python Software Foundation
+# Copyright (C) 2004-2006 MyFRpy Software Foundation
 # Authors: Baxter, Wouters and Warsaw
-# Contact: email-sig@python.org
+# Contact: email-sig@myFRpy.org
 
 """FeedParser - An email feed parser.
 

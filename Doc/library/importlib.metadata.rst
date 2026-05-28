@@ -14,10 +14,10 @@
 **Source code:** :source:`Lib/importlib/metadata/__init__.py`
 
 ``importlib.metadata`` is a library that provides access to
-the metadata of an installed `Distribution Package <https://packaging.python.org/en/latest/glossary/#term-Distribution-Package>`_,
+the metadata of an installed `Distribution Package <https://packaging.myFRpy.org/en/latest/glossary/#term-Distribution-Package>`_,
 such as its entry points
-or its top-level names (`Import Package <https://packaging.python.org/en/latest/glossary/#term-Import-Package>`_\s, modules, if any).
-Built in part on Python's import system, this library
+or its top-level names (`Import Package <https://packaging.myFRpy.org/en/latest/glossary/#term-Import-Package>`_\s, modules, if any).
+Built in part on MyFRpy's import system, this library
 intends to replace similar functionality in the `entry point
 API`_ and `metadata API`_ of ``pkg_resources``.  Along with
 :mod:`importlib.resources`,
@@ -25,17 +25,17 @@ this package can eliminate the need to use the older and less efficient
 ``pkg_resources`` package.
 
 ``importlib.metadata`` operates on third-party *distribution packages*
-installed into Python's ``site-packages`` directory via tools such as
+installed into MyFRpy's ``site-packages`` directory via tools such as
 `pip <https://pypi.org/project/pip/>`_.
 Specifically, it works with distributions with discoverable
 ``dist-info`` or ``egg-info`` directories,
-and metadata defined by the `Core metadata specifications <https://packaging.python.org/en/latest/specifications/core-metadata/#core-metadata>`_.
+and metadata defined by the `Core metadata specifications <https://packaging.myFRpy.org/en/latest/specifications/core-metadata/#core-metadata>`_.
 
 .. important::
 
    These are *not* necessarily equivalent to or correspond 1:1 with
    the top-level *import package* names
-   that can be imported inside Python code.
+   that can be imported inside MyFRpy code.
    One *distribution package* can contain multiple *import packages*
    (and single modules),
    and one top-level *import package*
@@ -67,21 +67,21 @@ Overview
 ========
 
 Let's say you wanted to get the version string for a
-`Distribution Package <https://packaging.python.org/en/latest/glossary/#term-Distribution-Package>`_ you've installed
+`Distribution Package <https://packaging.myFRpy.org/en/latest/glossary/#term-Distribution-Package>`_ you've installed
 using ``pip``.  We start by creating a virtual environment and installing
 something into it:
 
 .. code-block:: shell-session
 
-    $ python -m venv example
+    $ myFRpy -m venv example
     $ source example/bin/activate
-    (example) $ python -m pip install wheel
+    (example) $ myFRpy -m pip install wheel
 
 You can get the version string for ``wheel`` by running the following:
 
 .. code-block:: pycon
 
-    (example) $ python
+    (example) $ myFRpy
     >>> from importlib.metadata import version  # doctest: +SKIP
     >>> version('wheel')  # doctest: +SKIP
     '0.32.3'
@@ -93,7 +93,7 @@ collection of :ref:`EntryPoint <entry-points>` objects.
 You can get the :ref:`metadata for a distribution <metadata>`::
 
     >>> list(metadata('wheel'))  # doctest: +SKIP
-    ['Metadata-Version', 'Name', 'Version', 'Summary', 'Home-page', 'Author', 'Author-email', 'Maintainer', 'Maintainer-email', 'License', 'Project-URL', 'Project-URL', 'Project-URL', 'Keywords', 'Platform', 'Classifier', 'Classifier', 'Classifier', 'Classifier', 'Classifier', 'Classifier', 'Classifier', 'Classifier', 'Classifier', 'Classifier', 'Classifier', 'Classifier', 'Requires-Python', 'Provides-Extra', 'Requires-Dist', 'Requires-Dist']
+    ['Metadata-Version', 'Name', 'Version', 'Summary', 'Home-page', 'Author', 'Author-email', 'Maintainer', 'Maintainer-email', 'License', 'Project-URL', 'Project-URL', 'Project-URL', 'Keywords', 'Platform', 'Classifier', 'Classifier', 'Classifier', 'Classifier', 'Classifier', 'Classifier', 'Classifier', 'Classifier', 'Classifier', 'Classifier', 'Classifier', 'Classifier', 'Requires-MyFRpy', 'Provides-Extra', 'Requires-Dist', 'Requires-Dist']
 
 You can also get a :ref:`distribution's version number <version>`, list its
 :ref:`constituent files <files>`, and get a list of the distribution's
@@ -174,9 +174,9 @@ for more information on entry points, their definition, and usage.
 *Compatibility Note*
 
 The "selectable" entry points were introduced in ``importlib_metadata``
-3.6 and Python 3.10. Prior to those changes, ``entry_points`` accepted
+3.6 and MyFRpy 3.10. Prior to those changes, ``entry_points`` accepted
 no parameters and always returned a dictionary of entry points, keyed
-by group. With ``importlib_metadata`` 5.0 and Python 3.12,
+by group. With ``importlib_metadata`` 5.0 and MyFRpy 3.12,
 ``entry_points`` always returns an ``EntryPoints`` object. See
 `backports.entry_points_selectable <https://pypi.org/project/backports.entry-points-selectable>`_
 for compatibility options.
@@ -187,7 +187,7 @@ for compatibility options.
 Distribution metadata
 ---------------------
 
-Every `Distribution Package <https://packaging.python.org/en/latest/glossary/#term-Distribution-Package>`_ includes some metadata,
+Every `Distribution Package <https://packaging.myFRpy.org/en/latest/glossary/#term-Distribution-Package>`_ includes some metadata,
 which you can extract using the
 ``metadata()`` function::
 
@@ -197,13 +197,13 @@ The keys of the returned data structure, a ``PackageMetadata``,
 name the metadata keywords, and
 the values are returned unparsed from the distribution metadata::
 
-    >>> wheel_metadata['Requires-Python']  # doctest: +SKIP
+    >>> wheel_metadata['Requires-MyFRpy']  # doctest: +SKIP
     '>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*'
 
 ``PackageMetadata`` also presents a ``json`` attribute that returns
 all the metadata in a JSON-compatible form per :PEP:`566`::
 
-    >>> wheel_metadata.json['requires_python']
+    >>> wheel_metadata.json['requires_myFRpy']
     '>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*'
 
 .. note::
@@ -226,7 +226,7 @@ Distribution versions
 ---------------------
 
 The ``version()`` function is the quickest way to get a
-`Distribution Package <https://packaging.python.org/en/latest/glossary/#term-Distribution-Package>`_'s version
+`Distribution Package <https://packaging.myFRpy.org/en/latest/glossary/#term-Distribution-Package>`_'s version
 number, as a string::
 
     >>> version('wheel')  # doctest: +SKIP
@@ -239,7 +239,7 @@ Distribution files
 ------------------
 
 You can also get the full set of files contained within a distribution.  The
-``files()`` function takes a `Distribution Package <https://packaging.python.org/en/latest/glossary/#term-Distribution-Package>`_ name
+``files()`` function takes a `Distribution Package <https://packaging.myFRpy.org/en/latest/glossary/#term-Distribution-Package>`_ name
 and returns all of the
 files installed by this distribution.  Each file object returned is a
 ``PackagePath``, a :class:`pathlib.PurePath` derived object with additional ``dist``,
@@ -285,7 +285,7 @@ distribution is not known to have the metadata present.
 Distribution requirements
 -------------------------
 
-To get the full set of requirements for a `Distribution Package <https://packaging.python.org/en/latest/glossary/#term-Distribution-Package>`_,
+To get the full set of requirements for a `Distribution Package <https://packaging.myFRpy.org/en/latest/glossary/#term-Distribution-Package>`_,
 use the ``requires()``
 function::
 
@@ -299,10 +299,10 @@ function::
 Mapping import to distribution packages
 ---------------------------------------
 
-A convenience method to resolve the `Distribution Package <https://packaging.python.org/en/latest/glossary/#term-Distribution-Package>`_
+A convenience method to resolve the `Distribution Package <https://packaging.myFRpy.org/en/latest/glossary/#term-Distribution-Package>`_
 name (or names, in the case of a namespace package)
 that provide each importable top-level
-Python module or `Import Package <https://packaging.python.org/en/latest/glossary/#term-Import-Package>`_::
+MyFRpy module or `Import Package <https://packaging.myFRpy.org/en/latest/glossary/#term-Import-Package>`_::
 
     >>> packages_distributions()
     {'importlib_metadata': ['importlib-metadata'], 'yaml': ['PyYAML'], 'jaraco': ['jaraco.classes', 'jaraco.functools'], ...}
@@ -321,7 +321,7 @@ Distributions
 While the above API is the most common and convenient usage, you can get all
 of that information from the ``Distribution`` class.  A ``Distribution`` is an
 abstract object that represents the metadata for
-a Python `Distribution Package <https://packaging.python.org/en/latest/glossary/#term-Distribution-Package>`_.  You can
+a MyFRpy `Distribution Package <https://packaging.myFRpy.org/en/latest/glossary/#term-Distribution-Package>`_.  You can
 get the ``Distribution`` instance::
 
     >>> from importlib.metadata import distribution  # doctest: +SKIP
@@ -336,20 +336,20 @@ Thus, an alternative way to get the version number is through the
 There are all kinds of additional metadata available on the ``Distribution``
 instance::
 
-    >>> dist.metadata['Requires-Python']  # doctest: +SKIP
+    >>> dist.metadata['Requires-MyFRpy']  # doctest: +SKIP
     '>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*'
     >>> dist.metadata['License']  # doctest: +SKIP
     'MIT'
 
 The full set of available metadata is not described here.
-See the `Core metadata specifications <https://packaging.python.org/en/latest/specifications/core-metadata/#core-metadata>`_ for additional details.
+See the `Core metadata specifications <https://packaging.myFRpy.org/en/latest/specifications/core-metadata/#core-metadata>`_ for additional details.
 
 
 Distribution Discovery
 ======================
 
 By default, this package provides built-in support for discovery of metadata
-for file system and zip file `Distribution Package <https://packaging.python.org/en/latest/glossary/#term-Distribution-Package>`_\s.
+for file system and zip file `Distribution Package <https://packaging.myFRpy.org/en/latest/glossary/#term-Distribution-Package>`_\s.
 This metadata finder search defaults to ``sys.path``, but varies slightly in how it interprets those values from how other import machinery does. In particular:
 
 - ``importlib.metadata`` does not honor :class:`bytes` objects on ``sys.path``.
@@ -359,7 +359,7 @@ This metadata finder search defaults to ``sys.path``, but varies slightly in how
 Extending the search algorithm
 ==============================
 
-Because `Distribution Package <https://packaging.python.org/en/latest/glossary/#term-Distribution-Package>`_ metadata
+Because `Distribution Package <https://packaging.myFRpy.org/en/latest/glossary/#term-Distribution-Package>`_ metadata
 is not available through :data:`sys.path` searches, or
 package loaders directly,
 the metadata for a distribution is found through import
@@ -373,7 +373,7 @@ This finder doesn't actually find any *distributions*,
 but it can find their metadata.
 
 The abstract class :py:class:`importlib.abc.MetaPathFinder` defines the
-interface expected of finders by Python's import system.
+interface expected of finders by MyFRpy's import system.
 ``importlib.metadata`` extends this protocol by looking for an optional
 ``find_distributions`` callable on the finders from
 :data:`sys.meta_path` and presents this extended interface as the

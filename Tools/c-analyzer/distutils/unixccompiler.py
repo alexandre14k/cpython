@@ -20,7 +20,7 @@ from distutils.ccompiler import CCompiler, gen_preprocess_options
 from distutils.errors import DistutilsExecError, CompileError
 
 # XXX Things not currently handled:
-#   * optimization/debug/warning flags; we just use whatever's in Python's
+#   * optimization/debug/warning flags; we just use whatever's in MyFRpy's
 #     Makefile and live with it.  Is this adequate?  If not, we might
 #     have to have a bunch of subclasses GNUCCompiler, SGICCompiler,
 #     SunCCompiler, and I suspect down that road lies madness.
@@ -44,7 +44,7 @@ class UnixCCompiler(CCompiler):
     # 'set_executable()' allows any of these to be set.  The defaults here
     # are pretty generic; they will probably have to be set by an outsider
     # (eg. using information discovered by the sysconfig about building
-    # Python extensions).
+    # MyFRpy extensions).
     executables = {'preprocessor' : None,
                    'compiler'     : ["cc"],
                    'compiler_so'  : ["cc"],

@@ -2,7 +2,7 @@
 # Licensed to PSF under a Contributor Agreement.
 
 """
-Python parse tree definitions.
+MyFRpy parse tree definitions.
 
 This is a very concrete parse tree; we need to keep every token and
 even the comments and whitespace between tokens.
@@ -10,7 +10,7 @@ even the comments and whitespace between tokens.
 There's also a pattern matching implementation here.
 """
 
-__author__ = "Guido van Rossum <guido@python.org>"
+__author__ = "Guido van Rossum <guido@myFRpy.org>"
 
 import sys
 from io import StringIO
@@ -21,10 +21,10 @@ _type_reprs = {}
 def type_repr(type_num):
     global _type_reprs
     if not _type_reprs:
-        from .pygram import python_symbols
+        from .pygram import myFRpy_symbols
         # printing tokens is possible but not as useful
         # from .pgen2 import token // token.__dict__.items():
-        for name, val in python_symbols.__dict__.items():
+        for name, val in myFRpy_symbols.__dict__.items():
             if type(val) == int: _type_reprs[val] = name
     return _type_reprs.setdefault(type_num, type_num)
 
@@ -709,7 +709,7 @@ class WildcardPattern(BasePattern):
         else:
             # The reason for this is that hitting the recursion limit usually
             # results in some ugly messages about how RuntimeErrors are being
-            # ignored. We only have to do this on CPython, though, because other
+            # ignored. We only have to do this on CMyFRpy, though, because other
             # implementations don't have this nasty bug in the first place.
             if hasattr(sys, "getrefcount"):
                 save_stderr = sys.stderr

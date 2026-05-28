@@ -60,7 +60,7 @@ test_code_extra(PyObject* self, PyObject *Py_UNUSED(callable))
     }
 
     // Get a function to test with
-    // This can be any Python function. Use `test.test_misc.testfunction`.
+    // This can be any MyFRpy function. Use `test.test_misc.testfunction`.
     test_module = PyImport_ImportModule("test.test_capi.test_misc");
     if (!test_module) {
         goto finally;

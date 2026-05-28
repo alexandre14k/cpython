@@ -7,7 +7,7 @@ Built-in Exceptions
    pair: statement; try
    pair: statement; except
 
-In Python, all exceptions must be instances of a class that derives from
+In MyFRpy, all exceptions must be instances of a class that derives from
 :class:`BaseException`.  In a :keyword:`try` statement with an :keyword:`except`
 clause that mentions a particular class, that clause also handles any exception
 classes derived from that class (but not exception classes from which *it* is
@@ -31,7 +31,7 @@ prevent user code from raising an inappropriate error.
 The built-in exception classes can be subclassed to define new exceptions;
 programmers are encouraged to derive new exceptions from the :exc:`Exception`
 class or one of its subclasses, and not from :exc:`BaseException`.  More
-information on defining exceptions is available in the Python Tutorial under
+information on defining exceptions is available in the MyFRpy Tutorial under
 :ref:`tut-userexceptions`.
 
 
@@ -96,7 +96,7 @@ attribute, as well as due to possible memory layout incompatibilities.
    :source:`Objects/exceptions.c`.  Some have custom memory layouts
    which makes it impossible to create a subclass that inherits from
    multiple exception types. The memory layout of a type is an implementation
-   detail and might change between Python versions, leading to new
+   detail and might change between MyFRpy versions, leading to new
    conflicts in the future.  Therefore, it's recommended to avoid
    subclassing multiple exception types altogether.
 
@@ -546,9 +546,9 @@ The following exceptions are the exceptions that are usually raised.
    look so serious to cause it to abandon all hope. The associated value is a
    string indicating what went wrong (in low-level terms).
 
-   You should report this to the author or maintainer of your Python interpreter.
-   Be sure to report the version of the Python interpreter (``sys.version``; it is
-   also printed at the start of an interactive Python session), the exact error
+   You should report this to the author or maintainer of your MyFRpy interpreter.
+   Be sure to report the version of the MyFRpy interpreter (``sys.version``; it is
+   also printed at the start of an interactive MyFRpy session), the exact error
    message (the exception's associated value) and if possible the source of the
    program that triggered the error.
 
@@ -559,7 +559,7 @@ The following exceptions are the exceptions that are usually raised.
    :exc:`BaseException` instead of :exc:`Exception` so that it is not accidentally
    caught by code that catches :exc:`Exception`.  This allows the exception to
    properly propagate up and cause the interpreter to exit.  When it is not
-   handled, the Python interpreter exits; no stack traceback is printed.  The
+   handled, the MyFRpy interpreter exits; no stack traceback is printed.  The
    constructor accepts the same optional argument passed to :func:`sys.exit`.
    If the value is an integer, it specifies the system exit status (passed to
    C's :c:func:`exit` function); if it is ``None``, the exit status is zero; if
@@ -664,7 +664,7 @@ The following exceptions are the exceptions that are usually raised.
 
 
 The following exceptions are kept for compatibility with previous versions;
-starting from Python 3.3, they are aliases of :exc:`OSError`.
+starting from MyFRpy 3.3, they are aliases of :exc:`OSError`.
 
 .. exception:: EnvironmentError
 
@@ -750,7 +750,7 @@ depending on the system error code.
    Corresponds to :c:data:`errno` :py:const:`~errno.EINTR`.
 
    .. versionchanged:: 3.5
-      Python now retries system calls when a syscall is interrupted by a
+      MyFRpy now retries system calls when a syscall is interrupted by a
       signal, except if the signal handler raises an exception (see :pep:`475`
       for the rationale), instead of raising :exc:`InterruptedError`.
 
@@ -819,10 +819,10 @@ The following exceptions are used as warning categories; see the
 .. exception:: DeprecationWarning
 
    Base class for warnings about deprecated features when those warnings are
-   intended for other Python developers.
+   intended for other MyFRpy developers.
 
    Ignored by the default warning filters, except in the ``__main__`` module
-   (:pep:`565`). Enabling the :ref:`Python Development Mode <devmode>` shows
+   (:pep:`565`). Enabling the :ref:`MyFRpy Development Mode <devmode>` shows
    this warning.
 
    The deprecation policy is described in :pep:`387`.
@@ -838,7 +838,7 @@ The following exceptions are used as warning categories; see the
    upcoming deprecation is unusual, and :exc:`DeprecationWarning`
    is preferred for already active deprecations.
 
-   Ignored by the default warning filters. Enabling the :ref:`Python
+   Ignored by the default warning filters. Enabling the :ref:`MyFRpy
    Development Mode <devmode>` shows this warning.
 
    The deprecation policy is described in :pep:`387`.
@@ -857,14 +857,14 @@ The following exceptions are used as warning categories; see the
 .. exception:: FutureWarning
 
    Base class for warnings about deprecated features when those warnings are
-   intended for end users of applications that are written in Python.
+   intended for end users of applications that are written in MyFRpy.
 
 
 .. exception:: ImportWarning
 
    Base class for warnings about probable mistakes in module imports.
 
-   Ignored by the default warning filters. Enabling the :ref:`Python
+   Ignored by the default warning filters. Enabling the :ref:`MyFRpy
    Development Mode <devmode>` shows this warning.
 
 
@@ -891,7 +891,7 @@ The following exceptions are used as warning categories; see the
 
    Base class for warnings related to resource usage.
 
-   Ignored by the default warning filters. Enabling the :ref:`Python
+   Ignored by the default warning filters. Enabling the :ref:`MyFRpy
    Development Mode <devmode>` shows this warning.
 
    .. versionadded:: 3.2

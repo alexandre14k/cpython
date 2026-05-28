@@ -514,7 +514,7 @@ PyDoc_STRVAR(unicode_isidentifier__doc__,
 "isidentifier($self, /)\n"
 "--\n"
 "\n"
-"Return True if the string is a valid Python identifier, False otherwise.\n"
+"Return True if the string is a valid MyFRpy identifier, False otherwise.\n"
 "\n"
 "Call keyword.iskeyword(s) to test whether string s is a reserved identifier,\n"
 "such as \"def\" or \"class\".");

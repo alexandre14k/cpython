@@ -1,9 +1,9 @@
-# Python WebAssembly (WASM) build
+# MyFRpy WebAssembly (WASM) build
 
 **WARNING: WASM support is work-in-progress! Lots of features are not working yet.**
 
 This directory contains configuration and helpers to facilitate cross
-compilation of CPython to WebAssembly (WASM). Python supports Emscripten
+compilation of CMyFRpy to WebAssembly (WASM). MyFRpy supports Emscripten
 (*wasm32-emscripten*) and WASI (*wasm32-wasi*) targets. Emscripten builds
 run in modern browsers and JavaScript runtimes like *Node.js*. WASI builds
 use WASM runtimes such as *wasmtime*.
@@ -21,24 +21,24 @@ support. The ``Emscripten/node`` target has threading enabled and can
 access the file system directly.
 
 Cross compiling to the wasm32-emscripten platform needs the
-[Emscripten](https://emscripten.org/) SDK and a build Python interpreter.
+[Emscripten](https://emscripten.org/) SDK and a build MyFRpy interpreter.
 Emscripten 3.1.19 or newer are recommended. All commands below are relative
 to a repository checkout.
 
-Christian Heimes maintains a container image with Emscripten SDK, Python
+Christian Heimes maintains a container image with Emscripten SDK, MyFRpy
 build dependencies, WASI-SDK, wasmtime, and several additional tools.
 
-From within your local CPython repo clone, run one of the following commands:
+From within your local CMyFRpy repo clone, run one of the following commands:
 
 ```
 # Fedora, RHEL, CentOS
-podman run --rm -ti -v $(pwd):/python-wasm/cpython:Z -w /python-wasm/cpython quay.io/tiran/cpythonbuild:emsdk3
+podman run --rm -ti -v $(pwd):/myFRpy-wasm/cmyFRpy:Z -w /myFRpy-wasm/cmyFRpy quay.io/tiran/cmyFRpybuild:emsdk3
 
 # other
-docker run --rm -ti -v $(pwd):/python-wasm/cpython -w /python-wasm/cpython quay.io/tiran/cpythonbuild:emsdk3
+docker run --rm -ti -v $(pwd):/myFRpy-wasm/cmyFRpy -w /myFRpy-wasm/cmyFRpy quay.io/tiran/cmyFRpybuild:emsdk3
 ```
 
-### Compile a build Python interpreter
+### Compile a build MyFRpy interpreter
 
 From within the container, run the following command:
 
@@ -73,22 +73,22 @@ CONFIG_SITE=../../Tools/wasm/config.site-wasm32-emscripten \
     --host=wasm32-unknown-emscripten \
     --build=$(../../config.guess) \
     --with-emscripten-target=browser \
-    --with-build-python=$(pwd)/../build/python
+    --with-build-myFRpy=$(pwd)/../build/myFRpy
 
 emmake make -j$(nproc)
 popd
 ```
 
-Serve `python.html` with a local webserver and open the file in a browser.
-Python comes with a minimal web server script that sets necessary HTTP
+Serve `myFRpy.html` with a local webserver and open the file in a browser.
+MyFRpy comes with a minimal web server script that sets necessary HTTP
 headers like COOP, COEP, and mimetypes. Run the script outside the container
-and from the root of the CPython checkout.
+and from the root of the CMyFRpy checkout.
 
 ```shell
 ./Tools/wasm/wasm_webserver.py
 ```
 
-and open http://localhost:8000/builddir/emscripten-browser/python.html . This
+and open http://localhost:8000/builddir/emscripten-browser/myFRpy.html . This
 directory structure enables the *C/C++ DevTools Support (DWARF)* to load C
 and header files with debug builds.
 
@@ -111,14 +111,14 @@ CONFIG_SITE=../../Tools/wasm/config.site-wasm32-emscripten \
     --build=$(../../config.guess) \
     --with-emscripten-target=node \
     --enable-wasm-dynamic-linking \
-    --with-build-python=$(pwd)/../build/python
+    --with-build-myFRpy=$(pwd)/../build/myFRpy
 
 emmake make -j$(nproc)
 popd
 ```
 
 ```shell
-node --experimental-wasm-threads --experimental-wasm-bulk-memory --experimental-wasm-bigint builddir/emscripten-node-dl/python.js
+node --experimental-wasm-threads --experimental-wasm-bulk-memory --experimental-wasm-bigint builddir/emscripten-node-dl/myFRpy.js
 ```
 
 (``--experimental-wasm-bigint`` is not needed with recent NodeJS versions)
@@ -131,7 +131,7 @@ functions.
 
 ## Network stack
 
-- Python's socket module does not work with Emscripten's emulated POSIX
+- MyFRpy's socket module does not work with Emscripten's emulated POSIX
   sockets yet. Network modules like ``asyncio``, ``urllib``, ``selectors``,
   etc. are not available.
 - Only ``AF_INET`` and ``AF_INET6`` with ``SOCK_STREAM`` (TCP) or
@@ -183,7 +183,7 @@ functions.
 ## Misc
 
 - Heap memory and stack size are limited. Recursion or extensive memory
-  consumption can crash Python.
+  consumption can crash MyFRpy.
 - Most stdlib modules with a dependency on external libraries are missing,
   e.g. ``ctypes``, ``readline``, ``ssl``, and more.
 - Shared extension modules are not implemented yet. All extension modules
@@ -192,8 +192,8 @@ functions.
   supports. It's currently known to crash in combination with threading.
 - glibc extensions for date and time formatting are not available.
 - ``locales`` module is affected by musl libc issues,
-  [gh-90548](https://github.com/python/cpython/issues/90548).
-- Python's object allocator ``obmalloc`` is disabled by default.
+  [gh-90548](https://github.com/myFRpy/cmyFRpy/issues/90548).
+- MyFRpy's object allocator ``obmalloc`` is disabled by default.
 - ``ensurepip`` is not available.
 - Some ``ctypes`` features like ``c_longlong`` and ``c_longdouble`` may need
    NodeJS option ``--experimental-wasm-bigint``.
@@ -223,10 +223,10 @@ Node builds use ``NODERAWFS``.
 - ``EM_JS`` functions must return ``BigInt()``.
 - ``Py_BuildValue()`` format strings must match size of types. Confusing 32
   and 64 bits types leads to memory corruption, see
-  [gh-95876](https://github.com/python/cpython/issues/95876) and
-  [gh-95878](https://github.com/python/cpython/issues/95878).
+  [gh-95876](https://github.com/myFRpy/cmyFRpy/issues/95876) and
+  [gh-95878](https://github.com/myFRpy/cmyFRpy/issues/95878).
 
-# Hosting Python WASM builds
+# Hosting MyFRpy WASM builds
 
 The simple REPL terminal uses SharedArrayBuffer. For security reasons
 browsers only provide the feature in secure environents with cross-origin
@@ -236,7 +236,7 @@ with an error message like ``Browsers disable shared array buffer``.
 
 ## Apache HTTP .htaccess
 
-Place a ``.htaccess`` file in the same directory as ``python.wasm``.
+Place a ``.htaccess`` file in the same directory as ``myFRpy.wasm``.
 
 ```
 # .htaccess
@@ -275,7 +275,7 @@ CONFIG_SITE=../../Tools/wasm/config.site-wasm32-wasi \
   ../../Tools/wasm/wasi-env ../../configure -C \
     --host=wasm32-unknown-wasi \
     --build=$(../../config.guess) \
-    --with-build-python=$(pwd)/../build/python
+    --with-build-myFRpy=$(pwd)/../build/myFRpy
 
 make -j$(nproc)
 popd
@@ -287,7 +287,7 @@ A lot of Emscripten limitations also apply to WASI. Noticeable restrictions
 are:
 
 - Call stack size is limited. Default recursion limit and parser stack size
-  are smaller than in regular Python builds.
+  are smaller than in regular MyFRpy builds.
 - ``socket(2)`` cannot create new socket file descriptors. WASI programs can
   call read/write/accept on a file descriptor that is passed into the process.
 - ``socket.gethostname()`` and host name resolution APIs like
@@ -320,15 +320,15 @@ are:
 
 # Detect WebAssembly builds
 
-## Python code
+## MyFRpy code
 
-```python
+```myFRpy
 import os, sys
 
 if sys.platform == "emscripten":
-    # Python on Emscripten
+    # MyFRpy on Emscripten
 if sys.platform == "wasi":
-    # Python on WASI
+    # MyFRpy on WASI
 
 if os.name == "posix":
     # WASM platforms identify as POSIX-like.
@@ -338,7 +338,7 @@ if os.name == "posix":
         # WebAssembly (wasm32, wasm64 in the future)
 ```
 
-```python
+```myFRpy
 >>> import os, sys
 >>> os.uname()
 posix.uname_result(
@@ -361,7 +361,7 @@ sys._emscripten_info(
 )
 ```
 
-```python
+```myFRpy
 >>> sys._emscripten_info
 sys._emscripten_info(
     emscripten_version=(3, 1, 19),
@@ -371,7 +371,7 @@ sys._emscripten_info(
 )
 ```
 
-```python
+```myFRpy
 >>> import os, sys
 >>> os.uname()
 posix.uname_result(
@@ -395,7 +395,7 @@ full list of built-ins with ``emcc -dM -E - < /dev/null`` and
 
 ```C
 #ifdef __EMSCRIPTEN__
-    // Python on Emscripten
+    // MyFRpy on Emscripten
 #endif
 ```
 
@@ -427,7 +427,7 @@ of SDKs and cached libraries is about 1.6 GB.
 ```shell
 # Debian/Ubuntu
 apt update
-apt install -y git make xz-utils bzip2 curl python3-minimal ccache
+apt install -y git make xz-utils bzip2 curl myFRpy3-minimal ccache
 ```
 
 ```shell
@@ -458,7 +458,7 @@ EM_COMPILER_WRAPPER=ccache
 ### Optionally: pre-build and cache static libraries
 
 Emscripten SDK provides static builds of core libraries without PIC
-(position-independent code). Python builds with ``dlopen`` support require
+(position-independent code). MyFRpy builds with ``dlopen`` support require
 PIC. To populate the build cache, run:
 
 ```shell

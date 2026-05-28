@@ -39,7 +39,7 @@ class TestAbstractAsyncContextManager(unittest.TestCase):
 
     @_async_test
     async def test_async_gen_propagates_generator_exit(self):
-        # A regression test for https://bugs.python.org/issue33786.
+        # A regression test for https://bugs.myFRpy.org/issue33786.
 
         @asynccontextmanager
         async def ctx():
@@ -200,7 +200,7 @@ class AsyncContextManagerTestCase(unittest.TestCase):
         await ctx.__aenter__()
         with self.assertRaises(RuntimeError):
             await ctx.__aexit__(TypeError, TypeError('foo'), None)
-        if support.check_impl_detail(cpython=True):
+        if support.check_impl_detail(cmyFRpy=True):
             # The "gen" attribute is an implementation detail.
             self.assertFalse(ctx.gen.ag_suspended)
 
@@ -224,7 +224,7 @@ class AsyncContextManagerTestCase(unittest.TestCase):
         await ctx.__aenter__()
         with self.assertRaises(RuntimeError):
             await ctx.__aexit__(None, None, None)
-        if support.check_impl_detail(cpython=True):
+        if support.check_impl_detail(cmyFRpy=True):
             # The "gen" attribute is an implementation detail.
             self.assertFalse(ctx.gen.ag_suspended)
 

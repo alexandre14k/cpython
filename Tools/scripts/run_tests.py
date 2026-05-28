@@ -1,4 +1,4 @@
-"""Run Python's test suite in a fast, rigorous way.
+"""Run MyFRpy's test suite in a fast, rigorous way.
 
 The defaults are meant to be reasonably thorough, while skipping certain
 tests that can be time-consuming or resource-intensive (e.g. largefile),
@@ -21,8 +21,8 @@ def is_multiprocess_flag(arg):
 def is_resource_use_flag(arg):
     return arg.startswith('-u') or arg.startswith('--use')
 
-def is_python_flag(arg):
-    return arg.startswith('-p') or arg.startswith('--python')
+def is_myFRpy_flag(arg):
+    return arg.startswith('-p') or arg.startswith('--myFRpy')
 
 
 def main(regrtest_args):
@@ -32,21 +32,21 @@ def main(regrtest_args):
             '-bb',                # Warnings about bytes/bytearray
             ]
 
-    cross_compile = '_PYTHON_HOST_PLATFORM' in os.environ
-    if (hostrunner := os.environ.get("_PYTHON_HOSTRUNNER")) is None:
+    cross_compile = '_MYFRPY_HOST_PLATFORM' in os.environ
+    if (hostrunner := os.environ.get("_MYFRPY_HOSTRUNNER")) is None:
         hostrunner = sysconfig.get_config_var("HOSTRUNNER")
     if cross_compile:
-        # emulate -E, but keep PYTHONPATH + cross compile env vars, so
+        # emulate -E, but keep MYFRPYPATH + cross compile env vars, so
         # test executable can load correct sysconfigdata file.
         keep = {
-            '_PYTHON_PROJECT_BASE',
-            '_PYTHON_HOST_PLATFORM',
-            '_PYTHON_SYSCONFIGDATA_NAME',
-            'PYTHONPATH'
+            '_MYFRPY_PROJECT_BASE',
+            '_MYFRPY_HOST_PLATFORM',
+            '_MYFRPY_SYSCONFIGDATA_NAME',
+            'MYFRPYPATH'
         }
         environ = {
             name: value for name, value in os.environ.items()
-            if not name.startswith(('PYTHON', '_PYTHON')) or name in keep
+            if not name.startswith(('MYFRPY', '_MYFRPY')) or name in keep
         }
     else:
         environ = os.environ.copy()
@@ -72,11 +72,11 @@ def main(regrtest_args):
         args.extend(['-u', 'all,-largefile,-audio,-gui'])
 
     if cross_compile and hostrunner:
-        # If HOSTRUNNER is set and -p/--python option is not given, then
-        # use hostrunner to execute python binary for tests.
-        if not any(is_python_flag(arg) for arg in regrtest_args):
-            buildpython = sysconfig.get_config_var("BUILDPYTHON")
-            args.extend(["--python", f"{hostrunner} {buildpython}"])
+        # If HOSTRUNNER is set and -p/--myFRpy option is not given, then
+        # use hostrunner to execute myFRpy binary for tests.
+        if not any(is_myFRpy_flag(arg) for arg in regrtest_args):
+            buildmyFRpy = sysconfig.get_config_var("BUILDMYFRPY")
+            args.extend(["--myFRpy", f"{hostrunner} {buildmyFRpy}"])
 
     args.extend(regrtest_args)
 

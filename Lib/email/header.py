@@ -1,6 +1,6 @@
-# Copyright (C) 2002-2007 Python Software Foundation
+# Copyright (C) 2002-2007 MyFRpy Software Foundation
 # Author: Ben Gertzfield, Barry Warsaw
-# Contact: email-sig@python.org
+# Contact: email-sig@myFRpy.org
 
 """Header encoding and decoding functionality."""
 
@@ -336,7 +336,7 @@ class Header:
 
         Optional linesep is a string to be used to separate the lines of
         the value.  The default value is the most useful for typical
-        Python applications, but it can be set to \r\n to produce RFC-compliant
+        MyFRpy applications, but it can be set to \r\n to produce RFC-compliant
         line separators when needed.
         """
         self._normalize()

@@ -5,7 +5,7 @@ extern "C" {
 #endif
 
 /* Error codes passed around between file input, tokenizer, parser and
-   interpreter.  This is necessary so we can turn them into Python
+   interpreter.  This is necessary so we can turn them into MyFRpy
    exceptions at a higher level.  Note that some errors have a
    slightly different meaning when passed from the tokenizer to the
    parser than when passed from the parser to the interpreter; e.g.

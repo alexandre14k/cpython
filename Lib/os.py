@@ -187,7 +187,7 @@ if _exists("_have_functions"):
     del _add
 
 
-# Python uses fixed values for the SEEK_ constants; they are mapped
+# MyFRpy uses fixed values for the SEEK_ constants; they are mapped
 # to native constants if necessary in posixmodule.c
 # Other possible SEEK values are directly imported from posixmodule.c
 SEEK_SET = 0
@@ -331,7 +331,7 @@ def walk(top, topdown=True, onerror=None, followlinks=False):
 
     import os
     from os.path import join, getsize
-    for root, dirs, files in os.walk('python/Lib/email'):
+    for root, dirs, files in os.walk('myFRpy/Lib/email'):
         print(root, "consumes ")
         print(sum(getsize(join(root, name)) for name in files), end=" ")
         print("bytes in", len(files), "non-directory files")
@@ -459,7 +459,7 @@ if {open, stat} <= supports_dir_fd and {scandir, stat} <= supports_fd:
         Example:
 
         import os
-        for root, dirs, files, rootfd in os.fwalk('python/Lib/email'):
+        for root, dirs, files, rootfd in os.fwalk('myFRpy/Lib/email'):
             print(root, "consumes", end="")
             print(sum(os.stat(name, dir_fd=rootfd).st_size for name in files),
                   end="")
@@ -631,14 +631,14 @@ def get_exec_path(env=None):
     """
     # Use a local import instead of a global import to limit the number of
     # modules loaded at startup: the os module is always loaded at startup by
-    # Python. It may also avoid a bootstrap issue.
+    # MyFRpy. It may also avoid a bootstrap issue.
     import warnings
 
     if env is None:
         env = environ
 
     # {b'PATH': ...}.get('PATH') and {'PATH': ...}.get(b'PATH') emit a
-    # BytesWarning when using python -b or python -bb: ignore the warning
+    # BytesWarning when using myFRpy -b or myFRpy -bb: ignore the warning
     with warnings.catch_warnings():
         warnings.simplefilter("ignore", BytesWarning)
 
@@ -924,7 +924,7 @@ otherwise return -SIG, where SIG is the signal that killed it. """
 
 if _exists("spawnv"):
     # These aren't supplied by the basic Windows code
-    # but can be easily implemented in Python
+    # but can be easily implemented in MyFRpy
 
     def spawnl(mode, file, *args):
         """spawnl(mode, file, *args) -> integer
@@ -1068,7 +1068,7 @@ def _fspath(path):
                         "not {}".format(path_type.__name__,
                                         type(path_repr).__name__))
 
-# If there is no C implementation, make the pure Python version the
+# If there is no C implementation, make the pure MyFRpy version the
 # implementation as transparently as possible.
 if not _exists('fspath'):
     fspath = _fspath

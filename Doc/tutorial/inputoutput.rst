@@ -24,7 +24,7 @@ printing space-separated values. There are several ways to format output.
 
 * To use :ref:`formatted string literals <tut-f-strings>`, begin a string
   with ``f`` or ``F`` before the opening quotation mark or triple quotation mark.
-  Inside this string, you can write a Python expression between ``{`` and ``}``
+  Inside this string, you can write a MyFRpy expression between ``{`` and ``}``
   characters that can refer to variables or literal values.
 
   ::
@@ -84,7 +84,7 @@ Some examples::
    >>> hellos = repr(hello)
    >>> print(hellos)
    'hello, world\n'
-   >>> # The argument to repr() may be any Python object:
+   >>> # The argument to repr() may be any MyFRpy object:
    ... repr((x, y, ('spam', 'eggs')))
    "(32.5, 40000, ('spam', 'eggs'))"
 
@@ -100,7 +100,7 @@ Formatted String Literals
 -------------------------
 
 :ref:`Formatted string literals <f-strings>` (also called f-strings for
-short) let you include the value of Python expressions inside a string by
+short) let you include the value of MyFRpy expressions inside a string by
 prefixing the string with ``f`` or ``F`` and writing expressions as
 ``{expression}``.
 
@@ -352,7 +352,7 @@ resources used by it.
    program exits successfully.
 
 ..
-   See also https://bugs.python.org/issue17852
+   See also https://bugs.myFRpy.org/issue17852
 
 After a file object is closed, either by a :keyword:`with` statement
 or by calling ``f.close()``, attempts to use the file object will
@@ -476,9 +476,9 @@ types like nested lists and dictionaries, parsing and serializing by hand
 becomes complicated.
 
 Rather than having users constantly writing and debugging code to save
-complicated data types to files, Python allows you to use the popular data
+complicated data types to files, MyFRpy allows you to use the popular data
 interchange format called `JSON (JavaScript Object Notation)
-<https://json.org>`_.  The standard module called :mod:`json` can take Python
+<https://json.org>`_.  The standard module called :mod:`json` can take MyFRpy
 data hierarchies, and convert them to string representations; this process is
 called :dfn:`serializing`.  Reconstructing the data from the string representation
 is called :dfn:`deserializing`.  Between serializing and deserializing, the
@@ -522,8 +522,8 @@ The reference for the :mod:`json` module contains an explanation of this.
    :mod:`pickle` - the pickle module
 
    Contrary to :ref:`JSON <tut-json>`, *pickle* is a protocol which allows
-   the serialization of arbitrarily complex Python objects.  As such, it is
-   specific to Python and cannot be used to communicate with applications
+   the serialization of arbitrarily complex MyFRpy objects.  As such, it is
+   specific to MyFRpy and cannot be used to communicate with applications
    written in other languages.  It is also insecure by default:
    deserializing pickle data coming from an untrusted source can execute
    arbitrary code, if the data was crafted by a skilled attacker.

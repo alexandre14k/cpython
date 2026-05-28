@@ -573,7 +573,7 @@ class Skipper(FilterCrutch):
 # Takes a string for the doctype, subset string, and namespace attrs string.
 
 _FRAGMENT_BUILDER_INTERNAL_SYSTEM_ID = \
-    "http://xml.python.org/entities/fragment-builder/internal"
+    "http://xml.myFRpy.org/entities/fragment-builder/internal"
 
 _FRAGMENT_BUILDER_TEMPLATE = (
     '''\

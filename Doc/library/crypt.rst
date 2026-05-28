@@ -162,7 +162,7 @@ operation is needed to limit exposure to timing attacks.
    from hmac import compare_digest as compare_hash
 
    def login():
-       username = input('Python login: ')
+       username = input('MyFRpy login: ')
        cryptedpasswd = pwd.getpwnam(username)[1]
        if cryptedpasswd:
            if cryptedpasswd == 'x' or cryptedpasswd == '*':

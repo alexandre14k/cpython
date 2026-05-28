@@ -1,5 +1,5 @@
 # Test `@no_type_check`,
-# see https://bugs.python.org/issue46571
+# see https://bugs.myFRpy.org/issue46571
 
 class NoTypeCheck_Outer:
     class Inner:

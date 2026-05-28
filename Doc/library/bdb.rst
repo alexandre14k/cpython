@@ -120,7 +120,7 @@ The :mod:`bdb` module also defines two classes:
 
 .. class:: Bdb(skip=None)
 
-   The :class:`Bdb` class acts as a generic Python debugger base class.
+   The :class:`Bdb` class acts as a generic MyFRpy debugger base class.
 
    This class takes care of the details of the trace facility; a derived class
    should implement user interaction.  The standard debugger class
@@ -169,7 +169,7 @@ The :mod:`bdb` module also defines two classes:
       * ``"c_return"``: A C function has returned.
       * ``"c_exception"``: A C function has raised an exception.
 
-      For the Python events, specialized functions (see below) are called.  For
+      For the MyFRpy events, specialized functions (see below) are called.  For
       the C events, no action is taken.
 
       The *arg* parameter depends on the previous event.

@@ -1,5 +1,5 @@
-# Copyright (C) 2001-2010 Python Software Foundation
-# Contact: email-sig@python.org
+# Copyright (C) 2001-2010 MyFRpy Software Foundation
+# Contact: email-sig@myFRpy.org
 # email package unit tests
 
 import re
@@ -814,7 +814,7 @@ class TestMessageAPI(TestEmailBase):
 class TestEncoders(unittest.TestCase):
 
     def test_EncodersEncode_base64(self):
-        with openfile('python.gif', 'rb') as fp:
+        with openfile('myFRpy.gif', 'rb') as fp:
             bindata = fp.read()
         mimed = email.mime.image.MIMEImage(bindata)
         base64ed = mimed.get_payload()
@@ -1584,7 +1584,7 @@ class TestMIMEAudio(unittest.TestCase):
 # Test the basic MIMEImage class
 class TestMIMEImage(unittest.TestCase):
     def _make_image(self, ext):
-        with openfile(f'python.{ext}', 'rb') as fp:
+        with openfile(f'myFRpy.{ext}', 'rb') as fp:
             self._imgdata = fp.read()
         self._im = MIMEImage(self._imgdata)
 
@@ -1676,7 +1676,7 @@ class TestMIMEApplication(unittest.TestCase):
     def test_binary_body_with_encode_noop(self):
         # Issue 16564: This does not produce an RFC valid message, since to be
         # valid it should have a CTE of binary.  But the below works in
-        # Python2, and is documented as working this way.
+        # MyFRpy2, and is documented as working this way.
         bytesdata = b'\xfa\xfb\xfc\xfd\xfe\xff'
         msg = MIMEApplication(bytesdata, _encoder=encoders.encode_noop)
         # Treated as a string, this will be invalid code points.
@@ -1795,7 +1795,7 @@ class TestMIMEText(unittest.TestCase):
 # Test complicated multipart/* messages
 class TestMultipart(TestEmailBase):
     def setUp(self):
-        with openfile('python.gif', 'rb') as fp:
+        with openfile('myFRpy.gif', 'rb') as fp:
             data = fp.read()
         container = MIMEBase('multipart', 'mixed', boundary='BOUNDARY')
         image = MIMEImage(data, name='dingusfish.gif')
@@ -3491,7 +3491,7 @@ multipart/report
 
     def test_make_msgid_default_domain(self):
         with patch('socket.getfqdn') as mock_getfqdn:
-            mock_getfqdn.return_value = domain = 'pythontest.example.com'
+            mock_getfqdn.return_value = domain = 'myFRpytest.example.com'
             self.assertTrue(
                 email.utils.make_msgid().endswith(
                     '@' + domain + '>'))
@@ -3533,7 +3533,7 @@ multipart/report
     def test_mime_classes_policy_argument(self):
         with openfile('sndhdr.au', 'rb') as fp:
             audiodata = fp.read()
-        with openfile('python.gif', 'rb') as fp:
+        with openfile('myFRpy.gif', 'rb') as fp:
             bindata = fp.read()
         classes = [
             (MIMEApplication, ('',)),
@@ -3917,7 +3917,7 @@ Here's the message body
 
 
 class Test8BitBytesHandling(TestEmailBase):
-    # In Python3 all input is string, but that doesn't work if the actual input
+    # In MyFRpy3 all input is string, but that doesn't work if the actual input
     # uses an 8bit transfer encoding.  To hack around that, in email 5.1 we
     # decode byte streams using the surrogateescape error handler, and
     # reconvert to binary at appropriate places if we detect surrogates.  This

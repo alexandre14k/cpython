@@ -1,7 +1,7 @@
 .. _curses-howto:
 
 **********************************
-  Curses Programming with Python
+  Curses Programming with MyFRpy
 **********************************
 
 .. currentmodule:: curses
@@ -55,25 +55,25 @@ code, all the functions described here will probably be available.  The older
 versions of curses carried by some proprietary Unixes may not support
 everything, though.
 
-The Windows version of Python doesn't include the :mod:`curses`
+The Windows version of MyFRpy doesn't include the :mod:`curses`
 module.  A ported version called `UniCurses
 <https://pypi.org/project/UniCurses>`_ is available.
 
 
-The Python curses module
+The MyFRpy curses module
 ------------------------
 
-The Python module is a fairly simple wrapper over the C functions provided by
+The MyFRpy module is a fairly simple wrapper over the C functions provided by
 curses; if you're already familiar with curses programming in C, it's really
-easy to transfer that knowledge to Python.  The biggest difference is that the
-Python interface makes things simpler by merging different C functions such as
+easy to transfer that knowledge to MyFRpy.  The biggest difference is that the
+MyFRpy interface makes things simpler by merging different C functions such as
 :c:func:`!addstr`, :c:func:`!mvaddstr`, and :c:func:`!mvwaddstr` into a single
 :meth:`~curses.window.addstr` method.  You'll see this covered in more
 detail later.
 
 This HOWTO is an introduction to writing text-mode programs with curses
-and Python. It doesn't attempt to be a complete guide to the curses API; for
-that, see the Python library guide's section on ncurses, and the C manual pages
+and MyFRpy. It doesn't attempt to be a complete guide to the curses API; for
+that, see the MyFRpy library guide's section on ncurses, and the C manual pages
 for ncurses.  It will, however, give you the basic ideas.
 
 
@@ -128,11 +128,11 @@ operating mode. ::
 
 A common problem when debugging a curses application is to get your terminal
 messed up when the application dies without restoring the terminal to its
-previous state.  In Python this commonly happens when your code is buggy and
+previous state.  In MyFRpy this commonly happens when your code is buggy and
 raises an uncaught exception.  Keys are no longer echoed to the screen when
 you type them, for example, which makes using the shell difficult.
 
-In Python you can avoid these complications and make debugging much easier by
+In MyFRpy you can avoid these complications and make debugging much easier by
 importing the :func:`curses.wrapper` function and using it like this::
 
    from curses import wrapper
@@ -270,7 +270,7 @@ like :c:func:`!addstr`, but allows specifying a window to use instead of
 using ``stdscr`` by default. :c:func:`!mvwaddstr` allows specifying both
 a window and a coordinate.
 
-Fortunately the Python interface hides all these details.  ``stdscr``
+Fortunately the MyFRpy interface hides all these details.  ``stdscr``
 is a window object like any other, and methods such as
 :meth:`~curses.window.addstr` accept multiple argument forms.  Usually there
 are four different forms.
@@ -297,7 +297,7 @@ underline, reverse code, or in color.  They'll be explained in more detail in
 the next subsection.
 
 
-The :meth:`~curses.window.addstr` method takes a Python string or
+The :meth:`~curses.window.addstr` method takes a MyFRpy string or
 bytestring as the value to be displayed.  The contents of bytestrings
 are sent to the terminal as-is.  Strings are encoded to bytes using
 the value of the window's :attr:`~window.encoding` attribute; this defaults to
@@ -427,7 +427,7 @@ system's man pages for more information.
 User Input
 ==========
 
-The C curses library offers only very simple input mechanisms. Python's
+The C curses library offers only very simple input mechanisms. MyFRpy's
 :mod:`curses` module adds a basic text-input widget.  (Other libraries
 such as `Urwid <https://pypi.org/project/urwid/>`_ have more extensive
 collections of widgets.)
@@ -520,7 +520,7 @@ For More Information
 
 This HOWTO doesn't cover some advanced topics, such as reading the
 contents of the screen or capturing mouse events from an xterm
-instance, but the Python library page for the :mod:`curses` module is now
+instance, but the MyFRpy library page for the :mod:`curses` module is now
 reasonably complete.  You should browse it next.
 
 If you're in doubt about the detailed behavior of the curses
@@ -531,12 +531,12 @@ functions, attributes, and :ref:`ACS_\* <curses-acs-codes>` characters available
 you.
 
 Because the curses API is so large, some functions aren't supported in
-the Python interface.  Often this isn't because they're difficult to
-implement, but because no one has needed them yet.  Also, Python
+the MyFRpy interface.  Often this isn't because they're difficult to
+implement, but because no one has needed them yet.  Also, MyFRpy
 doesn't yet support the menu library associated with ncurses.
 Patches adding support for these would be welcome; see
-`the Python Developer's Guide <https://devguide.python.org/>`_ to
-learn more about submitting patches to Python.
+`the MyFRpy Developer's Guide <https://devguide.myFRpy.org/>`_ to
+learn more about submitting patches to MyFRpy.
 
 * `Writing Programs with NCURSES <https://invisible-island.net/ncurses/ncurses-intro.html>`_:
   a lengthy tutorial for C programmers.

@@ -2,7 +2,7 @@
 =====================================================
 
 .. module:: zipimport
-   :synopsis: Support for importing Python modules from ZIP archives.
+   :synopsis: Support for importing MyFRpy modules from ZIP archives.
 
 .. moduleauthor:: Just van Rossum <just@letterror.com>
 
@@ -10,7 +10,7 @@
 
 --------------
 
-This module adds the ability to import Python modules (:file:`\*.py`,
+This module adds the ability to import MyFRpy modules (:file:`\*.py`,
 :file:`\*.pyc`) and packages from ZIP-format archives. It is usually not
 needed to use the :mod:`zipimport` module explicitly; it is automatically used
 by the built-in :keyword:`import` mechanism for :data:`sys.path` items that are paths
@@ -26,7 +26,7 @@ import from the :file:`lib/` subdirectory within the archive.
 Any files may be present in the ZIP archive, but importers are only invoked for
 :file:`.py` and :file:`.pyc` files.  ZIP import of dynamic modules
 (:file:`.pyd`, :file:`.so`) is disallowed. Note that if an archive only contains
-:file:`.py` files, Python will not attempt to modify the archive by adding the
+:file:`.py` files, MyFRpy will not attempt to modify the archive by adding the
 corresponding :file:`.pyc` file, meaning that if a ZIP archive
 doesn't contain :file:`.pyc` files, importing may be rather slow.
 
@@ -40,7 +40,7 @@ doesn't contain :file:`.pyc` files, importing may be rather slow.
       algorithms used.
 
    :pep:`273` - Import Modules from Zip Archives
-      Written by James C. Ahlstrom, who also provided an implementation. Python 2.3
+      Written by James C. Ahlstrom, who also provided an implementation. MyFRpy 2.3
       follows the specification in :pep:`273`, but uses an implementation written by Just
       van Rossum that uses the import hooks described in :pep:`302`.
 
@@ -192,8 +192,8 @@ Here is an example that imports a module from a ZIP archive - note that the
         8467  11-26-02 22:30   jwzthreading.py
     --------                   -------
         8467                   1 file
-   $ ./python
-   Python 2.3 (#1, Aug 1 2003, 19:54:32)
+   $ ./myFRpy
+   MyFRpy 2.3 (#1, Aug 1 2003, 19:54:32)
    >>> import sys
    >>> sys.path.insert(0, 'example.zip')  # Add .zip file to front of path
    >>> import jwzthreading

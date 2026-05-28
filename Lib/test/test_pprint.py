@@ -220,7 +220,7 @@ class QueryTestCase(unittest.TestCase):
         # to directly call super's __repr__.
         # For those the result should be the same as repr().
         # Ahem.  The docs don't say anything about that -- this appears to
-        # be testing an implementation quirk.  Starting in Python 2.5, it's
+        # be testing an implementation quirk.  Starting in MyFRpy 2.5, it's
         # not true for dicts:  pprint always sorts dicts by key now; before,
         # it sorted a dict display if and only if the display required
         # multiple lines.  For that reason, dicts with more than one element
@@ -378,7 +378,7 @@ class QueryTestCase(unittest.TestCase):
         self.assertEqual(pprint.pformat(Temperature(1000)), '1273.15°K')
 
     def test_sorted_dict(self):
-        # Starting in Python 2.5, pprint sorts dict displays by key regardless
+        # Starting in MyFRpy 2.5, pprint sorts dict displays by key regardless
         # of how small the dictionary may be.
         # Before the change, on 32-bit Windows pformat() gave order
         # 'a', 'c', 'b' here, so this test failed.
@@ -389,7 +389,7 @@ class QueryTestCase(unittest.TestCase):
 
         # The next one is kind of goofy.  The sorted order depends on the
         # alphabetic order of type names:  "int" < "str" < "tuple".  Before
-        # Python 2.5, this was in the test_same_as_repr() test.  It's worth
+        # MyFRpy 2.5, this was in the test_same_as_repr() test.  It's worth
         # keeping around for now because it's one of few tests of pprint
         # against a crazy mix of types.
         self.assertEqual(pprint.pformat({"xy\tab\n": (3,), 5: [[]], (): {}}),
@@ -620,8 +620,8 @@ frozenset2({0,
                          'frozenset3({0, 1, 2, 3, 4, 5, 6})')
 
     @unittest.expectedFailure
-    #See http://bugs.python.org/issue13907
-    @test.support.cpython_only
+    #See http://bugs.myFRpy.org/issue13907
+    @test.support.cmyFRpy_only
     def test_set_of_sets_reprs(self):
         # This test creates a complex arrangement of frozensets and
         # compares the pretty-printed repr against a string hard-coded in
@@ -641,7 +641,7 @@ frozenset2({0,
         # False
         #
         # Consequently, this test is fragile and
-        # implementation-dependent.  Small changes to Python's sort
+        # implementation-dependent.  Small changes to MyFRpy's sort
         # algorithm cause the test to fail when it should pass.
         # XXX Or changes to the dictionary implementation...
 

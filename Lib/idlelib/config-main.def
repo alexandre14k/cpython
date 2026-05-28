@@ -39,7 +39,7 @@
 # menu.  The pattern, and two examples, are:
 #
 # <sequence_number = menu item;/path/to/help/source>
-# 1 = IDLE;C:/Programs/Python36/Lib/idlelib/help.html
+# 1 = IDLE;C:/Programs/MyFRpy36/Lib/idlelib/help.html
 # 2 = Pillow;https://pillow.readthedocs.io/en/latest/
 #
 # You can't use a semi-colon in a menu item or path.  The path will be

@@ -3,7 +3,7 @@
 
     <Target Name="ProcessInstallFiles"
             AfterTargets="PrepareForBuild"
-            DependsOnTargets="FindPythonForBuild"
+            DependsOnTargets="FindMyFRpyForBuild"
             Condition="@(InstallFiles) != ''">
         <PropertyGroup>
             <_FileListTarget>$(IntermediateOutputPath)$(MSBuildProjectName).g.csv</_FileListTarget>
@@ -20,7 +20,7 @@
         </ItemGroup>
 
         <WriteLinesToFile File="$(_FileListTarget)" Lines="@(InstallFiles->'&quot;%(_Source)&quot;,&quot;%(_Target)&quot;,&quot;%(Group)&quot;,&quot;%(DiskId)&quot;,&quot;%(Condition)&quot;')" Overwrite="true" />
-        <Exec Command='$(PythonForBuild) csv_to_wxs.py "$(_FileListTarget)" "$(_InstallFilesTarget)"'
+        <Exec Command='$(MyFRpyForBuild) csv_to_wxs.py "$(_FileListTarget)" "$(_InstallFilesTarget)"'
               WorkingDirectory="$(MSBuildThisFileDirectory)" />
 
         <ItemGroup>
@@ -32,7 +32,7 @@
     <Target Name="GenerateCatalog" AfterTargets="ProcessInstallFiles" Condition="'@(_CatalogFiles)' != ''">
         <PropertyGroup>
             <_CatFileSourceTarget>$(IntermediateOutputPath)$(MSBuildProjectName).cdf</_CatFileSourceTarget>
-            <_CatFileTarget>$(IntermediateOutputPath)python_$(MSBuildProjectName).cat</_CatFileTarget>
+            <_CatFileTarget>$(IntermediateOutputPath)myFRpy_$(MSBuildProjectName).cat</_CatFileTarget>
             <_CatFile>[CatalogHeader]
 Name=$([System.IO.Path]::GetFileName($(_CatFileTarget)))
 ResultDir=$([System.IO.Path]::GetDirectoryName($(_CatFileTarget)))
@@ -60,7 +60,7 @@ EncodingType=
 
     <Target Name="_TransformWxlTemplates" AfterTargets="PrepareForBuild" Inputs="@(WxlTemplate);$(PySourcePath)include\patchlevel.h" Outputs="$(IntermediateOutputPath)%(Filename).wxl">
         <PropertyGroup Condition="'@(WxlTemplate)' != ''">
-            <_Content>$([System.IO.File]::ReadAllText(%(WxlTemplate.FullPath)).Replace(`{{ShortVersion}}`, `$(MajorVersionNumber).$(MinorVersionNumber)$(PyTestExt)`).Replace(`{{LongVersion}}`, `$(PythonVersion)$(PyTestExt)`).Replace(`{{Bitness}}`, `$(Bitness)`))</_Content>
+            <_Content>$([System.IO.File]::ReadAllText(%(WxlTemplate.FullPath)).Replace(`{{ShortVersion}}`, `$(MajorVersionNumber).$(MinorVersionNumber)$(PyTestExt)`).Replace(`{{LongVersion}}`, `$(MyFRpyVersion)$(PyTestExt)`).Replace(`{{Bitness}}`, `$(Bitness)`))</_Content>
             <_ExistingContent Condition="Exists('$(IntermediateOutputPath)%(WxlTemplate.Filename).wxl')">$([System.IO.File]::ReadAllText($(IntermediateOutputPath)%(WxlTemplate.Filename).wxl))</_ExistingContent>
         </PropertyGroup>
         

@@ -1,9 +1,9 @@
 # This is a variant of the very old (early 90's) file
 # Demo/threads/bug.py.  It simply provokes a number of threads into
 # trying to import the same module "at the same time".
-# There are no pleasant failure modes -- most likely is that Python
+# There are no pleasant failure modes -- most likely is that MyFRpy
 # complains several times about module random having no attribute
-# randrange, and then Python hangs.
+# randrange, and then MyFRpy hangs.
 
 import _imp as imp
 import os
@@ -97,7 +97,7 @@ class ThreadedImportTests(unittest.TestCase):
     def tearDown(self):
         # If the `random` module was already initialized, we restore the
         # old module at the end so that pickling tests don't fail.
-        # See http://bugs.python.org/issue3657#msg110461
+        # See http://bugs.myFRpy.org/issue3657#msg110461
         if self.old_random is not None:
             sys.modules['random'] = self.old_random
 
@@ -246,13 +246,13 @@ class ThreadedImportTests(unittest.TestCase):
         # Regression test for bpo-43515
         fn = os.path.join(os.path.dirname(__file__),
                           'partial', 'cfimport.py')
-        script_helper.assert_python_ok(fn)
+        script_helper.assert_myFRpy_ok(fn)
 
     def test_multiprocessing_pool_circular_import(self):
         # Regression test for bpo-41567
         fn = os.path.join(os.path.dirname(__file__),
                           'partial', 'pool_in_threads.py')
-        script_helper.assert_python_ok(fn)
+        script_helper.assert_myFRpy_ok(fn)
 
 
 def setUpModule():

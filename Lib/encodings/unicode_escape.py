@@ -1,4 +1,4 @@
-""" Python 'unicode-escape' Codec
+""" MyFRpy 'unicode-escape' Codec
 
 
 Written by Marc-Andre Lemburg (mal@lemburg.com).

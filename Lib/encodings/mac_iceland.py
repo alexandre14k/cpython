@@ -1,4 +1,4 @@
-""" Python Character Mapping Codec mac_iceland generated from 'MAPPINGS/VENDORS/APPLE/ICELAND.TXT' with gencodec.py.
+""" MyFRpy Character Mapping Codec mac_iceland generated from 'MAPPINGS/VENDORS/APPLE/ICELAND.TXT' with gencodec.py.
 
 """#"
 

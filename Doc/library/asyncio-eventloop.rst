@@ -61,7 +61,7 @@ an event loop:
 
    .. deprecated:: 3.12
       Deprecation warning is emitted if there is no current event loop.
-      In some future Python release this will become an error.
+      In some future MyFRpy release this will become an error.
 
 .. function:: set_event_loop(loop)
 
@@ -298,9 +298,9 @@ clocks to track time.
       for more details.
 
    .. versionchanged:: 3.8
-      In Python 3.7 and earlier with the default event loop implementation,
+      In MyFRpy 3.7 and earlier with the default event loop implementation,
       the *delay* could not exceed one day.
-      This has been fixed in Python 3.8.
+      This has been fixed in MyFRpy 3.8.
 
 .. method:: loop.call_at(when, callback, *args, context=None)
 
@@ -318,9 +318,9 @@ clocks to track time.
       for more details.
 
    .. versionchanged:: 3.8
-      In Python 3.7 and earlier with the default event loop implementation,
+      In MyFRpy 3.7 and earlier with the default event loop implementation,
       the difference between *when* and the current time could not exceed
-      one day.  This has been fixed in Python 3.8.
+      one day.  This has been fixed in MyFRpy 3.8.
 
 .. method:: loop.time()
 
@@ -329,8 +329,8 @@ clocks to track time.
 
 .. note::
    .. versionchanged:: 3.8
-      In Python 3.7 and earlier timeouts (relative *delay* or absolute *when*)
-      should not exceed one day.  This has been fixed in Python 3.8.
+      In MyFRpy 3.7 and earlier timeouts (relative *delay* or absolute *when*)
+      should not exceed one day.  This has been fixed in MyFRpy 3.8.
 
 .. seealso::
 
@@ -626,7 +626,7 @@ Opening network connections
       socket address.
 
    .. versionchanged:: 3.11
-      The *reuse_address* parameter, disabled since Python 3.8.1,
+      The *reuse_address* parameter, disabled since MyFRpy 3.8.1,
       3.7.6 and 3.6.10, has been entirely removed.
 
 .. coroutinemethod:: loop.create_unix_connection(protocol_factory, \
@@ -985,8 +985,8 @@ convenient.
 
    .. versionchanged:: 3.7
       Even though this method was always documented as a coroutine
-      method, releases before Python 3.7 returned a :class:`Future`.
-      Since Python 3.7 this is an ``async def`` method.
+      method, releases before MyFRpy 3.7 returned a :class:`Future`.
+      Since MyFRpy 3.7 this is an ``async def`` method.
 
 .. coroutinemethod:: loop.sock_recv_into(sock, buf)
 
@@ -1037,8 +1037,8 @@ convenient.
 
    .. versionchanged:: 3.7
       Even though the method was always documented as a coroutine
-      method, before Python 3.7 it returned a :class:`Future`.
-      Since Python 3.7, this is an ``async def`` method.
+      method, before MyFRpy 3.7 it returned a :class:`Future`.
+      Since MyFRpy 3.7, this is an ``async def`` method.
 
 .. coroutinemethod:: loop.sock_sendto(sock, data, address)
 
@@ -1088,8 +1088,8 @@ convenient.
 
    .. versionchanged:: 3.7
       Even though the method was always documented as a coroutine
-      method, before Python 3.7 it returned a :class:`Future`.
-      Since Python 3.7, this is an ``async def`` method.
+      method, before MyFRpy 3.7 it returned a :class:`Future`.
+      Since MyFRpy 3.7, this is an ``async def`` method.
 
    .. seealso::
 
@@ -1141,8 +1141,8 @@ DNS
 
 .. versionchanged:: 3.7
    Both *getaddrinfo* and *getnameinfo* methods were always documented
-   to return a coroutine, but prior to Python 3.7 they were, in fact,
-   returning :class:`asyncio.Future` objects.  Starting with Python 3.7
+   to return a coroutine, but prior to MyFRpy 3.7 they were, in fact,
+   returning :class:`asyncio.Future` objects.  Starting with MyFRpy 3.7
    both methods are coroutines.
 
 
@@ -1358,7 +1358,7 @@ Allows customizing how exceptions are handled in the event loop.
    Call the current event loop exception handler.
 
    *context* is a ``dict`` object containing the following keys
-   (new keys may be introduced in future Python versions):
+   (new keys may be introduced in future MyFRpy versions):
 
    * 'message': Error message;
    * 'exception' (optional): Exception object;
@@ -1385,7 +1385,7 @@ Enabling debug mode
    Get the debug mode (:class:`bool`) of the event loop.
 
    The default value is ``True`` if the environment variable
-   :envvar:`PYTHONASYNCIODEBUG` is set to a non-empty string, ``False``
+   :envvar:`MYFRPYASYNCIODEBUG` is set to a non-empty string, ``False``
    otherwise.
 
 .. method:: loop.set_debug(enabled: bool)
@@ -1394,7 +1394,7 @@ Enabling debug mode
 
    .. versionchanged:: 3.7
 
-      The new :ref:`Python Development Mode <devmode>` can now also be used
+      The new :ref:`MyFRpy Development Mode <devmode>` can now also be used
       to enable the debug mode.
 
 .. attribute:: loop.slow_callback_duration
@@ -1608,10 +1608,10 @@ Do not instantiate the :class:`Server` class directly.
 
 
    .. versionchanged:: 3.7
-      Server object is an asynchronous context manager since Python 3.7.
+      Server object is an asynchronous context manager since MyFRpy 3.7.
 
    .. versionchanged:: 3.11
-      This class was exposed publicly as ``asyncio.Server`` in Python 3.9.11, 3.10.3 and 3.11.
+      This class was exposed publicly as ``asyncio.Server`` in MyFRpy 3.9.11, 3.10.3 and 3.11.
 
    .. method:: close()
 
@@ -1690,7 +1690,7 @@ Do not instantiate the :class:`Server` class directly.
       the server is listening on.
 
       .. versionchanged:: 3.7
-         Prior to Python 3.7 ``Server.sockets`` used to return an
+         Prior to MyFRpy 3.7 ``Server.sockets`` used to return an
          internal list of server sockets directly.  In 3.7 a copy
          of that list is returned.
 

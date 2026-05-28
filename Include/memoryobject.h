@@ -1,4 +1,4 @@
-/* Memory view object. In Python this is available as "memoryview". */
+/* Memory view object. In MyFRpy this is available as "memoryview". */
 
 #ifndef Py_MEMORYOBJECT_H
 #define Py_MEMORYOBJECT_H
@@ -23,9 +23,9 @@ PyAPI_FUNC(PyObject *) PyMemoryView_GetContiguous(PyObject *base,
                                                   char order);
 
 #ifndef Py_LIMITED_API
-#  define Py_CPYTHON_MEMORYOBJECT_H
-#  include "cpython/memoryobject.h"
-#  undef Py_CPYTHON_MEMORYOBJECT_H
+#  define Py_CMYFRPY_MEMORYOBJECT_H
+#  include "cmyFRpy/memoryobject.h"
+#  undef Py_CMYFRPY_MEMORYOBJECT_H
 #endif
 
 #ifdef __cplusplus

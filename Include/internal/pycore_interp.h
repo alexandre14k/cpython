@@ -99,7 +99,7 @@ struct _is {
         /* Support for runtime thread stack size tuning.
            A value of 0 means using the platform's default stack size
            or the size specified by the THREAD_STACK_SIZE macro. */
-        /* Used in Python/thread.c. */
+        /* Used in MyFRpy/thread.c. */
         size_t stacksize;
     } threads;
 

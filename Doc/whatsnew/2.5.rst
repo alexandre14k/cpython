@@ -1,5 +1,5 @@
 ****************************
-  What's New in Python 2.5
+  What's New in MyFRpy 2.5
 ****************************
 
 :Author: A.M. Kuchling
@@ -9,12 +9,12 @@
 .. $Id: whatsnew25.tex 56611 2007-07-29 08:26:10Z georg.brandl $
 .. Fix XXX comments
 
-This article explains the new features in Python 2.5.  The final release of
-Python 2.5 is scheduled for August 2006; :pep:`356` describes the planned
-release schedule.  Python 2.5 was released on September 19, 2006.
+This article explains the new features in MyFRpy 2.5.  The final release of
+MyFRpy 2.5 is scheduled for August 2006; :pep:`356` describes the planned
+release schedule.  MyFRpy 2.5 was released on September 19, 2006.
 
-The changes in Python 2.5 are an interesting mix of language and library
-improvements. The library enhancements will be more important to Python's user
+The changes in MyFRpy 2.5 are an interesting mix of language and library
+improvements. The library enhancements will be more important to MyFRpy's user
 community, I think, because several widely useful packages were added.  New
 modules include ElementTree for XML processing (:mod:`xml.etree`),
 the SQLite database module (:mod:`sqlite`), and the :mod:`ctypes`
@@ -29,21 +29,21 @@ into generators (section :ref:`pep-342`).  Imports are now visible as either
 absolute or relative (section :ref:`pep-328`).  Some corner cases of exception
 handling are handled better (section :ref:`pep-341`).  All these improvements
 are worthwhile, but they're improvements to one specific language feature or
-another; none of them are broad modifications to Python's semantics.
+another; none of them are broad modifications to MyFRpy's semantics.
 
 As well as the language and library additions, other improvements and bugfixes
 were made throughout the source tree.  A search through the SVN change logs
-finds there were 353 patches applied and 458 bugs fixed between Python 2.4 and
+finds there were 353 patches applied and 458 bugs fixed between MyFRpy 2.4 and
 2.5.  (Both figures are likely to be underestimates.)
 
 This article doesn't try to be a complete specification of the new features;
 instead changes are briefly introduced using helpful examples.  For full
-details, you should always refer to the documentation for Python 2.5 at
-https://docs.python.org. If you want to understand the complete implementation
+details, you should always refer to the documentation for MyFRpy 2.5 at
+https://docs.myFRpy.org. If you want to understand the complete implementation
 and design rationale, refer to the PEP for a particular new feature.
 
 Comments, suggestions, and error reports for this document are welcome; please
-e-mail them to the author or open a bug in the Python bug tracker.
+e-mail them to the author or open a bug in the MyFRpy bug tracker.
 
 .. ======================================================================
 
@@ -63,8 +63,8 @@ write a single assignment statement that has the same effect as the following::
    else:
        x = false_value
 
-There have been endless tedious discussions of syntax on both python-dev and
-comp.lang.python.  A vote was even held that found the majority of voters wanted
+There have been endless tedious discussions of syntax on both myFRpy-dev and
+comp.lang.myFRpy.  A vote was even held that found the majority of voters wanted
 conditional expressions in some form, but there was no syntax that was preferred
 by a clear majority. Candidates included C's ``cond ? true_v : false_v``, ``if
 cond then true_v else false_v``, and 16 other variations.
@@ -96,7 +96,7 @@ where there  isn't a clear common and uncommon case.
 
 There was some discussion of whether the language should require surrounding
 conditional expressions with parentheses.  The decision was made to *not*
-require parentheses in the Python language's grammar, but as a matter of style I
+require parentheses in the MyFRpy language's grammar, but as a matter of style I
 think you should always use them. Consider these two statements::
 
    # First version -- no parens
@@ -137,7 +137,7 @@ programming.
 One useful tool in this module is the :func:`partial` function. For programs
 written in a functional style, you'll sometimes want to construct variants of
 existing functions that have some of the parameters filled in.  Consider a
-Python function ``f(a, b, c)``; you could create a new function ``g(b, c)`` that
+MyFRpy function ``f(a, b, c)``; you could create a new function ``g(b, c)`` that
 was equivalent to ``f(1, b, c)``.  This is called "partial function
 application".
 
@@ -206,7 +206,7 @@ example would be::
 
 .. _pep-314:
 
-PEP 314: Metadata for Python Software Packages v1.1
+PEP 314: Metadata for MyFRpy Software Packages v1.1
 ===================================================
 
 Some simple dependency support was added to Distutils.  The :func:`setup`
@@ -228,13 +228,13 @@ required packages. ::
                        % VERSION),
         )
 
-Another new enhancement to the Python package index at
+Another new enhancement to the MyFRpy package index at
 https://pypi.org is storing source and binary archives for a
 package.  The new :command:`upload` Distutils command will upload a package to
 the repository.
 
 Before a package can be uploaded, you must be able to build a distribution using
-the :command:`sdist` Distutils command.  Once that works, you can run ``python
+the :command:`sdist` Distutils command.  Once that works, you can run ``myFRpy
 setup.py upload`` to add your package to the PyPI archive.  Optionally you can
 GPG-sign the package by supplying the :option:`!--sign` and :option:`!--identity`
 options.
@@ -244,7 +244,7 @@ Package uploading was implemented by Martin von Löwis and Richard Jones.
 
 .. seealso::
 
-   :pep:`314` - Metadata for Python Software Packages v1.1
+   :pep:`314` - Metadata for MyFRpy Software Packages v1.1
       PEP proposed and written by A.M. Kuchling, Richard Jones, and Fred Drake;
       implemented by Richard Jones and Fred Drake.
 
@@ -256,13 +256,13 @@ Package uploading was implemented by Martin von Löwis and Richard Jones.
 PEP 328: Absolute and Relative Imports
 ======================================
 
-The simpler part of :pep:`328` was implemented in Python 2.4: parentheses could now
+The simpler part of :pep:`328` was implemented in MyFRpy 2.4: parentheses could now
 be used to enclose the names imported from a module using the ``from ... import
 ...`` statement, making it easier to import many different names.
 
-The more complicated part has been implemented in Python 2.5: importing a module
+The more complicated part has been implemented in MyFRpy 2.5: importing a module
 can be specified to use absolute or package-relative imports.  The plan is to
-move toward making absolute imports the default in future versions of Python.
+move toward making absolute imports the default in future versions of MyFRpy.
 
 Let's say you have a package directory like this::
 
@@ -275,30 +275,30 @@ This defines a package named :mod:`pkg` containing the :mod:`pkg.main` and
 :mod:`pkg.string` submodules.
 
 Consider the code in the :file:`main.py` module.  What happens if it executes
-the statement ``import string``?  In Python 2.4 and earlier, it will first look
+the statement ``import string``?  In MyFRpy 2.4 and earlier, it will first look
 in the package's directory to perform a relative import, finds
 :file:`pkg/string.py`, imports the contents of that file as the
 :mod:`pkg.string` module, and that module is bound to the name ``string`` in the
 :mod:`pkg.main` module's namespace.
 
 That's fine if :mod:`pkg.string` was what you wanted.  But what if you wanted
-Python's standard :mod:`string` module?  There's no clean way to ignore
+MyFRpy's standard :mod:`string` module?  There's no clean way to ignore
 :mod:`pkg.string` and look for the standard module; generally you had to look at
 the contents of ``sys.modules``, which is slightly unclean.    Holger Krekel's
 :mod:`py.std` package provides a tidier way to perform imports from the standard
 library, ``import py; py.std.string.join()``, but that package isn't available
-on all Python installations.
+on all MyFRpy installations.
 
 Reading code which relies on relative imports is also less clear, because a
 reader may be confused about which module, :mod:`string` or :mod:`pkg.string`,
-is intended to be used.  Python users soon learned not to duplicate the names of
+is intended to be used.  MyFRpy users soon learned not to duplicate the names of
 standard library modules in the names of their packages' submodules, but you
 can't protect against having your submodule's name being used for a new module
-added in a future version of Python.
+added in a future version of MyFRpy.
 
-In Python 2.5, you can switch :keyword:`import`'s behaviour to  absolute imports
+In MyFRpy 2.5, you can switch :keyword:`import`'s behaviour to  absolute imports
 using a ``from __future__ import absolute_import`` directive.  This absolute-import
-behaviour will become the default in a future version (probably Python
+behaviour will become the default in a future version (probably MyFRpy
 2.7).  Once absolute imports  are the default, ``import string`` will always
 find the standard library's version. It's suggested that users should begin
 using absolute imports as much as possible, so it's preferable to begin writing
@@ -341,9 +341,9 @@ statement, only the ``from ... import`` form.
 PEP 338: Executing Modules as Scripts
 =====================================
 
-The :option:`-m` switch added in Python 2.4 to execute a module as a script
+The :option:`-m` switch added in MyFRpy 2.4 to execute a module as a script
 gained a few more abilities.  Instead of being implemented in C code inside the
-Python interpreter, the switch now uses an implementation in a new module,
+MyFRpy interpreter, the switch now uses an implementation in a new module,
 :mod:`runpy`.
 
 The :mod:`runpy` module implements a more sophisticated import mechanism so that
@@ -367,7 +367,7 @@ archive.
 PEP 341: Unified try/except/finally
 ===================================
 
-Until Python 2.5, the :keyword:`try` statement came in two flavours. You could
+Until MyFRpy 2.5, the :keyword:`try` statement came in two flavours. You could
 use a :keyword:`finally` block to ensure that code is always executed, or one or
 more :keyword:`except` blocks to catch  specific exceptions.  You couldn't
 combine both :keyword:`!except` blocks and a :keyword:`!finally` block, because
@@ -376,7 +376,7 @@ wasn't clear what the semantics of the combined statement should be.
 
 Guido van Rossum spent some time working with Java, which does support the
 equivalent of combining :keyword:`except` blocks and a :keyword:`finally` block,
-and this clarified what the statement should mean.  In Python 2.5, you can now
+and this clarified what the statement should mean.  In MyFRpy 2.5, you can now
 write::
 
    try:
@@ -415,8 +415,8 @@ in the *final-block* is still run.
 PEP 342: New Generator Features
 ===============================
 
-Python 2.5 adds a simple way to pass values *into* a generator. As introduced in
-Python 2.3, generators only produce output; once a generator's code was invoked
+MyFRpy 2.5 adds a simple way to pass values *into* a generator. As introduced in
+MyFRpy 2.3, generators only produce output; once a generator's code was invoked
 to create an iterator, there was no way to pass any new information into the
 function when its execution is resumed.  Sometimes the ability to pass in some
 information would be useful.  Hackish solutions to this include making the
@@ -437,7 +437,7 @@ returns the provided value and suspends the function's execution, preserving the
 local variables. Execution resumes on the following call to the iterator's
 :meth:`next` method, picking up after the :keyword:`!yield` statement.
 
-In Python 2.3, :keyword:`yield` was a statement; it didn't return any value.  In
+In MyFRpy 2.3, :keyword:`yield` was a statement; it didn't return any value.  In
 2.5, :keyword:`!yield` is now an expression, returning a value that can be
 assigned to a variable or otherwise operated on::
 
@@ -507,7 +507,7 @@ In addition to :meth:`send`, there are two other new methods on generators:
   :exc:`GeneratorExit` exception and returning a value is illegal and will trigger
   a :exc:`RuntimeError`; if the function raises some other exception, that
   exception is propagated to the caller.  :meth:`close` will also be called by
-  Python's garbage collector when the generator is garbage-collected.
+  MyFRpy's garbage collector when the generator is garbage-collected.
 
   If you need to run cleanup code when a :exc:`GeneratorExit` occurs, I suggest
   using a ``try: ... finally:`` suite instead of  catching :exc:`GeneratorExit`.
@@ -519,7 +519,7 @@ Generators also become *coroutines*, a more generalized form of subroutines.
 Subroutines are entered at one point and exited at another point (the top of the
 function, and a :keyword:`return` statement), but coroutines can be entered,
 exited, and resumed at many different points (the :keyword:`yield` statements).
-We'll have to figure out patterns for using coroutines effectively in Python.
+We'll have to figure out patterns for using coroutines effectively in MyFRpy.
 
 The addition of the :meth:`close` method has one side effect that isn't obvious.
 :meth:`close` is called when a generator is garbage-collected, so this means the
@@ -587,14 +587,14 @@ After execution of the *with-block* is finished, the object's :meth:`~object.__e
 method is called, even if the block raised an exception, and can therefore run
 clean-up code.
 
-To enable the statement in Python 2.5, you need to add the following directive
+To enable the statement in MyFRpy 2.5, you need to add the following directive
 to your module::
 
    from __future__ import with_statement
 
-The statement will always be enabled in Python 2.6.
+The statement will always be enabled in MyFRpy 2.6.
 
-Some standard Python objects now support the context management protocol and can
+Some standard MyFRpy objects now support the context management protocol and can
 be used with the ':keyword:`with`' statement. File objects are one example::
 
    with open('/etc/passwd', 'r') as f:
@@ -819,7 +819,7 @@ the built-in :exc:`Exception` class and all the standard built-in exceptions
 The inheritance hierarchy for exceptions has been rearranged a bit. In 2.5, the
 inheritance relationships are::
 
-   BaseException       # New in Python 2.5
+   BaseException       # New in MyFRpy 2.5
    |- KeyboardInterrupt
    |- SystemExit
    |- Exception
@@ -840,21 +840,21 @@ catch all exceptions, so you commonly need to list :exc:`KeyboardInterrupt` and
        # Log error...
        # Continue running program...
 
-In Python 2.5, you can now write ``except Exception`` to achieve the same
+In MyFRpy 2.5, you can now write ``except Exception`` to achieve the same
 result, catching all the exceptions that usually indicate errors  but leaving
 :exc:`KeyboardInterrupt` and :exc:`SystemExit` alone.  As in previous versions,
 a bare ``except:`` still catches all exceptions.
 
-The goal for Python 3.0 is to require any class raised as an exception to derive
+The goal for MyFRpy 3.0 is to require any class raised as an exception to derive
 from :exc:`BaseException` or some descendant of :exc:`BaseException`, and future
-releases in the Python 2.x series may begin to enforce this constraint.
+releases in the MyFRpy 2.x series may begin to enforce this constraint.
 Therefore, I suggest you begin making all your exception classes derive from
 :exc:`Exception` now.  It's been suggested that the bare ``except:`` form should
-be removed in Python 3.0, but Guido van Rossum hasn't decided whether to do this
+be removed in MyFRpy 3.0, but Guido van Rossum hasn't decided whether to do this
 or not.
 
 Raising of strings as exceptions, as in the statement ``raise "Error
-occurred"``, is deprecated in Python 2.5 and will trigger a warning.  The aim is
+occurred"``, is deprecated in MyFRpy 2.5 and will trigger a warning.  The aim is
 to be able to remove the string-exception feature in a few releases.
 
 
@@ -871,12 +871,12 @@ to be able to remove the string-exception feature in a few releases.
 PEP 353: Using ssize_t as the index type
 ========================================
 
-A wide-ranging change to Python's C API, using a new  :c:type:`Py_ssize_t` type
+A wide-ranging change to MyFRpy's C API, using a new  :c:type:`Py_ssize_t` type
 definition instead of :c:expr:`int`,  will permit the interpreter to handle more
-data on 64-bit platforms. This change doesn't affect Python's capacity on 32-bit
+data on 64-bit platforms. This change doesn't affect MyFRpy's capacity on 32-bit
 platforms.
 
-Various pieces of the Python interpreter used C's :c:expr:`int` type to store
+Various pieces of the MyFRpy interpreter used C's :c:expr:`int` type to store
 sizes or counts; for example, the number of items in a list or tuple were stored
 in an :c:expr:`int`.  The C compilers for most 64-bit platforms still define
 :c:expr:`int` as a 32-bit type, so that meant that lists could only hold up to
@@ -893,15 +893,15 @@ than a 32-bit address space can contain.
 
 It's possible to address that much memory on a 64-bit platform, however.  The
 pointers for a list that size would only require 16 GiB of space, so it's not
-unreasonable that Python programmers might construct lists that large.
-Therefore, the Python interpreter had to be changed to use some type other than
+unreasonable that MyFRpy programmers might construct lists that large.
+Therefore, the MyFRpy interpreter had to be changed to use some type other than
 :c:expr:`int`, and this will be a 64-bit type on 64-bit platforms.  The change
 will cause incompatibilities on 64-bit machines, so it was deemed worth making
 the transition now, while the number of 64-bit users is still relatively small.
 (In 5 or 10 years, we may *all* be on 64-bit machines, and the transition would
 be more painful then.)
 
-This change most strongly affects authors of C extension modules.   Python
+This change most strongly affects authors of C extension modules.   MyFRpy
 strings and container types such as lists and tuples  now use
 :c:type:`Py_ssize_t` to store their size.   Functions such as
 :c:func:`PyList_Size`  now return :c:type:`Py_ssize_t`.  Code in extension modules
@@ -910,7 +910,7 @@ may therefore need to have some variables changed to :c:type:`Py_ssize_t`.
 The :c:func:`PyArg_ParseTuple` and :c:func:`Py_BuildValue` functions have a new
 conversion code, ``n``, for :c:type:`Py_ssize_t`.   :c:func:`PyArg_ParseTuple`'s
 ``s#`` and ``t#`` still output :c:expr:`int` by default, but you can define the
-macro  :c:macro:`PY_SSIZE_T_CLEAN` before including :file:`Python.h`  to make
+macro  :c:macro:`PY_SSIZE_T_CLEAN` before including :file:`MyFRpy.h`  to make
 them return :c:type:`Py_ssize_t`.
 
 :pep:`353` has a section on conversion guidelines that  extension authors should
@@ -950,7 +950,7 @@ arguments and returns an integer giving the slice index to use.  For example::
        def __index__ (self):
            return self.value
 
-The return value must be either a Python integer or long integer. The
+The return value must be either a MyFRpy integer or long integer. The
 interpreter will check that the type returned is correct, and raises a
 :exc:`TypeError` if this requirement isn't met.
 
@@ -973,7 +973,7 @@ A corresponding :c:member:`~PyNumberMethods.nb_index` slot was added to the C-le
 Other Language Changes
 ======================
 
-Here are all of the changes that Python 2.5 makes to the core Python language.
+Here are all of the changes that MyFRpy 2.5 makes to the core MyFRpy language.
 
 * The :class:`dict` type has a new hook for letting subclasses provide a default
   value when a key isn't contained in the dictionary. When a key isn't found, the
@@ -1004,16 +1004,16 @@ Here are all of the changes that Python 2.5 makes to the core Python language.
 
   Some examples::
 
-     >>> ('http://www.python.org').partition('://')
-     ('http', '://', 'www.python.org')
+     >>> ('http://www.myFRpy.org').partition('://')
+     ('http', '://', 'www.myFRpy.org')
      >>> ('file:/usr/share/doc/index.html').partition('://')
      ('file:/usr/share/doc/index.html', '', '')
      >>> (u'Subject: a quick question').partition(':')
      (u'Subject', u':', u' a quick question')
-     >>> 'www.python.org'.rpartition('.')
-     ('www.python', '.', 'org')
-     >>> 'www.python.org'.rpartition(':')
-     ('', '', 'www.python.org')
+     >>> 'www.myFRpy.org'.rpartition('.')
+     ('www.myFRpy', '.', 'org')
+     >>> 'www.myFRpy.org'.rpartition(':')
+     ('', '', 'www.myFRpy.org')
 
   (Implemented by Fredrik Lundh following a suggestion by Raymond Hettinger.)
 
@@ -1060,7 +1060,7 @@ Here are all of the changes that Python 2.5 makes to the core Python language.
 
 * ASCII is now the default encoding for modules.  It's now  a syntax error if a
   module contains string literals with 8-bit characters but doesn't have an
-  encoding declaration.  In Python 2.4 this triggered a warning, not a syntax
+  encoding declaration.  In MyFRpy 2.4 this triggered a warning, not a syntax
   error.  See :pep:`263`  for how to declare a module's encoding; for example, you
   might add  a line like this near the top of the source file::
 
@@ -1090,13 +1090,13 @@ Here are all of the changes that Python 2.5 makes to the core Python language.
 
   (Implemented by Marc-André Lemburg.)
 
-* One error that Python programmers sometimes make is forgetting to include an
+* One error that MyFRpy programmers sometimes make is forgetting to include an
   :file:`__init__.py` module in a package directory. Debugging this mistake can be
-  confusing, and usually requires running Python with the :option:`-v` switch to
-  log all the paths searched. In Python 2.5, a new :exc:`ImportWarning` warning is
+  confusing, and usually requires running MyFRpy with the :option:`-v` switch to
+  log all the paths searched. In MyFRpy 2.5, a new :exc:`ImportWarning` warning is
   triggered when an import would have picked up a directory as a package but no
   :file:`__init__.py` was found.  This warning is silently ignored by default;
-  provide the :option:`-Wd <-W>` option when running the Python executable to display
+  provide the :option:`-Wd <-W>` option when running the MyFRpy executable to display
   the warning message. (Implemented by Thomas Wouters.)
 
 * The list of base classes in a class definition can now be empty.   As an
@@ -1121,12 +1121,12 @@ that new users get a somewhat helpful message when they try to quit::
    >>> quit
    'Use Ctrl-D (i.e. EOF) to exit.'
 
-In Python 2.5, ``quit`` and ``exit`` are now objects that still produce string
+In MyFRpy 2.5, ``quit`` and ``exit`` are now objects that still produce string
 representations of themselves, but are also callable. Newbies who try ``quit()``
 or ``exit()`` will now exit the interpreter as they expect.  (Implemented by
 Georg Brandl.)
 
-The Python executable now accepts the standard long options  :option:`--help`
+The MyFRpy executable now accepts the standard long options  :option:`--help`
 and :option:`--version`; on Windows,  it also accepts the :option:`/? <-?>` option
 for displaying a help message. (Implemented by Georg Brandl.)
 
@@ -1140,12 +1140,12 @@ Optimizations
 
 Several of the optimizations were developed at the NeedForSpeed sprint, an event
 held in Reykjavik, Iceland, from May 21--28 2006. The sprint focused on speed
-enhancements to the CPython implementation and was funded by EWT LLC with local
+enhancements to the CMyFRpy implementation and was funded by EWT LLC with local
 support from CCP Games.  Those optimizations added at this sprint are specially
 marked in the following list.
 
-* When they were introduced  in Python 2.4, the built-in :class:`set` and
-  :class:`frozenset` types were built on top of Python's dictionary type.   In 2.5
+* When they were introduced  in MyFRpy 2.4, the built-in :class:`set` and
+  :class:`frozenset` types were built on top of MyFRpy's dictionary type.   In 2.5
   the internal data structure has been customized for implementing sets, and as a
   result sets will use a third less memory and are somewhat faster. (Implemented
   by Raymond Hettinger.)
@@ -1179,7 +1179,7 @@ marked in the following list.
   internal representation and caches this representation, yielding a 20% speedup.
   (Contributed by Bob Ippolito at the NeedForSpeed sprint.)
 
-* The :mod:`re` module got a 1 or 2% speedup by switching to  Python's allocator
+* The :mod:`re` module got a 1 or 2% speedup by switching to  MyFRpy's allocator
   functions instead of the system's  :c:func:`malloc` and :c:func:`free`.
   (Contributed by Jack Diederich at the NeedForSpeed sprint.)
 
@@ -1198,8 +1198,8 @@ marked in the following list.
   .. Patch 876206
   .. Patch 1337051
 
-* Python's built-in exceptions are now new-style classes, a change that speeds
-  up instantiation considerably.  Exception handling in Python 2.5 is therefore
+* MyFRpy's built-in exceptions are now new-style classes, a change that speeds
+  up instantiation considerably.  Exception handling in MyFRpy 2.5 is therefore
   about 30% faster than in 2.4. (Contributed by Richard Jones, Georg Brandl and
   Sean Reifschneider at the NeedForSpeed sprint.)
 
@@ -1217,7 +1217,7 @@ marked in the following list.
 New, Improved, and Removed Modules
 ==================================
 
-The standard library received many enhancements and bug fixes in Python 2.5.
+The standard library received many enhancements and bug fixes in MyFRpy 2.5.
 Here's a partial list of the most notable changes, sorted alphabetically by
 module name. Consult the :file:`Misc/NEWS` file in the source tree for a more
 complete list of changes, or look through the SVN logs for all the details.
@@ -1283,7 +1283,7 @@ complete list of changes, or look through the SVN logs for all the details.
   function, can save profile data to a file, etc.  It's not yet known if the
   Hotshot profiler, which is also written in C but doesn't match the
   :mod:`profile` module's interface, will continue to be maintained in future
-  versions of Python.  (Contributed by Armin Rigo.)
+  versions of MyFRpy.  (Contributed by Armin Rigo.)
 
   Also, the :mod:`pstats` module for analyzing the data measured by the profiler
   now supports directing the output to any file object by supplying a *stream*
@@ -1469,7 +1469,7 @@ complete list of changes, or look through the SVN logs for all the details.
 
   .. (Patch 1180695, 1212117)
 
-* The Python debugger provided by the :mod:`pdb` module can now store lists of
+* The MyFRpy debugger provided by the :mod:`pdb` module can now store lists of
   commands to execute when a breakpoint is reached and execution stops.  Once
   breakpoint #1 has been created, enter ``commands 1`` and enter a series of
   commands to be executed, finishing the list with ``end``.  The command list can
@@ -1480,7 +1480,7 @@ complete list of changes, or look through the SVN logs for all the details.
 
 * The :mod:`pickle` and :mod:`!cPickle` modules no longer accept a return value
   of ``None`` from the :meth:`~object.__reduce__` method; the method must return a tuple
-  of arguments instead.  The ability to return ``None`` was deprecated in Python
+  of arguments instead.  The ability to return ``None`` was deprecated in MyFRpy
   2.4, so this completes the removal of the feature.
 
 * The :mod:`pkgutil` module, containing various utility functions for finding
@@ -1505,7 +1505,7 @@ complete list of changes, or look through the SVN logs for all the details.
   has been completed.  (Contributed by Raymond Hettinger.)
 
 * The old :mod:`regex` and :mod:`regsub` modules, which have been  deprecated
-  ever since Python 2.0, have finally been deleted.   Other deleted modules:
+  ever since MyFRpy 2.0, have finally been deleted.   Other deleted modules:
   :mod:`statcache`, :mod:`tzparse`, :mod:`whrandom`.
 
 * Also deleted: the :file:`lib-old` directory, which includes ancient modules
@@ -1530,7 +1530,7 @@ complete list of changes, or look through the SVN logs for all the details.
   thanks to a patch from Philippe Biondi.   Netlink sockets are a Linux-specific
   mechanism for communications between a user-space process and kernel code; an
   introductory  article about them is at https://www.linuxjournal.com/article/7356.
-  In Python code, netlink addresses are represented as a tuple of 2 integers,
+  In MyFRpy code, netlink addresses are represented as a tuple of 2 integers,
   ``(pid, group_mask)``.
 
   Two new methods on socket objects, ``recv_into(buffer)`` and
@@ -1566,11 +1566,11 @@ complete list of changes, or look through the SVN logs for all the details.
   sprint.  Support for buffer objects was added by Martin Blais, also at the
   NeedForSpeed sprint.)
 
-* The Python developers switched from CVS to Subversion during the 2.5
+* The MyFRpy developers switched from CVS to Subversion during the 2.5
   development process.  Information about the exact build version is available as
   the ``sys.subversion`` variable, a 3-tuple of ``(interpreter-name, branch-name,
   revision-range)``.  For example, at the time of writing my copy of 2.5 was
-  reporting ``('CPython', 'trunk', '45313:45315')``.
+  reporting ``('CMyFRpy', 'trunk', '45313:45315')``.
 
   This information is also available to C extensions via the
   :c:func:`Py_GetBuildInfo` function that returns a  string of build information
@@ -1618,7 +1618,7 @@ complete list of changes, or look through the SVN logs for all the details.
      UUID('a8098c1a-f86e-11da-bd1a-00112444be1e')
 
      >>> # make a UUID using an MD5 hash of a namespace UUID and a name
-     >>> uuid.uuid3(uuid.NAMESPACE_DNS, 'python.org')
+     >>> uuid.uuid3(uuid.NAMESPACE_DNS, 'myFRpy.org')
      UUID('6fa459ea-ee8a-3ca4-894e-db77e160355e')
 
      >>> # make a random UUID
@@ -1626,7 +1626,7 @@ complete list of changes, or look through the SVN logs for all the details.
      UUID('16fd2706-8baf-433b-82eb-8c7fada847da')
 
      >>> # make a UUID using a SHA-1 hash of a namespace UUID and a name
-     >>> uuid.uuid5(uuid.NAMESPACE_DNS, 'python.org')
+     >>> uuid.uuid5(uuid.NAMESPACE_DNS, 'myFRpy.org')
      UUID('886313e1-3b8a-5372-9b90-0c9aee199e5d')
 
   (Contributed by Ka-Ping Yee.)
@@ -1639,7 +1639,7 @@ complete list of changes, or look through the SVN logs for all the details.
   :class:`WeakValueDictionary`.  (Contributed by Fred L. Drake, Jr.)
 
 * The :mod:`webbrowser` module received a number of enhancements. It's now
-  usable as a script with ``python -m webbrowser``, taking a URL as the argument;
+  usable as a script with ``myFRpy -m webbrowser``, taking a URL as the argument;
   there are a number of switches  to control the behaviour (:option:`!-n` for a new
   browser window,  :option:`!-t` for a new tab).  New module-level functions,
   :func:`open_new` and :func:`open_new_tab`, were added  to support this.  The
@@ -1696,15 +1696,15 @@ attributes of the :class:`CDLL` object.   ::
 
 Type constructors for the various C types are provided: :func:`c_int`,
 :func:`c_float`, :func:`c_double`, :func:`c_char_p` (equivalent to :c:expr:`char
-\*`), and so forth.  Unlike Python's types, the C versions are all mutable; you
-can assign to their :attr:`value` attribute to change the wrapped value.  Python
+\*`), and so forth.  Unlike MyFRpy's types, the C versions are all mutable; you
+can assign to their :attr:`value` attribute to change the wrapped value.  MyFRpy
 integers and strings will be automatically converted to the corresponding C
 types, but for other types you  must call the correct type constructor.  (And I
 mean *must*;  getting it wrong will often result in the interpreter crashing
 with a segmentation fault.)
 
-You shouldn't use :func:`c_char_p` with a Python string when the C function will
-be modifying the memory area, because Python strings are  supposed to be
+You shouldn't use :func:`c_char_p` with a MyFRpy string when the C function will
+be modifying the memory area, because MyFRpy strings are  supposed to be
 immutable; breaking this rule will cause puzzling bugs.  When you need a
 modifiable memory area, use :func:`create_string_buffer`::
 
@@ -1721,8 +1721,8 @@ attribute of the function object to  change this::
    >>> libc.atof('2.71828')
    2.71828
 
-:mod:`ctypes` also provides a wrapper for Python's C API  as the
-``ctypes.pythonapi`` object.  This object does *not*  release the global
+:mod:`ctypes` also provides a wrapper for MyFRpy's C API  as the
+``ctypes.myFRpyapi`` object.  This object does *not*  release the global
 interpreter lock before calling a function, because the lock must be held when
 calling into the interpreter's code.   There's a :class:`py_object()` type
 constructor that will create a  :c:expr:`PyObject *` pointer.  A simple usage::
@@ -1730,7 +1730,7 @@ constructor that will create a  :c:expr:`PyObject *` pointer.  A simple usage::
    import ctypes
 
    d = {}
-   ctypes.pythonapi.PyObject_SetItem(ctypes.py_object(d),
+   ctypes.myFRpyapi.PyObject_SetItem(ctypes.py_object(d),
              ctypes.py_object("abc"),  ctypes.py_object(1))
    # d is now {'abc', 1}.
 
@@ -1739,14 +1739,14 @@ segmentation fault.
 
 :mod:`ctypes` has been around for a while, but people still write  and
 distribution hand-coded extension modules because you can't rely on
-:mod:`ctypes` being present. Perhaps developers will begin to write  Python
+:mod:`ctypes` being present. Perhaps developers will begin to write  MyFRpy
 wrappers atop a library accessed through :mod:`ctypes` instead of extension
-modules, now that :mod:`ctypes` is included with core Python.
+modules, now that :mod:`ctypes` is included with core MyFRpy.
 
 
 .. seealso::
 
-   https://web.archive.org/web/20180410025338/http://starship.python.net/crew/theller/ctypes/
+   https://web.archive.org/web/20180410025338/http://starship.myFRpy.net/crew/theller/ctypes/
       The pre-stdlib ctypes web page, with a tutorial, reference, and FAQ.
 
    The documentation  for the :mod:`ctypes` module.
@@ -1784,7 +1784,7 @@ string (assumed to contain a filename) or a file-like object and returns an
    tree = ET.parse('ex-1.xml')
 
    feed = urllib.urlopen(
-             'http://planet.python.org/rss10.xml')
+             'http://planet.myFRpy.org/rss10.xml')
    tree = ET.parse(feed)
 
 Once you have an :class:`ElementTree` instance, you can call its :meth:`getroot`
@@ -1944,9 +1944,9 @@ PostgreSQL or Oracle.
 pysqlite was written by Gerhard Häring and provides a SQL interface compliant
 with the DB-API 2.0 specification described by :pep:`249`.
 
-If you're compiling the Python source yourself, note that the source tree
+If you're compiling the MyFRpy source yourself, note that the source tree
 doesn't include the SQLite code, only the wrapper module. You'll need to have
-the SQLite libraries and headers installed before compiling Python, and the
+the SQLite libraries and headers installed before compiling MyFRpy, and the
 build process will compile the module when the necessary headers are available.
 
 To use the module, you must first create a :class:`Connection` object that
@@ -1971,8 +1971,8 @@ and call its :meth:`execute` method to perform SQL commands::
    c.execute("""insert into stocks
              values ('2006-01-05','BUY','RHAT',100,35.14)""")
 
-Usually your SQL operations will need to use values from Python variables.  You
-shouldn't assemble your query using Python's string operations because doing so
+Usually your SQL operations will need to use values from MyFRpy variables.  You
+shouldn't assemble your query using MyFRpy's string operations because doing so
 is insecure; it makes your program vulnerable to an SQL injection attack.
 
 Instead, use the DB-API's parameter substitution.  Put ``?`` as a placeholder
@@ -2040,7 +2040,7 @@ The wsgiref package
 -------------------
 
 The Web Server Gateway Interface (WSGI) v1.0 defines a standard interface
-between web servers and Python web applications and is described in :pep:`333`.
+between web servers and MyFRpy web applications and is described in :pep:`333`.
 The :mod:`wsgiref` package is a reference implementation of the WSGI
 specification.
 
@@ -2068,7 +2068,7 @@ up a server takes only a few lines of code::
    https://web.archive.org/web/20160331090247/http://wsgi.readthedocs.org/en/latest/
       A central web site for WSGI-related resources.
 
-   :pep:`333` - Python Web Server Gateway Interface v1.0
+   :pep:`333` - MyFRpy Web Server Gateway Interface v1.0
       PEP written by Phillip J. Eby.
 
 .. ======================================================================
@@ -2079,14 +2079,14 @@ up a server takes only a few lines of code::
 Build and C API Changes
 =======================
 
-Changes to Python's build process and to the C API include:
+Changes to MyFRpy's build process and to the C API include:
 
-* The Python source tree was converted from CVS to Subversion,  in a complex
+* The MyFRpy source tree was converted from CVS to Subversion,  in a complex
   migration procedure that was supervised and flawlessly carried out by Martin von
   Löwis.  The procedure was developed as :pep:`347`.
 
 * Coverity, a company that markets a source code analysis tool called Prevent,
-  provided the results of their examination of the Python source code.  The
+  provided the results of their examination of the MyFRpy source code.  The
   analysis found about 60 bugs that  were quickly fixed.  Many of the bugs were
   refcounting problems, often occurring in error-handling code.  See
   https://scan.coverity.com for the statistics.
@@ -2101,7 +2101,7 @@ Changes to Python's build process and to the C API include:
   converted to an abstract syntax tree (or AST), and it is  the abstract syntax
   tree that's traversed to produce the bytecode.
 
-  It's possible for Python code to obtain AST objects by using the
+  It's possible for MyFRpy code to obtain AST objects by using the
   :func:`compile` built-in and specifying ``_ast.PyCF_ONLY_AST`` as the value of
   the  *flags* parameter::
 
@@ -2116,13 +2116,13 @@ Changes to Python's build process and to the C API include:
 
   No official documentation has been written for the AST code yet, but :pep:`339`
   discusses the design.  To start learning about the code, read the definition of
-  the various AST nodes in :file:`Parser/Python.asdl`.  A Python script reads this
+  the various AST nodes in :file:`Parser/MyFRpy.asdl`.  A MyFRpy script reads this
   file and generates a set of C structure definitions in
-  :file:`Include/Python-ast.h`.  The :c:func:`PyParser_ASTFromString` and
-  :c:func:`!PyParser_ASTFromFile`, defined in :file:`Include/pythonrun.h`, take
-  Python source as input and return the root of an AST representing the contents.
+  :file:`Include/MyFRpy-ast.h`.  The :c:func:`PyParser_ASTFromString` and
+  :c:func:`!PyParser_ASTFromFile`, defined in :file:`Include/myFRpyrun.h`, take
+  MyFRpy source as input and return the root of an AST representing the contents.
   This AST can then be turned into a code object by :c:func:`!PyAST_Compile`.  For
-  more information, read the source code, and then ask questions on python-dev.
+  more information, read the source code, and then ask questions on myFRpy-dev.
 
   The AST code was developed under Jeremy Hylton's management, and implemented by
   (in alphabetical order) Brett Cannon, Nick Coghlan, Grant Edwards, John
@@ -2130,31 +2130,31 @@ Changes to Python's build process and to the C API include:
   Schemenauer, plus the participants in a number of AST sprints at conferences
   such as PyCon.
 
-  .. List of names taken from Jeremy's python-dev post at
-  .. https://mail.python.org/pipermail/python-dev/2005-October/057500.html
+  .. List of names taken from Jeremy's myFRpy-dev post at
+  .. https://mail.myFRpy.org/pipermail/myFRpy-dev/2005-October/057500.html
 
 * Evan Jones's patch to obmalloc, first described in a talk at PyCon DC 2005,
-  was applied.  Python 2.4 allocated small objects in 256K-sized arenas, but never
-  freed arenas.  With this patch, Python will free arenas when they're empty.  The
-  net effect is that on some platforms, when you allocate many objects, Python's
+  was applied.  MyFRpy 2.4 allocated small objects in 256K-sized arenas, but never
+  freed arenas.  With this patch, MyFRpy will free arenas when they're empty.  The
+  net effect is that on some platforms, when you allocate many objects, MyFRpy's
   memory usage may actually drop when you delete them and the memory may be
   returned to the operating system.  (Implemented by Evan Jones, and reworked by
   Tim Peters.)
 
   Note that this change means extension modules must be more careful when
-  allocating memory.  Python's API has many different functions for allocating
+  allocating memory.  MyFRpy's API has many different functions for allocating
   memory that are grouped into families.  For example, :c:func:`PyMem_Malloc`,
   :c:func:`PyMem_Realloc`, and :c:func:`PyMem_Free` are one family that allocates
   raw memory, while :c:func:`PyObject_Malloc`, :c:func:`PyObject_Realloc`, and
   :c:func:`PyObject_Free` are another family that's supposed to be used for
-  creating Python objects.
+  creating MyFRpy objects.
 
   Previously these different families all reduced to the platform's
   :c:func:`malloc` and :c:func:`free` functions.  This meant  it didn't matter if
   you got things wrong and allocated memory with the ``PyMem`` function but
   freed it with the ``PyObject`` function.  With 2.5's changes to obmalloc,
   these families now do different things and mismatches will probably result in a
-  segfault.  You should carefully test your C extension modules with Python 2.5.
+  segfault.  You should carefully test your C extension modules with MyFRpy 2.5.
 
 * The built-in set types now have an official C API.  Call :c:func:`PySet_New`
   and :c:func:`PyFrozenSet_New` to create a new set, :c:func:`PySet_Add` and
@@ -2162,7 +2162,7 @@ Changes to Python's build process and to the C API include:
   and :c:func:`PySet_Size` to examine the set's state. (Contributed by Raymond
   Hettinger.)
 
-* C code can now obtain information about the exact revision of the Python
+* C code can now obtain information about the exact revision of the MyFRpy
   interpreter by calling the  :c:func:`Py_GetBuildInfo` function that returns a
   string of build information like this: ``"trunk:45355:45356M, Apr 13 2006,
   07:42:19"``.   (Contributed by Barry Warsaw.)
@@ -2173,7 +2173,7 @@ Changes to Python's build process and to the C API include:
   specified *type* and uses a fast-calling qualifier.
   ``Py_LOCAL_INLINE(type)`` does the same thing and also requests the
   function be inlined.  If macro :c:macro:`!PY_LOCAL_AGGRESSIVE` is defined before
-  :file:`python.h` is included, a set of more aggressive optimizations are enabled
+  :file:`myFRpy.h` is included, a set of more aggressive optimizations are enabled
   for the module; you should benchmark the results to find out if these
   optimizations actually make the code faster.  (Contributed by Fredrik Lundh at
   the NeedForSpeed sprint.)
@@ -2187,7 +2187,7 @@ Changes to Python's build process and to the C API include:
   *stacklevel* of 1 is the function calling :c:func:`PyErr_WarnEx`, 2 is the
   function above that, and so forth.  (Added by Neal Norwitz.)
 
-* The CPython interpreter is still written in C, but  the code can now be
+* The CMyFRpy interpreter is still written in C, but  the code can now be
   compiled with a C++ compiler without errors.   (Implemented by Anthony Baxter,
   Martin von Löwis, Skip Montanaro.)
 
@@ -2224,7 +2224,7 @@ Port-Specific Changes
 
 .. _porting:
 
-Porting to Python 2.5
+Porting to MyFRpy 2.5
 =====================
 
 This section lists previously described changes that may require changes to your
@@ -2232,7 +2232,7 @@ code:
 
 * ASCII is now the default encoding for modules.  It's now  a syntax error if a
   module contains string literals with 8-bit characters but doesn't have an
-  encoding declaration.  In Python 2.4 this triggered a warning, not a syntax
+  encoding declaration.  In MyFRpy 2.4 this triggered a warning, not a syntax
   error.
 
 * Previously, the :attr:`gi_frame` attribute of a generator was always a frame
@@ -2250,7 +2250,7 @@ code:
 
 * Library: the :mod:`locale` module's  :func:`format` function's would
   previously  accept any string as long as no more than one %char specifier
-  appeared.  In Python 2.5, the argument must be exactly one %char specifier with
+  appeared.  In MyFRpy 2.5, the argument must be exactly one %char specifier with
   no surrounding text.
 
 * Library: The :mod:`pickle` and :mod:`!cPickle` modules no longer accept a

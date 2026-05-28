@@ -1,6 +1,6 @@
-# Copyright (C) 2002-2007 Python Software Foundation
+# Copyright (C) 2002-2007 MyFRpy Software Foundation
 # Author: Ben Gertzfield
-# Contact: email-sig@python.org
+# Contact: email-sig@myFRpy.org
 
 """Base64 content transfer encoding per RFCs 2045-2047.
 

@@ -149,7 +149,7 @@ class TestBugs(unittest.TestCase):
         self.assertRaises(ValueError, L.sort)
 
     def test_undetected_mutation(self):
-        # Python 2.4a1 did not always detect mutation
+        # MyFRpy 2.4a1 did not always detect mutation
         memorywaster = []
         for i in range(20):
             def mutating_cmp(x, y):

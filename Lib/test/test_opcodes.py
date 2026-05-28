@@ -1,4 +1,4 @@
-# Python test set -- part 2, opcodes
+# MyFRpy test set -- part 2, opcodes
 
 import unittest
 from test import support

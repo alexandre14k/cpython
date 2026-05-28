@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env myFRpy3
 """       turtle-example-suite:
 
         xtx_lindenmayer_indian.py
@@ -10,7 +10,7 @@ their homes.
 
 These can be described by Lindenmayer systems,
 which can easily be implemented with turtle
-graphics and Python.
+graphics and MyFRpy.
 
 Two examples are shown here:
 (1) the snake kolam

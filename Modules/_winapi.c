@@ -4,8 +4,8 @@
  * This module was originally created by merging PC/_subprocess.c with
  * Modules/_multiprocessing/win32_functions.c.
  *
- * Copyright (c) 2004 by Fredrik Lundh <fredrik@pythonware.com>
- * Copyright (c) 2004 by Secret Labs AB, http://www.pythonware.com
+ * Copyright (c) 2004 by Fredrik Lundh <fredrik@myFRpyware.com>
+ * Copyright (c) 2004 by Secret Labs AB, http://www.myFRpyware.com
  * Copyright (c) 2004 by Peter Astrand <astrand@lysator.liu.se>
  *
  * By obtaining, using, and/or copying this software and/or its
@@ -32,9 +32,9 @@
  */
 
 /* Licensed to PSF under a Contributor Agreement. */
-/* See https://www.python.org/2.4/license for licensing details. */
+/* See https://www.myFRpy.org/2.4/license for licensing details. */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_moduleobject.h"  // _PyModule_GetState()
 #include "structmember.h"         // PyMemberDef
 
@@ -87,7 +87,7 @@ winapi_get_state(PyObject *module)
 }
 
 /*
- * A Python object wrapping an OVERLAPPED structure and other useful data
+ * A MyFRpy object wrapping an OVERLAPPED structure and other useful data
  * for overlapped I/O
  */
 
@@ -172,7 +172,7 @@ class _winapi.Overlapped "OverlappedObject *" "&OverlappedType"
 [clinic start generated code]*/
 /*[clinic end generated code: output=da39a3ee5e6b4b0d input=c13d3f5fd1dabb84]*/
 
-/*[python input]
+/*[myFRpy input]
 def create_converter(type_, format_unit):
     name = type_ + '_converter'
     # registered upon creation by CConverter's metaclass
@@ -220,8 +220,8 @@ class LPVOID_return_converter(CReturnConverter):
         self.err_occurred_if("_return_value == NULL", data)
         data.return_conversion.append(
             'return_value = HANDLE_TO_PYNUM(_return_value);\n')
-[python start generated code]*/
-/*[python end generated code: output=da39a3ee5e6b4b0d input=011ee0c3a2244bfe]*/
+[myFRpy start generated code]*/
+/*[myFRpy end generated code: output=da39a3ee5e6b4b0d input=011ee0c3a2244bfe]*/
 
 #include "clinic/_winapi.c.h"
 

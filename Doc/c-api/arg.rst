@@ -19,11 +19,11 @@ Parsing arguments
 -----------------
 
 A format string consists of zero or more "format units."  A format unit
-describes one Python object; it is usually a single character or a parenthesized
+describes one MyFRpy object; it is usually a single character or a parenthesized
 sequence of format units.  With a few exceptions, a format unit that is not a
 parenthesized sequence normally corresponds to a single address argument to
 these functions.  In the following description, the quoted form is the format
-unit; the entry in (round) parentheses is the Python object type that matches
+unit; the entry in (round) parentheses is the MyFRpy object type that matches
 the format unit; and the entry in [square] brackets is the type of the C
 variable(s) whose address should be passed.
 
@@ -55,7 +55,7 @@ There are three ways strings and buffers can be converted to C:
    such as :class:`bytes`, and provide a ``const char *`` pointer to
    its buffer.
    In this case the buffer is "borrowed": it is managed by the corresponding
-   Python object, and shares the lifetime of this object.
+   MyFRpy object, and shares the lifetime of this object.
    You won't have to release any memory yourself.
 
    To ensure that the underlying buffer may be safely borrowed, the object's
@@ -72,7 +72,7 @@ There are three ways strings and buffers can be converted to C:
 
    For all ``#`` variants of formats (``s#``, ``y#``, etc.), the macro
    :c:macro:`PY_SSIZE_T_CLEAN` must be defined before including
-   :file:`Python.h`. On Python 3.9 and older, the type of the length argument
+   :file:`MyFRpy.h`. On MyFRpy 3.9 and older, the type of the length argument
    is :c:type:`Py_ssize_t` if the :c:macro:`PY_SSIZE_T_CLEAN` macro is defined,
    or int otherwise.
 
@@ -81,7 +81,7 @@ There are three ways strings and buffers can be converted to C:
    Convert a Unicode object to a C pointer to a character string.
    A pointer to an existing string is stored in the character pointer
    variable whose address you pass.  The C string is NUL-terminated.
-   The Python string must not contain embedded null code points; if it does,
+   The MyFRpy string must not contain embedded null code points; if it does,
    a :exc:`ValueError` exception is raised. Unicode objects are converted
    to C strings using ``'utf-8'`` encoding. If this conversion fails, a
    :exc:`UnicodeError` is raised.
@@ -95,7 +95,7 @@ There are three ways strings and buffers can be converted to C:
 
    .. versionchanged:: 3.5
       Previously, :exc:`TypeError` was raised when embedded null code points
-      were encountered in the Python string.
+      were encountered in the MyFRpy string.
 
 ``s*`` (:class:`str` or :term:`bytes-like object`) [Py_buffer]
    This format accepts Unicode objects as well as bytes-like objects.
@@ -111,15 +111,15 @@ There are three ways strings and buffers can be converted to C:
    to C strings using ``'utf-8'`` encoding.
 
 ``z`` (:class:`str` or ``None``) [const char \*]
-   Like ``s``, but the Python object may also be ``None``, in which case the C
+   Like ``s``, but the MyFRpy object may also be ``None``, in which case the C
    pointer is set to ``NULL``.
 
 ``z*`` (:class:`str`, :term:`bytes-like object` or ``None``) [Py_buffer]
-   Like ``s*``, but the Python object may also be ``None``, in which case the
+   Like ``s*``, but the MyFRpy object may also be ``None``, in which case the
    ``buf`` member of the :c:type:`Py_buffer` structure is set to ``NULL``.
 
 ``z#`` (:class:`str`, read-only :term:`bytes-like object` or ``None``) [const char \*, :c:type:`Py_ssize_t`]
-   Like ``s#``, but the Python object may also be ``None``, in which case the C
+   Like ``s#``, but the MyFRpy object may also be ``None``, in which case the C
    pointer is set to ``NULL``.
 
 ``y`` (read-only :term:`bytes-like object`) [const char \*]
@@ -143,17 +143,17 @@ There are three ways strings and buffers can be converted to C:
    objects.
 
 ``S`` (:class:`bytes`) [PyBytesObject \*]
-   Requires that the Python object is a :class:`bytes` object, without
+   Requires that the MyFRpy object is a :class:`bytes` object, without
    attempting any conversion.  Raises :exc:`TypeError` if the object is not
    a bytes object.  The C variable may also be declared as :c:expr:`PyObject*`.
 
 ``Y`` (:class:`bytearray`) [PyByteArrayObject \*]
-   Requires that the Python object is a :class:`bytearray` object, without
+   Requires that the MyFRpy object is a :class:`bytearray` object, without
    attempting any conversion.  Raises :exc:`TypeError` if the object is not
    a :class:`bytearray` object. The C variable may also be declared as :c:expr:`PyObject*`.
 
 ``U`` (:class:`str`) [PyObject \*]
-   Requires that the Python object is a Unicode object, without attempting
+   Requires that the MyFRpy object is a Unicode object, without attempting
    any conversion.  Raises :exc:`TypeError` if the object is not a Unicode
    object.  The C variable may also be declared as :c:expr:`PyObject*`.
 
@@ -170,7 +170,7 @@ There are three ways strings and buffers can be converted to C:
    This format requires two arguments.  The first is only used as input, and
    must be a :c:expr:`const char*` which points to the name of an encoding as a
    NUL-terminated string, or ``NULL``, in which case ``'utf-8'`` encoding is used.
-   An exception is raised if the named encoding is not known to Python.  The
+   An exception is raised if the named encoding is not known to MyFRpy.  The
    second argument must be a :c:expr:`char**`; the value of the pointer it
    references will be set to a buffer with the contents of the argument text.
    The text will be encoded in the encoding specified by the first argument.
@@ -193,7 +193,7 @@ There are three ways strings and buffers can be converted to C:
    It requires three arguments.  The first is only used as input, and must be a
    :c:expr:`const char*` which points to the name of an encoding as a
    NUL-terminated string, or ``NULL``, in which case ``'utf-8'`` encoding is used.
-   An exception is raised if the named encoding is not known to Python.  The
+   An exception is raised if the named encoding is not known to MyFRpy.  The
    second argument must be a :c:expr:`char**`; the value of the pointer it
    references will be set to a buffer with the contents of the argument text.
    The text will be encoded in the encoding specified by the first argument.
@@ -230,92 +230,92 @@ Numbers
 -------
 
 ``b`` (:class:`int`) [unsigned char]
-   Convert a nonnegative Python integer to an unsigned tiny int, stored in a C
+   Convert a nonnegative MyFRpy integer to an unsigned tiny int, stored in a C
    :c:expr:`unsigned char`.
 
 ``B`` (:class:`int`) [unsigned char]
-   Convert a Python integer to a tiny int without overflow checking, stored in a C
+   Convert a MyFRpy integer to a tiny int without overflow checking, stored in a C
    :c:expr:`unsigned char`.
 
 ``h`` (:class:`int`) [short int]
-   Convert a Python integer to a C :c:expr:`short int`.
+   Convert a MyFRpy integer to a C :c:expr:`short int`.
 
 ``H`` (:class:`int`) [unsigned short int]
-   Convert a Python integer to a C :c:expr:`unsigned short int`, without overflow
+   Convert a MyFRpy integer to a C :c:expr:`unsigned short int`, without overflow
    checking.
 
 ``i`` (:class:`int`) [int]
-   Convert a Python integer to a plain C :c:expr:`int`.
+   Convert a MyFRpy integer to a plain C :c:expr:`int`.
 
 ``I`` (:class:`int`) [unsigned int]
-   Convert a Python integer to a C :c:expr:`unsigned int`, without overflow
+   Convert a MyFRpy integer to a C :c:expr:`unsigned int`, without overflow
    checking.
 
 ``l`` (:class:`int`) [long int]
-   Convert a Python integer to a C :c:expr:`long int`.
+   Convert a MyFRpy integer to a C :c:expr:`long int`.
 
 ``k`` (:class:`int`) [unsigned long]
-   Convert a Python integer to a C :c:expr:`unsigned long` without
+   Convert a MyFRpy integer to a C :c:expr:`unsigned long` without
    overflow checking.
 
 ``L`` (:class:`int`) [long long]
-   Convert a Python integer to a C :c:expr:`long long`.
+   Convert a MyFRpy integer to a C :c:expr:`long long`.
 
 ``K`` (:class:`int`) [unsigned long long]
-   Convert a Python integer to a C :c:expr:`unsigned long long`
+   Convert a MyFRpy integer to a C :c:expr:`unsigned long long`
    without overflow checking.
 
 ``n`` (:class:`int`) [:c:type:`Py_ssize_t`]
-   Convert a Python integer to a C :c:type:`Py_ssize_t`.
+   Convert a MyFRpy integer to a C :c:type:`Py_ssize_t`.
 
 ``c`` (:class:`bytes` or :class:`bytearray` of length 1) [char]
-   Convert a Python byte, represented as a :class:`bytes` or
+   Convert a MyFRpy byte, represented as a :class:`bytes` or
    :class:`bytearray` object of length 1, to a C :c:expr:`char`.
 
    .. versionchanged:: 3.3
       Allow :class:`bytearray` objects.
 
 ``C`` (:class:`str` of length 1) [int]
-   Convert a Python character, represented as a :class:`str` object of
+   Convert a MyFRpy character, represented as a :class:`str` object of
    length 1, to a C :c:expr:`int`.
 
 ``f`` (:class:`float`) [float]
-   Convert a Python floating point number to a C :c:expr:`float`.
+   Convert a MyFRpy floating point number to a C :c:expr:`float`.
 
 ``d`` (:class:`float`) [double]
-   Convert a Python floating point number to a C :c:expr:`double`.
+   Convert a MyFRpy floating point number to a C :c:expr:`double`.
 
 ``D`` (:class:`complex`) [Py_complex]
-   Convert a Python complex number to a C :c:type:`Py_complex` structure.
+   Convert a MyFRpy complex number to a C :c:type:`Py_complex` structure.
 
 Other objects
 -------------
 
 ``O`` (object) [PyObject \*]
-   Store a Python object (without any conversion) in a C object pointer.  The C
+   Store a MyFRpy object (without any conversion) in a C object pointer.  The C
    program thus receives the actual object that was passed.  A new
    :term:`strong reference` to the object is not created
    (i.e. its reference count is not increased).
    The pointer stored is not ``NULL``.
 
 ``O!`` (object) [*typeobject*, PyObject \*]
-   Store a Python object in a C object pointer.  This is similar to ``O``, but
-   takes two C arguments: the first is the address of a Python type object, the
+   Store a MyFRpy object in a C object pointer.  This is similar to ``O``, but
+   takes two C arguments: the first is the address of a MyFRpy type object, the
    second is the address of the C variable (of type :c:expr:`PyObject*`) into which
-   the object pointer is stored.  If the Python object does not have the required
+   the object pointer is stored.  If the MyFRpy object does not have the required
    type, :exc:`TypeError` is raised.
 
 .. _o_ampersand:
 
 ``O&`` (object) [*converter*, *anything*]
-   Convert a Python object to a C variable through a *converter* function.  This
+   Convert a MyFRpy object to a C variable through a *converter* function.  This
    takes two arguments: the first is a function, the second is the address of a C
    variable (of arbitrary type), converted to :c:expr:`void *`.  The *converter*
    function in turn is called as follows::
 
       status = converter(object, address);
 
-   where *object* is the Python object to be converted and *address* is the
+   where *object* is the MyFRpy object to be converted and *address* is the
    :c:expr:`void*` argument that was passed to the ``PyArg_Parse*`` function.
    The returned *status* should be ``1`` for a successful conversion and ``0`` if
    the conversion has failed.  When the conversion fails, the *converter* function
@@ -334,13 +334,13 @@ Other objects
    Tests the value passed in for truth (a boolean **p**\ redicate) and converts
    the result to its equivalent C true/false integer value.
    Sets the int to ``1`` if the expression was true and ``0`` if it was false.
-   This accepts any valid Python value.  See :ref:`truth` for more
-   information about how Python tests values for truth.
+   This accepts any valid MyFRpy value.  See :ref:`truth` for more
+   information about how MyFRpy tests values for truth.
 
    .. versionadded:: 3.3
 
 ``(items)`` (:class:`tuple`) [*matching-items*]
-   The object must be a Python sequence whose length is the number of format units
+   The object must be a MyFRpy sequence whose length is the number of format units
    in *items*.  The C arguments must correspond to the individual format units in
    *items*.  Format units for sequences may be nested.
 
@@ -354,7 +354,7 @@ A few other characters have a meaning in a format string.  These may not occur
 inside nested parentheses.  They are:
 
 ``|``
-   Indicates that the remaining arguments in the Python argument list are optional.
+   Indicates that the remaining arguments in the MyFRpy argument list are optional.
    The C variables corresponding to optional arguments should be initialized to
    their default value --- when an optional argument is not specified,
    :c:func:`PyArg_ParseTuple` does not touch the contents of the corresponding C
@@ -362,7 +362,7 @@ inside nested parentheses.  They are:
 
 ``$``
    :c:func:`PyArg_ParseTupleAndKeywords` only:
-   Indicates that the remaining arguments in the Python argument list are
+   Indicates that the remaining arguments in the MyFRpy argument list are
    keyword-only.  Currently, all keyword-only arguments must also be optional
    arguments, so ``|`` must always be specified before ``$`` in the format
    string.
@@ -379,7 +379,7 @@ inside nested parentheses.  They are:
    the error message *instead* of the default error message.  ``:`` and ``;``
    mutually exclude each other.
 
-Note that any Python object references which are provided to the caller are
+Note that any MyFRpy object references which are provided to the caller are
 *borrowed* references; do not release them
 (i.e. do not decrement their reference count)!
 
@@ -447,7 +447,7 @@ API Functions
 
    Function used to deconstruct the argument lists of "old-style" functions ---
    these are functions which use the :const:`METH_OLDARGS` parameter parsing
-   method, which has been removed in Python 3.  This is not recommended for use
+   method, which has been removed in MyFRpy 3.  This is not recommended for use
    in parameter parsing in new code, and most code in the standard interpreter
    has been modified to no longer use this for that purpose.  It does remain a
    convenient way to decompose other tuples, however, and may continue to be
@@ -519,7 +519,7 @@ Building values
    :c:func:`Py_BuildValue` returns.
 
    In the following description, the quoted form is the format unit; the entry in
-   (round) parentheses is the Python object type that the format unit will return;
+   (round) parentheses is the MyFRpy object type that the format unit will return;
    and the entry in [square] brackets is the type of the C value(s) to be passed.
 
    The characters space, tab, colon and comma are ignored in format strings (but
@@ -527,20 +527,20 @@ Building values
    strings a tad more readable.
 
    ``s`` (:class:`str` or ``None``) [const char \*]
-      Convert a null-terminated C string to a Python :class:`str` object using ``'utf-8'``
+      Convert a null-terminated C string to a MyFRpy :class:`str` object using ``'utf-8'``
       encoding. If the C string pointer is ``NULL``, ``None`` is used.
 
    ``s#`` (:class:`str` or ``None``) [const char \*, :c:type:`Py_ssize_t`]
-      Convert a C string and its length to a Python :class:`str` object using ``'utf-8'``
+      Convert a C string and its length to a MyFRpy :class:`str` object using ``'utf-8'``
       encoding. If the C string pointer is ``NULL``, the length is ignored and
       ``None`` is returned.
 
    ``y`` (:class:`bytes`) [const char \*]
-      This converts a C string to a Python :class:`bytes` object.  If the C
+      This converts a C string to a MyFRpy :class:`bytes` object.  If the C
       string pointer is ``NULL``, ``None`` is returned.
 
    ``y#`` (:class:`bytes`) [const char \*, :c:type:`Py_ssize_t`]
-      This converts a C string and its lengths to a Python object.  If the C
+      This converts a C string and its lengths to a MyFRpy object.  If the C
       string pointer is ``NULL``, ``None`` is returned.
 
    ``z`` (:class:`str` or ``None``) [const char \*]
@@ -551,11 +551,11 @@ Building values
 
    ``u`` (:class:`str`) [const wchar_t \*]
       Convert a null-terminated :c:type:`wchar_t` buffer of Unicode (UTF-16 or UCS-4)
-      data to a Python Unicode object.  If the Unicode buffer pointer is ``NULL``,
+      data to a MyFRpy Unicode object.  If the Unicode buffer pointer is ``NULL``,
       ``None`` is returned.
 
    ``u#`` (:class:`str`) [const wchar_t \*, :c:type:`Py_ssize_t`]
-      Convert a Unicode (UTF-16 or UCS-4) data buffer and its length to a Python
+      Convert a Unicode (UTF-16 or UCS-4) data buffer and its length to a MyFRpy
       Unicode object.   If the Unicode buffer pointer is ``NULL``, the length is ignored
       and ``None`` is returned.
 
@@ -566,57 +566,57 @@ Building values
       Same as ``s#``.
 
    ``i`` (:class:`int`) [int]
-      Convert a plain C :c:expr:`int` to a Python integer object.
+      Convert a plain C :c:expr:`int` to a MyFRpy integer object.
 
    ``b`` (:class:`int`) [char]
-      Convert a plain C :c:expr:`char` to a Python integer object.
+      Convert a plain C :c:expr:`char` to a MyFRpy integer object.
 
    ``h`` (:class:`int`) [short int]
-      Convert a plain C :c:expr:`short int` to a Python integer object.
+      Convert a plain C :c:expr:`short int` to a MyFRpy integer object.
 
    ``l`` (:class:`int`) [long int]
-      Convert a C :c:expr:`long int` to a Python integer object.
+      Convert a C :c:expr:`long int` to a MyFRpy integer object.
 
    ``B`` (:class:`int`) [unsigned char]
-      Convert a C :c:expr:`unsigned char` to a Python integer object.
+      Convert a C :c:expr:`unsigned char` to a MyFRpy integer object.
 
    ``H`` (:class:`int`) [unsigned short int]
-      Convert a C :c:expr:`unsigned short int` to a Python integer object.
+      Convert a C :c:expr:`unsigned short int` to a MyFRpy integer object.
 
    ``I`` (:class:`int`) [unsigned int]
-      Convert a C :c:expr:`unsigned int` to a Python integer object.
+      Convert a C :c:expr:`unsigned int` to a MyFRpy integer object.
 
    ``k`` (:class:`int`) [unsigned long]
-      Convert a C :c:expr:`unsigned long` to a Python integer object.
+      Convert a C :c:expr:`unsigned long` to a MyFRpy integer object.
 
    ``L`` (:class:`int`) [long long]
-      Convert a C :c:expr:`long long` to a Python integer object.
+      Convert a C :c:expr:`long long` to a MyFRpy integer object.
 
    ``K`` (:class:`int`) [unsigned long long]
-      Convert a C :c:expr:`unsigned long long` to a Python integer object.
+      Convert a C :c:expr:`unsigned long long` to a MyFRpy integer object.
 
    ``n`` (:class:`int`) [:c:type:`Py_ssize_t`]
-      Convert a C :c:type:`Py_ssize_t` to a Python integer.
+      Convert a C :c:type:`Py_ssize_t` to a MyFRpy integer.
 
    ``c`` (:class:`bytes` of length 1) [char]
-      Convert a C :c:expr:`int` representing a byte to a Python :class:`bytes` object of
+      Convert a C :c:expr:`int` representing a byte to a MyFRpy :class:`bytes` object of
       length 1.
 
    ``C`` (:class:`str` of length 1) [int]
-      Convert a C :c:expr:`int` representing a character to Python :class:`str`
+      Convert a C :c:expr:`int` representing a character to MyFRpy :class:`str`
       object of length 1.
 
    ``d`` (:class:`float`) [double]
-      Convert a C :c:expr:`double` to a Python floating point number.
+      Convert a C :c:expr:`double` to a MyFRpy floating point number.
 
    ``f`` (:class:`float`) [float]
-      Convert a C :c:expr:`float` to a Python floating point number.
+      Convert a C :c:expr:`float` to a MyFRpy floating point number.
 
    ``D`` (:class:`complex`) [Py_complex \*]
-      Convert a C :c:type:`Py_complex` structure to a Python complex number.
+      Convert a C :c:type:`Py_complex` structure to a MyFRpy complex number.
 
    ``O`` (object) [PyObject \*]
-      Pass a Python object untouched but create a new
+      Pass a MyFRpy object untouched but create a new
       :term:`strong reference` to it
       (i.e. its reference count is incremented by one).
       If the object passed in is a ``NULL`` pointer, it is assumed
@@ -634,19 +634,19 @@ Building values
       argument list.
 
    ``O&`` (object) [*converter*, *anything*]
-      Convert *anything* to a Python object through a *converter* function.  The
+      Convert *anything* to a MyFRpy object through a *converter* function.  The
       function is called with *anything* (which should be compatible with :c:expr:`void*`)
-      as its argument and should return a "new" Python object, or ``NULL`` if an
+      as its argument and should return a "new" MyFRpy object, or ``NULL`` if an
       error occurred.
 
    ``(items)`` (:class:`tuple`) [*matching-items*]
-      Convert a sequence of C values to a Python tuple with the same number of items.
+      Convert a sequence of C values to a MyFRpy tuple with the same number of items.
 
    ``[items]`` (:class:`list`) [*matching-items*]
-      Convert a sequence of C values to a Python list with the same number of items.
+      Convert a sequence of C values to a MyFRpy list with the same number of items.
 
    ``{items}`` (:class:`dict`) [*matching-items*]
-      Convert a sequence of C values to a Python dictionary.  Each pair of consecutive
+      Convert a sequence of C values to a MyFRpy dictionary.  Each pair of consecutive
       C values adds one item to the dictionary, serving as key and value,
       respectively.
 

@@ -10,7 +10,7 @@ static const char PyCursesVersion[] = "2.1";
 
 /* Includes */
 
-#include "Python.h"
+#include "MyFRpy.h"
 
 #include "py_curses.h"
 
@@ -91,9 +91,9 @@ typedef struct {
 } PyCursesPanelObject;
 
 /* Some helper functions. The problem is that there's always a window
-   associated with a panel. To ensure that Python's GC doesn't pull
+   associated with a panel. To ensure that MyFRpy's GC doesn't pull
    this window from under our feet we need to keep track of references
-   to the corresponding window object within Python. We can't use
+   to the corresponding window object within MyFRpy. We can't use
    dupwin(oldwin) to keep a copy of the curses WINDOW because the
    contents of oldwin is copied only once; code like
 

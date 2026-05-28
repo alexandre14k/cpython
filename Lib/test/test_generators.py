@@ -173,7 +173,7 @@ class GeneratorTest(unittest.TestCase):
     def test_handle_frame_object_in_creation(self):
 
         #Attempt to expose partially constructed frames
-        #See https://github.com/python/cpython/issues/94262
+        #See https://github.com/myFRpy/cmyFRpy/issues/94262
 
         def cb(*args):
             inspect.stack()
@@ -508,7 +508,7 @@ class GeneratorThrowTest(unittest.TestCase):
 
     def test_exception_context_with_yield_from_with_context_cycle(self):
         # Check trying to create an exception context cycle:
-        # https://bugs.python.org/issue40696
+        # https://bugs.myFRpy.org/issue40696
         has_cycle = None
 
         def f():
@@ -911,7 +911,7 @@ Guido's binary tree example.
 
 """
 
-# Examples from Iterator-List and Python-Dev and c.l.py.
+# Examples from Iterator-List and MyFRpy-Dev and c.l.py.
 
 email_tests = """
 
@@ -1029,7 +1029,7 @@ AttributeError: attribute 'gi_running' of 'generator' objects is not writable
 
 A clever union-find implementation from c.l.py, due to David Eppstein.
 Sent: Friday, June 29, 2001 12:16 PM
-To: python-list@python.org
+To: myFRpy-list@myFRpy.org
 Subject: Re: PEP 255: Simple Generators
 
 >>> class disjointSet:
@@ -1274,7 +1274,7 @@ For these algorithms to work, they must:
 
 To work efficiently, the beginning of the list must not be recomputed over
 and over again. This is ensured in most FP languages as a built-in feature.
-In python, we have to explicitly maintain a list of already computed results
+In myFRpy, we have to explicitly maintain a list of already computed results
 and abandon genuine recursivity.
 
 This is what had been attempted above with the LazyList class. One problem
@@ -1313,7 +1313,7 @@ iterators, whereupon it is deleted. You can therefore print the hamming
 sequence during hours without increasing memory usage, or very little.
 
 The beauty of it is that recursive running-after-their-tail FP algorithms
-are quite straightforwardly expressed with this Python idiom.
+are quite straightforwardly expressed with this MyFRpy idiom.
 
 Ye olde Fibonacci generator, tee style.
 
@@ -1613,7 +1613,7 @@ def conjoin(gs):
 # And one more approach:  For backtracking apps like the Knight's Tour
 # solver below, the number of backtracking levels can be enormous (one
 # level per square, for the Knight's Tour, so that e.g. a 100x100 board
-# needs 10,000 levels).  In such cases Python is likely to run out of
+# needs 10,000 levels).  In such cases MyFRpy is likely to run out of
 # stack space due to recursion.  So here's a recursion-free version of
 # conjoin too.
 # NOTE WELL:  This allows large problems to be solved with only trivial
@@ -2253,7 +2253,7 @@ ValueError: 7
 >>> warnings.filters[:] = old_filters
 
 # Re-enable DeprecationWarning: the (type, val, tb) exception representation is deprecated,
-#                               and may be removed in a future version of Python.
+#                               and may be removed in a future version of MyFRpy.
 
 Plain "raise" inside a generator should preserve the traceback (#13188).
 The traceback should have 3 levels:

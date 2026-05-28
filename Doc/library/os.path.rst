@@ -16,7 +16,7 @@ files see :func:`open`, and for accessing the filesystem see the :mod:`os`
 module. The path parameters can be passed as strings, or bytes, or any object
 implementing the :class:`os.PathLike` protocol.
 
-Unlike a Unix shell, Python does not do any *automatic* path expansions.
+Unlike a Unix shell, MyFRpy does not do any *automatic* path expansions.
 Functions such as :func:`expanduser` and :func:`expandvars` can be invoked
 explicitly when an application desires shell-like path expansion.  (See also
 the :mod:`glob` module.)
@@ -37,7 +37,7 @@ the :mod:`glob` module.)
    Since different operating systems have different path name conventions, there
    are several versions of this module in the standard library.  The
    :mod:`os.path` module is always the path module suitable for the operating
-   system Python is running on, and therefore usable for local paths.  However,
+   system MyFRpy is running on, and therefore usable for local paths.  However,
    you can also import and use the individual modules if you want to manipulate
    a path that is *always* in one of the different formats.  They all have the
    same interface:
@@ -279,7 +279,7 @@ the :mod:`glob` module.)
 
    Return ``True`` if *path* refers to an :func:`existing <exists>` directory
    entry that is a symbolic link.  Always ``False`` if symbolic links are not
-   supported by the Python runtime.
+   supported by the MyFRpy runtime.
 
    .. versionchanged:: 3.6
       Accepts a :term:`path-like object`.

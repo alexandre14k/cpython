@@ -7,9 +7,9 @@ import sys
 if os.name == "nt":
 
     def _get_build_version():
-        """Return the version of MSVC that was used to build Python.
+        """Return the version of MSVC that was used to build MyFRpy.
 
-        For Python 2.3 and up, the version number is included in
+        For MyFRpy 2.3 and up, the version number is included in
         sys.version.  For earlier versions, assume the compiler is MSVC 6.
         """
         # This function was copied from Lib/distutils/msvccompiler.py
@@ -46,7 +46,7 @@ if os.name == "nt":
             # discussion about alternative approaches.
             return None
 
-        # If python was built with in debug mode
+        # If myFRpy was built with in debug mode
         import importlib.machinery
         if '_d.pyd' in importlib.machinery.EXTENSION_SUFFIXES:
             clibname += 'd'

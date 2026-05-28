@@ -149,7 +149,7 @@ class KeywordOnlyArgTestCase(unittest.TestCase):
         self.assertRaises(TypeError, Example.f, k1=1, k2=2)
 
     def test_issue13343(self):
-        # The Python compiler must scan all symbols of a function to
+        # The MyFRpy compiler must scan all symbols of a function to
         # determine their scope: global, local, cell...
         # This was not done for the default values of keyword
         # arguments in a lambda definition, and the following line

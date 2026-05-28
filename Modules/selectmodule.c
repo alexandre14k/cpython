@@ -12,7 +12,7 @@
 #  define _GNU_SOURCE
 #endif
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_fileutils.h"     // _Py_set_inheritable()
 #include "pycore_import.h"        // _PyImport_GetModuleAttrString()
 #include "pycore_time.h"          // _PyTime_t
@@ -121,7 +121,7 @@ class select.kqueue "kqueue_queue_Object *" "_selectstate_by_type(type)->kqueue_
 [clinic start generated code]*/
 /*[clinic end generated code: output=da39a3ee5e6b4b0d input=8072de35824aa327]*/
 
-/* list of Python objects and their file descriptor */
+/* list of MyFRpy objects and their file descriptor */
 typedef struct {
     PyObject *obj;                           /* owned reference */
     SOCKET fd;
@@ -139,7 +139,7 @@ reap_obj(pylist fd2obj[FD_SETSIZE + 1])
 }
 
 
-/* returns -1 and sets the Python exception if an error occurred, otherwise
+/* returns -1 and sets the MyFRpy exception if an error occurred, otherwise
    returns a number >= 0
 */
 static int
@@ -202,7 +202,7 @@ seq2set(PyObject *seq, fd_set *set, pylist fd2obj[FD_SETSIZE + 1])
     return -1;
 }
 
-/* returns NULL and sets the Python exception if an error occurred */
+/* returns NULL and sets the MyFRpy exception if an error occurred */
 static PyObject *
 set2list(fd_set *set, pylist fd2obj[FD_SETSIZE + 1])
 {
@@ -335,7 +335,7 @@ select_select_impl(PyObject *module, PyObject *rlist, PyObject *wlist,
 #endif /* SELECT_USES_HEAP */
 
     /* Convert iterables to fd_sets, and get maximum fd number
-     * propagates the Python exception set in seq2set()
+     * propagates the MyFRpy exception set in seq2set()
      */
     rfd2obj[0].sentinel = -1;
     wfd2obj[0].sentinel = -1;
@@ -818,10 +818,10 @@ static int devpoll_flush(devpollObject *self)
         ** clear what to do if a partial write occurred. For now, raise
         ** an exception and see if we actually found this problem in
         ** the wild.
-        ** See https://github.com/python/cpython/issues/50646.
+        ** See https://github.com/myFRpy/cmyFRpy/issues/50646.
         */
         PyErr_Format(PyExc_OSError, "failed to write all pollfds. "
-                "Please, report at https://github.com/python/cpython/issues/. "
+                "Please, report at https://github.com/myFRpy/cmyFRpy/issues/. "
                 "Data to report: Size tried: %d, actual size written: %d.",
                 size, n);
         return -1;
@@ -1756,11 +1756,11 @@ See the kqueue manpage for more detailed information about the meaning\n\
 of the arguments.\n\
 \n\
 One minor note: while you might hope that udata could store a\n\
-reference to a python object, it cannot, because it is impossible to\n\
+reference to a myFRpy object, it cannot, because it is impossible to\n\
 keep a proper reference count of the object once it's passed into the\n\
 kernel. Therefore, I have restricted it to only storing an integer.  I\n\
 recommend ignoring it and simply using the 'ident' field to key off\n\
-of. You could also set up a dictionary on the python side to store a\n\
+of. You could also set up a dictionary on the myFRpy side to store a\n\
 udata->object mapping.");
 
 typedef struct {
@@ -1849,7 +1849,7 @@ typedef struct kqueue_queue_Object {
 #   define DATA_FMT_UNIT    INTPTRT_FMT_UNIT
 #endif
 
-/* Unfortunately, we can't store python objects in udata, because
+/* Unfortunately, we can't store myFRpy objects in udata, because
  * kevents in the kernel can be removed without warning, which would
  * forever lose the refcount on the object stored with it.
  */

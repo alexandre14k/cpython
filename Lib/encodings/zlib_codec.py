@@ -1,4 +1,4 @@
-"""Python 'zlib_codec' Codec - zlib compression encoding.
+"""MyFRpy 'zlib_codec' Codec - zlib compression encoding.
 
 This codec de/encodes from bytes to bytes.
 

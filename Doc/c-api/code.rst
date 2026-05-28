@@ -9,7 +9,7 @@ Code Objects
 
 .. sectionauthor:: Jeffrey Yasskin <jyasskin@gmail.com>
 
-Code objects are a low-level detail of the CPython implementation.
+Code objects are a low-level detail of the CMyFRpy implementation.
 Each one represents a chunk of executable code that hasn't yet been
 bound into a function.
 
@@ -21,7 +21,7 @@ bound into a function.
 
 .. c:var:: PyTypeObject PyCode_Type
 
-   This is an instance of :c:type:`PyTypeObject` representing the Python
+   This is an instance of :c:type:`PyTypeObject` representing the MyFRpy
    :ref:`code object <code-objects>`.
 
 
@@ -44,7 +44,7 @@ bound into a function.
    use :c:func:`PyCode_NewEmpty` instead.
 
    Since the definition of the bytecode changes often, calling
-   :c:func:`PyUnstable_Code_New` directly can bind you to a precise Python version.
+   :c:func:`PyUnstable_Code_New` directly can bind you to a precise MyFRpy version.
 
    The many arguments of this function are inter-dependent in complex
    ways, meaning that subtle changes to values are likely to result in incorrect
@@ -91,7 +91,7 @@ bound into a function.
     If you just need the line number of a frame, use :c:func:`PyFrame_GetLineNumber` instead.
 
     For efficiently iterating over the line numbers in a code object, use `the API described in PEP 626
-    <https://peps.python.org/pep-0626/#out-of-process-debuggers-and-profilers>`_.
+    <https://peps.myFRpy.org/pep-0626/#out-of-process-debuggers-and-profilers>`_.
 
 .. c:function:: int PyCode_Addr2Location(PyObject *co, int byte_offset, int *start_line, int *start_column, int *end_line, int *end_column)
 
@@ -105,20 +105,20 @@ bound into a function.
 
 .. c:function:: PyObject* PyCode_GetCode(PyCodeObject *co)
 
-   Equivalent to the Python code ``getattr(co, 'co_code')``.
+   Equivalent to the MyFRpy code ``getattr(co, 'co_code')``.
    Returns a strong reference to a :c:type:`PyBytesObject` representing the
    bytecode in a code object. On error, ``NULL`` is returned and an exception
    is raised.
 
    This ``PyBytesObject`` may be created on-demand by the interpreter and does
-   not necessarily represent the bytecode actually executed by CPython. The
+   not necessarily represent the bytecode actually executed by CMyFRpy. The
    primary use case for this function is debuggers and profilers.
 
    .. versionadded:: 3.11
 
 .. c:function:: PyObject* PyCode_GetVarnames(PyCodeObject *co)
 
-   Equivalent to the Python code ``getattr(co, 'co_varnames')``.
+   Equivalent to the MyFRpy code ``getattr(co, 'co_varnames')``.
    Returns a new reference to a :c:type:`PyTupleObject` containing the names of
    the local variables. On error, ``NULL`` is returned and an exception
    is raised.
@@ -127,7 +127,7 @@ bound into a function.
 
 .. c:function:: PyObject* PyCode_GetCellvars(PyCodeObject *co)
 
-   Equivalent to the Python code ``getattr(co, 'co_cellvars')``.
+   Equivalent to the MyFRpy code ``getattr(co, 'co_cellvars')``.
    Returns a new reference to a :c:type:`PyTupleObject` containing the names of
    the local variables that are referenced by nested functions. On error, ``NULL``
    is returned and an exception is raised.
@@ -136,7 +136,7 @@ bound into a function.
 
 .. c:function:: PyObject* PyCode_GetFreevars(PyCodeObject *co)
 
-   Equivalent to the Python code ``getattr(co, 'co_freevars')``.
+   Equivalent to the MyFRpy code ``getattr(co, 'co_freevars')``.
    Returns a new reference to a :c:type:`PyTupleObject` containing the names of
    the free variables. On error, ``NULL`` is returned and an exception is raised.
 
@@ -187,7 +187,7 @@ bound into a function.
    order and timing of creation and destruction of code objects. While
    changes in these details may result in differences observable by watchers
    (including whether a callback is invoked or not), it does not change
-   the semantics of the Python code being executed.
+   the semantics of the MyFRpy code being executed.
 
    If the callback sets an exception, it must return ``-1``; this exception will
    be printed as an unraisable exception using :c:func:`PyErr_WriteUnraisable`.
@@ -210,7 +210,7 @@ just-in-time compilers, it is possible to attach arbitrary extra data to
 code objects.
 
 These functions are part of the unstable C API tier:
-this functionality is a CPython implementation detail, and the API
+this functionality is a CMyFRpy implementation detail, and the API
 may change without deprecation warnings.
 
 .. c:function:: Py_ssize_t PyUnstable_Eval_RequestCodeExtraIndex(freefunc free)

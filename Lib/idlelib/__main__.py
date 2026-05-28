@@ -1,7 +1,7 @@
 """
 IDLE main entry point
 
-Run IDLE as python -m idlelib
+Run IDLE as myFRpy -m idlelib
 """
 import idlelib.pyshell
 idlelib.pyshell.main()

@@ -60,7 +60,7 @@ PyAPI_FUNC(int) _PyMem_SetDefaultAllocator(
 
    The pointer is not dereferenced, only the pointer value is checked.
 
-   The heuristic relies on the debug hooks on Python memory allocators which
+   The heuristic relies on the debug hooks on MyFRpy memory allocators which
    fills newly allocated memory with CLEANBYTE (0xCD) and newly freed memory
    with DEADBYTE (0xDD). Detect also "untouchable bytes" marked
    with FORBIDDENBYTE (0xFD). */
@@ -86,7 +86,7 @@ PyAPI_FUNC(int) _PyMem_GetAllocatorName(
     const char *name,
     PyMemAllocatorName *allocator);
 
-/* Configure the Python memory allocators.
+/* Configure the MyFRpy memory allocators.
    Pass PYMEM_ALLOCATOR_DEFAULT to use default allocators.
    PYMEM_ALLOCATOR_NOT_SET does nothing. */
 PyAPI_FUNC(int) _PyMem_SetupAllocators(PyMemAllocatorName allocator);

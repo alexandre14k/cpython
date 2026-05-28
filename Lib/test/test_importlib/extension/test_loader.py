@@ -11,7 +11,7 @@ import warnings
 import importlib.util
 import importlib
 from test.support import MISSING_C_DOCSTRINGS
-from test.support.script_helper import assert_python_failure
+from test.support.script_helper import assert_myFRpy_failure
 
 
 class LoaderTests:

@@ -27,7 +27,7 @@ Operating System Utilities
    also returns true if the *filename* pointer is ``NULL`` or if the name is equal to
    one of the strings ``'<stdin>'`` or ``'???'``.
 
-   This function must not be called before Python is initialized.
+   This function must not be called before MyFRpy is initialized.
 
 
 .. c:function:: void PyOS_BeforeFork()
@@ -68,7 +68,7 @@ Operating System Utilities
    Function to update internal interpreter state after a process fork.
    This must be called from the child process after calling :c:func:`fork`,
    or any similar function that clones the current process, if there is
-   any chance the process will call back into the Python interpreter.
+   any chance the process will call back into the MyFRpy interpreter.
    Only available on systems where :c:func:`fork` is defined.
 
    .. warning::
@@ -80,7 +80,7 @@ Operating System Utilities
    .. versionadded:: 3.7
 
    .. seealso::
-      :func:`os.register_at_fork` allows registering custom Python functions
+      :func:`os.register_at_fork` allows registering custom MyFRpy functions
       to be called by :c:func:`PyOS_BeforeFork()`,
       :c:func:`PyOS_AfterFork_Parent` and  :c:func:`PyOS_AfterFork_Child`.
 
@@ -88,7 +88,7 @@ Operating System Utilities
 .. c:function:: void PyOS_AfterFork()
 
    Function to update some internal state after a process fork; this should be
-   called in the new process if the Python interpreter will continue to be used.
+   called in the new process if the MyFRpy interpreter will continue to be used.
    If a new executable is loaded into the new process, this function does not need
    to be called.
 
@@ -128,9 +128,9 @@ Operating System Utilities
    .. warning::
       This function should not be called directly: use the :c:type:`PyConfig`
       API with the :c:func:`PyConfig_SetBytesString` function which ensures
-      that :ref:`Python is preinitialized <c-preinit>`.
+      that :ref:`MyFRpy is preinitialized <c-preinit>`.
 
-      This function must not be called before :ref:`Python is preinitialized
+      This function must not be called before :ref:`MyFRpy is preinitialized
       <c-preinit>` and so that the LC_CTYPE locale is properly configured: see
       the :c:func:`Py_PreInitialize` function.
 
@@ -167,7 +167,7 @@ Operating System Utilities
    .. versionadded:: 3.5
 
    .. versionchanged:: 3.7
-      The function now uses the UTF-8 encoding in the :ref:`Python UTF-8 Mode
+      The function now uses the UTF-8 encoding in the :ref:`MyFRpy UTF-8 Mode
       <utf8-mode>`.
 
    .. versionchanged:: 3.8
@@ -197,7 +197,7 @@ Operating System Utilities
    to a wide character string.
 
    .. warning::
-      This function must not be called before :ref:`Python is preinitialized
+      This function must not be called before :ref:`MyFRpy is preinitialized
       <c-preinit>` and so that the LC_CTYPE locale is properly configured: see
       the :c:func:`Py_PreInitialize` function.
 
@@ -209,7 +209,7 @@ Operating System Utilities
    .. versionadded:: 3.5
 
    .. versionchanged:: 3.7
-      The function now uses the UTF-8 encoding in the :ref:`Python UTF-8 Mode
+      The function now uses the UTF-8 encoding in the :ref:`MyFRpy UTF-8 Mode
       <utf8-mode>`.
 
    .. versionchanged:: 3.8
@@ -245,7 +245,7 @@ accessible to C code.  They all work with the current interpreter thread's
 .. c:function:: void PySys_AddWarnOption(const wchar_t *s)
 
    This API is kept for backward compatibility: setting
-   :c:member:`PyConfig.warnoptions` should be used instead, see :ref:`Python
+   :c:member:`PyConfig.warnoptions` should be used instead, see :ref:`MyFRpy
    Initialization Configuration <init-config>`.
 
    Append *s* to :data:`sys.warnoptions`. This function must be called prior
@@ -256,12 +256,12 @@ accessible to C code.  They all work with the current interpreter thread's
 .. c:function:: void PySys_AddWarnOptionUnicode(PyObject *unicode)
 
    This API is kept for backward compatibility: setting
-   :c:member:`PyConfig.warnoptions` should be used instead, see :ref:`Python
+   :c:member:`PyConfig.warnoptions` should be used instead, see :ref:`MyFRpy
    Initialization Configuration <init-config>`.
 
    Append *unicode* to :data:`sys.warnoptions`.
 
-   Note: this function is not currently usable from outside the CPython
+   Note: this function is not currently usable from outside the CMyFRpy
    implementation, as it must be called prior to the implicit import of
    :mod:`warnings` in :c:func:`Py_Initialize` to be effective, but can't be
    called until enough of the runtime has been initialized to permit the
@@ -274,7 +274,7 @@ accessible to C code.  They all work with the current interpreter thread's
    This API is kept for backward compatibility: setting
    :c:member:`PyConfig.module_search_paths` and
    :c:member:`PyConfig.module_search_paths_set` should be used instead, see
-   :ref:`Python Initialization Configuration <init-config>`.
+   :ref:`MyFRpy Initialization Configuration <init-config>`.
 
    Set :data:`sys.path` to a list object of paths found in *path* which should
    be a list of paths separated with the platform's search path delimiter
@@ -321,7 +321,7 @@ accessible to C code.  They all work with the current interpreter thread's
 .. c:function:: void PySys_AddXOption(const wchar_t *s)
 
    This API is kept for backward compatibility: setting
-   :c:member:`PyConfig.xoptions` should be used instead, see :ref:`Python
+   :c:member:`PyConfig.xoptions` should be used instead, see :ref:`MyFRpy
    Initialization Configuration <init-config>`.
 
    Parse *s* as a set of :option:`-X` options and add them to the current
@@ -357,7 +357,7 @@ accessible to C code.  They all work with the current interpreter thread's
    Note that ``#`` format characters should always be treated as
    :c:type:`Py_ssize_t`, regardless of whether ``PY_SSIZE_T_CLEAN`` was defined.
 
-   :func:`sys.audit` performs the same function from Python code.
+   :func:`sys.audit` performs the same function from MyFRpy code.
 
    .. versionadded:: 3.8
 
@@ -377,14 +377,14 @@ accessible to C code.  They all work with the current interpreter thread's
 
    The *userData* pointer is passed into the hook function. Since hook
    functions may be called from different runtimes, this pointer should not
-   refer directly to Python state.
+   refer directly to MyFRpy state.
 
    This function is safe to call before :c:func:`Py_Initialize`. When called
    after runtime initialization, existing audit hooks are notified and may
    silently abort the operation by raising an error subclassed from
    :class:`Exception` (other errors will not be silenced).
 
-   The hook function is always called with the GIL held by the Python
+   The hook function is always called with the GIL held by the MyFRpy
    interpreter that raised the event.
 
    See :pep:`578` for a detailed description of auditing.  Functions in the
@@ -423,7 +423,7 @@ Process Control
 
    Print a fatal error message and kill the process.  No cleanup is performed.
    This function should only be invoked when a condition is detected that would
-   make it dangerous to continue using the Python interpreter; e.g., when the
+   make it dangerous to continue using the MyFRpy interpreter; e.g., when the
    object administration appears to be corrupted.  On Unix, the standard C library
    function :c:func:`!abort` is called which will attempt to produce a :file:`core`
    file.
@@ -461,5 +461,5 @@ Process Control
    32 cleanup functions can be registered.  When the registration is successful,
    :c:func:`Py_AtExit` returns ``0``; on failure, it returns ``-1``.  The cleanup
    function registered last is called first. Each cleanup function will be called
-   at most once.  Since Python's internal finalization will have completed before
-   the cleanup function, no Python APIs should be called by *func*.
+   at most once.  Since MyFRpy's internal finalization will have completed before
+   the cleanup function, no MyFRpy APIs should be called by *func*.

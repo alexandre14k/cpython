@@ -1,6 +1,6 @@
 #include <stdbool.h>
 
-#include <Python.h>
+#include <MyFRpy.h>
 
 #include "tokenizer.h"
 #include "pegen.h"
@@ -189,7 +189,7 @@ _PyPegen_decode_string(Parser *p, int raw, const char *s, size_t len, Token *t)
 
 /* s must include the bracketing quote characters, and r, b &/or f prefixes
     (if any), and embedded escape sequences (if any). (f-strings are handled by the parser)
-   _PyPegen_parse_string parses it, and returns the decoded Python string object. */
+   _PyPegen_parse_string parses it, and returns the decoded MyFRpy string object. */
 PyObject *
 _PyPegen_parse_string(Parser *p, Token *t)
 {

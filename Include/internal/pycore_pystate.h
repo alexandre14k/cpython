@@ -37,7 +37,7 @@ static inline int
 _Py_IsMainInterpreterFinalizing(PyInterpreterState *interp)
 {
     /* bpo-39877: Access _PyRuntime directly rather than using
-       tstate->interp->runtime to support calls from Python daemon threads.
+       tstate->interp->runtime to support calls from MyFRpy daemon threads.
        After Py_Finalize() has been called, tstate can be a dangling pointer:
        point to PyThreadState freed memory. */
     return (_PyRuntimeState_GetFinalizing(&_PyRuntime) != NULL &&
@@ -83,7 +83,7 @@ extern int _PyThreadState_CheckConsistency(PyThreadState *tstate);
 
 extern int _PyThreadState_MustExit(PyThreadState *tstate);
 
-/* Get the current Python thread state.
+/* Get the current MyFRpy thread state.
 
    This function is unsafe: it does not check for error and it can return NULL.
 
@@ -107,8 +107,8 @@ _Py_EnsureFuncTstateNotNULL(const char *func, PyThreadState *tstate)
     if (tstate == NULL) {
         _Py_FatalErrorFunc(func,
             "the function must be called with the GIL held, "
-            "after Python initialization and before Python finalization, "
-            "but the GIL is released (the current Python thread state is NULL)");
+            "after MyFRpy initialization and before MyFRpy finalization, "
+            "but the GIL is released (the current MyFRpy thread state is NULL)");
     }
 }
 

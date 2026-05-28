@@ -1,4 +1,4 @@
-"Test the functionality of Python classes implementing operators."
+"Test the functionality of MyFRpy classes implementing operators."
 
 import unittest
 

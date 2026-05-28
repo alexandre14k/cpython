@@ -15,7 +15,7 @@ import warnings
 StaticMethodType = type(staticmethod(lambda: None))
 ClassMethodType = type(classmethod(lambda c: None))
 
-# Here we test the python class browser code.
+# Here we test the myFRpy class browser code.
 #
 # The main function in this suite, 'testModule', compares the output
 # of pyclbr with the introspected members of a module.  Because pyclbr

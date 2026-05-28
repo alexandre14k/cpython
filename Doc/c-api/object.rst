@@ -38,7 +38,7 @@ Object Protocol
 .. c:function:: int PyObject_HasAttr(PyObject *o, PyObject *attr_name)
 
    Returns ``1`` if *o* has the attribute *attr_name*, and ``0`` otherwise.  This
-   is equivalent to the Python expression ``hasattr(o, attr_name)``.  This function
+   is equivalent to the MyFRpy expression ``hasattr(o, attr_name)``.  This function
    always succeeds.
 
    .. note::
@@ -65,7 +65,7 @@ Object Protocol
 .. c:function:: PyObject* PyObject_GetAttr(PyObject *o, PyObject *attr_name)
 
    Retrieve an attribute named *attr_name* from object *o*. Returns the attribute
-   value on success, or ``NULL`` on failure.  This is the equivalent of the Python
+   value on success, or ``NULL`` on failure.  This is the equivalent of the MyFRpy
    expression ``o.attr_name``.
 
 
@@ -90,7 +90,7 @@ Object Protocol
 
    Set the value of the attribute named *attr_name*, for object *o*, to the value
    *v*. Raise an exception and return ``-1`` on failure;
-   return ``0`` on success.  This is the equivalent of the Python statement
+   return ``0`` on success.  This is the equivalent of the MyFRpy statement
    ``o.attr_name = v``.
 
    If *v* is ``NULL``, the attribute is deleted. This behaviour is deprecated
@@ -123,7 +123,7 @@ Object Protocol
 .. c:function:: int PyObject_DelAttr(PyObject *o, PyObject *attr_name)
 
    Delete attribute named *attr_name*, for object *o*. Returns ``-1`` on failure.
-   This is the equivalent of the Python statement ``del o.attr_name``.
+   This is the equivalent of the MyFRpy statement ``del o.attr_name``.
 
 
 .. c:function:: int PyObject_DelAttrString(PyObject *o, const char *attr_name)
@@ -173,7 +173,7 @@ Object Protocol
    which must be one of :c:macro:`Py_LT`, :c:macro:`Py_LE`, :c:macro:`Py_EQ`,
    :c:macro:`Py_NE`, :c:macro:`Py_GT`, or :c:macro:`Py_GE`, corresponding to ``<``,
    ``<=``, ``==``, ``!=``, ``>``, or ``>=`` respectively. This is the equivalent of
-   the Python expression ``o1 op o2``, where ``op`` is the operator corresponding
+   the MyFRpy expression ``o1 op o2``, where ``op`` is the operator corresponding
    to *opid*. Returns the value of the comparison on success, or ``NULL`` on failure.
 
 
@@ -189,7 +189,7 @@ Object Protocol
 
 .. c:function:: PyObject* PyObject_Format(PyObject *obj, PyObject *format_spec)
 
-   Format *obj* using *format_spec*. This is equivalent to the Python
+   Format *obj* using *format_spec*. This is equivalent to the MyFRpy
    expression ``format(obj, format_spec)``.
 
    *format_spec* may be ``NULL``. In this case the call is equivalent
@@ -202,7 +202,7 @@ Object Protocol
 
    Compute a string representation of object *o*.  Returns the string
    representation on success, ``NULL`` on failure.  This is the equivalent of the
-   Python expression ``repr(o)``.  Called by the :func:`repr` built-in function.
+   MyFRpy expression ``repr(o)``.  Called by the :func:`repr` built-in function.
 
    .. versionchanged:: 3.4
       This function now includes a debug assertion to help ensure that it
@@ -215,7 +215,7 @@ Object Protocol
    As :c:func:`PyObject_Repr`, compute a string representation of object *o*, but
    escape the non-ASCII characters in the string returned by
    :c:func:`PyObject_Repr` with ``\x``, ``\u`` or ``\U`` escapes.  This generates
-   a string similar to that returned by :c:func:`PyObject_Repr` in Python 2.
+   a string similar to that returned by :c:func:`PyObject_Repr` in MyFRpy 2.
    Called by the :func:`ascii` built-in function.
 
    .. index:: string; PyObject_Str (C function)
@@ -225,7 +225,7 @@ Object Protocol
 
    Compute a string representation of object *o*.  Returns the string
    representation on success, ``NULL`` on failure.  This is the equivalent of the
-   Python expression ``str(o)``.  Called by the :func:`str` built-in function
+   MyFRpy expression ``str(o)``.  Called by the :func:`str` built-in function
    and, therefore, by the :func:`print` function.
 
    .. versionchanged:: 3.4
@@ -238,7 +238,7 @@ Object Protocol
    .. index:: pair: built-in function; bytes
 
    Compute a bytes representation of object *o*.  ``NULL`` is returned on
-   failure and a bytes object on success.  This is equivalent to the Python
+   failure and a bytes object on success.  This is equivalent to the MyFRpy
    expression ``bytes(o)``, when *o* is not an integer.  Unlike ``bytes(o)``,
    a TypeError is raised when *o* is an integer instead of a zero-initialized
    bytes object.
@@ -289,7 +289,7 @@ Object Protocol
    .. index:: pair: built-in function; hash
 
    Compute and return the hash value of an object *o*.  On failure, return ``-1``.
-   This is the equivalent of the Python expression ``hash(o)``.
+   This is the equivalent of the MyFRpy expression ``hash(o)``.
 
    .. versionchanged:: 3.2
       The return type is now Py_hash_t.  This is a signed integer the same size
@@ -307,14 +307,14 @@ Object Protocol
 .. c:function:: int PyObject_IsTrue(PyObject *o)
 
    Returns ``1`` if the object *o* is considered to be true, and ``0`` otherwise.
-   This is equivalent to the Python expression ``not not o``.  On failure, return
+   This is equivalent to the MyFRpy expression ``not not o``.  On failure, return
    ``-1``.
 
 
 .. c:function:: int PyObject_Not(PyObject *o)
 
    Returns ``0`` if the object *o* is considered to be true, and ``1`` otherwise.
-   This is equivalent to the Python expression ``not o``.  On failure, return
+   This is equivalent to the MyFRpy expression ``not o``.  On failure, return
    ``-1``.
 
 
@@ -324,7 +324,7 @@ Object Protocol
 
    When *o* is non-``NULL``, returns a type object corresponding to the object type
    of object *o*. On failure, raises :exc:`SystemError` and returns ``NULL``.  This
-   is equivalent to the Python expression ``type(o)``.
+   is equivalent to the MyFRpy expression ``type(o)``.
    This function creates a new :term:`strong reference` to the return value.
    There's really no reason to use this
    function instead of the :c:func:`Py_TYPE()` function, which returns a
@@ -345,7 +345,7 @@ Object Protocol
 
    Return the length of object *o*.  If the object *o* provides either the sequence
    and mapping protocols, the sequence length is returned.  On error, ``-1`` is
-   returned.  This is the equivalent to the Python expression ``len(o)``.
+   returned.  This is the equivalent to the MyFRpy expression ``len(o)``.
 
 
 .. c:function:: Py_ssize_t PyObject_LengthHint(PyObject *o, Py_ssize_t defaultvalue)
@@ -353,7 +353,7 @@ Object Protocol
    Return an estimated length for the object *o*. First try to return its
    actual length, then an estimate using :meth:`~object.__length_hint__`, and
    finally return the default value. On error return ``-1``. This is the
-   equivalent to the Python expression ``operator.length_hint(o, defaultvalue)``.
+   equivalent to the MyFRpy expression ``operator.length_hint(o, defaultvalue)``.
 
    .. versionadded:: 3.4
 
@@ -361,35 +361,35 @@ Object Protocol
 .. c:function:: PyObject* PyObject_GetItem(PyObject *o, PyObject *key)
 
    Return element of *o* corresponding to the object *key* or ``NULL`` on failure.
-   This is the equivalent of the Python expression ``o[key]``.
+   This is the equivalent of the MyFRpy expression ``o[key]``.
 
 
 .. c:function:: int PyObject_SetItem(PyObject *o, PyObject *key, PyObject *v)
 
    Map the object *key* to the value *v*.  Raise an exception and
    return ``-1`` on failure; return ``0`` on success.  This is the
-   equivalent of the Python statement ``o[key] = v``.  This function *does
+   equivalent of the MyFRpy statement ``o[key] = v``.  This function *does
    not* steal a reference to *v*.
 
 
 .. c:function:: int PyObject_DelItem(PyObject *o, PyObject *key)
 
    Remove the mapping for the object *key* from the object *o*.  Return ``-1``
-   on failure.  This is equivalent to the Python statement ``del o[key]``.
+   on failure.  This is equivalent to the MyFRpy statement ``del o[key]``.
 
 
 .. c:function:: PyObject* PyObject_Dir(PyObject *o)
 
-   This is equivalent to the Python expression ``dir(o)``, returning a (possibly
+   This is equivalent to the MyFRpy expression ``dir(o)``, returning a (possibly
    empty) list of strings appropriate for the object argument, or ``NULL`` if there
-   was an error.  If the argument is ``NULL``, this is like the Python ``dir()``,
+   was an error.  If the argument is ``NULL``, this is like the MyFRpy ``dir()``,
    returning the names of the current locals; in this case, if no execution frame
    is active then ``NULL`` is returned but :c:func:`PyErr_Occurred` will return false.
 
 
 .. c:function:: PyObject* PyObject_GetIter(PyObject *o)
 
-   This is equivalent to the Python expression ``iter(o)``. It returns a new
+   This is equivalent to the MyFRpy expression ``iter(o)``. It returns a new
    iterator for the object argument, or the object  itself if the object is already
    an iterator.  Raises :exc:`TypeError` and returns ``NULL`` if the object cannot be
    iterated.
@@ -397,7 +397,7 @@ Object Protocol
 
 .. c:function:: PyObject* PyObject_GetAIter(PyObject *o)
 
-   This is the equivalent to the Python expression ``aiter(o)``. Takes an
+   This is the equivalent to the MyFRpy expression ``aiter(o)``. Takes an
    :class:`AsyncIterable` object and returns an :class:`AsyncIterator` for it.
    This is typically a new iterator but if the argument is an
    :class:`AsyncIterator`, this returns itself. Raises :exc:`TypeError` and
@@ -411,7 +411,7 @@ Object Protocol
 
    The object *o* must be an instance of *cls*, and *cls* must have been
    created using negative :c:member:`PyType_Spec.basicsize`.
-   Python does not check this.
+   MyFRpy does not check this.
 
    On error, set an exception and return ``NULL``.
 
@@ -427,7 +427,7 @@ Object Protocol
 
    The type *cls* **must** have been created using
    negative :c:member:`PyType_Spec.basicsize`.
-   Python does not check this.
+   MyFRpy does not check this.
 
    On error, set an exception and return a negative value.
 

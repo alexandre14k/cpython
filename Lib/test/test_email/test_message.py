@@ -966,7 +966,7 @@ class TestEmailMessage(TestEmailMessageBase, TestEmailBase):
             From: Foo Bar <email@email.au>
             MIME-Version: 1.0
             To: email@email.com <email@email.com>
-            Subject: Python Email
+            Subject: MyFRpy Email
             Content-Type: multipart/mixed;
             boundary="------------879045806563892972123996"
             X-Global-filter:Messagescannedforspamandviruses:passedalltests

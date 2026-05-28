@@ -274,23 +274,23 @@ Parsing a doctype::
 
 Parsing an element with a few attributes and a title::
 
-   >>> parser.feed('<img src="python-logo.png" alt="The Python logo">')
+   >>> parser.feed('<img src="myFRpy-logo.png" alt="The MyFRpy logo">')
    Start tag: img
-        attr: ('src', 'python-logo.png')
-        attr: ('alt', 'The Python logo')
+        attr: ('src', 'myFRpy-logo.png')
+        attr: ('alt', 'The MyFRpy logo')
    >>>
-   >>> parser.feed('<h1>Python</h1>')
+   >>> parser.feed('<h1>MyFRpy</h1>')
    Start tag: h1
-   Data     : Python
+   Data     : MyFRpy
    End tag  : h1
 
 The content of ``script`` and ``style`` elements is returned as is, without
 further parsing::
 
-   >>> parser.feed('<style type="text/css">#python { color: green }</style>')
+   >>> parser.feed('<style type="text/css">#myFRpy { color: green }</style>')
    Start tag: style
         attr: ('type', 'text/css')
-   Data     : #python { color: green }
+   Data     : #myFRpy { color: green }
    End tag  : style
 
    >>> parser.feed('<script type="text/javascript">'

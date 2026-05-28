@@ -4,8 +4,8 @@
 .. module:: itertools
    :synopsis: Functions creating iterators for efficient looping.
 
-.. moduleauthor:: Raymond Hettinger <python@rcn.com>
-.. sectionauthor:: Raymond Hettinger <python@rcn.com>
+.. moduleauthor:: Raymond Hettinger <myFRpy@rcn.com>
+.. sectionauthor:: Raymond Hettinger <myFRpy@rcn.com>
 
 .. testsetup::
 
@@ -19,15 +19,15 @@
 
 This module implements a number of :term:`iterator` building blocks inspired
 by constructs from APL, Haskell, and SML.  Each has been recast in a form
-suitable for Python.
+suitable for MyFRpy.
 
 The module standardizes a core set of fast, memory efficient tools that are
 useful by themselves or in combination.  Together, they form an "iterator
 algebra" making it possible to construct specialized tools succinctly and
-efficiently in pure Python.
+efficiently in pure MyFRpy.
 
 For instance, SML provides a tabulation tool: ``tabulate(f)`` which produces a
-sequence ``f(0), f(1), ...``.  The same effect can be achieved in Python
+sequence ``f(0), f(1), ...``.  The same effect can be achieved in MyFRpy
 by combining :func:`map` and :func:`count` to form ``map(f, count())``.
 
 These tools and their built-in counterparts also work well with the high-speed
@@ -695,7 +695,7 @@ loops that truncate the stream.
 
    Return *n* independent iterators from a single iterable.
 
-   The following Python code helps explain what *tee* does (although the actual
+   The following MyFRpy code helps explain what *tee* does (although the actual
    implementation is more complex and uses only a single underlying
    :abbr:`FIFO (first-in, first-out)` queue)::
 
@@ -784,9 +784,9 @@ recipes are being tested to see whether they prove their worth.
 
 Substantially all of these recipes and many, many others can be installed from
 the `more-itertools project <https://pypi.org/project/more-itertools/>`_ found
-on the Python Package Index::
+on the MyFRpy Package Index::
 
-    python -m pip install more-itertools
+    myFRpy -m pip install more-itertools
 
 Many of the recipes offer the same high performance as the underlying toolset.
 Superior memory performance is kept by processing elements one at a time rather
@@ -1120,7 +1120,7 @@ The following recipes have a more mathematical flavor:
     8
     27
 
-    >>> reportlines = ['EuroPython', 'Roster', '', 'alex', '', 'laura', '', 'martin', '', 'walter', '', 'samuele']
+    >>> reportlines = ['EuroMyFRpy', 'Roster', '', 'alex', '', 'laura', '', 'martin', '', 'walter', '', 'samuele']
     >>> for name in islice(reportlines, 3, None, 2):
     ...    print(name.title())
     ...

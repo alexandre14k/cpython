@@ -7,9 +7,9 @@ function deactivate  -d "Exit virtual environment and return to normal shell env
         set -gx PATH $_OLD_VIRTUAL_PATH
         set -e _OLD_VIRTUAL_PATH
     end
-    if test -n "$_OLD_VIRTUAL_PYTHONHOME"
-        set -gx PYTHONHOME $_OLD_VIRTUAL_PYTHONHOME
-        set -e _OLD_VIRTUAL_PYTHONHOME
+    if test -n "$_OLD_VIRTUAL_MYFRPYHOME"
+        set -gx MYFRPYHOME $_OLD_VIRTUAL_MYFRPYHOME
+        set -e _OLD_VIRTUAL_MYFRPYHOME
     end
 
     if test -n "$_OLD_FISH_PROMPT_OVERRIDE"
@@ -38,10 +38,10 @@ set -gx VIRTUAL_ENV "__VENV_DIR__"
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/__VENV_BIN_NAME__" $PATH
 
-# Unset PYTHONHOME if set.
-if set -q PYTHONHOME
-    set -gx _OLD_VIRTUAL_PYTHONHOME $PYTHONHOME
-    set -e PYTHONHOME
+# Unset MYFRPYHOME if set.
+if set -q MYFRPYHOME
+    set -gx _OLD_VIRTUAL_MYFRPYHOME $MYFRPYHOME
+    set -e MYFRPYHOME
 end
 
 if test -z "$VIRTUAL_ENV_DISABLE_PROMPT"
@@ -55,7 +55,7 @@ if test -z "$VIRTUAL_ENV_DISABLE_PROMPT"
         # Save the return status of the last command.
         set -l old_status $status
 
-        # Output the venv prompt; color taken from the blue of the Python logo.
+        # Output the venv prompt; color taken from the blue of the MyFRpy logo.
         printf "%s%s%s" (set_color 4B8BBE) "__VENV_PROMPT__" (set_color normal)
 
         # Restore the return status of the previous command.

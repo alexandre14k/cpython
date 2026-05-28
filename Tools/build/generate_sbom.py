@@ -1,4 +1,4 @@
-"""Tool for generating Software Bill of Materials (SBOM) for Python's dependencies"""
+"""Tool for generating Software Bill of Materials (SBOM) for MyFRpy's dependencies"""
 import os
 import re
 import hashlib
@@ -10,7 +10,7 @@ import sys
 import urllib.request
 import typing
 
-CPYTHON_ROOT_DIR = pathlib.Path(__file__).parent.parent.parent
+CMYFRPY_ROOT_DIR = pathlib.Path(__file__).parent.parent.parent
 
 # Before adding a new entry to this list, double check that
 # the license expression is a valid SPDX license expression:
@@ -25,7 +25,7 @@ ALLOWED_LICENSE_EXPRESSIONS = {
     "LGPL-2.1-only",
     "MIT",
     "MPL-2.0",
-    "Python-2.0.1",
+    "MyFRpy-2.0.1",
 }
 
 # Properties which are required for our purposes.
@@ -77,7 +77,7 @@ PACKAGE_TO_FILES = {
         exclude=[
             "Modules/_hacl/refresh.sh",
             "Modules/_hacl/README.md",
-            "Modules/_hacl/python_hacl_namespace.h",
+            "Modules/_hacl/myFRpy_hacl_namespace.h",
         ]
     ),
 }
@@ -92,7 +92,7 @@ def error_if(value: bool, error_message: str) -> None:
     """Prints an error if a comparison fails along with a link to the devguide"""
     if value:
         print(error_message)
-        print("See 'https://devguide.python.org/developer-workflow/sbom' for more information.")
+        print("See 'https://devguide.myFRpy.org/developer-workflow/sbom' for more information.")
         sys.exit(1)
 
 
@@ -112,7 +112,7 @@ def filter_gitignored_paths(paths: list[str]) -> list[str]:
     # Non-matching files show up as '::<whitespace><path>'
     git_check_ignore_proc = subprocess.run(
         ["git", "check-ignore", "--verbose", "--non-matching", *paths],
-        cwd=CPYTHON_ROOT_DIR,
+        cwd=CMYFRPY_ROOT_DIR,
         check=False,
         stdout=subprocess.PIPE,
     )
@@ -129,7 +129,7 @@ def get_externals() -> list[str]:
     Parses 'PCbuild/get_externals.bat' for external libraries.
     Returns a list of (git tag, name, version) tuples.
     """
-    get_externals_bat_path = CPYTHON_ROOT_DIR / "PCbuild/get_externals.bat"
+    get_externals_bat_path = CMYFRPY_ROOT_DIR / "PCbuild/get_externals.bat"
     externals = re.findall(
         r"set\s+libraries\s*=\s*%libraries%\s+([a-zA-Z0-9.-]+)\s",
         get_externals_bat_path.read_text()
@@ -185,7 +185,7 @@ def check_sbom_packages(sbom_data: dict[str, typing.Any]) -> None:
 
         # HACL* specifies its expected rev in a refresh script.
         if package["name"] == "hacl-star":
-            hacl_refresh_sh = (CPYTHON_ROOT_DIR / "Modules/_hacl/refresh.sh").read_text()
+            hacl_refresh_sh = (CMYFRPY_ROOT_DIR / "Modules/_hacl/refresh.sh").read_text()
             hacl_expected_rev_match = re.search(
                 r"expected_hacl_star_rev=([0-9a-f]{40})",
                 hacl_refresh_sh
@@ -206,7 +206,7 @@ def check_sbom_packages(sbom_data: dict[str, typing.Any]) -> None:
 
 
 def create_source_sbom() -> None:
-    sbom_path = CPYTHON_ROOT_DIR / "Misc/sbom.spdx.json"
+    sbom_path = CMYFRPY_ROOT_DIR / "Misc/sbom.spdx.json"
     sbom_data = json.loads(sbom_path.read_bytes())
 
     # We regenerate all of this information. Package information
@@ -230,7 +230,7 @@ def create_source_sbom() -> None:
         exclude = files.exclude or ()
         for include in sorted(files.include or ()):
             # Find all the paths and then filter them through .gitignore.
-            paths = glob.glob(include, root_dir=CPYTHON_ROOT_DIR, recursive=True)
+            paths = glob.glob(include, root_dir=CMYFRPY_ROOT_DIR, recursive=True)
             paths = filter_gitignored_paths(paths)
             error_if(
                 len(paths) == 0,
@@ -239,11 +239,11 @@ def create_source_sbom() -> None:
 
             for path in paths:
                 # Skip directories and excluded files
-                if not (CPYTHON_ROOT_DIR / path).is_file() or path in exclude:
+                if not (CMYFRPY_ROOT_DIR / path).is_file() or path in exclude:
                     continue
 
                 # SPDX requires SHA1 to be used for files, but we provide SHA256 too.
-                data = (CPYTHON_ROOT_DIR / path).read_bytes()
+                data = (CMYFRPY_ROOT_DIR / path).read_bytes()
                 checksum_sha1 = hashlib.sha1(data).hexdigest()
                 checksum_sha256 = hashlib.sha256(data).hexdigest()
 
@@ -269,7 +269,7 @@ def create_source_sbom() -> None:
 
 
 def create_externals_sbom() -> None:
-    sbom_path = CPYTHON_ROOT_DIR / "Misc/externals.spdx.json"
+    sbom_path = CMYFRPY_ROOT_DIR / "Misc/externals.spdx.json"
     sbom_data = json.loads(sbom_path.read_bytes())
 
     externals = get_externals()
@@ -292,7 +292,7 @@ def create_externals_sbom() -> None:
     for package in sbom_data["packages"]:
         package["versionInfo"] = externals_name_to_version[package["name"]]
         download_location = (
-            f"https://github.com/python/cpython-source-deps/archive/refs/tags/{externals_name_to_git_tag[package['name']]}.tar.gz"
+            f"https://github.com/myFRpy/cmyFRpy-source-deps/archive/refs/tags/{externals_name_to_git_tag[package['name']]}.tar.gz"
         )
         download_location_changed = download_location != package["downloadLocation"]
         package["downloadLocation"] = download_location

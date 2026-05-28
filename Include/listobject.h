@@ -41,9 +41,9 @@ PyAPI_FUNC(int) PyList_Reverse(PyObject *);
 PyAPI_FUNC(PyObject *) PyList_AsTuple(PyObject *);
 
 #ifndef Py_LIMITED_API
-#  define Py_CPYTHON_LISTOBJECT_H
-#  include "cpython/listobject.h"
-#  undef Py_CPYTHON_LISTOBJECT_H
+#  define Py_CMYFRPY_LISTOBJECT_H
+#  include "cmyFRpy/listobject.h"
+#  undef Py_CMYFRPY_LISTOBJECT_H
 #endif
 
 #ifdef __cplusplus

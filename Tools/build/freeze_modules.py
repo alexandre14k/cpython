@@ -1,6 +1,6 @@
-"""Freeze modules and regen related files (e.g. Python/frozen.c).
+"""Freeze modules and regen related files (e.g. MyFRpy/frozen.c).
 
-See the notes at the top of Python/frozen.c for more info.
+See the notes at the top of MyFRpy/frozen.c for more info.
 """
 
 from collections import namedtuple
@@ -19,14 +19,14 @@ FROZEN_ONLY = os.path.join(ROOT_DIR, 'Tools', 'freeze', 'flag.py')
 STDLIB_DIR = os.path.join(ROOT_DIR, 'Lib')
 # If FROZEN_MODULES_DIR or DEEPFROZEN_MODULES_DIR is changed then the
 # .gitattributes and .gitignore files needs to be updated.
-FROZEN_MODULES_DIR = os.path.join(ROOT_DIR, 'Python', 'frozen_modules')
-DEEPFROZEN_MODULES_DIR = os.path.join(ROOT_DIR, 'Python', 'deepfreeze')
+FROZEN_MODULES_DIR = os.path.join(ROOT_DIR, 'MyFRpy', 'frozen_modules')
+DEEPFROZEN_MODULES_DIR = os.path.join(ROOT_DIR, 'MyFRpy', 'deepfreeze')
 
-FROZEN_FILE = os.path.join(ROOT_DIR, 'Python', 'frozen.c')
+FROZEN_FILE = os.path.join(ROOT_DIR, 'MyFRpy', 'frozen.c')
 MAKEFILE = os.path.join(ROOT_DIR, 'Makefile.pre.in')
 PCBUILD_PROJECT = os.path.join(ROOT_DIR, 'PCbuild', '_freeze_module.vcxproj')
 PCBUILD_FILTERS = os.path.join(ROOT_DIR, 'PCbuild', '_freeze_module.vcxproj.filters')
-PCBUILD_PYTHONCORE = os.path.join(ROOT_DIR, 'PCbuild', 'pythoncore.vcxproj')
+PCBUILD_MYFRPYCORE = os.path.join(ROOT_DIR, 'PCbuild', 'myFRpycore.vcxproj')
 
 
 OS_PATH = 'ntpath' if os.name == 'nt' else 'posixpath'
@@ -44,17 +44,17 @@ FROZEN = [
         # the import system.
         'importlib._bootstrap : _frozen_importlib',
         'importlib._bootstrap_external : _frozen_importlib_external',
-        # This module is important because some Python builds rely
+        # This module is important because some MyFRpy builds rely
         # on a builtin zip file instead of a filesystem.
         'zipimport',
         ]),
     # (You can delete entries from here down to the end of the list.)
-    ('stdlib - startup, without site (python -S)', [
+    ('stdlib - startup, without site (myFRpy -S)', [
         'abc',
         'codecs',
         # For now we do not freeze the encodings, due # to the noise all
         # those extra modules add to the text printed during the build.
-        # (See https://github.com/python/cpython/pull/28398#pullrequestreview-756856469.)
+        # (See https://github.com/myFRpy/cmyFRpy/pull/28398#pullrequestreview-756856469.)
         #'<encodings.*>',
         'io',
         ]),
@@ -597,7 +597,7 @@ def regen_makefile(modules):
     frozenfiles = []
     rules = ['']
     deepfreezerules = ["$(DEEPFREEZE_C): $(DEEPFREEZE_DEPS)",
-                       "\t$(PYTHON_FOR_FREEZE) $(srcdir)/Tools/build/deepfreeze.py \\"]
+                       "\t$(MYFRPY_FOR_FREEZE) $(srcdir)/Tools/build/deepfreeze.py \\"]
     for src in _iter_sources(modules):
         frozen_header = relpath_for_posix_display(src.frozenfile, ROOT_DIR)
         frozenfiles.append(f'\t\t{frozen_header} \\')
@@ -620,7 +620,7 @@ def regen_makefile(modules):
             '',
         ])
         deepfreezerules.append(f"\t{frozen_header}:{src.frozenid} \\")
-    deepfreezerules.append('\t-o Python/deepfreeze/deepfreeze.c')
+    deepfreezerules.append('\t-o MyFRpy/deepfreeze/deepfreeze.c')
     pyfiles[-1] = pyfiles[-1].rstrip(" \\")
     frozenfiles[-1] = frozenfiles[-1].rstrip(" \\")
 
@@ -662,7 +662,7 @@ def regen_pcbuild(modules):
     projlines = []
     filterlines = []
     corelines = []
-    deepfreezerules = ['\t<Exec Command=\'$(PythonForBuild) "$(PySourcePath)Tools\\build\\deepfreeze.py" ^']
+    deepfreezerules = ['\t<Exec Command=\'$(MyFRpyForBuild) "$(PySourcePath)Tools\\build\\deepfreeze.py" ^']
     for src in _iter_sources(modules):
         pyfile = relpath_for_windows_display(src.pyfile, ROOT_DIR)
         header = relpath_for_windows_display(src.frozenfile, ROOT_DIR)
@@ -674,12 +674,12 @@ def regen_pcbuild(modules):
         projlines.append(f'    </None>')
 
         filterlines.append(f'    <None Include="..\\{pyfile}">')
-        filterlines.append('      <Filter>Python Files</Filter>')
+        filterlines.append('      <Filter>MyFRpy Files</Filter>')
         filterlines.append('    </None>')
         deepfreezerules.append(f'\t\t "$(PySourcePath){header}:{src.frozenid}" ^')
-    deepfreezerules.append('\t\t "-o" "$(PySourcePath)Python\\deepfreeze\\deepfreeze.c"\'/>' )
+    deepfreezerules.append('\t\t "-o" "$(PySourcePath)MyFRpy\\deepfreeze\\deepfreeze.c"\'/>' )
 
-    corelines.append(f'    <ClCompile Include="..\\Python\\deepfreeze\\deepfreeze.c" />')
+    corelines.append(f'    <ClCompile Include="..\\MyFRpy\\deepfreeze\\deepfreeze.c" />')
 
     print(f'# Updating {os.path.relpath(PCBUILD_PROJECT)}')
     with updating_file_with_tmpfile(PCBUILD_PROJECT) as (infile, outfile):
@@ -713,8 +713,8 @@ def regen_pcbuild(modules):
             PCBUILD_FILTERS,
         )
         outfile.writelines(lines)
-    print(f'# Updating {os.path.relpath(PCBUILD_PYTHONCORE)}')
-    with updating_file_with_tmpfile(PCBUILD_PYTHONCORE) as (infile, outfile):
+    print(f'# Updating {os.path.relpath(PCBUILD_MYFRPYCORE)}')
+    with updating_file_with_tmpfile(PCBUILD_MYFRPYCORE) as (infile, outfile):
         lines = infile.readlines()
         lines = replace_block(
             lines,

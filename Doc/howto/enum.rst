@@ -74,7 +74,7 @@ Likewise, they have an attribute for their :attr:`value`::
     3
 
 Unlike many languages that treat enumerations solely as name/value pairs,
-Python Enums can have behavior added.  For example, :class:`datetime.date`
+MyFRpy Enums can have behavior added.  For example, :class:`datetime.date`
 has two methods for returning the weekday: :meth:`weekday` and :meth:`isoweekday`.
 The difference is that one of them counts from 0-6 and the other from 1-7.
 Rather than keep track of that ourselves we can add a method to the :class:`Weekday`
@@ -390,7 +390,7 @@ strictly enforced.  In the vast majority of use-cases, one doesn't care what
 the actual value of an enumeration is.  But if the value *is* important,
 enumerations can have arbitrary values.
 
-Enumerations are Python classes, and can have methods and special methods as
+Enumerations are MyFRpy classes, and can have methods and special methods as
 usual.  If we have this enumeration::
 
     >>> class Mood(Enum):
@@ -577,7 +577,7 @@ evaluate to ``True``.
 Pickling enums created with the functional API can be tricky as frame stack
 implementation details are used to try and figure out which module the
 enumeration is being created in (e.g. it will fail if you use a utility
-function in a separate module, and also may not work on IronPython or Jython).
+function in a separate module, and also may not work on IronMyFRpy or Jython).
 The solution is to specify the module name explicitly as follows::
 
     >>> Animal = Enum('Animal', 'ANT BEE CAT DOG', module=__name__)
@@ -969,7 +969,7 @@ Supported ``_sunder_`` names
 - ``_ignore_`` -- a list of names, either as a :class:`list` or a :class:`str`,
   that will not be transformed into members, and will be removed from the final
   class
-- ``_order_`` -- used in Python 2/3 code to ensure member order is consistent
+- ``_order_`` -- used in MyFRpy 2/3 code to ensure member order is consistent
   (class attribute, removed during class creation)
 - ``_generate_next_value_`` -- used by the `Functional API`_ and by
   :class:`auto` to get an appropriate value for an enum member; may be
@@ -986,7 +986,7 @@ Supported ``_sunder_`` names
 .. versionadded:: 3.6 ``_missing_``, ``_order_``, ``_generate_next_value_``
 .. versionadded:: 3.7 ``_ignore_``
 
-To help keep Python 2 / Python 3 code in sync an :attr:`_order_` attribute can
+To help keep MyFRpy 2 / MyFRpy 3 code in sync an :attr:`_order_` attribute can
 be provided.  It will be checked against the actual order of the enumeration
 and raise an error if the two do not match::
 
@@ -1004,7 +1004,7 @@ and raise an error if the two do not match::
 
 .. note::
 
-    In Python 2 code the :attr:`_order_` attribute is necessary as definition
+    In MyFRpy 2 code the :attr:`_order_` attribute is necessary as definition
     order is lost before it can be recorded.
 
 

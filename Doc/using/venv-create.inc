@@ -1,16 +1,16 @@
 Creation of :ref:`virtual environments <venv-def>` is done by executing the
 command ``venv``::
 
-    python -m venv /path/to/new/virtual/environment
+    myFRpy -m venv /path/to/new/virtual/environment
 
 Running this command creates the target directory (creating any parent
 directories that don't exist already) and places a ``pyvenv.cfg`` file in it
-with a ``home`` key pointing to the Python installation from which the command
+with a ``home`` key pointing to the MyFRpy installation from which the command
 was run (a common name for the target directory is ``.venv``).  It also creates
 a ``bin`` (or ``Scripts`` on Windows) subdirectory containing a copy/symlink
-of the Python binary/binaries (as appropriate for the platform or arguments
+of the MyFRpy binary/binaries (as appropriate for the platform or arguments
 used at environment creation time). It also creates an (initially empty)
-``lib/pythonX.Y/site-packages`` subdirectory (on Windows, this is
+``lib/myFRpyX.Y/site-packages`` subdirectory (on Windows, this is
 ``Lib\site-packages``). If an existing directory is specified, it will be
 re-used.
 
@@ -19,19 +19,19 @@ re-used.
 
 .. deprecated:: 3.6
    ``pyvenv`` was the recommended tool for creating virtual environments for
-   Python 3.3 and 3.4, and is
-   :ref:`deprecated in Python 3.6 <whatsnew36-venv>`.
+   MyFRpy 3.3 and 3.4, and is
+   :ref:`deprecated in MyFRpy 3.6 <whatsnew36-venv>`.
 
 .. highlight:: none
 
 On Windows, invoke the ``venv`` command as follows::
 
-    c:\>Python35\python -m venv c:\path\to\myenv
+    c:\>MyFRpy35\myFRpy -m venv c:\path\to\myenv
 
 Alternatively, if you configured the ``PATH`` and ``PATHEXT`` variables for
-your :ref:`Python installation <using-on-windows>`::
+your :ref:`MyFRpy installation <using-on-windows>`::
 
-    c:\>python -m venv c:\path\to\myenv
+    c:\>myFRpy -m venv c:\path\to\myenv
 
 The command, if run with ``-h``, will show the available options::
 
@@ -39,7 +39,7 @@ The command, if run with ``-h``, will show the available options::
                 [--upgrade] [--without-pip] [--prompt PROMPT] [--upgrade-deps]
                 ENV_DIR [ENV_DIR ...]
 
-    Creates virtual Python environments in one or more target directories.
+    Creates virtual MyFRpy environments in one or more target directories.
 
     positional arguments:
       ENV_DIR               A directory to create the environment in.
@@ -56,7 +56,7 @@ The command, if run with ``-h``, will show the available options::
       --clear               Delete the contents of the environment directory if it
                             already exists, before environment creation.
       --upgrade             Upgrade the environment directory to use this version
-                            of Python, assuming Python has been upgraded in-place.
+                            of MyFRpy, assuming MyFRpy has been upgraded in-place.
       --without-pip         Skips installing or upgrading pip in the virtual
                             environment (pip is bootstrapped by default)
       --prompt PROMPT       Provides an alternative prompt prefix for this
@@ -84,7 +84,7 @@ The command, if run with ``-h``, will show the available options::
 
 .. note::
    While symlinks are supported on Windows, they are not recommended. Of
-   particular note is that double-clicking ``python.exe`` in File Explorer
+   particular note is that double-clicking ``myFRpy.exe`` in File Explorer
    will resolve the symlink eagerly and ignore the virtual environment.
 
 .. note::

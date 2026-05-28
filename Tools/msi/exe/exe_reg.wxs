@@ -5,13 +5,13 @@
         <PropertyRef Id="REGISTRYKEY" />
         
         <ComponentGroup Id="exe_reg">
-            <Component Id="CommonPythonRegistration" Directory="InstallDirectory" Guid="$(var.CommonPythonRegComponentGuid)">
+            <Component Id="CommonMyFRpyRegistration" Directory="InstallDirectory" Guid="$(var.CommonMyFRpyRegComponentGuid)">
                 <RegistryKey Root="HKMU" Key="[ROOTREGISTRYKEY]">
                     <RegistryValue Name="DisplayName" Type="string" Value="!(loc.Manufacturer)" KeyPath="yes" />
                     <RegistryValue Name="SupportUrl" Type="string" Value="!(loc.ManufacturerSupportUrl)" KeyPath="no" />
                 </RegistryKey>
             </Component>
-            <Component Id="PythonRegistration" Directory="InstallDirectory" Guid="$(var.PythonRegComponentGuid)">
+            <Component Id="MyFRpyRegistration" Directory="InstallDirectory" Guid="$(var.MyFRpyRegComponentGuid)">
                 <RegistryKey Root="HKMU" Key="[REGISTRYKEY]">
                     <RegistryValue Name="DisplayName" Type="string" Value="!(loc.ShortcutName)" KeyPath="yes" />
                     <RegistryValue Name="SupportUrl" Type="string" Value="!(loc.SupportUrl)" KeyPath="no" />

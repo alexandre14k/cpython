@@ -1,5 +1,5 @@
 /*
- * Expat configuration for python. This file is not part of the expat
+ * Expat configuration for myFRpy. This file is not part of the expat
  * distribution.
  */
 #ifndef EXPAT_CONFIG_H
@@ -19,7 +19,7 @@
 #define XML_GE 1
 #define XML_CONTEXT_BYTES 1024
 
-// bpo-30947: Python uses best available entropy sources to
+// bpo-30947: MyFRpy uses best available entropy sources to
 // call XML_SetHashSalt(), expat entropy sources are not needed
 #define XML_POOR_ENTROPY 1
 

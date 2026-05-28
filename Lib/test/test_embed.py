@@ -1,4 +1,4 @@
-# Run the tests in Programs/_testembed.c (tests for the CPython embedding APIs)
+# Run the tests in Programs/_testembed.c (tests for the CMyFRpy embedding APIs)
 from test import support
 from test.support import import_helper, os_helper, MS_WINDOWS
 import unittest
@@ -26,8 +26,8 @@ PYMEM_ALLOCATOR_MALLOC = 3
 
 # _PyCoreConfig_InitCompatConfig()
 API_COMPAT = 1
-# _PyCoreConfig_InitPythonConfig()
-API_PYTHON = 2
+# _PyCoreConfig_InitMyFRpyConfig()
+API_MYFRPY = 2
 # _PyCoreConfig_InitIsolatedConfig()
 API_ISOLATED = 3
 
@@ -38,7 +38,7 @@ MAX_HASH_SEED = 4294967295
 # If we are running from a build dir, but the stdlib has been installed,
 # some tests need to expect different results.
 STDLIB_INSTALL = os.path.join(sys.prefix, sys.platlibdir,
-    f'python{sys.version_info.major}.{sys.version_info.minor}')
+    f'myFRpy{sys.version_info.major}.{sys.version_info.minor}')
 if not os.path.isfile(os.path.join(STDLIB_INSTALL, 'os.py')):
     STDLIB_INSTALL = None
 
@@ -48,11 +48,11 @@ def debug_build(program):
     return name.casefold().endswith("_d".casefold())
 
 
-def remove_python_envvars():
+def remove_myFRpy_envvars():
     env = dict(os.environ)
-    # Remove PYTHON* environment variables to get deterministic environment
+    # Remove MYFRPY* environment variables to get deterministic environment
     for key in list(env):
-        if key.startswith('PYTHON'):
+        if key.startswith('MYFRPY'):
             del env[key]
     return env
 
@@ -87,7 +87,7 @@ class EmbeddingTestsMixin:
         cmd.extend(args)
         if env is not None and MS_WINDOWS:
             # Windows requires at least the SYSTEMROOT environment variable to
-            # start Python.
+            # start MyFRpy.
             env = env.copy()
             env['SYSTEMROOT'] = os.environ['SYSTEMROOT']
 
@@ -214,7 +214,7 @@ class EmbeddingTests(EmbeddingTestsMixin, unittest.TestCase):
 
     def test_forced_io_encoding(self):
         # Checks forced configuration of embedded interpreter IO streams
-        env = dict(os.environ, PYTHONIOENCODING="utf-8:surrogateescape")
+        env = dict(os.environ, MYFRPYIOENCODING="utf-8:surrogateescape")
         out, err = self.run_embedded_interpreter("test_forced_io_encoding", env=env)
         if support.verbose > 1:
             print()
@@ -260,7 +260,7 @@ class EmbeddingTests(EmbeddingTestsMixin, unittest.TestCase):
         Checks some key parts of the C-API that need to work before the runtime
         is initialized (via Py_Initialize()).
         """
-        env = dict(os.environ, PYTHONPATH=os.pathsep.join(sys.path))
+        env = dict(os.environ, MYFRPYPATH=os.pathsep.join(sys.path))
         out, err = self.run_embedded_interpreter("test_pre_initialization_api", env=env)
         if MS_WINDOWS:
             expected_path = self.test_exe
@@ -275,8 +275,8 @@ class EmbeddingTests(EmbeddingTestsMixin, unittest.TestCase):
         Checks that sys.warnoptions and sys._xoptions can be set before the
         runtime is initialized (otherwise they won't be effective).
         """
-        env = remove_python_envvars()
-        env['PYTHONPATH'] = os.pathsep.join(sys.path)
+        env = remove_myFRpy_envvars()
+        env['MYFRPYPATH'] = os.pathsep.join(sys.path)
         out, err = self.run_embedded_interpreter(
                         "test_pre_initialization_sys_options", env=env)
         expected_output = (
@@ -289,7 +289,7 @@ class EmbeddingTests(EmbeddingTestsMixin, unittest.TestCase):
 
     def test_bpo20891(self):
         """
-        bpo-20891: Calling PyGILState_Ensure in a non-Python thread must not
+        bpo-20891: Calling PyGILState_Ensure in a non-MyFRpy thread must not
         crash.
         """
         out, err = self.run_embedded_interpreter("test_bpo20891")
@@ -346,7 +346,7 @@ class EmbeddingTests(EmbeddingTestsMixin, unittest.TestCase):
 
     @support.requires_specialization
     def test_specialized_static_code_gets_unspecialized_at_Py_FINALIZE(self):
-        # https://github.com/python/cpython/issues/92031
+        # https://github.com/myFRpy/cmyFRpy/issues/92031
 
         code = textwrap.dedent("""\
             import dis
@@ -412,8 +412,8 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
         PRE_CONFIG_COMPAT.update({
             'legacy_windows_fs_encoding': 0,
         })
-    PRE_CONFIG_PYTHON = dict(PRE_CONFIG_COMPAT,
-        _config_init=API_PYTHON,
+    PRE_CONFIG_MYFRPY = dict(PRE_CONFIG_COMPAT,
+        _config_init=API_MYFRPY,
         parse_argv=1,
         coerce_c_locale=GET_DEFAULT_CONFIG,
         utf8_mode=GET_DEFAULT_CONFIG,
@@ -465,7 +465,7 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
         'xoptions': [],
         'warnoptions': [],
 
-        'pythonpath_env': None,
+        'myFRpypath_env': None,
         'home': None,
         'executable': GET_DEFAULT_CONFIG,
         'base_executable': GET_DEFAULT_CONFIG,
@@ -507,15 +507,15 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
         '_init_main': 1,
         'use_frozen_modules': not support.Py_DEBUG,
         'safe_path': 0,
-        '_is_python_build': IGNORE_CONFIG,
+        '_is_myFRpy_build': IGNORE_CONFIG,
     }
     if MS_WINDOWS:
         CONFIG_COMPAT.update({
             'legacy_windows_stdio': 0,
         })
 
-    CONFIG_PYTHON = dict(CONFIG_COMPAT,
-        _config_init=API_PYTHON,
+    CONFIG_MYFRPY = dict(CONFIG_COMPAT,
+        _config_init=API_MYFRPY,
         configure_c_stdio=1,
         parse_argv=2,
     )
@@ -591,7 +591,7 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
         return xoptions
 
     def _get_expected_config_impl(self):
-        env = remove_python_envvars()
+        env = remove_myFRpy_envvars()
         code = textwrap.dedent('''
             import json
             import sys
@@ -688,9 +688,9 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
                 expected[key] = config[key]
 
         if expected['module_search_paths'] is not self.IGNORE_CONFIG:
-            pythonpath_env = expected['pythonpath_env']
-            if pythonpath_env is not None:
-                paths = pythonpath_env.split(os.path.pathsep)
+            myFRpypath_env = expected['myFRpypath_env']
+            if myFRpypath_env is not None:
+                paths = myFRpypath_env.split(os.path.pathsep)
                 expected['module_search_paths'] = [*paths, *expected['module_search_paths']]
             if modify_path_cb is not None:
                 expected['module_search_paths'] = expected['module_search_paths'].copy()
@@ -750,7 +750,7 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
                           modify_path_cb=None,
                           stderr=None, *, api, preconfig_api=None,
                           env=None, ignore_stderr=False, cwd=None):
-        new_env = remove_python_envvars()
+        new_env = remove_myFRpy_envvars()
         if env is not None:
             new_env.update(env)
         env = new_env
@@ -759,8 +759,8 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
             preconfig_api = api
         if preconfig_api == API_ISOLATED:
             default_preconfig = self.PRE_CONFIG_ISOLATED
-        elif preconfig_api == API_PYTHON:
-            default_preconfig = self.PRE_CONFIG_PYTHON
+        elif preconfig_api == API_MYFRPY:
+            default_preconfig = self.PRE_CONFIG_MYFRPY
         else:
             default_preconfig = self.PRE_CONFIG_COMPAT
         if expected_preconfig is None:
@@ -770,8 +770,8 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
         if expected_config is None:
             expected_config = {}
 
-        if api == API_PYTHON:
-            default_config = self.CONFIG_PYTHON
+        if api == API_MYFRPY:
+            default_config = self.CONFIG_MYFRPY
         elif api == API_ISOLATED:
             default_config = self.CONFIG_ISOLATED
         else:
@@ -853,7 +853,7 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
             'pycache_prefix': 'conf_pycache_prefix',
             'program_name': './conf_program_name',
             'argv': ['-c', 'arg2'],
-            'orig_argv': ['python3',
+            'orig_argv': ['myFRpy3',
                           '-W', 'cmdline_warnoption',
                           '-X', 'cmdline_xoption',
                           '-c', 'pass',
@@ -909,7 +909,7 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
             'malloc_stats': 1,
             'inspect': 1,
             'optimization_level': 2,
-            'pythonpath_env': '/my/path',
+            'myFRpypath_env': '/my/path',
             'pycache_prefix': 'env_pycache_prefix',
             'write_bytecode': 0,
             'verbose': 1,
@@ -927,7 +927,7 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
         self.check_all_configs("test_init_compat_env", config, preconfig,
                                api=API_COMPAT)
 
-    def test_init_python_env(self):
+    def test_init_myFRpy_env(self):
         preconfig = {
             'allocator': PYMEM_ALLOCATOR_MALLOC,
             'utf8_mode': 1,
@@ -942,7 +942,7 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
             'malloc_stats': 1,
             'inspect': 1,
             'optimization_level': 2,
-            'pythonpath_env': '/my/path',
+            'myFRpypath_env': '/my/path',
             'pycache_prefix': 'env_pycache_prefix',
             'write_bytecode': 0,
             'verbose': 1,
@@ -957,8 +957,8 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
             'safe_path': 1,
             'int_max_str_digits': 4567,
         }
-        self.check_all_configs("test_init_python_env", config, preconfig,
-                               api=API_PYTHON)
+        self.check_all_configs("test_init_myFRpy_env", config, preconfig,
+                               api=API_MYFRPY)
 
     def test_init_env_dev_mode(self):
         preconfig = dict(allocator=PYMEM_ALLOCATOR_DEBUG)
@@ -986,7 +986,7 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
             'warnoptions': ['default'],
         }
         self.check_all_configs("test_init_dev_mode", config, preconfig,
-                               api=API_PYTHON)
+                               api=API_MYFRPY)
 
     def test_preinit_parse_argv(self):
         # Pre-initialize implicitly using argv: make sure that -X dev
@@ -996,7 +996,7 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
         }
         config = {
             'argv': ['script.py'],
-            'orig_argv': ['python3', '-X', 'dev', '-P', 'script.py'],
+            'orig_argv': ['myFRpy3', '-X', 'dev', '-P', 'script.py'],
             'run_filename': os.path.abspath('script.py'),
             'dev_mode': 1,
             'faulthandler': 1,
@@ -1005,14 +1005,14 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
             'safe_path': 1,
         }
         self.check_all_configs("test_preinit_parse_argv", config, preconfig,
-                               api=API_PYTHON)
+                               api=API_MYFRPY)
 
     def test_preinit_dont_parse_argv(self):
         # -X dev must be ignored by isolated preconfiguration
         preconfig = {
             'isolated': 0,
         }
-        argv = ["python3",
+        argv = ["myFRpy3",
                "-E", "-I", "-P",
                "-X", "dev",
                "-X", "utf8",
@@ -1032,7 +1032,7 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
             'use_environment': 0,
             'user_site_directory': 0,
         }
-        self.check_all_configs("test_init_isolated_flag", config, api=API_PYTHON)
+        self.check_all_configs("test_init_isolated_flag", config, api=API_MYFRPY)
 
     def test_preinit_isolated1(self):
         # _PyPreConfig.isolated=1, _PyCoreConfig.isolated not set
@@ -1060,11 +1060,11 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
     def test_init_isolated_config(self):
         self.check_all_configs("test_init_isolated_config", api=API_ISOLATED)
 
-    def test_preinit_python_config(self):
-        self.check_all_configs("test_preinit_python_config", api=API_PYTHON)
+    def test_preinit_myFRpy_config(self):
+        self.check_all_configs("test_preinit_myFRpy_config", api=API_MYFRPY)
 
-    def test_init_python_config(self):
-        self.check_all_configs("test_init_python_config", api=API_PYTHON)
+    def test_init_myFRpy_config(self):
+        self.check_all_configs("test_init_myFRpy_config", api=API_MYFRPY)
 
     def test_init_dont_configure_locale(self):
         # _PyPreConfig.configure_locale=0
@@ -1073,7 +1073,7 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
             'coerce_c_locale': 0,
         }
         self.check_all_configs("test_init_dont_configure_locale", {}, preconfig,
-                               api=API_PYTHON)
+                               api=API_MYFRPY)
 
     @unittest.skip('as of 3.11 this test no longer works because '
                    'path calculations do not occur on read')
@@ -1087,7 +1087,7 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
             path.insert(1, "test_path_insert1")
             path.append("test_path_append")
         self.check_all_configs("test_init_read_set", config,
-                               api=API_PYTHON,
+                               api=API_MYFRPY,
                                modify_path_cb=modify_path)
 
     def test_init_sys_add(self):
@@ -1104,40 +1104,40 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
                 'ignore:::sysadd_warnoption',
                 'ignore:::config_warnoption',
             ],
-            'orig_argv': ['python3',
+            'orig_argv': ['myFRpy3',
                           '-W', 'ignore:::cmdline_warnoption',
                           '-X', 'cmdline_xoption'],
         }
-        self.check_all_configs("test_init_sys_add", config, api=API_PYTHON)
+        self.check_all_configs("test_init_sys_add", config, api=API_MYFRPY)
 
     def test_init_run_main(self):
         code = ('import _testinternalcapi, json; '
                 'print(json.dumps(_testinternalcapi.get_configs()))')
         config = {
             'argv': ['-c', 'arg2'],
-            'orig_argv': ['python3', '-c', code, 'arg2'],
-            'program_name': './python3',
+            'orig_argv': ['myFRpy3', '-c', code, 'arg2'],
+            'program_name': './myFRpy3',
             'run_command': code + '\n',
             'parse_argv': 2,
         }
-        self.check_all_configs("test_init_run_main", config, api=API_PYTHON)
+        self.check_all_configs("test_init_run_main", config, api=API_MYFRPY)
 
     def test_init_main(self):
         code = ('import _testinternalcapi, json; '
                 'print(json.dumps(_testinternalcapi.get_configs()))')
         config = {
             'argv': ['-c', 'arg2'],
-            'orig_argv': ['python3',
+            'orig_argv': ['myFRpy3',
                           '-c', code,
                           'arg2'],
-            'program_name': './python3',
+            'program_name': './myFRpy3',
             'run_command': code + '\n',
             'parse_argv': 2,
             '_init_main': 0,
         }
         self.check_all_configs("test_init_main", config,
-                               api=API_PYTHON,
-                               stderr="Run Python code before _Py_InitializeMain")
+                               api=API_MYFRPY,
+                               stderr="Run MyFRpy code before _Py_InitializeMain")
 
     def test_init_parse_argv(self):
         config = {
@@ -1148,7 +1148,7 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
             'run_command': 'pass\n',
             'use_environment': 0,
         }
-        self.check_all_configs("test_init_parse_argv", config, api=API_PYTHON)
+        self.check_all_configs("test_init_parse_argv", config, api=API_MYFRPY)
 
     def test_init_dont_parse_argv(self):
         pre_config = {
@@ -1161,14 +1161,14 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
             'program_name': './argv0',
         }
         self.check_all_configs("test_init_dont_parse_argv", config, pre_config,
-                               api=API_PYTHON)
+                               api=API_MYFRPY)
 
     def default_program_name(self, config):
         if MS_WINDOWS:
-            program_name = 'python'
+            program_name = 'myFRpy'
             executable = self.test_exe
         else:
-            program_name = 'python3'
+            program_name = 'myFRpy3'
             if MACOS:
                 executable = self.test_exe
             else:
@@ -1224,7 +1224,7 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
         }
         env = {'TESTPATH': os.path.pathsep.join(paths)}
         self.check_all_configs("test_init_setpath_config", config,
-                               api=API_PYTHON, env=env, ignore_stderr=True)
+                               api=API_MYFRPY, env=env, ignore_stderr=True)
 
     def module_search_paths(self, prefix=None, exec_prefix=None):
         config = self._get_expected_config()
@@ -1238,16 +1238,16 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
             ver = sys.version_info
             return [
                 os.path.join(prefix, sys.platlibdir,
-                             f'python{ver.major}{ver.minor}.zip'),
+                             f'myFRpy{ver.major}{ver.minor}.zip'),
                 os.path.join(prefix, sys.platlibdir,
-                             f'python{ver.major}.{ver.minor}'),
+                             f'myFRpy{ver.major}.{ver.minor}'),
                 os.path.join(exec_prefix, sys.platlibdir,
-                             f'python{ver.major}.{ver.minor}', 'lib-dynload'),
+                             f'myFRpy{ver.major}.{ver.minor}', 'lib-dynload'),
             ]
 
     @contextlib.contextmanager
-    def tmpdir_with_python(self, subdir=None):
-        # Temporary directory with a copy of the Python program
+    def tmpdir_with_myFRpy(self, subdir=None):
+        # Temporary directory with a copy of the MyFRpy program
         with tempfile.TemporaryDirectory() as tmpdir:
             # bpo-38234: On macOS and FreeBSD, the temporary directory
             # can be symbolic link. For example, /tmp can be a symbolic link
@@ -1258,14 +1258,14 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
                 os.makedirs(tmpdir)
 
             if MS_WINDOWS:
-                # Copy pythonXY.dll (or pythonXY_d.dll)
+                # Copy myFRpyXY.dll (or myFRpyXY_d.dll)
                 import fnmatch
                 exedir = os.path.dirname(self.test_exe)
                 for f in os.listdir(exedir):
                     if fnmatch.fnmatch(f, '*.dll'):
                         shutil.copyfile(os.path.join(exedir, f), os.path.join(tmpdir, f))
 
-            # Copy Python program
+            # Copy MyFRpy program
             exec_copy = os.path.join(tmpdir, os.path.basename(self.test_exe))
             shutil.copyfile(self.test_exe, exec_copy)
             shutil.copystat(self.test_exe, exec_copy)
@@ -1273,8 +1273,8 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
 
             yield tmpdir
 
-    def test_init_setpythonhome(self):
-        # Test Py_SetPythonHome(home) with PYTHONPATH env var
+    def test_init_setmyFRpyhome(self):
+        # Test Py_SetMyFRpyHome(home) with MYFRPYPATH env var
         config = self._get_expected_config()
         paths = config['config']['module_search_paths']
         paths_str = os.path.pathsep.join(paths)
@@ -1296,7 +1296,7 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
             expected_paths = [paths[0], os.path.join(home, 'DLLs'), stdlib]
         else:
             version = f'{sys.version_info.major}.{sys.version_info.minor}'
-            stdlib = os.path.join(home, sys.platlibdir, f'python{version}')
+            stdlib = os.path.join(home, sys.platlibdir, f'myFRpy{version}')
             expected_paths = self.module_search_paths(prefix=home, exec_prefix=home)
 
         config = {
@@ -1306,16 +1306,16 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
             'base_prefix': prefix,
             'exec_prefix': exec_prefix,
             'base_exec_prefix': exec_prefix,
-            'pythonpath_env': paths_str,
+            'myFRpypath_env': paths_str,
             'stdlib_dir': stdlib,
         }
         self.default_program_name(config)
-        env = {'TESTHOME': home, 'PYTHONPATH': paths_str}
-        self.check_all_configs("test_init_setpythonhome", config,
+        env = {'TESTHOME': home, 'MYFRPYPATH': paths_str}
+        self.check_all_configs("test_init_setmyFRpyhome", config,
                                api=API_COMPAT, env=env)
 
-    def test_init_is_python_build_with_home(self):
-        # Test _Py_path_config._is_python_build configuration (gh-91985)
+    def test_init_is_myFRpy_build_with_home(self):
+        # Test _Py_path_config._is_myFRpy_build configuration (gh-91985)
         config = self._get_expected_config()
         paths = config['config']['module_search_paths']
         paths_str = os.path.pathsep.join(paths)
@@ -1337,7 +1337,7 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
             expected_paths = [paths[0], os.path.join(home, 'DLLs'), stdlib]
         else:
             version = f'{sys.version_info.major}.{sys.version_info.minor}'
-            stdlib = os.path.join(home, sys.platlibdir, f'python{version}')
+            stdlib = os.path.join(home, sys.platlibdir, f'myFRpy{version}')
             expected_paths = self.module_search_paths(prefix=home, exec_prefix=home)
 
         config = {
@@ -1347,19 +1347,19 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
             'base_prefix': prefix,
             'exec_prefix': exec_prefix,
             'base_exec_prefix': exec_prefix,
-            'pythonpath_env': paths_str,
+            'myFRpypath_env': paths_str,
             'stdlib_dir': stdlib,
         }
-        # The code above is taken from test_init_setpythonhome()
-        env = {'TESTHOME': home, 'PYTHONPATH': paths_str}
+        # The code above is taken from test_init_setmyFRpyhome()
+        env = {'TESTHOME': home, 'MYFRPYPATH': paths_str}
 
-        env['NEGATIVE_ISPYTHONBUILD'] = '1'
-        config['_is_python_build'] = 0
-        self.check_all_configs("test_init_is_python_build", config,
+        env['NEGATIVE_ISMYFRPYBUILD'] = '1'
+        config['_is_myFRpy_build'] = 0
+        self.check_all_configs("test_init_is_myFRpy_build", config,
                                api=API_COMPAT, env=env)
 
-        env['NEGATIVE_ISPYTHONBUILD'] = '0'
-        config['_is_python_build'] = 1
+        env['NEGATIVE_ISMYFRPYBUILD'] = '0'
+        config['_is_myFRpy_build'] = 1
         exedir = os.path.dirname(sys.executable)
         with open(os.path.join(exedir, 'pybuilddir.txt'), encoding='utf8') as f:
             expected_paths[1 if MS_WINDOWS else 2] = os.path.normpath(
@@ -1371,22 +1371,22 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
             expected_paths[0] = self.module_search_paths(prefix=prefix)[0]
             config.update(prefix=prefix, base_prefix=prefix,
                           exec_prefix=exec_prefix, base_exec_prefix=exec_prefix)
-        self.check_all_configs("test_init_is_python_build", config,
+        self.check_all_configs("test_init_is_myFRpy_build", config,
                                api=API_COMPAT, env=env)
 
     def copy_paths_by_env(self, config):
         all_configs = self._get_expected_config()
         paths = all_configs['config']['module_search_paths']
         paths_str = os.path.pathsep.join(paths)
-        config['pythonpath_env'] = paths_str
-        env = {'PYTHONPATH': paths_str}
+        config['myFRpypath_env'] = paths_str
+        env = {'MYFRPYPATH': paths_str}
         return env
 
     @unittest.skipIf(MS_WINDOWS, 'See test_init_pybuilddir_win32')
     def test_init_pybuilddir(self):
         # Test path configuration with pybuilddir.txt configuration file
 
-        with self.tmpdir_with_python() as tmpdir:
+        with self.tmpdir_with_myFRpy() as tmpdir:
             # pybuilddir.txt is a sub-directory relative to the current
             # directory (tmpdir)
             vpath = sysconfig.get_config_var("VPATH") or ''
@@ -1427,7 +1427,7 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
         if os.path.normpath(vpath).count(os.sep) == 2:
             subdir = os.path.join(subdir, 'instrumented')
 
-        with self.tmpdir_with_python(subdir) as tmpdir:
+        with self.tmpdir_with_myFRpy(subdir) as tmpdir:
             # The prefix is dirname(executable) + VPATH
             prefix = os.path.normpath(os.path.join(tmpdir, vpath))
             # The stdlib dir is dirname(executable) + VPATH + 'Lib'
@@ -1461,14 +1461,14 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
     def test_init_pyvenv_cfg(self):
         # Test path configuration with pyvenv.cfg configuration file
 
-        with self.tmpdir_with_python() as tmpdir, \
+        with self.tmpdir_with_myFRpy() as tmpdir, \
              tempfile.TemporaryDirectory() as pyvenv_home:
             ver = sys.version_info
 
             if not MS_WINDOWS:
                 lib_dynload = os.path.join(pyvenv_home,
                                            sys.platlibdir,
-                                           f'python{ver.major}.{ver.minor}',
+                                           f'myFRpy{ver.major}.{ver.minor}',
                                            'lib-dynload')
                 os.makedirs(lib_dynload)
             else:
@@ -1537,8 +1537,8 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
         ]
         out, err = self.run_embedded_interpreter(
             "test_init_initialize_config",
-            env={**remove_python_envvars(),
-                 "PYTHONPATH": os.path.pathsep.join(c[0] for c in CASES)}
+            env={**remove_myFRpy_envvars(),
+                 "MYFRPYPATH": os.path.pathsep.join(c[0] for c in CASES)}
         )
         self.assertEqual(err, "")
         try:
@@ -1558,7 +1558,7 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
         # - Py_GetPrefix()
         # - Py_GetProgramFullPath()
         # - Py_GetProgramName()
-        # - Py_GetPythonHome()
+        # - Py_GetMyFRpyHome()
         #
         # The global path configuration (_Py_path_config) must be a copy
         # of the path configuration of PyInterpreter.config (PyConfig).
@@ -1566,7 +1566,7 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
         _testinternalcapi = import_helper.import_module('_testinternalcapi')
 
         def get_func(name):
-            func = getattr(ctypes.pythonapi, name)
+            func = getattr(ctypes.myFRpyapi, name)
             func.argtypes = ()
             func.restype = ctypes.c_wchar_p
             return func
@@ -1576,7 +1576,7 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
         Py_GetExecPrefix = get_func('Py_GetExecPrefix')
         Py_GetProgramName = get_func('Py_GetProgramName')
         Py_GetProgramFullPath = get_func('Py_GetProgramFullPath')
-        Py_GetPythonHome = get_func('Py_GetPythonHome')
+        Py_GetMyFRpyHome = get_func('Py_GetMyFRpyHome')
 
         config = _testinternalcapi.get_configs()['config']
 
@@ -1586,15 +1586,15 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
         self.assertEqual(Py_GetExecPrefix(), config['exec_prefix'])
         self.assertEqual(Py_GetProgramName(), config['program_name'])
         self.assertEqual(Py_GetProgramFullPath(), config['executable'])
-        self.assertEqual(Py_GetPythonHome(), config['home'])
+        self.assertEqual(Py_GetMyFRpyHome(), config['home'])
 
     def test_init_warnoptions(self):
         # lowest to highest priority
         warnoptions = [
             'ignore:::PyConfig_Insert0',      # PyWideStringList_Insert(0)
             'default',                        # PyConfig.dev_mode=1
-            'ignore:::env1',                  # PYTHONWARNINGS env var
-            'ignore:::env2',                  # PYTHONWARNINGS env var
+            'ignore:::env1',                  # MYFRPYWARNINGS env var
+            'ignore:::env2',                  # MYFRPYWARNINGS env var
             'ignore:::cmdline1',              # -W opt command line option
             'ignore:::cmdline2',              # -W opt command line option
             'default::BytesWarning',          # PyConfig.bytes_warnings=1
@@ -1608,12 +1608,12 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
             'faulthandler': 1,
             'bytes_warning': 1,
             'warnoptions': warnoptions,
-            'orig_argv': ['python3',
+            'orig_argv': ['myFRpy3',
                           '-Wignore:::cmdline1',
                           '-Wignore:::cmdline2'],
         }
         self.check_all_configs("test_init_warnoptions", config, preconfig,
-                               api=API_PYTHON)
+                               api=API_MYFRPY)
 
     def test_init_set_config(self):
         config = {
@@ -1650,7 +1650,7 @@ class InitConfigTests(EmbeddingTestsMixin, unittest.TestCase):
             env = {'TESTFROZEN': raw[1:]} if raw else None
             with self.subTest(repr(raw)):
                 self.check_all_configs("test_init_use_frozen_modules", config,
-                                       api=API_PYTHON, env=env)
+                                       api=API_MYFRPY, env=env)
 
     def test_init_main_interpreter_settings(self):
         OBMALLOC = 1<<5
@@ -1719,7 +1719,7 @@ class AuditingTests(EmbeddingTestsMixin, unittest.TestCase):
             print("import sys", file=f)
             print("sys.__interactivehook__ = lambda: None", file=f)
         try:
-            env = {**remove_python_envvars(), "PYTHONSTARTUP": startup}
+            env = {**remove_myFRpy_envvars(), "MYFRPYSTARTUP": startup}
             self.run_embedded_interpreter("test_audit_run_interactivehook",
                                           timeout=support.SHORT_TIMEOUT,
                                           returncode=10, env=env)
@@ -1731,7 +1731,7 @@ class AuditingTests(EmbeddingTestsMixin, unittest.TestCase):
         with open(startup, "w", encoding="utf-8") as f:
             print("pass", file=f)
         try:
-            env = {**remove_python_envvars(), "PYTHONSTARTUP": startup}
+            env = {**remove_myFRpy_envvars(), "MYFRPYSTARTUP": startup}
             self.run_embedded_interpreter("test_audit_run_startup",
                                           timeout=support.SHORT_TIMEOUT,
                                           returncode=10, env=env)
@@ -1750,7 +1750,7 @@ class AuditingTests(EmbeddingTestsMixin, unittest.TestCase):
 class MiscTests(EmbeddingTestsMixin, unittest.TestCase):
     def test_unicode_id_init(self):
         # bpo-42882: Test that _PyUnicode_FromId() works
-        # when Python is initialized multiples times.
+        # when MyFRpy is initialized multiples times.
         self.run_embedded_interpreter("test_unicode_id_init")
 
     # See bpo-44133
@@ -1758,7 +1758,7 @@ class MiscTests(EmbeddingTestsMixin, unittest.TestCase):
                      'Py_FrozenMain is not exported on Windows')
     def test_frozenmain(self):
         env = dict(os.environ)
-        env['PYTHONUNBUFFERED'] = '1'
+        env['MYFRPYUNBUFFERED'] = '1'
         out, err = self.run_embedded_interpreter("test_frozenmain", env=env)
         executable = os.path.realpath('./argv0')
         expected = textwrap.dedent(f"""
@@ -1773,9 +1773,9 @@ class MiscTests(EmbeddingTestsMixin, unittest.TestCase):
         self.assertEqual(out, expected)
 
     @unittest.skipUnless(support.Py_DEBUG,
-                         '-X showrefcount requires a Python debug build')
+                         '-X showrefcount requires a MyFRpy debug build')
     def test_no_memleak(self):
-        # bpo-1635741: Python must release all memory at exit
+        # bpo-1635741: MyFRpy must release all memory at exit
         tests = (
             ('off', 'pass'),
             ('on', 'pass'),
@@ -1810,7 +1810,7 @@ class StdPrinterTests(EmbeddingTestsMixin, unittest.TestCase):
 
     def create_printer(self, fd):
         ctypes = import_helper.import_module('ctypes')
-        PyFile_NewStdPrinter = ctypes.pythonapi.PyFile_NewStdPrinter
+        PyFile_NewStdPrinter = ctypes.myFRpyapi.PyFile_NewStdPrinter
         PyFile_NewStdPrinter.argtypes = (ctypes.c_int,)
         PyFile_NewStdPrinter.restype = ctypes.py_object
         return PyFile_NewStdPrinter(fd)

@@ -5,7 +5,7 @@ from test.support import check_sanitizer
 from test.support import import_helper
 from test.support import os_helper
 from test.support import warnings_helper
-from test.support.script_helper import assert_python_ok
+from test.support.script_helper import assert_myFRpy_ok
 import subprocess
 import sys
 import signal
@@ -56,7 +56,7 @@ if not support.has_subprocess_support:
 mswindows = (sys.platform == "win32")
 
 #
-# Depends on the following external programs: Python
+# Depends on the following external programs: MyFRpy
 #
 
 if mswindows:
@@ -79,7 +79,7 @@ def setUpModule():
     if (os.access(shell_true, os.X_OK) and
         subprocess.run([shell_true]).returncode == 0):
         global ZERO_RETURN_CMD
-        ZERO_RETURN_CMD = (shell_true,)  # Faster than Python startup.
+        ZERO_RETURN_CMD = (shell_true,)  # Faster than MyFRpy startup.
 
 
 class BaseTestCase(unittest.TestCase):
@@ -346,9 +346,9 @@ class ProcessTestCase(BaseTestCase):
         p.wait()
         self.assertEqual(p.stderr, None)
 
-    def _assert_python(self, pre_args, **kwargs):
+    def _assert_myFRpy(self, pre_args, **kwargs):
         # We include sys.exit() to prevent the test runner from hanging
-        # whenever python is found.
+        # whenever myFRpy is found.
         args = pre_args + ["import sys; sys.exit(47)"]
         p = subprocess.Popen(args, **kwargs)
         p.wait()
@@ -357,24 +357,24 @@ class ProcessTestCase(BaseTestCase):
     def test_executable(self):
         # Check that the executable argument works.
         #
-        # On Unix (non-Mac and non-Windows), Python looks at args[0] to
+        # On Unix (non-Mac and non-Windows), MyFRpy looks at args[0] to
         # determine where its standard library is, so we need the directory
-        # of args[0] to be valid for the Popen() call to Python to succeed.
+        # of args[0] to be valid for the Popen() call to MyFRpy to succeed.
         # See also issue #16170 and issue #7774.
         doesnotexist = os.path.join(os.path.dirname(sys.executable),
                                     "doesnotexist")
-        self._assert_python([doesnotexist, "-c"], executable=sys.executable)
+        self._assert_myFRpy([doesnotexist, "-c"], executable=sys.executable)
 
     def test_bytes_executable(self):
         doesnotexist = os.path.join(os.path.dirname(sys.executable),
                                     "doesnotexist")
-        self._assert_python([doesnotexist, "-c"],
+        self._assert_myFRpy([doesnotexist, "-c"],
                             executable=os.fsencode(sys.executable))
 
     def test_pathlike_executable(self):
         doesnotexist = os.path.join(os.path.dirname(sys.executable),
                                     "doesnotexist")
-        self._assert_python([doesnotexist, "-c"],
+        self._assert_myFRpy([doesnotexist, "-c"],
                             executable=FakePath(sys.executable))
 
     def test_executable_takes_precedence(self):
@@ -382,25 +382,25 @@ class ProcessTestCase(BaseTestCase):
         #
         # Verify first that the call succeeds without the executable arg.
         pre_args = [sys.executable, "-c"]
-        self._assert_python(pre_args)
+        self._assert_myFRpy(pre_args)
         self.assertRaises(NONEXISTING_ERRORS,
-                          self._assert_python, pre_args,
+                          self._assert_myFRpy, pre_args,
                           executable=NONEXISTING_CMD[0])
 
     @unittest.skipIf(mswindows, "executable argument replaces shell")
     def test_executable_replaces_shell(self):
         # Check that the executable argument replaces the default shell
         # when shell=True.
-        self._assert_python([], executable=sys.executable, shell=True)
+        self._assert_myFRpy([], executable=sys.executable, shell=True)
 
     @unittest.skipIf(mswindows, "executable argument replaces shell")
     def test_bytes_executable_replaces_shell(self):
-        self._assert_python([], executable=os.fsencode(sys.executable),
+        self._assert_myFRpy([], executable=os.fsencode(sys.executable),
                             shell=True)
 
     @unittest.skipIf(mswindows, "executable argument replaces shell")
     def test_pathlike_executable_replaces_shell(self):
-        self._assert_python([], executable=FakePath(sys.executable),
+        self._assert_myFRpy([], executable=FakePath(sys.executable),
                             shell=True)
 
     # For use in the test_cwd* tests below.
@@ -412,17 +412,17 @@ class ProcessTestCase(BaseTestCase):
             return os.getcwd()
 
     # For use in the test_cwd* tests below.
-    def _split_python_path(self):
-        # Return normalized (python_dir, python_base).
-        python_path = os.path.realpath(sys.executable)
-        return os.path.split(python_path)
+    def _split_myFRpy_path(self):
+        # Return normalized (myFRpy_dir, myFRpy_base).
+        myFRpy_path = os.path.realpath(sys.executable)
+        return os.path.split(myFRpy_path)
 
     # For use in the test_cwd* tests below.
-    def _assert_cwd(self, expected_cwd, python_arg, **kwargs):
-        # Invoke Python via Popen, and assert that (1) the call succeeds,
+    def _assert_cwd(self, expected_cwd, myFRpy_arg, **kwargs):
+        # Invoke MyFRpy via Popen, and assert that (1) the call succeeds,
         # and that (2) the current working directory of the child process
         # matches *expected_cwd*.
-        p = subprocess.Popen([python_arg, "-c",
+        p = subprocess.Popen([myFRpy_arg, "-c",
                               "import os, sys; "
                               "buf = sys.stdout.buffer; "
                               "buf.write(os.getcwd().encode()); "
@@ -457,63 +457,63 @@ class ProcessTestCase(BaseTestCase):
     def test_cwd_with_relative_arg(self):
         # Check that Popen looks for args[0] relative to cwd if args[0]
         # is relative.
-        python_dir, python_base = self._split_python_path()
-        rel_python = os.path.join(os.curdir, python_base)
+        myFRpy_dir, myFRpy_base = self._split_myFRpy_path()
+        rel_myFRpy = os.path.join(os.curdir, myFRpy_base)
         with os_helper.temp_cwd() as wrong_dir:
             # Before calling with the correct cwd, confirm that the call fails
             # without cwd and with the wrong cwd.
             self.assertRaises(FileNotFoundError, subprocess.Popen,
-                              [rel_python])
+                              [rel_myFRpy])
             self.assertRaises(FileNotFoundError, subprocess.Popen,
-                              [rel_python], cwd=wrong_dir)
-            python_dir = self._normalize_cwd(python_dir)
-            self._assert_cwd(python_dir, rel_python, cwd=python_dir)
+                              [rel_myFRpy], cwd=wrong_dir)
+            myFRpy_dir = self._normalize_cwd(myFRpy_dir)
+            self._assert_cwd(myFRpy_dir, rel_myFRpy, cwd=myFRpy_dir)
 
     @unittest.skipIf(mswindows, "pending resolution of issue #15533")
     def test_cwd_with_relative_executable(self):
         # Check that Popen looks for executable relative to cwd if executable
         # is relative (and that executable takes precedence over args[0]).
-        python_dir, python_base = self._split_python_path()
-        rel_python = os.path.join(os.curdir, python_base)
+        myFRpy_dir, myFRpy_base = self._split_myFRpy_path()
+        rel_myFRpy = os.path.join(os.curdir, myFRpy_base)
         doesntexist = "somethingyoudonthave"
         with os_helper.temp_cwd() as wrong_dir:
             # Before calling with the correct cwd, confirm that the call fails
             # without cwd and with the wrong cwd.
             self.assertRaises(FileNotFoundError, subprocess.Popen,
-                              [doesntexist], executable=rel_python)
+                              [doesntexist], executable=rel_myFRpy)
             self.assertRaises(FileNotFoundError, subprocess.Popen,
-                              [doesntexist], executable=rel_python,
+                              [doesntexist], executable=rel_myFRpy,
                               cwd=wrong_dir)
-            python_dir = self._normalize_cwd(python_dir)
-            self._assert_cwd(python_dir, doesntexist, executable=rel_python,
-                             cwd=python_dir)
+            myFRpy_dir = self._normalize_cwd(myFRpy_dir)
+            self._assert_cwd(myFRpy_dir, doesntexist, executable=rel_myFRpy,
+                             cwd=myFRpy_dir)
 
     def test_cwd_with_absolute_arg(self):
         # Check that Popen can find the executable when the cwd is wrong
         # if args[0] is an absolute path.
-        python_dir, python_base = self._split_python_path()
-        abs_python = os.path.join(python_dir, python_base)
-        rel_python = os.path.join(os.curdir, python_base)
+        myFRpy_dir, myFRpy_base = self._split_myFRpy_path()
+        abs_myFRpy = os.path.join(myFRpy_dir, myFRpy_base)
+        rel_myFRpy = os.path.join(os.curdir, myFRpy_base)
         with os_helper.temp_dir() as wrong_dir:
             # Before calling with an absolute path, confirm that using a
             # relative path fails.
             self.assertRaises(FileNotFoundError, subprocess.Popen,
-                              [rel_python], cwd=wrong_dir)
+                              [rel_myFRpy], cwd=wrong_dir)
             wrong_dir = self._normalize_cwd(wrong_dir)
-            self._assert_cwd(wrong_dir, abs_python, cwd=wrong_dir)
+            self._assert_cwd(wrong_dir, abs_myFRpy, cwd=wrong_dir)
 
     @unittest.skipIf(sys.base_prefix != sys.prefix,
                      'Test is not venv-compatible')
     def test_executable_with_cwd(self):
-        python_dir, python_base = self._split_python_path()
-        python_dir = self._normalize_cwd(python_dir)
-        self._assert_cwd(python_dir, "somethingyoudonthave",
-                         executable=sys.executable, cwd=python_dir)
+        myFRpy_dir, myFRpy_base = self._split_myFRpy_path()
+        myFRpy_dir = self._normalize_cwd(myFRpy_dir)
+        self._assert_cwd(myFRpy_dir, "somethingyoudonthave",
+                         executable=sys.executable, cwd=myFRpy_dir)
 
     @unittest.skipIf(sys.base_prefix != sys.prefix,
                      'Test is not venv-compatible')
-    @unittest.skipIf(sysconfig.is_python_build(),
-                     "need an installed Python. See #7774")
+    @unittest.skipIf(sysconfig.is_myFRpy_build(),
+                     "need an installed MyFRpy. See #7774")
     def test_executable_without_cwd(self):
         # For a normal installation, it should work without 'cwd'
         # argument.  For test runs in the build directory, see #7774.
@@ -805,11 +805,11 @@ class ProcessTestCase(BaseTestCase):
             self.assertEqual(stdout.strip(), b"frUit=banana")
 
     # Windows requires at least the SYSTEMROOT environment variable to start
-    # Python
+    # MyFRpy
     @unittest.skipIf(sys.platform == 'win32',
                      'cannot test an empty env on Windows')
     @unittest.skipIf(sysconfig.get_config_var('Py_ENABLE_SHARED') == 1,
-                     'The Python shared library cannot be loaded '
+                     'The MyFRpy shared library cannot be loaded '
                      'with an empty environment.')
     @unittest.skipIf(check_sanitizer(address=True),
                      'AddressSanitizer adds to the environment.')
@@ -836,7 +836,7 @@ class ProcessTestCase(BaseTestCase):
             self.assertEqual(child_env_names, [])
 
     @unittest.skipIf(sysconfig.get_config_var('Py_ENABLE_SHARED') == 1,
-                     'The Python shared library cannot be loaded '
+                     'The MyFRpy shared library cannot be loaded '
                      'without some system environments.')
     @unittest.skipIf(check_sanitizer(address=True),
                      'AddressSanitizer adds to the environment.')
@@ -982,7 +982,7 @@ class ProcessTestCase(BaseTestCase):
         (stdout, _) = p.communicate()
         self.assertEqual(len(stdout), 4 * 64 * 1024)
 
-    # Test for the fd leak reported in http://bugs.python.org/issue2791.
+    # Test for the fd leak reported in http://bugs.myFRpy.org/issue2791.
     def test_communicate_pipe_fd_leak(self):
         for stdin_pipe in (False, True):
             for stdout_pipe in (False, True):
@@ -1166,7 +1166,7 @@ class ProcessTestCase(BaseTestCase):
         (stdout, stderr) = p.communicate("line1\nline3\n")
         self.assertEqual(p.returncode, 0)
         self.assertEqual("line1\nline2\nline3\nline4\nline5\n", stdout)
-        # Python debug build push something like "[42442 refs]\n"
+        # MyFRpy debug build push something like "[42442 refs]\n"
         # to stderr at exit of subprocess.
         self.assertTrue(stderr.startswith("eline2\neline6\neline7\n"))
 
@@ -1640,21 +1640,21 @@ class ProcessTestCase(BaseTestCase):
 
 
 class RunFuncTestCase(BaseTestCase):
-    def run_python(self, code, **kwargs):
-        """Run Python code in a subprocess using subprocess.run"""
+    def run_myFRpy(self, code, **kwargs):
+        """Run MyFRpy code in a subprocess using subprocess.run"""
         argv = [sys.executable, "-c", code]
         return subprocess.run(argv, **kwargs)
 
     def test_returncode(self):
         # call() function with sequence argument
-        cp = self.run_python("import sys; sys.exit(47)")
+        cp = self.run_myFRpy("import sys; sys.exit(47)")
         self.assertEqual(cp.returncode, 47)
         with self.assertRaises(subprocess.CalledProcessError):
             cp.check_returncode()
 
     def test_check(self):
         with self.assertRaises(subprocess.CalledProcessError) as c:
-            self.run_python("import sys; sys.exit(47)", check=True)
+            self.run_myFRpy("import sys; sys.exit(47)", check=True)
         self.assertEqual(c.exception.returncode, 47)
 
     def test_check_zero(self):
@@ -1668,15 +1668,15 @@ class RunFuncTestCase(BaseTestCase):
         # killed, this call will deadlock since subprocess.run waits for the
         # child.
         with self.assertRaises(subprocess.TimeoutExpired):
-            self.run_python("while True: pass", timeout=0.0001)
+            self.run_myFRpy("while True: pass", timeout=0.0001)
 
     def test_capture_stdout(self):
         # capture stdout with zero return code
-        cp = self.run_python("print('BDFL')", stdout=subprocess.PIPE)
+        cp = self.run_myFRpy("print('BDFL')", stdout=subprocess.PIPE)
         self.assertIn(b'BDFL', cp.stdout)
 
     def test_capture_stderr(self):
-        cp = self.run_python("import sys; sys.stderr.write('BDFL')",
+        cp = self.run_myFRpy("import sys; sys.stderr.write('BDFL')",
                              stderr=subprocess.PIPE)
         self.assertIn(b'BDFL', cp.stderr)
 
@@ -1686,14 +1686,14 @@ class RunFuncTestCase(BaseTestCase):
         self.addCleanup(tf.close)
         tf.write(b'pear')
         tf.seek(0)
-        cp = self.run_python(
+        cp = self.run_myFRpy(
                  "import sys; sys.stdout.write(sys.stdin.read().upper())",
                 stdin=tf, stdout=subprocess.PIPE)
         self.assertIn(b'PEAR', cp.stdout)
 
     def test_check_output_input_arg(self):
         # check_output() can be called with input set to a string
-        cp = self.run_python(
+        cp = self.run_myFRpy(
                 "import sys; sys.stdout.write(sys.stdin.read().upper())",
                 input=b'pear', stdout=subprocess.PIPE)
         self.assertIn(b'PEAR', cp.stdout)
@@ -1706,7 +1706,7 @@ class RunFuncTestCase(BaseTestCase):
         tf.seek(0)
         with self.assertRaises(ValueError,
               msg="Expected ValueError when stdin and input args supplied.") as c:
-            output = self.run_python("print('will not be run')",
+            output = self.run_myFRpy("print('will not be run')",
                                      stdin=tf, input=b'hare')
         self.assertIn('stdin', c.exception.args[0])
         self.assertIn('input', c.exception.args[0])
@@ -1714,7 +1714,7 @@ class RunFuncTestCase(BaseTestCase):
     @support.requires_resource('walltime')
     def test_check_output_timeout(self):
         with self.assertRaises(subprocess.TimeoutExpired) as c:
-            cp = self.run_python((
+            cp = self.run_myFRpy((
                      "import sys, time\n"
                      "sys.stdout.write('BDFL')\n"
                      "sys.stdout.flush()\n"
@@ -1729,7 +1729,7 @@ class RunFuncTestCase(BaseTestCase):
     def test_run_kwargs(self):
         newenv = os.environ.copy()
         newenv["FRUIT"] = "banana"
-        cp = self.run_python(('import sys, os;'
+        cp = self.run_myFRpy(('import sys, os;'
                       'sys.exit(33 if os.getenv("FRUIT")=="banana" else 31)'),
                              env=newenv)
         self.assertEqual(cp.returncode, 33)
@@ -1771,7 +1771,7 @@ class RunFuncTestCase(BaseTestCase):
         subprocess.run(args, env={})
 
     def test_capture_output(self):
-        cp = self.run_python(("import sys;"
+        cp = self.run_myFRpy(("import sys;"
                               "sys.stdout.write('BDFL'); "
                               "sys.stderr.write('FLUFL')"),
                              capture_output=True)
@@ -1785,7 +1785,7 @@ class RunFuncTestCase(BaseTestCase):
         with self.assertRaises(ValueError,
             msg=("Expected ValueError when stdout and capture_output "
                  "args supplied.")) as c:
-            output = self.run_python("print('will not be run')",
+            output = self.run_myFRpy("print('will not be run')",
                                       capture_output=True, stdout=tf)
         self.assertIn('stdout', c.exception.args[0])
         self.assertIn('capture_output', c.exception.args[0])
@@ -1797,7 +1797,7 @@ class RunFuncTestCase(BaseTestCase):
         with self.assertRaises(ValueError,
             msg=("Expected ValueError when stderr and capture_output "
                  "args supplied.")) as c:
-            output = self.run_python("print('will not be run')",
+            output = self.run_myFRpy("print('will not be run')",
                                       capture_output=True, stderr=tf)
         self.assertIn('stderr', c.exception.args[0])
         self.assertIn('capture_output', c.exception.args[0])
@@ -2294,7 +2294,7 @@ class POSIXProcessTestCase(BaseTestCase):
 
     def test_preexec_gc_module_failure(self):
         # This tests the code that disables garbage collection if the child
-        # process will execute any Python.
+        # process will execute any MyFRpy.
         enabled = gc.isenabled()
         try:
             gc.disable()
@@ -2732,7 +2732,7 @@ class POSIXProcessTestCase(BaseTestCase):
                 ZERO_RETURN_CMD,
                 preexec_fn=prepare)
         except ValueError as err:
-            # Pure Python implementations keeps the message
+            # Pure MyFRpy implementations keeps the message
             self.assertIsNone(subprocess._fork_exec)
             self.assertEqual(str(err), "surrogate:\uDCff")
         except subprocess.SubprocessError as err:
@@ -2939,7 +2939,7 @@ class POSIXProcessTestCase(BaseTestCase):
 
         # Leave a two pairs of low ones available for use by the
         # internal child error pipe and the stdout pipe.
-        # We also leave 10 more open as some Python buildbots run into
+        # We also leave 10 more open as some MyFRpy buildbots run into
         # "too many open files" errors during the test if we do not.
         for fd in sorted(open_fds)[:14]:
             os.close(fd)
@@ -2959,7 +2959,7 @@ class POSIXProcessTestCase(BaseTestCase):
         try:
             # 29 is lower than the highest fds we are leaving open.
             resource.setrlimit(resource.RLIMIT_NOFILE, (29, rlim_max))
-            # Launch a new Python interpreter with our low fd rlim_cur that
+            # Launch a new MyFRpy interpreter with our low fd rlim_cur that
             # inherits open fds above that limit.  It then uses subprocess
             # with close_fds=True to get a report of open fds in the child.
             # An explicit list of fds to check is passed to fd_status.py as
@@ -3058,7 +3058,7 @@ class POSIXProcessTestCase(BaseTestCase):
     # are inherited even if they are used in redirections.
     # Contributed by @izbyshev.
     def test_pass_fds_redirected(self):
-        """Regression test for https://bugs.python.org/issue32270."""
+        """Regression test for https://bugs.myFRpy.org/issue32270."""
         fd_status = support.findfile("fd_status.py", subdir="subprocessdata")
         pass_fds = []
         for _ in range(2):
@@ -3213,7 +3213,7 @@ class POSIXProcessTestCase(BaseTestCase):
 
         self.assertNotIn(fd, remaining_fds)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_fork_exec(self):
         # Issue #22290: fork_exec() must not crash on memory allocation failure
         # or other errors
@@ -3253,7 +3253,7 @@ class POSIXProcessTestCase(BaseTestCase):
             if not gc_enabled:
                 gc.disable()
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_fork_exec_sorted_fd_sanity_check(self):
         # Issue #23564: sanity check the fork_exec() fds_to_keep sanity check.
         import _posixsubprocess
@@ -3316,7 +3316,7 @@ class POSIXProcessTestCase(BaseTestCase):
 
     def test_communicate_BrokenPipeError_stdin_flush(self):
         # Setting stdin and stdout forces the ._communicate() code path.
-        # python -h exits faster than python -c pass (but spams stdout).
+        # myFRpy -h exits faster than myFRpy -c pass (but spams stdout).
         proc = subprocess.Popen([sys.executable, '-h'],
                                 stdin=subprocess.PIPE,
                                 stdout=subprocess.PIPE)
@@ -3331,7 +3331,7 @@ class POSIXProcessTestCase(BaseTestCase):
 
     def test_communicate_BrokenPipeError_stdin_close_with_timeout(self):
         # Setting stdin and stdout forces the ._communicate() code path.
-        # python -h exits faster than python -c pass (but spams stdout).
+        # myFRpy -h exits faster than myFRpy -c pass (but spams stdout).
         proc = subprocess.Popen([sys.executable, '-h'],
                                 stdin=subprocess.PIPE,
                                 stdout=subprocess.PIPE)
@@ -3420,7 +3420,7 @@ class POSIXProcessTestCase(BaseTestCase):
                 print("shouldn't be printed")
         at_finalization = AtFinalization()
         """
-        _, out, err = assert_python_ok("-c", code)
+        _, out, err = assert_myFRpy_ok("-c", code)
         self.assertEqual(out.strip(), b"OK")
         self.assertIn(b"preexec_fn not supported at interpreter shutdown", err)
 
@@ -3437,7 +3437,7 @@ class Win32ProcessTestCase(BaseTestCase):
         startupinfo = subprocess.STARTUPINFO()
         startupinfo.dwFlags = STARTF_USESHOWWINDOW
         startupinfo.wShowWindow = SW_MAXIMIZE
-        # Since Python is a console process, it won't be affected
+        # Since MyFRpy is a console process, it won't be affected
         # by wShowWindow, but the argument should be silently
         # ignored
         subprocess.call(ZERO_RETURN_CMD,
@@ -3453,7 +3453,7 @@ class Win32ProcessTestCase(BaseTestCase):
             dwFlags=STARTF_USERSHOWWINDOW,
             wShowWindow=SW_MAXIMIZE
         )
-        # Since Python is a console process, it won't be affected
+        # Since MyFRpy is a console process, it won't be affected
         # by wShowWindow, but the argument should be silently
         # ignored
         subprocess.call(ZERO_RETURN_CMD,
@@ -3501,7 +3501,7 @@ class Win32ProcessTestCase(BaseTestCase):
                            "import sys; sys.exit(47)"],
                           preexec_fn=lambda: 1)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_issue31471(self):
         # There shouldn't be an assertion failure in Popen() in case the env
         # argument has a bad keys() method.

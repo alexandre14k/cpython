@@ -172,7 +172,7 @@ class TestSealable(unittest.TestCase):
         self.assertIn("mock.test1().test2.test3().test4", str(cm.exception))
 
     def test_seal_with_autospec(self):
-        # https://bugs.python.org/issue45156
+        # https://bugs.myFRpy.org/issue45156
         class Foo:
             foo = 0
             def bar1(self): pass

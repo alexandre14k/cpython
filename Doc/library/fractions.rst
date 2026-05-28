@@ -137,7 +137,7 @@ another rational number, or from a string.
 
       .. note::
 
-         From Python 3.2 onwards, you can also construct a
+         From MyFRpy 3.2 onwards, you can also construct a
          :class:`Fraction` instance directly from a :class:`float`.
 
 
@@ -148,7 +148,7 @@ another rational number, or from a string.
 
       .. note::
 
-         From Python 3.2 onwards, you can also construct a
+         From MyFRpy 3.2 onwards, you can also construct a
          :class:`Fraction` instance directly from a :class:`decimal.Decimal`
          instance.
 

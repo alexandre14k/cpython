@@ -10,13 +10,13 @@ Copyright (C) 1994 Steen Lumholt.
 /* TCL/TK VERSION INFO:
 
     Only Tcl/Tk 8.5.12 and later are supported.  Older versions are not
-    supported. Use Python 3.10 or older if you cannot upgrade your
+    supported. Use MyFRpy 3.10 or older if you cannot upgrade your
     Tcl/Tk libraries.
 */
 
 /* XXX Further speed-up ideas, involving Tcl 8.0 features:
 
-   - Register a new Tcl type, "Python callable", which can be called more
+   - Register a new Tcl type, "MyFRpy callable", which can be called more
    efficiently and passed to Tcl_EvalObj() directly (if this is possible).
 
 */
@@ -26,7 +26,7 @@ Copyright (C) 1994 Steen Lumholt.
 #  define Py_BUILD_CORE_MODULE 1
 #endif
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include <ctype.h>
 #ifdef MS_WINDOWS
 #  include "pycore_fileutils.h"   // _Py_stat()
@@ -107,7 +107,7 @@ Copyright (C) 1994 Steen Lumholt.
 
 #endif /* HAVE_CREATEFILEHANDLER */
 
-/* Use OS native encoding for converting between Python strings and
+/* Use OS native encoding for converting between MyFRpy strings and
    Tcl objects.
    On Windows use UTF-16 (or UTF-32 for 32-bit Tcl_UniChar) with the
    "surrogatepass" error handler for converting to/from Tcl Unicode objects.
@@ -145,7 +145,7 @@ _get_tcl_lib_path(void)
             return NULL;
         }
 
-        /* Check expected location for an installed Python first */
+        /* Check expected location for an installed MyFRpy first */
         tcl_library_path = PyUnicode_FromString("\\tcl\\tcl" TCL_VERSION);
         if (tcl_library_path == NULL) {
             return NULL;
@@ -192,39 +192,39 @@ _get_tcl_lib_path(void)
    when configured with --enable-threads.
 
    So we need to use a lock around all uses of Tcl.  Previously, the
-   Python interpreter lock was used for this.  However, this causes
-   problems when other Python threads need to run while Tcl is blocked
+   MyFRpy interpreter lock was used for this.  However, this causes
+   problems when other MyFRpy threads need to run while Tcl is blocked
    waiting for events.
 
    To solve this problem, a separate lock for Tcl is introduced.
-   Holding it is incompatible with holding Python's interpreter lock.
+   Holding it is incompatible with holding MyFRpy's interpreter lock.
    The following four macros manipulate both locks together.
 
    ENTER_TCL and LEAVE_TCL are brackets, just like
    Py_BEGIN_ALLOW_THREADS and Py_END_ALLOW_THREADS.  They should be
    used whenever a call into Tcl is made that could call an event
    handler, or otherwise affect the state of a Tcl interpreter.  These
-   assume that the surrounding code has the Python interpreter lock;
-   inside the brackets, the Python interpreter lock has been released
+   assume that the surrounding code has the MyFRpy interpreter lock;
+   inside the brackets, the MyFRpy interpreter lock has been released
    and the lock for Tcl has been acquired.
 
-   Sometimes, it is necessary to have both the Python lock and the Tcl
+   Sometimes, it is necessary to have both the MyFRpy lock and the Tcl
    lock.  (For example, when transferring data from the Tcl
-   interpreter result to a Python string object.)  This can be done by
+   interpreter result to a MyFRpy string object.)  This can be done by
    using different macros to close the ENTER_TCL block: ENTER_OVERLAP
-   reacquires the Python lock (and restores the thread state) but
+   reacquires the MyFRpy lock (and restores the thread state) but
    doesn't release the Tcl lock; LEAVE_OVERLAP_TCL releases the Tcl
    lock.
 
-   By contrast, ENTER_PYTHON and LEAVE_PYTHON are used in Tcl event
-   handlers when the handler needs to use Python.  Such event handlers
+   By contrast, ENTER_MYFRPY and LEAVE_MYFRPY are used in Tcl event
+   handlers when the handler needs to use MyFRpy.  Such event handlers
    are entered while the lock for Tcl is held; the event handler
-   presumably needs to use Python.  ENTER_PYTHON releases the lock for
-   Tcl and acquires the Python interpreter lock, restoring the
-   appropriate thread state, and LEAVE_PYTHON releases the Python
+   presumably needs to use MyFRpy.  ENTER_MYFRPY releases the lock for
+   Tcl and acquires the MyFRpy interpreter lock, restoring the
+   appropriate thread state, and LEAVE_MYFRPY releases the MyFRpy
    interpreter lock and re-acquires the lock for Tcl.  It is okay for
    ENTER_TCL/LEAVE_TCL pairs to be contained inside the code between
-   ENTER_PYTHON and LEAVE_PYTHON.
+   ENTER_MYFRPY and LEAVE_MYFRPY.
 
    These locks expand to several statements and brackets; they should
    not be used in branches of if statements and the like.
@@ -275,13 +275,13 @@ static PyThreadState *tcl_tstate = NULL;
 #define LEAVE_OVERLAP_TCL \
     tcl_tstate = NULL; if(tcl_lock)PyThread_release_lock(tcl_lock); }
 
-#define ENTER_PYTHON \
+#define ENTER_MYFRPY \
     { PyThreadState *tstate = tcl_tstate; tcl_tstate = NULL; \
       if(tcl_lock) \
         PyThread_release_lock(tcl_lock); \
       PyEval_RestoreThread((tstate)); }
 
-#define LEAVE_PYTHON \
+#define LEAVE_MYFRPY \
     { PyThreadState *tstate = PyEval_SaveThread(); \
       if(tcl_lock)PyThread_acquire_lock(tcl_lock, 1); \
       tcl_tstate = tstate; }
@@ -1228,7 +1228,7 @@ Tkapp_CallDeallocArgs(Tcl_Obj** objv, Tcl_Obj** objStore, int objc)
         PyMem_Free(objv);
 }
 
-/* Convert Python objects to Tcl objects. This must happen in the
+/* Convert MyFRpy objects to Tcl objects. This must happen in the
    interpreter thread, which may or may not be the calling thread. */
 
 static Tcl_Obj**
@@ -1287,7 +1287,7 @@ finally:
     return NULL;
 }
 
-/* Convert the results of a command call into a Python string. */
+/* Convert the results of a command call into a MyFRpy string. */
 
 static PyObject *
 Tkapp_UnicodeResult(TkappObject *self)
@@ -1296,7 +1296,7 @@ Tkapp_UnicodeResult(TkappObject *self)
 }
 
 
-/* Convert the results of a command call into a Python objects. */
+/* Convert the results of a command call into a MyFRpy objects. */
 
 static PyObject *
 Tkapp_ObjectResult(TkappObject *self)
@@ -1319,7 +1319,7 @@ Tkapp_ObjectResult(TkappObject *self)
 
 /* Tkapp_CallProc is the event procedure that is executed in the context of
    the Tcl interpreter thread. Initially, it holds the Tcl lock, and doesn't
-   hold the Python lock. */
+   hold the MyFRpy lock. */
 
 static int
 Tkapp_CallProc(Tkapp_CallEvent *e, int flags)
@@ -1328,17 +1328,17 @@ Tkapp_CallProc(Tkapp_CallEvent *e, int flags)
     Tcl_Obj **objv;
     int objc;
     int i;
-    ENTER_PYTHON
+    ENTER_MYFRPY
     objv = Tkapp_CallArgs(e->args, objStore, &objc);
     if (!objv) {
         *(e->exc) = PyErr_GetRaisedException();
         *(e->res) = NULL;
     }
-    LEAVE_PYTHON
+    LEAVE_MYFRPY
     if (!objv)
         goto done;
     i = Tcl_EvalObjv(e->self->interp, objc, objv, e->flags);
-    ENTER_PYTHON
+    ENTER_MYFRPY
     if (i == TCL_ERROR) {
         *(e->res) = Tkinter_Error(e->self);
     }
@@ -1348,7 +1348,7 @@ Tkapp_CallProc(Tkapp_CallEvent *e, int flags)
     if (*(e->res) == NULL) {
         *(e->exc) = PyErr_GetRaisedException();
     }
-    LEAVE_PYTHON
+    LEAVE_MYFRPY
 
     Tkapp_CallDeallocArgs(objv, objStore, objc);
 done:
@@ -1574,14 +1574,14 @@ typedef struct VarEvent {
     Tcl_Condition *cond;
 } VarEvent;
 
-/*[python]
+/*[myFRpy]
 
 class varname_converter(CConverter):
     type = 'const char *'
     converter = 'varname_converter'
 
-[python]*/
-/*[python checksum: da39a3ee5e6b4b0d3255bfef95601890afd80709]*/
+[myFRpy]*/
+/*[myFRpy checksum: da39a3ee5e6b4b0d3255bfef95601890afd80709]*/
 
 static int
 varname_converter(PyObject *in, void *_out)
@@ -1642,12 +1642,12 @@ var_perform(VarEvent *ev)
 static int
 var_proc(VarEvent* ev, int flags)
 {
-    ENTER_PYTHON
+    ENTER_MYFRPY
     var_perform(ev);
     Tcl_MutexLock(&var_mutex);
     Tcl_ConditionNotify(ev->cond);
     Tcl_MutexUnlock(&var_mutex);
-    LEAVE_PYTHON
+    LEAVE_MYFRPY
     return 1;
 }
 
@@ -1842,7 +1842,7 @@ Tkapp_GlobalUnsetVar(PyObject *self, PyObject *args)
 
 
 
-/** Tcl to Python **/
+/** Tcl to MyFRpy **/
 
 /*[clinic input]
 _tkinter.tkapp.getint
@@ -2166,40 +2166,40 @@ _tkinter_tkapp_splitlist(TkappObject *self, PyObject *arg)
 typedef struct {
     PyObject *self;
     PyObject *func;
-} PythonCmd_ClientData;
+} MyFRpyCmd_ClientData;
 
 static int
-PythonCmd_Error(Tcl_Interp *interp)
+MyFRpyCmd_Error(Tcl_Interp *interp)
 {
     errorInCmd = 1;
     excInCmd = PyErr_GetRaisedException();
-    LEAVE_PYTHON
+    LEAVE_MYFRPY
     return TCL_ERROR;
 }
 
-/* This is the Tcl command that acts as a wrapper for Python
+/* This is the Tcl command that acts as a wrapper for MyFRpy
  * function or method.
  */
 static int
-PythonCmd(ClientData clientData, Tcl_Interp *interp,
+MyFRpyCmd(ClientData clientData, Tcl_Interp *interp,
           int objc, Tcl_Obj *const objv[])
 {
-    PythonCmd_ClientData *data = (PythonCmd_ClientData *)clientData;
+    MyFRpyCmd_ClientData *data = (MyFRpyCmd_ClientData *)clientData;
     PyObject *args, *res;
     int i;
     Tcl_Obj *obj_res;
 
-    ENTER_PYTHON
+    ENTER_MYFRPY
 
     /* Create argument tuple (objv1, ..., objvN) */
     if (!(args = PyTuple_New(objc - 1)))
-        return PythonCmd_Error(interp);
+        return MyFRpyCmd_Error(interp);
 
     for (i = 0; i < (objc - 1); i++) {
         PyObject *s = unicodeFromTclObj(objv[i + 1]);
         if (!s) {
             Py_DECREF(args);
-            return PythonCmd_Error(interp);
+            return MyFRpyCmd_Error(interp);
         }
         PyTuple_SET_ITEM(args, i, s);
     }
@@ -2208,32 +2208,32 @@ PythonCmd(ClientData clientData, Tcl_Interp *interp,
     Py_DECREF(args);
 
     if (res == NULL)
-        return PythonCmd_Error(interp);
+        return MyFRpyCmd_Error(interp);
 
     obj_res = AsObj(res);
     if (obj_res == NULL) {
         Py_DECREF(res);
-        return PythonCmd_Error(interp);
+        return MyFRpyCmd_Error(interp);
     }
     Tcl_SetObjResult(interp, obj_res);
     Py_DECREF(res);
 
-    LEAVE_PYTHON
+    LEAVE_MYFRPY
 
     return TCL_OK;
 }
 
 
 static void
-PythonCmdDelete(ClientData clientData)
+MyFRpyCmdDelete(ClientData clientData)
 {
-    PythonCmd_ClientData *data = (PythonCmd_ClientData *)clientData;
+    MyFRpyCmd_ClientData *data = (MyFRpyCmd_ClientData *)clientData;
 
-    ENTER_PYTHON
+    ENTER_MYFRPY
     Py_XDECREF(data->self);
     Py_XDECREF(data->func);
     PyMem_Free(data);
-    LEAVE_PYTHON
+    LEAVE_MYFRPY
 }
 
 
@@ -2256,8 +2256,8 @@ Tkapp_CommandProc(CommandEvent *ev, int flags)
 {
     if (ev->create)
         *ev->status = Tcl_CreateObjCommand(
-            ev->interp, ev->name, PythonCmd,
-            ev->data, PythonCmdDelete) == NULL;
+            ev->interp, ev->name, MyFRpyCmd,
+            ev->data, MyFRpyCmdDelete) == NULL;
     else
         *ev->status = Tcl_DeleteCommand(ev->interp, ev->name);
     Tcl_MutexLock(&command_mutex);
@@ -2280,7 +2280,7 @@ _tkinter_tkapp_createcommand_impl(TkappObject *self, const char *name,
                                   PyObject *func)
 /*[clinic end generated code: output=2a1c79a4ee2af410 input=255785cb70edc6a0]*/
 {
-    PythonCmd_ClientData *data;
+    MyFRpyCmd_ClientData *data;
     int err;
 
     CHECK_STRING_LENGTH(name);
@@ -2293,7 +2293,7 @@ _tkinter_tkapp_createcommand_impl(TkappObject *self, const char *name,
         !WaitForMainloop(self))
         return NULL;
 
-    data = PyMem_NEW(PythonCmd_ClientData, 1);
+    data = PyMem_NEW(MyFRpyCmd_ClientData, 1);
     if (!data)
         return PyErr_NoMemory();
     data->self = Py_NewRef(self);
@@ -2320,8 +2320,8 @@ _tkinter_tkapp_createcommand_impl(TkappObject *self, const char *name,
     {
         ENTER_TCL
         err = Tcl_CreateObjCommand(
-            Tkapp_Interp(self), name, PythonCmd,
-            (ClientData)data, PythonCmdDelete) == NULL;
+            Tkapp_Interp(self), name, MyFRpyCmd,
+            (ClientData)data, MyFRpyCmdDelete) == NULL;
         LEAVE_TCL
     }
     if (err) {
@@ -2435,7 +2435,7 @@ FileHandler(ClientData clientData, int mask)
     FileHandler_ClientData *data = (FileHandler_ClientData *)clientData;
     PyObject *func, *file, *res;
 
-    ENTER_PYTHON
+    ENTER_MYFRPY
     func = data->func;
     file = data->file;
 
@@ -2445,7 +2445,7 @@ FileHandler(ClientData clientData, int mask)
         excInCmd = PyErr_GetRaisedException();
     }
     Py_XDECREF(res);
-    LEAVE_PYTHON
+    LEAVE_MYFRPY
 }
 
 /*[clinic input]
@@ -2604,7 +2604,7 @@ TimerHandler(ClientData clientData)
 
     v->func = NULL;
 
-    ENTER_PYTHON
+    ENTER_MYFRPY
 
     res = PyObject_CallNoArgs(func);
     Py_DECREF(func);
@@ -2617,7 +2617,7 @@ TimerHandler(ClientData clientData)
     else
         Py_DECREF(res);
 
-    LEAVE_PYTHON
+    LEAVE_MYFRPY
 }
 
 /*[clinic input]
@@ -2680,7 +2680,7 @@ _tkinter_tkapp_mainloop_impl(TkappObject *self, int threshold)
         int result;
 
         if (self->threaded) {
-            /* Allow other Python threads to run. */
+            /* Allow other MyFRpy threads to run. */
             ENTER_TCL
             result = Tcl_DoOneEvent(0);
             LEAVE_TCL
@@ -2984,7 +2984,7 @@ _tkinter.setbusywaitinterval
     new_val: int
     /
 
-Set the busy-wait interval in milliseconds between successive calls to Tcl_DoOneEvent in a threaded Python interpreter.
+Set the busy-wait interval in milliseconds between successive calls to Tcl_DoOneEvent in a threaded MyFRpy interpreter.
 
 It should be set to a divisor of the maximum time between frames in an animation.
 [clinic start generated code]*/
@@ -3005,7 +3005,7 @@ _tkinter_setbusywaitinterval_impl(PyObject *module, int new_val)
 /*[clinic input]
 _tkinter.getbusywaitinterval -> int
 
-Return the current busy-wait interval between successive calls to Tcl_DoOneEvent in a threaded Python interpreter.
+Return the current busy-wait interval between successive calls to Tcl_DoOneEvent in a threaded MyFRpy interpreter.
 [clinic start generated code]*/
 
 static int

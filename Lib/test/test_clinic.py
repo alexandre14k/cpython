@@ -331,12 +331,12 @@ class ClinicWholeFileTest(_ParserBase):
 
     def test_no_access_to_members_in_converter_init(self):
         out = self.expect_failure("""
-            /*[python input]
+            /*[myFRpy input]
             class Custom_converter(CConverter):
                 converter = "some_c_function"
                 def converter_init(self):
                     self.function.noaccess
-            [python start generated code]*/
+            [myFRpy start generated code]*/
             /*[clinic input]
             module test
             test.fn
@@ -1502,7 +1502,7 @@ class ClinicExternalTest(TestCase):
                     f.write(code)
 
         with os_helper.temp_dir() as tmp_dir:
-            # add some folders, some C files and a Python file
+            # add some folders, some C files and a MyFRpy file
             create_files(c_files, tmp_dir, c_code)
             create_files(py_files, tmp_dir, py_code)
 

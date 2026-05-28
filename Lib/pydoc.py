@@ -1,17 +1,17 @@
-#!/usr/bin/env python3
-"""Generate Python documentation in HTML or text for interactive use.
+#!/usr/bin/env myFRpy3
+"""Generate MyFRpy documentation in HTML or text for interactive use.
 
-At the Python interactive prompt, calling help(thing) on a Python object
+At the MyFRpy interactive prompt, calling help(thing) on a MyFRpy object
 documents the object, and calling help() starts up an interactive
 help session.
 
-Or, at the shell command line outside of Python:
+Or, at the shell command line outside of MyFRpy:
 
 Run "pydoc <name>" to show documentation on something.  <name> may be
 the name of a function, module, package, or a dotted reference to a
 class or function within a module or module in a package.  If the
 argument contains a path segment delimiter (e.g. slash on Unix,
-backslash on Windows) it is treated as the path to a Python source file.
+backslash on Windows) it is treated as the path to a MyFRpy source file.
 
 Run "pydoc -k <keyword>" to search for a keyword in the synopsis lines
 of all available modules.
@@ -31,9 +31,9 @@ to a file named "<name>.html".
 
 Module docs for core modules are assumed to be in
 
-    https://docs.python.org/X.Y/library/
+    https://docs.myFRpy.org/X.Y/library/
 
-This can be overridden by setting the PYTHONDOCS environment variable
+This can be overridden by setting the MYFRPYDOCS environment variable
 to a different URL or to a local directory containing the Library
 Reference Manual pages.
 """
@@ -240,14 +240,14 @@ def cram(text, maxlen):
 
 _re_stripid = re.compile(r' at 0x[0-9a-f]{6,16}(>+)$', re.IGNORECASE)
 def stripid(text):
-    """Remove the hexadecimal id from a Python object representation."""
+    """Remove the hexadecimal id from a MyFRpy object representation."""
     # The behaviour of %p is implementation-dependent in terms of case.
     return _re_stripid.sub(r'\1', text)
 
 def _is_bound_method(fn):
     """
     Returns True if fn is a bound method, regardless of whether
-    fn was implemented in Python or in C.
+    fn was implemented in MyFRpy or in C.
     """
     if inspect.ismethod(fn):
         return True
@@ -421,7 +421,7 @@ class ErrorDuringImport(Exception):
         return 'problem in %s - %s: %s' % (self.filename, exc, self.value)
 
 def importfile(path):
-    """Import a Python source file or compiled file given its path."""
+    """Import a MyFRpy source file or compiled file given its path."""
     magic = importlib.util.MAGIC_NUMBER
     with open(path, 'rb') as file:
         is_bytecode = magic == file.read(len(magic))
@@ -484,8 +484,8 @@ def safeimport(path, forceload=0, cache={}):
 
 class Doc:
 
-    PYTHONDOCS = os.environ.get("PYTHONDOCS",
-                                "https://docs.python.org/%d.%d/library"
+    MYFRPYDOCS = os.environ.get("MYFRPYDOCS",
+                                "https://docs.myFRpy.org/%d.%d/library"
                                 % sys.version_info[:2])
 
     def document(self, object, name=None, *args):
@@ -520,7 +520,7 @@ class Doc:
         except TypeError:
             file = '(built-in)'
 
-        docloc = os.environ.get("PYTHONDOCS", self.PYTHONDOCS)
+        docloc = os.environ.get("MYFRPYDOCS", self.MYFRPYDOCS)
 
         basedir = os.path.normcase(basedir)
         if (isinstance(object, type(os)) and
@@ -541,7 +541,7 @@ class Doc:
 # -------------------------------------------- HTML documentation generator
 
 class HTMLRepr(Repr):
-    """Class for safely making an HTML representation of a Python object."""
+    """Class for safely making an HTML representation of a MyFRpy object."""
     def __init__(self):
         Repr.__init__(self)
         self.maxlist = self.maxtuple = 20
@@ -598,7 +598,7 @@ class HTMLDoc(Doc):
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Python: %s</title>
+<title>MyFRpy: %s</title>
 </head><body>
 %s
 </body></html>''' % (title, contents)
@@ -737,7 +737,7 @@ class HTMLDoc(Doc):
                 url = 'https://www.rfc-editor.org/rfc/rfc%d.txt' % int(rfc)
                 results.append('<a href="%s">%s</a>' % (url, escape(all)))
             elif pep:
-                url = 'https://peps.python.org/pep-%04d/' % int(pep)
+                url = 'https://peps.myFRpy.org/pep-%04d/' % int(pep)
                 results.append('<a href="%s">%s</a>' % (url, escape(all)))
             elif selfdot:
                 # Create a link for methods like 'self.method(...)'
@@ -1186,7 +1186,7 @@ class HTMLDoc(Doc):
 # -------------------------------------------- text documentation generator
 
 class TextRepr(Repr):
-    """Class for safely making a text representation of a Python object."""
+    """Class for safely making a text representation of a MyFRpy object."""
     def __init__(self):
         Repr.__init__(self)
         self.maxlist = self.maxtuple = 20
@@ -1268,9 +1268,9 @@ class TextDoc(Doc):
         if docloc is not None:
             result = result + self.section('MODULE REFERENCE', docloc + """
 
-The following documentation is automatically generated from the Python
+The following documentation is automatically generated from the MyFRpy
 source files.  It may be incomplete, incorrect or include features that
-are considered implementation detail and may vary between Python
+are considered implementation detail and may vary between MyFRpy
 implementations.  When in doubt, consult the module reference at the
 location listed above.
 """)
@@ -1827,7 +1827,7 @@ def resolve(thing, forceload=0):
         object = locate(thing, forceload)
         if object is None:
             raise ImportError('''\
-No Python documentation found for %r.
+No MyFRpy documentation found for %r.
 Use help() to get the interactive help utility.
 Use help(str) for help on the str class.''' % thing)
         return object, thing
@@ -1835,7 +1835,7 @@ Use help(str) for help on the str class.''' % thing)
         name = getattr(thing, '__name__', None)
         return thing, name if isinstance(name, str) else None
 
-def render_doc(thing, title='Python Library Documentation: %s', forceload=0,
+def render_doc(thing, title='MyFRpy Library Documentation: %s', forceload=0,
         renderer=None):
     """Render text documentation, given an object or a path to an object."""
     if renderer is None:
@@ -1862,7 +1862,7 @@ def render_doc(thing, title='Python Library Documentation: %s', forceload=0,
             desc += ' object'
     return title % desc + '\n\n' + renderer.document(object, name)
 
-def doc(thing, title='Python Library Documentation: %s', forceload=0,
+def doc(thing, title='MyFRpy Library Documentation: %s', forceload=0,
         output=None, is_cli=False):
     """Display text documentation, given an object or a path to an object."""
     if output is None:
@@ -2100,7 +2100,7 @@ class Helper:
             self.intro()
             self.interact()
             self.output.write('''
-You are now leaving help and returning to the Python interpreter.
+You are now leaving help and returning to the MyFRpy interpreter.
 If you want to ask for help on a particular object directly from the
 interpreter, you can type "help(object)".  Executing "help('string')"
 has the same effect as typing a particular string at the help> prompt.
@@ -2159,12 +2159,12 @@ has the same effect as typing a particular string at the help> prompt.
 
     def intro(self):
         self.output.write('''\
-Welcome to Python {0}'s help utility! If this is your first time using
-Python, you should definitely check out the tutorial at
-https://docs.python.org/{0}/tutorial/.
+Welcome to MyFRpy {0}'s help utility! If this is your first time using
+MyFRpy, you should definitely check out the tutorial at
+https://docs.myFRpy.org/{0}/tutorial/.
 
 Enter the name of any module, keyword, or topic to get help on writing
-Python programs and using Python modules.  To get a list of available
+MyFRpy programs and using MyFRpy modules.  To get a list of available
 modules, keywords, symbols, or topics, enter "modules", "keywords",
 "symbols", or "topics".
 
@@ -2191,14 +2191,14 @@ enter "q" or "quit".
 
     def listkeywords(self):
         self.output.write('''
-Here is a list of the Python keywords.  Enter any keyword to get more help.
+Here is a list of the MyFRpy keywords.  Enter any keyword to get more help.
 
 ''')
         self.list(self.keywords.keys())
 
     def listsymbols(self):
         self.output.write('''
-Here is a list of the punctuation symbols which Python assigns special meaning
+Here is a list of the punctuation symbols which MyFRpy assigns special meaning
 to. Enter any symbol to get more help.
 
 ''')
@@ -2563,12 +2563,12 @@ def _url_handler(url, content_type="text/html"):
     html = _HTMLDoc()
 
     def html_navbar():
-        version = html.escape("%s [%s, %s]" % (platform.python_version(),
-                                               platform.python_build()[0],
-                                               platform.python_compiler()))
+        version = html.escape("%s [%s, %s]" % (platform.myFRpy_version(),
+                                               platform.myFRpy_build()[0],
+                                               platform.myFRpy_compiler()))
         return """
             <div style='float:left'>
-                Python %s<br>%s
+                MyFRpy %s<br>%s
             </div>
             <div style='float:right'>
                 <div style='text-align:center'>
@@ -2902,14 +2902,14 @@ def cli():
 
     except (getopt.error, BadUsage):
         cmd = os.path.splitext(os.path.basename(sys.argv[0]))[0]
-        print("""pydoc - the Python documentation tool
+        print("""pydoc - the MyFRpy documentation tool
 
 {cmd} <name> ...
     Show text documentation on something.  <name> may be the name of a
-    Python keyword, topic, function, module, or package, or a dotted
+    MyFRpy keyword, topic, function, module, or package, or a dotted
     reference to a class or function within a module or module in a
     package.  If <name> contains a '{sep}', it is used as the path to a
-    Python source file to document. If name is 'keywords', 'topics',
+    MyFRpy source file to document. If name is 'keywords', 'topics',
     or 'modules', a listing of these things is displayed.
 
 {cmd} -k <keyword>

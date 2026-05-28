@@ -26,7 +26,7 @@ first-party `tzdata`_ package available on PyPI.
         types with which the :class:`ZoneInfo` class is designed to be used.
 
     Package `tzdata`_
-        First-party package maintained by the CPython core developers to supply
+        First-party package maintained by the CMyFRpy core developers to supply
         time zone data via PyPI.
 
 .. include:: ../includes/wasm-notavail.rst
@@ -125,7 +125,7 @@ Compile-time configuration
 The default :data:`TZPATH` includes several common deployment locations for the
 time zone database (except on Windows, where there are no "well-known"
 locations for time zone data). On POSIX systems, downstream distributors and
-those building Python from source who know where their system
+those building MyFRpy from source who know where their system
 time zone data is deployed may change the default time zone path by specifying
 the compile-time option ``TZPATH`` (or, more likely, the :option:`configure
 flag --with-tzpath <--with-tzpath>`), which should be a string delimited by
@@ -141,21 +141,21 @@ Environment configuration
 
 When initializing :data:`TZPATH` (either at import time or whenever
 :func:`reset_tzpath` is called with no arguments), the ``zoneinfo`` module will
-use the environment variable ``PYTHONTZPATH``, if it exists, to set the search
+use the environment variable ``MYFRPYTZPATH``, if it exists, to set the search
 path.
 
-.. envvar:: PYTHONTZPATH
+.. envvar:: MYFRPYTZPATH
 
     This is an :data:`os.pathsep`-separated string containing the time zone
     search path to use. It must consist of only absolute rather than relative
-    paths. Relative components specified in ``PYTHONTZPATH`` will not be used,
+    paths. Relative components specified in ``MYFRPYTZPATH`` will not be used,
     but otherwise the behavior when a relative path is specified is
-    implementation-defined; CPython will raise :exc:`InvalidTZPathWarning`, but
+    implementation-defined; CMyFRpy will raise :exc:`InvalidTZPathWarning`, but
     other implementations are free to silently ignore the erroneous component
     or raise an exception.
 
 To set the system to ignore the system data and use the tzdata package
-instead, set ``PYTHONTZPATH=""``.
+instead, set ``MYFRPYTZPATH=""``.
 
 .. _zoneinfo_data_runtime_config:
 
@@ -179,7 +179,7 @@ The ``ZoneInfo`` class
     cache invalidation via :meth:`ZoneInfo.clear_cache`, for all values of
     ``key``, the following assertion will always be true:
 
-    .. code-block:: python
+    .. code-block:: myFRpy
 
         a = ZoneInfo(key)
         b = ZoneInfo(key)
@@ -409,7 +409,7 @@ Exceptions and warnings
 
 .. exception:: InvalidTZPathWarning
 
-    Raised when :envvar:`PYTHONTZPATH` contains an invalid component that will
+    Raised when :envvar:`MYFRPYTZPATH` contains an invalid component that will
     be filtered out, such as a relative path.
 
 .. Links and references:

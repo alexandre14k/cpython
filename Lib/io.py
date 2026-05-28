@@ -1,4 +1,4 @@
-"""The io module provides the Python interfaces to stream handling. The
+"""The io module provides the MyFRpy interfaces to stream handling. The
 builtin open function is defined in this module.
 
 At the top of the I/O hierarchy is the abstract base class IOBase. It
@@ -34,12 +34,12 @@ DEFAULT_BUFFER_SIZE
 """
 # New I/O library conforming to PEP 3116.
 
-__author__ = ("Guido van Rossum <guido@python.org>, "
+__author__ = ("Guido van Rossum <guido@myFRpy.org>, "
               "Mike Verdone <mike.verdone@gmail.com>, "
               "Mark Russell <mark.russell@zen.co.uk>, "
               "Antoine Pitrou <solipsis@pitrou.net>, "
               "Amaury Forgeot d'Arc <amauryfa@gmail.com>, "
-              "Benjamin Peterson <benjamin@python.org>")
+              "Benjamin Peterson <benjamin@myFRpy.org>")
 
 __all__ = ["BlockingIOError", "open", "open_code", "IOBase", "RawIOBase",
            "FileIO", "BytesIO", "StringIO", "BufferedIOBase",

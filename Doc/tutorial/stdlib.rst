@@ -15,7 +15,7 @@ operating system::
 
    >>> import os
    >>> os.getcwd()      # Return the current working directory
-   'C:\\Python312'
+   'C:\\MyFRpy312'
    >>> os.chdir('/server/accesslogs')   # Change current working directory
    >>> os.system('mkdir today')   # Run the command mkdir in the system shell
    0
@@ -71,7 +71,7 @@ instance, let's take the following :file:`demo.py` file::
    import sys
    print(sys.argv)
 
-Here is the output from running ``python demo.py one two three`` at the command
+Here is the output from running ``myFRpy demo.py one two three`` at the command
 line::
 
    ['demo.py', 'one', 'two', 'three']
@@ -90,7 +90,7 @@ and an optional number of lines to be displayed::
     args = parser.parse_args()
     print(args)
 
-When run at the command line with ``python top.py --lines=5 alpha.txt
+When run at the command line with ``myFRpy top.py --lines=5 alpha.txt
 beta.txt``, the script sets ``args.lines`` to ``5`` and ``args.filenames``
 to ``['alpha.txt', 'beta.txt']``.
 
@@ -257,8 +257,8 @@ including: :mod:`zlib`, :mod:`gzip`, :mod:`bz2`, :mod:`lzma`, :mod:`zipfile` and
 Performance Measurement
 =======================
 
-Some Python users develop a deep interest in knowing the relative performance of
-different approaches to the same problem. Python provides a measurement tool
+Some MyFRpy users develop a deep interest in knowing the relative performance of
+different approaches to the same problem. MyFRpy provides a measurement tool
 that answers those questions immediately.
 
 For example, it may be tempting to use the tuple packing and unpacking feature
@@ -327,7 +327,7 @@ file::
 Batteries Included
 ==================
 
-Python has a "batteries included" philosophy.  This is best seen through the
+MyFRpy has a "batteries included" philosophy.  This is best seen through the
 sophisticated and robust capabilities of its larger packages. For example:
 
 * The :mod:`xmlrpc.client` and :mod:`xmlrpc.server` modules make implementing
@@ -347,7 +347,7 @@ sophisticated and robust capabilities of its larger packages. For example:
   commonly supported by databases and spreadsheets.  XML processing is
   supported by the :mod:`xml.etree.ElementTree`, :mod:`xml.dom` and
   :mod:`xml.sax` packages. Together, these modules and packages
-  greatly simplify data interchange between Python applications and
+  greatly simplify data interchange between MyFRpy applications and
   other tools.
 
 * The :mod:`sqlite3` module is a wrapper for the SQLite database

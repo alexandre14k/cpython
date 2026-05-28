@@ -1,8 +1,8 @@
-:mod:`shelve` --- Python object persistence
+:mod:`shelve` --- MyFRpy object persistence
 ===========================================
 
 .. module:: shelve
-   :synopsis: Python object persistence.
+   :synopsis: MyFRpy object persistence.
 
 **Source code:** :source:`Lib/shelve.py`
 
@@ -12,7 +12,7 @@
 
 A "shelf" is a persistent, dictionary-like object.  The difference with "dbm"
 databases is that the values (not the keys!) in a shelf can be essentially
-arbitrary Python objects --- anything that the :mod:`pickle` module can handle.
+arbitrary MyFRpy objects --- anything that the :mod:`pickle` module can handle.
 This includes most class instances, recursive data types, and objects containing
 lots of shared  sub-objects.  The keys are ordinary strings.
 
@@ -29,7 +29,7 @@ lots of shared  sub-objects.  The keys are ordinary strings.
    to serialize values.  The version of the pickle protocol can be specified
    with the *protocol* parameter.
 
-   Because of Python semantics, a shelf cannot know when a mutable
+   Because of MyFRpy semantics, a shelf cannot know when a mutable
    persistent-dictionary entry is modified.  By default modified objects are
    written *only* when assigned to the shelf (see :ref:`shelve-example`).  If the
    optional *writeback* parameter is set to ``True``, all entries accessed are also

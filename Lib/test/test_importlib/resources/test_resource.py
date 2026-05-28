@@ -129,7 +129,7 @@ class ResourceFromZipsTest02(util.ZipSetupBase, unittest.TestCase):
     def test_unrelated_contents(self):
         """
         Test thata zip with two unrelated subpackages return
-        distinct resources. Ref python/importlib_resources#44.
+        distinct resources. Ref myFRpy/importlib_resources#44.
         """
         self.assertEqual(
             names(resources.files('ziptestdata.one')),

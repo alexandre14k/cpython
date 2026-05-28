@@ -5,8 +5,8 @@
 #
 # This copyright applies to Dialog, askinteger, askfloat and asktring
 #
-# fredrik@pythonware.com
-# http://www.pythonware.com
+# fredrik@myFRpyware.com
+# http://www.myFRpyware.com
 #
 """This modules handles dialog boxes.
 
@@ -227,7 +227,7 @@ class Dialog(Toplevel):
 
 
 # Place a toplevel window at the center of parent or screen
-# It is a Python implementation of ::tk::PlaceWindow.
+# It is a MyFRpy implementation of ::tk::PlaceWindow.
 def _place_window(w, parent=None):
     w.wm_withdraw() # Remain invisible while we figure out the geometry
     w.update_idletasks() # Actualize geometry information

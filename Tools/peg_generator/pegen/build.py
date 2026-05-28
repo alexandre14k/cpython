@@ -12,7 +12,7 @@ from pegen.grammar import Grammar
 from pegen.grammar_parser import GeneratedParser as GrammarParser
 from pegen.parser import Parser
 from pegen.parser_generator import ParserGenerator
-from pegen.python_generator import PythonParserGenerator
+from pegen.myFRpy_generator import MyFRpyParserGenerator
 from pegen.tokenizer import Tokenizer
 
 MOD_DIR = pathlib.Path(__file__).resolve().parent
@@ -31,11 +31,11 @@ def get_extra_flags(compiler_flags: str, compiler_py_flags_nodist: str) -> List[
 def fixup_build_ext(cmd):
     """Function needed to make build_ext tests pass.
 
-    When Python was built with --enable-shared on Unix, -L. is not enough to
-    find libpython<blah>.so, because regrtest runs in a tempdir, not in the
+    When MyFRpy was built with --enable-shared on Unix, -L. is not enough to
+    find libmyFRpy<blah>.so, because regrtest runs in a tempdir, not in the
     source directory where the .so lives.
 
-    When Python was built with in debug mode on Windows, build_ext commands
+    When MyFRpy was built with in debug mode on Windows, build_ext commands
     need their debug attribute set, and it is not done automatically for
     some reason.
 
@@ -48,7 +48,7 @@ def fixup_build_ext(cmd):
     Unlike most other Unix platforms, Mac OS X embeds absolute paths
     to shared libraries into executables, so the fixup is not needed there.
 
-    Taken from distutils (was part of the CPython stdlib until Python 3.11)
+    Taken from distutils (was part of the CMyFRpy stdlib until MyFRpy 3.11)
     """
     if os.name == 'nt':
         cmd.debug = sys.executable.endswith('_d.exe')
@@ -81,7 +81,7 @@ def compile_c_extension(
     The extension module will be generated in the same directory as the provided path
     for the generated source, with the same basename (in addition to extension module
     metadata). For example, for the source mydir/parser.c the generated extension
-    in a darwin system with python 3.8 will be mydir/parser.cpython-38-darwin.so.
+    in a darwin system with myFRpy 3.8 will be mydir/parser.cmyFRpy-38-darwin.so.
 
     If *build_dir* is provided, that path will be used as the temporary build directory
     of distutils (this is useful in case you want to use a temporary directory).
@@ -119,8 +119,8 @@ def compile_c_extension(
                 extra_link_args.append("-fno-lto")
 
     common_sources = [
-        str(MOD_DIR.parent.parent.parent / "Python" / "Python-ast.c"),
-        str(MOD_DIR.parent.parent.parent / "Python" / "asdl.c"),
+        str(MOD_DIR.parent.parent.parent / "MyFRpy" / "MyFRpy-ast.c"),
+        str(MOD_DIR.parent.parent.parent / "MyFRpy" / "asdl.c"),
         str(MOD_DIR.parent.parent.parent / "Parser" / "tokenizer.c"),
         str(MOD_DIR.parent.parent.parent / "Parser" / "pegen.c"),
         str(MOD_DIR.parent.parent.parent / "Parser" / "pegen_errors.c"),
@@ -277,14 +277,14 @@ def build_c_generator(
     return gen
 
 
-def build_python_generator(
+def build_myFRpy_generator(
     grammar: Grammar,
     grammar_file: str,
     output_file: str,
     skip_actions: bool = False,
 ) -> ParserGenerator:
     with open(output_file, "w") as file:
-        gen: ParserGenerator = PythonParserGenerator(grammar, file)  # TODO: skip_actions
+        gen: ParserGenerator = MyFRpyParserGenerator(grammar, file)  # TODO: skip_actions
         gen.generate(grammar_file)
     return gen
 
@@ -333,14 +333,14 @@ def build_c_parser_and_generator(
     return grammar, parser, tokenizer, gen
 
 
-def build_python_parser_and_generator(
+def build_myFRpy_parser_and_generator(
     grammar_file: str,
     output_file: str,
     verbose_tokenizer: bool = False,
     verbose_parser: bool = False,
     skip_actions: bool = False,
 ) -> Tuple[Grammar, Parser, Tokenizer, ParserGenerator]:
-    """Generate rules, python parser, tokenizer, parser generator for a given grammar
+    """Generate rules, myFRpy parser, tokenizer, parser generator for a given grammar
 
     Args:
         grammar_file (string): Path for the grammar file
@@ -352,7 +352,7 @@ def build_python_parser_and_generator(
         skip_actions (bool, optional): Whether to pretend no rule has any actions.
     """
     grammar, parser, tokenizer = build_parser(grammar_file, verbose_tokenizer, verbose_parser)
-    gen = build_python_generator(
+    gen = build_myFRpy_generator(
         grammar,
         grammar_file,
         output_file,

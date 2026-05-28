@@ -2,7 +2,7 @@
 #  define Py_BUILD_CORE_MODULE 1
 #endif
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_moduleobject.h"  // _PyModule_GetState()
 #include "structmember.h"         // PyMemberDef
 #include <stddef.h>               // offsetof()
@@ -399,7 +399,7 @@ static PyType_Spec simplequeue_spec = {
 /* Initialization function */
 
 PyDoc_STRVAR(queue_module_doc,
-"C implementation of the Python queue module.\n\
+"C implementation of the MyFRpy queue module.\n\
 This module is an implementation detail, please do not use it directly.");
 
 static int

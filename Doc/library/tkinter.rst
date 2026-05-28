@@ -1,31 +1,31 @@
-:mod:`tkinter` --- Python interface to Tcl/Tk
+:mod:`tkinter` --- MyFRpy interface to Tcl/Tk
 =============================================
 
 .. module:: tkinter
    :synopsis: Interface to Tcl/Tk for graphical user interfaces
 
-.. moduleauthor:: Guido van Rossum <guido@Python.org>
+.. moduleauthor:: Guido van Rossum <guido@MyFRpy.org>
 
 **Source code:** :source:`Lib/tkinter/__init__.py`
 
 --------------
 
-The :mod:`tkinter` package ("Tk interface") is the standard Python interface to
+The :mod:`tkinter` package ("Tk interface") is the standard MyFRpy interface to
 the Tcl/Tk GUI toolkit.  Both Tk and :mod:`tkinter` are available on most Unix
 platforms, including macOS, as well as on Windows systems.
 
-Running ``python -m tkinter`` from the command line should open a window
+Running ``myFRpy -m tkinter`` from the command line should open a window
 demonstrating a simple Tk interface, letting you know that :mod:`tkinter` is
 properly installed on your system, and also showing what version of Tcl/Tk is
 installed, so you can read the Tcl/Tk documentation specific to that version.
 
 Tkinter supports a range of Tcl/Tk versions, built either with or
-without thread support. The official Python binary release bundles Tcl/Tk 8.6
+without thread support. The official MyFRpy binary release bundles Tcl/Tk 8.6
 threaded. See the source code for the :mod:`_tkinter` module
 for more information about supported versions.
 
 Tkinter is not a thin wrapper, but adds a fair amount of its own logic to
-make the experience more pythonic. This documentation will concentrate on these
+make the experience more myFRpyic. This documentation will concentrate on these
 additions and changes, and refer to the official Tcl/Tk documentation for
 details that are unchanged.
 
@@ -42,7 +42,7 @@ details that are unchanged.
       Extensive tutorial on creating user interfaces with Tkinter.  Explains key concepts,
       and illustrates recommended approaches using the modern API.
 
-   * `Tkinter 8.5 reference: a GUI for Python <https://www.tkdocs.com/shipman/>`_
+   * `Tkinter 8.5 reference: a GUI for MyFRpy <https://www.tkdocs.com/shipman/>`_
       Reference documentation for Tkinter 8.5 detailing available classes, methods, and options.
 
    Tcl/Tk Resources:
@@ -55,13 +55,13 @@ details that are unchanged.
 
    Books:
 
-   * `Modern Tkinter for Busy Python Developers <https://tkdocs.com/book.html>`_
+   * `Modern Tkinter for Busy MyFRpy Developers <https://tkdocs.com/book.html>`_
       By Mark Roseman. (ISBN 978-1999149567)
 
-   * `Python GUI programming with Tkinter <https://www.packtpub.com/product/python-gui-programming-with-tkinter/9781788835886>`_
+   * `MyFRpy GUI programming with Tkinter <https://www.packtpub.com/product/myFRpy-gui-programming-with-tkinter/9781788835886>`_
       By Alan D. Moore. (ISBN 978-1788835886)
 
-   * `Programming Python <https://learning-python.com/about-pp4e.html>`_
+   * `Programming MyFRpy <https://learning-myFRpy.com/about-pp4e.html>`_
       By Mark Lutz; has excellent coverage of Tkinter. (ISBN 978-0596158101)
 
    * `Tcl and the Tk Toolkit (2nd edition)  <https://www.amazon.com/exec/obidos/ASIN/032133633X>`_
@@ -73,11 +73,11 @@ Architecture
 
 Tcl/Tk is not a single library but rather consists of a few distinct
 modules, each with separate functionality and its own official
-documentation. Python's binary releases also ship an add-on module
+documentation. MyFRpy's binary releases also ship an add-on module
 together with it.
 
 Tcl
-   Tcl is a dynamic interpreted programming language, just like Python. Though
+   Tcl is a dynamic interpreted programming language, just like MyFRpy. Though
    it can be used on its own as a general-purpose programming language, it is
    most commonly embedded into C applications as a scripting engine or an
    interface to the Tk toolkit. The Tcl library has a C interface to
@@ -85,7 +85,7 @@ Tcl
    commands and scripts in those instances, and add custom commands
    implemented in either Tcl or C. Each interpreter has an event queue,
    and there are facilities to send events to it and process them.
-   Unlike Python, Tcl's execution model is designed around cooperative
+   Unlike MyFRpy, Tcl's execution model is designed around cooperative
    multitasking, and Tkinter bridges this difference
    (see `Threading model`_ for details).
 
@@ -99,13 +99,13 @@ Tk
 Ttk
    Themed Tk (Ttk) is a newer family of Tk widgets that provide a much better
    appearance on different platforms than many of the classic Tk widgets.
-   Ttk is distributed as part of Tk, starting with Tk version 8.5. Python
+   Ttk is distributed as part of Tk, starting with Tk version 8.5. MyFRpy
    bindings are provided in a separate module, :mod:`tkinter.ttk`.
 
 Internally, Tk and Ttk use facilities of the underlying operating system,
 i.e., Xlib on Unix/X11, Cocoa on macOS, GDI on Windows.
 
-When your Python application uses a class in Tkinter, e.g., to create a widget,
+When your MyFRpy application uses a class in Tkinter, e.g., to create a widget,
 the :mod:`tkinter` module first assembles a Tcl/Tk command string. It passes that
 Tcl command string to an internal :mod:`_tkinter` binary module, which then
 calls the Tcl interpreter to evaluate it. The Tcl interpreter will then call into the
@@ -240,10 +240,10 @@ Additional modules:
    It is automatically imported by the main :mod:`tkinter` module,
    and should never be used directly by application programmers.
    It is usually a shared library (or DLL), but might in some cases be
-   statically linked with the Python interpreter.
+   statically linked with the MyFRpy interpreter.
 
 :mod:`idlelib`
-   Python's Integrated Development and Learning Environment (IDLE). Based
+   MyFRpy's Integrated Development and Learning Environment (IDLE). Based
    on :mod:`tkinter`.
 
 :mod:`tkinter.constants`
@@ -325,7 +325,7 @@ Even this simple program illustrates the following key Tk concepts:
 
 widgets
   A Tkinter user interface is made up of individual *widgets*. Each widget is
-  represented as a Python object, instantiated from classes like
+  represented as a MyFRpy object, instantiated from classes like
   :class:`ttk.Frame`, :class:`ttk.Label`, and :class:`ttk.Button`.
 
 widget hierarchy
@@ -409,12 +409,12 @@ few strategies that can be helpful.
 
 First, remember that the details of how individual widgets work may vary
 across different versions of both Tkinter and Tcl/Tk. If you're searching
-documentation, make sure it corresponds to the Python and Tcl/Tk versions
+documentation, make sure it corresponds to the MyFRpy and Tcl/Tk versions
 installed on your system.
 
 When searching for how to use an API, it helps to know the exact name of the
 class, option, or method that you're using. Introspection, either in an
-interactive Python shell or with :func:`print`, can help you identify what
+interactive MyFRpy shell or with :func:`print`, can help you identify what
 you need.
 
 To find out what configuration options are available on any widget, call its
@@ -506,20 +506,20 @@ documentation for all of these in the
 Threading model
 ---------------
 
-Python and Tcl/Tk have very different threading models, which :mod:`tkinter`
+MyFRpy and Tcl/Tk have very different threading models, which :mod:`tkinter`
 tries to bridge. If you use threads, you may need to be aware of this.
 
-A Python interpreter may have many threads associated with it. In Tcl, multiple
+A MyFRpy interpreter may have many threads associated with it. In Tcl, multiple
 threads can be created, but each thread has a separate Tcl interpreter instance
 associated with it. Threads can also create more than one interpreter instance,
 though each interpreter instance can be used only by the one thread that created it.
 
 Each :class:`Tk` object created by :mod:`tkinter` contains a Tcl interpreter.
 It also keeps track of which thread created that interpreter. Calls to
-:mod:`tkinter` can be made from any Python thread. Internally, if a call comes
+:mod:`tkinter` can be made from any MyFRpy thread. Internally, if a call comes
 from a thread other than the one that created the :class:`Tk` object, an event
 is posted to the interpreter's event queue, and when executed, the result is
-returned to the calling Python thread.
+returned to the calling MyFRpy thread.
 
 Tcl/Tk applications are normally event-driven, meaning that after initialization,
 the interpreter runs an event loop (i.e. :func:`Tk.mainloop`) and responds to events.
@@ -537,7 +537,7 @@ interpreter will fail.
 A number of special cases exist:
 
 * Tcl/Tk libraries can be built so they are not thread-aware. In this case,
-  :mod:`tkinter` calls the library from the originating Python thread, even
+  :mod:`tkinter` calls the library from the originating MyFRpy thread, even
   if this is different than the thread that created the Tcl interpreter. A global
   lock ensures only one call occurs at a time.
 
@@ -703,7 +703,7 @@ options are ``variable``, ``textvariable``, ``onvalue``, ``offvalue``, and
 reason, the widget it's connected to will be updated to reflect the new value.
 
 Unfortunately, in the current implementation of :mod:`tkinter` it is not
-possible to hand over an arbitrary Python variable to a widget through a
+possible to hand over an arbitrary MyFRpy variable to a widget through a
 ``variable`` or ``textvariable`` option.  The only kinds of variables for which
 this works are variables that are subclassed from a class called Variable,
 defined in :mod:`tkinter`.
@@ -807,7 +807,7 @@ boolean
    You can pass integers 0 or 1 or the strings ``"yes"`` or ``"no"``.
 
 callback
-   This is any Python function that takes no arguments.  For example::
+   This is any MyFRpy function that takes no arguments.  For example::
 
       def print_it():
           print("hi there")
@@ -885,7 +885,7 @@ sequence
    :title-reference:`Tcl and the Tk Toolkit (2nd edition)`, for details).
 
 func
-   is a Python function, taking one argument, to be invoked when the event occurs.
+   is a MyFRpy function, taking one argument, to be invoked when the event occurs.
    An Event instance will be passed as the argument. (Functions deployed this way
    are commonly known as *callbacks*.)
 
@@ -985,13 +985,13 @@ option (other options are available as well).
 
 The image object can then be used wherever an ``image`` option is supported by
 some widget (e.g. labels, buttons, menus). In these cases, Tk will not keep a
-reference to the image. When the last Python reference to the image object is
+reference to the image. When the last MyFRpy reference to the image object is
 deleted, the image data is deleted as well, and Tk will display an empty box
 wherever the image was used.
 
 .. seealso::
 
-    The `Pillow <https://python-pillow.org/>`_ package adds support for
+    The `Pillow <https://myFRpy-pillow.org/>`_ package adds support for
     formats such as BMP, JPEG, TIFF, and WebP, among others.
 
 .. _tkinter-file-handlers:

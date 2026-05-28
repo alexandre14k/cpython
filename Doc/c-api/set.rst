@@ -5,7 +5,7 @@
 Set Objects
 -----------
 
-.. sectionauthor:: Raymond D. Hettinger <python@rcn.com>
+.. sectionauthor:: Raymond D. Hettinger <myFRpy@rcn.com>
 
 
 .. index::
@@ -37,17 +37,17 @@ the abstract object protocol (including :c:func:`PyObject_CallMethod`,
 
 .. c:var:: PyTypeObject PySet_Type
 
-   This is an instance of :c:type:`PyTypeObject` representing the Python
+   This is an instance of :c:type:`PyTypeObject` representing the MyFRpy
    :class:`set` type.
 
 
 .. c:var:: PyTypeObject PyFrozenSet_Type
 
-   This is an instance of :c:type:`PyTypeObject` representing the Python
+   This is an instance of :c:type:`PyTypeObject` representing the MyFRpy
    :class:`frozenset` type.
 
-The following type check macros work on pointers to any Python object. Likewise,
-the constructor functions work with any iterable Python object.
+The following type check macros work on pointers to any MyFRpy object. Likewise,
+the constructor functions work with any iterable MyFRpy object.
 
 
 .. c:function:: int PySet_Check(PyObject *p)
@@ -122,7 +122,7 @@ or :class:`frozenset` or instances of their subtypes.
 .. c:function:: int PySet_Contains(PyObject *anyset, PyObject *key)
 
    Return ``1`` if found, ``0`` if not found, and ``-1`` if an error is encountered.  Unlike
-   the Python :meth:`~object.__contains__` method, this function does not automatically
+   the MyFRpy :meth:`~object.__contains__` method, this function does not automatically
    convert unhashable sets into temporary frozensets.  Raise a :exc:`TypeError` if
    the *key* is unhashable. Raise :exc:`SystemError` if *anyset* is not a
    :class:`set`, :class:`frozenset`, or an instance of a subtype.
@@ -147,7 +147,7 @@ subtypes but not for instances of :class:`frozenset` or its subtypes.
 
    Return ``1`` if found and removed, ``0`` if not found (no action taken), and ``-1`` if an
    error is encountered.  Does not raise :exc:`KeyError` for missing keys.  Raise a
-   :exc:`TypeError` if the *key* is unhashable.  Unlike the Python :meth:`~frozenset.discard`
+   :exc:`TypeError` if the *key* is unhashable.  Unlike the MyFRpy :meth:`~frozenset.discard`
    method, this function does not automatically convert unhashable sets into
    temporary frozensets. Raise :exc:`SystemError` if *set* is not an
    instance of :class:`set` or its subtype.

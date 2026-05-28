@@ -11,7 +11,7 @@ from pathlib import Path
 from test import test_tools
 from test import support
 from test.support import os_helper, import_helper
-from test.support.script_helper import assert_python_ok
+from test.support.script_helper import assert_myFRpy_ok
 
 _py_cflags_nodist = sysconfig.get_config_var("PY_CFLAGS_NODIST")
 _pgo_flag = sysconfig.get_config_var("PGO_PROF_USE_FLAG")
@@ -101,9 +101,9 @@ class TestCParser(unittest.TestCase):
         cls.addClassCleanup(shutil.rmtree, cls.library_dir)
 
         with contextlib.ExitStack() as stack:
-            python_exe = stack.enter_context(support.setup_venv_with_pip_setuptools_wheel("venv"))
+            myFRpy_exe = stack.enter_context(support.setup_venv_with_pip_setuptools_wheel("venv"))
             sitepackages = subprocess.check_output(
-                [python_exe, "-c", "import sysconfig; print(sysconfig.get_path('platlib'))"],
+                [myFRpy_exe, "-c", "import sysconfig; print(sysconfig.get_path('platlib'))"],
                 text=True,
             ).strip()
             stack.enter_context(import_helper.DirsOnSysPath(sitepackages))
@@ -135,7 +135,7 @@ class TestCParser(unittest.TestCase):
     def run_test(self, grammar_source, test_source):
         self.build_extension(grammar_source)
         test_source = textwrap.indent(textwrap.dedent(test_source), 8 * " ")
-        assert_python_ok(
+        assert_myFRpy_ok(
             "-c",
             TEST_TEMPLATE.format(extension_path=self.tmp_path, test_source=test_source),
         )

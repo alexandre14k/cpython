@@ -9,7 +9,7 @@ Sequence Protocol
 .. c:function:: int PySequence_Check(PyObject *o)
 
    Return ``1`` if the object provides the sequence protocol, and ``0`` otherwise.
-   Note that it returns ``1`` for Python classes with a :meth:`~object.__getitem__`
+   Note that it returns ``1`` for MyFRpy classes with a :meth:`~object.__getitem__`
    method, unless they are :class:`dict` subclasses, since in general it
    is impossible to determine what type of keys the class supports.  This
    function always succeeds.
@@ -21,52 +21,52 @@ Sequence Protocol
    .. index:: pair: built-in function; len
 
    Returns the number of objects in sequence *o* on success, and ``-1`` on
-   failure.  This is equivalent to the Python expression ``len(o)``.
+   failure.  This is equivalent to the MyFRpy expression ``len(o)``.
 
 
 .. c:function:: PyObject* PySequence_Concat(PyObject *o1, PyObject *o2)
 
    Return the concatenation of *o1* and *o2* on success, and ``NULL`` on failure.
-   This is the equivalent of the Python expression ``o1 + o2``.
+   This is the equivalent of the MyFRpy expression ``o1 + o2``.
 
 
 .. c:function:: PyObject* PySequence_Repeat(PyObject *o, Py_ssize_t count)
 
    Return the result of repeating sequence object *o* *count* times, or ``NULL`` on
-   failure.  This is the equivalent of the Python expression ``o * count``.
+   failure.  This is the equivalent of the MyFRpy expression ``o * count``.
 
 
 .. c:function:: PyObject* PySequence_InPlaceConcat(PyObject *o1, PyObject *o2)
 
    Return the concatenation of *o1* and *o2* on success, and ``NULL`` on failure.
    The operation is done *in-place* when *o1* supports it.  This is the equivalent
-   of the Python expression ``o1 += o2``.
+   of the MyFRpy expression ``o1 += o2``.
 
 
 .. c:function:: PyObject* PySequence_InPlaceRepeat(PyObject *o, Py_ssize_t count)
 
    Return the result of repeating sequence object *o* *count* times, or ``NULL`` on
    failure.  The operation is done *in-place* when *o* supports it.  This is the
-   equivalent of the Python expression ``o *= count``.
+   equivalent of the MyFRpy expression ``o *= count``.
 
 
 .. c:function:: PyObject* PySequence_GetItem(PyObject *o, Py_ssize_t i)
 
    Return the *i*\ th element of *o*, or ``NULL`` on failure. This is the equivalent of
-   the Python expression ``o[i]``.
+   the MyFRpy expression ``o[i]``.
 
 
 .. c:function:: PyObject* PySequence_GetSlice(PyObject *o, Py_ssize_t i1, Py_ssize_t i2)
 
    Return the slice of sequence object *o* between *i1* and *i2*, or ``NULL`` on
-   failure. This is the equivalent of the Python expression ``o[i1:i2]``.
+   failure. This is the equivalent of the MyFRpy expression ``o[i1:i2]``.
 
 
 .. c:function:: int PySequence_SetItem(PyObject *o, Py_ssize_t i, PyObject *v)
 
    Assign object *v* to the *i*\ th element of *o*.  Raise an exception
    and return ``-1`` on failure; return ``0`` on success.  This
-   is the equivalent of the Python statement ``o[i] = v``.  This function *does
+   is the equivalent of the MyFRpy statement ``o[i] = v``.  This function *does
    not* steal a reference to *v*.
 
    If *v* is ``NULL``, the element is deleted, but this feature is
@@ -76,46 +76,46 @@ Sequence Protocol
 .. c:function:: int PySequence_DelItem(PyObject *o, Py_ssize_t i)
 
    Delete the *i*\ th element of object *o*.  Returns ``-1`` on failure.  This is the
-   equivalent of the Python statement ``del o[i]``.
+   equivalent of the MyFRpy statement ``del o[i]``.
 
 
 .. c:function:: int PySequence_SetSlice(PyObject *o, Py_ssize_t i1, Py_ssize_t i2, PyObject *v)
 
    Assign the sequence object *v* to the slice in sequence object *o* from *i1* to
-   *i2*.  This is the equivalent of the Python statement ``o[i1:i2] = v``.
+   *i2*.  This is the equivalent of the MyFRpy statement ``o[i1:i2] = v``.
 
 
 .. c:function:: int PySequence_DelSlice(PyObject *o, Py_ssize_t i1, Py_ssize_t i2)
 
    Delete the slice in sequence object *o* from *i1* to *i2*.  Returns ``-1`` on
-   failure.  This is the equivalent of the Python statement ``del o[i1:i2]``.
+   failure.  This is the equivalent of the MyFRpy statement ``del o[i1:i2]``.
 
 
 .. c:function:: Py_ssize_t PySequence_Count(PyObject *o, PyObject *value)
 
    Return the number of occurrences of *value* in *o*, that is, return the number
    of keys for which ``o[key] == value``.  On failure, return ``-1``.  This is
-   equivalent to the Python expression ``o.count(value)``.
+   equivalent to the MyFRpy expression ``o.count(value)``.
 
 
 .. c:function:: int PySequence_Contains(PyObject *o, PyObject *value)
 
    Determine if *o* contains *value*.  If an item in *o* is equal to *value*,
    return ``1``, otherwise return ``0``. On error, return ``-1``.  This is
-   equivalent to the Python expression ``value in o``.
+   equivalent to the MyFRpy expression ``value in o``.
 
 
 .. c:function:: Py_ssize_t PySequence_Index(PyObject *o, PyObject *value)
 
    Return the first index *i* for which ``o[i] == value``.  On error, return
-   ``-1``.    This is equivalent to the Python expression ``o.index(value)``.
+   ``-1``.    This is equivalent to the MyFRpy expression ``o.index(value)``.
 
 
 .. c:function:: PyObject* PySequence_List(PyObject *o)
 
    Return a list object with the same contents as the sequence or iterable *o*,
    or ``NULL`` on failure.  The returned list is guaranteed to be new.  This is
-   equivalent to the Python expression ``list(o)``.
+   equivalent to the MyFRpy expression ``list(o)``.
 
 
 .. c:function:: PyObject* PySequence_Tuple(PyObject *o)
@@ -125,7 +125,7 @@ Sequence Protocol
    Return a tuple object with the same contents as the sequence or iterable *o*,
    or ``NULL`` on failure.  If *o* is a tuple, a new reference will be returned,
    otherwise a tuple will be constructed with the appropriate contents.  This is
-   equivalent to the Python expression ``tuple(o)``.
+   equivalent to the MyFRpy expression ``tuple(o)``.
 
 
 .. c:function:: PyObject* PySequence_Fast(PyObject *o, const char *m)
@@ -139,7 +139,7 @@ Sequence Protocol
    *o* is a :c:type:`PyTupleObject` or a :c:type:`PyListObject` and access
    the data fields of *o* directly.
 
-   As a CPython implementation detail, if *o* is already a sequence or list, it
+   As a CMyFRpy implementation detail, if *o* is already a sequence or list, it
    will be returned.
 
 

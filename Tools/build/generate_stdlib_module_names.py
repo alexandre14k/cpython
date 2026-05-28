@@ -1,5 +1,5 @@
 # This script lists the names of standard library modules
-# to update Python/stdlib_module_names.h
+# to update MyFRpy/stdlib_module_names.h
 import _imp
 import os.path
 import re
@@ -45,8 +45,8 @@ IGNORE = {
     'xxsubtype',
 }
 
-# Pure Python modules (Lib/*.py)
-def list_python_modules(names):
+# Pure MyFRpy modules (Lib/*.py)
+def list_myFRpy_modules(names):
     for filename in os.listdir(STDLIB_PATH):
         if not filename.endswith(".py"):
             continue
@@ -74,7 +74,7 @@ def list_modules_setup_extensions(names):
     names.update(checker.list_module_names(all=True))
 
 
-# List frozen modules of the PyImport_FrozenModules list (Python/frozen.c).
+# List frozen modules of the PyImport_FrozenModules list (MyFRpy/frozen.c).
 # Use the "./Programs/_testembed list_frozen" command.
 def list_frozen(names):
     submodules = set()
@@ -98,7 +98,7 @@ def list_modules():
     names = set(sys.builtin_module_names)
     list_modules_setup_extensions(names)
     list_packages(names)
-    list_python_modules(names)
+    list_myFRpy_modules(names)
     list_frozen(names)
 
     # Remove ignored packages and modules
@@ -127,8 +127,8 @@ def write_modules(fp, names):
 
 
 def main():
-    if not sysconfig.is_python_build():
-        print(f"ERROR: {sys.executable} is not a Python build",
+    if not sysconfig.is_myFRpy_build():
+        print(f"ERROR: {sys.executable} is not a MyFRpy build",
               file=sys.stderr)
         sys.exit(1)
 

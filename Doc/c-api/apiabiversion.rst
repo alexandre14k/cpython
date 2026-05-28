@@ -6,7 +6,7 @@
 API and ABI Versioning
 ***********************
 
-CPython exposes its version number in the following macros.
+CMyFRpy exposes its version number in the following macros.
 Note that these correspond to the version code is **built** with,
 not necessarily the version used at **run time**.
 
@@ -36,7 +36,7 @@ See :ref:`stable` for a discussion of API and ABI stability across versions.
 
 .. c:macro:: PY_VERSION_HEX
 
-   The Python version number encoded in a single integer.
+   The MyFRpy version number encoded in a single integer.
 
    The underlying version information can be found by treating it as a 32 bit
    number in the following manner:
@@ -64,9 +64,9 @@ See :ref:`stable` for a discussion of API and ABI stability across versions.
 
 .. c:var:: const unsigned long Py_Version
 
-   The Python runtime version number encoded in a single constant integer, with
+   The MyFRpy runtime version number encoded in a single constant integer, with
    the same format as the :c:macro:`PY_VERSION_HEX` macro.
-   This contains the Python version used at run time.
+   This contains the MyFRpy version used at run time.
 
    .. versionadded:: 3.11
 

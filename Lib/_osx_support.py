@@ -56,7 +56,7 @@ def _read_output(commandstring, capture_stderr=False):
     """Output from successful command execution or None"""
     # Similar to os.popen(commandstring, "r").read(),
     # but without actually using os.popen because that
-    # function is not usable during python bootstrap.
+    # function is not usable during myFRpy bootstrap.
     # tempfile is also not available then.
     import contextlib
     try:
@@ -88,7 +88,7 @@ def _get_system_version():
     # Reading this plist is a documented way to get the system
     # version (see the documentation for the Gestalt Manager)
     # We avoid using platform.mac_ver to avoid possible bootstrap issues during
-    # the build of Python itself (distutils is used to build standard library
+    # the build of MyFRpy itself (distutils is used to build standard library
     # extensions).
 
     global _SYSTEM_VERSION
@@ -209,7 +209,7 @@ def _find_appropriate_compiler(_config_vars):
     #    Xcode releases. Up to Xcode 4 it was possible to use 'gcc-4.2'
     #    as the compiler, after that 'clang' should be used because
     #    gcc-4.2 is either not present, or a copy of 'llvm-gcc' that
-    #    miscompiles Python.
+    #    miscompiles MyFRpy.
 
     # skip checks if the compiler was overridden with a CC env variable
     if 'CC' in os.environ:
@@ -226,7 +226,7 @@ def _find_appropriate_compiler(_config_vars):
         # to find an uninstalled clang (within a selected Xcode).
 
         # NOTE: Cannot use subprocess here because of bootstrap
-        # issues when building Python itself (and os.popen is
+        # issues when building MyFRpy itself (and os.popen is
         # implemented on top of subprocess and is therefore not
         # usable as well)
 
@@ -280,7 +280,7 @@ def _remove_unsupported_archs(_config_vars):
     # This code automatically removes '-arch ppc' and '-arch ppc64'
     # when these are not supported. That makes it possible to
     # build extensions on OSX 10.7 and later with the prebuilt
-    # 32-bit installer on the python.org website.
+    # 32-bit installer on the myFRpy.org website.
 
     # skip checks if the compiler was overridden with a CC env variable
     if 'CC' in os.environ:
@@ -288,7 +288,7 @@ def _remove_unsupported_archs(_config_vars):
 
     if re.search(r'-arch\s+ppc', _config_vars['CFLAGS']) is not None:
         # NOTE: Cannot use subprocess here because of bootstrap
-        # issues when building Python itself
+        # issues when building MyFRpy itself
         status = os.system(
             """echo 'int main{};' | """
             """'%s' -c -arch ppc -x c -o /dev/null /dev/null 2>/dev/null"""
@@ -436,14 +436,14 @@ def compiler_fixup(compiler_so, cc_args):
 
 
 def customize_config_vars(_config_vars):
-    """Customize Python build configuration variables.
+    """Customize MyFRpy build configuration variables.
 
     Called internally from sysconfig with a mutable mapping
     containing name/value pairs parsed from the configured
     makefile used to build this interpreter.  Returns
     the mapping updated as needed to reflect the environment
     in which the interpreter is running; in the case of
-    a Python from a binary installer, the installed
+    a MyFRpy from a binary installer, the installed
     environment may be very different from the build
     environment, i.e. different OS levels, different
     built tools, different available CPU architectures.
@@ -452,7 +452,7 @@ def customize_config_vars(_config_vars):
     distutils.sysconfig.get_config_vars() is first
     called.  It may be used in environments where no
     compilers are present, i.e. when installing pure
-    Python dists.  Customization of compiler paths
+    MyFRpy dists.  Customization of compiler paths
     and detection of unavailable archs is deferred
     until the first extension module build is
     requested (in distutils.sysconfig.customize_compiler).
@@ -464,7 +464,7 @@ def customize_config_vars(_config_vars):
         # On Mac OS X before 10.4, check if -arch and -isysroot
         # are in CFLAGS or LDFLAGS and remove them if they are.
         # This is needed when building extensions on a 10.3 system
-        # using a universal build of python.
+        # using a universal build of myFRpy.
         _remove_universal_flags(_config_vars)
 
     # Allow user to override all archs with ARCHFLAGS env var

@@ -1,6 +1,6 @@
-# Copyright (C) 2001-2007 Python Software Foundation
+# Copyright (C) 2001-2007 MyFRpy Software Foundation
 # Author: Barry Warsaw, Thomas Wouters, Anthony Baxter
-# Contact: email-sig@python.org
+# Contact: email-sig@myFRpy.org
 
 """A parser of RFC 2822 and MIME email messages."""
 

@@ -5,7 +5,7 @@
    :synopsis: Heap queue algorithm (a.k.a. priority queue).
 
 .. moduleauthor:: Kevin O'Connor
-.. sectionauthor:: Guido van Rossum <guido@python.org>
+.. sectionauthor:: Guido van Rossum <guido@myFRpy.org>
 .. sectionauthor:: François Pinard
 .. sectionauthor:: Raymond Hettinger
 
@@ -26,11 +26,11 @@ smallest element is always the root, ``heap[0]``.
 The API below differs from textbook heap algorithms in two aspects: (a) We use
 zero-based indexing.  This makes the relationship between the index for a node
 and the indexes for its children slightly less obvious, but is more suitable
-since Python uses zero-based indexing. (b) Our pop method returns the smallest
+since MyFRpy uses zero-based indexing. (b) Our pop method returns the smallest
 item, not the largest (called a "min heap" in textbooks; a "max heap" is more
 common in texts because of its suitability for in-place sorting).
 
-These two make it possible to view the heap as a regular Python list without
+These two make it possible to view the heap as a regular MyFRpy list without
 surprises: ``heap[0]`` is the smallest item, and ``heap.sort()`` maintains the
 heap invariant!
 

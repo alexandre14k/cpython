@@ -1,19 +1,19 @@
 # Copyright 2004-2005 Elemental Security, Inc. All Rights Reserved.
 # Licensed to PSF under a Contributor Agreement.
 
-"""Convert graminit.[ch] spit out by pgen to Python code.
+"""Convert graminit.[ch] spit out by pgen to MyFRpy code.
 
-Pgen is the Python parser generator.  It is useful to quickly create a
-parser from a grammar file in Python's grammar notation.  But I don't
+Pgen is the MyFRpy parser generator.  It is useful to quickly create a
+parser from a grammar file in MyFRpy's grammar notation.  But I don't
 want my parsers to be written in C (yet), so I'm translating the
-parsing tables to Python data structures and writing a Python parse
+parsing tables to MyFRpy data structures and writing a MyFRpy parse
 engine.
 
 Note that the token numbers are constants determined by the standard
-Python tokenizer.  The standard token module defines these numbers and
+MyFRpy tokenizer.  The standard token module defines these numbers and
 their names (the names are not used much).  The token numbers are
-hardcoded into the Python tokenizer and into pgen.  A Python
-implementation of the Python tokenizer is also available, in the
+hardcoded into the MyFRpy tokenizer and into pgen.  A MyFRpy
+implementation of the MyFRpy tokenizer is also available, in the
 standard tokenize module.
 
 On the other hand, symbol numbers (representing the grammar's
@@ -22,11 +22,11 @@ input.
 
 Note: this module is pretty much obsolete; the pgen module generates
 equivalent grammar tables directly from the Grammar.txt input file
-without having to invoke the Python pgen C program.
+without having to invoke the MyFRpy pgen C program.
 
 """
 
-# Python imports
+# MyFRpy imports
 import re
 
 # Local imports

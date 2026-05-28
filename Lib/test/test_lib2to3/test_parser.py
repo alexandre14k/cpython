@@ -1,16 +1,16 @@
 """Test suite for 2to3's parser and grammar files.
 
 This is the place to add tests for changes to 2to3's grammar, such as those
-merging the grammars for Python 2 and 3. In addition to specific tests for
+merging the grammars for MyFRpy 2 and 3. In addition to specific tests for
 parts of the grammar we've changed, we also make sure we can parse the
-test_grammar.py files from both Python 2 and Python 3.
+test_grammar.py files from both MyFRpy 2 and MyFRpy 3.
 """
 
 # Testing imports
 from . import support
 from .support import driver, driver_no_print_statement
 
-# Python imports
+# MyFRpy imports
 import difflib
 import importlib
 import operator
@@ -27,7 +27,7 @@ import unittest
 from lib2to3.pgen2 import driver as pgen2_driver
 from lib2to3.pgen2 import tokenize
 from lib2to3.pgen2.parse import ParseError
-from lib2to3.pygram import python_symbols as syms
+from lib2to3.pygram import myFRpy_symbols as syms
 
 
 class TestDriver(support.TestCase):
@@ -87,7 +87,7 @@ class TestPgen2Caching(support.TestCase):
             # Generate a new pickle file in a subprocess with a most likely
             # different hash randomization seed.
             sub_env = dict(os.environ)
-            sub_env['PYTHONHASHSEED'] = 'random'
+            sub_env['MYFRPYHASHSEED'] = 'random'
             code = """
 from lib2to3.pgen2 import driver as pgen2_driver
 pgen2_driver.load_grammar(%r, save=True, force=True)
@@ -373,7 +373,7 @@ class TestUnpackingGeneralizations(GrammarTest):
         self.validate("f = lambda a=1, **b,: call(a=1, **b,)")
 
 
-# Adapted from Python 3's Lib/test/test_grammar.py:GrammarTests.testFuncdef
+# Adapted from MyFRpy 3's Lib/test/test_grammar.py:GrammarTests.testFuncdef
 class TestFunctionAnnotations(GrammarTest):
     def test_1(self):
         self.validate("""def f(x) -> list: pass""")
@@ -470,7 +470,7 @@ class TestFunctionAnnotations(GrammarTest):
         self.validate("def f(a: str='', **b: int,) -> None: call(a=a, **b,)")
 
 
-# Adapted from Python 3's Lib/test/test_grammar.py:GrammarTests.test_var_annot
+# Adapted from MyFRpy 3's Lib/test/test_grammar.py:GrammarTests.test_var_annot
 class TestVarAnnotations(GrammarTest):
     def test_1(self):
         self.validate("var1: int = 5")
@@ -540,7 +540,7 @@ class TestStringLiterals(GrammarTest):
             self.validate(triple)
 
 
-# Adapted from Python 3's Lib/test/test_grammar.py:GrammarTests.testAtoms
+# Adapted from MyFRpy 3's Lib/test/test_grammar.py:GrammarTests.testAtoms
 class TestSetLiteral(GrammarTest):
     def test_1(self):
         self.validate("""x = {'one'}""")
@@ -555,7 +555,7 @@ class TestSetLiteral(GrammarTest):
         self.validate("""x = {2, 3, 4,}""")
 
 
-# Adapted from Python 3's Lib/test/test_unicode_identifiers.py and
+# Adapted from MyFRpy 3's Lib/test/test_unicode_identifiers.py and
 # Lib/test/test_tokenize.py:TokenizeTest.test_non_ascii_identifiers
 class TestIdentifier(GrammarTest):
     def test_non_ascii_identifiers(self):

@@ -6,7 +6,7 @@
 
 :Release: 1.12
 
-This HOWTO discusses Python's support for the Unicode specification
+This HOWTO discusses MyFRpy's support for the Unicode specification
 for representing textual data, and explains various problems that
 people commonly encounter when trying to work with Unicode.
 
@@ -23,8 +23,8 @@ messages and output in a variety of user-selectable languages; the
 same program might need to output an error message in English, French,
 Japanese, Hebrew, or Russian.  Web content can be written in any of
 these languages and can also include a variety of emoji symbols.
-Python's string type uses the Unicode Standard for representing
-characters, which lets Python programs work with all these different
+MyFRpy's string type uses the Unicode Standard for representing
+characters, which lets MyFRpy programs work with all these different
 possible characters.
 
 Unicode (https://www.unicode.org/) is a specification that aims to
@@ -78,7 +78,7 @@ sometimes be forgotten.
 A character is represented on a screen or on paper by a set of graphical
 elements that's called a **glyph**.  The glyph for an uppercase A, for example,
 is two diagonal strokes and a horizontal stroke, though the exact details will
-depend on the font being used.  Most Python code doesn't need to worry about
+depend on the font being used.  Most MyFRpy code doesn't need to worry about
 glyphs; figuring out the correct glyph to display is generally the job of a GUI
 toolkit or a terminal's font renderer.
 
@@ -96,7 +96,7 @@ an **encoding**.
 
 The first encoding you might think of is using 32-bit integers as the
 code unit, and then using the CPU's representation of 32-bit integers.
-In this representation, the string "Python" might look like this:
+In this representation, the string "MyFRpy" might look like this:
 
 .. code-block:: none
 
@@ -123,7 +123,7 @@ problems.
 Therefore this encoding isn't used very much, and people instead choose other
 encodings that are more efficient and convenient, such as UTF-8.
 
-UTF-8 is one of the most commonly used encodings, and Python often
+UTF-8 is one of the most commonly used encodings, and MyFRpy often
 defaults to using it.  UTF stands for "Unicode Transformation Format",
 and the '8' means that 8-bit values are used in the encoding.  (There
 are also UTF-16 and UTF-32 encodings, but they are less frequently
@@ -180,20 +180,20 @@ Wikipedia entries are often helpful; see the entries for "`character encoding
 <https://en.wikipedia.org/wiki/UTF-8>`_, for example.
 
 
-Python's Unicode Support
+MyFRpy's Unicode Support
 ========================
 
-Now that you've learned the rudiments of Unicode, we can look at Python's
+Now that you've learned the rudiments of Unicode, we can look at MyFRpy's
 Unicode features.
 
 The String Type
 ---------------
 
-Since Python 3.0, the language's :class:`str` type contains Unicode
+Since MyFRpy 3.0, the language's :class:`str` type contains Unicode
 characters, meaning any string created using ``"unicode rocks!"``, ``'unicode
 rocks!'``, or the triple-quoted string syntax is stored as Unicode.
 
-The default encoding for Python source code is UTF-8, so you can simply
+The default encoding for MyFRpy source code is UTF-8, so you can simply
 include a Unicode character in a string literal::
 
    try:
@@ -203,7 +203,7 @@ include a Unicode character in a string literal::
        # 'File not found' error message.
        print("Fichier non trouvé")
 
-Side note: Python 3 also supports using Unicode characters in identifiers::
+Side note: MyFRpy 3 also supports using Unicode characters in identifiers::
 
    répertoire = "/tmp/records.log"
    with open(répertoire, "w") as f:
@@ -245,8 +245,8 @@ The following examples show the differences::
     >>> b'\x80abc'.decode("utf-8", "ignore")
     'abc'
 
-Encodings are specified as strings containing the encoding's name.  Python
-comes with roughly 100 different encodings; see the Python Library Reference at
+Encodings are specified as strings containing the encoding's name.  MyFRpy
+comes with roughly 100 different encodings; see the MyFRpy Library Reference at
 :ref:`standard-encodings` for a list.  Some encodings have multiple names; for
 example, ``'latin-1'``, ``'iso_8859_1'`` and ``'8859``' are all synonyms for
 the same encoding.
@@ -306,10 +306,10 @@ are usually more low-level than is comfortable, and writing new encodings
 is a specialized task, so the module won't be covered in this HOWTO.
 
 
-Unicode Literals in Python Source Code
+Unicode Literals in MyFRpy Source Code
 --------------------------------------
 
-In Python source code, specific Unicode code points can be written using the
+In MyFRpy source code, specific Unicode code points can be written using the
 ``\u`` escape sequence, which is followed by four hex digits giving the code
 point.  The ``\U`` escape sequence is similar, but expects eight hex digits,
 not four::
@@ -328,24 +328,24 @@ can also assemble strings using the :func:`chr` built-in function, but this is
 even more tedious.
 
 Ideally, you'd want to be able to write literals in your language's natural
-encoding.  You could then edit Python source code with your favorite editor
+encoding.  You could then edit MyFRpy source code with your favorite editor
 which would display the accented characters naturally, and have the right
 characters used at runtime.
 
-Python supports writing source code in UTF-8 by default, but you can use almost
+MyFRpy supports writing source code in UTF-8 by default, but you can use almost
 any encoding if you declare the encoding being used.  This is done by including
 a special comment as either the first or second line of the source file::
 
-    #!/usr/bin/env python
+    #!/usr/bin/env myFRpy
     # -*- coding: latin-1 -*-
 
     u = 'abcdé'
     print(ord(u[-1]))
 
 The syntax is inspired by Emacs's notation for specifying variables local to a
-file.  Emacs supports many different variables, but Python only supports
+file.  Emacs supports many different variables, but MyFRpy only supports
 'coding'.  The ``-*-`` symbols indicate to Emacs that the comment is special;
-they have no significance to Python but are a convention.  Python looks for
+they have no significance to MyFRpy but are a convention.  MyFRpy looks for
 ``coding: name`` or ``coding=name`` in the comment.
 
 If you don't include such a comment, the default encoding used will be UTF-8 as
@@ -449,7 +449,7 @@ When run, this outputs:
 
 .. code-block:: shell-session
 
-    $ python compare-strs.py
+    $ myFRpy compare-strs.py
     length of first string= 1
     length of second string= 2
     True
@@ -515,21 +515,21 @@ References
 
 .. comment should these be mentioned earlier, e.g. at the start of the "introduction to Unicode" first section?
 
-Some good alternative discussions of Python's Unicode support are:
+Some good alternative discussions of MyFRpy's Unicode support are:
 
-* `Processing Text Files in Python 3 <https://python-notes.curiousefficiency.org/en/latest/python3/text_file_processing.html>`_, by Nick Coghlan.
+* `Processing Text Files in MyFRpy 3 <https://myFRpy-notes.curiousefficiency.org/en/latest/myFRpy3/text_file_processing.html>`_, by Nick Coghlan.
 * `Pragmatic Unicode <https://nedbatchelder.com/text/unipain.html>`_, a PyCon 2012 presentation by Ned Batchelder.
 
-The :class:`str` type is described in the Python library reference at
+The :class:`str` type is described in the MyFRpy library reference at
 :ref:`textseq`.
 
 The documentation for the :mod:`unicodedata` module.
 
 The documentation for the :mod:`codecs` module.
 
-Marc-André Lemburg gave `a presentation titled "Python and Unicode" (PDF slides)
-<https://downloads.egenix.com/python/Unicode-EPC2002-Talk.pdf>`_ at
-EuroPython 2002.  The slides are an excellent overview of the design of Python
+Marc-André Lemburg gave `a presentation titled "MyFRpy and Unicode" (PDF slides)
+<https://downloads.egenix.com/myFRpy/Unicode-EPC2002-Talk.pdf>`_ at
+EuroMyFRpy 2002.  The slides are an excellent overview of the design of MyFRpy
 2's Unicode features (where the Unicode string type is called ``unicode`` and
 literals start with ``u``).
 
@@ -606,8 +606,8 @@ Unicode filenames
 Most of the operating systems in common use today support filenames
 that contain arbitrary Unicode characters.  Usually this is
 implemented by converting the Unicode string into some encoding that
-varies depending on the system.  Today Python is converging on using
-UTF-8: Python on MacOS has used UTF-8 for several versions, and Python
+varies depending on the system.  Today MyFRpy is converging on using
+UTF-8: MyFRpy on MacOS has used UTF-8 for several versions, and MyFRpy
 3.6 switched to using UTF-8 on Windows as well.  On Unix systems,
 there will only be a :term:`filesystem encoding <filesystem encoding and error
 handler>`. if you've set the ``LANG`` or ``LC_CTYPE`` environment variables; if
@@ -648,7 +648,7 @@ will produce the following output:
 
 .. code-block:: shell-session
 
-   $ python listdir-test.py
+   $ myFRpy listdir-test.py
    [b'filename\xe4\x94\x80abc', ...]
    ['filename\u4500abc', ...]
 
@@ -734,20 +734,20 @@ encode the data and write it back out.
 References
 ----------
 
-One section of `Mastering Python 3 Input/Output
-<https://pyvideo.org/video/289/pycon-2010--mastering-python-3-i-o>`_,
+One section of `Mastering MyFRpy 3 Input/Output
+<https://pyvideo.org/video/289/pycon-2010--mastering-myFRpy-3-i-o>`_,
 a PyCon 2010 talk by David Beazley, discusses text processing and binary data handling.
 
 The `PDF slides for Marc-André Lemburg's presentation "Writing Unicode-aware
-Applications in Python"
-<https://downloads.egenix.com/python/LSM2005-Developing-Unicode-aware-applications-in-Python.pdf>`_
+Applications in MyFRpy"
+<https://downloads.egenix.com/myFRpy/LSM2005-Developing-Unicode-aware-applications-in-MyFRpy.pdf>`_
 discuss questions of character encodings as well as how to internationalize
-and localize an application.  These slides cover Python 2.x only.
+and localize an application.  These slides cover MyFRpy 2.x only.
 
-`The Guts of Unicode in Python
-<https://pyvideo.org/video/1768/the-guts-of-unicode-in-python>`_
+`The Guts of Unicode in MyFRpy
+<https://pyvideo.org/video/1768/the-guts-of-unicode-in-myFRpy>`_
 is a PyCon 2013 talk by Benjamin Peterson that discusses the internal Unicode
-representation in Python 3.3.
+representation in MyFRpy 3.3.
 
 
 Acknowledgements

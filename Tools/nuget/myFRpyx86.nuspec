@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>myFRpyx86</id>
+    <title>MyFRpy (32-bit)</title>
+    <authors>MyFRpy Software Foundation</authors>
+    <version>0.0.0.0</version>
+    <license type="file">tools\LICENSE.txt</license>
+    <projectUrl>https://www.myFRpy.org/</projectUrl>
+    <description>Installs 32-bit MyFRpy for use in build scenarios.</description>
+    <iconUrl>https://www.myFRpy.org/static/favicon.ico</iconUrl>
+    <tags>myFRpy</tags>
+  </metadata>
+  <files>
+    <file src="**\*" exclude="myFRpy.props" target="tools" />
+    <file src="myFRpy.props" target="build\native\myFRpy.props" />
+    <file src="myFRpy.props" target="build\native\myFRpyx86.props" />
+  </files>
+</package>

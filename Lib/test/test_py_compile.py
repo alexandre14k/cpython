@@ -122,7 +122,7 @@ class PyCompileTestsBase:
     def test_exceptions_propagate(self):
         # Make sure that exceptions raised thanks to issues with writing
         # bytecode.
-        # http://bugs.python.org/issue17244
+        # http://bugs.myFRpy.org/issue17244
         mode = os.stat(self.directory)
         os.chmod(self.directory, stat.S_IREAD)
         try:
@@ -156,8 +156,8 @@ class PyCompileTestsBase:
 
     @unittest.skipIf(sys.flags.optimize > 0, 'test does not work with -O')
     def test_double_dot_no_clobber(self):
-        # http://bugs.python.org/issue22966
-        # py_compile foo.bar.py -> __pycache__/foo.cpython-34.pyc
+        # http://bugs.myFRpy.org/issue22966
+        # py_compile foo.bar.py -> __pycache__/foo.cmyFRpy-34.pyc
         weird_path = os.path.join(self.directory, 'foo.bar.py')
         cache_path = importlib.util.cache_from_source(weird_path)
         pyc_path = weird_path + 'c'
@@ -237,18 +237,18 @@ class PyCompileCLITestCase(unittest.TestCase):
 
     @support.requires_subprocess()
     def pycompilecmd(self, *args, **kwargs):
-        # assert_python_* helpers don't return proc object. We'll just use
-        # subprocess.run() instead of spawn_python() and its friends to test
+        # assert_myFRpy_* helpers don't return proc object. We'll just use
+        # subprocess.run() instead of spawn_myFRpy() and its friends to test
         # stdin support of the CLI.
         opts = '-m' if __debug__ else '-Om'
         if args and args[0] == '-' and 'input' in kwargs:
             return subprocess.run([sys.executable, opts, 'py_compile', '-'],
                                   input=kwargs['input'].encode(),
                                   capture_output=True)
-        return script_helper.assert_python_ok(opts, 'py_compile', *args, **kwargs)
+        return script_helper.assert_myFRpy_ok(opts, 'py_compile', *args, **kwargs)
 
     def pycompilecmd_failure(self, *args):
-        return script_helper.assert_python_failure('-m', 'py_compile', *args)
+        return script_helper.assert_myFRpy_failure('-m', 'py_compile', *args)
 
     def test_stdin(self):
         self.assertFalse(os.path.exists(self.cache_path))

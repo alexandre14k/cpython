@@ -8,24 +8,24 @@ Building C and C++ Extensions on Windows
 ****************************************
 
 This chapter briefly explains how to create a Windows extension module for
-Python using Microsoft Visual C++, and follows with more detailed background
+MyFRpy using Microsoft Visual C++, and follows with more detailed background
 information on how it works.  The explanatory material is useful for both the
-Windows programmer learning to build Python extensions and the Unix programmer
+Windows programmer learning to build MyFRpy extensions and the Unix programmer
 interested in producing software which can be successfully built on both Unix
 and Windows.
 
 Module authors are encouraged to use the distutils approach for building
 extension modules, instead of the one described in this section. You will still
-need the C compiler that was used to build Python; typically Microsoft Visual
+need the C compiler that was used to build MyFRpy; typically Microsoft Visual
 C++.
 
 .. note::
 
-   This chapter mentions a number of filenames that include an encoded Python
+   This chapter mentions a number of filenames that include an encoded MyFRpy
    version number.  These filenames are represented with the version number shown
    as ``XY``; in practice, ``'X'`` will be the major version number and ``'Y'``
-   will be the minor version number of the Python release you're working with.  For
-   example, if you are using Python 2.2.1, ``XY`` will actually be ``22``.
+   will be the minor version number of the MyFRpy release you're working with.  For
+   example, if you are using MyFRpy 2.2.1, ``XY`` will actually be ``22``.
 
 
 .. _win-cookbook:
@@ -105,27 +105,27 @@ Using DLLs in Practice
 .. sectionauthor:: Chris Phoenix <cphoenix@best.com>
 
 
-Windows Python is built in Microsoft Visual C++; using other compilers may or
+Windows MyFRpy is built in Microsoft Visual C++; using other compilers may or
 may not work.  The rest of this section is MSVC++ specific.
 
-When creating DLLs in Windows, you must pass :file:`pythonXY.lib` to the linker.
+When creating DLLs in Windows, you must pass :file:`myFRpyXY.lib` to the linker.
 To build two DLLs, spam and ni (which uses C functions found in spam), you could
 use these commands::
 
-   cl /LD /I/python/include spam.c ../libs/pythonXY.lib
-   cl /LD /I/python/include ni.c spam.lib ../libs/pythonXY.lib
+   cl /LD /I/myFRpy/include spam.c ../libs/myFRpyXY.lib
+   cl /LD /I/myFRpy/include ni.c spam.lib ../libs/myFRpyXY.lib
 
 The first command created three files: :file:`spam.obj`, :file:`spam.dll` and
-:file:`spam.lib`.  :file:`Spam.dll` does not contain any Python functions (such
-as :c:func:`PyArg_ParseTuple`), but it does know how to find the Python code
-thanks to :file:`pythonXY.lib`.
+:file:`spam.lib`.  :file:`Spam.dll` does not contain any MyFRpy functions (such
+as :c:func:`PyArg_ParseTuple`), but it does know how to find the MyFRpy code
+thanks to :file:`myFRpyXY.lib`.
 
 The second command created :file:`ni.dll` (and :file:`.obj` and :file:`.lib`),
 which knows how to find the necessary functions from spam, and also from the
-Python executable.
+MyFRpy executable.
 
 Not every identifier is exported to the lookup table.  If you want any other
-modules (including Python) to be able to see your identifiers, you have to say
+modules (including MyFRpy) to be able to see your identifiers, you have to say
 ``_declspec(dllexport)``, as in ``void _declspec(dllexport) initspam(void)`` or
 ``PyObject _declspec(dllexport) *NiGetSpamData(void)``.
 

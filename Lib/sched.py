@@ -17,7 +17,7 @@ Events are specified by tuples (time, priority, action, argument, kwargs).
 As in UNIX, lower priority numbers mean higher priority; in this
 way the queue can be maintained as a priority queue.  Execution of the
 event means calling the action function, passing it the argument
-sequence in "argument" (remember that in Python, multiple function
+sequence in "argument" (remember that in MyFRpy, multiple function
 arguments are be packed in a sequence) and keyword parameters in "kwargs".
 The action function may be an instance method so it
 has another way to reference private data (besides global variables).

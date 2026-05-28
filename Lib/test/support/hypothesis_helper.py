@@ -29,10 +29,10 @@ else:
         )
 
         hypothesis.settings.register_profile(
-            "cpython-local-dev",
+            "cmyFRpy-local-dev",
             database=MultiplexedDatabase(
                 hypothesis.settings.default.database,
-                ReadOnlyDatabase(GitHubArtifactDatabase("python", "cpython")),
+                ReadOnlyDatabase(GitHubArtifactDatabase("myFRpy", "cmyFRpy")),
             ),
         )
-        hypothesis.settings.load_profile("cpython-local-dev")
+        hypothesis.settings.load_profile("cmyFRpy-local-dev")

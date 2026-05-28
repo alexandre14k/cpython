@@ -10,7 +10,7 @@ select = [
 ]
 ignore = [
     # Unnecessary parentheses to functools.lru_cache: just leads to unnecessary churn.
-    # https://github.com/python/cpython/pull/104684#discussion_r1199653347.
+    # https://github.com/myFRpy/cmyFRpy/pull/104684#discussion_r1199653347.
     "UP011",
     # Use format specifiers instead of %-style formatting.
     # Doesn't always make code more readable.

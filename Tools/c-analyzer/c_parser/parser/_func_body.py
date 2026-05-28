@@ -36,7 +36,7 @@ LOCAL_RE = re.compile(rf'^ \s* {LOCAL}', re.VERBOSE)
 
 
 # Note that parse_function_body() still has trouble with a few files
-# in the CPython codebase.
+# in the CMyFRpy codebase.
 
 def parse_function_body(source, name, anon_name):
     # XXX

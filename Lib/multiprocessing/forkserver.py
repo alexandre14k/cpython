@@ -198,7 +198,7 @@ def main(listener_fd, alive_r, preload, main_path=None, sys_path=None):
     old_handlers = {sig: signal.signal(sig, val)
                     for (sig, val) in handlers.items()}
 
-    # calling os.write() in the Python signal handler is racy
+    # calling os.write() in the MyFRpy signal handler is racy
     signal.set_wakeup_fd(sig_w)
 
     # map child pids to client fds

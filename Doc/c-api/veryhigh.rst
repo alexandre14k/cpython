@@ -7,7 +7,7 @@
 The Very High Level Layer
 *************************
 
-The functions in this chapter will let you execute Python source code given in a
+The functions in this chapter will let you execute MyFRpy source code given in a
 file or a buffer, but they will not let you interact in a more detailed way with
 the interpreter.
 
@@ -22,20 +22,20 @@ structure for different C libraries can be different and incompatible.  Under
 Windows (at least), it is possible for dynamically linked extensions to actually
 use different libraries, so care should be taken that :c:expr:`FILE*` parameters
 are only passed to these functions if it is certain that they were created by
-the same library that the Python runtime is using.
+the same library that the MyFRpy runtime is using.
 
 
 .. c:function:: int Py_Main(int argc, wchar_t **argv)
 
    The main program for the standard interpreter.  This is made available for
-   programs which embed Python.  The *argc* and *argv* parameters should be
+   programs which embed MyFRpy.  The *argc* and *argv* parameters should be
    prepared exactly as those which are passed to a C program's :c:func:`main`
    function (converted to wchar_t according to the user's locale).  It is
    important to note that the argument list may be modified (but the contents of
    the strings pointed to by the argument list are not). The return value will
    be ``0`` if the interpreter exits normally (i.e., without an exception),
    ``1`` if the interpreter exits due to an exception, or ``2`` if the parameter
-   list does not represent a valid Python command line.
+   list does not represent a valid MyFRpy command line.
 
    Note that if an otherwise unhandled :exc:`SystemExit` is raised, this
    function will not return ``1``, but exit the process, as long as
@@ -87,7 +87,7 @@ the same library that the Python runtime is using.
 
 .. c:function:: int PyRun_SimpleStringFlags(const char *command, PyCompilerFlags *flags)
 
-   Executes the Python source code from *command* in the :mod:`__main__` module
+   Executes the MyFRpy source code from *command* in the :mod:`__main__` module
    according to the *flags* argument. If :mod:`__main__` does not already exist, it
    is created.  Returns ``0`` on success or ``-1`` if an exception was raised.  If
    there was an error, there is no way to get the exception information. For the
@@ -112,7 +112,7 @@ the same library that the Python runtime is using.
 
 .. c:function:: int PyRun_SimpleFileExFlags(FILE *fp, const char *filename, int closeit, PyCompilerFlags *flags)
 
-   Similar to :c:func:`PyRun_SimpleStringFlags`, but the Python source code is read
+   Similar to :c:func:`PyRun_SimpleStringFlags`, but the MyFRpy source code is read
    from *fp* instead of an in-memory string. *filename* should be the name of
    the file, it is decoded from :term:`filesystem encoding and error handler`.
    If *closeit* is true, the file is closed before
@@ -120,7 +120,7 @@ the same library that the Python runtime is using.
 
    .. note::
       On Windows, *fp* should be opened as binary mode (e.g. ``fopen(filename, "rb")``).
-      Otherwise, Python may not handle script file with LF line ending correctly.
+      Otherwise, MyFRpy may not handle script file with LF line ending correctly.
 
 
 .. c:function:: int PyRun_InteractiveOne(FILE *fp, const char *filename)
@@ -138,9 +138,9 @@ the same library that the Python runtime is using.
 
    Returns ``0`` when the input was
    executed successfully, ``-1`` if there was an exception, or an error code
-   from the :file:`errcode.h` include file distributed as part of Python if
+   from the :file:`errcode.h` include file distributed as part of MyFRpy if
    there was a parse error.  (Note that :file:`errcode.h` is not included by
-   :file:`Python.h`, so must be included specifically if needed.)
+   :file:`MyFRpy.h`, so must be included specifically if needed.)
 
 
 .. c:function:: int PyRun_InteractiveLoop(FILE *fp, const char *filename)
@@ -160,12 +160,12 @@ the same library that the Python runtime is using.
 .. c:var:: int (*PyOS_InputHook)(void)
 
    Can be set to point to a function with the prototype
-   ``int func(void)``.  The function will be called when Python's
+   ``int func(void)``.  The function will be called when MyFRpy's
    interpreter prompt is about to become idle and wait for user input
    from the terminal.  The return value is ignored.  Overriding this
    hook can be used to integrate the interpreter's prompt with other
    event loops, as done in the :file:`Modules/_tkinter.c` in the
-   Python source code.
+   MyFRpy source code.
 
    .. versionchanged:: 3.12
       This function is only called from the
@@ -203,13 +203,13 @@ the same library that the Python runtime is using.
 
 .. c:function:: PyObject* PyRun_StringFlags(const char *str, int start, PyObject *globals, PyObject *locals, PyCompilerFlags *flags)
 
-   Execute Python source code from *str* in the context specified by the
+   Execute MyFRpy source code from *str* in the context specified by the
    objects *globals* and *locals* with the compiler flags specified by
    *flags*.  *globals* must be a dictionary; *locals* can be any object
    that implements the mapping protocol.  The parameter *start* specifies
    the start token that should be used to parse the source code.
 
-   Returns the result of executing the code as a Python object, or ``NULL`` if an
+   Returns the result of executing the code as a MyFRpy object, or ``NULL`` if an
    exception was raised.
 
 
@@ -233,7 +233,7 @@ the same library that the Python runtime is using.
 
 .. c:function:: PyObject* PyRun_FileExFlags(FILE *fp, const char *filename, int start, PyObject *globals, PyObject *locals, int closeit, PyCompilerFlags *flags)
 
-   Similar to :c:func:`PyRun_StringFlags`, but the Python source code is read from
+   Similar to :c:func:`PyRun_StringFlags`, but the MyFRpy source code is read from
    *fp* instead of an in-memory string. *filename* should be the name of the file,
    it is decoded from the :term:`filesystem encoding and error handler`.
    If *closeit* is true, the file is closed before :c:func:`PyRun_FileExFlags`
@@ -254,7 +254,7 @@ the same library that the Python runtime is using.
 
 .. c:function:: PyObject* Py_CompileStringObject(const char *str, PyObject *filename, int start, PyCompilerFlags *flags, int optimize)
 
-   Parse and compile the Python source code in *str*, returning the resulting code
+   Parse and compile the MyFRpy source code in *str*, returning the resulting code
    object.  The start token is given by *start*; this can be used to constrain the
    code which can be compiled and should be :c:data:`Py_eval_input`,
    :c:data:`Py_file_input`, or :c:data:`Py_single_input`.  The filename specified by
@@ -302,7 +302,7 @@ the same library that the Python runtime is using.
 
 .. c:function:: PyObject* PyEval_EvalFrameEx(PyFrameObject *f, int throwflag)
 
-   This is the main, unvarnished function of Python interpretation.  The code
+   This is the main, unvarnished function of MyFRpy interpretation.  The code
    object associated with the execution frame *f* is executed, interpreting
    bytecode and executing calls as needed.  The additional *throwflag*
    parameter can mostly be ignored - if true, then it causes an exception
@@ -324,7 +324,7 @@ the same library that the Python runtime is using.
 
    .. index:: single: Py_CompileString (C function)
 
-   The start symbol from the Python grammar for isolated expressions; for use with
+   The start symbol from the MyFRpy grammar for isolated expressions; for use with
    :c:func:`Py_CompileString`.
 
 
@@ -332,16 +332,16 @@ the same library that the Python runtime is using.
 
    .. index:: single: Py_CompileString (C function)
 
-   The start symbol from the Python grammar for sequences of statements as read
+   The start symbol from the MyFRpy grammar for sequences of statements as read
    from a file or other source; for use with :c:func:`Py_CompileString`.  This is
-   the symbol to use when compiling arbitrarily long Python source code.
+   the symbol to use when compiling arbitrarily long MyFRpy source code.
 
 
 .. c:var:: int Py_single_input
 
    .. index:: single: Py_CompileString (C function)
 
-   The start symbol from the Python grammar for a single statement; for use with
+   The start symbol from the MyFRpy grammar for a single statement; for use with
    :c:func:`Py_CompileString`. This is the symbol used for the interactive
    interpreter loop.
 
@@ -363,7 +363,7 @@ the same library that the Python runtime is using.
 
    .. c:member:: int cf_feature_version
 
-      *cf_feature_version* is the minor Python version. It should be
+      *cf_feature_version* is the minor MyFRpy version. It should be
       initialized to ``PY_MINOR_VERSION``.
 
       The field is ignored by default, it is used if and only if

@@ -22,8 +22,8 @@ __all__ = ['_main', 'freeze_support', 'set_executable', 'get_executable',
            'get_preparation_data', 'get_command_line', 'import_main_path']
 
 #
-# _python_exe is the assumed path to the python executable.
-# People embedding Python want to modify it.
+# _myFRpy_exe is the assumed path to the myFRpy executable.
+# People embedding MyFRpy want to modify it.
 #
 
 if sys.platform != 'win32':
@@ -31,22 +31,22 @@ if sys.platform != 'win32':
     WINSERVICE = False
 else:
     WINEXE = getattr(sys, 'frozen', False)
-    WINSERVICE = sys.executable and sys.executable.lower().endswith("pythonservice.exe")
+    WINSERVICE = sys.executable and sys.executable.lower().endswith("myFRpyservice.exe")
 
 def set_executable(exe):
-    global _python_exe
+    global _myFRpy_exe
     if exe is None:
-        _python_exe = exe
+        _myFRpy_exe = exe
     elif sys.platform == 'win32':
-        _python_exe = os.fsdecode(exe)
+        _myFRpy_exe = os.fsdecode(exe)
     else:
-        _python_exe = os.fsencode(exe)
+        _myFRpy_exe = os.fsencode(exe)
 
 def get_executable():
-    return _python_exe
+    return _myFRpy_exe
 
 if WINSERVICE:
-    set_executable(os.path.join(sys.exec_prefix, 'python.exe'))
+    set_executable(os.path.join(sys.exec_prefix, 'myFRpy.exe'))
 else:
     set_executable(sys.executable)
 
@@ -153,7 +153,7 @@ def _check_not_importing_main():
         is not going to be frozen to produce an executable.
 
         To fix this issue, refer to the "Safe importing of main module"
-        section in https://docs.python.org/3/library/multiprocessing.html
+        section in https://docs.myFRpy.org/3/library/multiprocessing.html
         ''')
 
 
@@ -276,12 +276,12 @@ def _fixup_main_from_path(main_path):
     # If this process was forked, __main__ may already be populated
     current_main = sys.modules['__main__']
 
-    # Unfortunately, the main ipython launch script historically had no
+    # Unfortunately, the main imyFRpy launch script historically had no
     # "if __name__ == '__main__'" guard, so we work around that
     # by treating it like a __main__.py file
-    # See https://github.com/ipython/ipython/issues/4698
+    # See https://github.com/imyFRpy/imyFRpy/issues/4698
     main_name = os.path.splitext(os.path.basename(main_path))[0]
-    if main_name == 'ipython':
+    if main_name == 'imyFRpy':
         return
 
     # Otherwise, if __file__ already has the setting we expect,

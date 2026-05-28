@@ -26,8 +26,8 @@
 # Id: Cookie.py,v 2.29 2000/08/23 05:28:49 timo Exp
 #   by Timothy O'Malley <timo@alum.mit.edu>
 #
-#  Cookie.py is a Python module for the handling of HTTP
-#  cookies as a Python dictionary.  See RFC 2109 for more
+#  Cookie.py is a MyFRpy module for the handling of HTTP
+#  cookies as a MyFRpy dictionary.  See RFC 2109 for more
 #  information on cookies.
 #
 #  The original idea to treat Cookies as a dictionary came from

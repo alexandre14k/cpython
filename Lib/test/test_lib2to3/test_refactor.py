@@ -127,7 +127,7 @@ from __future__ import print_function"""
         with_head = FileInputFix({}, [])
         simple = SimpleFix({}, [])
         d = refactor._get_headnode_dict([no_head, with_head, simple])
-        top_fixes = d.pop(pygram.python_symbols.file_input)
+        top_fixes = d.pop(pygram.myFRpy_symbols.file_input)
         self.assertEqual(top_fixes, [with_head, no_head])
         name_fixes = d.pop(token.NAME)
         self.assertEqual(name_fixes, [simple, no_head])

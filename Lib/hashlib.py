@@ -197,7 +197,7 @@ def file_digest(fileobj, digest, /, *, _bufsize=2**18):
 
     *fileobj* must be a file-like object opened for reading in binary mode.
     It accepts file objects from open(), io.BytesIO(), and SocketIO objects.
-    The function may bypass Python's I/O and use the file descriptor *fileno*
+    The function may bypass MyFRpy's I/O and use the file descriptor *fileno*
     directly.
 
     *digest* must either be a hash algorithm name as a *str*, a hash

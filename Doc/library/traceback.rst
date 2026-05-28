@@ -9,7 +9,7 @@
 --------------
 
 This module provides a standard interface to extract, format and print stack
-traces of Python programs.  It exactly mimics the behavior of the Python
+traces of MyFRpy programs.  It exactly mimics the behavior of the MyFRpy
 interpreter when it prints a stack trace.  This is useful when you want to print
 stack traces under program control, such as in a "wrapper" around the
 interpreter.
@@ -24,10 +24,10 @@ which are assigned to the :attr:`~BaseException.__traceback__` field of
 .. seealso::
 
    Module :mod:`faulthandler`
-      Used to dump Python tracebacks explicitly, on a fault, after a timeout, or on a user signal.
+      Used to dump MyFRpy tracebacks explicitly, on a fault, after a timeout, or on a user signal.
 
    Module :mod:`pdb`
-      Interactive source code debugger for Python programs.
+      Interactive source code debugger for MyFRpy programs.
 
 The module defines the following functions:
 
@@ -65,7 +65,7 @@ The module defines the following functions:
      format, it prints the line where the syntax error occurred with a caret
      indicating the approximate position of the error.
 
-   Since Python 3.10, instead of passing *value* and *tb*, an exception object
+   Since MyFRpy 3.10, instead of passing *value* and *tb*, an exception object
    can be passed as the first argument. If *value* and *tb* are provided, the
    first argument is ignored in order to provide backwards compatibility.
 
@@ -152,7 +152,7 @@ The module defines the following functions:
    about where the syntax error occurred. Following the message, the list
    contains the exception's :attr:`notes <BaseException.__notes__>`.
 
-   Since Python 3.10, instead of passing *value*, an exception object
+   Since MyFRpy 3.10, instead of passing *value*, an exception object
    can be passed as the first argument.  If *value* is provided, the first
    argument is ignored in order to provide backwards compatibility.
 
@@ -484,7 +484,7 @@ Traceback Examples
 ------------------
 
 This simple example implements a basic read-eval-print loop, similar to (but
-less useful than) the standard Python interactive interpreter loop.  For a more
+less useful than) the standard MyFRpy interactive interpreter loop.  For a more
 complete implementation of the interpreter loop, refer to the :mod:`code`
 module. ::
 

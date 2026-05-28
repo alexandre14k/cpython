@@ -3,7 +3,7 @@
 # CONFIG_SITE=Tools/wasm/config.site-wasm32-emscripten \
 #     emconfigure ./configure --host=wasm32-unknown-emscripten --build=...
 #
-# Written by Christian Heimes <christian@python.org>
+# Written by Christian Heimes <christian@myFRpy.org>
 # Partly based on pyodide's pyconfig.undefs.h file.
 #
 
@@ -25,7 +25,7 @@ ac_cv_func_prlimit=no
 ac_cv_func_shutdown=no
 
 # The rest is based on pyodide
-# https://github.com/pyodide/pyodide/blob/main/cpython/pyconfig.undefs.h
+# https://github.com/pyodide/pyodide/blob/main/cmyFRpy/pyconfig.undefs.h
 
 ac_cv_func_epoll_create=no
 ac_cv_func_epoll_create1=no

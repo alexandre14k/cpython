@@ -1,4 +1,4 @@
-"""Utilities needed to emulate Python's interactive interpreter.
+"""Utilities needed to emulate MyFRpy's interactive interpreter.
 
 """
 
@@ -99,7 +99,7 @@ class InteractiveInterpreter:
         This doesn't display a stack trace because there isn't one.
 
         If a filename is given, it is stuffed in the exception instead
-        of what was there before (because Python's parser always uses
+        of what was there before (because MyFRpy's parser always uses
         "<string>" when reading from a string).
 
         The output is written by self.write(), below.
@@ -162,7 +162,7 @@ class InteractiveInterpreter:
 
 
 class InteractiveConsole(InteractiveInterpreter):
-    """Closely emulate the behavior of the interactive Python interpreter.
+    """Closely emulate the behavior of the interactive MyFRpy interpreter.
 
     This class builds on InteractiveInterpreter and adds prompting
     using the familiar sys.ps1 and sys.ps2, and input buffering.
@@ -188,11 +188,11 @@ class InteractiveConsole(InteractiveInterpreter):
         self.buffer = []
 
     def interact(self, banner=None, exitmsg=None):
-        """Closely emulate the interactive Python console.
+        """Closely emulate the interactive MyFRpy console.
 
         The optional banner argument specifies the banner to print
         before the first interaction; by default it prints a banner
-        similar to the one printed by the real Python interpreter,
+        similar to the one printed by the real MyFRpy interpreter,
         followed by the current class name in parentheses (so as not
         to confuse this with the real interpreter -- since it's so
         close!).
@@ -213,7 +213,7 @@ class InteractiveConsole(InteractiveInterpreter):
             sys.ps2 = "... "
         cprt = 'Type "help", "aide", "copyright", "credits" or "license" for more information.'
         if banner is None:
-            self.write("Python %s on %s\n%s\n(%s)\n" %
+            self.write("MyFRpy %s on %s\n%s\n(%s)\n" %
                        (sys.version, sys.platform, cprt,
                         self.__class__.__name__))
         elif banner:
@@ -278,7 +278,7 @@ class InteractiveConsole(InteractiveInterpreter):
 
 
 def interact(banner=None, readfunc=None, local=None, exitmsg=None):
-    """Closely emulate the interactive Python interpreter.
+    """Closely emulate the interactive MyFRpy interpreter.
 
     This is a backwards compatible interface to the InteractiveConsole
     class.  When readfunc is not specified, it attempts to import the

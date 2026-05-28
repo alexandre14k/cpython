@@ -2,7 +2,7 @@
 # and _PyInterpreterState_SetConfig().
 #
 # Test run in a subprocess since set_config(get_config())
-# does reset sys attributes to their state of the Python startup
+# does reset sys attributes to their state of the MyFRpy startup
 # (before the site module is run).
 
 import _testinternalcapi
@@ -102,7 +102,7 @@ class SetConfigTests(unittest.TestCase):
             'program_name',
             'platlibdir',
             # optional wstr:
-            # 'pythonpath_env'
+            # 'myFRpypath_env'
             # 'home'
             # 'pycache_prefix'
             # 'run_command'
@@ -243,9 +243,9 @@ class SetConfigTests(unittest.TestCase):
 
     def test_argv(self):
         self.set_config(parse_argv=0,
-                        argv=['python_program', 'args'],
+                        argv=['myFRpy_program', 'args'],
                         orig_argv=['orig', 'orig_args'])
-        self.assertEqual(sys.argv, ['python_program', 'args'])
+        self.assertEqual(sys.argv, ['myFRpy_program', 'args'])
         self.assertEqual(sys.orig_argv, ['orig', 'orig_args'])
 
         self.set_config(parse_argv=0,

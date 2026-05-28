@@ -4,13 +4,13 @@
 .. module:: io
    :synopsis: Core tools for working with streams.
 
-.. moduleauthor:: Guido van Rossum <guido@python.org>
+.. moduleauthor:: Guido van Rossum <guido@myFRpy.org>
 .. moduleauthor:: Mike Verdone <mike.verdone@gmail.com>
 .. moduleauthor:: Mark Russell <mark.russell@zen.co.uk>
 .. moduleauthor:: Antoine Pitrou <solipsis@pitrou.net>
 .. moduleauthor:: Amaury Forgeot d'Arc <amauryfa@gmail.com>
-.. moduleauthor:: Benjamin Peterson <benjamin@python.org>
-.. sectionauthor:: Benjamin Peterson <benjamin@python.org>
+.. moduleauthor:: Benjamin Peterson <benjamin@myFRpy.org>
+.. sectionauthor:: Benjamin Peterson <benjamin@myFRpy.org>
 
 **Source code:** :source:`Lib/io.py`
 
@@ -24,7 +24,7 @@ Overview
 .. index::
    single: file object; io module
 
-The :mod:`io` module provides Python's main facilities for dealing with various
+The :mod:`io` module provides MyFRpy's main facilities for dealing with various
 types of I/O.  There are three main types of I/O: *text I/O*, *binary I/O*
 and *raw I/O*.  These are generic categories, and various backing stores can
 be used for each of them.  A concrete object belonging to any of these
@@ -126,16 +126,16 @@ encoding is not UTF-8 for most Windows users. For example::
 Accordingly, it is highly recommended that you specify the encoding
 explicitly when opening text files. If you want to use UTF-8, pass
 ``encoding="utf-8"``. To use the current locale encoding,
-``encoding="locale"`` is supported since Python 3.10.
+``encoding="locale"`` is supported since MyFRpy 3.10.
 
 .. seealso::
 
    :ref:`utf8-mode`
-      Python UTF-8 Mode can be used to change the default encoding to
+      MyFRpy UTF-8 Mode can be used to change the default encoding to
       UTF-8 from locale-specific encoding.
 
    :pep:`686`
-      Python 3.15 will make :ref:`utf8-mode` default.
+      MyFRpy 3.15 will make :ref:`utf8-mode` default.
 
 .. _io-encoding-warning:
 
@@ -147,7 +147,7 @@ Opt-in EncodingWarning
 
 To find where the default locale encoding is used, you can enable
 the :option:`-X warn_default_encoding <-X>` command line option or set the
-:envvar:`PYTHONWARNDEFAULTENCODING` environment variable, which will
+:envvar:`MYFRPYWARNDEFAULTENCODING` environment variable, which will
 emit an :exc:`EncodingWarning` when the default encoding is used.
 
 If you are providing an API that uses :func:`open` or

@@ -14,4 +14,4 @@ del /s "%root%\Lib\*.pyc" "%root%\Lib\*.pyo"
 
 echo Deleting test leftovers ...
 rmdir /s /q "%root%\build"
-del /s "%pcbuild%\python*.zip"
+del /s "%pcbuild%\myFRpy*.zip"

@@ -32,18 +32,18 @@ It starts by constructing up to four directories from a head and a tail part.
 For the head part, it uses ``sys.prefix`` and ``sys.exec_prefix``; empty heads
 are skipped.  For the tail part, it uses the empty string and then
 :file:`lib/site-packages` (on Windows) or
-:file:`lib/python{X.Y}/site-packages` (on Unix and macOS).  For each
+:file:`lib/myFRpy{X.Y}/site-packages` (on Unix and macOS).  For each
 of the distinct head-tail combinations, it sees if it refers to an existing
 directory, and if so, adds it to ``sys.path`` and also inspects the newly
 added path for configuration files.
 
 .. versionchanged:: 3.5
-   Support for the "site-python" directory has been removed.
+   Support for the "site-myFRpy" directory has been removed.
 
 If a file named "pyvenv.cfg" exists one directory above sys.executable,
 sys.prefix and sys.exec_prefix are set to that directory and
 it is also checked for site-packages (sys.base_prefix and
-sys.base_exec_prefix will always be the "real" prefixes of the Python
+sys.base_exec_prefix will always be the "real" prefixes of the MyFRpy
 installation). If "pyvenv.cfg" (a bootstrap configuration file) contains
 the key "include-system-site-packages" set to anything other than "true"
 (case-insensitive), the system-level prefixes will not be
@@ -63,7 +63,7 @@ with ``import`` (followed by space or tab) are executed.
 
 .. note::
 
-   An executable line in a :file:`.pth` file is run at every Python startup,
+   An executable line in a :file:`.pth` file is run at every MyFRpy startup,
    regardless of whether a particular module is actually going to be used.
    Its impact should thus be kept to a minimum.
    The primary intended purpose of executable lines is to make the
@@ -79,9 +79,9 @@ with ``import`` (followed by space or tab) are executed.
    triple: path; configuration; file
 
 For example, suppose ``sys.prefix`` and ``sys.exec_prefix`` are set to
-:file:`/usr/local`.  The Python X.Y library is then installed in
-:file:`/usr/local/lib/python{X.Y}`.  Suppose this has
-a subdirectory :file:`/usr/local/lib/python{X.Y}/site-packages` with three
+:file:`/usr/local`.  The MyFRpy X.Y library is then installed in
+:file:`/usr/local/lib/myFRpy{X.Y}`.  Suppose this has
+a subdirectory :file:`/usr/local/lib/myFRpy{X.Y}/site-packages` with three
 subsubdirectories, :file:`foo`, :file:`bar` and :file:`spam`, and two path
 configuration files, :file:`foo.pth` and :file:`bar.pth`.  Assume
 :file:`foo.pth` contains the following::
@@ -101,8 +101,8 @@ and :file:`bar.pth` contains::
 Then the following version-specific directories are added to
 ``sys.path``, in this order::
 
-   /usr/local/lib/pythonX.Y/site-packages/bar
-   /usr/local/lib/pythonX.Y/site-packages/foo
+   /usr/local/lib/myFRpyX.Y/site-packages/bar
+   /usr/local/lib/myFRpyX.Y/site-packages/foo
 
 Note that :file:`bletch` is omitted because it doesn't exist; the :file:`bar`
 directory precedes the :file:`foo` directory because :file:`bar.pth` comes
@@ -120,8 +120,8 @@ It is typically created by a system administrator in the site-packages
 directory.  If this import fails with an :exc:`ImportError` or its subclass
 exception, and the exception's :attr:`~ImportError.name`
 attribute equals to ``'sitecustomize'``,
-it is silently ignored.  If Python is started without output streams available, as
-with :file:`pythonw.exe` on Windows (which is used by default to start IDLE),
+it is silently ignored.  If MyFRpy is started without output streams available, as
+with :file:`myFRpyw.exe` on Windows (which is used by default to start IDLE),
 attempted output from :mod:`sitecustomize` is ignored.  Any other exception
 causes a silent and perhaps mysterious failure of the process.
 
@@ -150,13 +150,13 @@ Readline configuration
 ----------------------
 
 On systems that support :mod:`readline`, this module will also import and
-configure the :mod:`rlcompleter` module, if Python is started in
+configure the :mod:`rlcompleter` module, if MyFRpy is started in
 :ref:`interactive mode <tut-interactive>` and without the :option:`-S` option.
 The default behavior is enable tab-completion and to use
-:file:`~/.python_history` as the history save file.  To disable it, delete (or
+:file:`~/.myFRpy_history` as the history save file.  To disable it, delete (or
 override) the :data:`sys.__interactivehook__` attribute in your
 :mod:`sitecustomize` or :mod:`usercustomize` module or your
-:envvar:`PYTHONSTARTUP` file.
+:envvar:`MYFRPYSTARTUP` file.
 
 .. versionchanged:: 3.4
    Activation of rlcompleter and history was made automatic.
@@ -175,18 +175,18 @@ Module contents
    Flag showing the status of the user site-packages directory.  ``True`` means
    that it is enabled and was added to ``sys.path``.  ``False`` means that it
    was disabled by user request (with :option:`-s` or
-   :envvar:`PYTHONNOUSERSITE`).  ``None`` means it was disabled for security
+   :envvar:`MYFRPYNOUSERSITE`).  ``None`` means it was disabled for security
    reasons (mismatch between user or group id and effective id) or by an
    administrator.
 
 
 .. data:: USER_SITE
 
-   Path to the user site-packages for the running Python.  Can be ``None`` if
+   Path to the user site-packages for the running MyFRpy.  Can be ``None`` if
    :func:`getusersitepackages` hasn't been called yet.  Default value is
-   :file:`~/.local/lib/python{X.Y}/site-packages` for UNIX and non-framework
-   macOS builds, :file:`~/Library/Python/{X.Y}/lib/python/site-packages` for macOS
-   framework builds, and :file:`{%APPDATA%}\\Python\\Python{XY}\\site-packages`
+   :file:`~/.local/lib/myFRpy{X.Y}/site-packages` for UNIX and non-framework
+   macOS builds, :file:`~/Library/MyFRpy/{X.Y}/lib/myFRpy/site-packages` for macOS
+   framework builds, and :file:`{%APPDATA%}\\MyFRpy\\MyFRpy{XY}\\site-packages`
    on Windows.  This directory is a site directory, which means that
    :file:`.pth` files in it will be processed.
 
@@ -196,18 +196,18 @@ Module contents
    Path to the base directory for the user site-packages.  Can be ``None`` if
    :func:`getuserbase` hasn't been called yet.  Default value is
    :file:`~/.local` for UNIX and macOS non-framework builds,
-   :file:`~/Library/Python/{X.Y}` for macOS framework builds, and
-   :file:`{%APPDATA%}\\Python` for Windows.  This value is used to
-   compute the installation directories for scripts, data files, Python modules,
+   :file:`~/Library/MyFRpy/{X.Y}` for macOS framework builds, and
+   :file:`{%APPDATA%}\\MyFRpy` for Windows.  This value is used to
+   compute the installation directories for scripts, data files, MyFRpy modules,
    etc. for the :ref:`user installation scheme <sysconfig-user-scheme>`.
-   See also :envvar:`PYTHONUSERBASE`.
+   See also :envvar:`MYFRPYUSERBASE`.
 
 
 .. function:: main()
 
    Adds all the standard site-specific directories to the module search
    path.  This function is called automatically when this module is imported,
-   unless the Python interpreter was started with the :option:`-S` flag.
+   unless the MyFRpy interpreter was started with the :option:`-S` flag.
 
    .. versionchanged:: 3.3
       This function used to be called unconditionally.
@@ -230,7 +230,7 @@ Module contents
 
    Return the path of the user base directory, :data:`USER_BASE`.  If it is not
    initialized yet, this function will also set it, respecting
-   :envvar:`PYTHONUSERBASE`.
+   :envvar:`MYFRPYUSERBASE`.
 
    .. versionadded:: 3.2
 
@@ -258,8 +258,8 @@ command line:
 
 .. code-block:: shell-session
 
-   $ python -m site --user-site
-   /home/user/.local/lib/python3.11/site-packages
+   $ myFRpy -m site --user-site
+   /home/user/.local/lib/myFRpy3.11/site-packages
 
 If it is called without arguments, it will print the contents of
 :data:`sys.path` on the standard output, followed by the value of

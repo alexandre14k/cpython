@@ -187,7 +187,7 @@ class DigestAuthHandler:
 
             auth_validated = False
 
-            # MSIE uses short_path in its validation, but Python's
+            # MSIE uses short_path in its validation, but MyFRpy's
             # urllib.request uses the full path, so we're going to see if
             # either of them works here.
 
@@ -673,8 +673,8 @@ class TestUrlopen(unittest.TestCase):
         self.assertEqual(index + 1, len(lines))
 
     def test_issue16464(self):
-        # See https://bugs.python.org/issue16464
-        # and https://bugs.python.org/issue46648
+        # See https://bugs.myFRpy.org/issue16464
+        # and https://bugs.myFRpy.org/issue46648
         handler = self.start_server([
             (200, [], b'any'),
             (200, [], b'any'),

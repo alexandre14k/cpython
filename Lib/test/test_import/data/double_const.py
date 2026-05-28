@@ -1,7 +1,7 @@
 from test.support import TestFailed
 
 # A test for SF bug 422177:  manifest float constants varied way too much in
-# precision depending on whether Python was loading a module for the first
+# precision depending on whether MyFRpy was loading a module for the first
 # time, or reloading it from a precompiled .pyc.  The "expected" failure
 # mode is that when test_import imports this after all .pyc files have been
 # erased, it passes, but when test_import imports this from

@@ -1,4 +1,4 @@
-"""Python version compatibility support for minidom.
+"""MyFRpy version compatibility support for minidom.
 
 This module contains internal implementation details and
 should not be imported; use xml.dom.minidom instead.
@@ -17,7 +17,7 @@ should not be imported; use xml.dom.minidom instead.
 #
 #   defproperty   -- function used in conjunction with GetattrMagic;
 #                    using these together is needed to make them work
-#                    as efficiently as possible in both Python 2.2+
+#                    as efficiently as possible in both MyFRpy 2.2+
 #                    and older versions.  For example:
 #
 #                        class MyClass(GetattrMagic):
@@ -27,12 +27,12 @@ should not be imported; use xml.dom.minidom instead.
 #                        defproperty(MyClass, "myattr",
 #                                    "return some value")
 #
-#                    For Python 2.2 and newer, this will construct a
+#                    For MyFRpy 2.2 and newer, this will construct a
 #                    property object on the class, which avoids
 #                    needing to override __getattr__().  It will only
 #                    work for read-only attributes.
 #
-#                    For older versions of Python, inheriting from
+#                    For older versions of MyFRpy, inheriting from
 #                    GetattrMagic will use the traditional
 #                    __getattr__() hackery to achieve the same effect,
 #                    but less efficiently.

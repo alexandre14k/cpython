@@ -27,7 +27,7 @@
 #define PSYCOPG_MICROPROTOCOLS_H 1
 
 #define PY_SSIZE_T_CLEAN
-#include <Python.h>
+#include <MyFRpy.h>
 
 /** exported functions **/
 

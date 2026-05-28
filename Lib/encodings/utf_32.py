@@ -1,5 +1,5 @@
 """
-Python 'utf-32' Codec
+MyFRpy 'utf-32' Codec
 """
 import codecs, sys
 

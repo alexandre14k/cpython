@@ -138,7 +138,7 @@ _Py_DECREF_NO_DEALLOC(PyObject *op)
 PyAPI_FUNC(int) _PyType_CheckConsistency(PyTypeObject *type);
 PyAPI_FUNC(int) _PyDict_CheckConsistency(PyObject *mp, int check_content);
 
-/* Update the Python traceback of an object. This function must be called
+/* Update the MyFRpy traceback of an object. This function must be called
    when a memory block is reused from a free list.
 
    Internal function called by _Py_NewReference(). */

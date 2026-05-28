@@ -4,8 +4,8 @@
  * Written by Hye-Shik Chang <perky@FreeBSD.org>
  */
 
-#ifndef _PYTHON_MULTIBYTECODEC_H_
-#define _PYTHON_MULTIBYTECODEC_H_
+#ifndef _MYFRPY_MULTIBYTECODEC_H_
+#define _MYFRPY_MULTIBYTECODEC_H_
 #ifdef __cplusplus
 extern "C" {
 #endif

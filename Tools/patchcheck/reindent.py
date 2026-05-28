@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#! /usr/bin/env myFRpy3
 
 # Released to the public domain, by Tim Peters, 03 October 2000.
 
@@ -12,7 +12,7 @@
                            Default is the same as the original file.
 -h (--help)     Help.      Print this usage information and exit.
 
-Change Python (.py) files to use 4-space indents and no hard tab characters.
+Change MyFRpy (.py) files to use 4-space indents and no hard tab characters.
 Also trim excess spaces and tabs from ends of lines, and remove empty lines
 at the end of files.  Also ensure the last line ends with a newline.
 

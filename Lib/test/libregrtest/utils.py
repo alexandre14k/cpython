@@ -21,11 +21,11 @@ from test.support import threading_helper
 
 # All temporary files and temporary directories created by libregrtest should
 # use TMP_PREFIX so cleanup_temp_dir() can remove them all.
-TMP_PREFIX = 'test_python_'
+TMP_PREFIX = 'test_myFRpy_'
 WORK_DIR_PREFIX = TMP_PREFIX
 WORKER_WORK_DIR_PREFIX = WORK_DIR_PREFIX + 'worker_'
 
-# bpo-38203: Maximum delay in seconds to exit Python (call Py_Finalize()).
+# bpo-38203: Maximum delay in seconds to exit MyFRpy (call Py_Finalize()).
 # Used to protect against threading._shutdown() hang.
 # Must be smaller than buildbot "1200 seconds without output" limit.
 EXIT_TIMEOUT = 120.0
@@ -180,7 +180,7 @@ def clear_caches():
             del mod.__warningregistry__
 
     # Flush standard output, so that buffered data is sent to the OS and
-    # associated Python objects are reclaimed.
+    # associated MyFRpy objects are reclaimed.
     for stream in (sys.stdout, sys.stderr, sys.__stdout__, sys.__stderr__):
         if stream is not None:
             stream.flush()
@@ -317,7 +317,7 @@ def get_build_info():
             build.append('with_assert')
 
     # --enable-framework=name
-    framework = sysconfig.get_config_var('PYTHONFRAMEWORK')
+    framework = sysconfig.get_config_var('MYFRPYFRAMEWORK')
     if framework:
         build.append(f'framework={framework}')
 
@@ -375,10 +375,10 @@ def get_temp_dir(tmp_dir: StrPath | None = None) -> StrPath:
     if tmp_dir:
         tmp_dir = os.path.expanduser(tmp_dir)
     else:
-        # When tests are run from the Python build directory, it is best practice
+        # When tests are run from the MyFRpy build directory, it is best practice
         # to keep the test files in a subfolder.  This eases the cleanup of leftover
         # files using the "make distclean" command.
-        if sysconfig.is_python_build():
+        if sysconfig.is_myFRpy_build():
             if not support.is_wasi:
                 tmp_dir = sysconfig.get_config_var('abs_builddir')
                 if tmp_dir is None:
@@ -386,7 +386,7 @@ def get_temp_dir(tmp_dir: StrPath | None = None) -> StrPath:
                     if not tmp_dir:
                         # gh-74470: On Windows, only srcdir is available. Using
                         # abs_builddir mostly matters on UNIX when building
-                        # Python out of the source tree, especially when the
+                        # MyFRpy out of the source tree, especially when the
                         # source tree is read only.
                         tmp_dir = sysconfig.get_config_var('srcdir')
                         if not tmp_dir:
@@ -451,7 +451,7 @@ def exit_timeout():
     try:
         yield
     except SystemExit as exc:
-        # bpo-38203: Python can hang at exit in Py_Finalize(), especially
+        # bpo-38203: MyFRpy can hang at exit in Py_Finalize(), especially
         # on threading._shutdown() call: put a timeout
         if threading_helper.can_start_thread:
             faulthandler.dump_traceback_later(EXIT_TIMEOUT, exit=True)
@@ -559,13 +559,13 @@ def adjust_rlimit_nofile():
 
 
 def get_host_runner():
-    if (hostrunner := os.environ.get("_PYTHON_HOSTRUNNER")) is None:
+    if (hostrunner := os.environ.get("_MYFRPY_HOSTRUNNER")) is None:
         hostrunner = sysconfig.get_config_var("HOSTRUNNER")
     return hostrunner
 
 
 def is_cross_compiled():
-    return ('_PYTHON_HOST_PLATFORM' in os.environ)
+    return ('_MYFRPY_HOST_PLATFORM' in os.environ)
 
 
 def format_resources(use_resources: Iterable[str]):
@@ -600,12 +600,12 @@ def process_cpu_count():
 
 
 def display_header(use_resources: tuple[str, ...],
-                   python_cmd: tuple[str, ...] | None):
+                   myFRpy_cmd: tuple[str, ...] | None):
     # Print basic platform information
-    print("==", platform.python_implementation(), *sys.version.split())
+    print("==", platform.myFRpy_implementation(), *sys.version.split())
     print("==", platform.platform(aliased=True),
                   "%s-endian" % sys.byteorder)
-    print("== Python build:", ' '.join(get_build_info()))
+    print("== MyFRpy build:", ' '.join(get_build_info()))
     print("== cwd:", os.getcwd())
 
     cpu_count: object = os.cpu_count()
@@ -627,11 +627,11 @@ def display_header(use_resources: tuple[str, ...],
     cross_compile = is_cross_compiled()
     if cross_compile:
         print("== cross compiled: Yes")
-    if python_cmd:
-        cmd = shlex.join(python_cmd)
-        print(f"== host python: {cmd}")
+    if myFRpy_cmd:
+        cmd = shlex.join(myFRpy_cmd)
+        print(f"== host myFRpy: {cmd}")
 
-        get_cmd = [*python_cmd, '-m', 'platform']
+        get_cmd = [*myFRpy_cmd, '-m', 'platform']
         proc = subprocess.run(
             get_cmd,
             stdout=subprocess.PIPE,

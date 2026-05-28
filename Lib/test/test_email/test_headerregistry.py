@@ -1278,7 +1278,7 @@ class TestAddressHeader(TestHeaderBase):
         self.assertEqual(a.domain, domain)
 
     def test_simple_address_list(self):
-        value = ('Fred <dinsdale@python.org>, foo@example.com, '
+        value = ('Fred <dinsdale@myFRpy.org>, foo@example.com, '
                     '"Harry W. Hastings" <hasty@example.com>')
         h = self.make_header('to', value)
         self.assertEqual(h, value)
@@ -1286,7 +1286,7 @@ class TestAddressHeader(TestHeaderBase):
         self.assertEqual(len(h.addresses), 3)
         for i in range(3):
             self.assertEqual(h.groups[i].addresses[0], h.addresses[i])
-        self.assertEqual(str(h.addresses[0]), 'Fred <dinsdale@python.org>')
+        self.assertEqual(str(h.addresses[0]), 'Fred <dinsdale@myFRpy.org>')
         self.assertEqual(str(h.addresses[1]), 'foo@example.com')
         self.assertEqual(str(h.addresses[2]),
             '"Harry W. Hastings" <hasty@example.com>')

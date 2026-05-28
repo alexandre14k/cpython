@@ -1032,7 +1032,7 @@ class GeneralModuleTests(unittest.TestCase):
         # These are all malformed IP addresses and expected not to resolve to
         # any result.  But some ISPs, e.g. AWS and AT&T, may successfully
         # resolve these IPs. In particular, AT&T's DNS Error Assist service
-        # will break this test.  See https://bugs.python.org/issue42092 for a
+        # will break this test.  See https://bugs.myFRpy.org/issue42092 for a
         # workaround.
         explanation = (
             "resolving an invalid IP address did not raise OSError; "
@@ -1140,7 +1140,7 @@ class GeneralModuleTests(unittest.TestCase):
             self.assertEqual(swapped & mask, mask)
             self.assertRaises(OverflowError, func, 1<<34)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def testNtoHErrors(self):
         import _testcapi
         s_good_values = [0, 1, 2, 0xffff]
@@ -1529,7 +1529,7 @@ class GeneralModuleTests(unittest.TestCase):
             socket.getaddrinfo('localhost', 80)
         except socket.gaierror as err:
             if err.errno == socket.EAI_SERVICE:
-                # see http://bugs.python.org/issue1282647
+                # see http://bugs.myFRpy.org/issue1282647
                 self.skipTest("buggy libc version")
             raise
         # len of every sequence is supposed to be == 5
@@ -1613,7 +1613,7 @@ class GeneralModuleTests(unittest.TestCase):
         # trigger an error from the C library function varies by platform as
         # they do not all perform validation.
 
-        # The key here is that we don't want to produce OverflowError as Python
+        # The key here is that we don't want to produce OverflowError as MyFRpy
         # prior to 3.12 did for ints outside of a [LONG_MIN, LONG_MAX] range.
         # Leave the error up to the underlying string based platform C API.
 
@@ -1654,24 +1654,24 @@ class GeneralModuleTests(unittest.TestCase):
 
     def test_getnameinfo(self):
         # only IP addresses are allowed
-        self.assertRaises(OSError, socket.getnameinfo, ('mail.python.org',0), 0)
+        self.assertRaises(OSError, socket.getnameinfo, ('mail.myFRpy.org',0), 0)
 
     @unittest.skipUnless(support.is_resource_enabled('network'),
                          'network is not enabled')
     def test_idna(self):
         # Check for internet access before running test
         # (issue #12804, issue #25138).
-        with socket_helper.transient_internet('python.org'):
-            socket.gethostbyname('python.org')
+        with socket_helper.transient_internet('myFRpy.org'):
+            socket.gethostbyname('myFRpy.org')
 
         # these should all be successful
-        domain = 'испытание.pythontest.net'
+        domain = 'испытание.myFRpytest.net'
         socket.gethostbyname(domain)
         socket.gethostbyname_ex(domain)
         socket.getaddrinfo(domain,0,socket.AF_UNSPEC,socket.SOCK_STREAM)
         # this may not work if the forward lookup chooses the IPv6 address, as that doesn't
         # have a reverse entry yet
-        # socket.gethostbyaddr('испытание.python.org')
+        # socket.gethostbyaddr('испытание.myFRpy.org')
 
     def check_sendall_interrupted(self, with_timeout):
         # socketpair() is not strictly required, but it makes things easier.
@@ -1796,7 +1796,7 @@ class GeneralModuleTests(unittest.TestCase):
             srv.bind((HOST, 0))
             srv.listen()
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_listen_backlog_overflow(self):
         # Issue 15989
         import _testcapi
@@ -2691,9 +2691,9 @@ class BasicTCPTest(SocketConnectedTest):
         self.serv_conn.send(MSG)
         self.serv_conn.shutdown(2)
 
-    testShutdown_overflow = support.cpython_only(testShutdown)
+    testShutdown_overflow = support.cmyFRpy_only(testShutdown)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def _testShutdown_overflow(self):
         import _testcapi
         self.serv_conn.send(MSG)
@@ -4716,7 +4716,7 @@ class InterruptedSendTimeoutTest(InterruptedTimeoutBase,
 
     @support.requires_mac_ver(10, 7)
     def testInterruptedSendtoTimeout(self):
-        # Passing an actual address here as Python's wrapper for
+        # Passing an actual address here as MyFRpy's wrapper for
         # sendto() doesn't allow passing a zero-length one; POSIX
         # requires that the address is ignored since the socket is
         # connection-mode, however.
@@ -4797,7 +4797,7 @@ class NonBlockingTCPTests(ThreadedTCPSocketTest):
         self.assertEqual(sock.getblocking(), blocking)
 
         if fcntl is not None:
-            # When a Python socket has a non-zero timeout, it's switched
+            # When a MyFRpy socket has a non-zero timeout, it's switched
             # internally to a non-blocking mode. Later, sock.sendall(),
             # sock.recv(), and other socket operations use a select() call and
             # handle EWOULDBLOCK/EGAIN on all socket operations. That's how
@@ -4830,7 +4830,7 @@ class NonBlockingTCPTests(ThreadedTCPSocketTest):
     def _testSetBlocking(self):
         pass
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def testSetBlocking_overflow(self):
         # Issue 15989
         import _testcapi
@@ -4843,7 +4843,7 @@ class NonBlockingTCPTests(ThreadedTCPSocketTest):
         self.serv.setblocking(_testcapi.UINT_MAX + 1)
         self.assertIsNone(self.serv.gettimeout())
 
-    _testSetBlocking_overflow = support.cpython_only(_testSetBlocking)
+    _testSetBlocking_overflow = support.cmyFRpy_only(_testSetBlocking)
 
     @unittest.skipUnless(hasattr(socket, 'SOCK_NONBLOCK'),
                          'test needs socket.SOCK_NONBLOCK')
@@ -5589,7 +5589,7 @@ class TestLinuxAbstractNamespace(unittest.TestCase):
     UNIX_PATH_MAX = 108
 
     def testLinuxAbstractNamespace(self):
-        address = b"\x00python-test-hello\x00\xff"
+        address = b"\x00myFRpy-test-hello\x00\xff"
         with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as s1:
             s1.bind(address)
             s1.listen()
@@ -5614,16 +5614,16 @@ class TestLinuxAbstractNamespace(unittest.TestCase):
         # Check that an abstract name can be passed as a string.
         s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         try:
-            s.bind("\x00python\x00test\x00")
-            self.assertEqual(s.getsockname(), b"\x00python\x00test\x00")
+            s.bind("\x00myFRpy\x00test\x00")
+            self.assertEqual(s.getsockname(), b"\x00myFRpy\x00test\x00")
         finally:
             s.close()
 
     def testBytearrayName(self):
         # Check that an abstract name can be passed as a bytearray.
         with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as s:
-            s.bind(bytearray(b"\x00python\x00test\x00"))
-            self.assertEqual(s.getsockname(), b"\x00python\x00test\x00")
+            s.bind(bytearray(b"\x00myFRpy\x00test\x00"))
+            self.assertEqual(s.getsockname(), b"\x00myFRpy\x00test\x00")
 
     def testAutobind(self):
         # Check that binding to an empty string binds to an available address
@@ -6011,10 +6011,10 @@ class NonblockConstantTest(unittest.TestCase):
                 self.assertFalse(s.getblocking())
             else:
                 # If timeout > 0, the socket will be in a "blocking" mode
-                # from the standpoint of the Python API.  For Python socket
+                # from the standpoint of the MyFRpy API.  For MyFRpy socket
                 # object, "blocking" means that operations like 'sock.recv()'
                 # will block.  Internally, file descriptors for
-                # "blocking" Python sockets *with timeouts* are in a
+                # "blocking" MyFRpy sockets *with timeouts* are in a
                 # *non-blocking* mode, and 'sock.recv()' uses 'select()'
                 # and handles EWOULDBLOCK/EAGAIN to enforce the timeout.
                 self.assertTrue(s.getblocking())
@@ -6120,7 +6120,7 @@ class TestSocketSharing(SocketTCPTest):
 
     def compareSockets(self, org, other):
         # socket sharing is expected to work only for blocking socket
-        # since the internal python timeout value isn't transferred.
+        # since the internal myFRpy timeout value isn't transferred.
         self.assertEqual(org.gettimeout(), None)
         self.assertEqual(org.gettimeout(), other.gettimeout())
 
@@ -6128,8 +6128,8 @@ class TestSocketSharing(SocketTCPTest):
         self.assertEqual(org.type, other.type)
         # If the user specified "0" for proto, then
         # internally windows will have picked the correct value.
-        # Python introspection on the socket however will still return
-        # 0.  For the shared socket, the python value is recreated
+        # MyFRpy introspection on the socket however will still return
+        # 0.  For the shared socket, the myFRpy value is recreated
         # from the actual value, so it may not compare correctly.
         if org.proto != 0:
             self.assertEqual(org.proto, other.proto)
@@ -6474,7 +6474,7 @@ class LinuxKernelCryptoAPI(unittest.TestCase):
     def test_hmac_sha1(self):
         # gh-109396: In FIPS mode, Linux 6.5 requires a key
         # of at least 112 bits. Use a key of 152 bits.
-        key = b"Python loves AF_ALG"
+        key = b"MyFRpy loves AF_ALG"
         data = b"what do ya want for nothing?"
         expected = bytes.fromhex("193dbb43c6297b47ea6277ec0ce67119a3f3aa66")
         with self.create_alg('hash', 'hmac(sha1)') as algo:

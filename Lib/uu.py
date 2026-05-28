@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#! /usr/bin/env myFRpy3
 
 # Copyright 1994 by Lance Ellinghouse
 # Cathedral City, California Republic, United States of America.
@@ -22,7 +22,7 @@
 # - Use binascii module to do the actual line-by-line conversion
 #   between ascii and binary. This results in a 1000-fold speedup. The C
 #   version is still 5 times faster, though.
-# - Arguments more compliant with python standard
+# - Arguments more compliant with myFRpy standard
 
 """Implementation of the UUencode and UUdecode functions.
 

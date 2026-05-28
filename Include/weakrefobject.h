@@ -1,4 +1,4 @@
-/* Weak references objects for Python. */
+/* Weak references objects for MyFRpy. */
 
 #ifndef Py_WEAKREFOBJECT_H
 #define Py_WEAKREFOBJECT_H
@@ -31,9 +31,9 @@ PyAPI_FUNC(PyObject *) PyWeakref_GetObject(PyObject *ref);
 
 
 #ifndef Py_LIMITED_API
-#  define Py_CPYTHON_WEAKREFOBJECT_H
-#  include "cpython/weakrefobject.h"
-#  undef Py_CPYTHON_WEAKREFOBJECT_H
+#  define Py_CMYFRPY_WEAKREFOBJECT_H
+#  include "cmyFRpy/weakrefobject.h"
+#  undef Py_CMYFRPY_WEAKREFOBJECT_H
 #endif
 
 #ifdef __cplusplus

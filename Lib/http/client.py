@@ -1103,7 +1103,7 @@ class HTTPConnection:
                     # this is solely to check to see if message_body
                     # implements the buffer API.  it /would/ be easier
                     # to capture if PyObject_CheckBuffer was exposed
-                    # to Python.
+                    # to MyFRpy.
                     memoryview(message_body)
                 except TypeError:
                     try:

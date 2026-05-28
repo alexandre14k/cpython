@@ -10,7 +10,7 @@ from test import support
 from test.support import import_helper
 from test.support import os_helper
 from test.support import warnings_helper
-from test.support.script_helper import assert_python_ok, assert_python_failure
+from test.support.script_helper import assert_myFRpy_ok, assert_myFRpy_failure
 
 from test.test_warnings.data import package_helper
 from test.test_warnings.data import stacklevel as warning_tests
@@ -624,7 +624,7 @@ class PyWarnTests(WarnTests, unittest.TestCase):
 
     # As an early adopter, we sanity check the
     # test.import_helper.import_fresh_module utility function
-    def test_pure_python(self):
+    def test_pure_myFRpy(self):
         self.assertIsNot(original_warnings, self.module)
         self.assertTrue(hasattr(self.module.warn, '__code__'))
 
@@ -675,13 +675,13 @@ class PyWCmdLineTests(WCmdLineTests, unittest.TestCase):
         # Same as above, but check that the message is printed out when
         # the interpreter is executed. This also checks that options are
         # actually parsed at all.
-        rc, out, err = assert_python_ok("-Wxxx", "-c", "pass")
+        rc, out, err = assert_myFRpy_ok("-Wxxx", "-c", "pass")
         self.assertIn(b"Invalid -W option ignored: invalid action: 'xxx'", err)
 
     def test_warnings_bootstrap(self):
         # Check that the warnings module does get loaded when -W<some option>
         # is used (see issue #10372 for an example of silent bootstrap failure).
-        rc, out, err = assert_python_ok("-Wi", "-c",
+        rc, out, err = assert_myFRpy_ok("-Wi", "-c",
             "import sys; sys.modules['warnings'].warn('foo', RuntimeWarning)")
         # '-Wi' was observed
         self.assertFalse(out.strip())
@@ -846,7 +846,7 @@ class _WarningsTests(BaseTest, unittest.TestCase):
             globals_dict['__file__'] = oldfile
 
     def test_stderr_none(self):
-        rc, stdout, stderr = assert_python_ok("-c",
+        rc, stdout, stderr = assert_myFRpy_ok("-c",
             "import sys; sys.stderr = None; "
             "import warnings; warnings.simplefilter('always'); "
             "warnings.warn('Warning!')")
@@ -890,7 +890,7 @@ class _WarningsTests(BaseTest, unittest.TestCase):
             finally:
                 wmod._showwarnmsg = show
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_issue31411(self):
         # warn_explicit() shouldn't raise a SystemError in case
         # warnings.onceregistry isn't a dictionary.
@@ -901,7 +901,7 @@ class _WarningsTests(BaseTest, unittest.TestCase):
                 with self.assertRaises(TypeError):
                     wmod.warn_explicit('foo', Warning, 'bar', 1, registry=None)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_issue31416(self):
         # warn_explicit() shouldn't cause an assertion failure in case of a
         # bad warnings.filters or warnings.defaultaction.
@@ -916,7 +916,7 @@ class _WarningsTests(BaseTest, unittest.TestCase):
                  self.assertRaises(TypeError):
                 wmod.warn_explicit('foo', Warning, 'bar', 1)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_issue31566(self):
         # warn() shouldn't cause an assertion failure in case of a bad
         # __name__ global.
@@ -1011,7 +1011,7 @@ class PyWarningsDisplayTests(WarningsDisplayTests, unittest.TestCase):
             """))
 
         def run(*args):
-            res = assert_python_ok(*args, PYTHONIOENCODING='utf-8')
+            res = assert_myFRpy_ok(*args, MYFRPYIOENCODING='utf-8')
             stderr = res.err.decode('utf-8', 'replace')
             stderr = '\n'.join(stderr.splitlines())
 
@@ -1200,34 +1200,34 @@ class PyCatchWarningTests(CatchWarningTests, unittest.TestCase):
 class EnvironmentVariableTests(BaseTest):
 
     def test_single_warning(self):
-        rc, stdout, stderr = assert_python_ok("-c",
+        rc, stdout, stderr = assert_myFRpy_ok("-c",
             "import sys; sys.stdout.write(str(sys.warnoptions))",
-            PYTHONWARNINGS="ignore::DeprecationWarning",
-            PYTHONDEVMODE="")
+            MYFRPYWARNINGS="ignore::DeprecationWarning",
+            MYFRPYDEVMODE="")
         self.assertEqual(stdout, b"['ignore::DeprecationWarning']")
 
     def test_comma_separated_warnings(self):
-        rc, stdout, stderr = assert_python_ok("-c",
+        rc, stdout, stderr = assert_myFRpy_ok("-c",
             "import sys; sys.stdout.write(str(sys.warnoptions))",
-            PYTHONWARNINGS="ignore::DeprecationWarning,ignore::UnicodeWarning",
-            PYTHONDEVMODE="")
+            MYFRPYWARNINGS="ignore::DeprecationWarning,ignore::UnicodeWarning",
+            MYFRPYDEVMODE="")
         self.assertEqual(stdout,
             b"['ignore::DeprecationWarning', 'ignore::UnicodeWarning']")
 
     def test_envvar_and_command_line(self):
-        rc, stdout, stderr = assert_python_ok("-Wignore::UnicodeWarning", "-c",
+        rc, stdout, stderr = assert_myFRpy_ok("-Wignore::UnicodeWarning", "-c",
             "import sys; sys.stdout.write(str(sys.warnoptions))",
-            PYTHONWARNINGS="ignore::DeprecationWarning",
-            PYTHONDEVMODE="")
+            MYFRPYWARNINGS="ignore::DeprecationWarning",
+            MYFRPYDEVMODE="")
         self.assertEqual(stdout,
             b"['ignore::DeprecationWarning', 'ignore::UnicodeWarning']")
 
     def test_conflicting_envvar_and_command_line(self):
-        rc, stdout, stderr = assert_python_failure("-Werror::DeprecationWarning", "-c",
+        rc, stdout, stderr = assert_myFRpy_failure("-Werror::DeprecationWarning", "-c",
             "import sys, warnings; sys.stdout.write(str(sys.warnoptions)); "
             "warnings.warn('Message', DeprecationWarning)",
-            PYTHONWARNINGS="default::DeprecationWarning",
-            PYTHONDEVMODE="")
+            MYFRPYWARNINGS="default::DeprecationWarning",
+            MYFRPYDEVMODE="")
         self.assertEqual(stdout,
             b"['default::DeprecationWarning', 'error::DeprecationWarning']")
         self.assertEqual(stderr.splitlines(),
@@ -1236,11 +1236,11 @@ class EnvironmentVariableTests(BaseTest):
              b"DeprecationWarning: Message"])
 
     def test_default_filter_configuration(self):
-        pure_python_api = self.module is py_warnings
+        pure_myFRpy_api = self.module is py_warnings
         if support.Py_DEBUG:
             expected_default_filters = []
         else:
-            if pure_python_api:
+            if pure_myFRpy_api:
                 main_module_filter = re.compile("__main__")
             else:
                 main_module_filter = "__main__"
@@ -1253,14 +1253,14 @@ class EnvironmentVariableTests(BaseTest):
             ]
         expected_output = [str(f).encode() for f in expected_default_filters]
 
-        if pure_python_api:
+        if pure_myFRpy_api:
             # Disable the warnings acceleration module in the subprocess
             code = "import sys; sys.modules.pop('warnings', None); sys.modules['_warnings'] = None; "
         else:
             code = ""
         code += "import warnings; [print(f) for f in warnings.filters]"
 
-        rc, stdout, stderr = assert_python_ok("-c", code, __isolated=True)
+        rc, stdout, stderr = assert_myFRpy_ok("-c", code, __isolated=True)
         stdout_lines = [line.strip() for line in stdout.splitlines()]
         self.maxDiff = None
         self.assertEqual(stdout_lines, expected_output)
@@ -1269,13 +1269,13 @@ class EnvironmentVariableTests(BaseTest):
     @unittest.skipUnless(sys.getfilesystemencoding() != 'ascii',
                          'requires non-ascii filesystemencoding')
     def test_nonascii(self):
-        PYTHONWARNINGS="ignore:DeprecationWarning" + os_helper.FS_NONASCII
-        rc, stdout, stderr = assert_python_ok("-c",
+        MYFRPYWARNINGS="ignore:DeprecationWarning" + os_helper.FS_NONASCII
+        rc, stdout, stderr = assert_myFRpy_ok("-c",
             "import sys; sys.stdout.write(str(sys.warnoptions))",
-            PYTHONIOENCODING="utf-8",
-            PYTHONWARNINGS=PYTHONWARNINGS,
-            PYTHONDEVMODE="")
-        self.assertEqual(stdout, str([PYTHONWARNINGS]).encode())
+            MYFRPYIOENCODING="utf-8",
+            MYFRPYWARNINGS=MYFRPYWARNINGS,
+            MYFRPYDEVMODE="")
+        self.assertEqual(stdout, str([MYFRPYWARNINGS]).encode())
 
 class CEnvironmentVariableTests(EnvironmentVariableTests, unittest.TestCase):
     module = c_warnings
@@ -1331,16 +1331,16 @@ class BootstrapTest(unittest.TestCase):
         # importing linecache) yet
         with os_helper.temp_cwd() as cwd, os_helper.temp_cwd('encodings'):
             # encodings loaded by initfsencoding()
-            assert_python_ok('-c', 'pass', PYTHONPATH=cwd)
+            assert_myFRpy_ok('-c', 'pass', MYFRPYPATH=cwd)
 
             # Use -W to load warnings module at startup
-            assert_python_ok('-c', 'pass', '-W', 'always', PYTHONPATH=cwd)
+            assert_myFRpy_ok('-c', 'pass', '-W', 'always', MYFRPYPATH=cwd)
 
 
 class FinalizationTest(unittest.TestCase):
     def test_finalization(self):
         # Issue #19421: warnings.warn() should not crash
-        # during Python finalization
+        # during MyFRpy finalization
         code = """
 import warnings
 warn = warnings.warn
@@ -1351,12 +1351,12 @@ class A:
 
 a=A()
         """
-        rc, out, err = assert_python_ok("-c", code)
+        rc, out, err = assert_myFRpy_ok("-c", code)
         self.assertEqual(err.decode().rstrip(),
                          '<string>:7: UserWarning: test')
 
     def test_late_resource_warning(self):
-        # Issue #21925: Emitting a ResourceWarning late during the Python
+        # Issue #21925: Emitting a ResourceWarning late during the MyFRpy
         # shutdown must be logged.
 
         expected = b"sys:1: ResourceWarning: unclosed file "
@@ -1364,12 +1364,12 @@ a=A()
         # don't import the warnings module
         # (_warnings will try to import it)
         code = "f = open(%a)" % __file__
-        rc, out, err = assert_python_ok("-Wd", "-c", code)
+        rc, out, err = assert_myFRpy_ok("-Wd", "-c", code)
         self.assertTrue(err.startswith(expected), ascii(err))
 
         # import the warnings module
         code = "import warnings; f = open(%a)" % __file__
-        rc, out, err = assert_python_ok("-Wd", "-c", code)
+        rc, out, err = assert_myFRpy_ok("-Wd", "-c", code)
         self.assertTrue(err.startswith(expected), ascii(err))
 
 

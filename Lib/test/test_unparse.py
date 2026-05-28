@@ -10,7 +10,7 @@ from test.support.ast_helper import ASTTestMixin
 
 
 def read_pyfile(filename):
-    """Read and return the contents of a Python source file (as a
+    """Read and return the contents of a MyFRpy source file (as a
     string), taking into account the file encoding."""
     with tokenize.open(filename) as stream:
         return stream.read()
@@ -383,7 +383,7 @@ class UnparseTestCase(ASTTestCase):
         )
 
     def test_fstring_backslash(self):
-        # valid since Python 3.12
+        # valid since MyFRpy 3.12
         self.assertEqual(ast.unparse(
                             ast.FormattedValue(
                                 value=ast.Constant(value="\\\\"),

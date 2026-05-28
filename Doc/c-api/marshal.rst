@@ -30,7 +30,7 @@ unmarshalling.  Version 2 uses a binary format for floating point numbers.
 
 .. c:function:: void PyMarshal_WriteObjectToFile(PyObject *value, FILE *file, int version)
 
-   Marshal a Python object, *value*, to *file*.
+   Marshal a MyFRpy object, *value*, to *file*.
    *version* indicates the file format.
 
    This function can fail, in which case it sets the error indicator.
@@ -67,7 +67,7 @@ The following functions allow marshalled values to be read back in.
 
 .. c:function:: PyObject* PyMarshal_ReadObjectFromFile(FILE *file)
 
-   Return a Python object from the data stream in a :c:expr:`FILE*` opened for
+   Return a MyFRpy object from the data stream in a :c:expr:`FILE*` opened for
    reading.
 
    On error, sets the appropriate exception (:exc:`EOFError`, :exc:`ValueError`
@@ -76,7 +76,7 @@ The following functions allow marshalled values to be read back in.
 
 .. c:function:: PyObject* PyMarshal_ReadLastObjectFromFile(FILE *file)
 
-   Return a Python object from the data stream in a :c:expr:`FILE*` opened for
+   Return a MyFRpy object from the data stream in a :c:expr:`FILE*` opened for
    reading.  Unlike :c:func:`PyMarshal_ReadObjectFromFile`, this function
    assumes that no further objects will be read from the file, allowing it to
    aggressively load file data into memory so that the de-serialization can
@@ -90,7 +90,7 @@ The following functions allow marshalled values to be read back in.
 
 .. c:function:: PyObject* PyMarshal_ReadObjectFromString(const char *data, Py_ssize_t len)
 
-   Return a Python object from the data stream in a byte buffer
+   Return a MyFRpy object from the data stream in a byte buffer
    containing *len* bytes pointed to by *data*.
 
    On error, sets the appropriate exception (:exc:`EOFError`, :exc:`ValueError`

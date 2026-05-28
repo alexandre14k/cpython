@@ -18,7 +18,7 @@ _PKG_DIRECTORY = 5
 _C_BUILTIN = 6
 _PY_FROZEN = 7
 
-# Modulefinder does a good job at simulating Python's, but it can not
+# Modulefinder does a good job at simulating MyFRpy's, but it can not
 # handle __path__ modifications packages make at runtime.  Therefore there
 # is a mechanism whereby you can register extra paths in this map for a
 # package, and it will be honored.
@@ -96,10 +96,10 @@ class Module:
         self.__code__ = None
         # The set of global names that are assigned to in the module.
         # This includes those names imported through starimports of
-        # Python modules.
+        # MyFRpy modules.
         self.globalnames = {}
         # The set of starimports this module did that could not be
-        # resolved, ie. a starimport from a non-Python module.
+        # resolved, ie. a starimport from a non-MyFRpy module.
         self.starimports = {}
 
     def __repr__(self):
@@ -266,8 +266,8 @@ class ModuleFinder:
             return
         modules = {}
         # 'suffixes' used to be a list hardcoded to [".py", ".pyc"].
-        # But we must also collect Python extension modules - although
-        # we cannot separate normal dlls from Python extensions.
+        # But we must also collect MyFRpy extension modules - although
+        # we cannot separate normal dlls from MyFRpy extensions.
         suffixes = []
         suffixes += importlib.machinery.EXTENSION_SUFFIXES[:]
         suffixes += importlib.machinery.SOURCE_SUFFIXES[:]
@@ -410,7 +410,7 @@ class ModuleFinder:
                     fromlist = [f for f in fromlist if f != "*"]
                 self._safe_import_hook(name, m, fromlist, level=0)
                 if have_star:
-                    # We've encountered an "import *". If it is a Python module,
+                    # We've encountered an "import *". If it is a MyFRpy module,
                     # the code has already been parsed and we can suck out the
                     # global names.
                     mm = None
@@ -561,7 +561,7 @@ class ModuleFinder:
                     pass
                 elif pkg.starimports:
                     # It could be missing, but the package did an "import *"
-                    # from a non-Python module, so we simply can't be sure.
+                    # from a non-MyFRpy module, so we simply can't be sure.
                     maybe.append(name)
                 else:
                     # It's not a global in the package, the package didn't

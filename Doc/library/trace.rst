@@ -1,8 +1,8 @@
-:mod:`trace` --- Trace or track Python statement execution
+:mod:`trace` --- Trace or track MyFRpy statement execution
 ==========================================================
 
 .. module:: trace
-   :synopsis: Trace or track Python statement execution.
+   :synopsis: Trace or track MyFRpy statement execution.
 
 **Source code:** :source:`Lib/trace.py`
 
@@ -27,10 +27,10 @@ Command-Line Usage
 The :mod:`trace` module can be invoked from the command line.  It can be as
 simple as ::
 
-   python -m trace --count -C . somefile.py ...
+   myFRpy -m trace --count -C . somefile.py ...
 
 The above will execute :file:`somefile.py` and generate annotated listings of
-all Python modules imported during the execution into the current directory.
+all MyFRpy modules imported during the execution into the current directory.
 
 .. program:: trace
 

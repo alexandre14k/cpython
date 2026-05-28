@@ -5,8 +5,8 @@ import os
 import unittest
 import subprocess
 from textwrap import dedent
-from test.support import cpython_only, has_subprocess_support, SuppressCrashReport
-from test.support.script_helper import kill_python
+from test.support import cmyFRpy_only, has_subprocess_support, SuppressCrashReport
+from test.support.script_helper import kill_myFRpy
 
 
 if not has_subprocess_support:
@@ -14,23 +14,23 @@ if not has_subprocess_support:
 
 
 def spawn_repl(*args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, **kw):
-    """Run the Python REPL with the given arguments.
+    """Run the MyFRpy REPL with the given arguments.
 
     kw is extra keyword args to pass to subprocess.Popen. Returns a Popen
     object.
     """
 
-    # To run the REPL without using a terminal, spawn python with the command
+    # To run the REPL without using a terminal, spawn myFRpy with the command
     # line option '-i' and the process name set to '<stdin>'.
-    # The directory of argv[0] must match the directory of the Python
-    # executable for the Popen() call to python to succeed as the directory
+    # The directory of argv[0] must match the directory of the MyFRpy
+    # executable for the Popen() call to myFRpy to succeed as the directory
     # path may be used by Py_GetPath() to build the default module search
     # path.
     stdin_fname = os.path.join(os.path.dirname(sys.executable), "<stdin>")
     cmd_line = [stdin_fname, '-E', '-i']
     cmd_line.extend(args)
 
-    # Set TERM=vt100, for the rationale see the comments in spawn_python() of
+    # Set TERM=vt100, for the rationale see the comments in spawn_myFRpy() of
     # test.support.script_helper.
     env = kw.setdefault('env', dict(os.environ))
     env['TERM'] = 'vt100'
@@ -42,14 +42,14 @@ def spawn_repl(*args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, **kw):
                             **kw)
 
 def run_on_interactive_mode(source):
-    """Spawn a new Python interpreter, pass the given
+    """Spawn a new MyFRpy interpreter, pass the given
     input source code from the stdin and return the
     result back. If the interpreter exits non-zero, it
     raises a ValueError."""
 
     process = spawn_repl()
     process.stdin.write(source)
-    output = kill_python(process)
+    output = kill_myFRpy(process)
 
     if process.returncode != 0:
         raise ValueError("Process didn't exit properly.")
@@ -58,7 +58,7 @@ def run_on_interactive_mode(source):
 
 class TestInteractiveInterpreter(unittest.TestCase):
 
-    @cpython_only
+    @cmyFRpy_only
     def test_no_memory(self):
         # Issue #30696: Fix the interactive interpreter looping endlessly when
         # no memory. Check also that the fix does not break the interactive
@@ -74,12 +74,12 @@ class TestInteractiveInterpreter(unittest.TestCase):
         p = spawn_repl()
         with SuppressCrashReport():
             p.stdin.write(user_input)
-        output = kill_python(p)
+        output = kill_myFRpy(p)
         self.assertIn('After the exception.', output)
         # Exit code 120: Py_FinalizeEx() failed to flush stdout and stderr.
         self.assertIn(p.returncode, (1, 120))
 
-    @cpython_only
+    @cmyFRpy_only
     def test_multiline_string_parsing(self):
         # bpo-39209: Multiline string tokens need to be handled in the tokenizer
         # in two places: the interactive path and the non-interactive path.
@@ -109,7 +109,7 @@ class TestInteractiveInterpreter(unittest.TestCase):
         user_input = dedent(user_input)
         p = spawn_repl()
         p.stdin.write(user_input)
-        output = kill_python(p)
+        output = kill_myFRpy(p)
         self.assertEqual(p.returncode, 0)
 
     def test_close_stdin(self):

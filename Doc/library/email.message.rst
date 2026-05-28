@@ -5,7 +5,7 @@
    :synopsis: The base class representing email messages.
 .. moduleauthor:: R. David Murray <rdmurray@bitdance.com>
 .. sectionauthor:: R. David Murray <rdmurray@bitdance.com>,
-                   Barry A. Warsaw <barry@python.org>
+                   Barry A. Warsaw <barry@myFRpy.org>
 
 **Source code:** :source:`Lib/email/message.py`
 
@@ -56,7 +56,7 @@ message objects.
    the representation of the message.  If *policy* is not set, use the
    :class:`~email.policy.default` policy, which follows the rules of the email
    RFCs except for line endings (instead of the RFC mandated ``\r\n``, it uses
-   the Python standard ``\n`` line endings).  For more information see the
+   the MyFRpy standard ``\n`` line endings).  For more information see the
    :mod:`~email.policy` documentation.
 
    .. method:: as_string(unixfrom=False, maxheaderlen=None, policy=None)
@@ -211,7 +211,7 @@ message objects.
       message with field name *name*, delete the field first, e.g.::
 
          del msg['subject']
-         msg['subject'] = 'Python roolz!'
+         msg['subject'] = 'MyFRpy roolz!'
 
       If the :mod:`policy <email.policy>` defines certain headers to be unique (as the standard
       policies do), this method may raise a :exc:`ValueError` when an attempt
@@ -270,7 +270,7 @@ message objects.
 
       For each item in the keyword argument dictionary *_params*, the key is
       taken as the parameter name, with underscores converted to dashes (since
-      dashes are illegal in Python identifiers).  Normally, the parameter will
+      dashes are illegal in MyFRpy identifiers).  Normally, the parameter will
       be added as ``key="value"`` unless the value is ``None``, in which case
       only the key will be added.
 

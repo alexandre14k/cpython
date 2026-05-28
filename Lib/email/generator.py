@@ -1,6 +1,6 @@
-# Copyright (C) 2001-2010 Python Software Foundation
+# Copyright (C) 2001-2010 MyFRpy Software Foundation
 # Author: Barry Warsaw
-# Contact: email-sig@python.org
+# Contact: email-sig@myFRpy.org
 
 """Classes to generate plain text from a message object tree."""
 

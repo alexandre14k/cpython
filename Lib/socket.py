@@ -1,5 +1,5 @@
 # Wrapper module for _socket, providing some additional facilities
-# implemented in Python.
+# implemented in MyFRpy.
 
 """\
 This module provides socket operations and some related functions.

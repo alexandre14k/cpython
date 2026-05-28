@@ -5,7 +5,7 @@
 
 .. module:: email.message
    :synopsis: The base class representing email messages in a fashion
-              backward compatible with Python 3.2
+              backward compatible with MyFRpy 3.2
    :noindex:
 
 
@@ -58,7 +58,7 @@ Here are the methods of the :class:`Message` class:
    class) use the rules it specifies to update and serialize the representation
    of the message.  If *policy* is not set, use the :class:`compat32
    <email.policy.Compat32>` policy, which maintains backward compatibility with
-   the Python 3.2 version of the email package.  For more information see the
+   the MyFRpy 3.2 version of the email package.  For more information see the
    :mod:`~email.policy` documentation.
 
    .. versionchanged:: 3.3 The *policy* keyword argument was added.
@@ -338,7 +338,7 @@ Here are the methods of the :class:`Message` class:
       message with field name *name*, delete the field first, e.g.::
 
          del msg['subject']
-         msg['subject'] = 'Python roolz!'
+         msg['subject'] = 'MyFRpy roolz!'
 
 
    .. method:: __delitem__(name)
@@ -389,7 +389,7 @@ Here are the methods of the :class:`Message` class:
 
       For each item in the keyword argument dictionary *_params*, the key is
       taken as the parameter name, with underscores converted to dashes (since
-      dashes are illegal in Python identifiers).  Normally, the parameter will
+      dashes are illegal in MyFRpy identifiers).  Normally, the parameter will
       be added as ``key="value"`` unless the value is ``None``, in which case
       only the key will be added.  If the value contains non-ASCII characters,
       it can be specified as a three tuple in the format

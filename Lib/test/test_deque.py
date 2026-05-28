@@ -744,7 +744,7 @@ class TestBasic(unittest.TestCase):
 
     check_sizeof = support.check_sizeof
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_sizeof(self):
         MAXFREEBLOCKS = 16
         BLOCKLEN = 64
@@ -878,7 +878,7 @@ class TestSubclass(unittest.TestCase):
         d1 == d2   # not clear if this is supposed to be True or False,
                    # but it used to give a SystemError
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_bug_31608(self):
         # The interpreter used to crash in specific cases where a deque
         # subclass returned a non-deque.

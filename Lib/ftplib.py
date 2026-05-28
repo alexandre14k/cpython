@@ -5,7 +5,7 @@ Based on RFC 959: File Transfer Protocol (FTP), by J. Postel and J. Reynolds
 Example:
 
 >>> from ftplib import FTP
->>> ftp = FTP('ftp.python.org') # connect to host, default port
+>>> ftp = FTP('ftp.myFRpy.org') # connect to host, default port
 >>> ftp.login() # default, i.e.: user anonymous, passwd anonymous@
 '230 Guest login ok, access restrictions apply.'
 >>> ftp.retrlines('LIST') # list directory contents
@@ -25,7 +25,7 @@ drwxr-xr-x   3 root     wheel        1024 Jan  3  1994 usr
 >>>
 
 A nice test that reveals some of the network dialogue would be:
-python ftplib.py -d localhost -l -p -l
+myFRpy ftplib.py -d localhost -l -p -l
 """
 
 #
@@ -103,7 +103,7 @@ class FTP:
     file = None
     welcome = None
     passiveserver = True
-    # Disables https://bugs.python.org/issue43285 security if set to True.
+    # Disables https://bugs.myFRpy.org/issue43285 security if set to True.
     trust_server_pasv_ipv4_address = False
 
     def __init__(self, host='', user='', passwd='', acct='',
@@ -686,7 +686,7 @@ else:
 
         Usage example:
         >>> from ftplib import FTP_TLS
-        >>> ftps = FTP_TLS('ftp.python.org')
+        >>> ftps = FTP_TLS('ftp.myFRpy.org')
         >>> ftps.login()  # login anonymously previously securing control channel
         '230 Guest login ok, access restrictions apply.'
         >>> ftps.prot_p()  # switch to secure data connection

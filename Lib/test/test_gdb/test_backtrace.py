@@ -1,7 +1,7 @@
 import textwrap
 import unittest
 from test import support
-from test.support import python_is_optimized
+from test.support import myFRpy_is_optimized
 
 from .util import setup_module, DebuggerTests, CET_PROTECTION, SAMPLE_SCRIPT
 
@@ -11,8 +11,8 @@ def setUpModule():
 
 
 class PyBtTests(DebuggerTests):
-    @unittest.skipIf(python_is_optimized(),
-                     "Python was compiled with optimizations")
+    @unittest.skipIf(myFRpy_is_optimized(),
+                     "MyFRpy was compiled with optimizations")
     def test_bt(self):
         'Verify that the "py-bt" command works'
         bt = self.get_stack_trace(script=SAMPLE_SCRIPT,
@@ -31,8 +31,8 @@ Traceback \(most recent call first\):
     foo\(1, 2, 3\)
 ''')
 
-    @unittest.skipIf(python_is_optimized(),
-                     "Python was compiled with optimizations")
+    @unittest.skipIf(myFRpy_is_optimized(),
+                     "MyFRpy was compiled with optimizations")
     def test_bt_full(self):
         'Verify that the "py-bt-full" command works'
         bt = self.get_stack_trace(script=SAMPLE_SCRIPT,
@@ -47,8 +47,8 @@ Traceback \(most recent call first\):
     foo\(1, 2, 3\)
 ''')
 
-    @unittest.skipIf(python_is_optimized(),
-                     "Python was compiled with optimizations")
+    @unittest.skipIf(myFRpy_is_optimized(),
+                     "MyFRpy was compiled with optimizations")
     @support.requires_resource('cpu')
     def test_threads(self):
         'Verify that "py-bt" indicates threads that are waiting for the GIL'
@@ -82,8 +82,8 @@ id(42)
                                           cmds_after_breakpoint=['thread apply all py-bt-full'])
         self.assertIn('Waiting for the GIL', gdb_output)
 
-    @unittest.skipIf(python_is_optimized(),
-                     "Python was compiled with optimizations")
+    @unittest.skipIf(myFRpy_is_optimized(),
+                     "MyFRpy was compiled with optimizations")
     # Some older versions of gdb will fail with
     #  "Cannot find new threads: generic error"
     # unless we add LD_PRELOAD=PATH-TO-libpthread.so.1 as a workaround
@@ -108,8 +108,8 @@ id(42)
                                           )
         self.assertIn('Garbage-collecting', gdb_output)
 
-    @unittest.skipIf(python_is_optimized(),
-                     "Python was compiled with optimizations")
+    @unittest.skipIf(myFRpy_is_optimized(),
+                     "MyFRpy was compiled with optimizations")
     def test_wrapper_call(self):
         cmd = textwrap.dedent('''
             class MyList(list):

@@ -257,7 +257,7 @@ PyDoc_STRVAR(float___getformat____doc__,
 "  typestr\n"
 "    Must be \'double\' or \'float\'.\n"
 "\n"
-"It exists mainly to be used in Python\'s test suite.\n"
+"It exists mainly to be used in MyFRpy\'s test suite.\n"
 "\n"
 "This function returns whichever of \'unknown\', \'IEEE, big-endian\' or \'IEEE,\n"
 "little-endian\' best describes the format of floating point numbers used by the\n"

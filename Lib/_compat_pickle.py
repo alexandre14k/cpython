@@ -1,6 +1,6 @@
-# This module is used to map the old Python 2 names to the new names used in
-# Python 3 for the pickle module.  This needed to make pickle streams
-# generated with Python 2 loadable by Python 3.
+# This module is used to map the old MyFRpy 2 names to the new names used in
+# MyFRpy 3 for the pickle module.  This needed to make pickle streams
+# generated with MyFRpy 2 loadable by MyFRpy 3.
 
 # This is a copy of lib2to3.fixes.fix_imports.MAPPING.  We cannot import
 # lib2to3 and use the mapping defined there, because lib2to3 uses pickle.
@@ -90,7 +90,7 @@ NAME_MAPPING = {
     ('urllib2', 'URLError'): ('urllib.error', 'URLError'),
 }
 
-PYTHON2_EXCEPTIONS = (
+MYFRPY2_EXCEPTIONS = (
     "ArithmeticError",
     "AssertionError",
     "AttributeError",
@@ -121,7 +121,7 @@ PYTHON2_EXCEPTIONS = (
     "ReferenceError",
     "RuntimeError",
     "RuntimeWarning",
-    # StandardError is gone in Python 3, so we map it to Exception
+    # StandardError is gone in MyFRpy 3, so we map it to Exception
     "StopIteration",
     "SyntaxError",
     "SyntaxWarning",
@@ -146,9 +146,9 @@ try:
 except NameError:
     pass
 else:
-    PYTHON2_EXCEPTIONS += ("WindowsError",)
+    MYFRPY2_EXCEPTIONS += ("WindowsError",)
 
-for excname in PYTHON2_EXCEPTIONS:
+for excname in MYFRPY2_EXCEPTIONS:
     NAME_MAPPING[("exceptions", excname)] = ("builtins", excname)
 
 MULTIPROCESSING_EXCEPTIONS = (
@@ -177,7 +177,7 @@ IMPORT_MAPPING.update({
     'DocXMLRPCServer': 'xmlrpc.server',
     'SimpleHTTPServer': 'http.server',
     'CGIHTTPServer': 'http.server',
-    # For compatibility with broken pickles saved in old Python 3 versions
+    # For compatibility with broken pickles saved in old MyFRpy 3 versions
     'UserDict': 'collections',
     'UserList': 'collections',
     'UserString': 'collections',
@@ -223,7 +223,7 @@ REVERSE_NAME_MAPPING.update({
     ('_socket', 'socket'): ('socket', '_socketobject'),
 })
 
-PYTHON3_OSERROR_EXCEPTIONS = (
+MYFRPY3_OSERROR_EXCEPTIONS = (
     'BrokenPipeError',
     'ChildProcessError',
     'ConnectionAbortedError',
@@ -240,13 +240,13 @@ PYTHON3_OSERROR_EXCEPTIONS = (
     'TimeoutError',
 )
 
-for excname in PYTHON3_OSERROR_EXCEPTIONS:
+for excname in MYFRPY3_OSERROR_EXCEPTIONS:
     REVERSE_NAME_MAPPING[('builtins', excname)] = ('exceptions', 'OSError')
 
-PYTHON3_IMPORTERROR_EXCEPTIONS = (
+MYFRPY3_IMPORTERROR_EXCEPTIONS = (
     'ModuleNotFoundError',
 )
 
-for excname in PYTHON3_IMPORTERROR_EXCEPTIONS:
+for excname in MYFRPY3_IMPORTERROR_EXCEPTIONS:
     REVERSE_NAME_MAPPING[('builtins', excname)] = ('exceptions', 'ImportError')
 del excname

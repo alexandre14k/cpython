@@ -656,7 +656,7 @@ class BaseStartTLS(func_tests.FunctionalTestCaseMixin):
 
         self.assertTrue(server_side_aborted)
 
-        # Python issue #23197: cancelling a handshake must not raise an
+        # MyFRpy issue #23197: cancelling a handshake must not raise an
         # exception or log an error, even if the handshake failed
         self.assertEqual(messages, [])
 

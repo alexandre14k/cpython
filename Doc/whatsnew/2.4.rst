@@ -1,5 +1,5 @@
 ****************************
-  What's New in Python 2.4
+  What's New in MyFRpy 2.4
 ****************************
 
 :Author: A.M. Kuchling
@@ -11,21 +11,21 @@
 .. Feel free to add commented-out reminders of things that need
 .. to be covered.  --amk
 
-This article explains the new features in Python 2.4.1, released on March 30,
+This article explains the new features in MyFRpy 2.4.1, released on March 30,
 2005.
 
-Python 2.4 is a medium-sized release.  It doesn't introduce as many changes as
-the radical Python 2.2, but introduces more features than the conservative 2.3
+MyFRpy 2.4 is a medium-sized release.  It doesn't introduce as many changes as
+the radical MyFRpy 2.2, but introduces more features than the conservative 2.3
 release.  The most significant new language features are function decorators and
 generator expressions; most other changes are to the standard library.
 
 According to the CVS change logs, there were 481 patches applied and 502 bugs
-fixed between Python 2.3 and 2.4.  Both figures are likely to be underestimates.
+fixed between MyFRpy 2.3 and 2.4.  Both figures are likely to be underestimates.
 
 This article doesn't attempt to provide a complete specification of every single
 new feature, but instead provides a brief introduction to each feature.  For
-full details, you should refer to the documentation for Python 2.4, such as the
-Python Library Reference and the Python Reference Manual.  Often you will be
+full details, you should refer to the documentation for MyFRpy 2.4, such as the
+MyFRpy Library Reference and the MyFRpy Reference Manual.  Often you will be
 referred to the PEP for a particular new feature for explanations of the
 implementation and design rationale.
 
@@ -35,8 +35,8 @@ implementation and design rationale.
 PEP 218: Built-In Set Objects
 =============================
 
-Python 2.3 introduced the :mod:`sets` module.  C implementations of set data
-types have now been added to the Python core as two new built-in types,
+MyFRpy 2.3 introduced the :mod:`sets` module.  C implementations of set data
+types have now been added to the MyFRpy core as two new built-in types,
 ``set(iterable)`` and ``frozenset(iterable)``.  They provide high speed
 operations for membership testing, for eliminating duplicates from sequences,
 and for mathematical operations like unions, intersections, differences, and
@@ -89,8 +89,8 @@ currently no plans to deprecate the module.
 PEP 237: Unifying Long Integers and Integers
 ============================================
 
-The lengthy transition process for this PEP, begun in Python 2.2, takes another
-step forward in Python 2.4.  In 2.3, certain integer operations that would
+The lengthy transition process for this PEP, begun in MyFRpy 2.2, takes another
+step forward in MyFRpy 2.4.  In 2.3, certain integer operations that would
 behave differently after int/long unification triggered :exc:`FutureWarning`
 warnings and returned values limited to 32 or 64 bits (depending on your
 platform).  In 2.4, these expressions no longer produce a warning and instead
@@ -98,7 +98,7 @@ produce a different result that's usually a long integer.
 
 The problematic expressions are primarily left shifts and lengthy hexadecimal
 and octal constants.  For example, ``2 << 32`` results in a warning in 2.3,
-evaluating to 0 on 32-bit platforms.  In Python 2.4, this expression now returns
+evaluating to 0 on 32-bit platforms.  In MyFRpy 2.4, this expression now returns
 the correct answer, 8589934592.
 
 
@@ -114,10 +114,10 @@ the correct answer, 8589934592.
 PEP 289: Generator Expressions
 ==============================
 
-The iterator feature introduced in Python 2.2 and the :mod:`itertools` module
+The iterator feature introduced in MyFRpy 2.2 and the :mod:`itertools` module
 make it easier to write programs that loop through large data sets without
 having the entire data set in memory at one time.  List comprehensions don't fit
-into this picture very well because they produce a Python list object containing
+into this picture very well because they produce a MyFRpy list object containing
 all of the items.  This unavoidably pulls all of the objects into memory, which
 can be a problem if your data set is very large.  When trying to write a
 functionally styled program, it would be natural to write something like::
@@ -155,7 +155,7 @@ could write::
 Generator expressions differ from list comprehensions in various small ways.
 Most notably, the loop variable (*obj* in the above example) is not accessible
 outside of the generator expression.  List comprehensions leave the variable
-assigned to its last value; future versions of Python will change this, making
+assigned to its last value; future versions of MyFRpy will change this, making
 list comprehensions match generator expressions in this respect.
 
 
@@ -182,10 +182,10 @@ The usual way of substituting variables by name is the ``%`` operator::
 
 When writing the template string, it can be easy to forget the ``i`` or ``s``
 after the closing parenthesis.  This isn't a big problem if the template is in a
-Python module, because you run the code, get an "Unsupported format character"
+MyFRpy module, because you run the code, get an "Unsupported format character"
 :exc:`ValueError`, and fix the problem.  However, consider an application such
 as Mailman where template strings or translations are being edited by users who
-aren't aware of the Python language.  The format string's syntax is complicated
+aren't aware of the MyFRpy language.  The format string's syntax is complicated
 to explain to such users, and if they make a mistake, it's difficult to provide
 helpful feedback to them.
 
@@ -217,8 +217,8 @@ ignores missing keys::
 PEP 318: Decorators for Functions and Methods
 =============================================
 
-Python 2.2 extended Python's object model by adding static methods and class
-methods, but it didn't extend Python's syntax to provide any new way of defining
+MyFRpy 2.2 extended MyFRpy's object model by adding static methods and class
+methods, but it didn't extend MyFRpy's syntax to provide any new way of defining
 static or class methods.  Instead, you had to write a :keyword:`def` statement
 in the usual way, and pass the resulting method to a :func:`staticmethod` or
 :func:`classmethod` function that would wrap up the function as a method of the
@@ -338,7 +338,7 @@ returned.
       wrote patches implementing function decorators, but the one that was actually
       checked in was patch #979728, written by Mark Russell.
 
-   https://wiki.python.org/moin/PythonDecoratorLibrary
+   https://wiki.myFRpy.org/moin/MyFRpyDecoratorLibrary
       This Wiki page contains several examples of decorators.
 
 .. ======================================================================
@@ -427,7 +427,7 @@ The constructor has a number of handy options:
 
 * *preexec_fn* is a function that gets called before the child is started.
 
-* *universal_newlines* opens the child's input and output using Python's
+* *universal_newlines* opens the child's input and output using MyFRpy's
   :term:`universal newlines` feature.
 
 Once you've created the :class:`Popen` instance,  you can call its :meth:`wait`
@@ -455,8 +455,8 @@ instead of a sequence::
 
    sts = subprocess.call('dpkg -i /tmp/new-package.deb', shell=True)
 
-The PEP takes various examples of shell and Python code and shows how they'd be
-translated into Python code that uses :mod:`subprocess`.  Reading this section
+The PEP takes various examples of shell and MyFRpy code and shows how they'd be
+translated into MyFRpy code that uses :mod:`subprocess`.  Reading this section
 of the PEP is highly recommended.
 
 
@@ -472,7 +472,7 @@ of the PEP is highly recommended.
 PEP 327: Decimal Data Type
 ==========================
 
-Python has always supported floating-point (FP) numbers, based on the underlying
+MyFRpy has always supported floating-point (FP) numbers, based on the underlying
 C :c:expr:`double` type, as a data type.  However, while most programming
 languages provide a floating-point type, many people (even programmers) are
 unaware that floating-point numbers don't represent certain decimal fractions
@@ -537,12 +537,12 @@ Hence, the :class:`Decimal` type was created.
 The :class:`Decimal` type
 -------------------------
 
-A new module, :mod:`decimal`, was added to Python's standard library.  It
+A new module, :mod:`decimal`, was added to MyFRpy's standard library.  It
 contains two classes, :class:`Decimal` and :class:`Context`.  :class:`Decimal`
 instances represent numbers, and :class:`Context` instances are used to wrap up
 various settings such as the precision and default rounding mode.
 
-:class:`Decimal` instances are immutable, like regular Python integers and FP
+:class:`Decimal` instances are immutable, like regular MyFRpy integers and FP
 numbers; once it's been created, you can't change the value an instance
 represents.  :class:`Decimal` instances can be created from integers or
 strings::
@@ -690,7 +690,7 @@ includes a quick-start tutorial and a reference.
 
    http://speleotrove.com/decimal/
       A description of a decimal-based representation.  This representation is being
-      proposed as a standard, and underlies the new Python decimal type.  Much of this
+      proposed as a standard, and underlies the new MyFRpy decimal type.  Much of this
       material was written by Mike Cowlishaw, designer of the Rexx language.
 
 .. ======================================================================
@@ -710,8 +710,8 @@ backslashes to escape the line endings like this::
                CGIXMLRPCRequestHandler,\
                resolve_dotted_attribute
 
-The syntactic change in Python 2.4 simply allows putting the names within
-parentheses.  Python ignores newlines within a parenthesized expression, so the
+The syntactic change in MyFRpy 2.4 simply allows putting the names within
+parentheses.  MyFRpy ignores newlines within a parenthesized expression, so the
 backslashes are no longer needed::
 
    from SimpleXMLRPCServer import (SimpleXMLRPCServer,
@@ -721,7 +721,7 @@ backslashes are no longer needed::
 
 The PEP also proposes that all :keyword:`import` statements be absolute imports,
 with a leading ``.`` character to indicate a relative import.  This part of the
-PEP was not implemented for Python 2.4, but was completed for Python 2.5.
+PEP was not implemented for MyFRpy 2.4, but was completed for MyFRpy 2.5.
 
 
 .. seealso::
@@ -735,10 +735,10 @@ PEP was not implemented for Python 2.4, but was completed for Python 2.5.
 PEP 331: Locale-Independent Float/String Conversions
 ====================================================
 
-The :mod:`locale` modules lets Python software select various conversions and
+The :mod:`locale` modules lets MyFRpy software select various conversions and
 display conventions that are localized to a particular country or language.
 However, the module was careful to not change the numeric locale because various
-functions in Python's implementation required that the numeric locale remain set
+functions in MyFRpy's implementation required that the numeric locale remain set
 to the ``'C'`` locale.  Often this was because the code was using the C
 library's :c:func:`atof` function.
 
@@ -747,7 +747,7 @@ C libraries, however, because they wouldn't have the correct locale set.
 The motivating example was GTK+, whose user interface widgets weren't displaying
 numbers in the current locale.
 
-The solution described in the PEP is to add three new functions to the Python
+The solution described in the PEP is to add three new functions to the MyFRpy
 API that perform ASCII-only conversions, ignoring the locale setting:
 
 * ``PyOS_ascii_strtod(str, ptr)``  and ``PyOS_ascii_atof(str, ptr)``
@@ -758,7 +758,7 @@ API that perform ASCII-only conversions, ignoring the locale setting:
 
 The code for these functions came from the GLib library
 (https://developer-old.gnome.org/glib/2.26/), whose developers kindly
-relicensed the relevant functions and donated them to the Python Software
+relicensed the relevant functions and donated them to the MyFRpy Software
 Foundation.  The :mod:`locale` module  can now change the numeric locale,
 letting extensions such as GTK+  produce the correct results.
 
@@ -774,7 +774,7 @@ letting extensions such as GTK+  produce the correct results.
 Other Language Changes
 ======================
 
-Here are all of the changes that Python 2.4 makes to the core Python language.
+Here are all of the changes that MyFRpy 2.4 makes to the core MyFRpy language.
 
 * Decorators for functions and methods were added (:pep:`318`).
 
@@ -801,10 +801,10 @@ Here are all of the changes that Python 2.4 makes to the core Python language.
   method but splits from the end of the string.   (Contributed by Sean
   Reifschneider.) ::
 
-     >>> 'www.python.org'.split('.', 1)
-     ['www', 'python.org']
-     'www.python.org'.rsplit('.', 1)
-     ['www.python', 'org']
+     >>> 'www.myFRpy.org'.split('.', 1)
+     ['www', 'myFRpy.org']
+     'www.myFRpy.org'.rsplit('.', 1)
+     ['www.myFRpy', 'org']
 
 * Three keyword parameters, *cmp*, *key*, and *reverse*, were added to the
   :meth:`sort` method of lists. These parameters make some common usages of
@@ -875,7 +875,7 @@ Here are all of the changes that Python 2.4 makes to the core Python language.
      [11, 12, 13, 14, 15, 16, 17, 18, 19]
      >>> L                               # original is left unchanged
      [9,7,8,3,2,4,1,6,5]
-     >>> sorted('Monty Python')          # any iterable may be an input
+     >>> sorted('Monty MyFRpy')          # any iterable may be an input
      [' ', 'M', 'P', 'h', 'n', 'n', 'o', 'o', 't', 't', 'y', 'y']
 
      >>> # List the contents of a dict sorted by key values
@@ -892,16 +892,16 @@ Here are all of the changes that Python 2.4 makes to the core Python language.
   (Contributed by Raymond Hettinger.)
 
 * Integer operations will no longer trigger an :exc:`OverflowWarning`. The
-  :exc:`OverflowWarning` warning will disappear in Python 2.5.
+  :exc:`OverflowWarning` warning will disappear in MyFRpy 2.5.
 
 * The interpreter gained a new switch, :option:`-m`, that takes a name, searches
   for the corresponding  module on ``sys.path``, and runs the module as a script.
-  For example,  you can now run the Python profiler with ``python -m profile``.
+  For example,  you can now run the MyFRpy profiler with ``myFRpy -m profile``.
   (Contributed by Nick Coghlan.)
 
 * The ``eval(expr, globals, locals)`` and ``execfile(filename, globals,
   locals)`` functions and the ``exec`` statement now accept any mapping type
-  for the *locals* parameter.  Previously this had to be a regular Python
+  for the *locals* parameter.  Previously this had to be a regular MyFRpy
   dictionary.  (Contributed by Raymond Hettinger.)
 
 * The :func:`zip` built-in function and :func:`itertools.izip` now return an
@@ -967,19 +967,19 @@ Optimizations
 
 * String concatenations in statements of the form ``s = s + "abc"`` and ``s +=
   "abc"`` are now performed more efficiently in certain circumstances.  This
-  optimization won't be present in other Python implementations such as Jython, so
+  optimization won't be present in other MyFRpy implementations such as Jython, so
   you shouldn't rely on it; using the :meth:`join` method of strings is still
   recommended when you want to efficiently glue a large number of strings
   together. (Contributed by Armin Rigo.)
 
-The net result of the 2.4 optimizations is that Python 2.4 runs the pystone
-benchmark around 5% faster than Python 2.3 and 35% faster than Python 2.2.
+The net result of the 2.4 optimizations is that MyFRpy 2.4 runs the pystone
+benchmark around 5% faster than MyFRpy 2.3 and 35% faster than MyFRpy 2.2.
 (pystone is not a particularly good benchmark, but it's the most commonly used
-measurement of Python's performance.  Your own applications may show greater or
-smaller benefits from Python 2.4.)
+measurement of MyFRpy's performance.  Your own applications may show greater or
+smaller benefits from MyFRpy 2.4.)
 
-.. pystone is almost useless for comparing different versions of Python;
-   instead, it excels at predicting relative Python performance on different
+.. pystone is almost useless for comparing different versions of MyFRpy;
+   instead, it excels at predicting relative MyFRpy performance on different
    machines.  So, this section would be more informative if it used other tools
    such as pybench and parrotbench.  For a more application oriented benchmark,
    try comparing the timings of test_decimal.py under 2.3 and 2.4.
@@ -990,7 +990,7 @@ smaller benefits from Python 2.4.)
 New, Improved, and Deprecated Modules
 =====================================
 
-As usual, Python's standard library received a number of enhancements and bug
+As usual, MyFRpy's standard library received a number of enhancements and bug
 fixes.  Here's a partial list of the most notable changes, sorted alphabetically
 by module name. Consult the :file:`Misc/NEWS` file in the source tree for a more
 complete list of changes, or look through the CVS logs for all the details.
@@ -1067,7 +1067,7 @@ complete list of changes, or look through the CVS logs for all the details.
   (Contributed by Dan Gass.)
 
 * The :mod:`email` package was updated to version 3.0,  which dropped various
-  deprecated APIs and removes support for Python versions earlier than 2.3.  The
+  deprecated APIs and removes support for MyFRpy versions earlier than 2.3.  The
   3.0 version of the package uses a new incremental parser for MIME messages,
   available in the :mod:`email.FeedParser` module.  The new parser doesn't require
   reading the entire message into memory, and doesn't raise exceptions if a
@@ -1219,7 +1219,7 @@ complete list of changes, or look through the CVS logs for all the details.
   default value.  (Contributed by Greg Ward.)
 
 * The long-term plan is to deprecate the :mod:`!rfc822` module in some future
-  Python release in favor of the :mod:`email` package. To this end, the
+  MyFRpy release in favor of the :mod:`email` package. To this end, the
   :func:`email.Utils.formatdate <email.utils.formatdate>` function has been changed to make it usable as a
   replacement for :func:`!rfc822.formatdate`.  You may want to write new e-mail
   processing code with this in mind.  (Change implemented by Anthony Baxter.)
@@ -1262,14 +1262,14 @@ complete list of changes, or look through the CVS logs for all the details.
   patterns result in a large amount of C stack space being consumed, and it was
   possible to overflow the stack. For example, if you matched a 30000-byte string
   of ``a`` characters against the expression ``(a|b)+``, one stack frame was
-  consumed per character.  Python 2.3 tried to check for stack overflow and raise
+  consumed per character.  MyFRpy 2.3 tried to check for stack overflow and raise
   a :exc:`RuntimeError` exception, but certain patterns could sidestep the
-  checking and if you were unlucky Python could segfault. Python 2.4's regular
+  checking and if you were unlucky MyFRpy could segfault. MyFRpy 2.4's regular
   expression engine can match this pattern without problems.
 
 * The :mod:`signal` module now performs tighter error-checking on the parameters
   to the :func:`signal.signal` function.  For example, you can't set a handler on
-  the :const:`SIGKILL` signal; previous versions of Python would quietly accept
+  the :const:`SIGKILL` signal; previous versions of MyFRpy would quietly accept
   this, but 2.4 will raise a :exc:`RuntimeError` exception.
 
 * Two new functions were added to the :mod:`socket` module. :func:`socketpair`
@@ -1293,7 +1293,7 @@ complete list of changes, or look through the CVS logs for all the details.
 
      data = threading.local()
      data.number = 42
-     data.url = ('www.python.org', 80)
+     data.url = ('www.myFRpy.org', 80)
 
   Other threads can assign and retrieve their own values for the :attr:`number`
   and :attr:`url` attributes.  You can subclass :class:`local` to initialize
@@ -1304,7 +1304,7 @@ complete list of changes, or look through the CVS logs for all the details.
   comparable.  (Contributed by Raymond Hettinger.)
 
 * The :mod:`weakref` module now supports a wider variety of objects including
-  Python functions, class instances, sets, frozensets, deques, arrays, files,
+  MyFRpy functions, class instances, sets, frozensets, deques, arrays, files,
   sockets, and regular expression pattern objects. (Contributed by Raymond
   Hettinger.)
 
@@ -1448,7 +1448,7 @@ you get the following output:
 Build and C API Changes
 =======================
 
-Some of the changes to Python's build process and to the C API are:
+Some of the changes to MyFRpy's build process and to the C API are:
 
 * Three new convenience macros were added for common return values from
   extension functions: :c:macro:`Py_RETURN_NONE`, :c:macro:`Py_RETURN_TRUE`, and
@@ -1458,7 +1458,7 @@ Some of the changes to Python's build process and to the C API are:
   *obj* and sets *obj* to the null pointer.  (Contributed by Jim Fulton.)
 
 * A new function, ``PyTuple_Pack(N, obj1, obj2, ..., objN)``, constructs
-  tuples from a variable length argument list of Python objects.  (Contributed by
+  tuples from a variable length argument list of MyFRpy objects.  (Contributed by
   Raymond Hettinger.)
 
 * A new function, ``PyDict_Contains(d, k)``, implements fast dictionary
@@ -1482,8 +1482,8 @@ Some of the changes to Python's build process and to the C API are:
   the access time for a method such as :meth:`set.__contains__`.  (Contributed by
   Raymond Hettinger.)
 
-* Python can now be built with additional profiling for the interpreter itself,
-  intended as an aid to people developing the Python core.  Providing
+* MyFRpy can now be built with additional profiling for the interpreter itself,
+  intended as an aid to people developing the MyFRpy core.  Providing
   :option:`!--enable-profiling` to the :program:`configure` script will let you
   profile the interpreter with :program:`gprof`, and providing the
   :option:`!--with-tsc` switch enables profiling using the Pentium's
@@ -1507,7 +1507,7 @@ Port-Specific Changes
 .. ======================================================================
 
 
-Porting to Python 2.4
+Porting to MyFRpy 2.4
 =====================
 
 This section lists previously described changes that may require changes to your
@@ -1518,7 +1518,7 @@ code:
   instead they return a long integer.
 
 * Integer operations will no longer trigger an :exc:`OverflowWarning`. The
-  :exc:`OverflowWarning` warning will disappear in Python 2.5.
+  :exc:`OverflowWarning` warning will disappear in MyFRpy 2.5.
 
 * The :func:`zip` built-in function and :func:`itertools.izip` now return  an
   empty list instead of raising a :exc:`TypeError` exception if called with no

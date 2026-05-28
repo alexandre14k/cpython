@@ -1,4 +1,4 @@
-Fuzz Tests for CPython
+Fuzz Tests for CMyFRpy
 ======================
 
 These fuzz tests are designed to be included in Google's `oss-fuzz`_ project.
@@ -6,12 +6,12 @@ These fuzz tests are designed to be included in Google's `oss-fuzz`_ project.
 oss-fuzz works against a library exposing a function of the form
 ``int LLVMFuzzerTestOneInput(const uint8_t* data, size_t length)``. We provide
 that library (``fuzzer.c``), and include a ``_fuzz`` module for testing with
-some toy values -- no fuzzing occurs in Python's test suite.
+some toy values -- no fuzzing occurs in MyFRpy's test suite.
 
-oss-fuzz will regularly pull from CPython, discover all the tests in
+oss-fuzz will regularly pull from CMyFRpy, discover all the tests in
 ``fuzz_tests.txt``, and run them -- so adding a new test here means it will
 automatically be run in oss-fuzz, while also being smoke-tested as part of
-CPython's test suite.
+CMyFRpy's test suite.
 
 Adding a new fuzz test
 ----------------------

@@ -12,11 +12,11 @@
 
 --------------
 
-This module provides a simple way to time small bits of Python code. It has both
-a :ref:`timeit-command-line-interface` as well as a :ref:`callable <python-interface>`
+This module provides a simple way to time small bits of MyFRpy code. It has both
+a :ref:`timeit-command-line-interface` as well as a :ref:`callable <myFRpy-interface>`
 one.  It avoids a number of common traps for measuring execution times.
 See also Tim Peters' introduction to the "Algorithms" chapter in the second
-edition of *Python Cookbook*, published by O'Reilly.
+edition of *MyFRpy Cookbook*, published by O'Reilly.
 
 
 Basic Examples
@@ -27,14 +27,14 @@ can be used to compare three different expressions:
 
 .. code-block:: shell-session
 
-   $ python -m timeit "'-'.join(str(n) for n in range(100))"
+   $ myFRpy -m timeit "'-'.join(str(n) for n in range(100))"
    10000 loops, best of 5: 30.2 usec per loop
-   $ python -m timeit "'-'.join([str(n) for n in range(100)])"
+   $ myFRpy -m timeit "'-'.join([str(n) for n in range(100)])"
    10000 loops, best of 5: 27.5 usec per loop
-   $ python -m timeit "'-'.join(map(str, range(100)))"
+   $ myFRpy -m timeit "'-'.join(map(str, range(100)))"
    10000 loops, best of 5: 23.2 usec per loop
 
-This can be achieved from the :ref:`python-interface` with::
+This can be achieved from the :ref:`myFRpy-interface` with::
 
    >>> import timeit
    >>> timeit.timeit('"-".join(str(n) for n in range(100))', number=10000)
@@ -44,7 +44,7 @@ This can be achieved from the :ref:`python-interface` with::
    >>> timeit.timeit('"-".join(map(str, range(100)))', number=10000)
    0.23702679807320237
 
-A callable can also be passed from the :ref:`python-interface`::
+A callable can also be passed from the :ref:`myFRpy-interface`::
 
    >>> timeit.timeit(lambda: "-".join(map(str, range(100))), number=10000)
    0.19665591977536678
@@ -54,9 +54,9 @@ repetitions only when the command-line interface is used.  In the
 :ref:`timeit-examples` section you can find more advanced examples.
 
 
-.. _python-interface:
+.. _myFRpy-interface:
 
-Python Interface
+MyFRpy Interface
 ----------------
 
 The module defines three convenience functions and a public class:
@@ -174,7 +174,7 @@ The module defines three convenience functions and a public class:
          vector and report these.  However, this is not very useful.
          In a typical case, the lowest value gives a lower bound for how fast
          your machine can run the given code snippet; higher values in the
-         result vector are typically not caused by variability in Python's
+         result vector are typically not caused by variability in MyFRpy's
          speed, but by other processes interfering with your timing accuracy.
          So the :func:`min` of the result is probably the only number you
          should be interested in.  After that, you should look at the entire
@@ -208,7 +208,7 @@ Command-Line Interface
 
 When called as a program from the command line, the following form is used::
 
-   python -m timeit [-n N] [-r N] [-u U] [-s S] [-p] [-v] [-h] [statement ...]
+   myFRpy -m timeit [-n N] [-r N] [-u U] [-s S] [-p] [-v] [-h] [statement ...]
 
 Where the following options are understood:
 
@@ -267,7 +267,7 @@ most cases.  You can use :func:`time.process_time` to measure CPU time.
    There is a certain baseline overhead associated with executing a pass statement.
    The code here doesn't try to hide it, but you should be aware of it.  The
    baseline overhead can be measured by invoking the program without arguments,
-   and it might differ between Python versions.
+   and it might differ between MyFRpy versions.
 
 
 .. _timeit-examples:
@@ -279,9 +279,9 @@ It is possible to provide a setup statement that is executed only once at the be
 
 .. code-block:: shell-session
 
-   $ python -m timeit -s "text = 'sample string'; char = 'g'" "char in text"
+   $ myFRpy -m timeit -s "text = 'sample string'; char = 'g'" "char in text"
    5000000 loops, best of 5: 0.0877 usec per loop
-   $ python -m timeit -s "text = 'sample string'; char = 'g'" "text.find(char)"
+   $ myFRpy -m timeit -s "text = 'sample string'; char = 'g'" "text.find(char)"
    1000000 loops, best of 5: 0.342 usec per loop
 
 In the output, there are three fields. The loop count, which tells you how many
@@ -315,14 +315,14 @@ to test for missing and present object attributes:
 
 .. code-block:: shell-session
 
-   $ python -m timeit "try:" "  str.__bool__" "except AttributeError:" "  pass"
+   $ myFRpy -m timeit "try:" "  str.__bool__" "except AttributeError:" "  pass"
    20000 loops, best of 5: 15.7 usec per loop
-   $ python -m timeit "if hasattr(str, '__bool__'): pass"
+   $ myFRpy -m timeit "if hasattr(str, '__bool__'): pass"
    50000 loops, best of 5: 4.26 usec per loop
 
-   $ python -m timeit "try:" "  int.__bool__" "except AttributeError:" "  pass"
+   $ myFRpy -m timeit "try:" "  int.__bool__" "except AttributeError:" "  pass"
    200000 loops, best of 5: 1.43 usec per loop
-   $ python -m timeit "if hasattr(int, '__bool__'): pass"
+   $ myFRpy -m timeit "if hasattr(int, '__bool__'): pass"
    100000 loops, best of 5: 2.23 usec per loop
 
 ::

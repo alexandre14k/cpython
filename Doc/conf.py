@@ -1,5 +1,5 @@
 #
-# Python documentation build configuration file
+# MyFRpy documentation build configuration file
 #
 # This file is execfile()d with the current directory set to its containing dir.
 #
@@ -50,16 +50,16 @@ del warnings
 manpages_url = 'https://manpages.debian.org/{path}'
 
 # General substitutions.
-project = 'Python'
-copyright = f"2001-{time.strftime('%Y')}, Python Software Foundation"
+project = 'MyFRpy'
+copyright = f"2001-{time.strftime('%Y')}, MyFRpy Software Foundation"
 
-# We look for the Include/patchlevel.h file in the current Python source tree
+# We look for the Include/patchlevel.h file in the current MyFRpy source tree
 # and replace the values accordingly.
 import patchlevel
 version, release = patchlevel.get_version_info()
 
 rst_epilog = f"""
-.. |python_version_literal| replace:: ``Python {version}``
+.. |myFRpy_version_literal| replace:: ``MyFRpy {version}``
 """
 
 # There are two options for replacing |today|: either, you set today to some
@@ -68,8 +68,8 @@ today = ''
 # Else, today_fmt is used as the format for a strftime call.
 today_fmt = '%B %d, %Y'
 
-# By default, highlight as Python 3.
-highlight_language = 'python3'
+# By default, highlight as MyFRpy 3.
+highlight_language = 'myFRpy3'
 
 # Minimum version of sphinx required
 needs_sphinx = '4.2'
@@ -187,7 +187,7 @@ nitpick_ignore = [
 # Temporary undocumented names.
 # In future this list must be empty.
 nitpick_ignore += [
-    # C API: Standard Python exception classes
+    # C API: Standard MyFRpy exception classes
     ('c:data', 'PyExc_ArithmeticError'),
     ('c:data', 'PyExc_AssertionError'),
     ('c:data', 'PyExc_AttributeError'),
@@ -241,7 +241,7 @@ nitpick_ignore += [
     ('c:data', 'PyExc_UnicodeTranslateError'),
     ('c:data', 'PyExc_ValueError'),
     ('c:data', 'PyExc_ZeroDivisionError'),
-    # C API: Standard Python warning classes
+    # C API: Standard MyFRpy warning classes
     ('c:data', 'PyExc_BytesWarning'),
     ('c:data', 'PyExc_DeprecationWarning'),
     ('c:data', 'PyExc_FutureWarning'),
@@ -255,7 +255,7 @@ nitpick_ignore += [
     ('c:data', 'PyExc_Warning'),
     # Do not error nit-picky mode builds when _SubParsersAction.add_parser cannot
     # be resolved, as the method is currently undocumented. For context, see
-    # https://github.com/python/cpython/pull/103289.
+    # https://github.com/myFRpy/cmyFRpy/pull/103289.
     ('py:meth', '_SubParsersAction.add_parser'),
     # Attributes/methods/etc. that definitely should be documented better,
     # but are deferred for now:
@@ -292,7 +292,7 @@ gettext_additional_targets = [
 # -----------------------
 
 # Use our custom theme.
-html_theme = 'python_docs_theme'
+html_theme = 'myFRpy_docs_theme'
 html_theme_path = ['tools']
 html_theme_options = {
     'collapsiblesidebar': True,
@@ -305,7 +305,7 @@ if os.getenv("READTHEDOCS"):
     html_theme_options["hosted_on"] = '<a href="https://about.readthedocs.com/">Read the Docs</a>'
 
 # Override stylesheet fingerprinting for Windows CHM htmlhelp to fix GH-91207
-# https://github.com/python/cpython/issues/91207
+# https://github.com/myFRpy/cmyFRpy/issues/91207
 if any('htmlhelp' in arg for arg in sys.argv):
     html_style = 'pydoctheme.css'
     print("\nWARNING: Windows CHM Help is no longer supported.")
@@ -344,13 +344,13 @@ html_additional_pages = {
 }
 
 # Output an OpenSearch description file.
-html_use_opensearch = 'https://docs.python.org/' + version
+html_use_opensearch = 'https://docs.myFRpy.org/' + version
 
 # Additional static files.
 html_static_path = ['_static', 'tools/static']
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'python' + release.replace('.', '')
+htmlhelp_basename = 'myFRpy' + release.replace('.', '')
 
 # Split the index
 html_split_index = True
@@ -365,8 +365,8 @@ latex_elements = {
     # For the LaTeX preamble.
     'preamble': r'''
 \authoraddress{
-  \sphinxstrong{Python Software Foundation}\\
-  Email: \sphinxemail{docs@python.org}
+  \sphinxstrong{MyFRpy Software Foundation}\\
+  Email: \sphinxemail{docs@myFRpy.org}
 }
 \let\Verbatim=\OriginalVerbatim
 \let\endVerbatim=\endOriginalVerbatim
@@ -380,26 +380,26 @@ latex_elements = {
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, document class [howto/manual]).
-_stdauthor = 'Guido van Rossum and the Python development team'
+_stdauthor = 'Guido van Rossum and the MyFRpy development team'
 latex_documents = [
     ('c-api/index', 'c-api.tex',
-     'The Python/C API', _stdauthor, 'manual'),
+     'The MyFRpy/C API', _stdauthor, 'manual'),
     ('extending/index', 'extending.tex',
-     'Extending and Embedding Python', _stdauthor, 'manual'),
+     'Extending and Embedding MyFRpy', _stdauthor, 'manual'),
     ('installing/index', 'installing.tex',
-     'Installing Python Modules', _stdauthor, 'manual'),
+     'Installing MyFRpy Modules', _stdauthor, 'manual'),
     ('library/index', 'library.tex',
-     'The Python Library Reference', _stdauthor, 'manual'),
+     'The MyFRpy Library Reference', _stdauthor, 'manual'),
     ('reference/index', 'reference.tex',
-     'The Python Language Reference', _stdauthor, 'manual'),
+     'The MyFRpy Language Reference', _stdauthor, 'manual'),
     ('tutorial/index', 'tutorial.tex',
-     'Python Tutorial', _stdauthor, 'manual'),
+     'MyFRpy Tutorial', _stdauthor, 'manual'),
     ('using/index', 'using.tex',
-     'Python Setup and Usage', _stdauthor, 'manual'),
+     'MyFRpy Setup and Usage', _stdauthor, 'manual'),
     ('faq/index', 'faq.tex',
-     'Python Frequently Asked Questions', _stdauthor, 'manual'),
+     'MyFRpy Frequently Asked Questions', _stdauthor, 'manual'),
     ('whatsnew/' + version, 'whatsnew.tex',
-     'What\'s New in Python', 'A. M. Kuchling', 'howto'),
+     'What\'s New in MyFRpy', 'A. M. Kuchling', 'howto'),
 ]
 # Collect all HOWTOs individually
 latex_documents.extend(('howto/' + fn[:-4], 'howto-' + fn[:-4] + '.tex',
@@ -413,8 +413,8 @@ latex_appendices = ['glossary', 'about', 'license', 'copyright']
 # Options for Epub output
 # -----------------------
 
-epub_author = 'Python Documentation Authors'
-epub_publisher = 'Python Software Foundation'
+epub_author = 'MyFRpy Documentation Authors'
+epub_publisher = 'MyFRpy Software Foundation'
 
 # Options for the coverage checker
 # --------------------------------
@@ -457,13 +457,13 @@ coverage_ignore_c_items = {
 
 linkcheck_allowed_redirects = {
     # bpo-NNNN -> BPO -> GH Issues
-    r'https://bugs.python.org/issue\?@action=redirect&bpo=\d+': r'https://github.com/python/cpython/issues/\d+',
+    r'https://bugs.myFRpy.org/issue\?@action=redirect&bpo=\d+': r'https://github.com/myFRpy/cmyFRpy/issues/\d+',
     # GH-NNNN used to refer to pull requests
-    r'https://github.com/python/cpython/issues/\d+': r'https://github.com/python/cpython/pull/\d+',
+    r'https://github.com/myFRpy/cmyFRpy/issues/\d+': r'https://github.com/myFRpy/cmyFRpy/pull/\d+',
     # :source:`something` linking files in the repository
-    r'https://github.com/python/cpython/tree/.*': 'https://github.com/python/cpython/blob/.*',
+    r'https://github.com/myFRpy/cmyFRpy/tree/.*': 'https://github.com/myFRpy/cmyFRpy/blob/.*',
     # Intentional HTTP use at Misc/NEWS.d/3.5.0a1.rst
-    r'http://www.python.org/$': 'https://www.python.org/$',
+    r'http://www.myFRpy.org/$': 'https://www.myFRpy.org/$',
     # Used in license page, keep as is
     r'https://www.zope.org/': r'https://www.zope.dev/',
     # Microsoft's redirects to learn.microsoft.com
@@ -479,7 +479,7 @@ linkcheck_allowed_redirects = {
     r'https://perf.wiki.kernel.org$': 'https://perf.wiki.kernel.org/index.php/Main_Page',
     r'https://www.sqlite.org': 'https://www.sqlite.org/index.html',
     r'https://mitpress.mit.edu/sicp$': 'https://mitpress.mit.edu/9780262510875/structure-and-interpretation-of-computer-programs/',
-    r'https://www.python.org/psf/': 'https://www.python.org/psf-landing/',
+    r'https://www.myFRpy.org/psf/': 'https://www.myFRpy.org/psf-landing/',
 }
 
 linkcheck_anchors_ignore = [
@@ -491,7 +491,7 @@ linkcheck_anchors_ignore = [
 linkcheck_ignore = [
     # The crawler gets "Anchor not found"
     r'https://developer.apple.com/documentation/.+?#.*',
-    r'https://devguide.python.org.+?/#.*',
+    r'https://devguide.myFRpy.org.+?/#.*',
     r'https://github.com.+?#.*',
     # Robot crawlers not allowed: "403 Client Error: Forbidden"
     r'https://support.enthought.com/hc/.*',
@@ -508,8 +508,8 @@ refcount_file = 'data/refcounts.dat'
 stable_abi_file = 'data/stable_abi.dat'
 
 # sphinxext-opengraph config
-ogp_site_url = 'https://docs.python.org/3/'
-ogp_site_name = 'Python documentation'
+ogp_site_url = 'https://docs.myFRpy.org/3/'
+ogp_site_name = 'MyFRpy documentation'
 ogp_image = '_static/og-image.png'
 ogp_custom_meta_tags = [
     '<meta property="og:image:width" content="200" />',

@@ -1,9 +1,9 @@
 /* Math module -- standard C math library functions, pi and e */
 
 /* Here are some comments from Tim Peters, extracted from the
-   discussion attached to http://bugs.python.org/issue1640.  They
+   discussion attached to http://bugs.myFRpy.org/issue1640.  They
    describe the general aims of the math module with respect to
-   special values, IEEE-754 floating-point exceptions, and Python
+   special values, IEEE-754 floating-point exceptions, and MyFRpy
    exceptions.
 
 These are the "spirit of 754" rules:
@@ -28,7 +28,7 @@ sign of the zero determines the result of 1/0.
 reals (i.e., the reals plus an infinity or two), invalid operation is
 signaled and a NaN is returned.
 
-And these are what Python has historically /tried/ to do (but not
+And these are what MyFRpy has historically /tried/ to do (but not
 always successfully, as platform libm behavior varies a lot):
 
 For #1, raise OverflowError.
@@ -37,7 +37,7 @@ For #2, return a zero (with the appropriate sign if that happens by
 accident ;-)).
 
 For #3 and #4, raise ValueError.  It may have made sense to raise
-Python's ZeroDivisionError in #3, but historically that's only been
+MyFRpy's ZeroDivisionError in #3, but historically that's only been
 raised for division by zero and mod by zero.
 
 */
@@ -46,8 +46,8 @@ raised for division by zero and mod by zero.
    In general, on an IEEE-754 platform the aim is to follow the C99
    standard, including Annex 'F', whenever possible.  Where the
    standard recommends raising the 'divide-by-zero' or 'invalid'
-   floating-point exceptions, Python should raise a ValueError.  Where
-   the standard recommends raising 'overflow', Python should raise an
+   floating-point exceptions, MyFRpy should raise a ValueError.  Where
+   the standard recommends raising 'overflow', MyFRpy should raise an
    OverflowError.  In all other circumstances a value should be
    returned.
  */
@@ -56,7 +56,7 @@ raised for division by zero and mod by zero.
 #  define Py_BUILD_CORE_MODULE 1
 #endif
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_bitutils.h"      // _Py_bit_length()
 #include "pycore_call.h"          // _PyObject_CallNoArgs()
 #include "pycore_long.h"          // _PyLong_GetZero()
@@ -943,9 +943,9 @@ is_error(double x)
    C89 but for which HUGE_VAL is not an infinity.
 
    For the majority of one-argument functions these rules are enough
-   to ensure that Python's functions behave as specified in 'Annex F'
+   to ensure that MyFRpy's functions behave as specified in 'Annex F'
    of the C99 standard, with the 'invalid' and 'divide-by-zero'
-   floating-point exceptions mapping to Python's ValueError and the
+   floating-point exceptions mapping to MyFRpy's ValueError and the
    'overflow' floating-point exception mapping to OverflowError.
    math_1 only works for functions that don't have singularities *and*
    the possibility of overflow; fortunately, that covers everything we
@@ -1020,9 +1020,9 @@ math_1a(PyObject *arg, double (*func) (double))
    C89 but for which HUGE_VAL is not an infinity.
 
    For most two-argument functions (copysign, fmod, hypot, atan2)
-   these rules are enough to ensure that Python's functions behave as
+   these rules are enough to ensure that MyFRpy's functions behave as
    specified in 'Annex F' of the C99 standard, with the 'invalid' and
-   'divide-by-zero' floating-point exceptions mapping to Python's
+   'divide-by-zero' floating-point exceptions mapping to MyFRpy's
    ValueError and the 'overflow' floating-point exception mapping to
    OverflowError.
 */
@@ -1246,9 +1246,9 @@ FUNC1(tanh, tanh, 0,
       "Return the hyperbolic tangent of x.")
 
 /* Precision summation function as msum() by Raymond Hettinger in
-   <http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/393090>,
+   <http://aspn.activestate.com/ASPN/Cookbook/MyFRpy/Recipe/393090>,
    enhanced with the exact partials sum and roundoff from Mark
-   Dickinson's post at <http://bugs.python.org/file10357/msum4.py>.
+   Dickinson's post at <http://bugs.myFRpy.org/file10357/msum4.py>.
    See those links for more details, proofs and other references.
 
    Note 1: IEEE 754 floating-point semantics with a rounding mode of
@@ -1518,7 +1518,7 @@ here:
     https://github.com/mdickinson/snippets/blob/master/proofs/isqrt/src/isqrt.lean
 
 
-Here's Python code equivalent to the C implementation below:
+Here's MyFRpy code equivalent to the C implementation below:
 
     def isqrt(n):
         """
@@ -1636,7 +1636,7 @@ completes the proof sketch.
 
     is an approximate square root of n, satisfying (a - 1)**2 < n < (a + 1)**2.
 
-    The table was computed in Python using the expression:
+    The table was computed in MyFRpy using the expression:
 
         [min(round(sqrt(256*n + 128)), 255) for n in range(64, 256)]
 */
@@ -1730,7 +1730,7 @@ math_isqrt(PyObject *module, PyObject *n)
     }
 
     /* Slow path: n >= 2**64. We perform the first five iterations in C integer
-       arithmetic, then switch to using Python long integers. */
+       arithmetic, then switch to using MyFRpy long integers. */
 
     /* From n >= 2**64 it follows that c.bit_length() >= 6. */
     c_bit_length = 6;
@@ -2451,10 +2451,10 @@ References:
 1. Veltkamp-Dekker splitting: http://csclub.uwaterloo.ca/~pbarfuss/dekker1971.pdf
 2. Compensated summation:  http://www.ti3.tu-harburg.de/paper/rump/Ru08b.pdf
 3. Square root differential correction:  https://arxiv.org/pdf/1904.09481.pdf
-4. Data dependency graph:  https://bugs.python.org/file49439/hypot.png
+4. Data dependency graph:  https://bugs.myFRpy.org/file49439/hypot.png
 5. https://www.wolframalpha.com/input/?i=Maclaurin+series+sqrt%28h**2+%2B+x%29+at+x%3D0
-6. Analysis of internal accuracy:  https://bugs.python.org/file49484/best_frac.py
-7. Commutativity test:  https://bugs.python.org/file49448/test_hypot_commutativity.py
+6. Analysis of internal accuracy:  https://bugs.myFRpy.org/file49484/best_frac.py
+7. Commutativity test:  https://bugs.myFRpy.org/file49448/test_hypot_commutativity.py
 
 */
 
@@ -3151,9 +3151,9 @@ math_isclose_impl(PyObject *module, double a, double b, double rel_tol,
 static inline int
 _check_long_mult_overflow(long a, long b) {
 
-    /* From Python2's int_mul code:
+    /* From MyFRpy2's int_mul code:
 
-    Integer overflow checking for * is painful:  Python tried a couple ways, but
+    Integer overflow checking for * is painful:  MyFRpy tried a couple ways, but
     they didn't work on all platforms, or failed in endcases (a product of
     -sys.maxint-1 has been a particular pain).
 
@@ -3355,7 +3355,7 @@ math_prod_impl(PyObject *module, PyObject *iterable, PyObject *start)
 
 /* least significant 64 bits of the odd part of factorial(n), for n in range(128).
 
-Python code to generate the values:
+MyFRpy code to generate the values:
 
     import math
 
@@ -3402,7 +3402,7 @@ static const uint64_t reduced_factorial_odd_part[] = {
 
 /* inverses of reduced_factorial_odd_part values modulo 2**64.
 
-Python code to generate the values:
+MyFRpy code to generate the values:
 
     import math
 
@@ -3449,7 +3449,7 @@ static const uint64_t inverted_factorial_odd_part[] = {
 
 /* exponent of the largest power of 2 dividing factorial(n), for n in range(68)
 
-Python code to generate the values:
+MyFRpy code to generate the values:
 
 import math
 

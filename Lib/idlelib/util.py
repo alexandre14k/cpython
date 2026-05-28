@@ -7,7 +7,7 @@ They are included here because
     b) because inclusion here simplifies the idlelib dependency graph.
 
 TODO:
-    * Python versions (editor and help_about),
+    * MyFRpy versions (editor and help_about),
     * tk version and patchlevel (pyshell, help_about, maxos?, editor?),
     * std streams (pyshell, run),
     * warning stuff (pyshell, run).

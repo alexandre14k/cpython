@@ -21,7 +21,7 @@ __all__ = [
 
 
 def create(*, isolated=True):
-    """Return a new (idle) Python interpreter."""
+    """Return a new (idle) MyFRpy interpreter."""
     id = _interpreters.create(isolated=isolated)
     return Interpreter(id, isolated=isolated)
 
@@ -44,7 +44,7 @@ def get_main():
 
 
 class Interpreter:
-    """A single Python interpreter."""
+    """A single MyFRpy interpreter."""
 
     def __init__(self, id, *, isolated=None):
         if not isinstance(id, (int, _interpreters.InterpreterID)):
@@ -93,7 +93,7 @@ class Interpreter:
     def run(self, src_str, /, *, channels=None):
         """Run the given source code in the interpreter.
 
-        This blocks the current Python thread until done.
+        This blocks the current MyFRpy thread until done.
         """
         _interpreters.run_string(self._id, src_str, channels)
 

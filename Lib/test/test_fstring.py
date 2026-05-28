@@ -16,7 +16,7 @@ import unittest
 import warnings
 from test import support
 from test.support.os_helper import temp_cwd
-from test.support.script_helper import assert_python_failure, assert_python_ok
+from test.support.script_helper import assert_myFRpy_failure, assert_myFRpy_ok
 
 a_global = 'global variable'
 
@@ -62,7 +62,7 @@ class TestCase(unittest.TestCase):
         self.assertEqual(type(y).__format__(y, ''), 'class')
 
     def test_ast(self):
-        # Inspired by http://bugs.python.org/issue24975
+        # Inspired by http://bugs.myFRpy.org/issue24975
         class X:
             def __init__(self):
                 self.called = False
@@ -813,7 +813,7 @@ x = (
                              "f'{10:{ }}'",
                              "f' { } '",
 
-                             # The Python parser ignores also the following
+                             # The MyFRpy parser ignores also the following
                              # whitespace characters in additional to a space.
                              "f'''{\t\f\r\n}'''",
                              ])
@@ -975,7 +975,7 @@ x = (
                              ])
 
     def test_invalid_backslashes_inside_fstring_context(self):
-        # All of these variations are invalid python syntax,
+        # All of these variations are invalid myFRpy syntax,
         # so they are also invalid in f-strings as well.
         cases = [
             formatting.format(expr=expr)
@@ -1458,8 +1458,8 @@ x = (
             file_path = os.path.join(cwd, 't.py')
             with open(file_path, 'w', encoding="utf-8") as f:
                 f.write('f"{a b}"') # This generates a SyntaxError
-            _, _, stderr = assert_python_failure(file_path,
-                                                 PYTHONIOENCODING='ascii')
+            _, _, stderr = assert_myFRpy_failure(file_path,
+                                                 MYFRPYIOENCODING='ascii')
         self.assertIn(file_path.encode('ascii', 'backslashreplace'), stderr)
 
     def test_loop(self):
@@ -1676,7 +1676,7 @@ print(f'''{{
 3
 =}}''')""")
 
-            _, stdout, _ = assert_python_ok(script)
+            _, stdout, _ = assert_myFRpy_ok(script)
         self.assertEqual(stdout.decode('utf-8').strip().replace('\r\n', '\n').replace('\r', '\n'),
                          "3\n=3")
 
@@ -1686,7 +1686,7 @@ print(f'''{{
             with open(script, 'w') as f:
                 f.write(r"print(f'\{1}')")
 
-            _, stdout, stderr = assert_python_ok(script)
+            _, stdout, stderr = assert_myFRpy_ok(script)
             self.assertIn(rb'\1', stdout)
             self.assertEqual(len(stderr.strip().splitlines()), 2)
 

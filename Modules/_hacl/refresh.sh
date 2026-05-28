@@ -127,7 +127,7 @@ $sed -i -z 's!\(extern\|typedef\)[^;]*;\n\n!!g' include/krml/FStar_UInt_8_16_32_
 $sed -i 's!#include.*Hacl_Krmllib.h"!!g' "${all_files[@]}"
 
 # Use globally unique names for the Hacl_ C APIs to avoid linkage conflicts.
-$sed -i -z 's!#include <string.h>\n!#include <string.h>\n#include "python_hacl_namespaces.h"\n!' Hacl_Hash_*.h
+$sed -i -z 's!#include <string.h>\n!#include <string.h>\n#include "myFRpy_hacl_namespaces.h"\n!' Hacl_Hash_*.h
 
 # Finally, we remove a bunch of ifdefs from target.h that are, again, useful in
 # the general case, but not exercised by the subset of HACL* that we vendor.

@@ -1,6 +1,6 @@
 """curses
 
-The main package for curses support for Python.  Normally used by importing
+The main package for curses support for MyFRpy.  Normally used by importing
 the package, and perhaps a particular module inside it.
 
    import curses
@@ -48,7 +48,7 @@ def start_color():
         curses.COLOR_PAIRS = _curses.COLOR_PAIRS
     return retval
 
-# Import Python has_key() implementation if _curses doesn't contain has_key()
+# Import MyFRpy has_key() implementation if _curses doesn't contain has_key()
 
 try:
     has_key

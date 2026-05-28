@@ -15,7 +15,7 @@ the user of some condition in a program, where that condition (normally) doesn't
 warrant raising an exception and terminating the program.  For example, one
 might want to issue a warning when a program uses an obsolete module.
 
-Python programmers issue warnings by calling the :func:`warn` function defined
+MyFRpy programmers issue warnings by calling the :func:`warn` function defined
 in this module.  (C programmers use :c:func:`PyErr_WarnEx`; see
 :ref:`exceptionhandling` for details).
 
@@ -76,7 +76,7 @@ The following warnings category classes are currently defined:
 +----------------------------------+-----------------------------------------------+
 | :exc:`DeprecationWarning`        | Base category for warnings about deprecated   |
 |                                  | features when those warnings are intended for |
-|                                  | other Python developers (ignored by default,  |
+|                                  | other MyFRpy developers (ignored by default,  |
 |                                  | unless triggered by code in ``__main__``).    |
 +----------------------------------+-----------------------------------------------+
 | :exc:`SyntaxWarning`             | Base category for warnings about dubious      |
@@ -88,7 +88,7 @@ The following warnings category classes are currently defined:
 | :exc:`FutureWarning`             | Base category for warnings about deprecated   |
 |                                  | features when those warnings are intended for |
 |                                  | end users of applications that are written in |
-|                                  | Python.                                       |
+|                                  | MyFRpy.                                       |
 +----------------------------------+-----------------------------------------------+
 | :exc:`PendingDeprecationWarning` | Base category for warnings about features     |
 |                                  | that will be deprecated in the future         |
@@ -155,7 +155,7 @@ the disposition of the match.  Each entry is a tuple of the form (*action*,
 
 * *message* is a string containing a regular expression that the start of
   the warning message must match, case-insensitively.  In :option:`-W` and
-  :envvar:`PYTHONWARNINGS`, *message* is a literal string that the start of the
+  :envvar:`MYFRPYWARNINGS`, *message* is a literal string that the start of the
   warning message must contain (case-insensitively), ignoring any whitespace at
   the start or end of *message*.
 
@@ -164,7 +164,7 @@ the disposition of the match.  Each entry is a tuple of the form (*action*,
 
 * *module* is a string containing a regular expression that the start of the
   fully qualified module name must match, case-sensitively.  In :option:`-W` and
-  :envvar:`PYTHONWARNINGS`, *module* is a literal string that the
+  :envvar:`MYFRPYWARNINGS`, *module* is a literal string that the
   fully qualified module name must be equal to (case-sensitively), ignoring any
   whitespace at the start or end of *module*.
 
@@ -183,8 +183,8 @@ If a warning is reported and doesn't match any registered filter then the
 Describing Warning Filters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The warnings filter is initialized by :option:`-W` options passed to the Python
-interpreter command line and the :envvar:`PYTHONWARNINGS` environment variable.
+The warnings filter is initialized by :option:`-W` options passed to the MyFRpy
+interpreter command line and the :envvar:`MYFRPYWARNINGS` environment variable.
 The interpreter saves the arguments for all supplied entries without
 interpretation in :data:`sys.warnoptions`; the :mod:`warnings` module parses these
 when it is first imported (invalid options are ignored, after printing a
@@ -197,7 +197,7 @@ colons::
 
 The meaning of each of these fields is as described in :ref:`warning-filter`.
 When listing multiple filters on a single line (as for
-:envvar:`PYTHONWARNINGS`), the individual filters are separated by commas and
+:envvar:`MYFRPYWARNINGS`), the individual filters are separated by commas and
 the filters listed later take precedence over those listed before them (as
 they're applied left-to-right, and the most recently applied filters take
 precedence over earlier ones).
@@ -220,8 +220,8 @@ Some examples::
 Default Warning Filter
 ~~~~~~~~~~~~~~~~~~~~~~
 
-By default, Python installs several warning filters, which can be overridden by
-the :option:`-W` command-line option, the :envvar:`PYTHONWARNINGS` environment
+By default, MyFRpy installs several warning filters, which can be overridden by
+the :option:`-W` command-line option, the :envvar:`MYFRPYWARNINGS` environment
 variable and calls to :func:`filterwarnings`.
 
 In regular release builds, the default warning filter has the following entries
@@ -254,7 +254,7 @@ In a :ref:`debug build <debug-build>`, the list of default warning filters is em
 Overriding the default filter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Developers of applications written in Python may wish to hide *all* Python level
+Developers of applications written in MyFRpy may wish to hide *all* MyFRpy level
 warnings from their users by default, and only display them when running tests
 or otherwise working on the application. The :data:`sys.warnoptions` attribute
 used to pass filter configurations to the interpreter can be used as a marker to
@@ -266,7 +266,7 @@ indicate whether or not warnings should be disabled::
         import warnings
         warnings.simplefilter("ignore")
 
-Developers of test runners for Python code are advised to instead ensure that
+Developers of test runners for MyFRpy code are advised to instead ensure that
 *all* warnings are displayed by default for the code under test, using code
 like::
 
@@ -275,7 +275,7 @@ like::
     if not sys.warnoptions:
         import os, warnings
         warnings.simplefilter("default") # Change the filter in this process
-        os.environ["PYTHONWARNINGS"] = "default" # Also affect subprocesses
+        os.environ["MYFRPYWARNINGS"] = "default" # Also affect subprocesses
 
 Finally, developers of interactive shells that run user code in a namespace
 other than ``__main__`` are advised to ensure that :exc:`DeprecationWarning`
@@ -367,8 +367,8 @@ entries from the warnings list before each new operation).
 Updating Code For New Versions of Dependencies
 ----------------------------------------------
 
-Warning categories that are primarily of interest to Python developers (rather
-than end users of applications written in Python) are ignored by default.
+Warning categories that are primarily of interest to MyFRpy developers (rather
+than end users of applications written in MyFRpy) are ignored by default.
 
 Notably, this "ignored by default" list includes :exc:`DeprecationWarning`
 (for every module except ``__main__``), which means developers should make sure
@@ -381,8 +381,8 @@ will take care of implicitly enabling all warnings when running tests
 (the test runner provided by the :mod:`unittest` module does this).
 
 In less ideal cases, applications can be checked for use of deprecated
-interfaces by passing :option:`-Wd <-W>` to the Python interpreter (this is
-shorthand for :option:`!-W default`) or setting ``PYTHONWARNINGS=default`` in
+interfaces by passing :option:`-Wd <-W>` to the MyFRpy interpreter (this is
+shorthand for :option:`!-W default`) or setting ``MYFRPYWARNINGS=default`` in
 the environment. This enables default handling for all warnings, including those
 that are ignored by default. To change what action is taken for encountered
 warnings you can change what argument is passed to :option:`-W` (e.g.
@@ -405,7 +405,7 @@ Available Functions
    In this case, the message text will be ``str(message)``. This function raises an
    exception if the particular warning issued is changed into an error by the
    :ref:`warnings filter <warning-filter>`.  The *stacklevel* argument can be used by wrapper
-   functions written in Python, like this::
+   functions written in MyFRpy, like this::
 
       def deprecated_api(message):
           warnings.warn(message, DeprecationWarning, stacklevel=2)

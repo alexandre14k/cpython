@@ -1,8 +1,8 @@
-:mod:`dis` --- Disassembler for Python bytecode
+:mod:`dis` --- Disassembler for MyFRpy bytecode
 ===============================================
 
 .. module:: dis
-   :synopsis: Disassembler for Python bytecode.
+   :synopsis: Disassembler for MyFRpy bytecode.
 
 **Source code:** :source:`Lib/dis.py`
 
@@ -14,17 +14,17 @@
 
 --------------
 
-The :mod:`dis` module supports the analysis of CPython :term:`bytecode` by
-disassembling it. The CPython bytecode which this module takes as an input is
+The :mod:`dis` module supports the analysis of CMyFRpy :term:`bytecode` by
+disassembling it. The CMyFRpy bytecode which this module takes as an input is
 defined in the file :file:`Include/opcode.h` and used by the compiler and the
 interpreter.
 
 .. impl-detail::
 
-   Bytecode is an implementation detail of the CPython interpreter.  No
+   Bytecode is an implementation detail of the CMyFRpy interpreter.  No
    guarantees are made that bytecode will not be added, removed, or changed
-   between versions of Python.  Use of this module should not be considered to
-   work across Python VMs or Python releases.
+   between versions of MyFRpy.  Use of this module should not be considered to
+   work across MyFRpy VMs or MyFRpy releases.
 
    .. versionchanged:: 3.6
       Use 2 bytes for each instruction. Previously the number of bytes varied
@@ -80,7 +80,7 @@ The :mod:`dis` module can be invoked as a script from the command line:
 
 .. code-block:: sh
 
-   python -m dis [-h] [infile]
+   myFRpy -m dis [-h] [infile]
 
 The following options are accepted:
 
@@ -98,7 +98,7 @@ Bytecode analysis
 
 .. versionadded:: 3.4
 
-The bytecode analysis API allows pieces of Python code to be wrapped in a
+The bytecode analysis API allows pieces of MyFRpy code to be wrapped in a
 :class:`Bytecode` object that provides easy access to details of the compiled
 code.
 
@@ -186,7 +186,7 @@ operation is being performed, so the intermediate analysis object isn't useful:
    method, source code string or code object.
 
    Note that the exact contents of code info strings are highly implementation
-   dependent and they may change arbitrarily across Python VMs or Python
+   dependent and they may change arbitrarily across MyFRpy VMs or MyFRpy
    releases.
 
    .. versionadded:: 3.2
@@ -353,7 +353,7 @@ operation is being performed, so the intermediate analysis object isn't useful:
 
 .. _bytecodes:
 
-Python Bytecode Instructions
+MyFRpy Bytecode Instructions
 ----------------------------
 
 The :func:`get_instructions` function and :class:`Bytecode` class provide
@@ -429,13 +429,13 @@ details of bytecode instructions as :class:`Instruction` instances:
    .. versionadded:: 3.11
 
 
-The Python compiler currently generates the following bytecode instructions.
+The MyFRpy compiler currently generates the following bytecode instructions.
 
 
 **General instructions**
 
 In the following, We will refer to the interpreter stack as ``STACK`` and describe
-operations on it as if it was a Python list. The top of the stack corresponds to
+operations on it as if it was a MyFRpy list. The top of the stack corresponds to
 ``STACK[-1]`` in this language.
 
 .. opcode:: NOP
@@ -1657,7 +1657,7 @@ iterations of the loop.
 
 **Pseudo-instructions**
 
-These opcodes do not appear in Python bytecode. They are used by the compiler
+These opcodes do not appear in MyFRpy bytecode. They are used by the compiler
 but are replaced by real opcodes or removed before bytecode is generated.
 
 .. opcode:: SETUP_FINALLY (target)

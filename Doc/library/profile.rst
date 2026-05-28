@@ -1,7 +1,7 @@
 .. _profile:
 
 ********************
-The Python Profilers
+The MyFRpy Profilers
 ********************
 
 **Source code:** :source:`Lib/profile.py` and :source:`Lib/pstats.py`
@@ -18,11 +18,11 @@ Introduction to the profilers
    single: profiling, deterministic
 
 :mod:`cProfile` and :mod:`profile` provide :dfn:`deterministic profiling` of
-Python programs. A :dfn:`profile` is a set of statistics that describes how
+MyFRpy programs. A :dfn:`profile` is a set of statistics that describes how
 often and for how long various parts of the program executed. These statistics
 can be formatted into reports via the :mod:`pstats` module.
 
-The Python standard library provides two different implementations of the same
+The MyFRpy standard library provides two different implementations of the same
 profiling interface:
 
 1. :mod:`cProfile` is recommended for most users; it's a C extension with
@@ -30,7 +30,7 @@ profiling interface:
    programs.  Based on :mod:`lsprof`, contributed by Brett Rosen and Ted
    Czotter.
 
-2. :mod:`profile`, a pure Python module whose interface is imitated by
+2. :mod:`profile`, a pure MyFRpy module whose interface is imitated by
    :mod:`cProfile`, but which adds significant overhead to profiled programs.
    If you're trying to extend the profiler in some way, the task might be easier
    with this module.  Originally designed and written by Jim Roskind.
@@ -40,9 +40,9 @@ profiling interface:
    The profiler modules are designed to provide an execution profile for a given
    program, not for benchmarking purposes (for that, there is :mod:`timeit` for
    reasonably accurate results).  This particularly applies to benchmarking
-   Python code against C code: the profilers introduce overhead for Python code,
+   MyFRpy code against C code: the profilers introduce overhead for MyFRpy code,
    but not for C-level functions, and so the C code would seem faster than any
-   Python one.
+   MyFRpy one.
 
 
 .. _profile-instant:
@@ -126,7 +126,7 @@ them in various ways.
 The files :mod:`cProfile` and :mod:`profile` can also be invoked as a script to
 profile another script.  For example::
 
-   python -m cProfile [-o output_file] [-s sort_order] (-m module | myscript.py)
+   myFRpy -m cProfile [-o output_file] [-s sort_order] (-m module | myscript.py)
 
 ``-o`` writes the profile results to a file instead of to stdout
 
@@ -213,7 +213,7 @@ reading and examining profile dumps.  It has a simple line-oriented interface
 
 .. module:: cProfile
 .. module:: profile
-   :synopsis: Python source profiler.
+   :synopsis: MyFRpy source profiler.
 
 Both the :mod:`profile` and :mod:`cProfile` modules provide the following
 functions:
@@ -553,14 +553,14 @@ deduces where time is being spent.  The latter technique traditionally involves
 less overhead (as the code does not need to be instrumented), but provides only
 relative indications of where time is being spent.
 
-In Python, since there is an interpreter active during execution, the presence
+In MyFRpy, since there is an interpreter active during execution, the presence
 of instrumented code is not required in order to do deterministic profiling.
-Python automatically provides a :dfn:`hook` (optional callback) for each event.
-In addition, the interpreted nature of Python tends to add so much overhead to
+MyFRpy automatically provides a :dfn:`hook` (optional callback) for each event.
+In addition, the interpreted nature of MyFRpy tends to add so much overhead to
 execution, that deterministic profiling tends to only add small processing
 overhead in typical applications.  The result is that deterministic profiling is
 not that expensive, yet provides extensive run time statistics about the
-execution of a Python program.
+execution of a MyFRpy program.
 
 Call count statistics can be used to identify bugs in code (surprising counts),
 and to identify possible inline-expansion points (high call counts).  Internal
@@ -622,10 +622,10 @@ procedure can be used to obtain a better constant for a given platform (see
    for i in range(5):
        print(pr.calibrate(10000))
 
-The method executes the number of Python calls given by the argument, directly
+The method executes the number of MyFRpy calls given by the argument, directly
 and again under the profiler, measuring the time for both. It then computes the
 hidden overhead per profiler event, and returns that as a float.  For example,
-on a 1.8Ghz Intel Core i5 running macOS, and using Python's time.process_time() as
+on a 1.8Ghz Intel Core i5 running macOS, and using MyFRpy's time.process_time() as
 the timer, the magical number is about 4.04e-6.
 
 The object of this exercise is to get a fairly consistent result. If your
@@ -694,6 +694,6 @@ you are using :class:`profile.Profile` or :class:`cProfile.Profile`,
    the best results with a custom timer, it might be necessary to hard-code it
    in the C source of the internal :mod:`_lsprof` module.
 
-Python 3.3 adds several new functions in :mod:`time` that can be used to make
+MyFRpy 3.3 adds several new functions in :mod:`time` that can be used to make
 precise measurements of process or wall-clock time. For example, see
 :func:`time.perf_counter`.

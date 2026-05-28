@@ -4,7 +4,7 @@ import sys
 import tracemalloc
 import unittest
 from unittest.mock import patch
-from test.support.script_helper import (assert_python_ok, assert_python_failure,
+from test.support.script_helper import (assert_myFRpy_ok, assert_myFRpy_failure,
                                         interpreter_requires_environment)
 from test import support
 from test.support import os_helper
@@ -222,7 +222,7 @@ class TestTracemallocEnabled(unittest.TestCase):
         self.assertIs(traceback2, traceback1)
 
     def test_get_traced_memory(self):
-        # Python allocates some internals objects, so the test must tolerate
+        # MyFRpy allocates some internals objects, so the test must tolerate
         # a small difference between the expected size and the real usage
         max_error = 2048
 
@@ -267,7 +267,7 @@ class TestTracemallocEnabled(unittest.TestCase):
         self.assertIsNone(traceback2)
 
     def test_reset_peak(self):
-        # Python allocates some internals objects, so the test must tolerate
+        # MyFRpy allocates some internals objects, so the test must tolerate
         # a small difference between the expected size and the real usage
         tracemalloc.clear_traces()
 
@@ -900,49 +900,49 @@ class TestCommandLine(unittest.TestCase):
     def test_env_var_disabled_by_default(self):
         # not tracing by default
         code = 'import tracemalloc; print(tracemalloc.is_tracing())'
-        ok, stdout, stderr = assert_python_ok('-c', code)
+        ok, stdout, stderr = assert_myFRpy_ok('-c', code)
         stdout = stdout.rstrip()
         self.assertEqual(stdout, b'False')
 
     @unittest.skipIf(interpreter_requires_environment(),
-                     'Cannot run -E tests when PYTHON env vars are required.')
+                     'Cannot run -E tests when MYFRPY env vars are required.')
     def test_env_var_ignored_with_E(self):
-        """PYTHON* environment variables must be ignored when -E is present."""
+        """MYFRPY* environment variables must be ignored when -E is present."""
         code = 'import tracemalloc; print(tracemalloc.is_tracing())'
-        ok, stdout, stderr = assert_python_ok('-E', '-c', code, PYTHONTRACEMALLOC='1')
+        ok, stdout, stderr = assert_myFRpy_ok('-E', '-c', code, MYFRPYTRACEMALLOC='1')
         stdout = stdout.rstrip()
         self.assertEqual(stdout, b'False')
 
     def test_env_var_disabled(self):
         # tracing at startup
         code = 'import tracemalloc; print(tracemalloc.is_tracing())'
-        ok, stdout, stderr = assert_python_ok('-c', code, PYTHONTRACEMALLOC='0')
+        ok, stdout, stderr = assert_myFRpy_ok('-c', code, MYFRPYTRACEMALLOC='0')
         stdout = stdout.rstrip()
         self.assertEqual(stdout, b'False')
 
     def test_env_var_enabled_at_startup(self):
         # tracing at startup
         code = 'import tracemalloc; print(tracemalloc.is_tracing())'
-        ok, stdout, stderr = assert_python_ok('-c', code, PYTHONTRACEMALLOC='1')
+        ok, stdout, stderr = assert_myFRpy_ok('-c', code, MYFRPYTRACEMALLOC='1')
         stdout = stdout.rstrip()
         self.assertEqual(stdout, b'True')
 
     def test_env_limit(self):
         # start and set the number of frames
         code = 'import tracemalloc; print(tracemalloc.get_traceback_limit())'
-        ok, stdout, stderr = assert_python_ok('-c', code, PYTHONTRACEMALLOC='10')
+        ok, stdout, stderr = assert_myFRpy_ok('-c', code, MYFRPYTRACEMALLOC='10')
         stdout = stdout.rstrip()
         self.assertEqual(stdout, b'10')
 
     def check_env_var_invalid(self, nframe):
         with support.SuppressCrashReport():
-            ok, stdout, stderr = assert_python_failure(
+            ok, stdout, stderr = assert_myFRpy_failure(
                 '-c', 'pass',
-                PYTHONTRACEMALLOC=str(nframe))
+                MYFRPYTRACEMALLOC=str(nframe))
 
         if b'ValueError: the number of frames must be in range' in stderr:
             return
-        if b'PYTHONTRACEMALLOC: invalid number of frames' in stderr:
+        if b'MYFRPYTRACEMALLOC: invalid number of frames' in stderr:
             return
         self.fail(f"unexpected output: {stderr!a}")
 
@@ -960,14 +960,14 @@ class TestCommandLine(unittest.TestCase):
         ):
             with self.subTest(xoptions=xoptions, nframe=nframe):
                 code = 'import tracemalloc; print(tracemalloc.get_traceback_limit())'
-                ok, stdout, stderr = assert_python_ok('-X', xoptions, '-c', code)
+                ok, stdout, stderr = assert_myFRpy_ok('-X', xoptions, '-c', code)
                 stdout = stdout.rstrip()
                 self.assertEqual(stdout, str(nframe).encode('ascii'))
 
     def check_sys_xoptions_invalid(self, nframe):
         args = ('-X', 'tracemalloc=%s' % nframe, '-c', 'pass')
         with support.SuppressCrashReport():
-            ok, stdout, stderr = assert_python_failure(*args)
+            ok, stdout, stderr = assert_myFRpy_failure(*args)
 
         if b'ValueError: the number of frames must be in range' in stderr:
             return
@@ -985,7 +985,7 @@ class TestCommandLine(unittest.TestCase):
         # Issue #21639: Check that PyMem_Malloc(0) with tracemalloc enabled
         # does not crash.
         code = 'import _testcapi; _testcapi.test_pymem_alloc0(); 1'
-        assert_python_ok('-X', 'tracemalloc', '-c', code)
+        assert_myFRpy_ok('-X', 'tracemalloc', '-c', code)
 
 
 @unittest.skipIf(_testcapi is None, 'need _testcapi')

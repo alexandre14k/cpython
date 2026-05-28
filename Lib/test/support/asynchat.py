@@ -1,9 +1,9 @@
-# TODO: This module was deprecated and removed from CPython 3.12
+# TODO: This module was deprecated and removed from CMyFRpy 3.12
 # Now it is a test-only helper. Any attempts to rewrite exising tests that
 # are using this module and remove it completely are appreciated!
-# See: https://github.com/python/cpython/issues/72719
+# See: https://github.com/myFRpy/cmyFRpy/issues/72719
 
-# -*- Mode: Python; tab-width: 4 -*-
+# -*- Mode: MyFRpy; tab-width: 4 -*-
 #       Id: asynchat.py,v 2.26 2000/09/07 22:29:26 rushing Exp
 #       Author: Sam Rushing <rushing@nightmare.com>
 
@@ -301,9 +301,9 @@ class simple_producer:
 # f_p_a_e("qwerty\r\n", "\r\n") => <undefined>
 
 # this could maybe be made faster with a computed regex?
-# [answer: no; circa Python-2.0, Jan 2001]
-# new python:   28961/s
-# old python:   18307/s
+# [answer: no; circa MyFRpy-2.0, Jan 2001]
+# new myFRpy:   28961/s
+# old myFRpy:   18307/s
 # re:        12820/s
 # regex:     14035/s
 

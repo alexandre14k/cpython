@@ -3,11 +3,11 @@ List sort performance test.
 
 To install `pyperf` you would need to:
 
-    python3 -m pip install pyperf
+    myFRpy3 -m pip install pyperf
 
 To run:
 
-    python3 Tools/scripts/sortperf
+    myFRpy3 Tools/scripts/sortperf
 
 Options:
 
@@ -15,7 +15,7 @@ Options:
     * `--rnd-seed` to set random seed
     * `--size` to set the sorted list size
 
-Based on https://github.com/python/cpython/blob/963904335e579bfe39101adf3fd6a0cf705975ff/Lib/test/sortperf.py
+Based on https://github.com/myFRpy/cmyFRpy/blob/963904335e579bfe39101adf3fd6a0cf705975ff/Lib/test/sortperf.py
 """
 
 from __future__ import annotations

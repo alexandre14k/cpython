@@ -388,7 +388,7 @@ def mock_path_hook(*entries, importer):
 class CASEOKTestBase:
 
     def caseok_env_changed(self, *, should_exist):
-        possibilities = b'PYTHONCASEOK', 'PYTHONCASEOK'
+        possibilities = b'MYFRPYCASEOK', 'MYFRPYCASEOK'
         if any(x in self.importlib._bootstrap_external._os.environ
                     for x in possibilities) != should_exist:
             self.skipTest('os.environ changes not reflected in _os.environ')

@@ -1,7 +1,7 @@
 
 /* Tuple object implementation */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_abstract.h"      // _PyIndex_Check()
 #include "pycore_gc.h"            // _PyObject_GC_IS_TRACKED()
 #include "pycore_initconfig.h"    // _PyStatus_OK()
@@ -55,7 +55,7 @@ tuple_alloc(Py_ssize_t size)
 }
 
 // The empty tuple singleton is not tracked by the GC.
-// It does not contain any Python object.
+// It does not contain any MyFRpy object.
 // Note that tuple subclasses have their own empty instances.
 
 static inline PyObject *
@@ -314,7 +314,7 @@ error:
 #endif
 
 /* Tests have shown that it's not worth to cache the hash value, see
-   https://bugs.python.org/issue9685 */
+   https://bugs.myFRpy.org/issue9685 */
 static Py_hash_t
 tuplehash(PyTupleObject *v)
 {

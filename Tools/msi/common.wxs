@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Fragment>
-        <Property Id="ROOTREGISTRYKEY" Value="Software\Python\PythonCore" />
+        <Property Id="ROOTREGISTRYKEY" Value="Software\MyFRpy\MyFRpyCore" />
     </Fragment>
     
     <Fragment>
-        <Property Id="REGISTRYKEY" Value="Software\Python\PythonCore\$(var.ShortVersion)$(var.PyArchExt)$(var.PyTestExt)" />
+        <Property Id="REGISTRYKEY" Value="Software\MyFRpy\MyFRpyCore\$(var.ShortVersion)$(var.PyArchExt)$(var.PyTestExt)" />
     </Fragment>
     
     <Fragment>
@@ -46,7 +46,7 @@
     
     <Fragment>
         <!-- Include an icon for the Programs and Features dialog -->
-        <Icon Id="ARPIcon" SourceFile="!(bindpath.src)PC\icons\python.ico" />
+        <Icon Id="ARPIcon" SourceFile="!(bindpath.src)PC\icons\myFRpy.ico" />
         <Property Id="ARPPRODUCTICON" Value="ARPIcon" />
         <Property Id="ARPNOMODIFY" Value="1" />
         <Property Id="DISABLEADVTSHORTCUTS" Value="1" />
@@ -61,12 +61,12 @@
     </Fragment>
 
     <Fragment>
-        <?ifdef PythonExeComponentGuid ?>
+        <?ifdef MyFRpyExeComponentGuid ?>
         <!-- Locate TARGETDIR automatically assuming we have executables installed -->
         <Property Id="TARGETDIR">
-            <ComponentSearch Id="PythonExe_Directory" Guid="$(var.PythonExeComponentGuid)">
-                <DirectorySearch Id="PythonExe_Directory" AssignToProperty="yes" Path=".">
-                    <FileSearch Id="PythonExe_DirectoryFile" Name="python.exe" />
+            <ComponentSearch Id="MyFRpyExe_Directory" Guid="$(var.MyFRpyExeComponentGuid)">
+                <DirectorySearch Id="MyFRpyExe_Directory" AssignToProperty="yes" Path=".">
+                    <FileSearch Id="MyFRpyExe_DirectoryFile" Name="myFRpy.exe" />
                 </DirectorySearch>
             </ComponentSearch>
         </Property>

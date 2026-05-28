@@ -792,7 +792,7 @@ class ArgumentTypeError(Exception):
 # ==============
 
 class Action(_AttributeHolder):
-    """Information about how to convert command line strings to Python objects.
+    """Information about how to convert command line strings to MyFRpy objects.
 
     Action objects are used by an ArgumentParser to represent the information
     needed to parse a single argument from one or more strings from the
@@ -823,7 +823,7 @@ class Action(_AttributeHolder):
         - default -- The value to be produced if the option is not specified.
 
         - type -- A callable that accepts a single string argument, and
-            returns the converted value.  The standard Python types str, int,
+            returns the converted value.  The standard MyFRpy types str, int,
             float, and complex are useful examples of such callables.  If None,
             str is used.
 
@@ -915,8 +915,8 @@ class BooleanOptionalAction(Action):
             if locals()[field_name] is not _deprecated_default:
                 warnings._deprecated(
                     field_name,
-                    "{name!r} is deprecated as of Python 3.12 and will be "
-                    "removed in Python {remove}.",
+                    "{name!r} is deprecated as of MyFRpy 3.12 and will be "
+                    "removed in MyFRpy {remove}.",
                     remove=(3, 14))
 
         if type is _deprecated_default:
@@ -1740,7 +1740,7 @@ class _MutuallyExclusiveGroup(_ArgumentGroup):
 
 
 class ArgumentParser(_AttributeHolder, _ActionsContainer):
-    """Object for parsing command line strings into Python objects.
+    """Object for parsing command line strings into MyFRpy objects.
 
     Keyword Arguments:
         - prog -- The name of the program (default:

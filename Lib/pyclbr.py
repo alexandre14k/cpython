@@ -1,11 +1,11 @@
-"""Parse a Python module and describe its classes and functions.
+"""Parse a MyFRpy module and describe its classes and functions.
 
-Parse enough of a Python file to recognize imports and class and
+Parse enough of a MyFRpy file to recognize imports and class and
 function definitions, and to find out the superclasses of a class.
 
 The interface consists of a single function:
     readmodule_ex(module, path=None)
-where module is the name of a Python module, and path is an optional
+where module is the name of a MyFRpy module, and path is an optional
 list of directories where the module is to be searched.  If present,
 path is prepended to the system search path sys.path.  The return value
 is a dictionary.  The keys of the dictionary are the names of the
@@ -51,7 +51,7 @@ _modules = {}  # Initialize cache of modules we've seen.
 
 
 class _Object:
-    "Information about Python class or function."
+    "Information about MyFRpy class or function."
     def __init__(self, module, name, file, lineno, end_lineno, parent):
         self.module = module
         self.name = name
@@ -66,7 +66,7 @@ class _Object:
 
 # Odd Function and Class signatures are for back-compatibility.
 class Function(_Object):
-    "Information about a Python function, including methods."
+    "Information about a MyFRpy function, including methods."
     def __init__(self, module, name, file, lineno,
                  parent=None, is_async=False, *, end_lineno=None):
         super().__init__(module, name, file, lineno, end_lineno, parent)
@@ -76,7 +76,7 @@ class Function(_Object):
 
 
 class Class(_Object):
-    "Information about a Python class."
+    "Information about a MyFRpy class."
     def __init__(self, module, name, super_, file, lineno,
                  parent=None, *, end_lineno=None):
         super().__init__(module, name, file, lineno, end_lineno, parent)
@@ -173,7 +173,7 @@ def _readmodule(module, path, inpackage=None):
     try:
         source = spec.loader.get_source(fullmodule)
     except (AttributeError, ImportError):
-        # If module is not Python source, we cannot do anything.
+        # If module is not MyFRpy source, we cannot do anything.
         return tree
     else:
         if source is None:

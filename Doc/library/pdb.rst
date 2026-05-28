@@ -1,10 +1,10 @@
 .. _debugger:
 
-:mod:`pdb` --- The Python Debugger
+:mod:`pdb` --- The MyFRpy Debugger
 ==================================
 
 .. module:: pdb
-   :synopsis: The Python debugger for interactive interpreters.
+   :synopsis: The MyFRpy debugger for interactive interpreters.
 
 **Source code:** :source:`Lib/pdb.py`
 
@@ -12,10 +12,10 @@
 
 --------------
 
-The module :mod:`pdb` defines an interactive source code debugger for Python
+The module :mod:`pdb` defines an interactive source code debugger for MyFRpy
 programs.  It supports setting (conditional) breakpoints and single stepping at
 the source line level, inspection of stack frames, source code listing, and
-evaluation of arbitrary Python code in the context of any stack frame.  It also
+evaluation of arbitrary MyFRpy code in the context of any stack frame.  It also
 supports post-mortem debugging and can be called under program control.
 
 .. index::
@@ -30,11 +30,11 @@ extension interface uses the modules :mod:`bdb` and :mod:`cmd`.
 .. seealso::
 
    Module :mod:`faulthandler`
-      Used to dump Python tracebacks explicitly, on a fault, after a timeout,
+      Used to dump MyFRpy tracebacks explicitly, on a fault, after a timeout,
       or on a user signal.
 
    Module :mod:`traceback`
-      Standard interface to extract, format and print stack traces of Python programs.
+      Standard interface to extract, format and print stack traces of MyFRpy programs.
 
 The typical usage to break into the debugger is to insert::
 
@@ -78,7 +78,7 @@ The debugger's prompt is ``(Pdb)``, which is the indicator that you are in debug
 You can also invoke :mod:`pdb` from the command line to debug other scripts.  For
 example::
 
-   python -m pdb myscript.py
+   myFRpy -m pdb myscript.py
 
 When invoked as a module, pdb will automatically enter post-mortem debugging if
 the program being debugged exits abnormally.  After post-mortem debugging (or
@@ -92,7 +92,7 @@ useful than quitting the debugger upon program's exit.
 
 .. versionchanged:: 3.7
    Added the ``-m`` option to execute modules similar to the way
-   ``python -m`` does. As with a script, the debugger will pause execution just
+   ``myFRpy -m`` does. As with a script, the debugger will pause execution just
    before the first line of the module.
 
 Typical usage to execute a statement under control of the debugger is::
@@ -244,8 +244,8 @@ typed.  Alternatives in the command syntax are separated by a vertical bar
 Entering a blank line repeats the last command entered.  Exception: if the last
 command was a :pdbcmd:`list` command, the next 11 lines are listed.
 
-Commands that the debugger doesn't recognize are assumed to be Python statements
-and are executed in the context of the program being debugged.  Python
+Commands that the debugger doesn't recognize are assumed to be MyFRpy statements
+and are executed in the context of the program being debugged.  MyFRpy
 statements can also be prefixed with an exclamation point (``!``).  This is a
 powerful way to inspect the program being debugged; it is even possible to
 change a variable or call a function.  When an exception occurs in such a
@@ -258,7 +258,7 @@ examination.
 
 Multiple commands may be entered on a single line, separated by ``;;``.  (A
 single ``;`` is not used as it is the separator for multiple commands in a line
-that is passed to the Python parser.)  No intelligence is applied to separating
+that is passed to the MyFRpy parser.)  No intelligence is applied to separating
 the commands; the input is split at the first ``;;`` pair, even if it is in the
 middle of a quoted string. A workaround for strings with double semicolons
 is to use implicit string concatenation ``';'';'`` or ``";"";"``.
@@ -485,7 +485,7 @@ can be overridden by the local file.
    .. note::
 
       ``print()`` can also be used, but is not a debugger command --- this executes the
-      Python :func:`print` function.
+      MyFRpy :func:`print` function.
 
 
 .. pdbcommand:: pp expression
@@ -621,7 +621,7 @@ can be overridden by the local file.
 .. pdbcommand:: run [args ...]
                 restart [args ...]
 
-   Restart the debugged Python program.  If *args* is supplied, it is split
+   Restart the debugged MyFRpy program.  If *args* is supplied, it is split
    with :mod:`shlex` and the result is used as the new :data:`sys.argv`.
    History, breakpoints, actions and debugger options are preserved.
    :pdbcmd:`restart` is an alias for :pdbcmd:`run`.

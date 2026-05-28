@@ -1,8 +1,8 @@
-:mod:`runpy` --- Locating and executing Python modules
+:mod:`runpy` --- Locating and executing MyFRpy modules
 ======================================================
 
 .. module:: runpy
-   :synopsis: Locate and run Python modules without importing them first.
+   :synopsis: Locate and run MyFRpy modules without importing them first.
 
 .. moduleauthor:: Nick Coghlan <ncoghlan@gmail.com>
 
@@ -10,9 +10,9 @@
 
 --------------
 
-The :mod:`runpy` module is used to locate and run Python modules without
+The :mod:`runpy` module is used to locate and run MyFRpy modules without
 importing them first. Its main use is to implement the :option:`-m` command
-line switch that allows scripts to be located using the Python module
+line switch that allows scripts to be located using the MyFRpy module
 namespace rather than the filesystem.
 
 Note that this is *not* a sandbox module - all code is executed in the
@@ -104,8 +104,8 @@ The :mod:`runpy` module provides two functions:
       pair: module; __main__
 
    Execute the code at the named filesystem location and return the resulting
-   module globals dictionary. As with a script name supplied to the CPython
-   command line, the supplied path may refer to a Python source file, a
+   module globals dictionary. As with a script name supplied to the CMyFRpy
+   command line, the supplied path may refer to a MyFRpy source file, a
    compiled bytecode file or a valid :data:`sys.path` entry containing a
    :mod:`__main__` module
    (e.g. a zipfile containing a top-level ``__main__.py`` file).
@@ -159,7 +159,7 @@ The :mod:`runpy` module provides two functions:
 
    .. seealso::
       :ref:`using-on-interface-options` for equivalent functionality on the
-      command line (``python path/to/script``).
+      command line (``myFRpy path/to/script``).
 
    .. versionadded:: 3.2
 
@@ -184,6 +184,6 @@ The :mod:`runpy` module provides two functions:
    :pep:`451` -- A ModuleSpec Type for the Import System
       PEP written and implemented by Eric Snow
 
-   :ref:`using-on-general` - CPython command line details
+   :ref:`using-on-general` - CMyFRpy command line details
 
    The :func:`importlib.import_module` function

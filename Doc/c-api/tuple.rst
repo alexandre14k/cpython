@@ -10,13 +10,13 @@ Tuple Objects
 
 .. c:type:: PyTupleObject
 
-   This subtype of :c:type:`PyObject` represents a Python tuple object.
+   This subtype of :c:type:`PyObject` represents a MyFRpy tuple object.
 
 
 .. c:var:: PyTypeObject PyTuple_Type
 
-   This instance of :c:type:`PyTypeObject` represents the Python tuple type; it
-   is the same object as :class:`tuple` in the Python layer.
+   This instance of :c:type:`PyTypeObject` represents the MyFRpy tuple type; it
+   is the same object as :class:`tuple` in the MyFRpy layer.
 
 
 .. c:function:: int PyTuple_Check(PyObject *p)
@@ -39,7 +39,7 @@ Tuple Objects
 .. c:function:: PyObject* PyTuple_Pack(Py_ssize_t n, ...)
 
    Return a new tuple object of size *n*, or ``NULL`` on failure. The tuple values
-   are initialized to the subsequent *n* C arguments pointing to Python objects.
+   are initialized to the subsequent *n* C arguments pointing to MyFRpy objects.
    ``PyTuple_Pack(2, a, b)`` is equivalent to ``Py_BuildValue("(OO)", a, b)``.
 
 
@@ -68,7 +68,7 @@ Tuple Objects
 .. c:function:: PyObject* PyTuple_GetSlice(PyObject *p, Py_ssize_t low, Py_ssize_t high)
 
    Return the slice of the tuple pointed to by *p* between *low* and *high*,
-   or ``NULL`` on failure.  This is the equivalent of the Python expression
+   or ``NULL`` on failure.  This is the equivalent of the MyFRpy expression
    ``p[low:high]``.  Indexing from the end of the tuple is not supported.
 
 
@@ -158,7 +158,7 @@ type.
 
    .. c:member:: int n_in_sequence
 
-      Number of fields visible to the Python side (if used as tuple).
+      Number of fields visible to the MyFRpy side (if used as tuple).
 
 
 .. c:type:: PyStructSequence_Field

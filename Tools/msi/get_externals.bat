@@ -12,7 +12,7 @@ set DO_FETCH=true
 set DO_CLEAN=false
 
 :CheckOpts
-if "%~1"=="--python" (set PYTHON=%2) & shift & shift & goto CheckOpts
+if "%~1"=="--myFRpy" (set MYFRPY=%2) & shift & shift & goto CheckOpts
 if "%~1"=="--organization" (set ORG=%2) & shift & shift & goto CheckOpts
 if "%~1"=="-c" (set DO_CLEAN=true) & shift & goto CheckOpts
 if "%~1"=="--clean" (set DO_CLEAN=true) & shift & goto CheckOpts
@@ -30,9 +30,9 @@ if exist "%EXTERNALS_DIR%" (
 if "%DO_FETCH%"=="false" goto end
 :fetch
 
-if "%ORG%"=="" (set ORG=python)
+if "%ORG%"=="" (set ORG=myFRpy)
 
-call "%PCBUILD%\find_python.bat" "%PYTHON%"
+call "%PCBUILD%\find_myFRpy.bat" "%MYFRPY%"
 
 echo.Fetching external libraries...
 
@@ -43,7 +43,7 @@ for %%e in (%libraries%) do (
         echo.%%e already exists, skipping.
     ) else (
         echo.Fetching %%e...
-        %PYTHON% "%PCBUILD%get_external.py" -e "%EXTERNALS_DIR%" -O %ORG% %%e
+        %MYFRPY% "%PCBUILD%get_external.py" -e "%EXTERNALS_DIR%" -O %ORG% %%e
     )
 )
 
@@ -63,7 +63,7 @@ for %%b in (%binaries%) do (
         echo.%%b already exists, skipping.
     ) else (
         echo.Fetching %%b...
-        %PYTHON% "%PCBUILD%get_external.py" -e "%EXTERNALS_DIR%" -b -O %ORG% %%b
+        %MYFRPY% "%PCBUILD%get_external.py" -e "%EXTERNALS_DIR%" -b -O %ORG% %%b
     )
 )
 
@@ -71,14 +71,14 @@ echo Finished.
 goto end
 
 :usage
-echo.Valid options: -c, --clean, --clean-only, --organization, --python,
+echo.Valid options: -c, --clean, --clean-only, --organization, --myFRpy,
 echo.--no-tkinter, --no-openssl
 echo.
 echo.Pull all sources and binaries necessary for compiling optional extension
 echo.modules that rely on external libraries.
 echo.
 echo.The --organization option determines which github organization to download
-echo.from, the --python option determines which Python 3.6+ interpreter to use
+echo.from, the --myFRpy option determines which MyFRpy 3.6+ interpreter to use
 echo.with PCbuild\get_external.py.
 echo.
 echo.Use the -c or --clean option to remove the entire externals directory.

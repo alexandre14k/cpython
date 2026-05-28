@@ -109,7 +109,7 @@ Here are the cases where we've taken shortcuts or made assumptions:
 
 """
 TODO:
-* extract CPython-specific code
+* extract CMyFRpy-specific code
 * drop include injection (or only add when needed)
 * track position instead of slicing "text"
 * Parser class instead of the _iter_source() mess
@@ -162,7 +162,7 @@ def _parse(srclines, anon_name, **srckwargs):
 
 
 # We use defaults that cover most files.  Files with bigger declarations
-# are covered elsewhere (MAX_SIZES in cpython/_parser.py).
+# are covered elsewhere (MAX_SIZES in cmyFRpy/_parser.py).
 
 def _iter_source(lines, *, maxtext=10_000, maxlines=200, showtext=False):
     maxtext = maxtext if maxtext and maxtext > 0 else None

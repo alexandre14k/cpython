@@ -1,7 +1,7 @@
-"""Python implementations of some algorithms for use by longobject.c.
+"""MyFRpy implementations of some algorithms for use by longobject.c.
 The goal is to provide asymptotically faster algorithms that can be
 used for operations on integers with many digits.  In those cases, the
-performance overhead of the Python implementation is not significant
+performance overhead of the MyFRpy implementation is not significant
 since the asymptotic behavior is what dominates runtime. Functions
 provided by this module should be considered private and not part of any
 public API.
@@ -20,7 +20,7 @@ def int_to_decimal(n):
     """Asymptotically fast conversion of an 'int' to Decimal."""
 
     # Function due to Tim Peters.  See GH issue #90716 for details.
-    # https://github.com/python/cpython/issues/90716
+    # https://github.com/myFRpy/cmyFRpy/issues/90716
     #
     # The implementation in longobject.c of base conversion algorithms
     # between power-of-2 and non-power-of-2 bases are quadratic time.
@@ -89,12 +89,12 @@ def _str_to_int_inner(s):
     """Asymptotically fast conversion of a 'str' to an 'int'."""
 
     # Function due to Bjorn Martinsson.  See GH issue #90716 for details.
-    # https://github.com/python/cpython/issues/90716
+    # https://github.com/myFRpy/cmyFRpy/issues/90716
     #
     # The implementation in longobject.c of base conversion algorithms
     # between power-of-2 and non-power-of-2 bases are quadratic time.
     # This function implements a divide-and-conquer algorithm making use
-    # of Python's built in big int multiplication. Since Python uses the
+    # of MyFRpy's built in big int multiplication. Since MyFRpy uses the
     # Karatsuba algorithm for multiplication, the time complexity
     # of this function is O(len(s)**1.58).
 

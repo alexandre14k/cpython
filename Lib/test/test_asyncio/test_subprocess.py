@@ -851,7 +851,7 @@ class SubprocessMixin:
             self.assertEqual(per_fd_events[fd], per_fd_expected, (fd, events))
 
     def test_subprocess_communicate_stdout(self):
-        # See https://github.com/python/cpython/issues/100133
+        # See https://github.com/myFRpy/cmyFRpy/issues/100133
         async def get_command_stdout(cmd, *args):
             proc = await asyncio.create_subprocess_exec(
                 cmd, *args, stdout=asyncio.subprocess.PIPE,

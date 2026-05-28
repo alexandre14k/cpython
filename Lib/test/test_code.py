@@ -138,10 +138,10 @@ try:
     import ctypes
 except ImportError:
     ctypes = None
-from test.support import (cpython_only,
+from test.support import (cmyFRpy_only,
                           check_impl_detail, requires_debug_ranges,
                           gc_collect)
-from test.support.script_helper import assert_python_ok
+from test.support.script_helper import assert_myFRpy_ok
 from test.support import threading_helper
 from opcode import opmap, opname
 COPY_FREE_VARS = opmap['COPY_FREE_VARS']
@@ -171,7 +171,7 @@ def external_getitem(self, i):
 
 class CodeTest(unittest.TestCase):
 
-    @cpython_only
+    @cmyFRpy_only
     def test_newempty(self):
         import _testcapi
         co = _testcapi.code_newempty("filename", "funcname", 15)
@@ -182,9 +182,9 @@ class CodeTest(unittest.TestCase):
         with self.assertRaises(Exception):
             exec(co)
 
-    @cpython_only
+    @cmyFRpy_only
     def test_closure_injection(self):
-        # From https://bugs.python.org/issue32176
+        # From https://bugs.myFRpy.org/issue32176
         from types import FunctionType
 
         def create_closure(__class__):
@@ -423,7 +423,7 @@ class CodeTest(unittest.TestCase):
                 assert column is None
                 assert end_column is None
             """)
-        assert_python_ok('-X', 'no_debug_ranges', '-c', code)
+        assert_myFRpy_ok('-X', 'no_debug_ranges', '-c', code)
 
     def test_endline_and_columntable_none_when_no_debug_ranges_env(self):
         # Same as above but using the environment variable opt out.
@@ -437,7 +437,7 @@ class CodeTest(unittest.TestCase):
                 assert column is None
                 assert end_column is None
             """)
-        assert_python_ok('-c', code, PYTHONNODEBUGRANGES='1')
+        assert_myFRpy_ok('-c', code, MYFRPYNODEBUGRANGES='1')
 
     # co_positions behavior when info is missing.
 
@@ -498,7 +498,7 @@ class CodeTest(unittest.TestCase):
         self.assertNotEqual(c, c1)
         self.assertNotEqual(hash(c), hash(c1))
 
-    @cpython_only
+    @cmyFRpy_only
     def test_code_equal_with_instrumentation(self):
         """ GH-109052
 
@@ -538,31 +538,31 @@ class CodeConstsTest(unittest.TestCase):
         if isinterned(s):
             self.fail('String %r is interned' % (s,))
 
-    @cpython_only
+    @cmyFRpy_only
     def test_interned_string(self):
         co = compile('res = "str_value"', '?', 'exec')
         v = self.find_const(co.co_consts, 'str_value')
         self.assertIsInterned(v)
 
-    @cpython_only
+    @cmyFRpy_only
     def test_interned_string_in_tuple(self):
         co = compile('res = ("str_value",)', '?', 'exec')
         v = self.find_const(co.co_consts, ('str_value',))
         self.assertIsInterned(v[0])
 
-    @cpython_only
+    @cmyFRpy_only
     def test_interned_string_in_frozenset(self):
         co = compile('res = a in {"str_value"}', '?', 'exec')
         v = self.find_const(co.co_consts, frozenset(('str_value',)))
         self.assertIsInterned(tuple(v)[0])
 
-    @cpython_only
+    @cmyFRpy_only
     def test_interned_string_default(self):
         def f(a='str_value'):
             return a
         self.assertIsInterned(f())
 
-    @cpython_only
+    @cmyFRpy_only
     def test_interned_string_with_null(self):
         co = compile(r'res = "str\0value!"', '?', 'exec')
         v = self.find_const(co.co_consts, 'str\0value!')
@@ -594,7 +594,7 @@ class CodeWeakRefTest(unittest.TestCase):
         self.assertFalse(bool(coderef()))
         self.assertTrue(self.called)
 
-# Python implementation of location table parsing algorithm
+# MyFRpy implementation of location table parsing algorithm
 def read(it):
     return next(it)
 
@@ -740,7 +740,7 @@ class CodeLocationTest(unittest.TestCase):
         self.check_lines(misshappen)
         self.check_lines(bug93662)
 
-    @cpython_only
+    @cmyFRpy_only
     def test_code_new_empty(self):
         # If this test fails, it means that the construction of PyCode_NewEmpty
         # needs to be modified! Please update this test *and* PyCode_NewEmpty,
@@ -774,8 +774,8 @@ class CodeLocationTest(unittest.TestCase):
         )
 
 
-if check_impl_detail(cpython=True) and ctypes is not None:
-    py = ctypes.pythonapi
+if check_impl_detail(cmyFRpy=True) and ctypes is not None:
+    py = ctypes.myFRpyapi
     freefunc = ctypes.CFUNCTYPE(None,ctypes.c_voidp)
 
     RequestCodeExtraIndex = py.PyUnstable_Eval_RequestCodeExtraIndex

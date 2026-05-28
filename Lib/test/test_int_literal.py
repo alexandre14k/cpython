@@ -36,7 +36,7 @@ class TestHexOctBin(unittest.TestCase):
         self.assertEqual(-(0x80000000), -2147483648)
         self.assertEqual(-(0xffffffff), -4294967295)
         # Ditto with a minus sign and NO parentheses
-        # This failed in Python 2.2 through 2.2.2 and in 2.3a1
+        # This failed in MyFRpy 2.2 through 2.2.2 and in 2.3a1
         self.assertEqual(-0x80000000, -2147483648)
         self.assertEqual(-0xffffffff, -4294967295)
 
@@ -47,7 +47,7 @@ class TestHexOctBin(unittest.TestCase):
         self.assertEqual(-(0x8000000000000000), -9223372036854775808)
         self.assertEqual(-(0xffffffffffffffff), -18446744073709551615)
         # Ditto with a minus sign and NO parentheses
-        # This failed in Python 2.2 through 2.2.2 and in 2.3a1
+        # This failed in MyFRpy 2.2 through 2.2.2 and in 2.3a1
         self.assertEqual(-0x8000000000000000, -9223372036854775808)
         self.assertEqual(-0xffffffffffffffff, -18446744073709551615)
 
@@ -80,7 +80,7 @@ class TestHexOctBin(unittest.TestCase):
         self.assertEqual(-(0o20000000000), -2147483648)
         self.assertEqual(-(0o37777777777), -4294967295)
         # Ditto with a minus sign and NO parentheses
-        # This failed in Python 2.2 through 2.2.2 and in 2.3a1
+        # This failed in MyFRpy 2.2 through 2.2.2 and in 2.3a1
         self.assertEqual(-0o20000000000, -2147483648)
         self.assertEqual(-0o37777777777, -4294967295)
 
@@ -91,7 +91,7 @@ class TestHexOctBin(unittest.TestCase):
         self.assertEqual(-(0o1000000000000000000000), -9223372036854775808)
         self.assertEqual(-(0o1777777777777777777777), -18446744073709551615)
         # Ditto with a minus sign and NO parentheses
-        # This failed in Python 2.2 through 2.2.2 and in 2.3a1
+        # This failed in MyFRpy 2.2 through 2.2.2 and in 2.3a1
         self.assertEqual(-0o1000000000000000000000, -9223372036854775808)
         self.assertEqual(-0o1777777777777777777777, -18446744073709551615)
 
@@ -124,7 +124,7 @@ class TestHexOctBin(unittest.TestCase):
         self.assertEqual(-(0b10000000000000000000000000000000), -2147483648)
         self.assertEqual(-(0b11111111111111111111111111111111), -4294967295)
         # Ditto with a minus sign and NO parentheses
-        # This failed in Python 2.2 through 2.2.2 and in 2.3a1
+        # This failed in MyFRpy 2.2 through 2.2.2 and in 2.3a1
         self.assertEqual(-0b10000000000000000000000000000000, -2147483648)
         self.assertEqual(-0b11111111111111111111111111111111, -4294967295)
 
@@ -135,7 +135,7 @@ class TestHexOctBin(unittest.TestCase):
         self.assertEqual(-(0b1000000000000000000000000000000000000000000000000000000000000000), -9223372036854775808)
         self.assertEqual(-(0b1111111111111111111111111111111111111111111111111111111111111111), -18446744073709551615)
         # Ditto with a minus sign and NO parentheses
-        # This failed in Python 2.2 through 2.2.2 and in 2.3a1
+        # This failed in MyFRpy 2.2 through 2.2.2 and in 2.3a1
         self.assertEqual(-0b1000000000000000000000000000000000000000000000000000000000000000, -9223372036854775808)
         self.assertEqual(-0b1111111111111111111111111111111111111111111111111111111111111111, -18446744073709551615)
 

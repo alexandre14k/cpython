@@ -38,9 +38,9 @@ Py_DEPRECATED(3.12) PyAPI_DATA(int) Py_UTF8Mode;
 #endif
 
 #ifndef Py_LIMITED_API
-#  define Py_CPYTHON_FILEOBJECT_H
-#  include "cpython/fileobject.h"
-#  undef Py_CPYTHON_FILEOBJECT_H
+#  define Py_CMYFRPY_FILEOBJECT_H
+#  include "cmyFRpy/fileobject.h"
+#  undef Py_CMYFRPY_FILEOBJECT_H
 #endif
 
 #ifdef __cplusplus

@@ -192,7 +192,7 @@ class Queue(object):
             self._thread.start()
             debug('... done self._thread.start()')
         except:
-            # gh-109047: During Python finalization, creating a thread
+            # gh-109047: During MyFRpy finalization, creating a thread
             # can fail with RuntimeError.
             self._thread = None
             raise

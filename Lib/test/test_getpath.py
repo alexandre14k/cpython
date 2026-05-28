@@ -23,23 +23,23 @@ class MockGetPathTests(unittest.TestCase):
     def test_normal_win32(self):
         "Test a 'standard' install layout on Windows."
         ns = MockNTNamespace(
-            argv0=r"C:\Python\python.exe",
-            real_executable=r"C:\Python\python.exe",
+            argv0=r"C:\MyFRpy\myFRpy.exe",
+            real_executable=r"C:\MyFRpy\myFRpy.exe",
         )
-        ns.add_known_xfile(r"C:\Python\python.exe")
-        ns.add_known_file(r"C:\Python\Lib\os.py")
-        ns.add_known_dir(r"C:\Python\DLLs")
+        ns.add_known_xfile(r"C:\MyFRpy\myFRpy.exe")
+        ns.add_known_file(r"C:\MyFRpy\Lib\os.py")
+        ns.add_known_dir(r"C:\MyFRpy\DLLs")
         expected = dict(
-            executable=r"C:\Python\python.exe",
-            base_executable=r"C:\Python\python.exe",
-            prefix=r"C:\Python",
-            exec_prefix=r"C:\Python",
+            executable=r"C:\MyFRpy\myFRpy.exe",
+            base_executable=r"C:\MyFRpy\myFRpy.exe",
+            prefix=r"C:\MyFRpy",
+            exec_prefix=r"C:\MyFRpy",
             module_search_paths_set=1,
             module_search_paths=[
-                r"C:\Python\python98.zip",
-                r"C:\Python\DLLs",
-                r"C:\Python\Lib",
-                r"C:\Python",
+                r"C:\MyFRpy\myFRpy98.zip",
+                r"C:\MyFRpy\DLLs",
+                r"C:\MyFRpy\Lib",
+                r"C:\MyFRpy",
             ],
         )
         actual = getpath(ns, expected)
@@ -48,24 +48,24 @@ class MockGetPathTests(unittest.TestCase):
     def test_buildtree_win32(self):
         "Test an in-build-tree layout on Windows."
         ns = MockNTNamespace(
-            argv0=r"C:\CPython\PCbuild\amd64\python.exe",
-            real_executable=r"C:\CPython\PCbuild\amd64\python.exe",
+            argv0=r"C:\CMyFRpy\PCbuild\amd64\myFRpy.exe",
+            real_executable=r"C:\CMyFRpy\PCbuild\amd64\myFRpy.exe",
         )
-        ns.add_known_xfile(r"C:\CPython\PCbuild\amd64\python.exe")
-        ns.add_known_file(r"C:\CPython\Lib\os.py")
-        ns.add_known_file(r"C:\CPython\PCbuild\amd64\pybuilddir.txt", [""])
+        ns.add_known_xfile(r"C:\CMyFRpy\PCbuild\amd64\myFRpy.exe")
+        ns.add_known_file(r"C:\CMyFRpy\Lib\os.py")
+        ns.add_known_file(r"C:\CMyFRpy\PCbuild\amd64\pybuilddir.txt", [""])
         expected = dict(
-            executable=r"C:\CPython\PCbuild\amd64\python.exe",
-            base_executable=r"C:\CPython\PCbuild\amd64\python.exe",
-            prefix=r"C:\CPython",
-            exec_prefix=r"C:\CPython",
-            build_prefix=r"C:\CPython",
-            _is_python_build=1,
+            executable=r"C:\CMyFRpy\PCbuild\amd64\myFRpy.exe",
+            base_executable=r"C:\CMyFRpy\PCbuild\amd64\myFRpy.exe",
+            prefix=r"C:\CMyFRpy",
+            exec_prefix=r"C:\CMyFRpy",
+            build_prefix=r"C:\CMyFRpy",
+            _is_myFRpy_build=1,
             module_search_paths_set=1,
             module_search_paths=[
-                r"C:\CPython\PCbuild\amd64\python98.zip",
-                r"C:\CPython\PCbuild\amd64",
-                r"C:\CPython\Lib",
+                r"C:\CMyFRpy\PCbuild\amd64\myFRpy98.zip",
+                r"C:\CMyFRpy\PCbuild\amd64",
+                r"C:\CMyFRpy\Lib",
             ],
         )
         actual = getpath(ns, expected)
@@ -79,30 +79,30 @@ class MockGetPathTests(unittest.TestCase):
         for updating prefix and exec_prefix.
         """
         ns = MockNTNamespace(
-            argv0=r"C:\Python\python.exe",
-            ENV___PYVENV_LAUNCHER__=r"C:\venv\Scripts\python.exe",
-            real_executable=r"C:\Python\python.exe",
+            argv0=r"C:\MyFRpy\myFRpy.exe",
+            ENV___PYVENV_LAUNCHER__=r"C:\venv\Scripts\myFRpy.exe",
+            real_executable=r"C:\MyFRpy\myFRpy.exe",
         )
-        ns.add_known_xfile(r"C:\Python\python.exe")
-        ns.add_known_xfile(r"C:\venv\Scripts\python.exe")
-        ns.add_known_file(r"C:\Python\Lib\os.py")
-        ns.add_known_dir(r"C:\Python\DLLs")
+        ns.add_known_xfile(r"C:\MyFRpy\myFRpy.exe")
+        ns.add_known_xfile(r"C:\venv\Scripts\myFRpy.exe")
+        ns.add_known_file(r"C:\MyFRpy\Lib\os.py")
+        ns.add_known_dir(r"C:\MyFRpy\DLLs")
         ns.add_known_file(r"C:\venv\pyvenv.cfg", [
-            r"home = C:\Python"
+            r"home = C:\MyFRpy"
         ])
         expected = dict(
-            executable=r"C:\venv\Scripts\python.exe",
-            prefix=r"C:\Python",
-            exec_prefix=r"C:\Python",
-            base_executable=r"C:\Python\python.exe",
-            base_prefix=r"C:\Python",
-            base_exec_prefix=r"C:\Python",
+            executable=r"C:\venv\Scripts\myFRpy.exe",
+            prefix=r"C:\MyFRpy",
+            exec_prefix=r"C:\MyFRpy",
+            base_executable=r"C:\MyFRpy\myFRpy.exe",
+            base_prefix=r"C:\MyFRpy",
+            base_exec_prefix=r"C:\MyFRpy",
             module_search_paths_set=1,
             module_search_paths=[
-                r"C:\Python\python98.zip",
-                r"C:\Python\DLLs",
-                r"C:\Python\Lib",
-                r"C:\Python",
+                r"C:\MyFRpy\myFRpy98.zip",
+                r"C:\MyFRpy\DLLs",
+                r"C:\MyFRpy\Lib",
+                r"C:\MyFRpy",
             ],
         )
         actual = getpath(ns, expected)
@@ -114,29 +114,29 @@ class MockGetPathTests(unittest.TestCase):
         On Windows there are registry entries that are intended for other
         applications to register search paths.
         """
-        hkey = rf"HKLM\Software\Python\PythonCore\9.8-XY\PythonPath"
+        hkey = rf"HKLM\Software\MyFRpy\MyFRpyCore\9.8-XY\MyFRpyPath"
         winreg = MockWinreg({
             hkey: None,
             f"{hkey}\\Path1": "path1-dir",
             f"{hkey}\\Path1\\Subdir": "not-subdirs",
         })
         ns = MockNTNamespace(
-            argv0=r"C:\Python\python.exe",
-            real_executable=r"C:\Python\python.exe",
+            argv0=r"C:\MyFRpy\myFRpy.exe",
+            real_executable=r"C:\MyFRpy\myFRpy.exe",
             winreg=winreg,
         )
-        ns.add_known_xfile(r"C:\Python\python.exe")
-        ns.add_known_file(r"C:\Python\Lib\os.py")
-        ns.add_known_dir(r"C:\Python\DLLs")
+        ns.add_known_xfile(r"C:\MyFRpy\myFRpy.exe")
+        ns.add_known_file(r"C:\MyFRpy\Lib\os.py")
+        ns.add_known_dir(r"C:\MyFRpy\DLLs")
         expected = dict(
             module_search_paths_set=1,
             module_search_paths=[
-                r"C:\Python\python98.zip",
+                r"C:\MyFRpy\myFRpy98.zip",
                 "path1-dir",
                 # should not contain not-subdirs
-                r"C:\Python\DLLs",
-                r"C:\Python\Lib",
-                r"C:\Python",
+                r"C:\MyFRpy\DLLs",
+                r"C:\MyFRpy\Lib",
+                r"C:\MyFRpy",
             ],
         )
         actual = getpath(ns, expected)
@@ -148,10 +148,10 @@ class MockGetPathTests(unittest.TestCase):
         expected = dict(
             module_search_paths_set=1,
             module_search_paths=[
-                r"C:\Python\python98.zip",
-                r"C:\Python\DLLs",
-                r"C:\Python\Lib",
-                r"C:\Python",
+                r"C:\MyFRpy\myFRpy98.zip",
+                r"C:\MyFRpy\DLLs",
+                r"C:\MyFRpy\Lib",
+                r"C:\MyFRpy",
             ],
         )
         actual = getpath(ns, expected)
@@ -160,25 +160,25 @@ class MockGetPathTests(unittest.TestCase):
     def test_symlink_normal_win32(self):
         "Test a 'standard' install layout via symlink on Windows."
         ns = MockNTNamespace(
-            argv0=r"C:\LinkedFrom\python.exe",
-            real_executable=r"C:\Python\python.exe",
+            argv0=r"C:\LinkedFrom\myFRpy.exe",
+            real_executable=r"C:\MyFRpy\myFRpy.exe",
         )
-        ns.add_known_xfile(r"C:\LinkedFrom\python.exe")
-        ns.add_known_xfile(r"C:\Python\python.exe")
-        ns.add_known_link(r"C:\LinkedFrom\python.exe", r"C:\Python\python.exe")
-        ns.add_known_file(r"C:\Python\Lib\os.py")
-        ns.add_known_dir(r"C:\Python\DLLs")
+        ns.add_known_xfile(r"C:\LinkedFrom\myFRpy.exe")
+        ns.add_known_xfile(r"C:\MyFRpy\myFRpy.exe")
+        ns.add_known_link(r"C:\LinkedFrom\myFRpy.exe", r"C:\MyFRpy\myFRpy.exe")
+        ns.add_known_file(r"C:\MyFRpy\Lib\os.py")
+        ns.add_known_dir(r"C:\MyFRpy\DLLs")
         expected = dict(
-            executable=r"C:\LinkedFrom\python.exe",
-            base_executable=r"C:\LinkedFrom\python.exe",
-            prefix=r"C:\Python",
-            exec_prefix=r"C:\Python",
+            executable=r"C:\LinkedFrom\myFRpy.exe",
+            base_executable=r"C:\LinkedFrom\myFRpy.exe",
+            prefix=r"C:\MyFRpy",
+            exec_prefix=r"C:\MyFRpy",
             module_search_paths_set=1,
             module_search_paths=[
-                r"C:\Python\python98.zip",
-                r"C:\Python\DLLs",
-                r"C:\Python\Lib",
-                r"C:\Python",
+                r"C:\MyFRpy\myFRpy98.zip",
+                r"C:\MyFRpy\DLLs",
+                r"C:\MyFRpy\Lib",
+                r"C:\MyFRpy",
             ],
         )
         actual = getpath(ns, expected)
@@ -187,56 +187,56 @@ class MockGetPathTests(unittest.TestCase):
     def test_symlink_buildtree_win32(self):
         "Test an in-build-tree layout via symlink on Windows."
         ns = MockNTNamespace(
-            argv0=r"C:\LinkedFrom\python.exe",
-            real_executable=r"C:\CPython\PCbuild\amd64\python.exe",
+            argv0=r"C:\LinkedFrom\myFRpy.exe",
+            real_executable=r"C:\CMyFRpy\PCbuild\amd64\myFRpy.exe",
         )
-        ns.add_known_xfile(r"C:\LinkedFrom\python.exe")
-        ns.add_known_xfile(r"C:\CPython\PCbuild\amd64\python.exe")
-        ns.add_known_link(r"C:\LinkedFrom\python.exe", r"C:\CPython\PCbuild\amd64\python.exe")
-        ns.add_known_file(r"C:\CPython\Lib\os.py")
-        ns.add_known_file(r"C:\CPython\PCbuild\amd64\pybuilddir.txt", [""])
+        ns.add_known_xfile(r"C:\LinkedFrom\myFRpy.exe")
+        ns.add_known_xfile(r"C:\CMyFRpy\PCbuild\amd64\myFRpy.exe")
+        ns.add_known_link(r"C:\LinkedFrom\myFRpy.exe", r"C:\CMyFRpy\PCbuild\amd64\myFRpy.exe")
+        ns.add_known_file(r"C:\CMyFRpy\Lib\os.py")
+        ns.add_known_file(r"C:\CMyFRpy\PCbuild\amd64\pybuilddir.txt", [""])
         expected = dict(
-            executable=r"C:\LinkedFrom\python.exe",
-            base_executable=r"C:\LinkedFrom\python.exe",
-            prefix=r"C:\CPython",
-            exec_prefix=r"C:\CPython",
-            build_prefix=r"C:\CPython",
-            _is_python_build=1,
+            executable=r"C:\LinkedFrom\myFRpy.exe",
+            base_executable=r"C:\LinkedFrom\myFRpy.exe",
+            prefix=r"C:\CMyFRpy",
+            exec_prefix=r"C:\CMyFRpy",
+            build_prefix=r"C:\CMyFRpy",
+            _is_myFRpy_build=1,
             module_search_paths_set=1,
             module_search_paths=[
-                r"C:\CPython\PCbuild\amd64\python98.zip",
-                r"C:\CPython\PCbuild\amd64",
-                r"C:\CPython\Lib",
+                r"C:\CMyFRpy\PCbuild\amd64\myFRpy98.zip",
+                r"C:\CMyFRpy\PCbuild\amd64",
+                r"C:\CMyFRpy\Lib",
             ],
         )
         actual = getpath(ns, expected)
         self.assertEqual(expected, actual)
 
-    def test_buildtree_pythonhome_win32(self):
-        "Test an out-of-build-tree layout on Windows with PYTHONHOME override."
+    def test_buildtree_myFRpyhome_win32(self):
+        "Test an out-of-build-tree layout on Windows with MYFRPYHOME override."
         ns = MockNTNamespace(
-            argv0=r"C:\Out\python.exe",
-            real_executable=r"C:\Out\python.exe",
-            ENV_PYTHONHOME=r"C:\CPython",
+            argv0=r"C:\Out\myFRpy.exe",
+            real_executable=r"C:\Out\myFRpy.exe",
+            ENV_MYFRPYHOME=r"C:\CMyFRpy",
         )
-        ns.add_known_xfile(r"C:\Out\python.exe")
-        ns.add_known_file(r"C:\CPython\Lib\os.py")
+        ns.add_known_xfile(r"C:\Out\myFRpy.exe")
+        ns.add_known_file(r"C:\CMyFRpy\Lib\os.py")
         ns.add_known_file(r"C:\Out\pybuilddir.txt", [""])
         expected = dict(
-            executable=r"C:\Out\python.exe",
-            base_executable=r"C:\Out\python.exe",
-            prefix=r"C:\CPython",
-            exec_prefix=r"C:\CPython",
+            executable=r"C:\Out\myFRpy.exe",
+            base_executable=r"C:\Out\myFRpy.exe",
+            prefix=r"C:\CMyFRpy",
+            exec_prefix=r"C:\CMyFRpy",
             # This build_prefix is a miscalculation, because we have
             # moved the output direction out of the prefix.
-            # Specify PYTHONHOME to get the correct prefix/exec_prefix
+            # Specify MYFRPYHOME to get the correct prefix/exec_prefix
             build_prefix="C:\\",
-            _is_python_build=1,
+            _is_myFRpy_build=1,
             module_search_paths_set=1,
             module_search_paths=[
-                r"C:\Out\python98.zip",
+                r"C:\Out\myFRpy98.zip",
                 r"C:\Out",
-                r"C:\CPython\Lib",
+                r"C:\CMyFRpy\Lib",
             ],
         )
         actual = getpath(ns, expected)
@@ -245,21 +245,21 @@ class MockGetPathTests(unittest.TestCase):
     def test_no_dlls_win32(self):
         "Test a layout on Windows with no DLLs directory."
         ns = MockNTNamespace(
-            argv0=r"C:\Python\python.exe",
-            real_executable=r"C:\Python\python.exe",
+            argv0=r"C:\MyFRpy\myFRpy.exe",
+            real_executable=r"C:\MyFRpy\myFRpy.exe",
         )
-        ns.add_known_xfile(r"C:\Python\python.exe")
-        ns.add_known_file(r"C:\Python\Lib\os.py")
+        ns.add_known_xfile(r"C:\MyFRpy\myFRpy.exe")
+        ns.add_known_file(r"C:\MyFRpy\Lib\os.py")
         expected = dict(
-            executable=r"C:\Python\python.exe",
-            base_executable=r"C:\Python\python.exe",
-            prefix=r"C:\Python",
-            exec_prefix=r"C:\Python",
+            executable=r"C:\MyFRpy\myFRpy.exe",
+            base_executable=r"C:\MyFRpy\myFRpy.exe",
+            prefix=r"C:\MyFRpy",
+            exec_prefix=r"C:\MyFRpy",
             module_search_paths_set=1,
             module_search_paths=[
-                r"C:\Python\python98.zip",
-                r"C:\Python",
-                r"C:\Python\Lib",
+                r"C:\MyFRpy\myFRpy98.zip",
+                r"C:\MyFRpy",
+                r"C:\MyFRpy\Lib",
             ],
         )
         actual = getpath(ns, expected)
@@ -269,22 +269,22 @@ class MockGetPathTests(unittest.TestCase):
         "Test a 'standard' install layout on *nix"
         ns = MockPosixNamespace(
             PREFIX="/usr",
-            argv0="python",
+            argv0="myFRpy",
             ENV_PATH="/usr/bin",
         )
-        ns.add_known_xfile("/usr/bin/python")
-        ns.add_known_file("/usr/lib/python9.8/os.py")
-        ns.add_known_dir("/usr/lib/python9.8/lib-dynload")
+        ns.add_known_xfile("/usr/bin/myFRpy")
+        ns.add_known_file("/usr/lib/myFRpy9.8/os.py")
+        ns.add_known_dir("/usr/lib/myFRpy9.8/lib-dynload")
         expected = dict(
-            executable="/usr/bin/python",
-            base_executable="/usr/bin/python",
+            executable="/usr/bin/myFRpy",
+            base_executable="/usr/bin/myFRpy",
             prefix="/usr",
             exec_prefix="/usr",
             module_search_paths_set=1,
             module_search_paths=[
-                "/usr/lib/python98.zip",
-                "/usr/lib/python9.8",
-                "/usr/lib/python9.8/lib-dynload",
+                "/usr/lib/myFRpy98.zip",
+                "/usr/lib/myFRpy9.8",
+                "/usr/lib/myFRpy9.8/lib-dynload",
             ],
         )
         actual = getpath(ns, expected)
@@ -298,26 +298,26 @@ class MockGetPathTests(unittest.TestCase):
         platstdlib path.
         """
         ns = MockPosixNamespace(
-            argv0=r"/home/cpython/python",
+            argv0=r"/home/cmyFRpy/myFRpy",
             PREFIX="/usr/local",
         )
-        ns.add_known_xfile("/home/cpython/python")
-        ns.add_known_xfile("/usr/local/bin/python")
-        ns.add_known_file("/home/cpython/pybuilddir.txt", ["build/lib.linux-x86_64-9.8"])
-        ns.add_known_file("/home/cpython/Lib/os.py")
-        ns.add_known_dir("/home/cpython/lib-dynload")
+        ns.add_known_xfile("/home/cmyFRpy/myFRpy")
+        ns.add_known_xfile("/usr/local/bin/myFRpy")
+        ns.add_known_file("/home/cmyFRpy/pybuilddir.txt", ["build/lib.linux-x86_64-9.8"])
+        ns.add_known_file("/home/cmyFRpy/Lib/os.py")
+        ns.add_known_dir("/home/cmyFRpy/lib-dynload")
         expected = dict(
-            executable="/home/cpython/python",
+            executable="/home/cmyFRpy/myFRpy",
             prefix="/usr/local",
             exec_prefix="/usr/local",
-            base_executable="/home/cpython/python",
-            build_prefix="/home/cpython",
-            _is_python_build=1,
+            base_executable="/home/cmyFRpy/myFRpy",
+            build_prefix="/home/cmyFRpy",
+            _is_myFRpy_build=1,
             module_search_paths_set=1,
             module_search_paths=[
-                "/usr/local/lib/python98.zip",
-                "/home/cpython/Lib",
-                "/home/cpython/build/lib.linux-x86_64-9.8",
+                "/usr/local/lib/myFRpy98.zip",
+                "/home/cmyFRpy/Lib",
+                "/home/cmyFRpy/build/lib.linux-x86_64-9.8",
             ],
         )
         actual = getpath(ns, expected)
@@ -326,29 +326,29 @@ class MockGetPathTests(unittest.TestCase):
     def test_venv_posix(self):
         "Test a venv layout on *nix."
         ns = MockPosixNamespace(
-            argv0="python",
+            argv0="myFRpy",
             PREFIX="/usr",
             ENV_PATH="/venv/bin:/usr/bin",
         )
-        ns.add_known_xfile("/usr/bin/python")
-        ns.add_known_xfile("/venv/bin/python")
-        ns.add_known_file("/usr/lib/python9.8/os.py")
-        ns.add_known_dir("/usr/lib/python9.8/lib-dynload")
+        ns.add_known_xfile("/usr/bin/myFRpy")
+        ns.add_known_xfile("/venv/bin/myFRpy")
+        ns.add_known_file("/usr/lib/myFRpy9.8/os.py")
+        ns.add_known_dir("/usr/lib/myFRpy9.8/lib-dynload")
         ns.add_known_file("/venv/pyvenv.cfg", [
             r"home = /usr/bin"
         ])
         expected = dict(
-            executable="/venv/bin/python",
+            executable="/venv/bin/myFRpy",
             prefix="/usr",
             exec_prefix="/usr",
-            base_executable="/usr/bin/python",
+            base_executable="/usr/bin/myFRpy",
             base_prefix="/usr",
             base_exec_prefix="/usr",
             module_search_paths_set=1,
             module_search_paths=[
-                "/usr/lib/python98.zip",
-                "/usr/lib/python9.8",
-                "/usr/lib/python9.8/lib-dynload",
+                "/usr/lib/myFRpy98.zip",
+                "/usr/lib/myFRpy9.8",
+                "/usr/lib/myFRpy9.8/lib-dynload",
             ],
         )
         actual = getpath(ns, expected)
@@ -357,94 +357,94 @@ class MockGetPathTests(unittest.TestCase):
     def test_venv_changed_name_posix(self):
         "Test a venv layout on *nix."
         ns = MockPosixNamespace(
-            argv0="python",
+            argv0="myFRpy",
             PREFIX="/usr",
             ENV_PATH="/venv/bin:/usr/bin",
         )
-        ns.add_known_xfile("/usr/bin/python3")
-        ns.add_known_xfile("/venv/bin/python")
-        ns.add_known_link("/venv/bin/python", "/usr/bin/python3")
-        ns.add_known_file("/usr/lib/python9.8/os.py")
-        ns.add_known_dir("/usr/lib/python9.8/lib-dynload")
+        ns.add_known_xfile("/usr/bin/myFRpy3")
+        ns.add_known_xfile("/venv/bin/myFRpy")
+        ns.add_known_link("/venv/bin/myFRpy", "/usr/bin/myFRpy3")
+        ns.add_known_file("/usr/lib/myFRpy9.8/os.py")
+        ns.add_known_dir("/usr/lib/myFRpy9.8/lib-dynload")
         ns.add_known_file("/venv/pyvenv.cfg", [
             r"home = /usr/bin"
         ])
         expected = dict(
-            executable="/venv/bin/python",
+            executable="/venv/bin/myFRpy",
             prefix="/usr",
             exec_prefix="/usr",
-            base_executable="/usr/bin/python3",
+            base_executable="/usr/bin/myFRpy3",
             base_prefix="/usr",
             base_exec_prefix="/usr",
             module_search_paths_set=1,
             module_search_paths=[
-                "/usr/lib/python98.zip",
-                "/usr/lib/python9.8",
-                "/usr/lib/python9.8/lib-dynload",
+                "/usr/lib/myFRpy98.zip",
+                "/usr/lib/myFRpy9.8",
+                "/usr/lib/myFRpy9.8/lib-dynload",
             ],
         )
         actual = getpath(ns, expected)
         self.assertEqual(expected, actual)
 
     def test_venv_non_installed_zip_path_posix(self):
-        "Test a venv created from non-installed python has correct zip path."""
+        "Test a venv created from non-installed myFRpy has correct zip path."""
         ns = MockPosixNamespace(
-            argv0="/venv/bin/python",
+            argv0="/venv/bin/myFRpy",
             PREFIX="/usr",
             ENV_PATH="/venv/bin:/usr/bin",
         )
-        ns.add_known_xfile("/path/to/non-installed/bin/python")
-        ns.add_known_xfile("/venv/bin/python")
-        ns.add_known_link("/venv/bin/python",
-                          "/path/to/non-installed/bin/python")
-        ns.add_known_file("/path/to/non-installed/lib/python9.8/os.py")
-        ns.add_known_dir("/path/to/non-installed/lib/python9.8/lib-dynload")
+        ns.add_known_xfile("/path/to/non-installed/bin/myFRpy")
+        ns.add_known_xfile("/venv/bin/myFRpy")
+        ns.add_known_link("/venv/bin/myFRpy",
+                          "/path/to/non-installed/bin/myFRpy")
+        ns.add_known_file("/path/to/non-installed/lib/myFRpy9.8/os.py")
+        ns.add_known_dir("/path/to/non-installed/lib/myFRpy9.8/lib-dynload")
         ns.add_known_file("/venv/pyvenv.cfg", [
             r"home = /path/to/non-installed"
         ])
         expected = dict(
-            executable="/venv/bin/python",
+            executable="/venv/bin/myFRpy",
             prefix="/path/to/non-installed",
             exec_prefix="/path/to/non-installed",
-            base_executable="/path/to/non-installed/bin/python",
+            base_executable="/path/to/non-installed/bin/myFRpy",
             base_prefix="/path/to/non-installed",
             base_exec_prefix="/path/to/non-installed",
             module_search_paths_set=1,
             module_search_paths=[
-                "/path/to/non-installed/lib/python98.zip",
-                "/path/to/non-installed/lib/python9.8",
-                "/path/to/non-installed/lib/python9.8/lib-dynload",
+                "/path/to/non-installed/lib/myFRpy98.zip",
+                "/path/to/non-installed/lib/myFRpy9.8",
+                "/path/to/non-installed/lib/myFRpy9.8/lib-dynload",
             ],
         )
         actual = getpath(ns, expected)
         self.assertEqual(expected, actual)
 
     def test_venv_changed_name_copy_posix(self):
-        "Test a venv --copies layout on *nix that lacks a distributed 'python'"
+        "Test a venv --copies layout on *nix that lacks a distributed 'myFRpy'"
         ns = MockPosixNamespace(
-            argv0="python",
+            argv0="myFRpy",
             PREFIX="/usr",
             ENV_PATH="/venv/bin:/usr/bin",
         )
-        ns.add_known_xfile("/usr/bin/python9")
-        ns.add_known_xfile("/venv/bin/python")
-        ns.add_known_file("/usr/lib/python9.8/os.py")
-        ns.add_known_dir("/usr/lib/python9.8/lib-dynload")
+        ns.add_known_xfile("/usr/bin/myFRpy9")
+        ns.add_known_xfile("/venv/bin/myFRpy")
+        ns.add_known_file("/usr/lib/myFRpy9.8/os.py")
+        ns.add_known_dir("/usr/lib/myFRpy9.8/lib-dynload")
         ns.add_known_file("/venv/pyvenv.cfg", [
             r"home = /usr/bin"
         ])
         expected = dict(
-            executable="/venv/bin/python",
+            executable="/venv/bin/myFRpy",
             prefix="/usr",
             exec_prefix="/usr",
-            base_executable="/usr/bin/python9",
+            base_executable="/usr/bin/myFRpy9",
             base_prefix="/usr",
             base_exec_prefix="/usr",
             module_search_paths_set=1,
             module_search_paths=[
-                "/usr/lib/python98.zip",
-                "/usr/lib/python9.8",
-                "/usr/lib/python9.8/lib-dynload",
+                "/usr/lib/myFRpy98.zip",
+                "/usr/lib/myFRpy9.8",
+                "/usr/lib/myFRpy9.8/lib-dynload",
             ],
         )
         actual = getpath(ns, expected)
@@ -454,23 +454,23 @@ class MockGetPathTests(unittest.TestCase):
         "Test a 'standard' install layout via symlink on *nix"
         ns = MockPosixNamespace(
             PREFIX="/usr",
-            argv0="/linkfrom/python",
+            argv0="/linkfrom/myFRpy",
         )
-        ns.add_known_xfile("/linkfrom/python")
-        ns.add_known_xfile("/usr/bin/python")
-        ns.add_known_link("/linkfrom/python", "/usr/bin/python")
-        ns.add_known_file("/usr/lib/python9.8/os.py")
-        ns.add_known_dir("/usr/lib/python9.8/lib-dynload")
+        ns.add_known_xfile("/linkfrom/myFRpy")
+        ns.add_known_xfile("/usr/bin/myFRpy")
+        ns.add_known_link("/linkfrom/myFRpy", "/usr/bin/myFRpy")
+        ns.add_known_file("/usr/lib/myFRpy9.8/os.py")
+        ns.add_known_dir("/usr/lib/myFRpy9.8/lib-dynload")
         expected = dict(
-            executable="/linkfrom/python",
-            base_executable="/linkfrom/python",
+            executable="/linkfrom/myFRpy",
+            base_executable="/linkfrom/myFRpy",
             prefix="/usr",
             exec_prefix="/usr",
             module_search_paths_set=1,
             module_search_paths=[
-                "/usr/lib/python98.zip",
-                "/usr/lib/python9.8",
-                "/usr/lib/python9.8/lib-dynload",
+                "/usr/lib/myFRpy98.zip",
+                "/usr/lib/myFRpy9.8",
+                "/usr/lib/myFRpy9.8/lib-dynload",
             ],
         )
         actual = getpath(ns, expected)
@@ -484,28 +484,28 @@ class MockGetPathTests(unittest.TestCase):
         platstdlib path.
         """
         ns = MockPosixNamespace(
-            argv0=r"/linkfrom/python",
+            argv0=r"/linkfrom/myFRpy",
             PREFIX="/usr/local",
         )
-        ns.add_known_xfile("/linkfrom/python")
-        ns.add_known_xfile("/home/cpython/python")
-        ns.add_known_link("/linkfrom/python", "/home/cpython/python")
-        ns.add_known_xfile("/usr/local/bin/python")
-        ns.add_known_file("/home/cpython/pybuilddir.txt", ["build/lib.linux-x86_64-9.8"])
-        ns.add_known_file("/home/cpython/Lib/os.py")
-        ns.add_known_dir("/home/cpython/lib-dynload")
+        ns.add_known_xfile("/linkfrom/myFRpy")
+        ns.add_known_xfile("/home/cmyFRpy/myFRpy")
+        ns.add_known_link("/linkfrom/myFRpy", "/home/cmyFRpy/myFRpy")
+        ns.add_known_xfile("/usr/local/bin/myFRpy")
+        ns.add_known_file("/home/cmyFRpy/pybuilddir.txt", ["build/lib.linux-x86_64-9.8"])
+        ns.add_known_file("/home/cmyFRpy/Lib/os.py")
+        ns.add_known_dir("/home/cmyFRpy/lib-dynload")
         expected = dict(
-            executable="/linkfrom/python",
+            executable="/linkfrom/myFRpy",
             prefix="/usr/local",
             exec_prefix="/usr/local",
-            base_executable="/linkfrom/python",
-            build_prefix="/home/cpython",
-            _is_python_build=1,
+            base_executable="/linkfrom/myFRpy",
+            build_prefix="/home/cmyFRpy",
+            _is_myFRpy_build=1,
             module_search_paths_set=1,
             module_search_paths=[
-                "/usr/local/lib/python98.zip",
-                "/home/cpython/Lib",
-                "/home/cpython/build/lib.linux-x86_64-9.8",
+                "/usr/local/lib/myFRpy98.zip",
+                "/home/cmyFRpy/Lib",
+                "/home/cmyFRpy/build/lib.linux-x86_64-9.8",
             ],
         )
         actual = getpath(ns, expected)
@@ -515,22 +515,22 @@ class MockGetPathTests(unittest.TestCase):
         "Test an install with custom platlibdir on *nix"
         ns = MockPosixNamespace(
             PREFIX="/usr",
-            argv0="/linkfrom/python",
+            argv0="/linkfrom/myFRpy",
             PLATLIBDIR="lib64",
         )
-        ns.add_known_xfile("/usr/bin/python")
-        ns.add_known_file("/usr/lib64/python9.8/os.py")
-        ns.add_known_dir("/usr/lib64/python9.8/lib-dynload")
+        ns.add_known_xfile("/usr/bin/myFRpy")
+        ns.add_known_file("/usr/lib64/myFRpy9.8/os.py")
+        ns.add_known_dir("/usr/lib64/myFRpy9.8/lib-dynload")
         expected = dict(
-            executable="/linkfrom/python",
-            base_executable="/linkfrom/python",
+            executable="/linkfrom/myFRpy",
+            base_executable="/linkfrom/myFRpy",
             prefix="/usr",
             exec_prefix="/usr",
             module_search_paths_set=1,
             module_search_paths=[
-                "/usr/lib64/python98.zip",
-                "/usr/lib64/python9.8",
-                "/usr/lib64/python9.8/lib-dynload",
+                "/usr/lib64/myFRpy98.zip",
+                "/usr/lib64/myFRpy9.8",
+                "/usr/lib64/myFRpy9.8/lib-dynload",
             ],
         )
         actual = getpath(ns, expected)
@@ -544,34 +544,34 @@ class MockGetPathTests(unittest.TestCase):
         """
         ns = MockPosixNamespace(
             os_name="darwin",
-            argv0="/Library/Frameworks/Python.framework/Versions/9.8/Resources/Python.app/Contents/MacOS/Python",
+            argv0="/Library/Frameworks/MyFRpy.framework/Versions/9.8/Resources/MyFRpy.app/Contents/MacOS/MyFRpy",
             WITH_NEXT_FRAMEWORK=1,
-            PREFIX="/Library/Frameworks/Python.framework/Versions/9.8",
-            EXEC_PREFIX="/Library/Frameworks/Python.framework/Versions/9.8",
-            ENV___PYVENV_LAUNCHER__="/Library/Frameworks/Python.framework/Versions/9.8/bin/python9.8",
-            real_executable="/Library/Frameworks/Python.framework/Versions/9.8/Resources/Python.app/Contents/MacOS/Python",
-            library="/Library/Frameworks/Python.framework/Versions/9.8/Python",
+            PREFIX="/Library/Frameworks/MyFRpy.framework/Versions/9.8",
+            EXEC_PREFIX="/Library/Frameworks/MyFRpy.framework/Versions/9.8",
+            ENV___PYVENV_LAUNCHER__="/Library/Frameworks/MyFRpy.framework/Versions/9.8/bin/myFRpy9.8",
+            real_executable="/Library/Frameworks/MyFRpy.framework/Versions/9.8/Resources/MyFRpy.app/Contents/MacOS/MyFRpy",
+            library="/Library/Frameworks/MyFRpy.framework/Versions/9.8/MyFRpy",
         )
-        ns.add_known_xfile("/Library/Frameworks/Python.framework/Versions/9.8/Resources/Python.app/Contents/MacOS/Python")
-        ns.add_known_xfile("/Library/Frameworks/Python.framework/Versions/9.8/bin/python9.8")
-        ns.add_known_dir("/Library/Frameworks/Python.framework/Versions/9.8/lib/python9.8/lib-dynload")
-        ns.add_known_file("/Library/Frameworks/Python.framework/Versions/9.8/lib/python9.8/os.py")
+        ns.add_known_xfile("/Library/Frameworks/MyFRpy.framework/Versions/9.8/Resources/MyFRpy.app/Contents/MacOS/MyFRpy")
+        ns.add_known_xfile("/Library/Frameworks/MyFRpy.framework/Versions/9.8/bin/myFRpy9.8")
+        ns.add_known_dir("/Library/Frameworks/MyFRpy.framework/Versions/9.8/lib/myFRpy9.8/lib-dynload")
+        ns.add_known_file("/Library/Frameworks/MyFRpy.framework/Versions/9.8/lib/myFRpy9.8/os.py")
 
         # This is definitely not the stdlib (see discusion in bpo-46890)
-        #ns.add_known_file("/Library/Frameworks/lib/python98.zip")
+        #ns.add_known_file("/Library/Frameworks/lib/myFRpy98.zip")
 
         expected = dict(
-            executable="/Library/Frameworks/Python.framework/Versions/9.8/bin/python9.8",
-            prefix="/Library/Frameworks/Python.framework/Versions/9.8",
-            exec_prefix="/Library/Frameworks/Python.framework/Versions/9.8",
-            base_executable="/Library/Frameworks/Python.framework/Versions/9.8/bin/python9.8",
-            base_prefix="/Library/Frameworks/Python.framework/Versions/9.8",
-            base_exec_prefix="/Library/Frameworks/Python.framework/Versions/9.8",
+            executable="/Library/Frameworks/MyFRpy.framework/Versions/9.8/bin/myFRpy9.8",
+            prefix="/Library/Frameworks/MyFRpy.framework/Versions/9.8",
+            exec_prefix="/Library/Frameworks/MyFRpy.framework/Versions/9.8",
+            base_executable="/Library/Frameworks/MyFRpy.framework/Versions/9.8/bin/myFRpy9.8",
+            base_prefix="/Library/Frameworks/MyFRpy.framework/Versions/9.8",
+            base_exec_prefix="/Library/Frameworks/MyFRpy.framework/Versions/9.8",
             module_search_paths_set=1,
             module_search_paths=[
-                "/Library/Frameworks/Python.framework/Versions/9.8/lib/python98.zip",
-                "/Library/Frameworks/Python.framework/Versions/9.8/lib/python9.8",
-                "/Library/Frameworks/Python.framework/Versions/9.8/lib/python9.8/lib-dynload",
+                "/Library/Frameworks/MyFRpy.framework/Versions/9.8/lib/myFRpy98.zip",
+                "/Library/Frameworks/MyFRpy.framework/Versions/9.8/lib/myFRpy9.8",
+                "/Library/Frameworks/MyFRpy.framework/Versions/9.8/lib/myFRpy9.8/lib-dynload",
             ],
         )
         actual = getpath(ns, expected)
@@ -580,45 +580,45 @@ class MockGetPathTests(unittest.TestCase):
     def test_alt_framework_macos(self):
         """ Test framework layout on macOS with alternate framework name
 
-        ``--with-framework-name=DebugPython``
+        ``--with-framework-name=DebugMyFRpy``
 
         This layout is primarily detected using a compile-time option
         (WITH_NEXT_FRAMEWORK).
         """
         ns = MockPosixNamespace(
-            argv0="/Library/Frameworks/DebugPython.framework/Versions/9.8/Resources/Python.app/Contents/MacOS/DebugPython",
+            argv0="/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8/Resources/MyFRpy.app/Contents/MacOS/DebugMyFRpy",
             os_name="darwin",
             WITH_NEXT_FRAMEWORK=1,
-            PREFIX="/Library/Frameworks/DebugPython.framework/Versions/9.8",
-            EXEC_PREFIX="/Library/Frameworks/DebugPython.framework/Versions/9.8",
-            ENV___PYVENV_LAUNCHER__="/Library/Frameworks/DebugPython.framework/Versions/9.8/bin/python9.8",
-            real_executable="/Library/Frameworks/DebugPython.framework/Versions/9.8/Resources/Python.app/Contents/MacOS/DebugPython",
-            library="/Library/Frameworks/DebugPython.framework/Versions/9.8/DebugPython",
-            PYTHONPATH=None,
-            ENV_PYTHONHOME=None,
-            ENV_PYTHONEXECUTABLE=None,
+            PREFIX="/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8",
+            EXEC_PREFIX="/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8",
+            ENV___PYVENV_LAUNCHER__="/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8/bin/myFRpy9.8",
+            real_executable="/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8/Resources/MyFRpy.app/Contents/MacOS/DebugMyFRpy",
+            library="/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8/DebugMyFRpy",
+            MYFRPYPATH=None,
+            ENV_MYFRPYHOME=None,
+            ENV_MYFRPYEXECUTABLE=None,
             executable_dir=None,
             py_setpath=None,
         )
-        ns.add_known_xfile("/Library/Frameworks/DebugPython.framework/Versions/9.8/Resources/Python.app/Contents/MacOS/DebugPython")
-        ns.add_known_xfile("/Library/Frameworks/DebugPython.framework/Versions/9.8/bin/python9.8")
-        ns.add_known_dir("/Library/Frameworks/DebugPython.framework/Versions/9.8/lib/python9.8/lib-dynload")
-        ns.add_known_xfile("/Library/Frameworks/DebugPython.framework/Versions/9.8/lib/python9.8/os.py")
+        ns.add_known_xfile("/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8/Resources/MyFRpy.app/Contents/MacOS/DebugMyFRpy")
+        ns.add_known_xfile("/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8/bin/myFRpy9.8")
+        ns.add_known_dir("/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8/lib/myFRpy9.8/lib-dynload")
+        ns.add_known_xfile("/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8/lib/myFRpy9.8/os.py")
 
         # This is definitely not the stdlib (see discusion in bpo-46890)
-        #ns.add_known_xfile("/Library/lib/python98.zip")
+        #ns.add_known_xfile("/Library/lib/myFRpy98.zip")
         expected = dict(
-            executable="/Library/Frameworks/DebugPython.framework/Versions/9.8/bin/python9.8",
-            prefix="/Library/Frameworks/DebugPython.framework/Versions/9.8",
-            exec_prefix="/Library/Frameworks/DebugPython.framework/Versions/9.8",
-            base_executable="/Library/Frameworks/DebugPython.framework/Versions/9.8/bin/python9.8",
-            base_prefix="/Library/Frameworks/DebugPython.framework/Versions/9.8",
-            base_exec_prefix="/Library/Frameworks/DebugPython.framework/Versions/9.8",
+            executable="/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8/bin/myFRpy9.8",
+            prefix="/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8",
+            exec_prefix="/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8",
+            base_executable="/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8/bin/myFRpy9.8",
+            base_prefix="/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8",
+            base_exec_prefix="/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8",
             module_search_paths_set=1,
             module_search_paths=[
-                "/Library/Frameworks/DebugPython.framework/Versions/9.8/lib/python98.zip",
-                "/Library/Frameworks/DebugPython.framework/Versions/9.8/lib/python9.8",
-                "/Library/Frameworks/DebugPython.framework/Versions/9.8/lib/python9.8/lib-dynload",
+                "/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8/lib/myFRpy98.zip",
+                "/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8/lib/myFRpy9.8",
+                "/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8/lib/myFRpy9.8/lib-dynload",
             ],
         )
         actual = getpath(ns, expected)
@@ -630,38 +630,38 @@ class MockGetPathTests(unittest.TestCase):
         venv_path = "/tmp/workdir/venv"
         ns = MockPosixNamespace(
             os_name="darwin",
-            argv0="/Library/Frameworks/Python.framework/Versions/9.8/Resources/Python.app/Contents/MacOS/Python",
+            argv0="/Library/Frameworks/MyFRpy.framework/Versions/9.8/Resources/MyFRpy.app/Contents/MacOS/MyFRpy",
             WITH_NEXT_FRAMEWORK=1,
-            PREFIX="/Library/Frameworks/Python.framework/Versions/9.8",
-            EXEC_PREFIX="/Library/Frameworks/Python.framework/Versions/9.8",
-            ENV___PYVENV_LAUNCHER__=f"{venv_path}/bin/python",
-            real_executable="/Library/Frameworks/Python.framework/Versions/9.8/Resources/Python.app/Contents/MacOS/Python",
-            library="/Library/Frameworks/Python.framework/Versions/9.8/Python",
+            PREFIX="/Library/Frameworks/MyFRpy.framework/Versions/9.8",
+            EXEC_PREFIX="/Library/Frameworks/MyFRpy.framework/Versions/9.8",
+            ENV___PYVENV_LAUNCHER__=f"{venv_path}/bin/myFRpy",
+            real_executable="/Library/Frameworks/MyFRpy.framework/Versions/9.8/Resources/MyFRpy.app/Contents/MacOS/MyFRpy",
+            library="/Library/Frameworks/MyFRpy.framework/Versions/9.8/MyFRpy",
         )
         ns.add_known_dir(venv_path)
         ns.add_known_dir(f"{venv_path}/bin")
         ns.add_known_dir(f"{venv_path}/lib")
-        ns.add_known_dir(f"{venv_path}/lib/python9.8")
-        ns.add_known_xfile(f"{venv_path}/bin/python")
-        ns.add_known_xfile("/Library/Frameworks/Python.framework/Versions/9.8/Resources/Python.app/Contents/MacOS/Python")
-        ns.add_known_xfile("/Library/Frameworks/Python.framework/Versions/9.8/bin/python9.8")
-        ns.add_known_dir("/Library/Frameworks/Python.framework/Versions/9.8/lib/python9.8/lib-dynload")
-        ns.add_known_xfile("/Library/Frameworks/Python.framework/Versions/9.8/lib/python9.8/os.py")
+        ns.add_known_dir(f"{venv_path}/lib/myFRpy9.8")
+        ns.add_known_xfile(f"{venv_path}/bin/myFRpy")
+        ns.add_known_xfile("/Library/Frameworks/MyFRpy.framework/Versions/9.8/Resources/MyFRpy.app/Contents/MacOS/MyFRpy")
+        ns.add_known_xfile("/Library/Frameworks/MyFRpy.framework/Versions/9.8/bin/myFRpy9.8")
+        ns.add_known_dir("/Library/Frameworks/MyFRpy.framework/Versions/9.8/lib/myFRpy9.8/lib-dynload")
+        ns.add_known_xfile("/Library/Frameworks/MyFRpy.framework/Versions/9.8/lib/myFRpy9.8/os.py")
         ns.add_known_file(f"{venv_path}/pyvenv.cfg", [
-            "home = /Library/Frameworks/Python.framework/Versions/9.8/bin"
+            "home = /Library/Frameworks/MyFRpy.framework/Versions/9.8/bin"
         ])
         expected = dict(
-            executable=f"{venv_path}/bin/python",
-            prefix="/Library/Frameworks/Python.framework/Versions/9.8",
-            exec_prefix="/Library/Frameworks/Python.framework/Versions/9.8",
-            base_executable="/Library/Frameworks/Python.framework/Versions/9.8/bin/python9.8",
-            base_prefix="/Library/Frameworks/Python.framework/Versions/9.8",
-            base_exec_prefix="/Library/Frameworks/Python.framework/Versions/9.8",
+            executable=f"{venv_path}/bin/myFRpy",
+            prefix="/Library/Frameworks/MyFRpy.framework/Versions/9.8",
+            exec_prefix="/Library/Frameworks/MyFRpy.framework/Versions/9.8",
+            base_executable="/Library/Frameworks/MyFRpy.framework/Versions/9.8/bin/myFRpy9.8",
+            base_prefix="/Library/Frameworks/MyFRpy.framework/Versions/9.8",
+            base_exec_prefix="/Library/Frameworks/MyFRpy.framework/Versions/9.8",
             module_search_paths_set=1,
             module_search_paths=[
-                "/Library/Frameworks/Python.framework/Versions/9.8/lib/python98.zip",
-                "/Library/Frameworks/Python.framework/Versions/9.8/lib/python9.8",
-                "/Library/Frameworks/Python.framework/Versions/9.8/lib/python9.8/lib-dynload",
+                "/Library/Frameworks/MyFRpy.framework/Versions/9.8/lib/myFRpy98.zip",
+                "/Library/Frameworks/MyFRpy.framework/Versions/9.8/lib/myFRpy9.8",
+                "/Library/Frameworks/MyFRpy.framework/Versions/9.8/lib/myFRpy9.8/lib-dynload",
             ],
         )
         actual = getpath(ns, expected)
@@ -670,43 +670,43 @@ class MockGetPathTests(unittest.TestCase):
     def test_venv_alt_framework_macos(self):
         """Test a venv layout on macOS using a framework build
 
-        ``--with-framework-name=DebugPython``
+        ``--with-framework-name=DebugMyFRpy``
         """
         venv_path = "/tmp/workdir/venv"
         ns = MockPosixNamespace(
             os_name="darwin",
-            argv0="/Library/Frameworks/DebugPython.framework/Versions/9.8/Resources/Python.app/Contents/MacOS/DebugPython",
+            argv0="/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8/Resources/MyFRpy.app/Contents/MacOS/DebugMyFRpy",
             WITH_NEXT_FRAMEWORK=1,
-            PREFIX="/Library/Frameworks/DebugPython.framework/Versions/9.8",
-            EXEC_PREFIX="/Library/Frameworks/DebugPython.framework/Versions/9.8",
-            ENV___PYVENV_LAUNCHER__=f"{venv_path}/bin/python",
-            real_executable="/Library/Frameworks/DebugPython.framework/Versions/9.8/Resources/Python.app/Contents/MacOS/DebugPython",
-            library="/Library/Frameworks/DebugPython.framework/Versions/9.8/DebugPython",
+            PREFIX="/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8",
+            EXEC_PREFIX="/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8",
+            ENV___PYVENV_LAUNCHER__=f"{venv_path}/bin/myFRpy",
+            real_executable="/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8/Resources/MyFRpy.app/Contents/MacOS/DebugMyFRpy",
+            library="/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8/DebugMyFRpy",
         )
         ns.add_known_dir(venv_path)
         ns.add_known_dir(f"{venv_path}/bin")
         ns.add_known_dir(f"{venv_path}/lib")
-        ns.add_known_dir(f"{venv_path}/lib/python9.8")
-        ns.add_known_xfile(f"{venv_path}/bin/python")
-        ns.add_known_xfile("/Library/Frameworks/DebugPython.framework/Versions/9.8/Resources/Python.app/Contents/MacOS/DebugPython")
-        ns.add_known_xfile("/Library/Frameworks/DebugPython.framework/Versions/9.8/bin/python9.8")
-        ns.add_known_dir("/Library/Frameworks/DebugPython.framework/Versions/9.8/lib/python9.8/lib-dynload")
-        ns.add_known_xfile("/Library/Frameworks/DebugPython.framework/Versions/9.8/lib/python9.8/os.py")
+        ns.add_known_dir(f"{venv_path}/lib/myFRpy9.8")
+        ns.add_known_xfile(f"{venv_path}/bin/myFRpy")
+        ns.add_known_xfile("/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8/Resources/MyFRpy.app/Contents/MacOS/DebugMyFRpy")
+        ns.add_known_xfile("/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8/bin/myFRpy9.8")
+        ns.add_known_dir("/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8/lib/myFRpy9.8/lib-dynload")
+        ns.add_known_xfile("/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8/lib/myFRpy9.8/os.py")
         ns.add_known_file(f"{venv_path}/pyvenv.cfg", [
-            "home = /Library/Frameworks/DebugPython.framework/Versions/9.8/bin"
+            "home = /Library/Frameworks/DebugMyFRpy.framework/Versions/9.8/bin"
         ])
         expected = dict(
-            executable=f"{venv_path}/bin/python",
-            prefix="/Library/Frameworks/DebugPython.framework/Versions/9.8",
-            exec_prefix="/Library/Frameworks/DebugPython.framework/Versions/9.8",
-            base_executable="/Library/Frameworks/DebugPython.framework/Versions/9.8/bin/python9.8",
-            base_prefix="/Library/Frameworks/DebugPython.framework/Versions/9.8",
-            base_exec_prefix="/Library/Frameworks/DebugPython.framework/Versions/9.8",
+            executable=f"{venv_path}/bin/myFRpy",
+            prefix="/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8",
+            exec_prefix="/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8",
+            base_executable="/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8/bin/myFRpy9.8",
+            base_prefix="/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8",
+            base_exec_prefix="/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8",
             module_search_paths_set=1,
             module_search_paths=[
-                "/Library/Frameworks/DebugPython.framework/Versions/9.8/lib/python98.zip",
-                "/Library/Frameworks/DebugPython.framework/Versions/9.8/lib/python9.8",
-                "/Library/Frameworks/DebugPython.framework/Versions/9.8/lib/python9.8/lib-dynload",
+                "/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8/lib/myFRpy98.zip",
+                "/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8/lib/myFRpy9.8",
+                "/Library/Frameworks/DebugMyFRpy.framework/Versions/9.8/lib/myFRpy9.8/lib-dynload",
             ],
         )
         actual = getpath(ns, expected)
@@ -720,30 +720,30 @@ class MockGetPathTests(unittest.TestCase):
         """
         ns = MockPosixNamespace(
             os_name="darwin",
-            argv0="/usr/bin/python",
+            argv0="/usr/bin/myFRpy",
             PREFIX="/usr",
-            ENV___PYVENV_LAUNCHER__="/framework/Python9.8/python",
-            real_executable="/usr/bin/python",
+            ENV___PYVENV_LAUNCHER__="/framework/MyFRpy9.8/myFRpy",
+            real_executable="/usr/bin/myFRpy",
         )
-        ns.add_known_xfile("/usr/bin/python")
-        ns.add_known_xfile("/framework/Python9.8/python")
-        ns.add_known_file("/usr/lib/python9.8/os.py")
-        ns.add_known_dir("/usr/lib/python9.8/lib-dynload")
-        ns.add_known_file("/framework/Python9.8/pyvenv.cfg", [
+        ns.add_known_xfile("/usr/bin/myFRpy")
+        ns.add_known_xfile("/framework/MyFRpy9.8/myFRpy")
+        ns.add_known_file("/usr/lib/myFRpy9.8/os.py")
+        ns.add_known_dir("/usr/lib/myFRpy9.8/lib-dynload")
+        ns.add_known_file("/framework/MyFRpy9.8/pyvenv.cfg", [
             "home = /usr/bin"
         ])
         expected = dict(
-            executable="/framework/Python9.8/python",
+            executable="/framework/MyFRpy9.8/myFRpy",
             prefix="/usr",
             exec_prefix="/usr",
-            base_executable="/usr/bin/python",
+            base_executable="/usr/bin/myFRpy",
             base_prefix="/usr",
             base_exec_prefix="/usr",
             module_search_paths_set=1,
             module_search_paths=[
-                "/usr/lib/python98.zip",
-                "/usr/lib/python9.8",
-                "/usr/lib/python9.8/lib-dynload",
+                "/usr/lib/myFRpy98.zip",
+                "/usr/lib/myFRpy9.8",
+                "/usr/lib/myFRpy9.8/lib-dynload",
             ],
         )
         actual = getpath(ns, expected)
@@ -754,26 +754,26 @@ class MockGetPathTests(unittest.TestCase):
         ns = MockPosixNamespace(
             os_name="darwin",
             PREFIX="/usr",
-            argv0="python",
+            argv0="myFRpy",
             ENV_PATH="/linkfrom:/usr/bin",
             # real_executable on macOS matches the invocation path
-            real_executable="/linkfrom/python",
+            real_executable="/linkfrom/myFRpy",
         )
-        ns.add_known_xfile("/linkfrom/python")
-        ns.add_known_xfile("/usr/bin/python")
-        ns.add_known_link("/linkfrom/python", "/usr/bin/python")
-        ns.add_known_file("/usr/lib/python9.8/os.py")
-        ns.add_known_dir("/usr/lib/python9.8/lib-dynload")
+        ns.add_known_xfile("/linkfrom/myFRpy")
+        ns.add_known_xfile("/usr/bin/myFRpy")
+        ns.add_known_link("/linkfrom/myFRpy", "/usr/bin/myFRpy")
+        ns.add_known_file("/usr/lib/myFRpy9.8/os.py")
+        ns.add_known_dir("/usr/lib/myFRpy9.8/lib-dynload")
         expected = dict(
-            executable="/linkfrom/python",
-            base_executable="/linkfrom/python",
+            executable="/linkfrom/myFRpy",
+            base_executable="/linkfrom/myFRpy",
             prefix="/usr",
             exec_prefix="/usr",
             module_search_paths_set=1,
             module_search_paths=[
-                "/usr/lib/python98.zip",
-                "/usr/lib/python9.8",
-                "/usr/lib/python9.8/lib-dynload",
+                "/usr/lib/myFRpy98.zip",
+                "/usr/lib/myFRpy9.8",
+                "/usr/lib/myFRpy9.8/lib-dynload",
             ],
         )
         actual = getpath(ns, expected)
@@ -788,31 +788,31 @@ class MockGetPathTests(unittest.TestCase):
         """
         ns = MockPosixNamespace(
             os_name="darwin",
-            argv0=r"python",
+            argv0=r"myFRpy",
             ENV_PATH="/linkfrom:/usr/bin",
             PREFIX="/usr/local",
             # real_executable on macOS matches the invocation path
-            real_executable="/linkfrom/python",
+            real_executable="/linkfrom/myFRpy",
         )
-        ns.add_known_xfile("/linkfrom/python")
-        ns.add_known_xfile("/home/cpython/python")
-        ns.add_known_link("/linkfrom/python", "/home/cpython/python")
-        ns.add_known_xfile("/usr/local/bin/python")
-        ns.add_known_file("/home/cpython/pybuilddir.txt", ["build/lib.macos-9.8"])
-        ns.add_known_file("/home/cpython/Lib/os.py")
-        ns.add_known_dir("/home/cpython/lib-dynload")
+        ns.add_known_xfile("/linkfrom/myFRpy")
+        ns.add_known_xfile("/home/cmyFRpy/myFRpy")
+        ns.add_known_link("/linkfrom/myFRpy", "/home/cmyFRpy/myFRpy")
+        ns.add_known_xfile("/usr/local/bin/myFRpy")
+        ns.add_known_file("/home/cmyFRpy/pybuilddir.txt", ["build/lib.macos-9.8"])
+        ns.add_known_file("/home/cmyFRpy/Lib/os.py")
+        ns.add_known_dir("/home/cmyFRpy/lib-dynload")
         expected = dict(
-            executable="/linkfrom/python",
+            executable="/linkfrom/myFRpy",
             prefix="/usr/local",
             exec_prefix="/usr/local",
-            base_executable="/linkfrom/python",
-            build_prefix="/home/cpython",
-            _is_python_build=1,
+            base_executable="/linkfrom/myFRpy",
+            build_prefix="/home/cmyFRpy",
+            _is_myFRpy_build=1,
             module_search_paths_set=1,
             module_search_paths=[
-                "/usr/local/lib/python98.zip",
-                "/home/cpython/Lib",
-                "/home/cpython/build/lib.macos-9.8",
+                "/usr/local/lib/myFRpy98.zip",
+                "/home/cmyFRpy/Lib",
+                "/home/cmyFRpy/build/lib.macos-9.8",
             ],
         )
         actual = getpath(ns, expected)
@@ -824,7 +824,7 @@ class MockGetPathTests(unittest.TestCase):
 DEFAULT_NAMESPACE = dict(
     PREFIX="",
     EXEC_PREFIX="",
-    PYTHONPATH="",
+    MYFRPYPATH="",
     VPATH="",
     PLATLIBDIR="",
     PYDEBUGEXT="",
@@ -834,8 +834,8 @@ DEFAULT_NAMESPACE = dict(
     EXE_SUFFIX=None,
 
     ENV_PATH="",
-    ENV_PYTHONHOME="",
-    ENV_PYTHONEXECUTABLE="",
+    ENV_MYFRPYHOME="",
+    ENV_MYFRPYEXECUTABLE="",
     ENV___PYVENV_LAUNCHER__="",
     argv0="",
     py_setpath="",
@@ -850,7 +850,7 @@ DEFAULT_NAMESPACE = dict(
 DEFAULT_CONFIG = dict(
     home=None,
     platlibdir=None,
-    pythonpath=None,
+    myFRpypath=None,
     program_name=None,
     prefix=None,
     exec_prefix=None,
@@ -862,7 +862,7 @@ DEFAULT_CONFIG = dict(
     platstdlib_dir=None,
     module_search_paths=None,
     module_search_paths_set=0,
-    pythonpath_env=None,
+    myFRpypath_env=None,
     argv=None,
     orig_argv=None,
 

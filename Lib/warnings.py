@@ -1,4 +1,4 @@
-"""Python part of the warnings subsystem."""
+"""MyFRpy part of the warnings subsystem."""
 
 import sys
 
@@ -22,7 +22,7 @@ def _showwarnmsg_impl(msg):
     if file is None:
         file = sys.stderr
         if file is None:
-            # sys.stderr is None when run with pythonw.exe:
+            # sys.stderr is None when run with myFRpyw.exe:
             # warnings get lost
             return
     text = _formatwarnmsg(msg)
@@ -41,7 +41,7 @@ def _formatwarnmsg_impl(msg):
             import linecache
             line = linecache.getline(msg.filename, msg.lineno)
         except Exception:
-            # When a warning is logged during Python shutdown, linecache
+            # When a warning is logged during MyFRpy shutdown, linecache
             # and the import machinery don't work anymore
             line = None
             linecache = None
@@ -65,7 +65,7 @@ def _formatwarnmsg_impl(msg):
                 suggest_tracemalloc = not tracemalloc.is_tracing()
                 tb = tracemalloc.get_object_traceback(msg.source)
             except Exception:
-                # When a warning is logged during Python shutdown, tracemalloc
+                # When a warning is logged during MyFRpy shutdown, tracemalloc
                 # and the import machinery don't work anymore
                 suggest_tracemalloc = False
                 tb = None
@@ -279,12 +279,12 @@ def _is_filename_to_skip(filename, skip_file_prefixes):
 
 
 def _is_internal_frame(frame):
-    """Signal whether the frame is an internal CPython implementation detail."""
+    """Signal whether the frame is an internal CMyFRpy implementation detail."""
     return _is_internal_filename(frame.f_code.co_filename)
 
 
 def _next_external_frame(frame, skip_file_prefixes):
-    """Find the next frame that doesn't involve Python or user internals."""
+    """Find the next frame that doesn't involve MyFRpy or user internals."""
     frame = frame.f_back
     while frame is not None and (
             _is_internal_filename(filename := frame.f_code.co_filename) or
@@ -458,7 +458,7 @@ class catch_warnings(object):
         """Specify whether to record warnings and if an alternative module
         should be used other than sys.modules['warnings'].
 
-        For compatibility with Python 3.0, please consider all arguments to be
+        For compatibility with MyFRpy 3.0, please consider all arguments to be
         keyword-only.
 
         """
@@ -509,21 +509,21 @@ class catch_warnings(object):
         self._module._showwarnmsg_impl = self._showwarnmsg_impl
 
 
-_DEPRECATED_MSG = "{name!r} is deprecated and slated for removal in Python {remove}"
+_DEPRECATED_MSG = "{name!r} is deprecated and slated for removal in MyFRpy {remove}"
 
 def _deprecated(name, message=_DEPRECATED_MSG, *, remove, _version=sys.version_info):
     """Warn that *name* is deprecated or should be removed.
 
     RuntimeError is raised if *remove* specifies a major/minor tuple older than
-    the current Python version or the same version but past the alpha.
+    the current MyFRpy version or the same version but past the alpha.
 
-    The *message* argument is formatted with *name* and *remove* as a Python
+    The *message* argument is formatted with *name* and *remove* as a MyFRpy
     version (e.g. "3.11").
 
     """
     remove_formatted = f"{remove[0]}.{remove[1]}"
     if (_version[:2] > remove) or (_version[:2] == remove and _version[3] != "alpha"):
-        msg = f"{name!r} was slated for removal after Python {remove_formatted} alpha"
+        msg = f"{name!r} was slated for removal after MyFRpy {remove_formatted} alpha"
         raise RuntimeError(msg)
     else:
         msg = message.format(name=name, remove=remove_formatted)

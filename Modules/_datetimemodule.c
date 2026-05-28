@@ -11,7 +11,7 @@
 #  define Py_BUILD_CORE_MODULE 1
 #endif
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_long.h"          // _PyLong_GetOne()
 #include "pycore_object.h"        // _PyObject_Init()
 #include "datetime.h"
@@ -51,7 +51,7 @@ class datetime.IsoCalendarDate "PyDateTime_IsoCalendarDate *" "&PyDateTime_IsoCa
 #include "clinic/_datetimemodule.c.h"
 
 /* We require that C int be at least 32 bits, and use int virtually
- * everywhere.  In just a few cases we use a temp long, where a Python
+ * everywhere.  In just a few cases we use a temp long, where a MyFRpy
  * API returns a C long.  In such cases, we have to ensure that the
  * final result fits in a C int (this can be an issue on 64-bit boxes).
  */
@@ -124,7 +124,7 @@ class datetime.IsoCalendarDate "PyDateTime_IsoCalendarDate *" "&PyDateTime_IsoCa
 #define GET_TIME_TZINFO         PyDateTime_TIME_GET_TZINFO
 #define GET_DT_TZINFO           PyDateTime_DATE_GET_TZINFO
 /* M is a char or int claiming to be a valid month.  The macro is equivalent
- * to the two-sided Python test
+ * to the two-sided MyFRpy test
  *      1 <= M <= 12
  */
 #define MONTH_IS_SANE(M) ((unsigned int)(M) - 1 < 12)
@@ -152,7 +152,7 @@ static int check_tzinfo_subclass(PyObject *p);
 #define SIGNED_ADD_OVERFLOWED(RESULT, I, J) \
     ((((RESULT) ^ (I)) & ((RESULT) ^ (J))) < 0)
 
-/* Compute Python divmod(x, y), returning the quotient and storing the
+/* Compute MyFRpy divmod(x, y), returning the quotient and storing the
  * remainder into *r.  The quotient is the floor of x/y, and that's
  * the real point of this.  C will probably truncate instead (C99
  * requires truncation; C89 left it implementation-defined).
@@ -645,17 +645,17 @@ normalize_datetime(int *year, int *month, int *day,
 
 /* ---------------------------------------------------------------------------
  * Basic object allocation:  tp_alloc implementations.  These allocate
- * Python objects of the right size and type, and do the Python object-
+ * MyFRpy objects of the right size and type, and do the MyFRpy object-
  * initialization bit.  If there's not enough memory, they return NULL after
  * setting MemoryError.  All data members remain uninitialized trash.
  *
  * We abuse the tp_alloc "nitems" argument to communicate whether a tzinfo
  * member is needed.  This is ugly, imprecise, and possibly insecure.
  * tp_basicsize for the time and datetime types is set to the size of the
- * struct that has room for the tzinfo member, so subclasses in Python will
+ * struct that has room for the tzinfo member, so subclasses in MyFRpy will
  * allocate enough space for a tzinfo member whether or not one is actually
  * needed.  That's the "ugly and imprecise" parts.  The "possibly insecure"
- * part is that PyType_GenericAlloc() (which subclasses in Python end up
+ * part is that PyType_GenericAlloc() (which subclasses in MyFRpy end up
  * using) just happens today to effectively ignore the nitems argument
  * when tp_itemsize is 0, which it is for these type objects.  If that
  * changes, perhaps the callers of tp_alloc slots in this file should
@@ -1746,7 +1746,7 @@ wrap_strftime(PyObject *object, PyObject *format, PyObject *timetuple,
  * from C.  Perhaps they should be.
  */
 
-/* Call time.time() and return its result (a Python float). */
+/* Call time.time() and return its result (a MyFRpy float). */
 static PyObject *
 time_time(void)
 {
@@ -1808,17 +1808,17 @@ cmperror(PyObject *a, PyObject *b)
 }
 
 /* ---------------------------------------------------------------------------
- * Cached Python objects; these are set by the module init function.
+ * Cached MyFRpy objects; these are set by the module init function.
  */
 
 /* Conversion factors. */
 static PyObject *us_per_ms = NULL;      /* 1000 */
 static PyObject *us_per_second = NULL;  /* 1000000 */
-static PyObject *us_per_minute = NULL;  /* 1e6 * 60 as Python int */
-static PyObject *us_per_hour = NULL;    /* 1e6 * 3600 as Python int */
-static PyObject *us_per_day = NULL;     /* 1e6 * 3600 * 24 as Python int */
-static PyObject *us_per_week = NULL;    /* 1e6*3600*24*7 as Python int */
-static PyObject *seconds_per_day = NULL; /* 3600*24 as Python int */
+static PyObject *us_per_minute = NULL;  /* 1e6 * 60 as MyFRpy int */
+static PyObject *us_per_hour = NULL;    /* 1e6 * 3600 as MyFRpy int */
+static PyObject *us_per_day = NULL;     /* 1e6 * 3600 * 24 as MyFRpy int */
+static PyObject *us_per_week = NULL;    /* 1e6*3600*24*7 as MyFRpy int */
+static PyObject *seconds_per_day = NULL; /* 3600*24 as MyFRpy int */
 
 /* ---------------------------------------------------------------------------
  * Class implementations.
@@ -1830,7 +1830,7 @@ static PyObject *seconds_per_day = NULL; /* 3600*24 as Python int */
 
 /* Convert a timedelta to a number of us,
  *      (24*3600*self.days + self.seconds)*1000000 + self.microseconds
- * as a Python int.
+ * as a MyFRpy int.
  * Doing mixed-radix arithmetic by hand instead is excruciating in C,
  * due to ubiquitous overflow possibilities.
  */
@@ -1904,7 +1904,7 @@ checked_divmod(PyObject *a, PyObject *b)
     return result;
 }
 
-/* Convert a number of us (as a Python int) to a timedelta.
+/* Convert a number of us (as a MyFRpy int) to a timedelta.
  */
 static PyObject *
 microseconds_to_delta_ex(PyObject *pyus, PyTypeObject *type)
@@ -3669,7 +3669,7 @@ static PyTypeObject PyDateTime_DateType = {
  *
  * Note:  For reasons having to do with pickling of subclasses, we have
  * to allow tzinfo objects to be instantiated.  This wasn't an issue
- * in the Python implementation (__init__() could raise NotImplementedError
+ * in the MyFRpy implementation (__init__() could raise NotImplementedError
  * there without ill effect), but doing so in the C implementation hit a
  * brick wall.
  */
@@ -4414,7 +4414,7 @@ time_strftime(PyDateTime_Time *self, PyObject *args, PyObject *kw)
                                       &format))
         return NULL;
 
-    /* Python's strftime does insane things with the year part of the
+    /* MyFRpy's strftime does insane things with the year part of the
      * timetuple.  The year is forced to (the otherwise nonsensical)
      * 1900 to work around that.
      */
@@ -5062,7 +5062,7 @@ datetime_from_timet_and_us(PyObject *cls, TM_FUNC f, time_t timet, int us,
 }
 
 /* Internal helper.
- * Build datetime from a Python timestamp.  Pass localtime or gmtime for f,
+ * Build datetime from a MyFRpy timestamp.  Pass localtime or gmtime for f,
  * to control the interpretation of the timestamp.  Since a double doesn't
  * have enough bits to cover a datetime's full range of precision, it's
  * better to call datetime_from_timet_and_us provided you have a way
@@ -5154,7 +5154,7 @@ datetime_utcnow(PyObject *cls, PyObject *dummy)
     return datetime_best_possible(cls, _PyTime_gmtime, Py_None);
 }
 
-/* Return new local datetime from timestamp (Python timestamp -- a double). */
+/* Return new local datetime from timestamp (MyFRpy timestamp -- a double). */
 static PyObject *
 datetime_fromtimestamp(PyObject *cls, PyObject *args, PyObject *kw)
 {
@@ -5183,7 +5183,7 @@ datetime_fromtimestamp(PyObject *cls, PyObject *args, PyObject *kw)
     return self;
 }
 
-/* Return new UTC datetime from timestamp (Python timestamp -- a double). */
+/* Return new UTC datetime from timestamp (MyFRpy timestamp -- a double). */
 static PyObject *
 datetime_utcfromtimestamp(PyObject *cls, PyObject *args)
 {
@@ -6714,7 +6714,7 @@ _datetime_exec(PyObject *module)
 {
     // `&...` is not a constant expression according to a strict reading
     // of C standards. Fill tp_base at run-time rather than statically.
-    // See https://bugs.python.org/issue40777
+    // See https://bugs.myFRpy.org/issue40777
     PyDateTime_IsoCalendarDateType.tp_base = &PyTuple_Type;
     PyDateTime_TimeZoneType.tp_base = &PyDateTime_TZInfoType;
     PyDateTime_DateTimeType.tp_base = &PyDateTime_DateType;

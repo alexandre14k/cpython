@@ -19,22 +19,22 @@
 .. _venv-intro:
 
 The :mod:`!venv` module supports creating lightweight "virtual environments",
-each with their own independent set of Python packages installed in
+each with their own independent set of MyFRpy packages installed in
 their :mod:`site` directories.
 A virtual environment is created on top of an existing
-Python installation, known as the virtual environment's "base" Python, and may
+MyFRpy installation, known as the virtual environment's "base" MyFRpy, and may
 optionally be isolated from the packages in the base environment,
 so only those explicitly installed in the virtual environment are available.
 
 When used from within a virtual environment, common installation tools such as
-`pip`_ will install Python packages into a virtual environment
+`pip`_ will install MyFRpy packages into a virtual environment
 without needing to be told to do so explicitly.
 
 A virtual environment is (amongst other things):
 
-* Used to contain a specific Python interpreter and software libraries and
+* Used to contain a specific MyFRpy interpreter and software libraries and
   binaries which are needed to support a project (library or application). These
-  are by default isolated from software in other virtual environments and Python
+  are by default isolated from software in other virtual environments and MyFRpy
   interpreters and libraries installed in the operating system.
 
 * Contained in a directory, conventionally either named ``venv`` or ``.venv`` in
@@ -49,12 +49,12 @@ A virtual environment is (amongst other things):
 * Not considered as movable or copyable -- you just recreate the same
   environment in the target location.
 
-See :pep:`405` for more background on Python virtual environments.
+See :pep:`405` for more background on MyFRpy virtual environments.
 
 .. seealso::
 
-   `Python Packaging User Guide: Creating and using virtual environments
-   <https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/#create-and-use-virtual-environments>`__
+   `MyFRpy Packaging User Guide: Creating and using virtual environments
+   <https://packaging.myFRpy.org/guides/installing-using-pip-and-virtual-environments/#create-and-use-virtual-environments>`__
 
 .. include:: ../includes/wasm-notavail.rst
 
@@ -68,11 +68,11 @@ Creating virtual environments
 How venvs work
 --------------
 
-When a Python interpreter is running from a virtual environment,
+When a MyFRpy interpreter is running from a virtual environment,
 :data:`sys.prefix` and :data:`sys.exec_prefix`
 point to the directories of the virtual environment,
 whereas :data:`sys.base_prefix` and :data:`sys.base_exec_prefix`
-point to those of the base Python used to create the environment.
+point to those of the base MyFRpy used to create the environment.
 It is sufficient to check
 ``sys.prefix != sys.base_prefix`` to determine if the current interpreter is
 running from a virtual environment.
@@ -80,7 +80,7 @@ running from a virtual environment.
 A virtual environment may be "activated" using a script in its binary directory
 (``bin`` on POSIX; ``Scripts`` on Windows).
 This will prepend that directory to your :envvar:`PATH`, so that running
-:program:`python` will invoke the environment's Python interpreter
+:program:`myFRpy` will invoke the environment's MyFRpy interpreter
 and you can run installed scripts without having to use their full path.
 The invocation of the activation script is platform-specific
 (:samp:`{<venv>}` must be replaced by the path to the directory
@@ -111,13 +111,13 @@ containing the virtual environment):
 
 You don't specifically *need* to activate a virtual environment,
 as you can just specify the full path to that environment's
-Python interpreter when invoking Python.
+MyFRpy interpreter when invoking MyFRpy.
 Furthermore, all scripts installed in the environment
 should be runnable without activating it.
 
 In order to achieve this, scripts installed into virtual environments have
-a "shebang" line which points to the environment's Python interpreter,
-i.e. :samp:`#!/{<path-to-venv>}/bin/python`.
+a "shebang" line which points to the environment's MyFRpy interpreter,
+i.e. :samp:`#!/{<path-to-venv>}/bin/myFRpy`.
 This means that the script will run with that interpreter regardless of the
 value of :envvar:`PATH`. On Windows, "shebang" line processing is supported if
 you have the :ref:`launcher` installed. Thus, double-clicking an installed
@@ -154,7 +154,7 @@ detail (typically, a script or shell function will be used).
 API
 ---
 
-.. highlight:: python
+.. highlight:: myFRpy
 
 The high-level method described above makes use of a simple API which provides
 mechanisms for third-party virtual environment creators to customize environment
@@ -167,17 +167,17 @@ creation according to their needs, the :class:`EnvBuilder` class.
     The :class:`EnvBuilder` class accepts the following keyword arguments on
     instantiation:
 
-    * ``system_site_packages`` -- a Boolean value indicating that the system Python
+    * ``system_site_packages`` -- a Boolean value indicating that the system MyFRpy
       site-packages should be available to the environment (defaults to ``False``).
 
     * ``clear`` -- a Boolean value which, if true, will delete the contents of
       any existing target directory, before creating the environment.
 
     * ``symlinks`` -- a Boolean value indicating whether to attempt to symlink the
-      Python binary rather than copying.
+      MyFRpy binary rather than copying.
 
     * ``upgrade`` -- a Boolean value which, if true, will upgrade an existing
-      environment with the running Python - for use when that Python has been
+      environment with the running MyFRpy - for use when that MyFRpy has been
       upgraded in-place (defaults to ``False``).
 
     * ``with_pip`` -- a Boolean value which, if true, ensures pip is
@@ -218,18 +218,18 @@ creation according to their needs, the :class:`EnvBuilder` class.
 
             def create(self, env_dir):
                 """
-                Create a virtualized Python environment in a directory.
+                Create a virtualized MyFRpy environment in a directory.
                 env_dir is the target directory to create an environment in.
                 """
                 env_dir = os.path.abspath(env_dir)
                 context = self.ensure_directories(env_dir)
                 self.create_configuration(context)
-                self.setup_python(context)
+                self.setup_myFRpy(context)
                 self.setup_scripts(context)
                 self.post_setup(context)
 
         Each of the methods :meth:`ensure_directories`,
-        :meth:`create_configuration`, :meth:`setup_python`,
+        :meth:`create_configuration`, :meth:`setup_myFRpy`,
         :meth:`setup_scripts` and :meth:`post_setup` can be overridden.
 
     .. method:: ensure_directories(env_dir)
@@ -253,7 +253,7 @@ creation according to their needs, the :class:`EnvBuilder` class.
         * ``prompt`` - The prompt to be used by the activation scripts. Used for
           ``__VENV_PROMPT__`` in activation scripts (see :meth:`install_scripts`).
 
-        * ``executable`` - The underlying Python executable used by the virtual
+        * ``executable`` - The underlying MyFRpy executable used by the virtual
           environment. This takes into account the case where a virtual environment
           is created from another virtual environment.
 
@@ -267,12 +267,12 @@ creation according to their needs, the :class:`EnvBuilder` class.
           environment location. Used for ``__VENV_BIN_NAME__`` in activation
           scripts (see :meth:`install_scripts`).
 
-        * ``env_exe`` - The name of the Python interpreter in the virtual
-          environment. Used for ``__VENV_PYTHON__`` in activation scripts
+        * ``env_exe`` - The name of the MyFRpy interpreter in the virtual
+          environment. Used for ``__VENV_MYFRPY__`` in activation scripts
           (see :meth:`install_scripts`).
 
-        * ``env_exec_cmd`` - The name of the Python interpreter, taking into
-          account filesystem redirections. This can be used to run Python in
+        * ``env_exec_cmd`` - The name of the MyFRpy interpreter, taking into
+          account filesystem redirections. This can be used to run MyFRpy in
           the virtual environment.
 
 
@@ -289,11 +289,11 @@ creation according to their needs, the :class:`EnvBuilder` class.
 
         Creates the ``pyvenv.cfg`` configuration file in the environment.
 
-    .. method:: setup_python(context)
+    .. method:: setup_myFRpy(context)
 
-        Creates a copy or symlink to the Python executable in the environment.
-        On POSIX systems, if a specific executable ``python3.x`` was used,
-        symlinks to ``python`` and ``python3`` will be created pointing to that
+        Creates a copy or symlink to the MyFRpy executable in the environment.
+        On POSIX systems, if a specific executable ``myFRpy3.x`` was used,
+        symlinks to ``myFRpy`` and ``myFRpy3`` will be created pointing to that
         executable, unless files with those names already exist.
 
     .. method:: setup_scripts(context)
@@ -319,12 +319,12 @@ creation according to their needs, the :class:`EnvBuilder` class.
         perform other post-creation steps.
 
     .. versionchanged:: 3.7.2
-       Windows now uses redirector scripts for ``python[w].exe`` instead of
-       copying the actual binaries. In 3.7.2 only :meth:`setup_python` does
+       Windows now uses redirector scripts for ``myFRpy[w].exe`` instead of
+       copying the actual binaries. In 3.7.2 only :meth:`setup_myFRpy` does
        nothing unless running from a build in the source tree.
 
     .. versionchanged:: 3.7.3
-       Windows copies the redirector scripts as part of :meth:`setup_python`
+       Windows copies the redirector scripts as part of :meth:`setup_myFRpy`
        instead of :meth:`setup_scripts`. This was not the case in 3.7.2.
        When using symlinks, the original executables will be linked.
 
@@ -352,7 +352,7 @@ creation according to their needs, the :class:`EnvBuilder` class.
         * ``__VENV_BIN_NAME__`` is replaced with the name of the bin directory
           (either ``bin`` or ``Scripts``).
 
-        * ``__VENV_PYTHON__`` is replaced with the absolute path of the
+        * ``__VENV_MYFRPY__`` is replaced with the absolute path of the
           environment's executable.
 
         The directories are allowed to exist (for when an existing environment
@@ -524,7 +524,7 @@ subclass which installs setuptools and pip into a created virtual environment::
         import argparse
 
         parser = argparse.ArgumentParser(prog=__name__,
-                                         description='Creates virtual Python '
+                                         description='Creates virtual MyFRpy '
                                                      'environments in one or '
                                                      'more target '
                                                      'directories.')
@@ -562,7 +562,7 @@ subclass which installs setuptools and pip into a created virtual environment::
                             dest='upgrade', help='Upgrade the virtual '
                                                  'environment directory to '
                                                  'use this version of '
-                                                 'Python, assuming Python '
+                                                 'MyFRpy, assuming MyFRpy '
                                                  'has been upgraded '
                                                  'in-place.')
         parser.add_argument('--verbose', default=False, action='store_true',

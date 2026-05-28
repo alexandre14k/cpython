@@ -40,7 +40,7 @@ class FnmatchTestCase(unittest.TestCase):
         check('\\', r'[!\]', False)
 
         # test that filenames with newlines in them are handled correctly.
-        # http://bugs.python.org/issue6665
+        # http://bugs.myFRpy.org/issue6665
         check('foo\nbar', 'foo*')
         check('foo\nbar\n', 'foo*')
         check('\nfoo', 'foo*', False)
@@ -253,10 +253,10 @@ class TranslateTestCase(unittest.TestCase):
 class FilterTestCase(unittest.TestCase):
 
     def test_filter(self):
-        self.assertEqual(filter(['Python', 'Ruby', 'Perl', 'Tcl'], 'P*'),
-                         ['Python', 'Perl'])
-        self.assertEqual(filter([b'Python', b'Ruby', b'Perl', b'Tcl'], b'P*'),
-                         [b'Python', b'Perl'])
+        self.assertEqual(filter(['MyFRpy', 'Ruby', 'Perl', 'Tcl'], 'P*'),
+                         ['MyFRpy', 'Perl'])
+        self.assertEqual(filter([b'MyFRpy', b'Ruby', b'Perl', b'Tcl'], b'P*'),
+                         [b'MyFRpy', b'Perl'])
 
     def test_mix_bytes_str(self):
         self.assertRaises(TypeError, filter, ['test'], b'*')

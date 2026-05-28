@@ -10,7 +10,7 @@ import warnings
 from test.support import is_emscripten
 from test.support import os_helper
 from test.support import warnings_helper
-from test.support.script_helper import assert_python_ok
+from test.support.script_helper import assert_myFRpy_ok
 from test.support.os_helper import FakePath
 
 
@@ -537,7 +537,7 @@ class CommonTest(GenericTest):
                 self.pathmodule.relpath(bytearray(b'foo'), bytearray(b'bar'))
 
     def test_import(self):
-        assert_python_ok('-S', '-c', 'import ' + self.pathmodule.__name__)
+        assert_myFRpy_ok('-S', '-c', 'import ' + self.pathmodule.__name__)
 
 
 class PathLikeTests(unittest.TestCase):

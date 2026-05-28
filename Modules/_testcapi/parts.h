@@ -17,12 +17,12 @@
 
 #if !defined(LIMITED_API_AVAILABLE) && defined(Py_LIMITED_API)
 // Limited API being unavailable means that with Py_LIMITED_API defined
-// we can't even include Python.h.
+// we can't even include MyFRpy.h.
 // Do nothing; the .c file that defined Py_LIMITED_API should also do nothing.
 
 #else
 
-#include "Python.h"
+#include "MyFRpy.h"
 
 int _PyTestCapi_Init_Vectorcall(PyObject *module);
 int _PyTestCapi_Init_Heaptype(PyObject *module);

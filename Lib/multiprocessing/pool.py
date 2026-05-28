@@ -262,7 +262,7 @@ class Pool(object):
         self._state = RUN
 
     # Copy globals as function locals to make sure that they are available
-    # during Python shutdown when the Pool is destroyed.
+    # during MyFRpy shutdown when the Pool is destroyed.
     def __del__(self, _warn=warnings.warn, RUN=RUN):
         if self._state == RUN:
             _warn(f"unclosed running multiprocessing pool {self!r}",

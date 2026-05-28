@@ -69,7 +69,7 @@ struct _faulthandler_runtime_state {
         size_t header_len;
         /* The main thread always holds this lock. It is only released when
            faulthandler_thread() is interrupted before this thread exits, or at
-           Python exit. */
+           MyFRpy exit. */
         PyThread_type_lock cancel_event;
         /* released by child thread when joined */
         PyThread_type_lock running;

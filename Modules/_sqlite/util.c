@@ -162,6 +162,6 @@ _pysqlite_long_as_int64(PyObject * py_val)
         }
     }
     PyErr_SetString(PyExc_OverflowError,
-                    "Python int too large to convert to SQLite INTEGER");
+                    "MyFRpy int too large to convert to SQLite INTEGER");
     return -1;
 }

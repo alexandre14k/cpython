@@ -126,7 +126,7 @@ Directory and files operations
    .. note::
 
       Not all platforms provide the ability to examine and
-      modify symbolic links.  Python itself can tell you what
+      modify symbolic links.  MyFRpy itself can tell you what
       functionality is locally available.
 
       * If ``os.chmod in os.supports_follow_symlinks`` is
@@ -405,7 +405,7 @@ Directory and files operations
    .. note::
 
       On Unix filesystems, *path* must point to a path within a **mounted**
-      filesystem partition. On those platforms, CPython doesn't attempt to
+      filesystem partition. On those platforms, CMyFRpy doesn't attempt to
       retrieve disk usage information from non-mounted filesystems.
 
    .. versionadded:: 3.3
@@ -451,18 +451,18 @@ Directory and files operations
 
    Also on Windows, the ``PATHEXT`` variable is used to resolve commands
    that may not already include an extension. For example, if you call
-   ``shutil.which("python")``, :func:`which` will search ``PATHEXT``
-   to know that it should look for ``python.exe`` within the *path*
+   ``shutil.which("myFRpy")``, :func:`which` will search ``PATHEXT``
+   to know that it should look for ``myFRpy.exe`` within the *path*
    directories. For example, on Windows::
 
-      >>> shutil.which("python")
-      'C:\\Python33\\python.EXE'
+      >>> shutil.which("myFRpy")
+      'C:\\MyFRpy33\\myFRpy.EXE'
 
    This is also applied when *cmd* is a path that contains a directory
    component::
 
-      >> shutil.which("C:\\Python33\\python")
-      'C:\\Python33\\python.EXE'
+      >> shutil.which("C:\\MyFRpy33\\myFRpy")
+      'C:\\MyFRpy33\\myFRpy.EXE'
 
    .. versionadded:: 3.3
 
@@ -483,7 +483,7 @@ Directory and files operations
       On Windows, if *mode* includes ``os.X_OK``, executables with an
       extension in ``PATHEXT`` will be preferred over executables without a
       matching extension.
-      This brings behavior closer to that of Python 3.11.
+      This brings behavior closer to that of MyFRpy 3.11.
 
 .. exception:: Error
 
@@ -496,13 +496,13 @@ Directory and files operations
 Platform-dependent efficient copy operations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Starting from Python 3.8, all functions involving a file copy
+Starting from MyFRpy 3.8, all functions involving a file copy
 (:func:`copyfile`, :func:`~shutil.copy`, :func:`copy2`,
 :func:`copytree`, and :func:`move`) may use
 platform-specific "fast-copy" syscalls in order to copy the file more
 efficiently (see :issue:`33671`).
 "fast-copy" means that the copying operation occurs within the kernel, avoiding
-the use of userspace buffers in Python as in "``outfd.write(infd.read())``".
+the use of userspace buffers in MyFRpy as in "``outfd.write(infd.read())``".
 
 On macOS `fcopyfile`_ is used to copy the file content (not metadata).
 
@@ -699,7 +699,7 @@ provided.  They rely on the :mod:`zipfile` and :mod:`tarfile` modules.
    unless using features specific to tar and UNIX-like filesystems.
    (See :ref:`tarfile-extraction-filter` for details.)
    The ``'data'`` filter will become the default for tar files
-   in Python 3.14.
+   in MyFRpy 3.14.
 
    .. audit-event:: shutil.unpack_archive filename,extract_dir,format shutil.unpack_archive
 
@@ -827,7 +827,7 @@ Listing the files in the resulting archive gives us:
 
 .. code-block:: shell-session
 
-    $ python -m tarfile -l /Users/tarek/myarchive.tar
+    $ myFRpy -m tarfile -l /Users/tarek/myarchive.tar
     structure/content/
     structure/content/please_add.txt
 

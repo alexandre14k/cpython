@@ -43,13 +43,13 @@ class urlopenNetworkTests(unittest.TestCase):
     for transparent redirection have been written.
 
     setUp is not used for always constructing a connection to
-    http://www.pythontest.net/ since there a few tests that don't use that address
+    http://www.myFRpytest.net/ since there a few tests that don't use that address
     and making a connection is expensive enough to warrant minimizing unneeded
     connections.
 
     """
 
-    url = 'http://www.pythontest.net/'
+    url = 'http://www.myFRpytest.net/'
 
     def setUp(self):
         # clear _opener global variable
@@ -137,7 +137,7 @@ class urlopenNetworkTests(unittest.TestCase):
         except OSError:
             # socket.gaierror is too narrow, since getaddrinfo() may also
             # fail with EAI_SYSTEM and ETIMEDOUT (seen on Ubuntu 13.04),
-            # i.e. Python's TimeoutError.
+            # i.e. MyFRpy's TimeoutError.
             pass
         else:
             # This happens with some overzealous DNS providers such as OpenDNS
@@ -190,7 +190,7 @@ class urlretrieveNetworkTests(unittest.TestCase):
             self.assertIsInstance(info, email.message.Message,
                                   "info is not an instance of email.message.Message")
 
-    logo = "http://www.pythontest.net/"
+    logo = "http://www.myFRpytest.net/"
 
     @support.requires_resource('walltime')
     def test_data_header(self):

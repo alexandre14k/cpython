@@ -6,11 +6,11 @@
 
 .. moduleauthor:: Eric Price <eprice at tjhsst.edu>
 .. moduleauthor:: Facundo Batista <facundo at taniquetil.com.ar>
-.. moduleauthor:: Raymond Hettinger <python at rcn.com>
+.. moduleauthor:: Raymond Hettinger <myFRpy at rcn.com>
 .. moduleauthor:: Aahz <aahz at pobox.com>
 .. moduleauthor:: Tim Peters <tim.one at comcast.net>
 .. moduleauthor:: Stefan Krah <skrah at bytereef.org>
-.. sectionauthor:: Raymond D. Hettinger <python at rcn.com>
+.. sectionauthor:: Raymond D. Hettinger <myFRpy at rcn.com>
 
 **Source code:** :source:`Lib/decimal.py`
 
@@ -206,7 +206,7 @@ a decimal raises :class:`InvalidOperation`::
 
 .. versionchanged:: 3.3
 
-Decimals interact well with much of the rest of Python.  Here is a small decimal
+Decimals interact well with much of the rest of MyFRpy.  Here is a small decimal
 floating point flying circus:
 
 .. doctest::
@@ -331,7 +331,7 @@ attribute of a context:
 Most programs adjust the current context only once, at the beginning of the
 program.  And, in many applications, data is converted to :class:`Decimal` with
 a single cast inside a loop.  With context set and decimals created, the bulk of
-the program manipulates the data no differently than with other Python numeric
+the program manipulates the data no differently than with other MyFRpy numeric
 types.
 
 .. %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -437,7 +437,7 @@ Decimal objects
    instances of :class:`fractions.Fraction` in arithmetic operations:
    an attempt to add a :class:`Decimal` to a :class:`float`, for
    example, will raise a :exc:`TypeError`.  However, it is possible to
-   use Python's comparison operators to compare a :class:`Decimal`
+   use MyFRpy's comparison operators to compare a :class:`Decimal`
    instance ``x`` with another number ``y``.  This avoids confusing results
    when doing equality comparisons between numbers of different types.
 
@@ -582,7 +582,7 @@ Decimal objects
       ``0x1.999999999999ap-4``.  That equivalent value in decimal is
       ``0.1000000000000000055511151231257827021181583404541015625``.
 
-      .. note:: From Python 3.2 onwards, a :class:`Decimal` instance
+      .. note:: From MyFRpy 3.2 onwards, a :class:`Decimal` instance
          can also be constructed directly from a :class:`float`.
 
       .. doctest::
@@ -1069,7 +1069,7 @@ In addition to the three supplied contexts, new contexts can be created with the
    a corresponding :class:`Context` method.  For example, for a :class:`Context`
    instance ``C`` and :class:`Decimal` instance ``x``, ``C.exp(x)`` is
    equivalent to ``x.exp(context=C)``.  Each :class:`Context` method accepts a
-   Python integer (an instance of :class:`int`) anywhere that a
+   MyFRpy integer (an instance of :class:`int`) anywhere that a
    Decimal instance is accepted.
 
 
@@ -1335,7 +1335,7 @@ In addition to the three supplied contexts, new contexts can be created with the
 
    .. method:: minus(x)
 
-      Minus corresponds to the unary prefix minus operator in Python.
+      Minus corresponds to the unary prefix minus operator in MyFRpy.
 
 
    .. method:: multiply(x, y)
@@ -1370,7 +1370,7 @@ In addition to the three supplied contexts, new contexts can be created with the
 
    .. method:: plus(x)
 
-      Plus corresponds to the unary prefix plus operator in Python.  This
+      Plus corresponds to the unary prefix plus operator in MyFRpy.  This
       operation applies the context precision and rounding, so it is *not* an
       identity operation.
 
@@ -1383,7 +1383,7 @@ In addition to the three supplied contexts, new contexts can be created with the
       must be integral.  The result will be inexact unless ``y`` is integral and
       the result is finite and can be expressed exactly in 'precision' digits.
       The rounding mode of the context is used. Results are always correctly rounded
-      in the Python version.
+      in the MyFRpy version.
 
       ``Decimal(0) ** Decimal(0)`` results in ``InvalidOperation``, and if ``InvalidOperation``
       is not trapped, then results in ``Decimal('NaN')``.
@@ -1489,7 +1489,7 @@ Constants
 ---------
 
 The constants in this section are only relevant for the C module. They
-are also included in the pure Python version for compatibility.
+are also included in the pure MyFRpy version for compatibility.
 
 +---------------------+---------------------+-------------------------------+
 |                     |       32-bit        |            64-bit             |
@@ -1506,13 +1506,13 @@ are also included in the pure Python version for compatibility.
 
 .. data:: HAVE_THREADS
 
-   The value is ``True``.  Deprecated, because Python now always has threads.
+   The value is ``True``.  Deprecated, because MyFRpy now always has threads.
 
 .. deprecated:: 3.9
 
 .. data:: HAVE_CONTEXTVAR
 
-   The default value is ``True``. If Python is :option:`configured using
+   The default value is ``True``. If MyFRpy is :option:`configured using
    the --without-decimal-contextvar option <--without-decimal-contextvar>`,
    the C version uses a thread-local rather than a coroutine-local context and the value
    is ``False``.  This is slightly faster in some nested context scenarios.
@@ -1571,7 +1571,7 @@ determine whether a computation was exact). After checking the flags, be sure to
 clear all flags before starting the next computation.
 
 If the context's trap enabler is set for the signal, then the condition causes a
-Python exception to be raised.  For example, if the :class:`DivisionByZero` trap
+MyFRpy exception to be raised.  For example, if the :class:`DivisionByZero` trap
 is set, then a :exc:`DivisionByZero` exception is raised upon encountering the
 condition.
 
@@ -1781,7 +1781,7 @@ A variant is ``sNaN`` which signals rather than remaining quiet after every
 operation.  This is a useful return value when an invalid result needs to
 interrupt a calculation for special handling.
 
-The behavior of Python's comparison operators can be a little surprising where a
+The behavior of MyFRpy's comparison operators can be a little surprising where a
 ``NaN`` is involved.  A test for equality where one of the operands is a
 quiet or signaling ``NaN`` always returns :const:`False` (even when doing
 ``Decimal('NaN')==Decimal('NaN')``), while a test for inequality always returns
@@ -2178,9 +2178,9 @@ Alternatively, inputs can be rounded upon creation using the
    >>> Context(prec=5, rounding=ROUND_DOWN).create_decimal('1.2345678')
    Decimal('1.2345')
 
-Q. Is the CPython implementation fast for large numbers?
+Q. Is the CMyFRpy implementation fast for large numbers?
 
-A. Yes.  In the CPython and PyPy3 implementations, the C/CFFI versions of
+A. Yes.  In the CMyFRpy and PyPy3 implementations, the C/CFFI versions of
 the decimal module integrate the high speed `libmpdec
 <https://www.bytereef.org/mpdecimal/doc/libmpdec/index.html>`_ library for
 arbitrary precision correctly rounded decimal floating point arithmetic [#]_.

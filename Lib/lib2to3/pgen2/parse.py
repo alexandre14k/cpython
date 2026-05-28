@@ -5,7 +5,7 @@
 
 The grammar table must be loaded first.
 
-See Parser/parser.c in the Python distribution for additional info on
+See Parser/parser.c in the MyFRpy distribution for additional info on
 how this parsing engine works.
 
 """

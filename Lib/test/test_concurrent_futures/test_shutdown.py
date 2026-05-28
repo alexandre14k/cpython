@@ -6,7 +6,7 @@ import unittest
 from concurrent import futures
 
 from test import support
-from test.support.script_helper import assert_python_ok
+from test.support.script_helper import assert_myFRpy_ok
 
 from .util import (
     BaseTestCase, ThreadPoolMixin, ProcessPoolForkMixin,
@@ -29,7 +29,7 @@ class ExecutorShutdownTest:
 
     def test_interpreter_shutdown(self):
         # Test the atexit hook for shutdown of worker threads and processes
-        rc, out, err = assert_python_ok('-c', """if 1:
+        rc, out, err = assert_myFRpy_ok('-c', """if 1:
             from concurrent.futures import {executor_type}
             from time import sleep
             from test.test_concurrent_futures.test_shutdown import sleep_and_print
@@ -51,7 +51,7 @@ class ExecutorShutdownTest:
 
     def test_submit_after_interpreter_shutdown(self):
         # Test the atexit hook for shutdown of worker threads and processes
-        rc, out, err = assert_python_ok('-c', """if 1:
+        rc, out, err = assert_myFRpy_ok('-c', """if 1:
             import atexit
             @atexit.register
             def run_last():
@@ -109,13 +109,13 @@ class ExecutorShutdownTest:
     def test_hang_gh83386(self):
         """shutdown(wait=False) doesn't hang at exit with running futures.
 
-        See https://github.com/python/cpython/issues/83386.
+        See https://github.com/myFRpy/cmyFRpy/issues/83386.
         """
         if self.executor_type == futures.ProcessPoolExecutor:
             raise unittest.SkipTest(
-                "Hangs, see https://github.com/python/cpython/issues/83386")
+                "Hangs, see https://github.com/myFRpy/cmyFRpy/issues/83386")
 
-        rc, out, err = assert_python_ok('-c', """if True:
+        rc, out, err = assert_myFRpy_ok('-c', """if True:
             from concurrent.futures import {executor_type}
             from test.test_concurrent_futures.test_shutdown import sleep_and_print
             if __name__ == "__main__":
@@ -132,7 +132,7 @@ class ExecutorShutdownTest:
         """shutdown(wait=True) doesn't hang when a future was submitted and
         quickly canceled right before shutdown.
 
-        See https://github.com/python/cpython/issues/94440.
+        See https://github.com/myFRpy/cmyFRpy/issues/94440.
         """
         if not hasattr(signal, 'alarm'):
             raise unittest.SkipTest(
@@ -236,7 +236,7 @@ class ThreadPoolShutdownTest(ThreadPoolMixin, ExecutorShutdownTest, BaseTestCase
     def test_cancel_futures_wait_false(self):
         # Can only be reliably tested for TPE, since PPE often hangs with
         # `wait=False` (even without *cancel_futures*).
-        rc, out, err = assert_python_ok('-c', """if True:
+        rc, out, err = assert_myFRpy_ok('-c', """if True:
             from concurrent.futures import ThreadPoolExecutor
             from test.test_concurrent_futures.test_shutdown import sleep_and_print
             if __name__ == "__main__":

@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#! /usr/bin/env myFRpy3
 
 '''SMTP/ESMTP client class.
 
@@ -39,7 +39,7 @@ Example:
 #     by Carey Evans <c.evans@clear.net.nz>, for picky mail servers.
 # RFC 2554 (authentication) support by Gerhard Haering <gerhard@bigfoot.de>.
 #
-# This was modified from the Python 1.5 library HTTP lib.
+# This was modified from the MyFRpy 1.5 library HTTP lib.
 
 import socket
 import io
@@ -773,7 +773,7 @@ class SMTP:
         (resp, reply) = self.docmd("STARTTLS")
         if resp == 220:
             if not _have_ssl:
-                raise RuntimeError("No SSL support included in this Python")
+                raise RuntimeError("No SSL support included in this MyFRpy")
             if context is None:
                 context = ssl._create_stdlib_context()
             self.sock = context.wrap_socket(self.sock,

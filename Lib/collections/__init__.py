@@ -1,5 +1,5 @@
 '''This module implements specialized container datatypes providing
-alternatives to Python's general purpose built-in containers, dict,
+alternatives to MyFRpy's general purpose built-in containers, dict,
 list, set, and tuple.
 
 * namedtuple   factory function for creating tuple subclasses with named fields
@@ -339,7 +339,7 @@ class OrderedDict(dict):
 try:
     from _collections import OrderedDict
 except ImportError:
-    # Leave the pure Python version in place.
+    # Leave the pure MyFRpy version in place.
     pass
 
 
@@ -510,7 +510,7 @@ def namedtuple(typename, field_names, *, rename=False, defaults=None, module=Non
     # For pickling to work, the __module__ variable needs to be set to the frame
     # where the named tuple is created.  Bypass this step in environments where
     # sys._getframe is not defined (Jython for example) or sys._getframe is not
-    # defined for arguments greater than 0 (IronPython), or where the user has
+    # defined for arguments greater than 0 (IronMyFRpy), or where the user has
     # specified a particular module.
     if module is None:
         try:
@@ -627,7 +627,7 @@ class Counter(dict):
         if n is None:
             return sorted(self.items(), key=_itemgetter(1), reverse=True)
 
-        # Lazy import to speedup Python startup time
+        # Lazy import to speedup MyFRpy startup time
         import heapq
         return heapq.nlargest(n, self.items(), key=_itemgetter(1))
 

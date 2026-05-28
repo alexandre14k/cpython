@@ -9,7 +9,7 @@ Extending/Embedding FAQ
 .. highlight:: c
 
 
-.. XXX need review for Python 3.
+.. XXX need review for MyFRpy 3.
 
 
 Can I create my own functions in C?
@@ -19,15 +19,15 @@ Yes, you can create built-in modules containing functions, variables, exceptions
 and even new types in C.  This is explained in the document
 :ref:`extending-index`.
 
-Most intermediate or advanced Python books will also cover this topic.
+Most intermediate or advanced MyFRpy books will also cover this topic.
 
 
 Can I create my own functions in C++?
 -------------------------------------
 
 Yes, using the C compatibility features found in C++.  Place ``extern "C" {
-... }`` around the Python include files and put ``extern "C"`` before each
-function that is going to be called by the Python interpreter.  Global or static
+... }`` around the MyFRpy include files and put ``extern "C"`` before each
+function that is going to be called by the MyFRpy interpreter.  Global or static
 C++ objects with constructors are probably not a good idea.
 
 
@@ -42,22 +42,22 @@ on what you're trying to do.
 .. XXX make sure these all work
 
 `Cython <https://cython.org>`_ and its relative `Pyrex
-<https://www.csse.canterbury.ac.nz/greg.ewing/python/Pyrex/>`_ are compilers
-that accept a slightly modified form of Python and generate the corresponding
+<https://www.csse.canterbury.ac.nz/greg.ewing/myFRpy/Pyrex/>`_ are compilers
+that accept a slightly modified form of MyFRpy and generate the corresponding
 C code.  Cython and Pyrex make it possible to write an extension without having
-to learn Python's C API.
+to learn MyFRpy's C API.
 
-If you need to interface to some C or C++ library for which no Python extension
+If you need to interface to some C or C++ library for which no MyFRpy extension
 currently exists, you can try wrapping the library's data types and functions
 with a tool such as `SWIG <https://www.swig.org>`_.  `SIP
-<https://github.com/Python-SIP/sip>`__, `CXX
+<https://github.com/MyFRpy-SIP/sip>`__, `CXX
 <https://cxx.sourceforge.net/>`_ `Boost
-<https://www.boost.org/libs/python/doc/index.html>`_, or `Weave
+<https://www.boost.org/libs/myFRpy/doc/index.html>`_, or `Weave
 <https://github.com/scipy/weave>`_ are also
 alternatives for wrapping C++ libraries.
 
 
-How can I execute arbitrary Python statements from C?
+How can I execute arbitrary MyFRpy statements from C?
 -----------------------------------------------------
 
 The highest-level function to do this is :c:func:`PyRun_SimpleString` which takes
@@ -65,10 +65,10 @@ a single string argument to be executed in the context of the module
 ``__main__`` and returns ``0`` for success and ``-1`` when an exception occurred
 (including :exc:`SyntaxError`).  If you want more control, use
 :c:func:`PyRun_String`; see the source for :c:func:`PyRun_SimpleString` in
-``Python/pythonrun.c``.
+``MyFRpy/myFRpyrun.c``.
 
 
-How can I evaluate an arbitrary Python expression from C?
+How can I evaluate an arbitrary MyFRpy expression from C?
 ---------------------------------------------------------
 
 Call the function :c:func:`PyRun_String` from the previous question with the
@@ -76,7 +76,7 @@ start symbol :c:data:`Py_eval_input`; it parses an expression, evaluates it and
 returns its value.
 
 
-How do I extract C values from a Python object?
+How do I extract C values from a MyFRpy object?
 -----------------------------------------------
 
 That depends on the object's type.  If it's a tuple, :c:func:`PyTuple_Size`
@@ -86,15 +86,15 @@ index.  Lists have similar functions, :c:func:`PyList_Size` and
 
 For bytes, :c:func:`PyBytes_Size` returns its length and
 :c:func:`PyBytes_AsStringAndSize` provides a pointer to its value and its
-length.  Note that Python bytes objects may contain null bytes so C's
+length.  Note that MyFRpy bytes objects may contain null bytes so C's
 :c:func:`!strlen` should not be used.
 
 To test the type of an object, first make sure it isn't ``NULL``, and then use
 :c:func:`PyBytes_Check`, :c:func:`PyTuple_Check`, :c:func:`PyList_Check`, etc.
 
-There is also a high-level API to Python objects which is provided by the
+There is also a high-level API to MyFRpy objects which is provided by the
 so-called 'abstract' interface -- read ``Include/abstract.h`` for further
-details.  It allows interfacing with any kind of Python sequence using calls
+details.  It allows interfacing with any kind of MyFRpy sequence using calls
 like :c:func:`PySequence_Length`, :c:func:`PySequence_GetItem`, etc. as well
 as many other useful protocols such as numbers (:c:func:`PyNumber_Index` et
 al.) and mappings in the PyMapping APIs.
@@ -141,7 +141,7 @@ e.g. "(i)".
 How do I catch the output from PyErr_Print() (or anything that prints to stdout/stderr)?
 ----------------------------------------------------------------------------------------
 
-In Python code, define an object that supports the ``write()`` method.  Assign
+In MyFRpy code, define an object that supports the ``write()`` method.  Assign
 this object to :data:`sys.stdout` and :data:`sys.stderr`.  Call print_error, or
 just allow the standard traceback mechanism to work. Then, the output will go
 wherever your ``write()`` method sends it.
@@ -178,7 +178,7 @@ A custom object to do the same would look like this:
    hello world!
 
 
-How do I access a module written in Python from C?
+How do I access a module written in MyFRpy from C?
 --------------------------------------------------
 
 You can get a pointer to the module object as follows::
@@ -200,14 +200,14 @@ Calling :c:func:`PyObject_SetAttrString` to assign to variables in the module
 also works.
 
 
-How do I interface to C++ objects from Python?
+How do I interface to C++ objects from MyFRpy?
 ----------------------------------------------
 
 Depending on your requirements, there are many approaches.  To do this manually,
 begin by reading :ref:`the "Extending and Embedding" document
-<extending-index>`.  Realize that for the Python run-time system, there isn't a
+<extending-index>`.  Realize that for the MyFRpy run-time system, there isn't a
 whole lot of difference between C and C++ -- so the strategy of building a new
-Python type around a C structure (pointer) type will also work for C++ objects.
+MyFRpy type around a C structure (pointer) type will also work for C++ objects.
 
 For C++ libraries, see :ref:`c-wrapper-software`.
 
@@ -236,38 +236,38 @@ Then, when you run GDB:
 
 .. code-block:: shell-session
 
-   $ gdb /local/bin/python
+   $ gdb /local/bin/myFRpy
    gdb) run myscript.py
    gdb) continue # repeat until your extension is loaded
    gdb) finish   # so that your extension is loaded
    gdb) br myfunction.c:50
    gdb) continue
 
-I want to compile a Python module on my Linux system, but some files are missing. Why?
+I want to compile a MyFRpy module on my Linux system, but some files are missing. Why?
 --------------------------------------------------------------------------------------
 
-Most packaged versions of Python don't include the
-:file:`/usr/lib/python2.{x}/config/` directory, which contains various files
-required for compiling Python extensions.
+Most packaged versions of MyFRpy don't include the
+:file:`/usr/lib/myFRpy2.{x}/config/` directory, which contains various files
+required for compiling MyFRpy extensions.
 
-For Red Hat, install the python-devel RPM to get the necessary files.
+For Red Hat, install the myFRpy-devel RPM to get the necessary files.
 
-For Debian, run ``apt-get install python-dev``.
+For Debian, run ``apt-get install myFRpy-dev``.
 
 How do I tell "incomplete input" from "invalid input"?
 ------------------------------------------------------
 
-Sometimes you want to emulate the Python interactive interpreter's behavior,
+Sometimes you want to emulate the MyFRpy interactive interpreter's behavior,
 where it gives you a continuation prompt when the input is incomplete (e.g. you
 typed the start of an "if" statement or you didn't close your parentheses or
 triple string quotes), but it gives you a syntax error message immediately when
 the input is invalid.
 
-In Python you can use the :mod:`codeop` module, which approximates the parser's
+In MyFRpy you can use the :mod:`codeop` module, which approximates the parser's
 behavior sufficiently.  IDLE uses this, for example.
 
 The easiest way to do it in C is to call :c:func:`PyRun_InteractiveLoop` (perhaps
-in a separate thread) and let the Python interpreter handle the input for
+in a separate thread) and let the MyFRpy interpreter handle the input for
 you. You can also set the :c:func:`PyOS_ReadlineFunctionPointer` to point at your
 custom input function. See ``Modules/readline.c`` and ``Parser/myreadline.c``
 for more hints.
@@ -275,17 +275,17 @@ for more hints.
 How do I find undefined g++ symbols __builtin_new or __pure_virtual?
 --------------------------------------------------------------------
 
-To dynamically load g++ extension modules, you must recompile Python, relink it
-using g++ (change LINKCC in the Python Modules Makefile), and link your
+To dynamically load g++ extension modules, you must recompile MyFRpy, relink it
+using g++ (change LINKCC in the MyFRpy Modules Makefile), and link your
 extension module using g++ (e.g., ``g++ -shared -o mymodule.so mymodule.o``).
 
 
-Can I create an object class with some methods implemented in C and others in Python (e.g. through inheritance)?
+Can I create an object class with some methods implemented in C and others in MyFRpy (e.g. through inheritance)?
 ----------------------------------------------------------------------------------------------------------------
 
 Yes, you can inherit from built-in classes such as :class:`int`, :class:`list`,
 :class:`dict`, etc.
 
-The Boost Python Library (BPL, https://www.boost.org/libs/python/doc/index.html)
+The Boost MyFRpy Library (BPL, https://www.boost.org/libs/myFRpy/doc/index.html)
 provides a way of doing this from C++ (i.e. you can inherit from an extension
 class written in C++ using the BPL).

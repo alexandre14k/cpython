@@ -1,6 +1,6 @@
-# Copyright (C) 2001-2010 Python Software Foundation
+# Copyright (C) 2001-2010 MyFRpy Software Foundation
 # Author: Barry Warsaw
-# Contact: email-sig@python.org
+# Contact: email-sig@myFRpy.org
 
 """Miscellaneous utilities."""
 
@@ -51,7 +51,7 @@ escapesre = re.compile(r'[\\"]')
 def _has_surrogates(s):
     """Return True if s may contain surrogate-escaped binary data."""
     # This check is based on the fact that unless there are surrogates, utf8
-    # (Python's default encoding) can encode any string.  This is the fastest
+    # (MyFRpy's default encoding) can encode any string.  This is the fastest
     # way to check for surrogates, see bpo-11454 (moved to gh-55663) for timings.
     try:
         s.encode()
@@ -218,7 +218,7 @@ def parseaddr(addr):
     return addrs[0]
 
 
-# rfc822.unquote() doesn't properly de-backslash-ify in Python pre-2.3.
+# rfc822.unquote() doesn't properly de-backslash-ify in MyFRpy pre-2.3.
 def unquote(str):
     """Remove quotes from a string."""
     if len(str) > 1:
@@ -345,7 +345,7 @@ def localtime(dt=None, isdst=None):
         import warnings
         warnings._deprecated(
             "The 'isdst' parameter to 'localtime'",
-            message='{name} is deprecated and slated for removal in Python {remove}',
+            message='{name} is deprecated and slated for removal in MyFRpy {remove}',
             remove=(3, 14),
             )
     if dt is None:

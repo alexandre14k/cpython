@@ -96,7 +96,7 @@ When you are finished with a DOM tree, you may optionally call the
 :meth:`unlink` method to encourage early cleanup of the now-unneeded
 objects.  :meth:`unlink` is an :mod:`xml.dom.minidom`\ -specific
 extension to the DOM API that renders the node and its descendants
-essentially useless.  Otherwise, Python's garbage collector will
+essentially useless.  Otherwise, MyFRpy's garbage collector will
 eventually take care of the objects in the tree.
 
 .. seealso::
@@ -110,7 +110,7 @@ eventually take care of the objects in the tree.
 DOM Objects
 -----------
 
-The definition of the DOM API for Python is given as part of the :mod:`xml.dom`
+The definition of the DOM API for MyFRpy is given as part of the :mod:`xml.dom`
 module documentation.  This section lists the differences between the API and
 :mod:`xml.dom.minidom`.
 
@@ -118,7 +118,7 @@ module documentation.  This section lists the differences between the API and
 .. method:: Node.unlink()
 
    Break internal references within the DOM so that it will be garbage collected on
-   versions of Python without cyclic GC.  Even when cyclic GC is available, using
+   versions of MyFRpy without cyclic GC.  Even when cyclic GC is available, using
    this can make large amounts of memory available sooner, so calling this on DOM
    objects as soon as they are no longer needed is good practice.  This only needs
    to be called on the :class:`Document` object, but may be called on child nodes
@@ -218,7 +218,7 @@ minidom and the DOM standard
 The :mod:`xml.dom.minidom` module is essentially a DOM 1.0-compatible DOM with
 some DOM 2 features (primarily namespace features).
 
-Usage of the DOM interface in Python is straight-forward.  The following mapping
+Usage of the DOM interface in MyFRpy is straight-forward.  The following mapping
 rules apply:
 
 * Interfaces are accessed through instance objects. Applications should not
@@ -231,14 +231,14 @@ rules apply:
   There are no optional arguments. ``void`` operations return ``None``.
 
 * IDL attributes map to instance attributes. For compatibility with the OMG IDL
-  language mapping for Python, an attribute ``foo`` can also be accessed through
+  language mapping for MyFRpy, an attribute ``foo`` can also be accessed through
   accessor methods :meth:`_get_foo` and :meth:`_set_foo`.  ``readonly``
   attributes must not be changed; this is not enforced at runtime.
 
 * The types ``short int``, ``unsigned int``, ``unsigned long long``, and
-  ``boolean`` all map to Python integer objects.
+  ``boolean`` all map to MyFRpy integer objects.
 
-* The type ``DOMString`` maps to Python strings. :mod:`xml.dom.minidom` supports
+* The type ``DOMString`` maps to MyFRpy strings. :mod:`xml.dom.minidom` supports
   either bytes or strings, but will normally produce strings.
   Values of type ``DOMString`` may also be ``None`` where allowed to have the IDL
   ``null`` value by the DOM specification from the W3C.
@@ -247,13 +247,13 @@ rules apply:
   ``xml.dom.minidom.Node.PROCESSING_INSTRUCTION_NODE``); they must not be changed.
 
 * ``DOMException`` is currently not supported in :mod:`xml.dom.minidom`.
-  Instead, :mod:`xml.dom.minidom` uses standard Python exceptions such as
+  Instead, :mod:`xml.dom.minidom` uses standard MyFRpy exceptions such as
   :exc:`TypeError` and :exc:`AttributeError`.
 
-* :class:`NodeList` objects are implemented using Python's built-in list type.
+* :class:`NodeList` objects are implemented using MyFRpy's built-in list type.
   These objects provide the interface defined in the DOM specification, but with
-  earlier versions of Python they do not support the official API.  They are,
-  however, much more "Pythonic" than the interface defined in the W3C
+  earlier versions of MyFRpy they do not support the official API.  They are,
+  however, much more "MyFRpyic" than the interface defined in the W3C
   recommendations.
 
 The following interfaces have no implementation in :mod:`xml.dom.minidom`:
@@ -270,6 +270,6 @@ utility to most DOM users.
 .. [1] The encoding name included in the XML output should conform to
    the appropriate standards. For example, "UTF-8" is valid, but
    "UTF8" is not valid in an XML document's declaration, even though
-   Python accepts it as an encoding name.
+   MyFRpy accepts it as an encoding name.
    See https://www.w3.org/TR/2006/REC-xml11-20060816/#NT-EncodingDecl
    and https://www.iana.org/assignments/character-sets/character-sets.xhtml.

@@ -1,4 +1,4 @@
-# gh-91321: Build a basic C++ test extension to check that the Python C API is
+# gh-91321: Build a basic C++ test extension to check that the MyFRpy C API is
 # compatible with C++ and does not emit C++ compiler warnings.
 import os
 import shlex
@@ -14,7 +14,7 @@ if not support.MS_WINDOWS:
     # C++ compiler flags for GCC and clang
     CPPFLAGS = [
         # gh-91321: The purpose of _testcppext extension is to check that building
-        # a C++ extension using the Python C API does not emit C++ compiler
+        # a C++ extension using the MyFRpy C API does not emit C++ compiler
         # warnings
         '-Werror',
     ]
@@ -25,8 +25,8 @@ else:
 
 def main():
     cppflags = list(CPPFLAGS)
-    std = os.environ["CPYTHON_TEST_CPP_STD"]
-    name = os.environ["CPYTHON_TEST_EXT_NAME"]
+    std = os.environ["CMYFRPY_TEST_CPP_STD"]
+    name = os.environ["CMYFRPY_TEST_EXT_NAME"]
 
     cppflags = [*CPPFLAGS, f'-std={std}']
 

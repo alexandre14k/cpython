@@ -23,7 +23,7 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-#include <Python.h>
+#include <MyFRpy.h>
 
 #include "cursor.h"
 #include "microprotocols.h"

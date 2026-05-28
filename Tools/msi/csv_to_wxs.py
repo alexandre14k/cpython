@@ -11,7 +11,7 @@ Usage::
 This is necessary to handle structures where some directories only
 contain other directories. MSBuild is not able to generate the
 Directory entries in the WXS file correctly, as it operates on files.
-Python, however, can easily fill in the gap.
+MyFRpy, however, can easily fill in the gap.
 '''
 
 __author__ = "Steve Dower <steve.dower@microsoft.com>"

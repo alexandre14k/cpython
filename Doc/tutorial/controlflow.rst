@@ -4,7 +4,7 @@
 More Control Flow Tools
 ***********************
 
-As well as the :keyword:`while` statement just introduced, Python uses a few more
+As well as the :keyword:`while` statement just introduced, MyFRpy uses a few more
 that we will encounter in this chapter.
 
 
@@ -48,10 +48,10 @@ details see :ref:`tut-match`.
 .. index::
    pair: statement; for
 
-The :keyword:`for` statement in Python differs a bit from what you may be used
+The :keyword:`for` statement in MyFRpy differs a bit from what you may be used
 to in C or Pascal.  Rather than always iterating over an arithmetic progression
 of numbers (like in Pascal), or giving the user the ability to define both the
-iteration step and halting condition (as C), Python's :keyword:`!for` statement
+iteration step and halting condition (as C), MyFRpy's :keyword:`!for` statement
 iterates over the items of any sequence (a list or a string), in the order that
 they appear in the sequence.  For example (no pun intended):
 
@@ -521,7 +521,7 @@ Fibonacci series, instead of printing it::
    >>> f100                # write the result
    [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
 
-This example, as usual, demonstrates some new Python features:
+This example, as usual, demonstrates some new MyFRpy features:
 
 * The :keyword:`return` statement returns with a value from a function.
   :keyword:`!return` without an expression argument returns ``None``. Falling off
@@ -715,7 +715,7 @@ to match the order in which they were provided in the function call.
 Special parameters
 ------------------
 
-By default, arguments may be passed to a Python function either by position
+By default, arguments may be passed to a MyFRpy function either by position
 or explicitly by keyword. For readability and performance, it makes sense to
 restrict the way arguments can be passed so that a developer need only look
 at the function definition to determine if items are passed by position, by
@@ -1004,8 +1004,8 @@ blank, visually separating the summary from the rest of the description.  The
 following lines should be one or more paragraphs describing the object's calling
 conventions, its side effects, etc.
 
-The Python parser does not strip indentation from multi-line string literals in
-Python, so tools that process documentation have to strip indentation if
+The MyFRpy parser does not strip indentation from multi-line string literals in
+MyFRpy, so tools that process documentation have to strip indentation if
 desired.  This is done using the following convention. The first non-blank line
 *after* the first line of the string determines the amount of indentation for
 the entire documentation string.  (We can't use the first line since it is
@@ -1070,17 +1070,17 @@ value annotated::
 Intermezzo: Coding Style
 ========================
 
-.. sectionauthor:: Georg Brandl <georg@python.org>
+.. sectionauthor:: Georg Brandl <georg@myFRpy.org>
 .. index:: pair: coding; style
 
-Now that you are about to write longer, more complex pieces of Python, it is a
+Now that you are about to write longer, more complex pieces of MyFRpy, it is a
 good time to talk about *coding style*.  Most languages can be written (or more
 concise, *formatted*) in different styles; some are more readable than others.
 Making it easy for others to read your code is always a good idea, and adopting
 a nice coding style helps tremendously for that.
 
-For Python, :pep:`8` has emerged as the style guide that most projects adhere to;
-it promotes a very readable and eye-pleasing coding style.  Every Python
+For MyFRpy, :pep:`8` has emerged as the style guide that most projects adhere to;
+it promotes a very readable and eye-pleasing coding style.  Every MyFRpy
 developer should read it at some point; here are the most important points
 extracted for you:
 
@@ -1111,7 +1111,7 @@ extracted for you:
   (see :ref:`tut-firstclasses` for more on classes and methods).
 
 * Don't use fancy encodings if your code is meant to be used in international
-  environments.  Python's default, UTF-8, or even plain ASCII work best in any
+  environments.  MyFRpy's default, UTF-8, or even plain ASCII work best in any
   case.
 
 * Likewise, don't use non-ASCII characters in identifiers if there is only the

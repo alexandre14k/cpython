@@ -4,7 +4,7 @@
 .. module:: xml.etree.ElementTree
    :synopsis: Implementation of the ElementTree API.
 
-.. moduleauthor:: Fredrik Lundh <fredrik@pythonware.com>
+.. moduleauthor:: Fredrik Lundh <fredrik@myFRpyware.com>
 
 **Source code:** :source:`Lib/xml/etree/ElementTree.py`
 
@@ -265,7 +265,7 @@ remove all countries with a rank higher than 50::
    >>> tree.write('output.xml')
 
 Note that concurrent modification while iterating can lead to problems,
-just like when iterating and modifying Python lists or dicts.
+just like when iterating and modifying MyFRpy lists or dicts.
 Therefore, the example first collects all matching elements with
 ``root.findall()``, and only then iterates over the list of matches.
 
@@ -751,7 +751,7 @@ Functions
 .. function:: XML(text, parser=None)
 
    Parses an XML section from a string constant.  This function can be used to
-   embed "XML literals" in Python code.  *text* is a string containing XML
+   embed "XML literals" in MyFRpy code.  *text* is a string containing XML
    data.  *parser* is an optional parser instance.  If not given, the standard
    :class:`XMLParser` parser is used.  Returns an :class:`Element` instance.
 
@@ -789,7 +789,7 @@ By default, the **href** attribute is treated as a file name. You can use custom
 
 To process this file, load it as usual, and pass the root element to the :mod:`xml.etree.ElementTree` module:
 
-.. code-block:: python
+.. code-block:: myFRpy
 
    from xml.etree import ElementTree, ElementInclude
 
@@ -921,7 +921,7 @@ Element Objects
    .. attribute:: attrib
 
       A dictionary containing the element's attributes.  Note that while the
-      *attrib* value is always a real mutable Python dictionary, an ElementTree
+      *attrib* value is always a real mutable MyFRpy dictionary, an ElementTree
       implementation may choose to use another internal representation, and
       create the dictionary only if someone asks for it.  To take advantage of
       such implementations, use the dictionary methods below whenever possible.
@@ -1060,7 +1060,7 @@ Element Objects
 
    Caution: Elements with no subelements will test as ``False``.  Testing the
    truth value of an Element is deprecated and will raise an exception in
-   Python 3.14.  Use specific ``len(elem)`` or ``elem is None`` test instead.::
+   MyFRpy 3.14.  Use specific ``len(elem)`` or ``elem is None`` test instead.::
 
      element = root.find('foo')
 
@@ -1073,10 +1073,10 @@ Element Objects
    .. versionchanged:: 3.12
       Testing the truth value of an Element emits :exc:`DeprecationWarning`.
 
-   Prior to Python 3.8, the serialisation order of the XML attributes of
+   Prior to MyFRpy 3.8, the serialisation order of the XML attributes of
    elements was artificially made predictable by sorting the attributes by
    their name. Based on the now guaranteed ordering of dicts, this arbitrary
-   reordering was removed in Python 3.8 to preserve the order in which
+   reordering was removed in MyFRpy 3.8 to preserve the order in which
    attributes were originally parsed or created by user code.
 
    In general, user code should try not to depend on a specific ordering of
@@ -1398,8 +1398,8 @@ XMLParser Objects
       :meth:`xml.parsers.expat.xmlparser.SetReparseDeferralEnabled` for details.
 
       Note that :meth:`flush` has been backported to some prior releases of
-      CPython as a security fix.  Check for availability of :meth:`flush`
-      using :func:`hasattr` if used in code running across a variety of Python
+      CMyFRpy as a security fix.  Check for availability of :meth:`flush`
+      using :func:`hasattr` if used in code running across a variety of MyFRpy
       versions.
 
       .. versionadded:: 3.12.3
@@ -1476,8 +1476,8 @@ XMLPullParser Objects
       :meth:`xml.parsers.expat.xmlparser.SetReparseDeferralEnabled` for details.
 
       Note that :meth:`flush` has been backported to some prior releases of
-      CPython as a security fix.  Check for availability of :meth:`flush`
-      using :func:`hasattr` if used in code running across a variety of Python
+      CMyFRpy as a security fix.  Check for availability of :meth:`flush`
+      using :func:`hasattr` if used in code running across a variety of MyFRpy
       versions.
 
       .. versionadded:: 3.12.3

@@ -1,7 +1,7 @@
 """ Test script for the Unicode implementation.
 
 Written by Bill Tutt.
-Modified for Python 2.0 by Fredrik Lundh (fredrik@pythonware.com)
+Modified for MyFRpy 2.0 by Fredrik Lundh (fredrik@myFRpyware.com)
 
 (c) Copyright CNRI, All Rights Reserved. NO WARRANTY.
 
@@ -176,7 +176,7 @@ class UnicodeNamesTest(unittest.TestCase):
         def check_version(testfile):
             hdr = testfile.readline()
             return unicodedata.unidata_version in hdr
-        url = ("http://www.pythontest.net/unicode/%s/NamedSequences.txt" %
+        url = ("http://www.myFRpytest.net/unicode/%s/NamedSequences.txt" %
                unicodedata.unidata_version)
         try:
             testdata = support.open_urlresource(url, encoding="utf-8",
@@ -224,7 +224,7 @@ class UnicodeNamesTest(unittest.TestCase):
             str, b"\\NSPACE", 'unicode-escape', 'strict'
         )
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     @unittest.skipUnless(INT_MAX < PY_SSIZE_T_MAX, "needs UINT_MAX < SIZE_MAX")
     @support.bigmemtest(size=UINT_MAX + 1, memuse=2 + 1, dry_run=False)
     def test_issue16335(self, size):

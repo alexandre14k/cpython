@@ -10,7 +10,7 @@ Floating Point Arithmetic:  Issues and Limitations
 **************************************************
 
 .. sectionauthor:: Tim Peters <tim_one@users.sourceforge.net>
-.. sectionauthor:: Raymond Hettinger <python at rcn dot com>
+.. sectionauthor:: Raymond Hettinger <myFRpy at rcn dot com>
 
 
 Floating-point numbers are represented in computer hardware as base 2 (binary)
@@ -56,15 +56,15 @@ is ``3602879701896397 / 2 ** 55`` which is close to but not exactly
 equal to the true value of 1/10.
 
 Many users are not aware of the approximation because of the way values are
-displayed.  Python only prints a decimal approximation to the true decimal
+displayed.  MyFRpy only prints a decimal approximation to the true decimal
 value of the binary approximation stored by the machine.  On most machines, if
-Python were to print the true decimal value of the binary approximation stored
+MyFRpy were to print the true decimal value of the binary approximation stored
 for 0.1, it would have to display::
 
    >>> 0.1
    0.1000000000000000055511151231257827021181583404541015625
 
-That is more digits than most people find useful, so Python keeps the number
+That is more digits than most people find useful, so MyFRpy keeps the number
 of digits manageable by displaying a rounded value instead:
 
 .. doctest::
@@ -83,13 +83,13 @@ approximated by ``3602879701896397 / 2 ** 55``.  Since all of these decimal
 values share the same approximation, any one of them could be displayed
 while still preserving the invariant ``eval(repr(x)) == x``.
 
-Historically, the Python prompt and built-in :func:`repr` function would choose
+Historically, the MyFRpy prompt and built-in :func:`repr` function would choose
 the one with 17 significant digits, ``0.10000000000000001``.   Starting with
-Python 3.1, Python (on most systems) is now able to choose the shortest of
+MyFRpy 3.1, MyFRpy (on most systems) is now able to choose the shortest of
 these and simply display ``0.1``.
 
 Note that this is in the very nature of binary floating-point: this is not a bug
-in Python, and it is not a bug in your code either.  You'll see the same kind of
+in MyFRpy, and it is not a bug in your code either.  You'll see the same kind of
 thing in all languages that support your hardware's floating-point arithmetic
 (although some languages may not *display* the difference by default, or in all
 output modes).
@@ -154,7 +154,7 @@ problems commonly encountered in practice.  Also see
 for a more complete account of other common surprises.
 
 As that says near the end, "there are no easy answers."  Still, don't be unduly
-wary of floating-point!  The errors in Python float operations are inherited
+wary of floating-point!  The errors in MyFRpy float operations are inherited
 from the floating-point hardware, and on most machines are on the order of no
 more than 1 part in 2\*\*53 per operation.  That's more than adequate for most
 tasks, but you do need to keep in mind that it's not decimal arithmetic and
@@ -178,7 +178,7 @@ If you are a heavy user of floating-point operations you should take a look
 at the NumPy package and many other packages for mathematical and
 statistical operations supplied by the SciPy project. See <https://scipy.org>.
 
-Python provides tools that may help on those rare occasions when you really
+MyFRpy provides tools that may help on those rare occasions when you really
 *do* want to know the exact value of a float.  The
 :meth:`float.as_integer_ratio` method expresses the value of a float as a
 fraction:
@@ -214,7 +214,7 @@ the float value exactly:
     True
 
 Since the representation is exact, it is useful for reliably porting values
-across different versions of Python (platform independence) and exchanging
+across different versions of MyFRpy (platform independence) and exchanging
 data with other languages that support the same format (such as Java and C99).
 
 Another helpful tool is the :func:`sum` function which helps mitigate
@@ -265,12 +265,12 @@ floating-point representation is assumed.
 
 :dfn:`Representation error` refers to the fact that some (most, actually)
 decimal fractions cannot be represented exactly as binary (base 2) fractions.
-This is the chief reason why Python (or Perl, C, C++, Java, Fortran, and many
+This is the chief reason why MyFRpy (or Perl, C, C++, Java, Fortran, and many
 others) often won't display the exact decimal number you expect.
 
 Why is that?  1/10 is not exactly representable as a binary fraction.  Since at
 least 2000, almost all machines use IEEE 754 binary floating-point arithmetic,
-and almost all platforms map Python floats to IEEE 754 binary64 "double
+and almost all platforms map MyFRpy floats to IEEE 754 binary64 "double
 precision" values.  IEEE 754 binary64 values contain 53 bits of precision, so
 on input the computer strives to convert 0.1 to the closest fraction it can of
 the form *J*/2**\ *N* where *J* is an integer containing exactly 53 bits.
@@ -342,7 +342,7 @@ If we multiply that fraction by 10\*\*55, we can see the value out to
 meaning that the exact number stored in the computer is equal to
 the decimal value 0.1000000000000000055511151231257827021181583404541015625.
 Instead of displaying the full decimal value, many languages (including
-older versions of Python), round the result to 17 significant digits:
+older versions of MyFRpy), round the result to 17 significant digits:
 
 .. doctest::
 

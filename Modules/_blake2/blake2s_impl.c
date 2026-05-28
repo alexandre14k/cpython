@@ -1,6 +1,6 @@
 /*
  * Written in 2013 by Dmitry Chestnykh <dmitry@codingrobots.com>
- * Modified for CPython by Christian Heimes <christian@python.org>
+ * Modified for CMyFRpy by Christian Heimes <christian@myFRpy.org>
  *
  * To the extent possible under law, the author have dedicated all
  * copyright and related and neighboring rights to this software to
@@ -17,7 +17,7 @@
 #  define Py_BUILD_CORE_MODULE 1
 #endif
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_strhex.h"       // _Py_strhex()
 
 #include "../hashlib.h"
@@ -25,7 +25,7 @@
 
 #ifndef HAVE_LIBB2
 /* pure SSE2 implementation is very slow, so only use the more optimized SSSE3+
- * https://bugs.python.org/issue31834 */
+ * https://bugs.myFRpy.org/issue31834 */
 #if defined(__SSSE3__) || defined(__SSE4_1__) || defined(__AVX__) || defined(__XOP__)
 #include "impl/blake2s.c"
 #else

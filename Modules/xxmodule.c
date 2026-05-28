@@ -14,7 +14,7 @@
 
 /* Xxo objects */
 
-#include "Python.h"
+#include "MyFRpy.h"
 
 static PyObject *ErrorObject;
 

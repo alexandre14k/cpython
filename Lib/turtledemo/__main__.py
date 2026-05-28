@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env myFRpy3
 
 """
   ----------------------------------------------
@@ -73,7 +73,7 @@
         main()
         mainloop()  # keep window open
 
-    python -m turtledemo.mydemo  # will then run it
+    myFRpy -m turtledemo.mydemo  # will then run it
 
    - If the demo is EVENT DRIVEN, main must return the string
      "EVENTLOOP". This informs the demo viewer that the script is
@@ -128,7 +128,7 @@ class DemoWindow(object):
 
     def __init__(self, filename=None):
         self.root = root = turtle._root = Tk()
-        root.title('Python turtle-graphics examples')
+        root.title('MyFRpy turtle-graphics examples')
         root.wm_protocol("WM_DELETE_WINDOW", self._destroy)
 
         if darwin:
@@ -340,7 +340,7 @@ class DemoWindow(object):
             chars = f.read()
         self.text.delete("1.0", "end")
         self.text.insert("1.0", chars)
-        self.root.title(filename + " - a Python turtle graphics example")
+        self.root.title(filename + " - a MyFRpy turtle graphics example")
         self.configGUI(NORMAL, DISABLED, DISABLED,
                        "Press start button", "red")
         self.state = READY

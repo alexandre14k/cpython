@@ -1,18 +1,18 @@
-#! /usr/local/bin/python
+#! /usr/local/bin/myFRpy
 
-# NOTE: the above "/usr/local/bin/python" is NOT a mistake.  It is
-# intentionally NOT "/usr/bin/env python".  On many systems
+# NOTE: the above "/usr/local/bin/myFRpy" is NOT a mistake.  It is
+# intentionally NOT "/usr/bin/env myFRpy".  On many systems
 # (e.g. Solaris), /usr/local/bin is not in $PATH as passed to CGI
-# scripts, and /usr/local/bin is the default directory where Python is
-# installed, so /usr/bin/env would be unable to find python.  Granted,
-# binary installations by Linux vendors often install Python in
+# scripts, and /usr/local/bin is the default directory where MyFRpy is
+# installed, so /usr/bin/env would be unable to find myFRpy.  Granted,
+# binary installations by Linux vendors often install MyFRpy in
 # /usr/bin.  So let those vendors patch cgi.py to match their choice
 # of installation.
 
 """Support module for CGI (Common Gateway Interface) scripts.
 
 This module defines a number of utilities for use by CGI scripts
-written in Python.
+written in MyFRpy.
 
 The global variable maxlen can be set to an integer indicating the maximum size
 of a POST request. POST requests larger than this size will result in a
@@ -291,7 +291,7 @@ class FieldStorage:
     This class provides naming, typing, files stored on disk, and
     more.  At the top level, it is accessible like a dictionary, whose
     keys are the field names.  (Note: None can occur as a field name.)
-    The items are either a Python list (if there's multiple values) or
+    The items are either a MyFRpy list (if there's multiple values) or
     another FieldStorage or MiniFieldStorage object.  If it's a single
     object, it has the following attributes:
 

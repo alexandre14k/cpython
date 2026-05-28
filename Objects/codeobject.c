@@ -1,6 +1,6 @@
 #include <stdbool.h>
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "opcode.h"
 #include "structmember.h"         // PyMemberDef
 #include "pycore_code.h"          // _PyCodeConstructor

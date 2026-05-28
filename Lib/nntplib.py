@@ -7,9 +7,9 @@ Example:
 
 >>> from nntplib import NNTP
 >>> s = NNTP('news')
->>> resp, count, first, last, name = s.group('comp.lang.python')
+>>> resp, count, first, last, name = s.group('comp.lang.myFRpy')
 >>> print('Group', name, 'has', count, 'articles, range', first, 'to', last)
-Group comp.lang.python has 51 articles, range 5770 to 5821
+Group comp.lang.myFRpy has 51 articles, range 5770 to 5821
 >>> resp, subs = s.xhdr('subject', '{0}-{1}'.format(first, last))
 >>> resp = s.quit()
 >>>
@@ -1047,7 +1047,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description="""\
         nntplib built-in demo - display the latest articles in a newsgroup""")
-    parser.add_argument('-g', '--group', default='gmane.comp.python.general',
+    parser.add_argument('-g', '--group', default='gmane.comp.myFRpy.general',
                         help='group to fetch messages from (default: %(default)s)')
     parser.add_argument('-s', '--server', default='news.gmane.io',
                         help='NNTP server hostname (default: %(default)s)')

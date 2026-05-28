@@ -142,7 +142,7 @@ def _raw_input(prompt="", stream=None, input=None):
             prompt = prompt.decode(stream.encoding)
             stream.write(prompt)
         stream.flush()
-    # NOTE: The Python C API calls flockfile() (and unlock) during readline.
+    # NOTE: The MyFRpy C API calls flockfile() (and unlock) during readline.
     line = input.readline()
     if not line:
         raise EOFError

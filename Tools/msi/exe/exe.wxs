@@ -8,7 +8,7 @@
         <PropertyRef Id="REGISTRYKEY" />
 
         <Feature Id="DefaultFeature" AllowAdvertise="no" Title="!(loc.Title)" Description="!(loc.Description)">
-            <ComponentGroupRef Id="exe_python" Primary="yes" />
+            <ComponentGroupRef Id="exe_myFRpy" Primary="yes" />
             <ComponentGroupRef Id="exe_reg" Primary="yes" />
             <ComponentGroupRef Id="exe_txt" />
             <ComponentGroupRef Id="exe_icons" />
@@ -16,10 +16,10 @@
         </Feature>
 
         <Feature Id="Shortcuts" AllowAdvertise="no" Title="!(loc.Title)" Description="!(loc.Description)">
-            <ComponentGroupRef Id="exe_python" />
+            <ComponentGroupRef Id="exe_myFRpy" />
             <Component Id="exe_shortcut" Directory="MenuDir" Guid="*">
-                <Shortcut Id="python.exe"
-                          Target="[#python.exe]"
+                <Shortcut Id="myFRpy.exe"
+                          Target="[#myFRpy.exe]"
                           Name="!(loc.ShortcutName)"
                           Description="!(loc.ShortcutDescription)"
                           WorkingDirectory="InstallDirectory" />

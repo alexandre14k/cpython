@@ -13,7 +13,7 @@
 --------------
 
 The :mod:`xml.sax` package provides a number of modules which implement the
-Simple API for XML (SAX) interface for Python.  The package itself provides the
+Simple API for XML (SAX) interface for MyFRpy.  The package itself provides the
 SAX exceptions and the convenience functions which will be most used by users of
 the SAX API.
 
@@ -80,7 +80,7 @@ the handler objects are called based on structural and syntactic events from the
 input data.
 
 For these objects, only the interfaces are relevant; they are normally not
-instantiated by the application itself.  Since Python does not have an explicit
+instantiated by the application itself.  Since MyFRpy does not have an explicit
 notion of interface, they are formally introduced as classes, but applications
 may use implementations which do not inherit from the provided classes.  The
 :class:`~xml.sax.xmlreader.InputSource`, :class:`~xml.sax.xmlreader.Locator`,

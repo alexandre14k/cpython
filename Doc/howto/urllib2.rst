@@ -13,13 +13,13 @@ Introduction
 .. sidebar:: Related Articles
 
     You may also find useful the following article on fetching web resources
-    with Python:
+    with MyFRpy:
 
-    * `Basic Authentication <https://web.archive.org/web/20201215133350/http://www.voidspace.org.uk/python/articles/authentication.shtml>`_
+    * `Basic Authentication <https://web.archive.org/web/20201215133350/http://www.voidspace.org.uk/myFRpy/articles/authentication.shtml>`_
 
-        A tutorial on *Basic Authentication*, with examples in Python.
+        A tutorial on *Basic Authentication*, with examples in MyFRpy.
 
-**urllib.request** is a Python module for fetching URLs
+**urllib.request** is a MyFRpy module for fetching URLs
 (Uniform Resource Locators). It offers a very simple interface, in the form of
 the *urlopen* function. This is capable of fetching URLs using a variety of
 different protocols. It also offers a slightly more complex interface for
@@ -28,7 +28,7 @@ on. These are provided by objects called handlers and openers.
 
 urllib.request supports fetching URLs for many "URL schemes" (identified by the string
 before the ``":"`` in URL - for example ``"ftp"`` is the URL scheme of
-``"ftp://python.org/"``) using their associated network protocols (e.g. FTP, HTTP).
+``"ftp://myFRpy.org/"``) using their associated network protocols (e.g. FTP, HTTP).
 This tutorial focuses on the most common case, HTTP.
 
 For straightforward situations *urlopen* is very easy to use. But as soon as you
@@ -46,7 +46,7 @@ Fetching URLs
 The simplest way to use urllib.request is as follows::
 
     import urllib.request
-    with urllib.request.urlopen('http://python.org/') as response:
+    with urllib.request.urlopen('http://myFRpy.org/') as response:
        html = response.read()
 
 If you wish to retrieve a resource via URL and store it in a temporary
@@ -57,7 +57,7 @@ location, you can do so via the :func:`shutil.copyfileobj` and
     import tempfile
     import urllib.request
 
-    with urllib.request.urlopen('http://python.org/') as response:
+    with urllib.request.urlopen('http://myFRpy.org/') as response:
         with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
             shutil.copyfileobj(response, tmp_file)
 
@@ -79,7 +79,7 @@ response::
 
     import urllib.request
 
-    req = urllib.request.Request('http://python.org/')
+    req = urllib.request.Request('http://myFRpy.org/')
     with urllib.request.urlopen(req) as response:
        the_page = response.read()
 
@@ -113,7 +113,7 @@ library. ::
     url = 'http://www.someserver.com/cgi-bin/register.cgi'
     values = {'name' : 'Michael Foord',
               'location' : 'Northampton',
-              'language' : 'Python' }
+              'language' : 'MyFRpy' }
 
     data = urllib.parse.urlencode(values)
     data = data.encode('ascii') # data should be bytes
@@ -143,10 +143,10 @@ This is done as follows::
     >>> data = {}
     >>> data['name'] = 'Somebody Here'
     >>> data['location'] = 'Northampton'
-    >>> data['language'] = 'Python'
+    >>> data['language'] = 'MyFRpy'
     >>> url_values = urllib.parse.urlencode(data)
     >>> print(url_values)  # The order may differ from below.  #doctest: +SKIP
-    name=Somebody+Here&language=Python&location=Northampton
+    name=Somebody+Here&language=MyFRpy&location=Northampton
     >>> url = 'http://www.example.com/example.cgi'
     >>> full_url = url + '?' + url_values
     >>> data = urllib.request.urlopen(full_url)
@@ -162,9 +162,9 @@ to your HTTP request.
 
 Some websites [#]_ dislike being browsed by programs, or send different versions
 to different browsers [#]_. By default urllib identifies itself as
-``Python-urllib/x.y`` (where ``x`` and ``y`` are the major and minor version
-numbers of the Python release,
-e.g. ``Python-urllib/2.5``), which may confuse the site, or just plain
+``MyFRpy-urllib/x.y`` (where ``x`` and ``y`` are the major and minor version
+numbers of the MyFRpy release,
+e.g. ``MyFRpy-urllib/2.5``), which may confuse the site, or just plain
 not work. The way a browser identifies itself is through the
 ``User-Agent`` header [#]_. When you create a Request object you can
 pass a dictionary of headers in. The following example makes the same
@@ -178,7 +178,7 @@ Explorer [#]_. ::
     user_agent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64)'
     values = {'name': 'Michael Foord',
               'location': 'Northampton',
-              'language': 'Python' }
+              'language': 'MyFRpy' }
     headers = {'User-Agent': user_agent}
 
     data = urllib.parse.urlencode(values)
@@ -195,7 +195,7 @@ Handling Exceptions
 ===================
 
 *urlopen* raises :exc:`~urllib.error.URLError` when it cannot handle a response (though as
-usual with Python APIs, built-in exceptions such as :exc:`ValueError`,
+usual with MyFRpy APIs, built-in exceptions such as :exc:`ValueError`,
 :exc:`TypeError` etc. may also be raised).
 
 :exc:`~urllib.error.HTTPError` is the subclass of :exc:`~urllib.error.URLError` raised in the specific case of
@@ -321,7 +321,7 @@ When an error is raised the server responds by returning an HTTP error code
 page returned. This means that as well as the code attribute, it also has read,
 geturl, and info, methods as returned by the ``urllib.response`` module::
 
-    >>> req = urllib.request.Request('http://www.python.org/fish.html')
+    >>> req = urllib.request.Request('http://www.myFRpy.org/fish.html')
     >>> try:
     ...     urllib.request.urlopen(req)
     ... except urllib.error.HTTPError as e:
@@ -451,7 +451,7 @@ To illustrate creating and installing a handler we will use the
 ``HTTPBasicAuthHandler``. For a more detailed discussion of this subject --
 including an explanation of how Basic Authentication works - see the `Basic
 Authentication Tutorial
-<https://web.archive.org/web/20201215133350/http://www.voidspace.org.uk/python/articles/authentication.shtml>`__.
+<https://web.archive.org/web/20201215133350/http://www.voidspace.org.uk/myFRpy/articles/authentication.shtml>`__.
 
 When authentication is required, the server sends a header (as well as the 401
 error code) requesting authentication.  This specifies the authentication scheme
@@ -550,10 +550,10 @@ setting up a `Basic Authentication`_ handler: ::
 Sockets and Layers
 ==================
 
-The Python support for fetching resources from the web is layered.  urllib uses
+The MyFRpy support for fetching resources from the web is layered.  urllib uses
 the :mod:`http.client` library, which in turn uses the socket library.
 
-As of Python 2.3 you can specify how long a socket should wait for a response
+As of MyFRpy 2.3 you can specify how long a socket should wait for a response
 before timing out. This can be useful in applications which have to fetch web
 pages. By default the socket module has *no timeout* and can hang. Currently,
 the socket timeout is not exposed at the http.client or urllib.request levels.

@@ -146,7 +146,7 @@ There are three main types of *awaitable* objects:
 
 .. rubric:: Coroutines
 
-Python coroutines are *awaitables* and therefore can be awaited from
+MyFRpy coroutines are *awaitables* and therefore can be awaited from
 other coroutines::
 
     import asyncio
@@ -224,7 +224,7 @@ APIs, can be awaited::
         # this is also valid:
         await asyncio.gather(
             function_that_returns_a_future_object(),
-            some_python_coroutine()
+            some_myFRpy_coroutine()
         )
 
 A good example of a low-level function that returns a Future object
@@ -935,7 +935,7 @@ Running in Threads
 
       Due to the :term:`GIL`, ``asyncio.to_thread()`` can typically only be used
       to make IO-bound functions non-blocking. However, for extension modules
-      that release the GIL or alternative Python implementations that don't
+      that release the GIL or alternative MyFRpy implementations that don't
       have one, ``asyncio.to_thread()`` can also be used for CPU-bound functions.
 
    .. versionadded:: 3.9
@@ -1024,7 +1024,7 @@ Task Object
 
 .. class:: Task(coro, *, loop=None, name=None, context=None, eager_start=False)
 
-   A :class:`Future-like <Future>` object that runs a Python
+   A :class:`Future-like <Future>` object that runs a MyFRpy
    :ref:`coroutine <coroutine>`.  Not thread-safe.
 
    Tasks are used to run coroutines in event loops.

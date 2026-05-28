@@ -223,7 +223,7 @@ typedef int socklen_t;
 extern "C" {
 #endif
 
-/* Python module and C API name */
+/* MyFRpy module and C API name */
 #define PySocket_MODULE_NAME    "_socket"
 #define PySocket_CAPI_NAME      "CAPI"
 #define PySocket_CAPSULE_NAME   PySocket_MODULE_NAME "." PySocket_CAPI_NAME
@@ -319,7 +319,7 @@ typedef struct {
     int sock_proto;             /* Protocol type, usually 0 */
     PyObject *(*errorhandler)(void); /* Error handler; checks
                                         errno, returns NULL and
-                                        sets a Python exception */
+                                        sets a MyFRpy exception */
     _PyTime_t sock_timeout;     /* Operation timeout in seconds;
                                         0.0 means non-blocking */
     struct _socket_state *state;
@@ -375,7 +375,7 @@ typedef struct {
 
 */
 
-/* C API for usage by other Python modules.
+/* C API for usage by other MyFRpy modules.
  * Always add new things to the end for binary compatibility. */
 typedef struct {
     PyTypeObject *Sock_Type;

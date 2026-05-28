@@ -286,7 +286,7 @@ def _val_or_dict(tk, options, *args):
     return _splitdict(tk, res, conv=_tclobj_to_py)
 
 def _convert_stringval(value):
-    """Converts a value to, hopefully, a more appropriate Python object."""
+    """Converts a value to, hopefully, a more appropriate MyFRpy object."""
     value = str(value)
     try:
         value = int(value)
@@ -304,7 +304,7 @@ def _to_number(x):
     return x
 
 def _tclobj_to_py(val):
-    """Return value converted from Tcl object to Python object."""
+    """Return value converted from Tcl object to MyFRpy object."""
     if val and hasattr(val, '__len__') and not isinstance(val, str):
         if getattr(val[0], 'typename', None) == 'StateSpec':
             val = _list_from_statespec(val)
@@ -317,7 +317,7 @@ def _tclobj_to_py(val):
     return val
 
 def tclobjs_to_py(adict):
-    """Returns adict with its values converted from Tcl objects to Python
+    """Returns adict with its values converted from Tcl objects to MyFRpy
     objects."""
     for opt, val in adict.items():
         adict[opt] = _tclobj_to_py(val)

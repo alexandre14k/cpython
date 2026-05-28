@@ -1,6 +1,6 @@
 /* Abstract Object Interface (many thanks to Jim Fulton) */
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_abstract.h"      // _PyIndex_Check()
 #include "pycore_call.h"          // _PyObject_CallNoArgs()
 #include "pycore_ceval.h"         // _Py_EnterRecursiveCallTstate()
@@ -374,7 +374,7 @@ int PyObject_AsWriteBuffer(PyObject *obj,
     return 0;
 }
 
-/* Buffer C-API for Python 3.0 */
+/* Buffer C-API for MyFRpy 3.0 */
 
 int
 PyObject_GetBuffer(PyObject *obj, Py_buffer *view, int flags)
@@ -1388,7 +1388,7 @@ PyIndex_Check(PyObject *obj)
 }
 
 
-/* Return a Python int from the object item.
+/* Return a MyFRpy int from the object item.
    Can return an instance of int subclass.
    Raise TypeError if the result is not an int
    or if the object cannot be interpreted as an index.
@@ -1427,7 +1427,7 @@ _PyNumber_Index(PyObject *item)
     if (PyErr_WarnFormat(PyExc_DeprecationWarning, 1,
             "__index__ returned non-int (type %.200s).  "
             "The ability to return an instance of a strict subclass of int "
-            "is deprecated, and may be removed in a future version of Python.",
+            "is deprecated, and may be removed in a future version of MyFRpy.",
             Py_TYPE(result)->tp_name)) {
         Py_DECREF(result);
         return NULL;
@@ -1435,7 +1435,7 @@ _PyNumber_Index(PyObject *item)
     return result;
 }
 
-/* Return an exact Python int from the object item.
+/* Return an exact MyFRpy int from the object item.
    Raise TypeError if the result is not an int
    or if the object cannot be interpreted as an index.
 */
@@ -1538,7 +1538,7 @@ PyNumber_Long(PyObject *o)
         if (PyErr_WarnFormat(PyExc_DeprecationWarning, 1,
                 "__int__ returned non-int (type %.200s).  "
                 "The ability to return an instance of a strict subclass of int "
-                "is deprecated, and may be removed in a future version of Python.",
+                "is deprecated, and may be removed in a future version of MyFRpy.",
                 Py_TYPE(result)->tp_name)) {
             Py_DECREF(result);
             return NULL;
@@ -1647,7 +1647,7 @@ PyNumber_Float(PyObject *o)
         if (PyErr_WarnFormat(PyExc_DeprecationWarning, 1,
                 "%.50s.__float__ returned non-float (type %.50s).  "
                 "The ability to return an instance of a strict subclass of float "
-                "is deprecated, and may be removed in a future version of Python.",
+                "is deprecated, and may be removed in a future version of MyFRpy.",
                 Py_TYPE(o)->tp_name, Py_TYPE(res)->tp_name)) {
             Py_DECREF(res);
             return NULL;

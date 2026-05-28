@@ -16,7 +16,7 @@ class TestStableABIAvailability(unittest.TestCase):
 
         for symbol_name in SYMBOL_NAMES:
             with self.subTest(symbol_name):
-                ctypes_test.pythonapi[symbol_name]
+                ctypes_test.myFRpyapi[symbol_name]
 
     def test_feature_macros(self):
         self.assertEqual(
@@ -826,7 +826,7 @@ SYMBOL_NAMES = (
     "Py_GetPrefix",
     "Py_GetProgramFullPath",
     "Py_GetProgramName",
-    "Py_GetPythonHome",
+    "Py_GetMyFRpyHome",
     "Py_GetRecursionLimit",
     "Py_GetVersion",
     "Py_HasFileSystemDefaultEncoding",
@@ -847,7 +847,7 @@ SYMBOL_NAMES = (
     "Py_ReprLeave",
     "Py_SetPath",
     "Py_SetProgramName",
-    "Py_SetPythonHome",
+    "Py_SetMyFRpyHome",
     "Py_SetRecursionLimit",
     "Py_UTF8Mode",
     "Py_VaBuildValue",

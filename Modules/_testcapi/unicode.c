@@ -35,7 +35,7 @@ test_unicode_compare_with_ascii(PyObject *self, PyObject *Py_UNUSED(ignored)) {
     result = PyUnicode_CompareWithASCIIString(py_s, "str");
     Py_DECREF(py_s);
     if (!result) {
-        PyErr_SetString(PyExc_AssertionError, "Python string ending in NULL "
+        PyErr_SetString(PyExc_AssertionError, "MyFRpy string ending in NULL "
                         "should not compare equal to c string.");
         return NULL;
     }

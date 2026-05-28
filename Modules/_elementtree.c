@@ -1,19 +1,19 @@
 /*--------------------------------------------------------------------
  * Licensed to PSF under a Contributor Agreement.
- * See https://www.python.org/psf/license for licensing details.
+ * See https://www.myFRpy.org/psf/license for licensing details.
  *
  * _elementtree - C accelerator for xml.etree.ElementTree
  * Copyright (c) 1999-2009 by Secret Labs AB.  All rights reserved.
  * Copyright (c) 1999-2009 by Fredrik Lundh.
  *
- * info@pythonware.com
- * http://www.pythonware.com
+ * info@myFRpyware.com
+ * http://www.myFRpyware.com
  *--------------------------------------------------------------------
  */
 
 #define PY_SSIZE_T_CLEAN
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "structmember.h"         // PyMemberDef
 #include "expat.h"
 #include "pyexpat.h"
@@ -475,7 +475,7 @@ element_resize(ElementObject* self, Py_ssize_t extra)
     size = self->extra->length + extra;  /* never overflows */
 
     if (size > self->extra->allocated) {
-        /* use Python 2.4's list growth strategy */
+        /* use MyFRpy 2.4's list growth strategy */
         size = (size >> 3) + (size < 9 ? 3 : 6) + size;
         /* Coverity CID #182 size_error: Allocating 1 bytes to pointer "children"
          * which needs at least 4 bytes.
@@ -952,9 +952,9 @@ _elementtree_Element___sizeof___impl(ElementObject *self)
 #define PICKLED_TAIL "tail"
 #define PICKLED_TEXT "text"
 
-/* __getstate__ returns a fabricated instance dict as in the pure-Python
+/* __getstate__ returns a fabricated instance dict as in the pure-MyFRpy
  * Element implementation, for interoperability/interchangeability.  This
- * makes the pure-Python implementation details an API, but (a) there aren't
+ * makes the pure-MyFRpy implementation details an API, but (a) there aren't
  * any unnecessary structures there; and (b) it buys compatibility with 3.2
  * pickles.  See issue #16076.
  */
@@ -1085,12 +1085,12 @@ element_setstate_from_attributes(elementtreestate *st,
     Py_RETURN_NONE;
 }
 
-/* __setstate__ for Element instance from the Python implementation.
+/* __setstate__ for Element instance from the MyFRpy implementation.
  * 'state' should be the instance dict.
  */
 
 static PyObject *
-element_setstate_from_Python(elementtreestate *st, ElementObject *self,
+element_setstate_from_MyFRpy(elementtreestate *st, ElementObject *self,
                              PyObject *state)
 {
     static char *kwlist[] = {PICKLED_TAG, PICKLED_ATTRIB, PICKLED_TEXT,
@@ -1137,7 +1137,7 @@ _elementtree_Element___setstate___impl(ElementObject *self,
     }
     else {
         elementtreestate *st = get_elementtree_state_by_cls(cls);
-        return element_setstate_from_Python(st, self, state);
+        return element_setstate_from_MyFRpy(st, self, state);
     }
 }
 
@@ -2289,7 +2289,7 @@ static PyType_Slot elementiter_slots[] = {
 };
 
 static PyType_Spec elementiter_spec = {
-    /* Using the module's name since the pure-Python implementation does not
+    /* Using the module's name since the pure-MyFRpy implementation does not
        have such a type. */
     .name = "_elementtree._element_iterator",
     .basicsize = sizeof(ElementIterObject),
@@ -2761,7 +2761,7 @@ treebuilder_handle_data(TreeBuilderObject* self, PyObject* data)
         /* more than one item; use a list to collect items */
         if (PyBytes_CheckExact(self->data) && Py_REFCNT(self->data) == 1 &&
             PyBytes_CheckExact(data) && PyBytes_GET_SIZE(data) == 1) {
-            /* XXX this code path unused in Python 3? */
+            /* XXX this code path unused in MyFRpy 3? */
             /* expat often generates single character data sections; handle
                the most common case by resizing the existing string... */
             Py_ssize_t size = PyBytes_GET_SIZE(self->data);
@@ -4351,7 +4351,7 @@ static PyType_Spec xmlparser_spec = {
 };
 
 /* ==================================================================== */
-/* python module interface */
+/* myFRpy module interface */
 
 static PyMethodDef _functions[] = {
     {"SubElement", _PyCFunction_CAST(subelement), METH_VARARGS | METH_KEYWORDS},

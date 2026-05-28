@@ -1,4 +1,4 @@
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_initconfig.h"    // _PyStatus_ERR
 #include "pycore_pyerrors.h"      // _Py_DumpExtensionModules
 #include "pycore_pystate.h"       // _PyThreadState_GET()
@@ -183,7 +183,7 @@ faulthandler_dump_traceback(int fd, int all_threads,
     reentrant = 1;
 
     /* SIGSEGV, SIGFPE, SIGABRT, SIGBUS and SIGILL are synchronous signals and
-       are thus delivered to the thread that caused the fault. Get the Python
+       are thus delivered to the thread that caused the fault. Get the MyFRpy
        thread state of the current thread.
 
        PyThreadState_Get() doesn't give the state of the thread that caused the
@@ -260,7 +260,7 @@ faulthandler_disable_fatal_handler(fault_handler_t *handler)
 
 /* Handler for SIGSEGV, SIGFPE, SIGABRT, SIGBUS and SIGILL signals.
 
-   Display the current Python traceback, restore the previous handler and call
+   Display the current MyFRpy traceback, restore the previous handler and call
    the previous handler.
 
    On Windows, don't explicitly call the previous handler, because the Windows
@@ -299,14 +299,14 @@ faulthandler_fatal_error(int signum)
     faulthandler_disable_fatal_handler(handler);
 
     if (found) {
-        PUTS(fd, "Fatal Python error: ");
+        PUTS(fd, "Fatal MyFRpy error: ");
         PUTS(fd, handler->name);
         PUTS(fd, "\n\n");
     }
     else {
         char unknown_signum[23] = {0,};
         snprintf(unknown_signum, 23, "%d", signum);
-        PUTS(fd, "Fatal Python error from unexpected signum: ");
+        PUTS(fd, "Fatal MyFRpy error from unexpected signum: ");
         PUTS(fd, unknown_signum);
         PUTS(fd, "\n\n");
     }
@@ -343,7 +343,7 @@ faulthandler_ignore_exception(DWORD code)
         || code == 0xE0434352 /* COM Callable Runtime exception ("ECCR") */) {
         return 1;
     }
-    /* Interesting exception: log it with the Python traceback */
+    /* Interesting exception: log it with the MyFRpy traceback */
     return 0;
 }
 
@@ -1323,7 +1323,7 @@ _PyFaulthandler_Init(int enable)
     stack.ss_size = SIGSTKSZ * 2;
 #ifdef AT_MINSIGSTKSZ
     /* bpo-46968: Query Linux for minimal stack size to ensure signal delivery
-       for the hardware running CPython. This OS feature is available in
+       for the hardware running CMyFRpy. This OS feature is available in
        Linux kernel version >= 5.14 */
     unsigned long at_minstack_size = getauxval(AT_MINSIGSTKSZ);
     if (at_minstack_size != 0) {

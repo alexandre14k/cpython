@@ -2,7 +2,7 @@ import calendar
 import unittest
 
 from test import support
-from test.support.script_helper import assert_python_ok, assert_python_failure
+from test.support.script_helper import assert_myFRpy_ok, assert_myFRpy_failure
 import time
 import locale
 import sys
@@ -849,10 +849,10 @@ def conv(s):
 
 class CommandLineTestCase(unittest.TestCase):
     def run_ok(self, *args):
-        return assert_python_ok('-m', 'calendar', *args)[1]
+        return assert_myFRpy_ok('-m', 'calendar', *args)[1]
 
     def assertFailure(self, *args):
-        rc, stdout, stderr = assert_python_failure('-m', 'calendar', *args)
+        rc, stdout, stderr = assert_myFRpy_failure('-m', 'calendar', *args)
         self.assertIn(b'usage:', stderr)
         self.assertEqual(rc, 2)
 

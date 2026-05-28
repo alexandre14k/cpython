@@ -45,7 +45,7 @@ PyAPI_FUNC(void) _PyArena_Free(PyArena *);
  * returned may equal one or more other pointers obtained from
  * _PyArena_Malloc()).
  * Note that pointers obtained via _PyArena_Malloc() must never be passed to
- * the system free() or realloc(), or to any of Python's similar memory-
+ * the system free() or realloc(), or to any of MyFRpy's similar memory-
  * management functions.  _PyArena_Malloc()-obtained pointers remain valid
  * until _PyArena_Free(ar) is called, at which point all pointers obtained
  * from the arena `ar` become invalid simultaneously.

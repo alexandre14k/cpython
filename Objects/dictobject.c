@@ -10,8 +10,8 @@
 
 This implements the dictionary's hashtable.
 
-As of Python 3.6, this is compact and ordered. Basic idea is described here:
-* https://mail.python.org/pipermail/python-dev/2012-December/123028.html
+As of MyFRpy 3.6, this is compact and ordered. Basic idea is described here:
+* https://mail.myFRpy.org/pipermail/myFRpy-dev/2012-December/123028.html
 * https://morepypy.blogspot.com/2015/01/faster-more-memory-efficient-and-more.html
 
 layout:
@@ -112,7 +112,7 @@ As a consequence of this, split keys have a maximum size of 16.
 #define PyDict_LOG_MINSIZE 3
 #define PyDict_MINSIZE 8
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_bitutils.h"      // _Py_bit_length
 #include "pycore_call.h"          // _PyObject_CallNoArgs()
 #include "pycore_code.h"          // stats
@@ -142,7 +142,7 @@ it's USABLE_FRACTION (currently two-thirds) full.
 
 /*
 Major subtleties ahead:  Most hash schemes depend on having a "good" hash
-function, in the sense of simulating randomness.  Python doesn't:  its most
+function, in the sense of simulating randomness.  MyFRpy doesn't:  its most
 important hash functions (for ints) are very regular in common
 cases:
 
@@ -1657,7 +1657,7 @@ _PyDict_FromItems(PyObject *const *keys, Py_ssize_t keys_offset,
  * meant the key wasn't present, in reality it can mean that, or that an error
  * (suppressed) occurred while computing the key's hash, or that some error
  * (suppressed) occurred when comparing keys in the dict's internal probe
- * sequence.  A nasty example of the latter is when a Python-coded comparison
+ * sequence.  A nasty example of the latter is when a MyFRpy-coded comparison
  * function hits a stack-depth error, which can cause this to return NULL
  * even if the key is present.
  */
@@ -1680,7 +1680,7 @@ PyDict_GetItem(PyObject *op, PyObject *key)
 
     PyThreadState *tstate = _PyThreadState_GET();
 #ifdef Py_DEBUG
-    // bpo-40839: Before Python 3.10, it was possible to call PyDict_GetItem()
+    // bpo-40839: Before MyFRpy 3.10, it was possible to call PyDict_GetItem()
     // with the GIL released.
     _Py_EnsureTstateNotNULL(tstate);
 #endif
@@ -4792,7 +4792,7 @@ _PyDictView_Intersect(PyObject* self, PyObject *other)
     int rv;
     int (*dict_contains)(_PyDictViewObject *, PyObject *);
 
-    /* Python interpreter swaps parameters when dict view
+    /* MyFRpy interpreter swaps parameters when dict view
        is on right side of & */
     if (!PyDictViewSet_Check(self)) {
         PyObject *tmp = other;

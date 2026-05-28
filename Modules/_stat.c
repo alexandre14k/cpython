@@ -12,7 +12,7 @@
  */
 
 #define PY_SSIZE_T_CLEAN
-#include "Python.h"
+#include "MyFRpy.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -46,7 +46,7 @@ typedef unsigned short mode_t;
 
 #endif /* MS_WINDOWS */
 
-/* From Python's stat.py */
+/* From MyFRpy's stat.py */
 #ifndef S_IMODE
 #  define S_IMODE 07777
 #endif

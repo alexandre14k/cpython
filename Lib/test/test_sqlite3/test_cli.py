@@ -34,7 +34,7 @@ class CommandLineInterface(unittest.TestCase):
 
     def test_cli_help(self):
         out = self.expect_success("-h")
-        self.assertIn("usage: python -m sqlite3", out)
+        self.assertIn("usage: myFRpy -m sqlite3", out)
 
     def test_cli_version(self):
         out = self.expect_success("-v")

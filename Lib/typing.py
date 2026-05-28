@@ -214,7 +214,7 @@ def _should_unflatten_callable_args(typ, args):
     """Internal helper for munging collections.abc.Callable's __args__.
 
     The canonical representation for a Callable's __args__ flattens the
-    argument types, see https://github.com/python/cpython/issues/86361.
+    argument types, see https://github.com/myFRpy/cmyFRpy/issues/86361.
 
     For example::
 
@@ -273,7 +273,7 @@ def _collect_parameters(args):
     parameters = []
     for t in args:
         if isinstance(t, type):
-            # We don't want __parameters__ descriptor of a bare Python class.
+            # We don't want __parameters__ descriptor of a bare MyFRpy class.
             pass
         elif isinstance(t, tuple):
             # `t` might be a tuple, when `ParamSpec` is substituted with
@@ -559,7 +559,7 @@ def NoReturn(self, parameters):
             raise Exception('no way')
 
     NoReturn can also be used as a bottom type, a type that
-    has no values. Starting in Python 3.11, the Never type should
+    has no values. Starting in MyFRpy 3.11, the Never type should
     be used for this concept instead. Type checkers should treat the two
     equivalently.
     """
@@ -688,7 +688,7 @@ def Final(self, parameters):
 def Union(self, parameters):
     """Union type; Union[X, Y] means either X or Y.
 
-    On Python 3.10 and higher, the | operator
+    On MyFRpy 3.10 and higher, the | operator
     can also be used to denote unions;
     X | Y means the same thing to the type checker as Union[X, Y].
 
@@ -1640,12 +1640,12 @@ def Unpack(self, parameters):
         Bar[int]  # Valid
         Bar[int, str]  # Also valid
 
-    From Python 3.11, this can also be done using the `*` operator::
+    From MyFRpy 3.11, this can also be done using the `*` operator::
 
         Foo[*tuple[int, str]]
         class Bar(Generic[*Ts]): ...
 
-    And from Python 3.12, it can be done using built-in syntax for generics::
+    And from MyFRpy 3.12, it can be done using built-in syntax for generics::
 
         Foo[*tuple[int, str]]
         class Bar[*Ts]: ...
@@ -2229,7 +2229,7 @@ def get_type_hints(obj, globalns=None, localns=None, include_extras=False):
                 ann = {}
             base_locals = dict(vars(base)) if localns is None else localns
             if localns is None and globalns is None:
-                # This is surprising, but required.  Before Python 3.10,
+                # This is surprising, but required.  Before MyFRpy 3.10,
                 # get_type_hints only evaluated the globalns of
                 # a class.  To maintain backwards compatibility, we reverse
                 # the globalns and localns order so that eval() looks into
@@ -2993,7 +2993,7 @@ def TypedDict(typename, fields=None, /, *, total=True, **kwargs):
     if kwargs:
         warnings.warn(
             "The kwargs-based syntax for TypedDict definitions is deprecated "
-            "in Python 3.11, will be removed in Python 3.13, and may not be "
+            "in MyFRpy 3.11, will be removed in MyFRpy 3.13, and may not be "
             "understood by third-party type checkers.",
             DeprecationWarning,
             stacklevel=2,
@@ -3118,7 +3118,7 @@ class NewType:
         return Union[other, self]
 
 
-# Python-version-specific alias (Python 2: unicode; Python 3: str)
+# MyFRpy-version-specific alias (MyFRpy 2: unicode; MyFRpy 3: str)
 Text = str
 
 
@@ -3280,7 +3280,7 @@ class _DeprecatedType(type):
             warnings.warn(
                 f"{cls.__name__} is deprecated, import directly "
                 f"from typing instead. {cls.__name__} will be removed "
-                "in Python 3.13.",
+                "in MyFRpy 3.13.",
                 DeprecationWarning,
                 stacklevel=2,
             )

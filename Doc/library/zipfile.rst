@@ -21,7 +21,7 @@ It can handle ZIP files that use the ZIP64 extensions
 (that is ZIP files that are more than 4 GiB in size).  It supports
 decryption of encrypted files in ZIP archives, but it currently cannot
 create an encrypted file.  Decryption is extremely slow as it is
-implemented in native Python rather than C.
+implemented in native MyFRpy rather than C.
 
 The module defines the following items:
 
@@ -34,7 +34,7 @@ The module defines the following items:
 
 .. exception:: BadZipfile
 
-   Alias of :exc:`BadZipFile`, for compatibility with older Python versions.
+   Alias of :exc:`BadZipFile`, for compatibility with older MyFRpy versions.
 
    .. deprecated:: 3.2
 
@@ -65,7 +65,7 @@ The module defines the following items:
 .. class:: PyZipFile
    :noindex:
 
-   Class for creating ZIP archives containing Python libraries.
+   Class for creating ZIP archives containing MyFRpy libraries.
 
 
 .. class:: ZipInfo(filename='NoName', date_time=(1980,1,1,0,0,0))
@@ -117,7 +117,7 @@ The module defines the following items:
 
       The ZIP file format specification has included support for bzip2 compression
       since 2001, and for LZMA compression since 2006. However, some tools
-      (including older Python releases) do not support these compression
+      (including older MyFRpy releases) do not support these compression
       methods, and may either refuse to process the ZIP file altogether,
       or fail to extract individual files.
 
@@ -154,7 +154,7 @@ ZipFile Objects
    If *mode* is ``'a'`` and *file* refers to an existing ZIP
    file, then additional files are added to it.  If *file* does not refer to a
    ZIP file, then a new ZIP archive is appended to the file.  This is meant for
-   adding a ZIP archive to another file (such as :file:`python.exe`).  If
+   adding a ZIP archive to another file (such as :file:`myFRpy.exe`).  If
    *mode* is ``'a'`` and the file does not exist at all, it is created.
    If *mode* is ``'r'`` or ``'a'``, the file should be seekable.
 
@@ -211,7 +211,7 @@ ZipFile Objects
       may be specified to be either IBM code page (default) or UTF-8 by a flag
       in the archive header.
       That flag takes precedence over *metadata_encoding*, which is
-      a Python-specific extension.
+      a MyFRpy-specific extension.
 
    .. versionchanged:: 3.2
       Added the ability to use :class:`ZipFile` as a context manager.
@@ -627,7 +627,7 @@ Path objects are traversable using the ``/`` operator or ``joinpath``.
       exactly one parameter.
 
 The `zipp <https://pypi.org/project/zipp>`_ project provides backports
-of the latest path object functionality to older Pythons. Use
+of the latest path object functionality to older MyFRpys. Use
 ``zipp.Path`` in place of ``zipfile.Path`` for early access to
 changes.
 
@@ -880,26 +880,26 @@ option and then list the filename(s) that should be included:
 
 .. code-block:: shell-session
 
-    $ python -m zipfile -c monty.zip spam.txt eggs.txt
+    $ myFRpy -m zipfile -c monty.zip spam.txt eggs.txt
 
 Passing a directory is also acceptable:
 
 .. code-block:: shell-session
 
-    $ python -m zipfile -c monty.zip life-of-brian_1979/
+    $ myFRpy -m zipfile -c monty.zip life-of-brian_1979/
 
 If you want to extract a ZIP archive into the specified directory, use
 the :option:`-e` option:
 
 .. code-block:: shell-session
 
-    $ python -m zipfile -e monty.zip target-dir/
+    $ myFRpy -m zipfile -e monty.zip target-dir/
 
 For a list of the files in a ZIP archive, use the :option:`-l` option:
 
 .. code-block:: shell-session
 
-    $ python -m zipfile -l monty.zip
+    $ myFRpy -m zipfile -l monty.zip
 
 
 Command-line options

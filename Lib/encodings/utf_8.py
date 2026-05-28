@@ -1,4 +1,4 @@
-""" Python 'utf-8' Codec
+""" MyFRpy 'utf-8' Codec
 
 
 Written by Marc-Andre Lemburg (mal@lemburg.com).

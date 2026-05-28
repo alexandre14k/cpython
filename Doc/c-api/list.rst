@@ -10,13 +10,13 @@ List Objects
 
 .. c:type:: PyListObject
 
-   This subtype of :c:type:`PyObject` represents a Python list object.
+   This subtype of :c:type:`PyObject` represents a MyFRpy list object.
 
 
 .. c:var:: PyTypeObject PyList_Type
 
-   This instance of :c:type:`PyTypeObject` represents the Python list type.
-   This is the same object as :class:`list` in the Python layer.
+   This instance of :c:type:`PyTypeObject` represents the MyFRpy list type.
+   This is the same object as :class:`list` in the MyFRpy layer.
 
 
 .. c:function:: int PyList_Check(PyObject *p)
@@ -39,7 +39,7 @@ List Objects
 
       If *len* is greater than zero, the returned list object's items are
       set to ``NULL``.  Thus you cannot use abstract API functions such as
-      :c:func:`PySequence_SetItem`  or expose the object to Python code before
+      :c:func:`PySequence_SetItem`  or expose the object to MyFRpy code before
       setting all items to a real object with :c:func:`PyList_SetItem`.
 
 

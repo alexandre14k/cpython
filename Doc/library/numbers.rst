@@ -174,7 +174,7 @@ Complex``. I'll consider ``a + b``:
 4. If it falls back to the boilerplate, there are no more possible
    methods to try, so this is where the default implementation
    should live.
-5. If ``B <: A``, Python tries ``B.__radd__`` before
+5. If ``B <: A``, MyFRpy tries ``B.__radd__`` before
    ``A.__add__``. This is ok, because it was implemented with
    knowledge of ``A``, so it can handle those instances before
    delegating to :class:`Complex`.

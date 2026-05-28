@@ -9,7 +9,7 @@ SyntaxError: name 'x' is parameter and global
 
 The tests are all raise SyntaxErrors.  They were created by checking
 each C call that raises SyntaxError.  There are several modules that
-raise these exceptions-- ast.c, compile.c, future.c, pythonrun.c, and
+raise these exceptions-- ast.c, compile.c, future.c, myFRpyrun.c, and
 symtable.c.
 
 The parser itself outlaws a lot of invalid syntax.  None of these
@@ -938,7 +938,7 @@ From SF bug #1705365
      ...
    SyntaxError: nonlocal declaration not allowed at module level
 
-From https://bugs.python.org/issue25973
+From https://bugs.myFRpy.org/issue25973
    >>> class A:
    ...     def f(self):
    ...         nonlocal __x
@@ -947,7 +947,7 @@ From https://bugs.python.org/issue25973
    SyntaxError: no binding for nonlocal '_A__x' found
 
 
-This tests assignment-context; there was a bug in Python 2.5 where compiling
+This tests assignment-context; there was a bug in MyFRpy 2.5 where compiling
 a complex 'if' (one with 'elif') would fail to notice an invalid suite,
 leading to spurious errors.
 
@@ -2244,7 +2244,7 @@ if x:
 
         self.assertRaises(IndentationError, exec, code)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_nested_named_except_blocks(self):
         code = ""
         for i in range(12):
@@ -2254,7 +2254,7 @@ if x:
         code += f"{' '*4*12}pass"
         self._check_error(code, "too many statically nested blocks")
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_with_statement_many_context_managers(self):
         # See gh-113297
 
@@ -2376,7 +2376,7 @@ case(34)
             lineno=3
         )
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_syntax_error_on_deeply_nested_blocks(self):
         # This raises a SyntaxError, it used to raise a SystemError. Context
         # for this change can be found on issue #27514
@@ -2411,7 +2411,7 @@ while 1:
 """
         self._check_error(source, "too many statically nested blocks")
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_error_on_parser_stack_overflow(self):
         source = "-" * 100000 + "4"
         for mode in ["exec", "eval", "single"]:
@@ -2419,7 +2419,7 @@ while 1:
                 with self.assertRaisesRegex(MemoryError, r"too complex"):
                     compile(source, "<string>", mode)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_deep_invalid_rule(self):
         # Check that a very deep invalid rule in the PEG
         # parser doesn't have exponential backtracking.

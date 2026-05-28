@@ -1,4 +1,4 @@
-This license applies to the bootstrapper application that is embedded within the installer. It has no impact on the licensing for the rest of the installer or Python itself, as no code covered by this license exists in any other part of the product.
+This license applies to the bootstrapper application that is embedded within the installer. It has no impact on the licensing for the rest of the installer or MyFRpy itself, as no code covered by this license exists in any other part of the product.
 
 ---
 

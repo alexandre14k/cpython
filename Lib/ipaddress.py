@@ -1,7 +1,7 @@
 # Copyright 2007 Google Inc.
 #  Licensed to PSF under a Contributor Agreement.
 
-"""A fast, lightweight IPv4/IPv6 manipulation library in Python.
+"""A fast, lightweight IPv4/IPv6 manipulation library in MyFRpy.
 
 This library is used to create/poke/manipulate IPv4 and IPv6 addresses
 and networks.

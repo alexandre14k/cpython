@@ -8,15 +8,15 @@ cygwin in no-cygwin mode).
 
 # problems:
 #
-# * if you use a msvc compiled python version (1.5.2)
+# * if you use a msvc compiled myFRpy version (1.5.2)
 #   1. you have to insert a __GNUC__ section in its config.h
 #   2. you have to generate an import library for its dll
-#      - create a def-file for python??.dll
+#      - create a def-file for myFRpy??.dll
 #      - create an import library using
-#             dlltool --dllname python15.dll --def python15.def \
-#                       --output-lib libpython15.a
+#             dlltool --dllname myFRpy15.dll --def myFRpy15.def \
+#                       --output-lib libmyFRpy15.a
 #
-#   see also http://starship.python.net/crew/kernr/mingw32/Notes.html
+#   see also http://starship.myFRpy.net/crew/kernr/mingw32/Notes.html
 #
 # * We put export_symbols in a def-file, and don't use
 #   --export-all-symbols because it doesn't worked reliable in some
@@ -26,8 +26,8 @@ cygwin in no-cygwin mode).
 # tested configurations:
 #
 # * cygwin gcc 2.91.57/ld 2.9.4/dllwrap 0.2.4 works
-#   (after patching python's config.h and for C++ some other include files)
-#   see also http://starship.python.net/crew/kernr/mingw32/Notes.html
+#   (after patching myFRpy's config.h and for C++ some other include files)
+#   see also http://starship.myFRpy.net/crew/kernr/mingw32/Notes.html
 # * mingw32 gcc 2.95.2/ld 2.9.4/dllwrap 0.2.4 works
 #   (ld doesn't support -shared, so we use dllwrap)
 # * cygwin gcc 2.95.2/ld 2.10.90/dllwrap 2.10.90 works now
@@ -56,7 +56,7 @@ from distutils.version import LooseVersion
 from distutils.spawn import find_executable
 
 def get_msvcr():
-    """Include the appropriate MSVC runtime library if Python was built
+    """Include the appropriate MSVC runtime library if MyFRpy was built
     with MSVC 7.0 or later.
     """
     msc_pos = sys.version.find('MSC v.')
@@ -97,11 +97,11 @@ class CygwinCCompiler(UnixCCompiler):
         UnixCCompiler.__init__(self, verbose, dry_run, force)
 
         status, details = check_config_h()
-        self.debug_print("Python's GCC status: %s (details: %s)" %
+        self.debug_print("MyFRpy's GCC status: %s (details: %s)" %
                          (status, details))
         if status is not CONFIG_H_OK:
             self.warn(
-                "Python's pyconfig.h doesn't seem to support your compiler. "
+                "MyFRpy's pyconfig.h doesn't seem to support your compiler. "
                 "Reason: %s. "
                 "Compiling may fail because of undefined preprocessor macros."
                 % details)
@@ -147,7 +147,7 @@ class CygwinCCompiler(UnixCCompiler):
             self.warn(
                 "Consider upgrading to a newer version of gcc")
         else:
-            # Include the appropriate MSVC runtime library if Python was built
+            # Include the appropriate MSVC runtime library if MyFRpy was built
             # with MSVC 7.0 or later.
             self.dll_libraries = get_msvcr()
 
@@ -194,11 +194,11 @@ class Mingw32CCompiler(CygwinCCompiler):
         # no additional libraries needed
         self.dll_libraries=[]
 
-        # Include the appropriate MSVC runtime library if Python was built
+        # Include the appropriate MSVC runtime library if MyFRpy was built
         # with MSVC 7.0 or later.
         self.dll_libraries = get_msvcr()
 
-# Because these compilers aren't configured in Python's pyconfig.h file by
+# Because these compilers aren't configured in MyFRpy's pyconfig.h file by
 # default, we should at least warn the user if he is using an unmodified
 # version.
 
@@ -207,7 +207,7 @@ CONFIG_H_NOTOK = "not ok"
 CONFIG_H_UNCERTAIN = "uncertain"
 
 def check_config_h():
-    """Check if the current Python installation appears amenable to building
+    """Check if the current MyFRpy installation appears amenable to building
     extensions with GCC.
 
     Returns a tuple (status, details), where 'status' is one of the following
@@ -220,7 +220,7 @@ def check_config_h():
     'details' is a human-readable string explaining the situation.
 
     Note there are two ways to conclude "OK": either 'sys.version' contains
-    the string "GCC" (implying that this Python was built with GCC), or the
+    the string "GCC" (implying that this MyFRpy was built with GCC), or the
     installed "pyconfig.h" contains the string "__GNUC__".
     """
 
@@ -229,12 +229,12 @@ def check_config_h():
 
     import sysconfig
 
-    # if sys.version contains GCC then python was compiled with GCC, and the
+    # if sys.version contains GCC then myFRpy was compiled with GCC, and the
     # pyconfig.h file should be OK
     if "GCC" in sys.version:
         return CONFIG_H_OK, "sys.version mentions 'GCC'"
 
-    # let's see if __GNUC__ is mentioned in python.h
+    # let's see if __GNUC__ is mentioned in myFRpy.h
     fn = sysconfig.get_config_h_filename()
     try:
         config_h = open(fn)

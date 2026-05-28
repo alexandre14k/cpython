@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <ProjectGuid>{10487945-15D1-4092-A214-338395C4116B}</ProjectGuid>
-        <OutputName>python</OutputName>
+        <OutputName>myFRpy</OutputName>
         <OutputSuffix></OutputSuffix>
         <SupportSigning>false</SupportSigning>
     </PropertyGroup>
@@ -11,16 +11,16 @@
 
     <PropertyGroup>
         <SignOutput>false</SignOutput>
-        <TargetName>python-$(PythonVersion)-embed-$(ArchName)</TargetName>
+        <TargetName>myFRpy-$(MyFRpyVersion)-embed-$(ArchName)</TargetName>
         <TargetExt>.zip</TargetExt>
         <TargetPath>$(OutputPath)\$(TargetName)$(TargetExt)</TargetPath>
         <CleanCommand>rmdir /q/s "$(IntermediateOutputPath)\zip_$(ArchName)"</CleanCommand>
-        <Arguments>"$(PythonExe)" "$(PySourcePath)PC\layout"</Arguments>
+        <Arguments>"$(MyFRpyExe)" "$(PySourcePath)PC\layout"</Arguments>
         <Arguments>$(Arguments) -b "$(BuildPath.TrimEnd(`\`))" -s "$(PySourcePath.TrimEnd(`\`))"</Arguments>
         <Arguments>$(Arguments) -t "$(IntermediateOutputPath)\zip_$(ArchName)"</Arguments>
         <Arguments>$(Arguments) --zip "$(TargetPath)"</Arguments>
         <Arguments>$(Arguments) --precompile --zip-lib --include-underpth --include-stable --flat-dlls</Arguments>
-        <Environment>$(Environment)%0D%0Aset PYTHONPATH=$(PySourcePath)Lib</Environment>
+        <Environment>$(Environment)%0D%0Aset MYFRPYPATH=$(PySourcePath)Lib</Environment>
     </PropertyGroup>
 
     <Target Name="_Build">
@@ -35,6 +35,6 @@
             <UserFiles Include="@(File)" Condition="'%(File.CopyTo)' == '$(EXETarget)'" />
         </ItemGroup>
 
-        <Exec Command="&quot;$(PythonExe)&quot; generate_md5.py @(UserFiles->'&quot;%(FullPath)&quot;',' ')" />
+        <Exec Command="&quot;$(MyFRpyExe)&quot; generate_md5.py @(UserFiles->'&quot;%(FullPath)&quot;',' ')" />
     </Target>
 </Project>

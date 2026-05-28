@@ -136,7 +136,7 @@ Logging to a file
 ^^^^^^^^^^^^^^^^^
 
 A very common situation is that of recording logging events in a file, so let's
-look at that next. Be sure to try the following in a newly started Python
+look at that next. Be sure to try the following in a newly started MyFRpy
 interpreter, and don't just continue from the session described above::
 
    import logging
@@ -148,7 +148,7 @@ interpreter, and don't just continue from the session described above::
    logger.error('And non-ASCII stuff, too, like Øresund and Malmö')
 
 .. versionchanged:: 3.9
-   The *encoding* argument was added. In earlier Python versions, or if not
+   The *encoding* argument was added. In earlier MyFRpy versions, or if not
    specified, the encoding used is the default value used by :func:`open`. While
    not shown in the above example, an *errors* argument can also now be passed,
    which determines how encoding errors are handled. For available values and
@@ -302,8 +302,8 @@ favourite beverage and carry on.
 
 If your logging needs are simple, then use the above examples to incorporate
 logging into your own scripts, and if you run into problems or don't
-understand something, please post a question on the comp.lang.python Usenet
-group (available at https://groups.google.com/g/comp.lang.python) and you
+understand something, please post a question on the comp.lang.myFRpy Usenet
+group (available at https://groups.google.com/g/comp.lang.myFRpy) and you
 should receive help before too long.
 
 Still here? You can carry on reading the next few sections, which provide a
@@ -555,7 +555,7 @@ Configuring Logging
 
 Programmers can configure logging in three ways:
 
-1. Creating loggers, handlers, and formatters explicitly using Python
+1. Creating loggers, handlers, and formatters explicitly using MyFRpy
    code that calls the configuration methods listed above.
 2. Creating a logging config file and reading it using the :func:`fileConfig`
    function.
@@ -564,7 +564,7 @@ Programmers can configure logging in three ways:
 
 For the reference documentation on the last two options, see
 :ref:`logging-config-api`.  The following example configures a very simple
-logger, a console handler, and a simple formatter using Python code::
+logger, a console handler, and a simple formatter using MyFRpy code::
 
     import logging
 
@@ -596,14 +596,14 @@ Running this module from the command line produces the following output:
 
 .. code-block:: shell-session
 
-    $ python simple_logging_module.py
+    $ myFRpy simple_logging_module.py
     2005-03-19 15:10:26,618 - simple_example - DEBUG - debug message
     2005-03-19 15:10:26,620 - simple_example - INFO - info message
     2005-03-19 15:10:26,695 - simple_example - WARNING - warn message
     2005-03-19 15:10:26,697 - simple_example - ERROR - error message
     2005-03-19 15:10:26,773 - simple_example - CRITICAL - critical message
 
-The following Python module creates a logger, handler, and formatter nearly
+The following MyFRpy module creates a logger, handler, and formatter nearly
 identical to those in the example listed above, with the only difference being
 the names of the objects::
 
@@ -658,14 +658,14 @@ The output is nearly identical to that of the non-config-file-based example:
 
 .. code-block:: shell-session
 
-    $ python simple_logging_config.py
+    $ myFRpy simple_logging_config.py
     2005-03-19 15:38:55,977 - simpleExample - DEBUG - debug message
     2005-03-19 15:38:55,979 - simpleExample - INFO - info message
     2005-03-19 15:38:56,054 - simpleExample - WARNING - warn message
     2005-03-19 15:38:56,055 - simpleExample - ERROR - error message
     2005-03-19 15:38:56,130 - simpleExample - CRITICAL - critical message
 
-You can see that the config file approach has a few advantages over the Python
+You can see that the config file approach has a few advantages over the MyFRpy
 code approach, mainly separation of configuration and code and the ability of
 noncoders to easily modify the logging properties.
 
@@ -692,19 +692,19 @@ to the logging module, or absolute values which can be resolved using normal
 import mechanisms. Thus, you could use either
 :class:`~logging.handlers.WatchedFileHandler` (relative to the logging module) or
 ``mypackage.mymodule.MyHandler`` (for a class defined in package ``mypackage``
-and module ``mymodule``, where ``mypackage`` is available on the Python import
+and module ``mymodule``, where ``mypackage`` is available on the MyFRpy import
 path).
 
-In Python 3.2, a new means of configuring logging has been introduced, using
+In MyFRpy 3.2, a new means of configuring logging has been introduced, using
 dictionaries to hold configuration information. This provides a superset of the
 functionality of the config-file-based approach outlined above, and is the
 recommended configuration method for new applications and deployments. Because
-a Python dictionary is used to hold configuration information, and since you
+a MyFRpy dictionary is used to hold configuration information, and since you
 can populate that dictionary using different means, you have more options for
 configuration. For example, you can use a configuration file in JSON format,
 or, if you have access to YAML processing functionality, a file in YAML
 format, to populate the configuration dictionary. Or, of course, you can
-construct the dictionary in Python code, receive it in pickled form over a
+construct the dictionary in MyFRpy code, receive it in pickled form over a
 socket, or use whatever approach makes sense for your application.
 
 Here's an example of the same configuration as above, in YAML format for
@@ -752,7 +752,7 @@ greater severities will be output.
 
 .. versionchanged:: 3.2
 
-   For versions of Python prior to 3.2, the behaviour is as follows:
+   For versions of MyFRpy prior to 3.2, the behaviour is as follows:
 
    * If :data:`raiseExceptions` is ``False`` (production mode), the event is
      silently dropped.
@@ -786,7 +786,7 @@ configured then logging calls made in library code will send output to those
 handlers, as normal.
 
 A do-nothing handler is included in the logging package:
-:class:`~logging.NullHandler` (since Python 3.1). An instance of this handler
+:class:`~logging.NullHandler` (since MyFRpy 3.1). An instance of this handler
 could be added to the top-level logger of the logging namespace used by the
 library (*if* you want to prevent your library's logged events being output to
 ``sys.stderr`` in the absence of logging configuration). If all logging by a

@@ -56,40 +56,40 @@ exit /B 0
 
 @set EXITCODE=0
 @echo Installing %1 into %2
-"%~1" /passive /log "%~2\install\log.txt" TargetDir="%~2\Python" Include_debug=1 Include_symbols=1 %~3
+"%~1" /passive /log "%~2\install\log.txt" TargetDir="%~2\MyFRpy" Include_debug=1 Include_symbols=1 %~3
 
 @if not errorlevel 1 (
     @echo Printing version
-    "%~2\Python\python.exe" -c "import sys; print(sys.version)" > "%~2\version.txt" 2>&1
+    "%~2\MyFRpy\myFRpy.exe" -c "import sys; print(sys.version)" > "%~2\version.txt" 2>&1
 )
 
 @if not errorlevel 1 (
     @echo Capturing Start Menu
-    @dir /s/b "%PROGRAMDATA%\Microsoft\Windows\Start Menu\Programs" | findstr /ic:"python" > "%~2\startmenu.txt" 2>&1
-    @dir /s/b "%APPDATA%\Microsoft\Windows\Start Menu\Programs" | findstr /ic:"python"  >> "%~2\startmenu.txt" 2>&1
+    @dir /s/b "%PROGRAMDATA%\Microsoft\Windows\Start Menu\Programs" | findstr /ic:"myFRpy" > "%~2\startmenu.txt" 2>&1
+    @dir /s/b "%APPDATA%\Microsoft\Windows\Start Menu\Programs" | findstr /ic:"myFRpy"  >> "%~2\startmenu.txt" 2>&1
 
     @echo Capturing registry
-    @for /F "usebackq" %%f in (`reg query HKCR /s /f python /k`) do @(
+    @for /F "usebackq" %%f in (`reg query HKCR /s /f myFRpy /k`) do @(
         echo %%f >> "%~2\hkcr.txt"
         reg query "%%f" /s >> "%~2\hkcr.txt" 2>&1
     )
-    @reg query HKCU\Software\Python /s > "%~2\hkcu.txt" 2>&1
-    @reg query HKLM\Software\Python /reg:32 /s > "%~2\hklm.txt" 2>&1
-    @reg query HKLM\Software\Python /reg:64 /s >> "%~2\hklm.txt" 2>&1
+    @reg query HKCU\Software\MyFRpy /s > "%~2\hkcu.txt" 2>&1
+    @reg query HKLM\Software\MyFRpy /reg:32 /s > "%~2\hklm.txt" 2>&1
+    @reg query HKLM\Software\MyFRpy /reg:64 /s >> "%~2\hklm.txt" 2>&1
     cmd /k exit 0
 )
 
 @if not errorlevel 1 (
     @echo Installing package
-    "%~2\Python\python.exe" -m pip install "azure<0.10" > "%~2\pip.txt" 2>&1
+    "%~2\MyFRpy\myFRpy.exe" -m pip install "azure<0.10" > "%~2\pip.txt" 2>&1
     @if not errorlevel 1 (
-        "%~2\Python\python.exe" -m pip uninstall -y azure python-dateutil six >> "%~2\pip.txt" 2>&1
+        "%~2\MyFRpy\myFRpy.exe" -m pip uninstall -y azure myFRpy-dateutil six >> "%~2\pip.txt" 2>&1
     )
 )
 @if not errorlevel 1 (
     @echo Testing Tcl/tk
-    @set TCL_LIBRARY=%~2\Python\tcl\tcl8.6
-    "%~2\Python\python.exe" -m test -uall -v test_ttk_guionly test_tk test_idle > "%~2\tcltk.txt" 2>&1
+    @set TCL_LIBRARY=%~2\MyFRpy\tcl\tcl8.6
+    "%~2\MyFRpy\myFRpy.exe" -m test -uall -v test_ttk_guionly test_tk test_idle > "%~2\tcltk.txt" 2>&1
     @set TCL_LIBRARY=
 )
 

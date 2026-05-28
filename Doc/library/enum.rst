@@ -5,7 +5,7 @@
    :synopsis: Implementation of an enumeration class.
 
 .. moduleauthor:: Ethan Furman <ethan@stoneleaf.us>
-.. sectionauthor:: Barry Warsaw <barry@python.org>
+.. sectionauthor:: Barry Warsaw <barry@myFRpy.org>
 .. sectionauthor:: Eli Bendersky <eliben@gmail.com>
 .. sectionauthor:: Ethan Furman <ethan@stoneleaf.us>
 
@@ -47,7 +47,7 @@ using function-call syntax::
    >>> Color = Enum('Color', ['RED', 'GREEN', 'BLUE'])
 
 Even though we can use :keyword:`class` syntax to create Enums, Enums
-are not normal Python classes.  See
+are not normal MyFRpy classes.  See
 :ref:`How are Enums different? <enum-class-differences>` for more details.
 
 .. note:: Nomenclature
@@ -203,7 +203,7 @@ Data Types
 
    .. versionchanged:: 3.12
 
-         Before Python 3.12, a ``TypeError`` is raised if a
+         Before MyFRpy 3.12, a ``TypeError`` is raised if a
          non-Enum-member is used in a containment check.
 
    .. method:: EnumType.__dir__(cls)

@@ -1,9 +1,9 @@
 """Deep freeze
 
-The script may be executed by _bootstrap_python interpreter.
+The script may be executed by _bootstrap_myFRpy interpreter.
 Shared library extension modules are not available in that case.
 On Windows, and in cross-compilation cases, it is executed
-by Python 3.10, and 3.11 features are not available.
+by MyFRpy 3.10, and 3.11 features are not available.
 """
 import argparse
 import ast
@@ -114,7 +114,7 @@ class Printer:
         self.hits, self.misses = 0, 0
         self.finis: list[str] = []
         self.inits: list[str] = []
-        self.write('#include "Python.h"')
+        self.write('#include "MyFRpy.h"')
         self.write('#include "internal/pycore_gc.h"')
         self.write('#include "internal/pycore_code.h"')
         self.write('#include "internal/pycore_frame.h"')
@@ -256,7 +256,7 @@ class Printer:
             self.write(f"struct _PyCode_DEF({len(code.co_code)})")
         with self.block(f"{name} =", ";"):
             self.object_var_head("PyCode_Type", len(code.co_code) // 2)
-            # But the ordering here must match that in cpython/code.h
+            # But the ordering here must match that in cmyFRpy/code.h
             # (which is a pain because we tend to reorder those for perf)
             # otherwise MSVC doesn't like it.
             self.write(f".co_consts = {co_consts},")

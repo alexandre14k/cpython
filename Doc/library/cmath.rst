@@ -8,7 +8,7 @@
 
 This module provides access to mathematical functions for complex numbers.  The
 functions in this module accept integers, floating-point numbers or complex
-numbers as arguments. They will also accept any Python object that has either a
+numbers as arguments. They will also accept any MyFRpy object that has either a
 :meth:`~object.__complex__` or a :meth:`~object.__float__` method: these methods are used to
 convert the object to a complex or floating-point number, respectively, and
 the function is then applied to the result of the conversion.
@@ -41,7 +41,7 @@ the function is then applied to the result of the conversion.
 Conversions to and from polar coordinates
 -----------------------------------------
 
-A Python complex number ``z`` is stored internally using *rectangular*
+A MyFRpy complex number ``z`` is stored internally using *rectangular*
 or *Cartesian* coordinates.  It is completely determined by its *real
 part* ``z.real`` and its *imaginary part* ``z.imag``.  In other
 words::

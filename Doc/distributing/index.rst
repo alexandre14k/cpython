@@ -6,14 +6,14 @@
 .. _distributing-index:
 
 ###############################
-  Distributing Python Modules
+  Distributing MyFRpy Modules
 ###############################
 
 .. note::
 
-   Information and guidance on distributing Python modules and packages
-   has been moved to the `Python Packaging User Guide`_,
-   and the tutorial on `packaging Python projects`_.
+   Information and guidance on distributing MyFRpy modules and packages
+   has been moved to the `MyFRpy Packaging User Guide`_,
+   and the tutorial on `packaging MyFRpy projects`_.
 
-   .. _Python Packaging User Guide: https://packaging.python.org/
-   .. _packaging Python projects: https://packaging.python.org/en/latest/tutorials/packaging-projects/
+   .. _MyFRpy Packaging User Guide: https://packaging.myFRpy.org/
+   .. _packaging MyFRpy projects: https://packaging.myFRpy.org/en/latest/tutorials/packaging-projects/

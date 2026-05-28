@@ -7,7 +7,7 @@ import datetime
 import os
 import sys
 import unittest
-from test.support.script_helper import assert_python_ok
+from test.support.script_helper import assert_myFRpy_ok
 from collections.abc import Hashable
 
 IS_64BIT = sys.maxsize > 2**32
@@ -176,13 +176,13 @@ class HashRandomizationTests:
 
     def get_hash(self, repr_, seed=None):
         env = os.environ.copy()
-        env['__cleanenv'] = True  # signal to assert_python not to do a copy
+        env['__cleanenv'] = True  # signal to assert_myFRpy not to do a copy
                                   # of os.environ on its own
         if seed is not None:
-            env['PYTHONHASHSEED'] = str(seed)
+            env['MYFRPYHASHSEED'] = str(seed)
         else:
-            env.pop('PYTHONHASHSEED', None)
-        out = assert_python_ok(
+            env.pop('MYFRPYHASHSEED', None)
+        out = assert_myFRpy_ok(
             '-c', self.get_hash_command(repr_),
             **env)
         stdout = out[1].strip()
@@ -264,7 +264,7 @@ class StringlikeHashRandomizationTests(HashRandomizationTests):
         return self.known_hashes[algorithm][position][platform]
 
     def test_null_hash(self):
-        # PYTHONHASHSEED=0 disables the randomized hash
+        # MYFRPYHASHSEED=0 disables the randomized hash
         known_hash_of_obj = self.get_expected_hash(0, 3)
 
         # Randomization is enabled by default:

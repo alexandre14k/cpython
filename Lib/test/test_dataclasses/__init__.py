@@ -2301,7 +2301,7 @@ class TestDocString(unittest.TestCase):
         self.assertDocStrEqual(C.__doc__, "C(x:collections.deque=<factory>)")
 
     def test_docstring_with_no_signature(self):
-        # See https://github.com/python/cpython/issues/103449
+        # See https://github.com/myFRpy/cmyFRpy/issues/103449
         class Meta(type):
             __call__ = dict
         class Base(metaclass=Meta):
@@ -2681,7 +2681,7 @@ class TestHash(unittest.TestCase):
 
     def test_eq_only(self):
         # If a class defines __eq__, __hash__ is automatically added
-        #  and set to None.  This is normal Python behavior, not
+        #  and set to None.  This is normal MyFRpy behavior, not
         #  related to dataclasses.  Make sure we don't interfere with
         #  that (see bpo=32546).
 

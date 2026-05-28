@@ -26,11 +26,11 @@ try:
 except ImportError:
     ThreadPoolExecutor = None
 
-from test.support import cpython_only
+from test.support import cmyFRpy_only
 from test.support import MISSING_C_DOCSTRINGS, ALWAYS_EQ
 from test.support.import_helper import DirsOnSysPath, ready_to_import
 from test.support.os_helper import TESTFN
-from test.support.script_helper import assert_python_ok, assert_python_failure
+from test.support.script_helper import assert_myFRpy_ok, assert_myFRpy_failure
 from test import support
 
 from test.test_inspect import inspect_fodder as mod
@@ -56,7 +56,7 @@ if modfile.endswith(('c', 'o')):
     modfile = modfile[:-1]
 
 # Normalize file names: on Windows, the case of file names of compiled
-# modules depends on the path used to start the python executable.
+# modules depends on the path used to start the myFRpy executable.
 modfile = normcase(modfile)
 
 def revise(filename, *args):
@@ -733,7 +733,7 @@ class TestGetsourceInteractive(unittest.TestCase):
                 assert not hasattr(sys.modules['__main__'], '__file__'); \
                 A = type('A', (), {}); \
                 inspect.getsource(A)"
-        _, _, stderr = assert_python_failure("-c", code, __isolated=True)
+        _, _, stderr = assert_myFRpy_failure("-c", code, __isolated=True)
         self.assertIn(b'OSError: source code not available', stderr)
 
 class TestGettingSourceOfToplevelFrames(GetSourceBase):
@@ -855,7 +855,7 @@ class TestBuggyCases(GetSourceBase):
     def test_method_in_dynamic_class(self):
         self.assertSourceEqual(mod2.method_in_dynamic_class, 95, 97)
 
-    # This should not skip for CPython, but might on a repackaged python where
+    # This should not skip for CMyFRpy, but might on a repackaged myFRpy where
     # unicodedata is not an external module, or on pypy.
     @unittest.skipIf(not hasattr(unicodedata, '__file__') or
                                  unicodedata.__file__.endswith('.py'),
@@ -1089,7 +1089,7 @@ class TestClassesAndFunctions(unittest.TestCase):
              kwonlyargs_e=['dir_fd', 'follow_symlinks'],
              kwonlydefaults_e={'dir_fd': None, 'follow_symlinks': True})
 
-    @cpython_only
+    @cmyFRpy_only
     @unittest.skipIf(MISSING_C_DOCSTRINGS,
                      "Signature information for builtins requires docstrings")
     def test_getfullargspec_builtin_func(self):
@@ -1098,7 +1098,7 @@ class TestClassesAndFunctions(unittest.TestCase):
         spec = inspect.getfullargspec(builtin)
         self.assertEqual(spec.defaults[0], 'avocado')
 
-    @cpython_only
+    @cmyFRpy_only
     @unittest.skipIf(MISSING_C_DOCSTRINGS,
                      "Signature information for builtins requires docstrings")
     def test_getfullargspec_builtin_func_no_signature(self):
@@ -2718,7 +2718,7 @@ class TestSignatureObject(unittest.TestCase):
         self.assertEqual(self.signature(A.f4),
                          ((('args', ..., ..., 'var_positional'),
                             ('kwargs', ..., ..., 'var_keyword')), ...))
-    @cpython_only
+    @cmyFRpy_only
     @unittest.skipIf(MISSING_C_DOCSTRINGS,
                      "Signature information for builtins requires docstrings")
     def test_signature_on_builtins(self):
@@ -2799,7 +2799,7 @@ class TestSignatureObject(unittest.TestCase):
         sig = test_unbound_method(method)
         self.assertEqual(list(sig.parameters), ['self', 'buffer'])
 
-    @cpython_only
+    @cmyFRpy_only
     @unittest.skipIf(MISSING_C_DOCSTRINGS,
                      "Signature information for builtins requires docstrings")
     def test_signature_on_decorated_builtins(self):
@@ -2822,7 +2822,7 @@ class TestSignatureObject(unittest.TestCase):
                                            follow_wrapped=False),
                          inspect.signature(wrapper_like))
 
-    @cpython_only
+    @cmyFRpy_only
     def test_signature_on_builtins_no_signature(self):
         import _testcapi
         with self.assertRaisesRegex(ValueError,
@@ -3867,7 +3867,7 @@ class TestSignatureObject(unittest.TestCase):
                           ...))
 
     def test_signature_on_mocks(self):
-        # https://github.com/python/cpython/issues/96127
+        # https://github.com/myFRpy/cmyFRpy/issues/96127
         for mock in (
             unittest.mock.Mock(),
             unittest.mock.AsyncMock(),
@@ -4078,7 +4078,7 @@ class TestSignatureObject(unittest.TestCase):
         self.assertEqual(self.signature(Spam.foo),
                          self.signature(Ham.foo))
 
-    def test_signature_from_callable_python_obj(self):
+    def test_signature_from_callable_myFRpy_obj(self):
         class MySignature(inspect.Signature): pass
         def foo(a, *, b:1): pass
         foo_sig = MySignature.from_callable(foo)
@@ -4441,7 +4441,7 @@ class TestParameterObject(unittest.TestCase):
         with self.assertRaisesRegex(TypeError, 'name must be a str'):
             inspect.Parameter(None, kind=inspect.Parameter.POSITIONAL_ONLY)
 
-    @cpython_only
+    @cmyFRpy_only
     def test_signature_parameter_implicit(self):
         with self.assertRaisesRegex(ValueError,
                                     'implicit arguments must be passed as '
@@ -4694,7 +4694,7 @@ class TestSignatureBind(unittest.TestCase):
         ba = sig.bind(args=1)
         self.assertEqual(ba.arguments, {'kwargs': {'args': 1}})
 
-    @cpython_only
+    @cmyFRpy_only
     def test_signature_bind_implicit_arg(self):
         # Issue #19611: getcallargs should work with comprehensions
         def make_set():
@@ -4819,48 +4819,48 @@ class TestBoundArguments(unittest.TestCase):
         self.assertIs(type(ba.arguments), dict)
 
 class TestSignaturePrivateHelpers(unittest.TestCase):
-    def _strip_non_python_syntax(self, input,
+    def _strip_non_myFRpy_syntax(self, input,
         clean_signature, self_parameter):
         computed_clean_signature, \
             computed_self_parameter = \
-            inspect._signature_strip_non_python_syntax(input)
+            inspect._signature_strip_non_myFRpy_syntax(input)
         self.assertEqual(computed_clean_signature, clean_signature)
         self.assertEqual(computed_self_parameter, self_parameter)
 
-    def test_signature_strip_non_python_syntax(self):
-        self._strip_non_python_syntax(
+    def test_signature_strip_non_myFRpy_syntax(self):
+        self._strip_non_myFRpy_syntax(
             "($module, /, path, mode, *, dir_fd=None, " +
                 "effective_ids=False,\n       follow_symlinks=True)",
             "(module, /, path, mode, *, dir_fd=None, " +
                 "effective_ids=False, follow_symlinks=True)",
             0)
 
-        self._strip_non_python_syntax(
+        self._strip_non_myFRpy_syntax(
             "($module, word, salt, /)",
             "(module, word, salt, /)",
             0)
 
-        self._strip_non_python_syntax(
+        self._strip_non_myFRpy_syntax(
             "(x, y=None, z=None, /)",
             "(x, y=None, z=None, /)",
             None)
 
-        self._strip_non_python_syntax(
+        self._strip_non_myFRpy_syntax(
             "(x, y=None, z=None)",
             "(x, y=None, z=None)",
             None)
 
-        self._strip_non_python_syntax(
+        self._strip_non_myFRpy_syntax(
             "(x,\n    y=None,\n      z = None  )",
             "(x, y=None, z=None)",
             None)
 
-        self._strip_non_python_syntax(
+        self._strip_non_myFRpy_syntax(
             "",
             "",
             None)
 
-        self._strip_non_python_syntax(
+        self._strip_non_myFRpy_syntax(
             None,
             None,
             None)
@@ -4869,11 +4869,11 @@ class TestSignatureDefinitions(unittest.TestCase):
     # This test case provides a home for checking that particular APIs
     # have signatures available for introspection
 
-    @cpython_only
+    @cmyFRpy_only
     @unittest.skipIf(MISSING_C_DOCSTRINGS,
                      "Signature information for builtins requires docstrings")
     def test_builtins_have_signatures(self):
-        # This checks all builtin callables in CPython have signatures
+        # This checks all builtin callables in CMyFRpy have signatures
         # A few have signatures Signature can't yet handle, so we skip those
         # since they will have to wait until PEP 457 adds the required
         # introspection support to the inspect module
@@ -4919,7 +4919,7 @@ class TestSignatureDefinitions(unittest.TestCase):
             with self.subTest(builtin=name):
                 self.assertIsNone(ns[name].__text_signature__)
 
-    def test_python_function_override_signature(self):
+    def test_myFRpy_function_override_signature(self):
         def func(*args, **kwargs):
             pass
         func.__text_signature__ = '($self, a, b=1, *args, c, d=2, **kwargs)'
@@ -5046,7 +5046,7 @@ class TestUnwrap(unittest.TestCase):
 class TestMain(unittest.TestCase):
     def test_only_source(self):
         module = importlib.import_module('unittest')
-        rc, out, err = assert_python_ok('-m', 'inspect',
+        rc, out, err = assert_myFRpy_ok('-m', 'inspect',
                                         'unittest')
         lines = out.decode().splitlines()
         # ignore the final newline
@@ -5063,7 +5063,7 @@ class TestMain(unittest.TestCase):
     @unittest.skipIf(ThreadPoolExecutor is None,
             'threads required to test __qualname__ for source files')
     def test_qualname_source(self):
-        rc, out, err = assert_python_ok('-m', 'inspect',
+        rc, out, err = assert_myFRpy_ok('-m', 'inspect',
                                      'concurrent.futures:ThreadPoolExecutor')
         lines = out.decode().splitlines()
         # ignore the final newline
@@ -5072,7 +5072,7 @@ class TestMain(unittest.TestCase):
         self.assertEqual(err, b'')
 
     def test_builtins(self):
-        _, out, err = assert_python_failure('-m', 'inspect',
+        _, out, err = assert_myFRpy_failure('-m', 'inspect',
                                             'sys')
         lines = err.decode().splitlines()
         self.assertEqual(lines, ["Can't get info for builtin modules."])
@@ -5080,7 +5080,7 @@ class TestMain(unittest.TestCase):
     def test_details(self):
         module = importlib.import_module('unittest')
         args = support.optim_args_from_interpreter_flags()
-        rc, out, err = assert_python_ok(*args, '-m', 'inspect',
+        rc, out, err = assert_myFRpy_ok(*args, '-m', 'inspect',
                                         'unittest', '--details')
         output = out.decode()
         # Just a quick sanity check on the output

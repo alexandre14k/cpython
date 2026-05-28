@@ -1,5 +1,5 @@
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include <sys/resource.h>
 #ifdef HAVE_SYS_TIME_H
 #include <sys/time.h>
@@ -23,7 +23,7 @@ module resource
 [clinic start generated code]*/
 /*[clinic end generated code: output=da39a3ee5e6b4b0d input=e89d38ed52609d7c]*/
 
-/*[python input]
+/*[myFRpy input]
 class pid_t_converter(CConverter):
     type = 'pid_t'
     format_unit = '" _Py_PARSE_PID "'
@@ -35,8 +35,8 @@ class pid_t_converter(CConverter):
                 goto exit;
             }}}}
             """.format(argname=argname, paramname=self.parser_name)
-[python start generated code]*/
-/*[python end generated code: output=da39a3ee5e6b4b0d input=5af1c116d56cbb5a]*/
+[myFRpy start generated code]*/
+/*[myFRpy end generated code: output=da39a3ee5e6b4b0d input=5af1c116d56cbb5a]*/
 
 #include "clinic/resource.c.h"
 

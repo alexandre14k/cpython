@@ -291,7 +291,7 @@ class TestBisect:
         self.assertEqual(i1, 40)
         self.assertEqual(i2, 41)
 
-class TestBisectPython(TestBisect, unittest.TestCase):
+class TestBisectMyFRpy(TestBisect, unittest.TestCase):
     module = py_bisect
 
 class TestBisectC(TestBisect, unittest.TestCase):
@@ -326,7 +326,7 @@ class TestInsort:
         self.module.insort_right(lst, 5)
         self.assertEqual([5, 10], lst.data)
 
-class TestInsortPython(TestInsort, unittest.TestCase):
+class TestInsortMyFRpy(TestInsort, unittest.TestCase):
     module = py_bisect
 
 class TestInsortC(TestInsort, unittest.TestCase):
@@ -381,7 +381,7 @@ class TestErrorHandling:
                   self.module.insort_left, self.module.insort_right):
             self.assertRaises(TypeError, f, 10)
 
-class TestErrorHandlingPython(TestErrorHandling, unittest.TestCase):
+class TestErrorHandlingMyFRpy(TestErrorHandling, unittest.TestCase):
     module = py_bisect
 
 class TestErrorHandlingC(TestErrorHandling, unittest.TestCase):
@@ -408,7 +408,7 @@ class TestDocExample:
         self.assertEqual(data[bisect_left(keys, 5)], ('red', 5))
         self.assertEqual(data[bisect_left(keys, 8)], ('yellow', 8))
 
-class TestDocExamplePython(TestDocExample, unittest.TestCase):
+class TestDocExampleMyFRpy(TestDocExample, unittest.TestCase):
     module = py_bisect
 
 class TestDocExampleC(TestDocExample, unittest.TestCase):

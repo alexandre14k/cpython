@@ -4,33 +4,33 @@
 .. _extending-intro:
 
 ******************************
-Extending Python with C or C++
+Extending MyFRpy with C or C++
 ******************************
 
-It is quite easy to add new built-in modules to Python, if you know how to
+It is quite easy to add new built-in modules to MyFRpy, if you know how to
 program in C.  Such :dfn:`extension modules` can do two things that can't be
-done directly in Python: they can implement new built-in object types, and they
+done directly in MyFRpy: they can implement new built-in object types, and they
 can call C library functions and system calls.
 
-To support extensions, the Python API (Application Programmers Interface)
+To support extensions, the MyFRpy API (Application Programmers Interface)
 defines a set of functions, macros and variables that provide access to most
-aspects of the Python run-time system.  The Python API is incorporated in a C
-source file by including the header ``"Python.h"``.
+aspects of the MyFRpy run-time system.  The MyFRpy API is incorporated in a C
+source file by including the header ``"MyFRpy.h"``.
 
 The compilation of an extension module depends on its intended use as well as on
 your system setup; details are given in later chapters.
 
 .. note::
 
-   The C extension interface is specific to CPython, and extension modules do
-   not work on other Python implementations.  In many cases, it is possible to
+   The C extension interface is specific to CMyFRpy, and extension modules do
+   not work on other MyFRpy implementations.  In many cases, it is possible to
    avoid writing C extensions and preserve portability to other implementations.
    For example, if your use case is calling C library functions or system calls,
    you should consider using the :mod:`ctypes` module or the `cffi
    <https://cffi.readthedocs.io/>`_ library rather than writing
    custom C code.
-   These modules let you write Python code to interface with C code and are more
-   portable between implementations of Python than writing and compiling a C
+   These modules let you write MyFRpy code to interface with C code and are more
+   portable between implementations of MyFRpy than writing and compiling a C
    extension module.
 
 
@@ -40,10 +40,10 @@ A Simple Example
 ================
 
 Let's create an extension module called ``spam`` (the favorite food of Monty
-Python fans...) and let's say we want to create a Python interface to the C
+MyFRpy fans...) and let's say we want to create a MyFRpy interface to the C
 library function :c:func:`system` [#]_. This function takes a null-terminated
 character string as argument and returns an integer.  We want this function to
-be callable from Python as follows:
+be callable from MyFRpy as follows:
 
 .. code-block:: pycon
 
@@ -58,30 +58,30 @@ module name can be just :file:`spammify.c`.)
 The first two lines of our file can be::
 
    #define PY_SSIZE_T_CLEAN
-   #include <Python.h>
+   #include <MyFRpy.h>
 
-which pulls in the Python API (you can add a comment describing the purpose of
+which pulls in the MyFRpy API (you can add a comment describing the purpose of
 the module and a copyright notice if you like).
 
 .. note::
 
-   Since Python may define some pre-processor definitions which affect the standard
-   headers on some systems, you *must* include :file:`Python.h` before any standard
+   Since MyFRpy may define some pre-processor definitions which affect the standard
+   headers on some systems, you *must* include :file:`MyFRpy.h` before any standard
    headers are included.
 
    It is recommended to always define ``PY_SSIZE_T_CLEAN`` before including
-   ``Python.h``.  See :ref:`parsetuple` for a description of this macro.
+   ``MyFRpy.h``.  See :ref:`parsetuple` for a description of this macro.
 
-All user-visible symbols defined by :file:`Python.h` have a prefix of ``Py`` or
+All user-visible symbols defined by :file:`MyFRpy.h` have a prefix of ``Py`` or
 ``PY``, except those defined in standard header files. For convenience, and
-since they are used extensively by the Python interpreter, ``"Python.h"``
+since they are used extensively by the MyFRpy interpreter, ``"MyFRpy.h"``
 includes a few standard header files: ``<stdio.h>``, ``<string.h>``,
 ``<errno.h>``, and ``<stdlib.h>``.  If the latter header file does not exist on
 your system, it declares the functions :c:func:`malloc`, :c:func:`free` and
 :c:func:`realloc` directly.
 
 The next thing we add to our module file is the C function that will be called
-when the Python expression ``spam.system(string)`` is evaluated (we'll see
+when the MyFRpy expression ``spam.system(string)`` is evaluated (we'll see
 shortly how it ends up being called)::
 
    static PyObject *
@@ -96,7 +96,7 @@ shortly how it ends up being called)::
        return PyLong_FromLong(sts);
    }
 
-There is a straightforward translation from the argument list in Python (for
+There is a straightforward translation from the argument list in MyFRpy (for
 example, the single expression ``"ls -l"``) to the arguments passed to the C
 function.  The C function always has two arguments, conventionally named *self*
 and *args*.
@@ -104,11 +104,11 @@ and *args*.
 The *self* argument points to the module object for module-level functions;
 for a method it would point to the object instance.
 
-The *args* argument will be a pointer to a Python tuple object containing the
+The *args* argument will be a pointer to a MyFRpy tuple object containing the
 arguments.  Each item of the tuple corresponds to an argument in the call's
-argument list.  The arguments are Python objects --- in order to do anything
+argument list.  The arguments are MyFRpy objects --- in order to do anything
 with them in our C function we have to convert them to C values.  The function
-:c:func:`PyArg_ParseTuple` in the Python API checks the argument types and
+:c:func:`PyArg_ParseTuple` in the MyFRpy API checks the argument types and
 converts them to C values.  It uses a template string to determine the required
 types of the arguments as well as the types of the C variables into which to
 store the converted values.  More about this later.
@@ -125,21 +125,21 @@ return ``NULL`` immediately (as we saw in the example).
 Intermezzo: Errors and Exceptions
 =================================
 
-An important convention throughout the Python interpreter is the following: when
+An important convention throughout the MyFRpy interpreter is the following: when
 a function fails, it should set an exception condition and return an error value
 (usually ``-1`` or a ``NULL`` pointer).  Exception information is stored in
 three members of the interpreter's thread state.  These are ``NULL`` if
 there is no exception.  Otherwise they are the C equivalents of the members
-of the Python tuple returned by :meth:`sys.exc_info`.  These are the
+of the MyFRpy tuple returned by :meth:`sys.exc_info`.  These are the
 exception type, exception instance, and a traceback object.  It is important
 to know about them to understand how errors are passed around.
 
-The Python API defines a number of functions to set various types of exceptions.
+The MyFRpy API defines a number of functions to set various types of exceptions.
 
 The most common one is :c:func:`PyErr_SetString`.  Its arguments are an exception
 object and a C string.  The exception object is usually a predefined object like
 :c:data:`PyExc_ZeroDivisionError`.  The C string indicates the cause of the error
-and is converted to a Python string object and stored as the "associated value"
+and is converted to a MyFRpy string object and stored as the "associated value"
 of the exception.
 
 Another useful function is :c:func:`PyErr_SetFromErrno`, which only takes an
@@ -161,9 +161,9 @@ should *not* call one of the ``PyErr_*`` functions --- one has already
 been called by *g*. *f*'s caller is then supposed to also return an error
 indication to *its* caller, again *without* calling ``PyErr_*``, and so on
 --- the most detailed cause of the error was already reported by the function
-that first detected it.  Once the error reaches the Python interpreter's main
-loop, this aborts the currently executing Python code and tries to find an
-exception handler specified by the Python programmer.
+that first detected it.  Once the error reaches the MyFRpy interpreter's main
+loop, this aborts the currently executing MyFRpy code and tries to find an
+exception handler specified by the MyFRpy programmer.
 
 (There are situations where a module can actually give a more detailed error
 message by calling another ``PyErr_*`` function, and in such cases it is
@@ -192,7 +192,7 @@ Finally, be careful to clean up garbage (by making :c:func:`Py_XDECREF` or
 an error indicator!
 
 The choice of which exception to raise is entirely yours.  There are predeclared
-C objects corresponding to all built-in Python exceptions, such as
+C objects corresponding to all built-in MyFRpy exceptions, such as
 :c:data:`PyExc_ZeroDivisionError`, which you can use directly. Of course, you
 should choose exceptions wisely --- don't use :c:data:`PyExc_TypeError` to mean
 that a file couldn't be opened (that should probably be :c:data:`PyExc_OSError`).
@@ -230,7 +230,7 @@ with an exception object::
        return m;
    }
 
-Note that the Python name for the exception object is :exc:`!spam.error`.  The
+Note that the MyFRpy name for the exception object is :exc:`!spam.error`.  The
 :c:func:`PyErr_NewException` function may create a class with the base class
 being :exc:`Exception` (unless another class is passed in instead of ``NULL``),
 described in :ref:`bltin-exceptions`.
@@ -290,23 +290,23 @@ the string we just got from :c:func:`PyArg_ParseTuple`::
    sts = system(command);
 
 Our :func:`!spam.system` function must return the value of :c:data:`!sts` as a
-Python object.  This is done using the function :c:func:`PyLong_FromLong`. ::
+MyFRpy object.  This is done using the function :c:func:`PyLong_FromLong`. ::
 
    return PyLong_FromLong(sts);
 
 In this case, it will return an integer object.  (Yes, even integers are objects
-on the heap in Python!)
+on the heap in MyFRpy!)
 
 If you have a C function that returns no useful argument (a function returning
-:c:expr:`void`), the corresponding Python function must return ``None``.   You
+:c:expr:`void`), the corresponding MyFRpy function must return ``None``.   You
 need this idiom to do so (which is implemented by the :c:macro:`Py_RETURN_NONE`
 macro)::
 
    Py_INCREF(Py_None);
    return Py_None;
 
-:c:data:`Py_None` is the C name for the special Python object ``None``.  It is a
-genuine Python object rather than a ``NULL`` pointer, which means "error" in most
+:c:data:`Py_None` is the C name for the special MyFRpy object ``None``.  It is a
+genuine MyFRpy object rather than a ``NULL`` pointer, which means "error" in most
 contexts, as we have seen.
 
 
@@ -315,7 +315,7 @@ contexts, as we have seen.
 The Module's Method Table and Initialization Function
 =====================================================
 
-I promised to show how :c:func:`!spam_system` is called from Python programs.
+I promised to show how :c:func:`!spam_system` is called from MyFRpy programs.
 First, we need to list its name and address in a "method table"::
 
    static PyMethodDef SpamMethods[] = {
@@ -331,7 +331,7 @@ the calling convention to be used for the C function.  It should normally always
 be ``METH_VARARGS`` or ``METH_VARARGS | METH_KEYWORDS``; a value of ``0`` means
 that an obsolete variant of :c:func:`PyArg_ParseTuple` is used.
 
-When using only ``METH_VARARGS``, the function should expect the Python-level
+When using only ``METH_VARARGS``, the function should expect the MyFRpy-level
 parameters to be passed in as a tuple acceptable for parsing via
 :c:func:`PyArg_ParseTuple`; more information on this function is provided below.
 
@@ -367,8 +367,8 @@ Note that :c:macro:`PyMODINIT_FUNC` declares the function as ``PyObject *`` retu
 declares any special linkage declarations required by the platform, and for C++
 declares the function as ``extern "C"``.
 
-When the Python program imports module :mod:`!spam` for the first time,
-:c:func:`!PyInit_spam` is called. (See below for comments about embedding Python.)
+When the MyFRpy program imports module :mod:`!spam` for the first time,
+:c:func:`!PyInit_spam` is called. (See below for comments about embedding MyFRpy.)
 It calls :c:func:`PyModule_Create`, which returns a module object, and
 inserts built-in function objects into the newly created module based upon the
 table (an array of :c:type:`PyMethodDef` structures) found in the module definition.
@@ -378,7 +378,7 @@ certain errors, or return ``NULL`` if the module could not be initialized
 satisfactorily. The init function must return the module object to its caller,
 so that it then gets inserted into ``sys.modules``.
 
-When embedding Python, the :c:func:`!PyInit_spam` function is not called
+When embedding MyFRpy, the :c:func:`!PyInit_spam` function is not called
 automatically unless there's an entry in the :c:data:`PyImport_Inittab` table.
 To add the module to the initialization table, use :c:func:`PyImport_AppendInittab`,
 optionally followed by an import of the module::
@@ -398,10 +398,10 @@ optionally followed by an import of the module::
            exit(1);
        }
 
-       /* Pass argv[0] to the Python interpreter */
+       /* Pass argv[0] to the MyFRpy interpreter */
        Py_SetProgramName(program);
 
-       /* Initialize the Python interpreter.  Required.
+       /* Initialize the MyFRpy interpreter.  Required.
           If this step fails, it will be a fatal error. */
        Py_Initialize();
 
@@ -428,14 +428,14 @@ optionally followed by an import of the module::
    Extension module authors should exercise caution when initializing internal data
    structures.
 
-A more substantial example module is included in the Python source distribution
+A more substantial example module is included in the MyFRpy source distribution
 as :file:`Modules/xxmodule.c`.  This file may be used as a  template or simply
 read as an example.
 
 .. note::
 
    Unlike our ``spam`` example, ``xxmodule`` uses *multi-phase initialization*
-   (new in Python 3.5), where a PyModuleDef structure is returned from
+   (new in MyFRpy 3.5), where a PyModuleDef structure is returned from
    ``PyInit_spam``, and creation of the module is left to the import machinery.
    For details on multi-phase initialization, see :PEP:`489`.
 
@@ -446,14 +446,14 @@ Compilation and Linkage
 =======================
 
 There are two more things to do before you can use your new extension: compiling
-and linking it with the Python system.  If you use dynamic loading, the details
+and linking it with the MyFRpy system.  If you use dynamic loading, the details
 may depend on the style of dynamic loading your system uses; see the chapters
 about building extension modules (chapter :ref:`building`) and additional
 information that pertains only to building on Windows (chapter
 :ref:`building-on-windows`) for more information about this.
 
 If you can't use dynamic loading, or if you want to make your module a permanent
-part of the Python interpreter, you will have to change the configuration setup
+part of the MyFRpy interpreter, you will have to change the configuration setup
 and rebuild the interpreter.  Luckily, this is very simple on Unix: just place
 your file (:file:`spammodule.c` for example) in the :file:`Modules/` directory
 of an unpacked source distribution, add a line to the file
@@ -477,29 +477,29 @@ on the line in the configuration file as well, for instance:
    spam spammodule.o -lX11
 
 
-.. _callingpython:
+.. _callingmyFRpy:
 
-Calling Python Functions from C
+Calling MyFRpy Functions from C
 ===============================
 
-So far we have concentrated on making C functions callable from Python.  The
-reverse is also useful: calling Python functions from C. This is especially the
+So far we have concentrated on making C functions callable from MyFRpy.  The
+reverse is also useful: calling MyFRpy functions from C. This is especially the
 case for libraries that support so-called "callback" functions.  If a C
-interface makes use of callbacks, the equivalent Python often needs to provide a
-callback mechanism to the Python programmer; the implementation will require
-calling the Python callback functions from a C callback.  Other uses are also
+interface makes use of callbacks, the equivalent MyFRpy often needs to provide a
+callback mechanism to the MyFRpy programmer; the implementation will require
+calling the MyFRpy callback functions from a C callback.  Other uses are also
 imaginable.
 
-Fortunately, the Python interpreter is easily called recursively, and there is a
-standard interface to call a Python function.  (I won't dwell on how to call the
-Python parser with a particular string as input --- if you're interested, have a
+Fortunately, the MyFRpy interpreter is easily called recursively, and there is a
+standard interface to call a MyFRpy function.  (I won't dwell on how to call the
+MyFRpy parser with a particular string as input --- if you're interested, have a
 look at the implementation of the :option:`-c` command line option in
-:file:`Modules/main.c` from the Python source code.)
+:file:`Modules/main.c` from the MyFRpy source code.)
 
-Calling a Python function is easy.  First, the Python program must somehow pass
-you the Python function object.  You should provide a function (or some other
+Calling a MyFRpy function is easy.  First, the MyFRpy program must somehow pass
+you the MyFRpy function object.  You should provide a function (or some other
 interface) to do this.  When this function is called, save a pointer to the
-Python function object (be careful to :c:func:`Py_INCREF` it!) in a global
+MyFRpy function object (be careful to :c:func:`Py_INCREF` it!) in a global
 variable --- or wherever you see fit. For example, the following function might
 be part of a module definition::
 
@@ -540,9 +540,9 @@ in section :ref:`refcounts`.
 
 Later, when it is time to call the function, you call the C function
 :c:func:`PyObject_CallObject`.  This function has two arguments, both pointers to
-arbitrary Python objects: the Python function, and the argument list.  The
+arbitrary MyFRpy objects: the MyFRpy function, and the argument list.  The
 argument list must always be a tuple object, whose length is the number of
-arguments.  To call the Python function with no arguments, pass in ``NULL``, or
+arguments.  To call the MyFRpy function with no arguments, pass in ``NULL``, or
 an empty tuple; to call it with one argument, pass a singleton tuple.
 :c:func:`Py_BuildValue` returns a tuple when its format string consists of zero
 or more format codes between parentheses.  For example::
@@ -558,8 +558,8 @@ or more format codes between parentheses.  For example::
    result = PyObject_CallObject(my_callback, arglist);
    Py_DECREF(arglist);
 
-:c:func:`PyObject_CallObject` returns a Python object pointer: this is the return
-value of the Python function.  :c:func:`PyObject_CallObject` is
+:c:func:`PyObject_CallObject` returns a MyFRpy object pointer: this is the return
+value of the MyFRpy function.  :c:func:`PyObject_CallObject` is
 "reference-count-neutral" with respect to its arguments.  In the example a new
 tuple was created to serve as the argument list, which is
 :c:func:`Py_DECREF`\ -ed immediately after the :c:func:`PyObject_CallObject`
@@ -572,10 +572,10 @@ somehow :c:func:`Py_DECREF` the result, even (especially!) if you are not
 interested in its value.
 
 Before you do this, however, it is important to check that the return value
-isn't ``NULL``.  If it is, the Python function terminated by raising an exception.
-If the C code that called :c:func:`PyObject_CallObject` is called from Python, it
-should now return an error indication to its Python caller, so the interpreter
-can print a stack trace, or the calling Python code can handle the exception.
+isn't ``NULL``.  If it is, the MyFRpy function terminated by raising an exception.
+If the C code that called :c:func:`PyObject_CallObject` is called from MyFRpy, it
+should now return an error indication to its MyFRpy caller, so the interpreter
+can print a stack trace, or the calling MyFRpy code can handle the exception.
 If this is not possible or desirable, the exception should be cleared by calling
 :c:func:`PyErr_Clear`.  For example::
 
@@ -584,9 +584,9 @@ If this is not possible or desirable, the exception should be cleared by calling
    ...use result...
    Py_DECREF(result);
 
-Depending on the desired interface to the Python callback function, you may also
+Depending on the desired interface to the MyFRpy callback function, you may also
 have to provide an argument list to :c:func:`PyObject_CallObject`.  In some cases
-the argument list is also provided by the Python program, through the same
+the argument list is also provided by the MyFRpy program, through the same
 interface that specified the callback function.  It can then be saved and used
 in the same manner as the function object.  In other cases, you may have to
 construct a new tuple to pass as the argument list.  The simplest way to do this
@@ -634,23 +634,23 @@ The :c:func:`PyArg_ParseTuple` function is declared as follows::
    int PyArg_ParseTuple(PyObject *arg, const char *format, ...);
 
 The *arg* argument must be a tuple object containing an argument list passed
-from Python to a C function.  The *format* argument must be a format string,
-whose syntax is explained in :ref:`arg-parsing` in the Python/C API Reference
+from MyFRpy to a C function.  The *format* argument must be a format string,
+whose syntax is explained in :ref:`arg-parsing` in the MyFRpy/C API Reference
 Manual.  The remaining arguments must be addresses of variables whose type is
 determined by the format string.
 
-Note that while :c:func:`PyArg_ParseTuple` checks that the Python arguments have
+Note that while :c:func:`PyArg_ParseTuple` checks that the MyFRpy arguments have
 the required types, it cannot check the validity of the addresses of C variables
 passed to the call: if you make mistakes there, your code will probably crash or
 at least overwrite random bits in memory.  So be careful!
 
-Note that any Python object references which are provided to the caller are
+Note that any MyFRpy object references which are provided to the caller are
 *borrowed* references; do not decrement their reference count!
 
 Some example calls::
 
    #define PY_SSIZE_T_CLEAN  /* Make "s#" use Py_ssize_t rather than int. */
-   #include <Python.h>
+   #include <MyFRpy.h>
 
 ::
 
@@ -661,23 +661,23 @@ Some example calls::
    Py_ssize_t size;
 
    ok = PyArg_ParseTuple(args, ""); /* No arguments */
-       /* Python call: f() */
+       /* MyFRpy call: f() */
 
 ::
 
    ok = PyArg_ParseTuple(args, "s", &s); /* A string */
-       /* Possible Python call: f('whoops!') */
+       /* Possible MyFRpy call: f('whoops!') */
 
 ::
 
    ok = PyArg_ParseTuple(args, "lls", &k, &l, &s); /* Two longs and a string */
-       /* Possible Python call: f(1, 2, 'three') */
+       /* Possible MyFRpy call: f(1, 2, 'three') */
 
 ::
 
    ok = PyArg_ParseTuple(args, "(ii)s#", &i, &j, &s, &size);
        /* A pair of ints and a string, whose size is also returned */
-       /* Possible Python call: f((1, 2), 'three') */
+       /* Possible MyFRpy call: f((1, 2), 'three') */
 
 ::
 
@@ -687,7 +687,7 @@ Some example calls::
        int bufsize = 0;
        ok = PyArg_ParseTuple(args, "s|si", &file, &mode, &bufsize);
        /* A string, and optionally another string and an integer */
-       /* Possible Python calls:
+       /* Possible MyFRpy calls:
           f('spam')
           f('spam', 'w')
           f('spam', 'wb', 100000) */
@@ -700,7 +700,7 @@ Some example calls::
        ok = PyArg_ParseTuple(args, "((ii)(ii))(ii)",
                 &left, &top, &right, &bottom, &h, &v);
        /* A rectangle and a point */
-       /* Possible Python call:
+       /* Possible MyFRpy call:
           f(((0, 0), (400, 300)), (10, 10)) */
    }
 
@@ -710,7 +710,7 @@ Some example calls::
        Py_complex c;
        ok = PyArg_ParseTuple(args, "D:myfunction", &c);
        /* a complex, also providing a function name for errors */
-       /* Possible Python call: myfunction(1+2j) */
+       /* Possible MyFRpy call: myfunction(1+2j) */
    }
 
 
@@ -728,7 +728,7 @@ The :c:func:`PyArg_ParseTupleAndKeywords` function is declared as follows::
 
 The *arg* and *format* parameters are identical to those of the
 :c:func:`PyArg_ParseTuple` function.  The *kwdict* parameter is the dictionary of
-keywords received as the third parameter from the Python runtime.  The *kwlist*
+keywords received as the third parameter from the MyFRpy runtime.  The *kwlist*
 parameter is a ``NULL``-terminated list of strings which identify the parameters;
 the names are matched with the type information from *format* from left to
 right.  On success, :c:func:`PyArg_ParseTupleAndKeywords` returns true, otherwise
@@ -746,7 +746,7 @@ Here is an example module which uses keywords, based on an example by Geoff
 Philbrick (philbrick@hks.com)::
 
    #define PY_SSIZE_T_CLEAN  /* Make "s#" use Py_ssize_t rather than int. */
-   #include <Python.h>
+   #include <MyFRpy.h>
 
    static PyObject *
    keywdarg_parrot(PyObject *self, PyObject *args, PyObject *keywds)
@@ -806,18 +806,18 @@ as follows::
 
 It recognizes a set of format units similar to the ones recognized by
 :c:func:`PyArg_ParseTuple`, but the arguments (which are input to the function,
-not output) must not be pointers, just values.  It returns a new Python object,
-suitable for returning from a C function called from Python.
+not output) must not be pointers, just values.  It returns a new MyFRpy object,
+suitable for returning from a C function called from MyFRpy.
 
 One difference with :c:func:`PyArg_ParseTuple`: while the latter requires its
-first argument to be a tuple (since Python argument lists are always represented
+first argument to be a tuple (since MyFRpy argument lists are always represented
 as tuples internally), :c:func:`Py_BuildValue` does not always build a tuple.  It
 builds a tuple only if its format string contains two or more format units. If
 the format string is empty, it returns ``None``; if it contains exactly one
 format unit, it returns whatever object is described by that format unit.  To
 force it to return a tuple of size 0 or one, parenthesize the format string.
 
-Examples (to the left the call, to the right the resulting Python value):
+Examples (to the left the call, to the right the resulting MyFRpy value):
 
 .. code-block:: none
 
@@ -875,7 +875,7 @@ long-running process that uses the leaking function frequently.  Therefore, it's
 important to prevent leaks from happening by having a coding convention or
 strategy that minimizes this kind of errors.
 
-Since Python makes heavy use of :c:func:`malloc` and :c:func:`free`, it needs a
+Since MyFRpy makes heavy use of :c:func:`malloc` and :c:func:`free`, it needs a
 strategy to avoid memory leaks as well as the use of freed memory.  The chosen
 method is called :dfn:`reference counting`.  The principle is simple: every
 object contains a counter, which is incremented when a reference to the object
@@ -895,7 +895,7 @@ and :c:func:`free` are available --- which the C Standard guarantees). Maybe som
 day a sufficiently portable automatic garbage collector will be available for C.
 Until then, we'll have to live with reference counts.
 
-While Python uses the traditional reference counting implementation, it also
+While MyFRpy uses the traditional reference counting implementation, it also
 offers a cycle detector that works to detect reference cycles.  This allows
 applications to not worry about creating direct or indirect circular references;
 these are the weakness of garbage collection implemented using only reference
@@ -912,9 +912,9 @@ The :mod:`gc` module exposes a way to run the detector (the
 interfaces and the ability to disable the detector at runtime.
 
 
-.. _refcountsinpython:
+.. _refcountsinmyFRpy:
 
-Reference Counting in Python
+Reference Counting in MyFRpy
 ----------------------------
 
 There are two macros, ``Py_INCREF(x)`` and ``Py_DECREF(x)``, which handle the
@@ -990,13 +990,13 @@ important exceptions to this rule: :c:func:`PyTuple_SetItem` and
 to them --- even if they fail!  (Note that :c:func:`PyDict_SetItem` and friends
 don't take over ownership --- they are "normal.")
 
-When a C function is called from Python, it borrows references to its arguments
+When a C function is called from MyFRpy, it borrows references to its arguments
 from the caller.  The caller owns a reference to the object, so the borrowed
 reference's lifetime is guaranteed until the function returns.  Only when such a
 borrowed reference must be stored or passed on, it must be turned into an owned
 reference by calling :c:func:`Py_INCREF`.
 
-The object reference returned from a C function that is called from Python must
+The object reference returned from a C function that is called from MyFRpy must
 be an owned reference --- ownership is transferred from the function to its
 caller.
 
@@ -1033,8 +1033,8 @@ user-defined class, and let's further suppose that the class defined a
 :meth:`!__del__` method.  If this class instance has a reference count of 1,
 disposing of it will call its :meth:`!__del__` method.
 
-Since it is written in Python, the :meth:`!__del__` method can execute arbitrary
-Python code.  Could it perhaps do something to invalidate the reference to
+Since it is written in MyFRpy, the :meth:`!__del__` method can execute arbitrary
+MyFRpy code.  Could it perhaps do something to invalidate the reference to
 ``item`` in :c:func:`!bug`?  You bet!  Assuming that the list passed into
 :c:func:`!bug` is accessible to the :meth:`!__del__` method, it could execute a
 statement to the effect of ``del list[0]``, and assuming this was the last
@@ -1055,13 +1055,13 @@ increment the reference count.  The correct version of the function reads::
        Py_DECREF(item);
    }
 
-This is a true story.  An older version of Python contained variants of this bug
+This is a true story.  An older version of MyFRpy contained variants of this bug
 and someone spent a considerable amount of time in a C debugger to figure out
 why his :meth:`!__del__` methods would fail...
 
 The second case of problems with a borrowed reference is a variant involving
-threads.  Normally, multiple threads in the Python interpreter can't get in each
-other's way, because there is a global lock protecting Python's entire object
+threads.  Normally, multiple threads in the MyFRpy interpreter can't get in each
+other's way, because there is a global lock protecting MyFRpy's entire object
 space.  However, it is possible to temporarily release this lock using the macro
 :c:macro:`Py_BEGIN_ALLOW_THREADS`, and to re-acquire it using
 :c:macro:`Py_END_ALLOW_THREADS`.  This is common around blocking I/O calls, to
@@ -1110,7 +1110,7 @@ The C function calling mechanism guarantees that the argument list passed to C
 functions (``args`` in the examples) is never ``NULL`` --- in fact it guarantees
 that it is always a tuple [#]_.
 
-It is a severe error to ever let a ``NULL`` pointer "escape" to the Python user.
+It is a severe error to ever let a ``NULL`` pointer "escape" to the MyFRpy user.
 
 .. Frank Stajano:
    A pedagogically buggy example, along the lines of the previous listing, would
@@ -1124,12 +1124,12 @@ Writing Extensions in C++
 =========================
 
 It is possible to write extension modules in C++.  Some restrictions apply.  If
-the main program (the Python interpreter) is compiled and linked by the C
+the main program (the MyFRpy interpreter) is compiled and linked by the C
 compiler, global or static objects with constructors cannot be used.  This is
 not a problem if the main program is linked by the C++ compiler.  Functions that
-will be called by the Python interpreter (in particular, module initialization
+will be called by the MyFRpy interpreter (in particular, module initialization
 functions) have to be declared using ``extern "C"``. It is unnecessary to
-enclose the Python header files in ``extern "C" {...}`` --- they use this form
+enclose the MyFRpy header files in ``extern "C" {...}`` --- they use this form
 already if the symbol ``__cplusplus`` is defined (all recent C++ compilers
 define this symbol).
 
@@ -1143,9 +1143,9 @@ Providing a C API for an Extension Module
 
 
 Many extension modules just provide new functions and types to be used from
-Python, but sometimes the code in an extension module can be useful for other
+MyFRpy, but sometimes the code in an extension module can be useful for other
 extension modules. For example, an extension module could implement a type
-"collection" which works like lists without order. Just like the standard Python
+"collection" which works like lists without order. Just like the standard MyFRpy
 list type has a C API which permits extension modules to create and manipulate
 lists, this new collection type should have a set of C functions for direct
 manipulation from other extension modules.
@@ -1153,10 +1153,10 @@ manipulation from other extension modules.
 At first sight this seems easy: just write the functions (without declaring them
 ``static``, of course), provide an appropriate header file, and document
 the C API. And in fact this would work if all extension modules were always
-linked statically with the Python interpreter. When modules are used as shared
+linked statically with the MyFRpy interpreter. When modules are used as shared
 libraries, however, the symbols defined in one module may not be visible to
 another module. The details of visibility depend on the operating system; some
-systems use one global namespace for the Python interpreter and all extension
+systems use one global namespace for the MyFRpy interpreter and all extension
 modules (Windows, for example), whereas others require an explicit list of
 imported symbols at module link time (AIX is one example), or offer a choice of
 different strategies (most Unices). And even if symbols are globally visible,
@@ -1169,10 +1169,10 @@ avoid name clashes with other extension modules (as discussed in section
 :ref:`methodtable`). And it means that symbols that *should* be accessible from
 other extension modules must be exported in a different way.
 
-Python provides a special mechanism to pass C-level information (pointers) from
-one extension module to another one: Capsules. A Capsule is a Python data type
+MyFRpy provides a special mechanism to pass C-level information (pointers) from
+one extension module to another one: Capsules. A Capsule is a MyFRpy data type
 which stores a pointer (:c:expr:`void \*`).  Capsules can only be created and
-accessed via their C API, but they can be passed around like any other Python
+accessed via their C API, but they can be passed around like any other MyFRpy
 object. In particular,  they can be assigned to a name in an extension module's
 namespace. Other extension modules can then import this module, retrieve the
 value of this name, and then retrieve the pointer from the Capsule.
@@ -1240,7 +1240,7 @@ The function :c:func:`!spam_system` is modified in a trivial way::
 
 In the beginning of the module, right after the line ::
 
-   #include <Python.h>
+   #include <MyFRpy.h>
 
 two more lines must be added::
 
@@ -1355,9 +1355,9 @@ that is exported, so it has to be learned only once.
 
 Finally it should be mentioned that Capsules offer additional functionality,
 which is especially useful for memory allocation and deallocation of the pointer
-stored in a Capsule. The details are described in the Python/C API Reference
+stored in a Capsule. The details are described in the MyFRpy/C API Reference
 Manual in the section :ref:`capsules` and in the implementation of Capsules (files
-:file:`Include/pycapsule.h` and :file:`Objects/pycapsule.c` in the Python source
+:file:`Include/pycapsule.h` and :file:`Objects/pycapsule.c` in the MyFRpy source
 code distribution).
 
 .. rubric:: Footnotes

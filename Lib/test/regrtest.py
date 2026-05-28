@@ -1,7 +1,7 @@
-#! /usr/bin/env python3
+#! /usr/bin/env myFRpy3
 
 """
-Script to run Python regression tests.
+Script to run MyFRpy regression tests.
 
 Run this script with -h or --help for documentation.
 """

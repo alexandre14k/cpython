@@ -26,10 +26,10 @@
                 <File Name="libffi-8.dll" KeyPath="yes" />
             </Component>
             <Component Id="venvlauncher.exe" Directory="Lib_venv_scripts_nt" Guid="*">
-                <File Name="python.exe" Source="venvlauncher.exe" KeyPath="yes" />
+                <File Name="myFRpy.exe" Source="venvlauncher.exe" KeyPath="yes" />
             </Component>
             <Component Id="venvwlauncher.exe" Directory="Lib_venv_scripts_nt" Guid="*">
-                <File Name="pythonw.exe" Source="venvwlauncher.exe" KeyPath="yes" />
+                <File Name="myFRpyw.exe" Source="venvwlauncher.exe" KeyPath="yes" />
             </Component>
         </ComponentGroup>
     </Fragment>
@@ -63,10 +63,10 @@
                 <File Name="libssl$(var.ssltag).pdb" KeyPath="yes" />
             </Component>
             <Component Id="venvlauncher.pdb" Directory="Lib_venv_scripts_nt__pdbs" Guid="*">
-                <File Name="python.pdb" Source="venvlauncher.pdb" KeyPath="yes" />
+                <File Name="myFRpy.pdb" Source="venvlauncher.pdb" KeyPath="yes" />
             </Component>
             <Component Id="venvwlauncher.pdb" Directory="Lib_venv_scripts_nt__pdbs" Guid="*">
-                <File Name="pythonw.pdb" Source="venvwlauncher.pdb" KeyPath="yes" />
+                <File Name="myFRpyw.pdb" Source="venvwlauncher.pdb" KeyPath="yes" />
             </Component>
         </ComponentGroup>
     </Fragment>
@@ -100,10 +100,10 @@
                 <File Name="sqlite3_d.pdb" KeyPath="yes" />
             </Component>
             <Component Id="venvlauncher_d.exe" Directory="Lib_venv_scripts_nt__d" Guid="*">
-                <File Name="python_d.exe" Source="venvlauncher_d.exe" KeyPath="yes" />
+                <File Name="myFRpy_d.exe" Source="venvlauncher_d.exe" KeyPath="yes" />
             </Component>
             <Component Id="venvwlauncher_d.exe" Directory="Lib_venv_scripts_nt__d" Guid="*">
-                <File Name="pythonw_d.exe" Source="venvwlauncher_d.exe" KeyPath="yes" />
+                <File Name="myFRpyw_d.exe" Source="venvwlauncher_d.exe" KeyPath="yes" />
             </Component>
         </ComponentGroup>
     </Fragment>
@@ -111,9 +111,9 @@
         <PropertyRef Id="REGISTRYKEY" />
         
         <ComponentGroup Id="lib_files">
-            <Component Id="PythonPathRegistry" Directory="Lib" Guid="*">
+            <Component Id="MyFRpyPathRegistry" Directory="Lib" Guid="*">
                 <RegistryKey Root="HKMU" Key="[REGISTRYKEY]">
-                    <RegistryValue Key="PythonPath" Type="string" Value="[Lib];[DLLs]" />
+                    <RegistryValue Key="MyFRpyPath" Type="string" Value="[Lib];[DLLs]" />
                 </RegistryKey>
             </Component>
             <Component Id="Lib2to3_pickle_remove" Directory="Lib_lib2to3" Guid="$(var.RemoveLib2to3PickleComponentGuid)">
@@ -125,7 +125,7 @@
     <Fragment>
         <ComponentGroup Id="lib_cat">
             <Component Id="lib_cat" Directory="Catalogs" Guid="*">
-                <File Name="python_lib.cat" KeyPath="yes" />
+                <File Name="myFRpy_lib.cat" KeyPath="yes" />
             </Component>
         </ComponentGroup>
     </Fragment>

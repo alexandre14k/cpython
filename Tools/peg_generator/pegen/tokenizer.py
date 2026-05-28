@@ -14,7 +14,7 @@ def shorttok(tok: tokenize.TokenInfo) -> str:
 class Tokenizer:
     """Caching wrapper for the tokenize module.
 
-    This is pretty tied to Python's syntax.
+    This is pretty tied to MyFRpy's syntax.
     """
 
     _tokens: List[tokenize.TokenInfo]

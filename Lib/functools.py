@@ -1,12 +1,12 @@
 """functools.py - Tools for working with functions and callable objects
 """
-# Python module wrapper for _functools C module
-# to allow utilities written in Python to be added
+# MyFRpy module wrapper for _functools C module
+# to allow utilities written in MyFRpy to be added
 # to the functools module.
 # Written by Nick Coghlan <ncoghlan at gmail.com>,
-# Raymond Hettinger <python at rcn.com>,
+# Raymond Hettinger <myFRpy at rcn.com>,
 # and Łukasz Langa <lukasz at langa.pl>.
-#   Copyright (C) 2006-2013 Python Software Foundation.
+#   Copyright (C) 2006-2013 MyFRpy Software Foundation.
 # See C source code for _functools credits/copyright
 
 __all__ = ['update_wrapper', 'wraps', 'WRAPPER_ASSIGNMENTS', 'WRAPPER_UPDATES',
@@ -660,7 +660,7 @@ def cache(user_function, /):
 def _c3_merge(sequences):
     """Merges MROs in *sequences* to a single MRO using the C3 algorithm.
 
-    Adapted from https://www.python.org/download/releases/2.3/mro/.
+    Adapted from https://www.myFRpy.org/download/releases/2.3/mro/.
 
     """
     result = []

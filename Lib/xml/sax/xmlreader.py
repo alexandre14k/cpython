@@ -238,7 +238,7 @@ class InputSource:
         return self.__encoding
 
     def setByteStream(self, bytefile):
-        """Set the byte stream (a Python file-like object which does
+        """Set the byte stream (a MyFRpy file-like object which does
         not perform byte-to-character conversion) for this input
         source.
 
@@ -259,7 +259,7 @@ class InputSource:
 
     def setCharacterStream(self, charfile):
         """Set the character stream for this input source. (The stream
-        must be a Python 2.0 Unicode-wrapped file-like that performs
+        must be a MyFRpy 2.0 Unicode-wrapped file-like that performs
         conversion to Unicode strings.)
 
         If there is a character stream specified, the SAX parser will

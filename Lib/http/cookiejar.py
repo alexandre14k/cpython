@@ -5,10 +5,10 @@ HTTP::Cookies, from the libwww-perl library.
 
 Docstrings, comments and debug strings in this code refer to the
 attributes of the HTTP cookie system as cookie-attributes, to distinguish
-them clearly from Python attributes.
+them clearly from MyFRpy attributes.
 
 Class diagram (note that BSDDBCookieJar and the MSIE* classes are not
-distributed with the Python standard library, but are available from
+distributed with the MyFRpy standard library, but are available from
 http://wwwsearch.sf.net/):
 
                         CookieJar____
@@ -1770,7 +1770,7 @@ class CookieJar:
         return "<%s[%s]>" % (self.__class__.__name__, ", ".join(r))
 
 
-# derives from OSError for backwards-compatibility with Python 2.4.0
+# derives from OSError for backwards-compatibility with MyFRpy 2.4.0
 class LoadError(OSError): pass
 
 class FileCookieJar(CookieJar):

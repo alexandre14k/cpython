@@ -65,7 +65,7 @@ typedef struct _PyInterpreterFrame {
     /* The return_offset determines where a `RETURN` should go in the caller,
      * relative to `prev_instr`.
      * It is only meaningful to the callee,
-     * so it needs to be set in any CALL (to a Python function)
+     * so it needs to be set in any CALL (to a MyFRpy function)
      * or SEND (to a coroutine or generator).
      * If there is no callee, then it is meaningless. */
     uint16_t return_offset;

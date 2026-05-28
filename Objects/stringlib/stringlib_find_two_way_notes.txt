@@ -2,7 +2,7 @@ This document explains Crochemore and Perrin's Two-Way string matching
 algorithm, in which a smaller string (the "pattern" or "needle")
 is searched for in a longer string (the "text" or "haystack"),
 determining whether the needle is a substring of the haystack, and if
-so, at what index(es). It is to be used by Python's string
+so, at what index(es). It is to be used by MyFRpy's string
 (and bytes-like) objects when calling `find`, `index`, `__contains__`,
 or implicitly in methods like `replace` or `partition`.
 
@@ -381,7 +381,7 @@ The computation is relatively simple, essentially doing this:
     cut = max(cut1, cut2) # the later cut
 
 For cut2, "invert the alphabet" is different than saying min(...),
-since in lexicographic order, we still put "py" < "python", even
+since in lexicographic order, we still put "py" < "myFRpy", even
 if the alphabet is inverted. Computing these, along with the method
 of computing the period of the right half, is easiest to read directly
 from the source code in fastsearch.h, in which these are computed

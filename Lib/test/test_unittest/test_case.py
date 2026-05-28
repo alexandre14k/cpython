@@ -1104,20 +1104,20 @@ class Test_TestCase(unittest.TestCase, TestEquality, TestHashing):
 
     def testAssertMultiLineEqual(self):
         sample_text = """\
-http://www.python.org/doc/2.3/lib/module-unittest.html
+http://www.myFRpy.org/doc/2.3/lib/module-unittest.html
 test case
     A test case is the smallest unit of testing. [...]
 """
         revised_sample_text = """\
-http://www.python.org/doc/2.4.1/lib/module-unittest.html
+http://www.myFRpy.org/doc/2.4.1/lib/module-unittest.html
 test case
     A test case is the smallest unit of testing. [...] You may provide your
     own implementation that does not subclass from TestCase, of course.
 """
         sample_text_error = """\
-- http://www.python.org/doc/2.3/lib/module-unittest.html
+- http://www.myFRpy.org/doc/2.3/lib/module-unittest.html
 ?                             ^
-+ http://www.python.org/doc/2.4.1/lib/module-unittest.html
++ http://www.myFRpy.org/doc/2.4.1/lib/module-unittest.html
 ?                             ^^^
   test case
 -     A test case is the smallest unit of testing. [...]
@@ -1952,7 +1952,7 @@ test case
             self.assertEqual(len(result.errors), 1)
             self.assertEqual(result.testsRun, 1)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def testNoCycles(self):
         case = unittest.TestCase()
         wr = weakref.ref(case)

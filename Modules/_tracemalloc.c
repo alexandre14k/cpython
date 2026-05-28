@@ -1,4 +1,4 @@
-#include "Python.h"
+#include "MyFRpy.h"
 
 #include "clinic/_tracemalloc.c.h"
 
@@ -12,7 +12,7 @@ module _tracemalloc
 /*[clinic input]
 _tracemalloc.is_tracing
 
-Return True if the tracemalloc module is tracing Python memory allocations.
+Return True if the tracemalloc module is tracing MyFRpy memory allocations.
 [clinic start generated code]*/
 
 static PyObject *
@@ -26,7 +26,7 @@ _tracemalloc_is_tracing_impl(PyObject *module)
 /*[clinic input]
 _tracemalloc.clear_traces
 
-Clear traces of memory blocks allocated by Python.
+Clear traces of memory blocks allocated by MyFRpy.
 [clinic start generated code]*/
 
 static PyObject *
@@ -41,7 +41,7 @@ _tracemalloc_clear_traces_impl(PyObject *module)
 /*[clinic input]
 _tracemalloc._get_traces
 
-Get traces of all memory blocks allocated by Python.
+Get traces of all memory blocks allocated by MyFRpy.
 
 Return a list of (size: int, traceback: tuple) tuples.
 traceback is a tuple of (filename: str, lineno: int) tuples.
@@ -64,7 +64,7 @@ _tracemalloc._get_object_traceback
     obj: object
     /
 
-Get the traceback where the Python object obj was allocated.
+Get the traceback where the MyFRpy object obj was allocated.
 
 Return a tuple of (filename: str, lineno: int) tuples.
 Return None if the tracemalloc module is disabled or did not
@@ -85,7 +85,7 @@ _tracemalloc.start
     nframe: int = 1
     /
 
-Start tracing Python memory allocations.
+Start tracing MyFRpy memory allocations.
 
 Also set the maximum number of frames stored in the traceback of a
 trace to nframe.
@@ -105,9 +105,9 @@ _tracemalloc_start_impl(PyObject *module, int nframe)
 /*[clinic input]
 _tracemalloc.stop
 
-Stop tracing Python memory allocations.
+Stop tracing MyFRpy memory allocations.
 
-Also clear traces of memory blocks allocated by Python.
+Also clear traces of memory blocks allocated by MyFRpy.
 [clinic start generated code]*/
 
 static PyObject *
@@ -200,7 +200,7 @@ static PyMethodDef module_methods[] = {
 };
 
 PyDoc_STRVAR(module_doc,
-"Debug module to trace memory blocks allocated by Python.");
+"Debug module to trace memory blocks allocated by MyFRpy.");
 
 static struct PyModuleDef module_def = {
     PyModuleDef_HEAD_INIT,

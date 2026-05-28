@@ -1,13 +1,13 @@
-Python Documentation README
+MyFRpy Documentation README
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This directory contains the reStructuredText (reST) sources to the Python
+This directory contains the reStructuredText (reST) sources to the MyFRpy
 documentation.  You don't need to build them yourself, `prebuilt versions are
-available <https://docs.python.org/dev/download.html>`_.
+available <https://docs.myFRpy.org/dev/download.html>`_.
 
-Documentation on authoring Python documentation, including information about
-both style and markup, is available in the "`Documenting Python
-<https://devguide.python.org/documenting/>`_" chapter of the
+Documentation on authoring MyFRpy documentation, including information about
+both style and markup, is available in the "`Documenting MyFRpy
+<https://devguide.myFRpy.org/documenting/>`_" chapter of the
 developers guide.
 
 
@@ -20,7 +20,7 @@ tree but are maintained separately and are available from
 
 * `Sphinx <https://pypi.org/project/Sphinx/>`_
 * `blurb <https://pypi.org/project/blurb/>`_
-* `python-docs-theme <https://pypi.org/project/python-docs-theme/>`_
+* `myFRpy-docs-theme <https://pypi.org/project/myFRpy-docs-theme/>`_
 
 The easiest way to install these tools is to create a virtual environment and
 install the tools into there.
@@ -45,8 +45,8 @@ installed on your process ``PATH`` (configurable with the ``SPHINXBUILD`` and
 ``BLURB`` variables).
 
 On Windows, we try to emulate the Makefile as closely as possible with a
-``make.bat`` file. If you need to specify the Python interpreter to use,
-set the PYTHON environment variable.
+``make.bat`` file. If you need to specify the MyFRpy interpreter to use,
+set the MYFRPY environment variable.
 
 Available make targets are:
 
@@ -89,7 +89,7 @@ Available make targets are:
 * "coverage", which builds a coverage overview for standard library modules and
   C API.
 
-* "pydoc-topics", which builds a Python module containing a dictionary with
+* "pydoc-topics", which builds a MyFRpy module containing a dictionary with
   plain text documentation for the labels defined in
   ``tools/pyspecific.py`` -- pydoc needs these to show topic and keyword help.
 
@@ -127,12 +127,12 @@ Contributing
 ============
 
 Bugs in the content should be reported to the
-`Python bug tracker <https://github.com/python/cpython/issues>`_.
+`MyFRpy bug tracker <https://github.com/myFRpy/cmyFRpy/issues>`_.
 
 Bugs in the toolset should be reported to the tools themselves.
 
-You can also send a mail to the Python Documentation Team at docs@python.org,
+You can also send a mail to the MyFRpy Documentation Team at docs@myFRpy.org,
 and we will process your request as soon as possible.
 
 If you want to help the Documentation Team, you are always welcome.  Just send
-a mail to docs@python.org.
+a mail to docs@myFRpy.org.

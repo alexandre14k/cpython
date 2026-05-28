@@ -18,7 +18,7 @@ class CAPITest(unittest.TestCase):
 
     maxDiff = None
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     @unittest.skipIf(_testcapi is None, 'need _testcapi module')
     def test_sys_getobject(self):
         # Test PySys_GetObject()
@@ -32,7 +32,7 @@ class CAPITest(unittest.TestCase):
         self.assertIs(getobject(b'\xff'), AttributeError)
         # CRASHES getobject(NULL)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     @unittest.skipIf(_testcapi is None, 'need _testcapi module')
     def test_sys_setobject(self):
         # Test PySys_SetObject()
@@ -64,7 +64,7 @@ class CAPITest(unittest.TestCase):
             setobject(b'\xff', value)
         # CRASHES setobject(NULL, value)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     @unittest.skipIf(_testcapi is None, 'need _testcapi module')
     def test_sys_getxoptions(self):
         # Test PySys_GetXOptions()
@@ -87,8 +87,8 @@ class CAPITest(unittest.TestCase):
 
     def _test_sys_formatstream(self, funname, streamname):
         import_helper.import_module('ctypes')
-        from ctypes import pythonapi, c_char_p, py_object
-        func = getattr(pythonapi, funname)
+        from ctypes import myFRpyapi, c_char_p, py_object
+        func = getattr(myFRpyapi, funname)
         func.argtypes = (c_char_p,)
 
         # Supports plain C types.
@@ -96,7 +96,7 @@ class CAPITest(unittest.TestCase):
             func(b'Hello, %s!', c_char_p(b'world'))
         self.assertEqual(stream.getvalue(), 'Hello, world!')
 
-        # Supports Python objects.
+        # Supports MyFRpy objects.
         with support.captured_output(streamname) as stream:
             func(b'Hello, %R!', py_object('world'))
         self.assertEqual(stream.getvalue(), "Hello, 'world'!")
@@ -116,8 +116,8 @@ class CAPITest(unittest.TestCase):
 
     def _test_sys_writestream(self, funname, streamname):
         import_helper.import_module('ctypes')
-        from ctypes import pythonapi, c_char_p
-        func = getattr(pythonapi, funname)
+        from ctypes import myFRpyapi, c_char_p
+        func = getattr(myFRpyapi, funname)
         func.argtypes = (c_char_p,)
 
         # Supports plain C types.

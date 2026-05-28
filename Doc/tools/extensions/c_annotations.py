@@ -6,7 +6,7 @@
     Supports annotations for C API elements:
 
     * reference count annotations for C API functions.  Based on
-      refcount.py and anno-api.py in the old Python documentation tools.
+      refcount.py and anno-api.py in the old MyFRpy documentation tools.
 
     * stable API annotations
 
@@ -16,7 +16,7 @@
     * Set the `stable_abi_file` config value to the path to stable ABI list.
 
     :copyright: Copyright 2007-2014 by Georg Brandl.
-    :license: Python license.
+    :license: MyFRpy license.
 """
 
 from os import path

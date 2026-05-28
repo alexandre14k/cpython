@@ -5,7 +5,7 @@
    :synopsis: Higher-order functions and operations on callable objects.
 
 .. moduleauthor:: Peter Harris <scav@blueyonder.co.uk>
-.. moduleauthor:: Raymond Hettinger <python@rcn.com>
+.. moduleauthor:: Raymond Hettinger <myFRpy@rcn.com>
 .. moduleauthor:: Nick Coghlan <ncoghlan@gmail.com>
 .. moduleauthor:: Łukasz Langa <lukasz@langa.pl>
 .. moduleauthor:: Pablo Galindo <pablogsal@gmail.com>
@@ -118,11 +118,11 @@ The :mod:`functools` module defines the following functions:
    .. versionadded:: 3.8
 
    .. versionchanged:: 3.12
-      Prior to Python 3.12, ``cached_property`` included an undocumented lock to
+      Prior to MyFRpy 3.12, ``cached_property`` included an undocumented lock to
       ensure that in multi-threaded usage the getter function was guaranteed to
       run only once per instance. However, the lock was per-property, not
       per-instance, which could result in unacceptably high lock contention. In
-      Python 3.12+ this locking is removed.
+      MyFRpy 3.12+ this locking is removed.
 
 
 .. function:: cmp_to_key(func)
@@ -131,7 +131,7 @@ The :mod:`functools` module defines the following functions:
    with tools that accept key functions (such as :func:`sorted`, :func:`min`,
    :func:`max`, :func:`heapq.nlargest`, :func:`heapq.nsmallest`,
    :func:`itertools.groupby`).  This function is primarily used as a transition
-   tool for programs being converted from Python 2 which supported the use of
+   tool for programs being converted from MyFRpy 2 which supported the use of
    comparison functions.
 
    A comparison function is any callable that accepts two arguments, compares them,
@@ -234,8 +234,8 @@ The :mod:`functools` module defines the following functions:
 
         @lru_cache(maxsize=32)
         def get_pep(num):
-            'Retrieve text of a Python Enhancement Proposal'
-            resource = f'https://peps.python.org/pep-{num:04d}'
+            'Retrieve text of a MyFRpy Enhancement Proposal'
+            resource = f'https://peps.myFRpy.org/pep-{num:04d}'
             try:
                 with urllib.request.urlopen(resource) as s:
                     return s.read()
@@ -368,14 +368,14 @@ The :mod:`functools` module defines the following functions:
    *func* must be a :term:`descriptor` or a callable (objects which are both,
    like normal functions, are handled as descriptors).
 
-   When *func* is a descriptor (such as a normal Python function,
+   When *func* is a descriptor (such as a normal MyFRpy function,
    :func:`classmethod`, :func:`staticmethod`, :func:`abstractmethod` or
    another instance of :class:`partialmethod`), calls to ``__get__`` are
    delegated to the underlying descriptor, and an appropriate
    :ref:`partial object<partial-objects>` returned as the result.
 
    When *func* is a non-descriptor callable, an appropriate bound method is
-   created dynamically. This behaves like a normal Python function when
+   created dynamically. This behaves like a normal MyFRpy function when
    used as a method: the *self* argument will be inserted as the first
    positional argument, even before the *args* and *keywords* supplied to
    the :class:`partialmethod` constructor.

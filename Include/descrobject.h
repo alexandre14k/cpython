@@ -89,9 +89,9 @@ PyAPI_FUNC(PyObject *) PyMember_GetOne(const char *, PyMemberDef *);
 PyAPI_FUNC(int) PyMember_SetOne(char *, PyMemberDef *, PyObject *);
 
 #ifndef Py_LIMITED_API
-#  define Py_CPYTHON_DESCROBJECT_H
-#  include "cpython/descrobject.h"
-#  undef Py_CPYTHON_DESCROBJECT_H
+#  define Py_CMYFRPY_DESCROBJECT_H
+#  include "cmyFRpy/descrobject.h"
+#  undef Py_CMYFRPY_DESCROBJECT_H
 #endif
 
 #ifdef __cplusplus

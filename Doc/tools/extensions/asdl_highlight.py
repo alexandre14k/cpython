@@ -1,8 +1,8 @@
 import sys
 from pathlib import Path
 
-CPYTHON_ROOT = Path(__file__).resolve().parent.parent.parent.parent
-sys.path.append(str(CPYTHON_ROOT / "Parser"))
+CMYFRPY_ROOT = Path(__file__).resolve().parent.parent.parent.parent
+sys.path.append(str(CMYFRPY_ROOT / "Parser"))
 
 from pygments.lexer import RegexLexer, bygroups, include, words
 from pygments.token import (Comment, Keyword, Name, Operator,

@@ -1,7 +1,7 @@
 """Core implementation of import.
 
 This module is NOT meant to be directly imported! It has been designed such
-that it can be bootstrapped into Python as the implementation of import. As
+that it can be bootstrapped into MyFRpy as the implementation of import. As
 such it requires the injection of specific modules and attributes in order to
 work. One should use importlib as the public-facing version of this module.
 
@@ -10,7 +10,7 @@ work. One should use importlib as the public-facing version of this module.
 # IMPORTANT: Whenever making changes to this module, be sure to run a top-level
 # `make regen-importlib` followed by `make` in order to get the frozen version
 # of the module updated. Not doing so will result in the Makefile to fail for
-# all others who don't have a ./python around to freeze the module
+# all others who don't have a ./myFRpy around to freeze the module
 # in the early stages of compilation.
 #
 
@@ -267,7 +267,7 @@ class _ModuleLock:
         # more than once.
         #
         # Counts are represented as a list of True because list.append(True)
-        # and list.pop() are both atomic and thread-safe in CPython and it's hard
+        # and list.pop() are both atomic and thread-safe in CMyFRpy and it's hard
         # to find another primitive with the same properties.
         self.count = []
 
@@ -387,7 +387,7 @@ class _ModuleLock:
 
 
 class _DummyModuleLock:
-    """A simple _ModuleLock equivalent for Python builds without
+    """A simple _ModuleLock equivalent for MyFRpy builds without
     multi-threading support."""
 
     def __init__(self, name):
@@ -421,7 +421,7 @@ class _ModuleLockManager:
         self._lock.release()
 
 
-# The following two functions are for consumption by Python/import.c.
+# The following two functions are for consumption by MyFRpy/import.c.
 
 def _get_module_lock(name):
     """Get or create the module lock for a given module name.
@@ -489,7 +489,7 @@ def _call_with_frames_removed(f, *args, **kwds):
 
 
 def _verbose_message(message, *args, verbosity=1):
-    """Print the message to stderr if -v/PYTHONVERBOSE is turned on."""
+    """Print the message to stderr if -v/MYFRPYVERBOSE is turned on."""
     if sys.flags.verbose >= verbosity:
         if not message.startswith(('#', 'import ')):
             message = '# ' + message
@@ -526,7 +526,7 @@ def _load_module_shim(self, fullname):
 
     """
     msg = ("the load_module() method is deprecated and slated for removal in "
-          "Python 3.12; use exec_module() instead")
+          "MyFRpy 3.12; use exec_module() instead")
     _warnings.warn(msg, DeprecationWarning)
     spec = spec_from_loader(fullname, self)
     if fullname in sys.modules:
@@ -760,7 +760,7 @@ def _init_module_attrs(spec, module, *, override=False):
                 # should also be None for consistency.  While a bit of a hack,
                 # this is the best place to ensure this consistency.
                 #
-                # See # https://docs.python.org/3/library/importlib.html#importlib.abc.Loader.load_module
+                # See # https://docs.myFRpy.org/3/library/importlib.html#importlib.abc.Loader.load_module
                 # and bpo-32305
                 module.__file__ = None
         try:
@@ -1242,7 +1242,7 @@ def _find_spec(name, path, target=None):
     meta_path = sys.meta_path
     if meta_path is None:
         # PyImport_Cleanup() is running or has been called.
-        raise ImportError("sys.meta_path is None, Python is likely "
+        raise ImportError("sys.meta_path is None, MyFRpy is likely "
                           "shutting down")
 
     if not meta_path:

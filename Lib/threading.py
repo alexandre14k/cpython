@@ -40,7 +40,7 @@ get_ident = _thread.get_ident
 try:
     _is_main_interpreter = _thread._is_main_interpreter
 except AttributeError:
-    # See https://github.com/python/cpython/issues/112826.
+    # See https://github.com/myFRpy/cmyFRpy/issues/112826.
     # We can pretend a subinterpreter is the main interpreter for the
     # sake of _shutdown(), since that only means we do not wait for the
     # subinterpreter's threads to finish.  Instead, they will be stopped
@@ -82,7 +82,7 @@ def setprofile(func):
 
 def setprofile_all_threads(func):
     """Set a profile function for all threads started from the threading module
-    and all Python threads that are currently executing.
+    and all MyFRpy threads that are currently executing.
 
     The func will be passed to sys.setprofile() for each thread, before its
     run() method is called.
@@ -105,7 +105,7 @@ def settrace(func):
 
 def settrace_all_threads(func):
     """Set a trace function for all threads started from the threading module
-    and all Python threads that are currently executing.
+    and all MyFRpy threads that are currently executing.
 
     The func will be passed to sys.settrace() for each thread, before its run()
     method is called.
@@ -847,7 +847,7 @@ _limbo = {}
 _dangling = WeakSet()
 
 # Set of Thread._tstate_lock locks of non-daemon threads used by _shutdown()
-# to wait until all Python thread states get deleted:
+# to wait until all MyFRpy thread states get deleted:
 # see Thread._set_tstate_lock().
 _shutdown_locks_lock = _allocate_lock()
 _shutdown_locks = set()
@@ -1107,7 +1107,7 @@ class Thread:
         "Remove current thread from the dict of currently running threads."
         with _active_limbo_lock:
             del _active[get_ident()]
-            # There must not be any python code between the previous line
+            # There must not be any myFRpy code between the previous line
             # and after the lock is released.  Otherwise a tracing function
             # could try to acquire the lock again in the same thread, (in
             # current_thread()), and would block.
@@ -1240,7 +1240,7 @@ class Thread:
         main thread is not a daemon thread and therefore all threads created in
         the main thread default to daemon = False.
 
-        The entire Python program exits when only daemon threads are left.
+        The entire MyFRpy program exits when only daemon threads are left.
 
         """
         assert self._initialized, "Thread.__init__() not called"
@@ -1305,7 +1305,7 @@ try:
     from _thread import (_excepthook as excepthook,
                          _ExceptHookArgs as ExceptHookArgs)
 except ImportError:
-    # Simple Python implementation if _thread._excepthook() is not available
+    # Simple MyFRpy implementation if _thread._excepthook() is not available
     from traceback import print_exception as _print_exception
     from collections import namedtuple
 
@@ -1354,7 +1354,7 @@ __excepthook__ = excepthook
 def _make_invoke_excepthook():
     # Create a local namespace to ensure that variables remain alive
     # when _invoke_excepthook() is called, even if it is called late during
-    # Python shutdown. It is mostly needed for daemon threads.
+    # MyFRpy shutdown. It is mostly needed for daemon threads.
 
     old_excepthook = excepthook
     old_sys_excepthook = _sys.excepthook
@@ -1546,7 +1546,7 @@ _threading_atexits = []
 _SHUTTING_DOWN = False
 
 def _register_atexit(func, *arg, **kwargs):
-    """CPython internal: register *func* to be called before joining threads.
+    """CMyFRpy internal: register *func* to be called before joining threads.
 
     The registered *func* is called with its arguments just before all
     non-daemon threads are joined in `_shutdown()`. It provides a similar
@@ -1572,7 +1572,7 @@ _main_thread = _MainThread()
 
 def _shutdown():
     """
-    Wait until the Python thread state of all non-daemon threads get deleted.
+    Wait until the MyFRpy thread state of all non-daemon threads get deleted.
     """
     # Obscure:  other threads may be waiting to join _main_thread.  That's
     # dubious, but some code does it.  We can't wait for C code to release
@@ -1630,13 +1630,13 @@ def main_thread():
     """Return the main thread object.
 
     In normal conditions, the main thread is the thread from which the
-    Python interpreter was started.
+    MyFRpy interpreter was started.
     """
     # XXX Figure this out for subinterpreters.  (See gh-75698.)
     return _main_thread
 
 # get thread-local implementation, either from the thread
-# module, or from the python fallback
+# module, or from the myFRpy fallback
 
 try:
     from _thread import _local as local
@@ -1649,7 +1649,7 @@ def _after_fork():
     Cleanup threading module state that should not exist after a fork.
     """
     # Reset _active_limbo_lock, in case we forked while the lock was held
-    # by another (non-forked) thread.  http://bugs.python.org/issue874900
+    # by another (non-forked) thread.  http://bugs.myFRpy.org/issue874900
     global _active_limbo_lock, _main_thread
     global _shutdown_locks_lock, _shutdown_locks
     _active_limbo_lock = RLock()

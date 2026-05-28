@@ -23,7 +23,7 @@ the standard audio interface for Linux and recent versions of FreeBSD.
    majority of Linux audio apps anyway.
 
    Sounds like things are also complicated for other BSDs.  In response
-   to my python-dev query, Thomas Wouters said:
+   to my myFRpy-dev query, Thomas Wouters said:
 
    > Likewise, googling shows OpenBSD also uses OSS/Free -- the commercial
    > OSS installation manual tells you to remove references to OSS/Free from the
@@ -146,7 +146,7 @@ and (read-only) attributes:
 
 .. method:: oss_audio_device.read(size)
 
-   Read *size* bytes from the audio input and return them as a Python string.
+   Read *size* bytes from the audio input and return them as a MyFRpy string.
    Unlike most Unix device drivers, OSS audio devices in blocking mode (the
    default) will block :func:`read` until the entire requested amount of data is
    available.
@@ -384,7 +384,7 @@ The remaining methods are specific to audio mixing:
    :const:`SOUND_MIXER_SYNTH`).  This bitmask indicates a subset of all available
    mixer controls---the :const:`SOUND_MIXER_\*` constants defined at module level.
    To determine if, for example, the current mixer object supports a PCM mixer, use
-   the following Python code::
+   the following MyFRpy code::
 
       mixer=ossaudiodev.openmixer()
       if mixer.controls() & (1 << ossaudiodev.SOUND_MIXER_PCM):

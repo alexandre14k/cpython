@@ -6,7 +6,7 @@
 #  define Py_BUILD_CORE_MODULE 1
 #endif
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_initconfig.h"    // _PyErr_SetFromPyStatus()
 #include "pycore_pyerrors.h"      // _PyErr_ChainExceptions1()
 #include "pycore_pystate.h"       // _PyInterpreterState_SetRunningMain()
@@ -789,7 +789,7 @@ static PyMethodDef module_functions[] = {
 /* initialization function */
 
 PyDoc_STRVAR(module_doc,
-"This module provides primitive operations to manage Python interpreters.\n\
+"This module provides primitive operations to manage MyFRpy interpreters.\n\
 The 'interpreters' module provides a more convenient interface.");
 
 static int

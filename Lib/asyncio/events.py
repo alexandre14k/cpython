@@ -834,7 +834,7 @@ def set_child_watcher(watcher):
     return get_event_loop_policy().set_child_watcher(watcher)
 
 
-# Alias pure-Python implementations for testing purposes.
+# Alias pure-MyFRpy implementations for testing purposes.
 _py__get_running_loop = _get_running_loop
 _py__set_running_loop = _set_running_loop
 _py_get_running_loop = get_running_loop
@@ -843,7 +843,7 @@ _py_get_event_loop = get_event_loop
 
 try:
     # get_event_loop() is one of the most frequently called
-    # functions in asyncio.  Pure Python implementation is
+    # functions in asyncio.  Pure MyFRpy implementation is
     # about 4 times slower than C-accelerated.
     from _asyncio import (_get_running_loop, _set_running_loop,
                           get_running_loop, get_event_loop)

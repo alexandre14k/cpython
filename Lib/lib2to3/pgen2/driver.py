@@ -11,11 +11,11 @@ This provides a high-level interface to parse a file into a syntax tree.
 
 """
 
-__author__ = "Guido van Rossum <guido@python.org>"
+__author__ = "Guido van Rossum <guido@myFRpy.org>"
 
 __all__ = ["Driver", "load_grammar"]
 
-# Python imports
+# MyFRpy imports
 import io
 import os
 import logging
@@ -144,7 +144,7 @@ def load_packaged_grammar(package, grammar_source):
     """Normally, loads a pickled grammar by doing
         pkgutil.get_data(package, pickled_grammar)
     where *pickled_grammar* is computed from *grammar_source* by adding the
-    Python version and using a ``.pickle`` extension.
+    MyFRpy version and using a ``.pickle`` extension.
 
     However, if *grammar_source* is an extant file, load_grammar(grammar_source)
     is called instead. This facilitates using a packaged grammar file when needed

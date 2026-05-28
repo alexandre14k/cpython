@@ -12,7 +12,7 @@ PyDoc_STRVAR(signal_default_int_handler__doc__,
 "default_int_handler($module, signalnum, frame, /)\n"
 "--\n"
 "\n"
-"The default handler for SIGINT installed by Python.\n"
+"The default handler for SIGINT installed by MyFRpy.\n"
 "\n"
 "It raises KeyboardInterrupt.");
 
@@ -137,7 +137,7 @@ PyDoc_STRVAR(signal_signal__doc__,
 "\n"
 "Set the action for the given signal.\n"
 "\n"
-"The action can be SIG_DFL, SIG_IGN, or a callable Python object.\n"
+"The action can be SIG_DFL, SIG_IGN, or a callable MyFRpy object.\n"
 "The previous action is returned.  See getsignal() for possible return values.\n"
 "\n"
 "*** IMPORTANT NOTICE ***\n"
@@ -181,7 +181,7 @@ PyDoc_STRVAR(signal_getsignal__doc__,
 "  SIG_IGN -- if the signal is being ignored\n"
 "  SIG_DFL -- if the default action for the signal is in effect\n"
 "  None    -- if an unknown handler is in effect\n"
-"  anything else -- the callable Python object used as a handler");
+"  anything else -- the callable MyFRpy object used as a handler");
 
 #define SIGNAL_GETSIGNAL_METHODDEF    \
     {"getsignal", (PyCFunction)signal_getsignal, METH_O, signal_getsignal__doc__},

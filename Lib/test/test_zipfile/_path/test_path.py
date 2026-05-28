@@ -521,7 +521,7 @@ class TestPath(unittest.TestCase):
     @pass_alpharep
     def test_is_symlink(self, alpharep):
         """
-        See python/cpython#82102 for symlink support beyond this object.
+        See myFRpy/cmyFRpy#82102 for symlink support beyond this object.
         """
 
         root = zipfile.Path(alpharep)

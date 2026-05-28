@@ -21,7 +21,7 @@ from test.support import (captured_stdout, captured_stderr,
                           skip_if_broken_multiprocessing_synchronize, verbose,
                           requires_subprocess, is_emscripten, is_wasi,
                           requires_venv_with_pip, TEST_HOME_DIR,
-                          requires_resource, copy_python_src_ignore)
+                          requires_resource, copy_myFRpy_src_ignore)
 from test.support.os_helper import (can_symlink, EnvironmentVarGuard, rmtree)
 import unittest
 import venv
@@ -68,7 +68,7 @@ class BaseTest(unittest.TestCase):
             self.include = 'Include'
         else:
             self.bindir = 'bin'
-            self.lib = ('lib', 'python%d.%d' % sys.version_info[:2])
+            self.lib = ('lib', 'myFRpy%d.%d' % sys.version_info[:2])
             self.include = 'include'
         executable = sys._base_executable
         self.exe = os.path.split(executable)[-1]
@@ -209,10 +209,10 @@ class BasicTest(BaseTest):
     def test_upgrade_dependencies(self):
         builder = venv.EnvBuilder()
         bin_path = 'Scripts' if sys.platform == 'win32' else 'bin'
-        python_exe = os.path.split(sys.executable)[1]
+        myFRpy_exe = os.path.split(sys.executable)[1]
         with tempfile.TemporaryDirectory() as fake_env_dir:
             expect_exe = os.path.normcase(
-                os.path.join(fake_env_dir, bin_path, python_exe)
+                os.path.join(fake_env_dir, bin_path, myFRpy_exe)
             )
             if sys.platform == 'win32':
                 expect_exe = os.path.normcase(os.path.realpath(expect_exe))
@@ -269,7 +269,7 @@ class BasicTest(BaseTest):
             ('get_preferred_scheme("prefix")', 'venv'),
             ('get_default_scheme()', 'venv'),
             # build environment
-            ('is_python_build()', str(sysconfig.is_python_build())),
+            ('is_myFRpy_build()', str(sysconfig.is_myFRpy_build())),
             ('get_makefile_filename()', sysconfig.get_makefile_filename()),
             ('get_config_h_filename()', sysconfig.get_config_h_filename())):
             with self.subTest(call):
@@ -292,7 +292,7 @@ class BasicTest(BaseTest):
             ('get_preferred_scheme("prefix")', 'venv'),
             ('get_default_scheme()', 'venv'),
             # build environment
-            ('is_python_build()', str(sysconfig.is_python_build())),
+            ('is_myFRpy_build()', str(sysconfig.is_myFRpy_build())),
             ('get_makefile_filename()', sysconfig.get_makefile_filename()),
             ('get_config_h_filename()', sysconfig.get_config_h_filename())):
             with self.subTest(call):
@@ -312,8 +312,8 @@ class BasicTest(BaseTest):
             ('bin',),
             ('include',),
             ('lib',),
-            ('lib', 'python%d.%d' % sys.version_info[:2]),
-            ('lib', 'python%d.%d' % sys.version_info[:2], 'site-packages'),
+            ('lib', 'myFRpy%d.%d' % sys.version_info[:2]),
+            ('lib', 'myFRpy%d.%d' % sys.version_info[:2], 'site-packages'),
         )
 
     def create_contents(self, paths, filename):
@@ -403,8 +403,8 @@ class BasicTest(BaseTest):
             builder = venv.EnvBuilder(clear=True, symlinks=usl)
             builder.create(self.env_dir)
             fn = self.get_env_file(self.bindir, self.exe)
-            # Don't test when False, because e.g. 'python' is always
-            # symlinked to 'python3.3' in the env, even when symlinking in
+            # Don't test when False, because e.g. 'myFRpy' is always
+            # symlinked to 'myFRpy3.3' in the env, even when symlinking in
             # general isn't wanted.
             if usl:
                 if self.cannot_link_exe:
@@ -417,7 +417,7 @@ class BasicTest(BaseTest):
     # If a venv is created from a source build and that venv is used to
     # run the test, the pyvenv.cfg in the venv created in the test will
     # point to the venv being used to run the test, and we lose the link
-    # to the source build - so Python can't initialise properly.
+    # to the source build - so MyFRpy can't initialise properly.
     @requireVenvCreate
     def test_executable(self):
         """
@@ -479,9 +479,9 @@ class BasicTest(BaseTest):
         out, err = check_output([envpy, '-c',
             'from multiprocessing import Pool; '
             'pool = Pool(1); '
-            'print(pool.apply_async("Python".lower).get(3)); '
+            'print(pool.apply_async("MyFRpy".lower).get(3)); '
             'pool.terminate()'])
-        self.assertEqual(out.strip(), "python".encode())
+        self.assertEqual(out.strip(), "myFRpy".encode())
 
     @requireVenvCreate
     def test_multiprocessing_recursion(self):
@@ -542,12 +542,12 @@ class BasicTest(BaseTest):
     @requireVenvCreate
     def test_zippath_from_non_installed_posix(self):
         """
-        Test that when create venv from non-installed python, the zip path
+        Test that when create venv from non-installed myFRpy, the zip path
         value is as expected.
         """
         rmtree(self.env_dir)
-        # First try to create a non-installed python. It's not a real full
-        # functional non-installed python, but enough for this test.
+        # First try to create a non-installed myFRpy. It's not a real full
+        # functional non-installed myFRpy, but enough for this test.
         platlibdir = sys.platlibdir
         non_installed_dir = os.path.realpath(tempfile.mkdtemp())
         self.addCleanup(rmtree, non_installed_dir)
@@ -557,13 +557,13 @@ class BasicTest(BaseTest):
         libdir = os.path.join(non_installed_dir, platlibdir, self.lib[1])
         os.makedirs(libdir)
         landmark = os.path.join(libdir, "os.py")
-        stdlib_zip = "python%d%d.zip" % sys.version_info[:2]
+        stdlib_zip = "myFRpy%d%d.zip" % sys.version_info[:2]
         zip_landmark = os.path.join(non_installed_dir,
                                     platlibdir,
                                     stdlib_zip)
-        additional_pythonpath_for_non_installed = []
+        additional_myFRpypath_for_non_installed = []
 
-        # Copy stdlib files to the non-installed python so venv can
+        # Copy stdlib files to the non-installed myFRpy so venv can
         # correctly calculate the prefix.
         for eachpath in sys.path:
             if eachpath.endswith(".zip"):
@@ -573,7 +573,7 @@ class BasicTest(BaseTest):
                         os.path.join(non_installed_dir, platlibdir))
             elif os.path.isfile(os.path.join(eachpath, "os.py")):
                 names = os.listdir(eachpath)
-                ignored_names = copy_python_src_ignore(eachpath, names)
+                ignored_names = copy_myFRpy_src_ignore(eachpath, names)
                 for name in names:
                     if name in ignored_names:
                         continue
@@ -584,41 +584,41 @@ class BasicTest(BaseTest):
                         shutil.copy(fn, libdir)
                     elif os.path.isdir(fn):
                         shutil.copytree(fn, os.path.join(libdir, name),
-                                        ignore=copy_python_src_ignore)
+                                        ignore=copy_myFRpy_src_ignore)
             else:
-                additional_pythonpath_for_non_installed.append(
+                additional_myFRpypath_for_non_installed.append(
                     eachpath)
         cmd = [os.path.join(non_installed_dir, self.bindir, self.exe),
                "-m",
                "venv",
                "--without-pip",
                self.env_dir]
-        # Our fake non-installed python is not fully functional because
-        # it cannot find the extensions. Set PYTHONPATH so it can run the
+        # Our fake non-installed myFRpy is not fully functional because
+        # it cannot find the extensions. Set MYFRPYPATH so it can run the
         # venv module correctly.
-        pythonpath = os.pathsep.join(
-            additional_pythonpath_for_non_installed)
-        # For python built with shared enabled. We need to set
-        # LD_LIBRARY_PATH so the non-installed python can find and link
-        # libpython.so
+        myFRpypath = os.pathsep.join(
+            additional_myFRpypath_for_non_installed)
+        # For myFRpy built with shared enabled. We need to set
+        # LD_LIBRARY_PATH so the non-installed myFRpy can find and link
+        # libmyFRpy.so
         ld_library_path = sysconfig.get_config_var("LIBDIR")
-        if not ld_library_path or sysconfig.is_python_build():
+        if not ld_library_path or sysconfig.is_myFRpy_build():
             ld_library_path = os.path.abspath(os.path.dirname(sys.executable))
         if sys.platform == 'darwin':
             ld_library_path_env = "DYLD_LIBRARY_PATH"
         else:
             ld_library_path_env = "LD_LIBRARY_PATH"
         child_env = {
-                "PYTHONPATH": pythonpath,
+                "MYFRPYPATH": myFRpypath,
                 ld_library_path_env: ld_library_path,
         }
         if asan_options := os.environ.get("ASAN_OPTIONS"):
-            # prevent https://github.com/python/cpython/issues/104839
+            # prevent https://github.com/myFRpy/cmyFRpy/issues/104839
             child_env["ASAN_OPTIONS"] = asan_options
         subprocess.check_call(cmd, env=child_env)
         envpy = os.path.join(self.env_dir, self.bindir, self.exe)
-        # Now check the venv created from the non-installed python has
-        # correct zip path in pythonpath.
+        # Now check the venv created from the non-installed myFRpy has
+        # correct zip path in myFRpypath.
         cmd = [envpy, '-S', '-c', 'import sys; print(sys.path)']
         out, err = check_output(cmd)
         self.assertTrue(zip_landmark.encode() in out)
@@ -667,7 +667,7 @@ class EnsurePipTest(BaseTest):
 
     def test_devnull(self):
         # Fix for issue #20053 uses os.devnull to force a config file to
-        # appear empty. However http://bugs.python.org/issue20541 means
+        # appear empty. However http://bugs.myFRpy.org/issue20541 means
         # that doesn't currently work properly on Windows. Once that is
         # fixed, the "win_location" part of test_with_pip should be restored
         with open(os.devnull, "rb") as f:
@@ -679,17 +679,17 @@ class EnsurePipTest(BaseTest):
         rmtree(self.env_dir)
         with EnvironmentVarGuard() as envvars:
             # pip's cross-version compatibility may trigger deprecation
-            # warnings in current versions of Python. Ensure related
+            # warnings in current versions of MyFRpy. Ensure related
             # environment settings don't cause venv to fail.
-            envvars["PYTHONWARNINGS"] = "ignore"
+            envvars["MYFRPYWARNINGS"] = "ignore"
             # ensurepip is different enough from a normal pip invocation
             # that we want to ensure it ignores the normal pip environment
             # variable settings. We set PIP_NO_INSTALL here specifically
             # to check that ensurepip (and hence venv) ignores it.
-            # See http://bugs.python.org/issue19734
+            # See http://bugs.myFRpy.org/issue19734
             envvars["PIP_NO_INSTALL"] = "1"
             # Also check that we ignore the pip configuration file
-            # See http://bugs.python.org/issue20053
+            # See http://bugs.myFRpy.org/issue20053
             with tempfile.TemporaryDirectory() as home_dir:
                 envvars["HOME"] = home_dir
                 bad_config = "[global]\nno-install=1"
@@ -697,7 +697,7 @@ class EnsurePipTest(BaseTest):
                 # cross-platform variation in test code behaviour
                 win_location = ("pip", "pip.ini")
                 posix_location = (".pip", "pip.conf")
-                # Skips win_location due to http://bugs.python.org/issue20541
+                # Skips win_location due to http://bugs.myFRpy.org/issue20541
                 for dirname, fname in (posix_location,):
                     dirpath = os.path.join(home_dir, dirname)
                     os.mkdir(dirpath)
@@ -713,7 +713,7 @@ class EnsurePipTest(BaseTest):
                                           with_pip=True)
         # Ensure pip is available in the virtual environment
         envpy = os.path.join(os.path.realpath(self.env_dir), self.bindir, self.exe)
-        # Ignore DeprecationWarning since pip code is not part of Python
+        # Ignore DeprecationWarning since pip code is not part of MyFRpy
         out, err = check_output([envpy, '-W', 'ignore::DeprecationWarning',
                '-W', 'ignore::ImportWarning', '-I',
                '-m', 'pip', '--version'])
@@ -727,14 +727,14 @@ class EnsurePipTest(BaseTest):
         env_dir = os.fsencode(self.env_dir).decode("latin-1")
         self.assertIn(env_dir, out)
 
-        # http://bugs.python.org/issue19728
+        # http://bugs.myFRpy.org/issue19728
         # Check the private uninstall command provided for the Windows
         # installers works (at least in a virtual environment)
         with EnvironmentVarGuard() as envvars:
             with self.nicer_error():
                 # It seems ensurepip._uninstall calls subprocesses which do not
                 # inherit the interpreter settings.
-                envvars["PYTHONWARNINGS"] = "ignore"
+                envvars["MYFRPYWARNINGS"] = "ignore"
                 out, err = check_output([envpy,
                     '-W', 'ignore::DeprecationWarning',
                     '-W', 'ignore::ImportWarning', '-I',
@@ -753,7 +753,7 @@ class EnsurePipTest(BaseTest):
                      err, flags=re.MULTILINE)
         self.assertEqual(err.rstrip(), "")
         # Being fairly specific regarding the expected behaviour for the
-        # initial bundling phase in Python 3.4. If the output changes in
+        # initial bundling phase in MyFRpy 3.4. If the output changes in
         # future pip versions, this test can likely be relaxed further.
         out = out.decode("latin-1") # Force to text, prevent decoding errors
         self.assertIn("Successfully uninstalled pip", out)

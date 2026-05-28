@@ -21,10 +21,10 @@ HERE = os.path.dirname(__file__)
 ROOT = os.path.join(HERE, "../..")
 THIS = os.path.relpath(__file__, ROOT).replace(os.path.sep, posixpath.sep)
 
-DEFAULT_INPUT = os.path.relpath(os.path.join(ROOT, "Python/bytecodes.c"))
-DEFAULT_OUTPUT = os.path.relpath(os.path.join(ROOT, "Python/generated_cases.c.h"))
+DEFAULT_INPUT = os.path.relpath(os.path.join(ROOT, "MyFRpy/bytecodes.c"))
+DEFAULT_OUTPUT = os.path.relpath(os.path.join(ROOT, "MyFRpy/generated_cases.c.h"))
 DEFAULT_METADATA_OUTPUT = os.path.relpath(
-    os.path.join(ROOT, "Python/opcode_metadata.h")
+    os.path.join(ROOT, "MyFRpy/opcode_metadata.h")
 )
 BEGIN_MARKER = "// BEGIN BYTECODES //"
 END_MARKER = "// END BYTECODES //"

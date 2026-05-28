@@ -136,7 +136,7 @@ class DeprecatedTuple:
     1
     """
 
-    # Do not remove prior to 2023-05-01 or Python 3.13
+    # Do not remove prior to 2023-05-01 or MyFRpy 3.13
     _warn = functools.partial(
         warnings.warn,
         "EntryPoint tuple interface is deprecated. Access members by name.",
@@ -150,10 +150,10 @@ class DeprecatedTuple:
 
 
 class EntryPoint(DeprecatedTuple):
-    """An entry point as defined by Python packaging conventions.
+    """An entry point as defined by MyFRpy packaging conventions.
 
     See `the packaging docs on entry points
-    <https://packaging.python.org/specifications/entry-points/>`_
+    <https://packaging.myFRpy.org/specifications/entry-points/>`_
     for more information.
 
     >>> ep = EntryPoint(
@@ -363,7 +363,7 @@ class DeprecatedNonAbstract:
 
 
 class Distribution(DeprecatedNonAbstract):
-    """A Python distribution package."""
+    """A MyFRpy distribution package."""
 
     @abc.abstractmethod
     def read_text(self, filename) -> Optional[str]:
@@ -598,7 +598,7 @@ class Distribution(DeprecatedNonAbstract):
         def url_req_space(req):
             """
             PEP 508 requires a space between the url_spec and the quoted_marker.
-            Ref python/importlib_metadata#357.
+            Ref myFRpy/importlib_metadata#357.
             """
             # '@' is uniquely indicative of a url_req.
             return ' ' * ('@' in req)
@@ -640,7 +640,7 @@ class DistributionFinder(MetaPathFinder):
             The sequence of directory path that a distribution finder
             should search.
 
-            Typically refers to Python installed package paths such as
+            Typically refers to MyFRpy installed package paths such as
             "site-packages" directories and defaults to ``sys.path``.
             """
             return vars(self).get('path', sys.path)

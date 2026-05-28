@@ -955,7 +955,7 @@ class TestNamedTemporaryFile(BaseTestCase):
         del write
         write2(b'bar')
         del write2
-        if support.check_impl_detail(cpython=True):
+        if support.check_impl_detail(cmyFRpy=True):
             # No reference cycle was created.
             self.assertIsNone(wr())
 
@@ -1781,7 +1781,7 @@ class TestTemporaryDirectory(BaseTestCase):
                 new_flags = os.stat(dir1).st_flags
                 self.assertEqual(new_flags, old_flags)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_del_on_collection(self):
         # A TemporaryDirectory is deleted when garbage collected
         dir = tempfile.mkdtemp()
@@ -1794,7 +1794,7 @@ class TestTemporaryDirectory(BaseTestCase):
         finally:
             os.rmdir(dir)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_del_on_collection_ignore_errors(self):
         """Test that ignoring errors works when TemporaryDirectory is gced."""
         with tempfile.TemporaryDirectory() as working_dir:
@@ -1839,7 +1839,7 @@ class TestTemporaryDirectory(BaseTestCase):
 
                     warnings.filterwarnings("always", category=ResourceWarning)
                     """.format(dir=dir, mod=mod)
-                rc, out, err = script_helper.assert_python_ok("-c", code)
+                rc, out, err = script_helper.assert_myFRpy_ok("-c", code)
                 tmp_name = out.decode().strip()
                 self.assertFalse(os.path.exists(tmp_name),
                             "TemporaryDirectory %s exists after cleanup" % tmp_name)
@@ -1869,7 +1869,7 @@ class TestTemporaryDirectory(BaseTestCase):
 
                 warnings.filterwarnings("always", category=ResourceWarning)
                 """.format(working_dir=working_dir)
-            __, out, err = script_helper.assert_python_ok("-c", code)
+            __, out, err = script_helper.assert_myFRpy_ok("-c", code)
             temp_path = pathlib.Path(out.decode().strip())
             self.assertEqual(len(list(temp_path.glob("*"))),
                              int(sys.platform.startswith("win")),
@@ -1900,7 +1900,7 @@ class TestTemporaryDirectory(BaseTestCase):
 
                 warnings.filterwarnings("always", category=ResourceWarning)
                 """.format(dir=dir)
-            rc, out, err = script_helper.assert_python_ok("-c", code)
+            rc, out, err = script_helper.assert_myFRpy_ok("-c", code)
             tmp_name = out.decode().strip()
             self.assertFalse(os.path.exists(tmp_name),
                         "TemporaryDirectory %s exists after cleanup" % tmp_name)

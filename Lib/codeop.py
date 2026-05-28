@@ -1,4 +1,4 @@
-r"""Utilities to compile possibly incomplete Python source code.
+r"""Utilities to compile possibly incomplete MyFRpy source code.
 
 This module provides two interfaces, broadly similar to the builtin
 function compile(), which take program text, a filename and a 'mode'
@@ -40,7 +40,7 @@ _features = [getattr(__future__, fname)
 
 __all__ = ["compile_command", "Compile", "CommandCompiler"]
 
-# The following flags match the values from Include/cpython/compile.h
+# The following flags match the values from Include/cmyFRpy/compile.h
 # Caveat emptor: These flags are undocumented on purpose and depending
 # on their effect outside the standard library is **unsupported**.
 PyCF_DONT_IMPLY_DEDENT = 0x200

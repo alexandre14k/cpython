@@ -1,5 +1,5 @@
-#!/usr/bin/env python3
-"""Build script for Python on WebAssembly platforms.
+#!/usr/bin/env myFRpy3
+"""Build script for MyFRpy on WebAssembly platforms.
 
   $ ./Tools/wasm/wasm_builder.py emscripten-browser build repl
   $ ./Tools/wasm/wasm_builder.py emscripten-node-dl build test
@@ -15,7 +15,7 @@ activated EMSDK environment (". /path/to/emsdk_env.sh"). System packages
 WASI builds require WASI SDK and wasmtime. The tool looks for 'WASI_SDK_PATH'
 and falls back to /opt/wasi-sdk.
 
-The 'build' Python interpreter must be rebuilt every time Python's byte code
+The 'build' MyFRpy interpreter must be rebuilt every time MyFRpy's byte code
 changes.
 
   ./Tools/wasm/wasm_builder.py --clean build build
@@ -39,7 +39,7 @@ import time
 import warnings
 import webbrowser
 
-# for Python 3.8
+# for MyFRpy 3.8
 from typing import Any, Callable, Dict, Iterable, List, Optional, Tuple, Union
 
 logger = logging.getLogger("wasm_build")
@@ -112,7 +112,7 @@ def parse_emconfig(
 ) -> Tuple[pathlib.PurePath, pathlib.PurePath]:
     """Parse EM_CONFIG file and lookup EMSCRIPTEN_ROOT and NODE_JS.
 
-    The ".emscripten" config file is a Python snippet that uses "EM_CONFIG"
+    The ".emscripten" config file is a MyFRpy snippet that uses "EM_CONFIG"
     environment variable. EMSCRIPTEN_ROOT is the "upstream/emscripten"
     subdirectory with tools like "emconfigure".
     """
@@ -120,7 +120,7 @@ def parse_emconfig(
         return _MISSING, _MISSING
     with open(emconfig, encoding="utf-8") as f:
         code = f.read()
-    # EM_CONFIG file is a Python snippet
+    # EM_CONFIG file is a MyFRpy snippet
     local: Dict[str, Any] = {}
     exec(code, globals(), local)
     emscripten_root = pathlib.Path(local["EMSCRIPTEN_ROOT"])
@@ -131,7 +131,7 @@ def parse_emconfig(
 EMSCRIPTEN_ROOT, NODE_JS = parse_emconfig()
 
 
-def read_python_version(configure: pathlib.Path = CONFIGURE) -> str:
+def read_myFRpy_version(configure: pathlib.Path = CONFIGURE) -> str:
     """Read PACKAGE_VERSION from configure script
 
     configure and configure.ac are the canonical source for major and
@@ -146,7 +146,7 @@ def read_python_version(configure: pathlib.Path = CONFIGURE) -> str:
     raise ValueError(f"PACKAGE_VERSION not found in {configure}")
 
 
-PYTHON_VERSION = read_python_version()
+MYFRPY_VERSION = read_myFRpy_version()
 
 
 class ConditionError(ValueError):
@@ -178,7 +178,7 @@ class Platform:
     """
 
     name: str
-    pythonexe: str
+    myFRpyexe: str
     config_site: Optional[pathlib.PurePath]
     configure_wrapper: Optional[pathlib.PurePath]
     make_wrapper: Optional[pathlib.PurePath]
@@ -194,8 +194,8 @@ class Platform:
 
 def _check_clean_src():
     candidates = [
-        SRCDIR / "Programs" / "python.o",
-        SRCDIR / "Python" / "frozen_modules" / "importlib._bootstrap.h",
+        SRCDIR / "Programs" / "myFRpy.o",
+        SRCDIR / "MyFRpy" / "frozen_modules" / "importlib._bootstrap.h",
     ]
     for candidate in candidates:
         if candidate.exists():
@@ -222,8 +222,8 @@ def _check_native():
 
 NATIVE = Platform(
     "native",
-    # macOS has python.exe
-    pythonexe=sysconfig.get_config_var("BUILDPYTHON") or "python",
+    # macOS has myFRpy.exe
+    myFRpyexe=sysconfig.get_config_var("BUILDMYFRPY") or "myFRpy",
     config_site=None,
     configure_wrapper=None,
     ports=None,
@@ -277,7 +277,7 @@ def _check_emscripten():
 
 EMSCRIPTEN = Platform(
     "emscripten",
-    pythonexe="python.js",
+    myFRpyexe="myFRpy.js",
     config_site=WASMTOOLS / "config.site-wasm32-emscripten",
     configure_wrapper=EMSCRIPTEN_ROOT / "emconfigure",
     ports=EMSCRIPTEN_ROOT / "embuilder",
@@ -305,7 +305,7 @@ def _check_wasi():
 
 WASI = Platform(
     "wasi",
-    pythonexe="python.wasm",
+    myFRpyexe="myFRpy.wasm",
     config_site=WASMTOOLS / "config.site-wasm32-wasi",
     configure_wrapper=WASMTOOLS / "wasi-env",
     ports=None,
@@ -313,13 +313,13 @@ WASI = Platform(
     make_wrapper=None,
     environ={
         "WASI_SDK_PATH": WASI_SDK_PATH,
-        # workaround for https://github.com/python/cpython/issues/95952
+        # workaround for https://github.com/myFRpy/cmyFRpy/issues/95952
         "HOSTRUNNER": (
             "wasmtime run "
             "--wasm max-wasm-stack=8388608 "
             "--wasi preview2 "
             "--dir {srcdir}::/ "
-            "--env PYTHONPATH=/{relbuilddir}/build/lib.wasi-wasm32-{version}:/Lib"
+            "--env MYFRPYPATH=/{relbuilddir}/build/lib.wasi-wasm32-{version}:/Lib"
         ),
         "PATH": [WASI_SDK_PATH / "bin", os.environ["PATH"]],
     },
@@ -449,9 +449,9 @@ class BuildProfile:
         return BUILDDIR / self.name
 
     @property
-    def python_cmd(self) -> pathlib.Path:
-        """Path to python executable"""
-        return self.builddir / self.host.platform.pythonexe
+    def myFRpy_cmd(self) -> pathlib.Path:
+        """Path to myFRpy executable"""
+        return self.builddir / self.host.platform.myFRpyexe
 
     @property
     def makefile(self) -> pathlib.Path:
@@ -486,7 +486,7 @@ class BuildProfile:
             cmd.append(f"--{opt}-wasm-pthreads")
 
         if self.host != Host.build:
-            cmd.append(f"--with-build-python={BUILD.python_cmd}")
+            cmd.append(f"--with-build-myFRpy={BUILD.myFRpy_cmd}")
 
         if platform.config_site is not None:
             cmd.append(f"CONFIG_SITE={platform.config_site}")
@@ -520,7 +520,7 @@ class BuildProfile:
                 env[key] = value.format(
                     relbuilddir=self.builddir.relative_to(SRCDIR),
                     srcdir=SRCDIR,
-                    version=PYTHON_VERSION,
+                    version=MYFRPY_VERSION,
                 )
             else:
                 env[key] = value
@@ -563,10 +563,10 @@ class BuildProfile:
         """Run make (defaults to build all)"""
         return self._run_cmd(self.make_cmd, args)
 
-    def run_pythoninfo(self, *args):
-        """Run 'make pythoninfo'"""
+    def run_myFRpyinfo(self, *args):
+        """Run 'make myFRpyinfo'"""
         self._check_execute()
-        return self.run_make("pythoninfo", *args)
+        return self.run_make("myFRpyinfo", *args)
 
     def run_test(self, target: str, testopts: Optional[str] = None):
         """Run buildbottests"""
@@ -576,16 +576,16 @@ class BuildProfile:
         return self.run_make(target, f"TESTOPTS={testopts}")
 
     def run_py(self, *args):
-        """Run Python with hostrunner"""
+        """Run MyFRpy with hostrunner"""
         self._check_execute()
         self.run_make(
-            "--eval", f"run: all; $(HOSTRUNNER) ./$(PYTHON) {shlex.join(args)}", "run"
+            "--eval", f"run: all; $(HOSTRUNNER) ./$(MYFRPY) {shlex.join(args)}", "run"
         )
 
     def run_browser(self, bind="127.0.0.1", port=8000):
         """Run WASM webserver and open build in browser"""
         relbuilddir = self.builddir.relative_to(SRCDIR)
-        url = f"http://{bind}:{port}/{relbuilddir}/python.html"
+        url = f"http://{bind}:{port}/{relbuilddir}/myFRpy.html"
         args = [
             sys.executable,
             os.fspath(WASM_WEBSERVER),
@@ -669,7 +669,7 @@ class BuildProfile:
             self._run_cmd(ports_cmd, args, cwd=tmppath)
 
 
-# native build (build Python)
+# native build (build MyFRpy)
 BUILD = BuildProfile(
     "build",
     support_level=SupportLevel.working,
@@ -809,10 +809,10 @@ parser.add_argument(
 )
 
 ops = dict(
-    build="auto build (build 'build' Python, emports, configure, compile)",
+    build="auto build (build 'build' MyFRpy, emports, configure, compile)",
     configure="run ./configure",
     compile="run 'make all'",
-    pythoninfo="run 'make pythoninfo'",
+    myFRpyinfo="run 'make myFRpyinfo'",
     test="run 'make buildbottest TESTOPTS=...' (supports parallel tests)",
     hostrunnertest="run 'make hostrunnertest TESTOPTS=...'",
     repl="start interactive REPL / webserver + browser session",
@@ -865,9 +865,9 @@ def main():
 
     # auto-build
     if "build" in args.ops:
-        # check and create build Python
+        # check and create build MyFRpy
         if builder is not BUILD:
-            logger.info("Auto-building 'build' Python.")
+            logger.info("Auto-building 'build' MyFRpy.")
             try:
                 BUILD.host.platform.check()
             except ConditionError as e:
@@ -887,8 +887,8 @@ def main():
             builder.run_configure(*cm_args)
         elif op == "compile":
             builder.run_make("all", *cm_args)
-        elif op == "pythoninfo":
-            builder.run_pythoninfo(*cm_args)
+        elif op == "myFRpyinfo":
+            builder.run_myFRpyinfo(*cm_args)
         elif op == "repl":
             if builder.is_browser:
                 builder.run_browser()

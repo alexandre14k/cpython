@@ -10,7 +10,7 @@ import warnings
 from test import support
 from test.support import import_helper
 from test.support import warnings_helper
-from test.support.script_helper import assert_python_ok
+from test.support.script_helper import assert_myFRpy_ok
 
 
 class AsyncYieldFrom:
@@ -766,7 +766,7 @@ class CoroutineTest(unittest.TestCase):
             c.close()
 
     def test_func_15(self):
-        # See http://bugs.python.org/issue25887 for details
+        # See http://bugs.myFRpy.org/issue25887 for details
 
         async def spammer():
             return 'spam'
@@ -783,7 +783,7 @@ class CoroutineTest(unittest.TestCase):
             reader(spammer_coro).send(None)
 
     def test_func_16(self):
-        # See http://bugs.python.org/issue25887 for details
+        # See http://bugs.myFRpy.org/issue25887 for details
 
         @types.coroutine
         def nop():
@@ -814,7 +814,7 @@ class CoroutineTest(unittest.TestCase):
             reader.throw(Exception('wat'))
 
     def test_func_17(self):
-        # See http://bugs.python.org/issue25887 for details
+        # See http://bugs.myFRpy.org/issue25887 for details
 
         async def coroutine():
             return 'spam'
@@ -837,7 +837,7 @@ class CoroutineTest(unittest.TestCase):
         coro.close()
 
     def test_func_18(self):
-        # See http://bugs.python.org/issue25887 for details
+        # See http://bugs.myFRpy.org/issue25887 for details
 
         async def coroutine():
             return 'spam'
@@ -1173,7 +1173,7 @@ class CoroutineTest(unittest.TestCase):
             waiter(coro).send(None)
 
     def test_await_16(self):
-        # See https://bugs.python.org/issue29600 for details.
+        # See https://bugs.myFRpy.org/issue29600 for details.
 
         async def f():
             return ValueError()
@@ -2226,7 +2226,7 @@ class CoroutineTest(unittest.TestCase):
         self.assertIsNone(gen.cr_frame)
 
     def test_stack_in_coroutine_throw(self):
-        # Regression test for https://github.com/python/cpython/issues/93592
+        # Regression test for https://github.com/myFRpy/cmyFRpy/issues/93592
         async def a():
             return await b()
 
@@ -2256,7 +2256,7 @@ class CoroutineTest(unittest.TestCase):
 class CoroAsyncIOCompatTest(unittest.TestCase):
 
     def test_asyncio_1(self):
-        # asyncio cannot be imported when Python is compiled without thread
+        # asyncio cannot be imported when MyFRpy is compiled without thread
         # support
         asyncio = import_helper.import_module('asyncio')
 
@@ -2424,27 +2424,27 @@ class OriginTrackingTest(unittest.TestCase):
 
 
 class UnawaitedWarningDuringShutdownTest(unittest.TestCase):
-    # https://bugs.python.org/issue32591#msg310726
+    # https://bugs.myFRpy.org/issue32591#msg310726
     def test_unawaited_warning_during_shutdown(self):
         code = ("import asyncio\n"
                 "async def f(): pass\n"
                 "async def t(): asyncio.gather(f())\n"
                 "asyncio.run(t())\n")
-        assert_python_ok("-c", code)
+        assert_myFRpy_ok("-c", code)
 
         code = ("import sys\n"
                 "async def f(): pass\n"
                 "sys.coro = f()\n")
-        assert_python_ok("-c", code)
+        assert_myFRpy_ok("-c", code)
 
         code = ("import sys\n"
                 "async def f(): pass\n"
                 "sys.corocycle = [f()]\n"
                 "sys.corocycle.append(sys.corocycle)\n")
-        assert_python_ok("-c", code)
+        assert_myFRpy_ok("-c", code)
 
 
-@support.cpython_only
+@support.cmyFRpy_only
 class CAPITest(unittest.TestCase):
 
     def test_tp_await_1(self):

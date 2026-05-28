@@ -35,7 +35,7 @@ del i
 INFINITY = float('inf')
 
 def py_encode_basestring(s):
-    """Return a JSON representation of a Python string
+    """Return a JSON representation of a MyFRpy string
 
     """
     def replace(match):
@@ -47,7 +47,7 @@ encode_basestring = (c_encode_basestring or py_encode_basestring)
 
 
 def py_encode_basestring_ascii(s):
-    """Return an ASCII-only JSON representation of a Python string
+    """Return an ASCII-only JSON representation of a MyFRpy string
 
     """
     def replace(match):
@@ -72,12 +72,12 @@ encode_basestring_ascii = (
     c_encode_basestring_ascii or py_encode_basestring_ascii)
 
 class JSONEncoder(object):
-    """Extensible JSON <https://json.org> encoder for Python data structures.
+    """Extensible JSON <https://json.org> encoder for MyFRpy data structures.
 
     Supports the following objects and types by default:
 
     +-------------------+---------------+
-    | Python            | JSON          |
+    | MyFRpy            | JSON          |
     +===================+===============+
     | dict              | object        |
     +-------------------+---------------+
@@ -181,7 +181,7 @@ class JSONEncoder(object):
                         f'is not JSON serializable')
 
     def encode(self, o):
-        """Return a JSON string representation of a Python data structure.
+        """Return a JSON string representation of a MyFRpy data structure.
 
         >>> from json.encoder import JSONEncoder
         >>> JSONEncoder().encode({"foo": ["bar", "baz"]})

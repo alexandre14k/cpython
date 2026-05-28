@@ -58,7 +58,7 @@
 #  define Py_BUILD_CORE_MODULE 1
 #endif
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "structmember.h"         // PyMemberDef
 
 #include <stdbool.h>
@@ -130,7 +130,7 @@ static void pymem_destructor(PyObject *ptr)
   WINFUNCTYPE(..., use_errno=True).
 
   New ctypes functions are provided to access the ctypes private copies from
-  Python:
+  MyFRpy:
 
   - ctypes.set_errno(value) and ctypes.set_last_error(value) store 'value' in
     the private copy and returns the previous value.
@@ -140,8 +140,8 @@ static void pymem_destructor(PyObject *ptr)
 */
 
 /*
-  This function creates and returns a thread-local Python object that has
-  space to store two integer error numbers; once created the Python object is
+  This function creates and returns a thread-local MyFRpy object that has
+  space to store two integer error numbers; once created the MyFRpy object is
   kept alive in the thread state dictionary as long as the thread itself.
 */
 PyObject *
@@ -609,7 +609,7 @@ PyType_Spec carg_spec = {
  * Convert a PyObject * into a parameter suitable to pass to an
  * C function call.
  *
- * 1. Python integers are converted to C int and passed by value.
+ * 1. MyFRpy integers are converted to C int and passed by value.
  *    Py_None is converted to a C NULL pointer.
  *
  * 2. 3-tuples are expected to have a format character in the first
@@ -618,16 +618,16 @@ PyType_Spec carg_spec = {
  *    or integer (denoting an address void *), will be converted to the
  *    corresponding C data type and passed by value.
  *
- * 3. Other Python objects are tested for an '_as_parameter_' attribute.
+ * 3. Other MyFRpy objects are tested for an '_as_parameter_' attribute.
  *    The value of this attribute must be an integer which will be passed
  *    by value, or a 2-tuple or 3-tuple which will be used according
  *    to point 2 above. The third item (if any), is ignored. It is normally
  *    used to keep the object alive where this parameter refers to.
  *    XXX This convention is dangerous - you can construct arbitrary tuples
- *    in Python and pass them. Would it be safer to use a custom container
+ *    in MyFRpy and pass them. Would it be safer to use a custom container
  *    datatype instead of a tuple?
  *
- * 4. Other Python objects cannot be passed as parameters - an exception is raised.
+ * 4. Other MyFRpy objects cannot be passed as parameters - an exception is raised.
  *
  * 5. ConvParam will store the converted result in a struct containing format
  *    and value.
@@ -653,7 +653,7 @@ struct argument {
 };
 
 /*
- * Convert a single Python object into a PyCArgObject and return it.
+ * Convert a single MyFRpy object into a PyCArgObject and return it.
  */
 static int ConvParam(PyObject *obj, Py_ssize_t index, struct argument *pa)
 {
@@ -731,7 +731,7 @@ static int ConvParam(PyObject *obj, Py_ssize_t index, struct argument *pa)
             return -1;
         }
         /* Which types should we exactly allow here?
-           integers are required for using Python classes
+           integers are required for using MyFRpy classes
            as parameters (they have to expose the '_as_parameter_'
            attribute)
         */
@@ -911,7 +911,7 @@ static int _call_function_pointer(int flags,
         if (error_object == NULL)
             return -1;
     }
-    if ((flags & FUNCFLAG_PYTHONAPI) == 0)
+    if ((flags & FUNCFLAG_MYFRPYAPI) == 0)
         Py_UNBLOCK_THREADS
     if (flags & FUNCFLAG_USE_ERRNO) {
         int temp = space[0];
@@ -948,7 +948,7 @@ static int _call_function_pointer(int flags,
         space[0] = errno;
         errno = temp;
     }
-    if ((flags & FUNCFLAG_PYTHONAPI) == 0)
+    if ((flags & FUNCFLAG_MYFRPYAPI) == 0)
         Py_BLOCK_THREADS
     Py_XDECREF(error_object);
 #ifdef MS_WIN32
@@ -959,15 +959,15 @@ static int _call_function_pointer(int flags,
     }
 #endif
 #endif
-    if ((flags & FUNCFLAG_PYTHONAPI) && PyErr_Occurred())
+    if ((flags & FUNCFLAG_MYFRPYAPI) && PyErr_Occurred())
         return -1;
     return 0;
 }
 
 /*
- * Convert the C value in result into a Python object, depending on restype.
+ * Convert the C value in result into a MyFRpy object, depending on restype.
  *
- * - If restype is NULL, return a Python integer.
+ * - If restype is NULL, return a MyFRpy integer.
  * - If restype is None, return None.
  * - If restype is a simple ctypes type (c_int, c_void_p), call the type's getfunc,
  *   pass the result to checker and return the result.
@@ -2033,6 +2033,6 @@ PyMethodDef _ctypes_module_methods[] = {
 
 /*
  Local Variables:
- compile-command: "cd .. && python setup.py -q build -g && python setup.py -q build install --home ~"
+ compile-command: "cd .. && myFRpy setup.py -q build -g && myFRpy setup.py -q build install --home ~"
  End:
 */

@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#! /usr/bin/env myFRpy3
 # This script generates Lib/re/_casefix.py.
 
 import collections

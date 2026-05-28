@@ -9,7 +9,7 @@
 
 #define PY_SSIZE_T_CLEAN
 
-#include "Python.h"
+#include "MyFRpy.h"
 
 #ifdef __VXWORKS__
 #  include "pycore_bitutils.h"    // _Py_popcount32()
@@ -2472,7 +2472,7 @@ _pystat_l128_from_l64_l64(uint64_t low, uint64_t high)
 }
 #endif
 
-/* pack a system stat C structure into the Python stat tuple
+/* pack a system stat C structure into the MyFRpy stat tuple
    (used by posix_stat() and posix_fstat()) */
 static PyObject*
 _pystat_fromstructstat(PyObject *module, STRUCT_STAT *st)
@@ -2664,7 +2664,7 @@ posix_do_stat(PyObject *module, const char *function_name, path_t *path,
     return _pystat_fromstructstat(module, &st);
 }
 
-/*[python input]
+/*[myFRpy input]
 
 for s in """
 
@@ -2712,7 +2712,7 @@ FTRUNCATE
 #endif
 
 """.rstrip().format(s=s))
-[python start generated code]*/
+[myFRpy start generated code]*/
 
 #ifdef HAVE_FACCESSAT
     #define FACCESSAT_DIR_FD_CONVERTER dir_fd_converter
@@ -2833,14 +2833,14 @@ FTRUNCATE
 #else
     #define PATH_HAVE_FTRUNCATE 0
 #endif
-/*[python end generated code: output=4bd4f6f7d41267f1 input=80b4c890b6774ea5]*/
+/*[myFRpy end generated code: output=4bd4f6f7d41267f1 input=80b4c890b6774ea5]*/
 
 #ifdef MS_WINDOWS
     #undef PATH_HAVE_FTRUNCATE
     #define PATH_HAVE_FTRUNCATE 1
 #endif
 
-/*[python input]
+/*[myFRpy input]
 
 class path_t_converter(CConverter):
 
@@ -2952,8 +2952,8 @@ class confstr_confname_converter(path_confname_converter):
 class sysconf_confname_converter(path_confname_converter):
     converter="conv_sysconf_confname"
 
-[python start generated code]*/
-/*[python end generated code: output=da39a3ee5e6b4b0d input=3338733161aa7879]*/
+[myFRpy start generated code]*/
+/*[myFRpy end generated code: output=da39a3ee5e6b4b0d input=3338733161aa7879]*/
 
 /*[clinic input]
 
@@ -3306,7 +3306,7 @@ os.chmod
         Operating-system mode bitfield.
         Be careful when using number literals for *mode*. The conventional UNIX notation for
         numeric modes uses an octal base, which needs to be indicated with a ``0o`` prefix in
-        Python.
+        MyFRpy.
 
     *
 
@@ -3467,7 +3467,7 @@ os.fchmod
         Operating-system mode bitfield.
         Be careful when using number literals for *mode*. The conventional UNIX notation for
         numeric modes uses an octal base, which needs to be indicated with a ``0o`` prefix in
-        Python.
+        MyFRpy.
 
 Change the access permissions of the file given by file descriptor fd.
 
@@ -7067,8 +7067,8 @@ py_posix_spawn(int use_posix_spawnp, PyObject *module, path_t *path, PyObject *a
          * buffers. The problem is that posix_spawn_file_actions_addopen does not
          * copy the value of path for some old versions of glibc (<2.20).
          * The use of temp_buffer here is a workaround that keeps the
-         * python objects that own the buffers alive until posix_spawn gets called.
-         * Check https://bugs.python.org/issue33630 and
+         * myFRpy objects that own the buffers alive until posix_spawn gets called.
+         * Check https://bugs.myFRpy.org/issue33630 and
          * https://sourceware.org/bugzilla/show_bug.cgi?id=17048 for more info.*/
         temp_buffer = PyList_New(0);
         if (!temp_buffer) {
@@ -7233,7 +7233,7 @@ _rtp_spawn(int mode, const char *rtpFileName, const char *argv[],
 
      /* Set priority=100 and uStackSize=16 MiB (0x1000000) for new processes.
         uStackSize=0 cannot be used, the default stack size is too small for
-        Python. */
+        MyFRpy. */
      if (envp) {
          rtpid = rtpSpawn(rtpFileName, argv, envp,
                           100, 0x1000000, 0, VX_FP_TASK);
@@ -7559,7 +7559,7 @@ static void warn_about_fork_with_threads(const char* name) {
     // TODO: Consider making an `os` module API to return the current number
     // of threads in the process. That'd presumably use this platform code but
     // raise an error rather than using the inaccurate fallback.
-    Py_ssize_t num_python_threads = 0;
+    Py_ssize_t num_myFRpy_threads = 0;
 #if defined(__APPLE__) && defined(HAVE_GETPID)
     mach_port_t macos_self = mach_task_self();
     mach_port_t macos_task;
@@ -7568,7 +7568,7 @@ static void warn_about_fork_with_threads(const char* name) {
         mach_msg_type_number_t macos_n_threads;
         if (task_threads(macos_task, &macos_threads,
                          &macos_n_threads) == KERN_SUCCESS) {
-            num_python_threads = macos_n_threads;
+            num_myFRpy_threads = macos_n_threads;
         }
     }
 #elif defined(__linux__)
@@ -7590,11 +7590,11 @@ static void warn_about_fork_with_threads(const char* name) {
             field = strtok_r(NULL, " ", &saveptr);
         }
         if (idx == 0 && field) {  // found the 20th field
-            num_python_threads = atoi(field);  // 0 on error
+            num_myFRpy_threads = atoi(field);  // 0 on error
         }
     }
 #endif
-    if (num_python_threads <= 0) {
+    if (num_myFRpy_threads <= 0) {
         // Fall back to just the number our threading module knows about.
         // An incomplete view of the world, but better than nothing.
         PyObject *threading = PyImport_GetModule(&_Py_ID(threading));
@@ -7624,13 +7624,13 @@ static void warn_about_fork_with_threads(const char* name) {
         // Worst case if someone replaced threading._active or threading._limbo
         // with non-dicts, we get -1 from *Length() below and undercount.
         // Nobody should, but we're best effort so we clear errors and move on.
-        num_python_threads = (PyMapping_Length(threading_active)
+        num_myFRpy_threads = (PyMapping_Length(threading_active)
                               + PyMapping_Length(threading_limbo));
         PyErr_Clear();
         Py_DECREF(threading_active);
         Py_DECREF(threading_limbo);
     }
-    if (num_python_threads > 1) {
+    if (num_myFRpy_threads > 1) {
         PyErr_WarnFormat(
                 PyExc_DeprecationWarning, 1,
 #ifdef HAVE_GETPID
@@ -11902,7 +11902,7 @@ os_truncate_impl(PyObject *module, path_t *path, Py_off_t length)
 
 /* Issue #22396: On 32-bit AIX platform, the prototypes of os.posix_fadvise()
    and os.posix_fallocate() in system headers are wrong if _LARGE_FILES is
-   defined, which is the case in Python on AIX. AIX bug report:
+   defined, which is the case in MyFRpy on AIX. AIX bug report:
    http://www-01.ibm.com/support/docview.wss?uid=isg1IV56170 */
 #if defined(_AIX) && defined(_LARGE_FILES) && !defined(__64BIT__)
 #  define POSIX_FADVISE_AIX_BUG
@@ -13605,7 +13605,7 @@ os_abort_impl(PyObject *module)
     /* Issue #28152: abort() is declared with __attribute__((__noreturn__)).
        GCC emits a warning without "return NULL;" (compiler bug?), but Clang
        is smarter and emits a warning on the return. */
-    Py_FatalError("abort() called from Python code didn't abort!");
+    Py_FatalError("abort() called from MyFRpy code didn't abort!");
     return NULL;
 #endif
 }
@@ -15746,8 +15746,8 @@ os__remove_dll_directory_impl(PyObject *module, PyObject *cookie)
 /* Only check if WIFEXITED is available: expect that it comes
    with WEXITSTATUS, WIFSIGNALED, etc.
 
-   os.waitstatus_to_exitcode() is implemented in C and not in Python, so
-   subprocess can safely call it during late Python finalization without
+   os.waitstatus_to_exitcode() is implemented in C and not in MyFRpy, so
+   subprocess can safely call it during late MyFRpy finalization without
    risking that used os attributes were set to None by finalize_modules(). */
 #if defined(WIFEXITED) || defined(MS_WINDOWS)
 /*[clinic input]

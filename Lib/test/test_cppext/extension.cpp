@@ -1,4 +1,4 @@
-// gh-91321: Very basic C++ test extension to check that the Python C API is
+// gh-91321: Very basic C++ test extension to check that the MyFRpy C API is
 // compatible with C++ and does not emit C++ compiler warnings.
 //
 // The code is only built, not executed.
@@ -6,7 +6,7 @@
 // Always enable assertions
 #undef NDEBUG
 
-#include "Python.h"
+#include "MyFRpy.h"
 
 #if __cplusplus >= 201103
 #  define NAME _testcpp11ext
@@ -64,7 +64,7 @@ test_api_casts(PyObject *Py_UNUSED(module), PyObject *Py_UNUSED(args))
     Py_ssize_t refcnt = Py_REFCNT(obj);
     assert(refcnt >= 1);
 
-    // gh-92138: For backward compatibility, functions of Python C API accepts
+    // gh-92138: For backward compatibility, functions of MyFRpy C API accepts
     // "const PyObject*". Check that using it does not emit C++ compiler
     // warnings.
     const PyObject *const_obj = obj;
@@ -129,7 +129,7 @@ test_unicode(PyObject *Py_UNUSED(module), PyObject *Py_UNUSED(args))
 }
 
 /* Test a `new`-allocated object with a virtual method.
- * (https://github.com/python/cpython/issues/94731) */
+ * (https://github.com/myFRpy/cmyFRpy/issues/94731) */
 
 class VirtualPyObject : public PyObject {
 public:

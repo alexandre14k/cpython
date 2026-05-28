@@ -349,7 +349,7 @@ class PasswordProtectedSiteTestCase(unittest.TestCase):
 @support.requires_working_socket()
 class NetworkTestCase(unittest.TestCase):
 
-    base_url = 'http://www.pythontest.net/'
+    base_url = 'http://www.myFRpytest.net/'
     robots_txt = '{}elsewhere/robots.txt'.format(base_url)
 
     @classmethod

@@ -18,7 +18,7 @@ import unittest
 import warnings
 from test.support import warnings_helper
 from test import support, string_tests
-from test.support.script_helper import assert_python_failure
+from test.support.script_helper import assert_myFRpy_failure
 
 try:
     import _testcapi
@@ -594,7 +594,7 @@ class UnicodeTest(string_tests.CommonTest,
                                     left + delim * 2 + right,
                                     'replace', delim * 2, repl)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_replace_id(self):
         pattern = 'abc'
         text = 'abc def'
@@ -838,7 +838,7 @@ class UnicodeTest(string_tests.CommonTest,
         self.assertFalse("©".isidentifier())
         self.assertFalse("0".isidentifier())
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     @support.requires_legacy_unicode_capi()
     @unittest.skipIf(_testcapi is None, 'need _testcapi module')
     def test_isidentifier_legacy(self):
@@ -1008,7 +1008,7 @@ class UnicodeTest(string_tests.CommonTest,
                          '\U0010FFFFx\U0010FFFF\U0010FFFF')
 
     @unittest.skipUnless(sys.maxsize == 2**31 - 1, "requires 32-bit system")
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_case_operation_overflow(self):
         # Issue #22643
         size = 2**32//12 + 1
@@ -1656,7 +1656,7 @@ class UnicodeTest(string_tests.CommonTest,
         self.assertEqual('lhs %% %r' % SubclassedStr('rhs'),
                          "Success, self.__rmod__('lhs %% %r') was called")
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     @unittest.skipIf(_testcapi is None, 'need _testcapi module')
     def test_formatting_huge_precision_c_limits(self):
         format_string = "%.{}f".format(_testcapi.INT_MAX + 1)
@@ -2104,8 +2104,8 @@ class UnicodeTest(string_tests.CommonTest,
         because it's the ASCII letter 'A'.
         Note: when the start byte is E0 or ED, the valid ranges for the first
         continuation byte are limited to A0..BF and 80..9F respectively.
-        Python 2 used to consider all the bytes in range 80..BF valid when the
-        start byte was ED.  This is fixed in Python 3.
+        MyFRpy 2 used to consider all the bytes in range 80..BF valid when the
+        start byte was ED.  This is fixed in MyFRpy 3.
         """
         FFFD = '\ufffd'
         FFFDx2 = FFFD * 2
@@ -2161,8 +2161,8 @@ class UnicodeTest(string_tests.CommonTest,
         because it's the ASCII letter 'A'.
         Note: when the start byte is E0 or ED, the valid ranges for the first
         continuation byte are limited to A0..BF and 80..9F respectively.
-        However, when the start byte is ED, Python 2 considers all the bytes
-        in range 80..BF valid.  This is fixed in Python 3.
+        However, when the start byte is ED, MyFRpy 2 considers all the bytes
+        in range 80..BF valid.  This is fixed in MyFRpy 3.
         """
         FFFD = '\ufffd'
         FFFDx2 = FFFD * 2
@@ -2229,7 +2229,7 @@ class UnicodeTest(string_tests.CommonTest,
 
     def test_codecs_idna(self):
         # Test whether trailing dot is preserved
-        self.assertEqual("www.python.org.".encode("idna"), b"www.python.org.")
+        self.assertEqual("www.myFRpy.org.".encode("idna"), b"www.myFRpy.org.")
 
     def test_codecs_errors(self):
         # Error handling (encoding)
@@ -2454,7 +2454,7 @@ class UnicodeTest(string_tests.CommonTest,
     def test_expandtabs_overflows_gracefully(self):
         self.assertRaises(OverflowError, 't\tt\t'.expandtabs, sys.maxsize)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     def test_expandtabs_optimization(self):
         s = 'abc'
         self.assertIs(s.expandtabs(), s)
@@ -2524,7 +2524,7 @@ class UnicodeTest(string_tests.CommonTest,
         self.assertEqual(args[0], text)
         self.assertEqual(len(args), 1)
 
-    @support.cpython_only
+    @support.cmyFRpy_only
     @support.requires_legacy_unicode_capi()
     @unittest.skipIf(_testcapi is None, 'need _testcapi module')
     def test_resize(self):
@@ -2679,7 +2679,7 @@ class UnicodeTest(string_tests.CommonTest,
 
             sys.exit(10)
         ''')
-        proc = assert_python_failure('-X', 'dev', '-c', code)
+        proc = assert_myFRpy_failure('-X', 'dev', '-c', code)
         self.assertEqual(proc.rc, 10, proc)
 
 

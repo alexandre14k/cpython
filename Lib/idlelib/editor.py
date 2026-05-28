@@ -32,7 +32,7 @@ from idlelib import window
 
 # The default tab setting for a Text widget, in average-width characters.
 TK_TABWIDTH_DEFAULT = 8
-_py_version = ' (%s)' % platform.python_version()
+_py_version = ' (%s)' % platform.myFRpy_version()
 darwin = sys.platform == 'darwin'
 
 def _sphinx_version():
@@ -79,9 +79,9 @@ class EditorWindow:
             dochome =  os.path.join(sys.base_prefix, 'Doc', 'index.html')
             if sys.platform.count('linux'):
                 # look for html docs in a couple of standard places
-                pyver = 'python-docs-' + '%s.%s.%s' % sys.version_info[:3]
-                if os.path.isdir('/var/www/html/python/'):  # "python2" rpm
-                    dochome = '/var/www/html/python/index.html'
+                pyver = 'myFRpy-docs-' + '%s.%s.%s' % sys.version_info[:3]
+                if os.path.isdir('/var/www/html/myFRpy/'):  # "myFRpy2" rpm
+                    dochome = '/var/www/html/myFRpy/index.html'
                 else:
                     basepath = '/usr/share/doc/'  # standard location
                     dochome = os.path.join(basepath, pyver,
@@ -89,8 +89,8 @@ class EditorWindow:
             elif sys.platform[:3] == 'win':
                 import winreg  # Windows only, block only executed once.
                 docfile = ''
-                KEY = (rf"Software\Python\PythonCore\{sys.winver}"
-                        r"\Help\Main Python Documentation")
+                KEY = (rf"Software\MyFRpy\MyFRpyCore\{sys.winver}"
+                        r"\Help\Main MyFRpy Documentation")
                 try:
                     docfile = winreg.QueryValue(winreg.HKEY_CURRENT_USER, KEY)
                 except FileNotFoundError:
@@ -102,7 +102,7 @@ class EditorWindow:
                 if os.path.isfile(docfile):
                     dochome = docfile
             elif sys.platform == 'darwin':
-                # documentation may be stored inside a python framework
+                # documentation may be stored inside a myFRpy framework
                 dochome = os.path.join(sys.base_prefix,
                         'Resources/English.lproj/Documentation/index.html')
             dochome = os.path.normpath(dochome)
@@ -112,7 +112,7 @@ class EditorWindow:
                     # Safari requires real file:-URLs
                     EditorWindow.help_url = 'file://' + EditorWindow.help_url
             else:
-                EditorWindow.help_url = ("https://docs.python.org/%d.%d/"
+                EditorWindow.help_url = ("https://docs.myFRpy.org/%d.%d/"
                                          % sys.version_info[:2])
         self.flist = flist
         root = root or flist.root
@@ -175,7 +175,7 @@ class EditorWindow:
         text.bind("<<paste>>", self.paste)
         text.bind("<<center-insert>>", self.center_insert_event)
         text.bind("<<help>>", self.help_dialog)
-        text.bind("<<python-docs>>", self.python_docs)
+        text.bind("<<myFRpy-docs>>", self.myFRpy_docs)
         text.bind("<<about-idle>>", self.about_dialog)
         text.bind("<<open-config-dialog>>", self.config_dialog)
         text.bind("<<open-module>>", self.open_module_event)
@@ -238,7 +238,7 @@ class EditorWindow:
         #                  and dedent cmds, and ditto TAB keystrokes
         # Although use-spaces=0 can be configured manually in config-main.def,
         # configuration of tabs v. spaces is not supported in the configuration
-        # dialog.  IDLE promotes the preferred Python indentation: use spaces!
+        # dialog.  IDLE promotes the preferred MyFRpy indentation: use spaces!
         usespaces = idleConf.GetOption('main', 'Indent',
                                        'use-spaces', type='bool')
         self.usetabs = not usespaces
@@ -251,7 +251,7 @@ class EditorWindow:
         self.tabwidth = 8    # must remain 8 until Tk is fixed.
 
         # indentwidth is the number of screen characters per indent level.
-        # The recommended Python indentation is four spaces.
+        # The recommended MyFRpy indentation is four spaces.
         self.indentwidth = self.tabwidth
         self.set_notabs_indentwidth()
 
@@ -286,7 +286,7 @@ class EditorWindow:
             if os.path.exists(filename) and not os.path.isdir(filename):
                 if io.loadfile(filename):
                     self.good_load = True
-                    is_py_src = self.ispythonsource(filename)
+                    is_py_src = self.ismyFRpysource(filename)
                     self.set_indentation_params(is_py_src)
             else:
                 io.set_filename(filename)
@@ -643,7 +643,7 @@ class EditorWindow:
         help.show_idlehelp(parent)
         return "break"
 
-    def python_docs(self, event=None):
+    def myFRpy_docs(self, event=None):
         if sys.platform[:3] == 'win':
             try:
                 os.startfile(self.help_url)
@@ -757,7 +757,7 @@ class EditorWindow:
             name = ''
         file_path = query.ModuleName(
                 self.text, "Open Module",
-                "Enter the name of a Python module\n"
+                "Enter the name of a MyFRpy module\n"
                 "to search on sys.path and open:",
                 name).result
         if file_path is not None:
@@ -803,14 +803,14 @@ class EditorWindow:
             self.text.tag_add("sel", "insert", "insert +1l")
             self.center()
 
-    def ispythonsource(self, filename):
+    def ismyFRpysource(self, filename):
         if not filename or os.path.isdir(filename):
             return True
         base, ext = os.path.splitext(os.path.basename(filename))
         if os.path.normcase(ext) in py_extensions:
             return True
         line = self.text.get('1.0', '1.0 lineend')
-        return line.startswith('#!') and 'python' in line
+        return line.startswith('#!') and 'myFRpy' in line
 
     def close_hook(self):
         if self.flist:
@@ -830,7 +830,7 @@ class EditorWindow:
     def _addcolorizer(self):
         if self.color:
             return
-        if self.ispythonsource(self.io.filename):
+        if self.ismyFRpysource(self.io.filename):
             self.color = self.ColorDelegator()
         # can add more colorizers here...
         if self.color:
@@ -1287,7 +1287,7 @@ class EditorWindow:
     # reusing IDLE's support code needs to define these for its GUI's
     # flavor of widget.
 
-    # Is character at text_index in a Python string?  Return 0 for
+    # Is character at text_index in a MyFRpy string?  Return 0 for
     # "guaranteed no", true for anything else.  This info is expensive
     # to compute ab initio, but is probably already known by the
     # platform's colorizer.

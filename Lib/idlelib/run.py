@@ -108,9 +108,9 @@ quitting = False
 interruptable = False
 
 def main(del_exitfunc=False):
-    """Start the Python execution server in a subprocess
+    """Start the MyFRpy execution server in a subprocess
 
-    In the Python subprocess, RPCServer is instantiated with handlerclass
+    In the MyFRpy subprocess, RPCServer is instantiated with handlerclass
     MyHandler, which inherits register/unregister methods from RPCHandler via
     the mix-in class SocketIO.
 
@@ -216,7 +216,7 @@ def show_socket_error(err, address):
             f"IDLE's subprocess can't connect to {address[0]}:{address[1]}.\n"
             f"Fatal OSError #{err.errno}: {err.strerror}.\n"
             "See the 'Startup failure' section of the IDLE doc, online at\n"
-            "https://docs.python.org/3/library/idle.html#startup-failure",
+            "https://docs.myFRpy.org/3/library/idle.html#startup-failure",
             parent=root)
     root.destroy()
 
@@ -224,7 +224,7 @@ def show_socket_error(err, address):
 def get_message_lines(typ, exc, tb):
     "Return line composing the exception message."
     if typ in (AttributeError, NameError):
-        # 3.10+ hints are not directly accessible from python (#44026).
+        # 3.10+ hints are not directly accessible from myFRpy (#44026).
         err = io.StringIO()
         with contextlib.redirect_stderr(err):
             sys.__excepthook__(typ, exc, tb)
@@ -309,7 +309,7 @@ def exit():
 
     If config-main.cfg/.def 'General' 'delete-exitfunc' is True, then any
     functions registered with atexit will be removed before exiting.
-    (VPython support)
+    (VMyFRpy support)
 
     """
     if no_exitfunc:

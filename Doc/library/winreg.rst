@@ -9,7 +9,7 @@
 
 --------------
 
-These functions expose the Windows registry API to Python.  Instead of using an
+These functions expose the Windows registry API to MyFRpy.  Instead of using an
 integer as the registry handle, a :ref:`handle object <handle-object>` is used
 to ensure that the handles are closed correctly, even if the programmer neglects
 to explicitly close them.
@@ -37,7 +37,7 @@ This module offers the following functions:
 
       If *hkey* is not closed using this method (or via :meth:`hkey.Close()
       <PyHKEY.Close>`), it is closed when the *hkey* object is destroyed by
-      Python.
+      MyFRpy.
 
 
 .. function:: ConnectRegistry(computer_name, key)
@@ -696,7 +696,7 @@ For more information, see `Registry Value Types
 .. data:: REG_MULTI_SZ
 
    A sequence of null-terminated strings, terminated by two null characters.
-   (Python handles this termination automatically.)
+   (MyFRpy handles this termination automatically.)
 
 .. data:: REG_NONE
 

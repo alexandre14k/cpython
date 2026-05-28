@@ -96,7 +96,7 @@ class RunTests:
     memory_limit: str | None
     gc_threshold: int | None
     use_resources: tuple[str, ...]
-    python_cmd: tuple[str, ...] | None
+    myFRpy_cmd: tuple[str, ...] | None
     randomize: bool
     random_seed: int | str
 
@@ -133,28 +133,28 @@ class RunTests:
     def json_file_use_stdout(self) -> bool:
         # Use STDOUT in two cases:
         #
-        # - If --python command line option is used;
+        # - If --myFRpy command line option is used;
         # - On Emscripten and WASI.
         #
         # On other platforms, UNIX_FD or WINDOWS_HANDLE can be used.
         return (
-            bool(self.python_cmd)
+            bool(self.myFRpy_cmd)
             or support.is_emscripten
             or support.is_wasi
         )
 
-    def create_python_cmd(self) -> list[str]:
-        python_opts = support.args_from_interpreter_flags()
-        if self.python_cmd is not None:
-            executable = self.python_cmd
-            # Remove -E option, since --python=COMMAND can set PYTHON
-            # environment variables, such as PYTHONPATH, in the worker
+    def create_myFRpy_cmd(self) -> list[str]:
+        myFRpy_opts = support.args_from_interpreter_flags()
+        if self.myFRpy_cmd is not None:
+            executable = self.myFRpy_cmd
+            # Remove -E option, since --myFRpy=COMMAND can set MYFRPY
+            # environment variables, such as MYFRPYPATH, in the worker
             # process.
-            python_opts = [opt for opt in python_opts if opt != "-E"]
+            myFRpy_opts = [opt for opt in myFRpy_opts if opt != "-E"]
         else:
             executable = (sys.executable,)
-        cmd = [*executable, *python_opts]
-        if '-u' not in python_opts:
+        cmd = [*executable, *myFRpy_opts]
+        if '-u' not in myFRpy_opts:
             cmd.append('-u')  # Unbuffered stdout and stderr
         return cmd
 
@@ -176,9 +176,9 @@ class RunTests:
             args.append(f"--threshold={self.gc_threshold}")
         if self.use_resources:
             args.extend(("-u", ','.join(self.use_resources)))
-        if self.python_cmd:
-            cmd = shlex.join(self.python_cmd)
-            args.extend(("--python", cmd))
+        if self.myFRpy_cmd:
+            cmd = shlex.join(self.myFRpy_cmd)
+            args.extend(("--myFRpy", cmd))
         if self.randomize:
             args.append(f"--randomize")
         args.append(f"--randseed={self.random_seed}")

@@ -17,22 +17,22 @@ class Test(unittest.TestCase):
         syslog.closelog()
 
     def test_openlog(self):
-        syslog.openlog('python')
+        syslog.openlog('myFRpy')
         # Issue #6697.
         self.assertRaises(UnicodeEncodeError, syslog.openlog, '\uD800')
 
     def test_syslog(self):
-        syslog.openlog('python')
-        syslog.syslog('test message from python test_syslog')
-        syslog.syslog(syslog.LOG_ERR, 'test error from python test_syslog')
+        syslog.openlog('myFRpy')
+        syslog.syslog('test message from myFRpy test_syslog')
+        syslog.syslog(syslog.LOG_ERR, 'test error from myFRpy test_syslog')
 
     def test_syslog_implicit_open(self):
         syslog.closelog() # Make sure log is closed
-        syslog.syslog('test message from python test_syslog')
-        syslog.syslog(syslog.LOG_ERR, 'test error from python test_syslog')
+        syslog.syslog('test message from myFRpy test_syslog')
+        syslog.syslog(syslog.LOG_ERR, 'test error from myFRpy test_syslog')
 
     def test_closelog(self):
-        syslog.openlog('python')
+        syslog.openlog('myFRpy')
         syslog.closelog()
         syslog.closelog()  # idempotent operation
 
@@ -50,7 +50,7 @@ class Test(unittest.TestCase):
 
     def test_openlog_noargs(self):
         syslog.openlog()
-        syslog.syslog('test message from python test_syslog')
+        syslog.syslog('test message from myFRpy test_syslog')
 
     @threading_helper.requires_working_threading()
     def test_syslog_threaded(self):
@@ -60,12 +60,12 @@ class Test(unittest.TestCase):
             start.wait(10)
             i = 1
             while not stop:
-                syslog.openlog(f'python-test-{i}')  # new string object
+                syslog.openlog(f'myFRpy-test-{i}')  # new string object
                 i += 1
         def logger():
             start.wait(10)
             while not stop:
-                syslog.syslog('test message from python test_syslog')
+                syslog.syslog('test message from myFRpy test_syslog')
 
         orig_si = sys.getswitchinterval()
         support.setswitchinterval(1e-9)
@@ -125,7 +125,7 @@ class Test(unittest.TestCase):
             syslog.closelog()
 
     def test_subinterpreter_closelog(self):
-        syslog.openlog('python')
+        syslog.openlog('myFRpy')
         try:
             code = dedent('''
                 import syslog

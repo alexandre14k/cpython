@@ -538,7 +538,7 @@ class HamtTest(unittest.TestCase):
 
     def test_hamt_collision_3(self):
         # Test that iteration works with the deepest tree possible.
-        # https://github.com/python/cpython/issues/93065
+        # https://github.com/myFRpy/cmyFRpy/issues/93065
 
         C = HashKey(0b10000000_00000000_00000000_00000000, 'C')
         D = HashKey(0b10000000_00000000_00000000_00000000, 'D')

@@ -1,4 +1,4 @@
-""" Python Character Mapping Codec generated from 'PTCP154.txt' with gencodec.py.
+""" MyFRpy Character Mapping Codec generated from 'PTCP154.txt' with gencodec.py.
 
 Written by Marc-Andre Lemburg (mal@lemburg.com).
 

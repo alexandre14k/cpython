@@ -28,11 +28,11 @@ class RECT(Structure):
 class FunctionTestCase(unittest.TestCase):
 
     def test_mro(self):
-        # in Python 2.3, this raises TypeError: MRO conflict among bases classes,
-        # in Python 2.2 it works.
+        # in MyFRpy 2.3, this raises TypeError: MRO conflict among bases classes,
+        # in MyFRpy 2.2 it works.
         #
         # But in early versions of _ctypes.c, the result of tp_new
-        # wasn't checked, and it even crashed Python.
+        # wasn't checked, and it even crashed MyFRpy.
         # Found by Greg Chapman.
 
         with self.assertRaises(TypeError):
@@ -400,7 +400,7 @@ class FunctionTestCase(unittest.TestCase):
                 (9*2, 8*3, 7*4, 6*5, 5*6, 4*7, 3*8, 2*9))
 
     def test_sf1651235(self):
-        # see https://bugs.python.org/issue1651235
+        # see https://bugs.myFRpy.org/issue1651235
 
         proto = CFUNCTYPE(c_int, RECT, POINT)
         def callback(*args):

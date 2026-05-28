@@ -4,7 +4,7 @@ import unittest
 import weakref
 from test.support import gc_collect
 from test.support import import_helper
-from test.support.script_helper import assert_python_ok
+from test.support.script_helper import assert_myFRpy_ok
 
 import sys
 ModuleType = type(sys)
@@ -296,7 +296,7 @@ a = A(destroyed)"""
 
     def test_module_finalization_at_shutdown(self):
         # Module globals and builtins should still be available during shutdown
-        rc, out, err = assert_python_ok("-c", "from test.test_module import final_a")
+        rc, out, err = assert_myFRpy_ok("-c", "from test.test_module import final_a")
         self.assertFalse(err)
         lines = out.splitlines()
         self.assertEqual(set(lines), {

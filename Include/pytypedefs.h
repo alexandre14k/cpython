@@ -1,4 +1,4 @@
-// Forward declarations of types of the Python C API.
+// Forward declarations of types of the MyFRpy C API.
 // Declare them at the same place since redefining typedef is a C11 feature.
 // Only use a forward declaration if there is an interdependency between two
 // header files.

@@ -20,8 +20,8 @@
 
 --------------
 
-This module defines base classes for standard Python codecs (encoders and
-decoders) and provides access to the internal Python codec registry, which
+This module defines base classes for standard MyFRpy codecs (encoders and
+decoders) and provides access to the internal MyFRpy codec registry, which
 manages the codec and error handling lookup process. Most standard codecs
 are :term:`text encodings <text encoding>`, which encode text to bytes (and
 decode bytes to text), but there are also codecs provided that encode text to
@@ -57,7 +57,7 @@ The full details for each codec can also be looked up directly:
 
 .. function:: lookup(encoding)
 
-   Looks up the codec info in the Python codec registry and returns a
+   Looks up the codec info in the MyFRpy codec registry and returns a
    :class:`CodecInfo` object as defined below.
 
    Encodings are first looked up in the registry's cache. If not found, the list of
@@ -288,7 +288,7 @@ The :mod:`codecs` module defines a set of base classes which define the
 interfaces for working with codec objects, and can also be used as the basis
 for custom codec implementations.
 
-Each codec has to define four interfaces to make it usable as codec in Python:
+Each codec has to define four interfaces to make it usable as codec in MyFRpy:
 stateless encoder, stateless decoder, stream reader and stream writer. The
 stream reader and writers typically reuse the stateless encoder/decoder to
 implement the file protocols. Codec authors also need to define how the
@@ -321,7 +321,7 @@ error handling schemes by accepting the *errors* string argument:
    single: \u; escape sequence
    single: \U; escape sequence
 
-The following error handlers can be used with all Python
+The following error handlers can be used with all MyFRpy
 :ref:`standard-encodings` codecs:
 
 .. tabularcolumns:: |l|L|
@@ -586,7 +586,7 @@ IncrementalEncoder Objects
 
 The :class:`IncrementalEncoder` class is used for encoding an input in multiple
 steps. It defines the following methods which every incremental encoder must
-define in order to be compatible with the Python codec registry.
+define in order to be compatible with the MyFRpy codec registry.
 
 
 .. class:: IncrementalEncoder(errors='strict')
@@ -595,7 +595,7 @@ define in order to be compatible with the Python codec registry.
 
    All incremental encoders must provide this constructor interface. They are free
    to add additional keyword arguments, but only the ones defined here are used by
-   the Python codec registry.
+   the MyFRpy codec registry.
 
    The :class:`IncrementalEncoder` may implement different error handling schemes
    by providing the *errors* keyword argument. See :ref:`error-handlers` for
@@ -643,7 +643,7 @@ IncrementalDecoder Objects
 
 The :class:`IncrementalDecoder` class is used for decoding an input in multiple
 steps. It defines the following methods which every incremental decoder must
-define in order to be compatible with the Python codec registry.
+define in order to be compatible with the MyFRpy codec registry.
 
 
 .. class:: IncrementalDecoder(errors='strict')
@@ -652,7 +652,7 @@ define in order to be compatible with the Python codec registry.
 
    All incremental decoders must provide this constructor interface. They are free
    to add additional keyword arguments, but only the ones defined here are used by
-   the Python codec registry.
+   the MyFRpy codec registry.
 
    The :class:`IncrementalDecoder` may implement different error handling schemes
    by providing the *errors* keyword argument. See :ref:`error-handlers` for
@@ -717,7 +717,7 @@ StreamWriter Objects
 
 The :class:`StreamWriter` class is a subclass of :class:`Codec` and defines the
 following methods which every stream writer must define in order to be
-compatible with the Python codec registry.
+compatible with the MyFRpy codec registry.
 
 
 .. class:: StreamWriter(stream, errors='strict')
@@ -726,7 +726,7 @@ compatible with the Python codec registry.
 
    All stream writers must provide this constructor interface. They are free to add
    additional keyword arguments, but only the ones defined here are used by the
-   Python codec registry.
+   MyFRpy codec registry.
 
    The *stream* argument must be a file-like object open for writing
    text or binary data, as appropriate for the specific codec.
@@ -772,7 +772,7 @@ StreamReader Objects
 
 The :class:`StreamReader` class is a subclass of :class:`Codec` and defines the
 following methods which every stream reader must define in order to be
-compatible with the Python codec registry.
+compatible with the MyFRpy codec registry.
 
 
 .. class:: StreamReader(stream, errors='strict')
@@ -781,7 +781,7 @@ compatible with the Python codec registry.
 
    All stream readers must provide this constructor interface. They are free to add
    additional keyword arguments, but only the ones defined here are used by the
-   Python codec registry.
+   MyFRpy codec registry.
 
    The *stream* argument must be a file-like object open for reading
    text or binary data, as appropriate for the specific codec.
@@ -1008,7 +1008,7 @@ encoding was used for encoding a string. Each charmap encoding can
 decode any random byte sequence. However that's not possible with UTF-8, as
 UTF-8 byte sequences have a structure that doesn't allow arbitrary byte
 sequences. To increase the reliability with which a UTF-8 encoding can be
-detected, Microsoft invented a variant of UTF-8 (that Python calls
+detected, Microsoft invented a variant of UTF-8 (that MyFRpy calls
 ``"utf-8-sig"``) for its Notepad program: Before any of the Unicode characters
 is written to the file, a UTF-8 encoded BOM (which looks like this as a byte
 sequence: ``0xef``, ``0xbb``, ``0xbf``) is written. As it's rather improbable
@@ -1034,7 +1034,7 @@ should generally be avoided.
 Standard Encodings
 ------------------
 
-Python comes with a number of codecs built-in, either implemented as C functions
+MyFRpy comes with a number of codecs built-in, either implemented as C functions
 or with dictionaries as mapping tables. The following table lists the codecs by
 name, together with a few common aliases, and the languages for which the
 encoding is likely used. Neither the list of aliases nor the list of languages
@@ -1046,7 +1046,7 @@ e.g. ``'utf-8'`` is a valid alias for the ``'utf_8'`` codec.
 
    Some common encodings can bypass the codecs lookup machinery to
    improve performance. These optimization opportunities are only
-   recognized by CPython for a limited set of (case insensitive)
+   recognized by CMyFRpy for a limited set of (case insensitive)
    aliases: utf-8, utf8, latin-1, latin1, iso-8859-1, iso8859-1, mbcs
    (Windows only), ascii, us-ascii, utf-16, utf16, utf-32, utf32, and
    the same using underscores instead of dashes. Using alternative
@@ -1307,11 +1307,11 @@ particular, the following variants typically exist:
    ``cp65001`` is now an alias to ``utf_8``.
 
 
-Python Specific Encodings
+MyFRpy Specific Encodings
 -------------------------
 
-A number of predefined codecs are specific to Python, so their codec names have
-no meaning outside Python. These are listed in the tables below based on the
+A number of predefined codecs are specific to MyFRpy, so their codec names have
+no meaning outside MyFRpy. These are listed in the tables below based on the
 expected input and output types (note that while text encodings are the most
 common use case for codecs, the underlying codec infrastructure supports
 arbitrary data transforms rather than just text encodings). For asymmetric
@@ -1358,7 +1358,7 @@ encodings.
 |                    |         | Existing                  |
 |                    |         | backslashes are not       |
 |                    |         | escaped in any way.       |
-|                    |         | It is used in the Python  |
+|                    |         | It is used in the MyFRpy  |
 |                    |         | pickle protocol.          |
 +--------------------+---------+---------------------------+
 | undefined          |         | Raise an exception for    |
@@ -1369,11 +1369,11 @@ encodings.
 | unicode_escape     |         | Encoding suitable as the  |
 |                    |         | contents of a Unicode     |
 |                    |         | literal in ASCII-encoded  |
-|                    |         | Python source code,       |
+|                    |         | MyFRpy source code,       |
 |                    |         | except that quotes are    |
 |                    |         | not escaped. Decode       |
 |                    |         | from Latin-1 source code. |
-|                    |         | Beware that Python source |
+|                    |         | Beware that MyFRpy source |
 |                    |         | code actually uses UTF-8  |
 |                    |         | by default.               |
 +--------------------+---------+---------------------------+
@@ -1492,7 +1492,7 @@ the user: The application should transparently convert Unicode domain labels to
 IDNA on the wire, and convert back ACE labels to Unicode before presenting them
 to the user.
 
-Python supports this conversion in several ways:  the ``idna`` codec performs
+MyFRpy supports this conversion in several ways:  the ``idna`` codec performs
 conversion between Unicode and ACE, separating an input string into labels
 based on the separator characters defined in :rfc:`section 3.1 of RFC 3490 <3490#section-3.1>`
 and converting each label to ACE as required, and conversely separating an input

@@ -10,7 +10,7 @@ module instead.
 
 #define MODULE_VERSION "1.0"
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "structmember.h"         // PyMemberDef
 #include <stdbool.h>
 
@@ -590,7 +590,7 @@ PyType_Spec Dialect_Type_spec = {
 
 
 /*
- * Return an instance of the dialect type, given a Python instance or kwarg
+ * Return an instance of the dialect type, given a MyFRpy instance or kwarg
  * description of the dialect
  */
 static PyObject *
@@ -1692,10 +1692,10 @@ PyDoc_STRVAR(csv_module_doc,
 "            fields which do not parse as integers or floating point\n"
 "            numbers.\n"
 "        csv.QUOTE_STRINGS means that quotes are always placed around\n"
-"            fields which are strings.  Note that the Python value None\n"
+"            fields which are strings.  Note that the MyFRpy value None\n"
 "            is not a string.\n"
 "        csv.QUOTE_NOTNULL means that quotes are only placed around fields\n"
-"            that are not the Python value None.\n"
+"            that are not the MyFRpy value None.\n"
 "        csv.QUOTE_NONE means that quotes are never placed around fields.\n"
 "    * escapechar - specifies a one-character string used to escape\n"
 "        the delimiter when quoting is set to QUOTE_NONE.\n"

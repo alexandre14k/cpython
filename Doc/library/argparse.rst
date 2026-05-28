@@ -16,7 +16,7 @@
 .. sidebar:: Tutorial
 
    This page contains the API reference information. For a more gentle
-   introduction to Python command-line parsing, have a look at the
+   introduction to MyFRpy command-line parsing, have a look at the
    :ref:`argparse tutorial <argparse-tutorial>`.
 
 The :mod:`argparse` module makes it easy to write user-friendly command-line
@@ -76,7 +76,7 @@ required_                    Indicate whether an argument is required or optiona
 Example
 -------
 
-The following code is a Python program that takes a list of integers and
+The following code is a MyFRpy program that takes a list of integers and
 produces either the sum or the max::
 
    import argparse
@@ -91,12 +91,12 @@ produces either the sum or the max::
    args = parser.parse_args()
    print(args.accumulate(args.integers))
 
-Assuming the above Python code is saved into a file called ``prog.py``, it can
+Assuming the above MyFRpy code is saved into a file called ``prog.py``, it can
 be run at the command line and it provides useful help messages:
 
 .. code-block:: shell-session
 
-   $ python prog.py -h
+   $ myFRpy prog.py -h
    usage: prog.py [-h] [--sum] N [N ...]
 
    Process some integers.
@@ -113,17 +113,17 @@ the command-line integers:
 
 .. code-block:: shell-session
 
-   $ python prog.py 1 2 3 4
+   $ myFRpy prog.py 1 2 3 4
    4
 
-   $ python prog.py 1 2 3 4 --sum
+   $ myFRpy prog.py 1 2 3 4 --sum
    10
 
 If invalid arguments are passed in, an error will be displayed:
 
 .. code-block:: shell-session
 
-   $ python prog.py a b c
+   $ myFRpy prog.py a b c
    usage: prog.py [-h] [--sum] N [N ...]
    prog.py: error: argument N: invalid int value: 'a'
 
@@ -139,7 +139,7 @@ The first step in using the :mod:`argparse` is creating an
    >>> parser = argparse.ArgumentParser(description='Process some integers.')
 
 The :class:`ArgumentParser` object will hold all the information necessary to
-parse the command line into Python data types.
+parse the command line into MyFRpy data types.
 
 
 Adding arguments
@@ -265,14 +265,14 @@ The help for this program will display ``myprogram.py`` as the program name
 
 .. code-block:: shell-session
 
-   $ python myprogram.py --help
+   $ myFRpy myprogram.py --help
    usage: myprogram.py [-h] [--foo FOO]
 
    options:
     -h, --help  show this help message and exit
     --foo FOO   foo help
    $ cd ..
-   $ python subdir/myprogram.py --help
+   $ myFRpy subdir/myprogram.py --help
    usage: myprogram.py [-h] [--foo FOO]
 
    options:
@@ -685,7 +685,7 @@ help will be printed:
 
 .. code-block:: shell-session
 
-   $ python myprogram.py --help
+   $ myFRpy myprogram.py --help
    usage: myprogram.py [-h] [--foo FOO]
 
    options:
@@ -1681,7 +1681,7 @@ The Namespace object
 
 This class is deliberately simple, just an :class:`object` subclass with a
 readable string representation. If you prefer to have dict-like view of the
-attributes, you can use the standard Python idiom, :func:`vars`::
+attributes, you can use the standard MyFRpy idiom, :func:`vars`::
 
    >>> parser = argparse.ArgumentParser()
    >>> parser.add_argument('--foo')
@@ -1855,7 +1855,7 @@ Sub-commands
 
    One particularly effective way of handling sub-commands is to combine the use
    of the :meth:`add_subparsers` method with calls to :meth:`set_defaults` so
-   that each subparser knows which Python function it should execute.  For
+   that each subparser knows which MyFRpy function it should execute.  For
    example::
 
      >>> # sub-command functions
@@ -2290,7 +2290,7 @@ A partial upgrade path from :mod:`optparse` to :mod:`argparse`:
   :exc:`ArgumentError`.
 
 * Replace strings with implicit arguments such as ``%default`` or ``%prog`` with
-  the standard Python syntax to use dictionaries to format strings, that is,
+  the standard MyFRpy syntax to use dictionaries to format strings, that is,
   ``%(default)s`` and ``%(prog)s``.
 
 * Replace the OptionParser constructor ``version`` argument with a call to

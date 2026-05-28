@@ -506,7 +506,7 @@ test_long_numbits(PyObject *self, PyObject *Py_UNUSED(ignored))
                      {-3L, 2, -1},
                      {4L, 3, 1},
                      {-4L, 3, -1},
-                     {0x7fffL, 15, 1},          /* one Python int digit */
+                     {0x7fffL, 15, 1},          /* one MyFRpy int digit */
              {-0x7fffL, 15, -1},
              {0xffffL, 16, 1},
              {-0xffffL, 16, -1},

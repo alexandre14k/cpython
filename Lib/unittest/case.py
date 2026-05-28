@@ -741,7 +741,7 @@ class TestCase(object):
         if msg is None:
             return standardMsg
         try:
-            # don't switch to '{}' formatting in Python 2.X
+            # don't switch to '{}' formatting in MyFRpy 2.X
             # it changes the way unicode input is handled
             return '%s : %s' % (standardMsg, msg)
         except UnicodeDecodeError:
@@ -800,7 +800,7 @@ class TestCase(object):
            The context manager keeps a reference to the first matching
            warning as the 'warning' attribute; similarly, the 'filename'
            and 'lineno' attributes give you information about the line
-           of Python code from which the warning was triggered.
+           of MyFRpy code from which the warning was triggered.
            This allows you to inspect the warning after the assertion::
 
                with self.assertWarns(SomeWarning) as cm:
@@ -859,7 +859,7 @@ class TestCase(object):
         # subtypes won't automagically use the detailed comparison.  Callers
         # should use their type specific assertSpamEqual method to compare
         # subclasses if the detailed comparison is desired and appropriate.
-        # See the discussion in http://bugs.python.org/issue2578.
+        # See the discussion in http://bugs.myFRpy.org/issue2578.
         #
         if type(first) is type(second):
             asserter = self._type_equality_funcs.get(type(first))

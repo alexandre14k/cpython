@@ -1,6 +1,6 @@
 // namespace object implementation
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_namespace.h"     // _PyNamespace_Type
 #include "structmember.h"         // PyMemberDef
 

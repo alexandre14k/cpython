@@ -143,7 +143,7 @@ class TCPTimeoutTestCase(TimeoutTestCase):
 
     def setUp(self):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.addr_remote = resolve_address('www.python.org.', 80)
+        self.addr_remote = resolve_address('www.myFRpy.org.', 80)
 
     def tearDown(self):
         self.sock.close()
@@ -151,9 +151,9 @@ class TCPTimeoutTestCase(TimeoutTestCase):
     def testConnectTimeout(self):
         # Testing connect timeout is tricky: we need to have IP connectivity
         # to a host that silently drops our packets.  We can't simulate this
-        # from Python because it's a function of the underlying TCP/IP stack.
-        # So, the following port on the pythontest.net host has been defined:
-        blackhole = resolve_address('pythontest.net', 56666)
+        # from MyFRpy because it's a function of the underlying TCP/IP stack.
+        # So, the following port on the myFRpytest.net host has been defined:
+        blackhole = resolve_address('myFRpytest.net', 56666)
 
         # Blackhole has been configured to silently drop any incoming packets.
         # No RSTs (for TCP) or ICMP UNREACH (for UDP/ICMP) will be sent back
@@ -165,7 +165,7 @@ class TCPTimeoutTestCase(TimeoutTestCase):
         # to firewalling or general network configuration.  In order to improve
         # our confidence in testing the blackhole, a corresponding 'whitehole'
         # has also been set up using one port higher:
-        whitehole = resolve_address('pythontest.net', 56667)
+        whitehole = resolve_address('myFRpytest.net', 56667)
 
         # This address has been configured to immediately drop any incoming
         # packets as well, but it does it respectfully with regards to the
@@ -186,7 +186,7 @@ class TCPTimeoutTestCase(TimeoutTestCase):
         # -A INPUT -p tcp --destination-port 56667 -j REJECT
         # -A INPUT -p udp --destination-port 56667 -j REJECT
         #
-        # See https://github.com/python/psf-salt/blob/main/pillar/base/firewall/snakebite.sls
+        # See https://github.com/myFRpy/psf-salt/blob/main/pillar/base/firewall/snakebite.sls
         # for the current configuration.
 
         skip = True

@@ -120,7 +120,7 @@ def preferTabsPreferenceWarning():
 def addOpenEventSupport(root, flist):
     """
     This ensures that the application will respond to open AppleEvents, which
-    makes is feasible to use IDLE as the default application for python files.
+    makes is feasible to use IDLE as the default application for myFRpy files.
     """
     def doOpenFile(*args):
         for fn in args:

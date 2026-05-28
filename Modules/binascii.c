@@ -59,7 +59,7 @@
 
 #define PY_SSIZE_T_CLEAN
 
-#include "Python.h"
+#include "MyFRpy.h"
 #include "pycore_long.h"          // _PyLong_DigitValue
 #include "pycore_strhex.h"        // _Py_strhex_bytes_with_sep()
 #ifdef USE_ZLIB_CRC32
@@ -147,7 +147,7 @@ module binascii
 [clinic start generated code]*/
 /*[clinic end generated code: output=da39a3ee5e6b4b0d input=de89fb46bcaf3fec]*/
 
-/*[python input]
+/*[myFRpy input]
 
 class ascii_buffer_converter(CConverter):
     type = 'Py_buffer'
@@ -159,8 +159,8 @@ class ascii_buffer_converter(CConverter):
         name = self.name
         return "".join(["if (", name, ".obj)\n   PyBuffer_Release(&", name, ");\n"])
 
-[python start generated code]*/
-/*[python end generated code: output=da39a3ee5e6b4b0d input=3eb7b63610da92cd]*/
+[myFRpy start generated code]*/
+/*[myFRpy end generated code: output=da39a3ee5e6b4b0d input=3eb7b63610da92cd]*/
 
 static int
 ascii_buffer_converter(PyObject *arg, Py_buffer *buf)
@@ -782,7 +782,7 @@ binascii_crc32_impl(PyObject *module, Py_buffer *data, unsigned int crc)
         /* Avoid truncation of length for very large buffers. crc32() takes
            length as an unsigned int, which may be narrower than Py_ssize_t.
            We further limit size due to bugs in Apple's macOS zlib.
-           See https://github.com/python/cpython/issues/105967
+           See https://github.com/myFRpy/cmyFRpy/issues/105967
          */
 #define ZLIB_CRC_CHUNK_SIZE 0x40000000
 #if ZLIB_CRC_CHUNK_SIZE > INT_MAX
@@ -1000,7 +1000,7 @@ binascii_a2b_qp_impl(PyObject *module, Py_buffer *data, int header)
                 if (in < datalen) in++;
             }
             else if (ascii_data[in] == '=') {
-                /* broken case from broken python qp */
+                /* broken case from broken myFRpy qp */
                 odata[out++] = '=';
                 in++;
             }

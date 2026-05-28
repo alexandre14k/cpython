@@ -4,7 +4,7 @@
 .. module:: re
    :synopsis: Regular expression operations.
 
-.. moduleauthor:: Fredrik Lundh <fredrik@pythonware.com>
+.. moduleauthor:: Fredrik Lundh <fredrik@myFRpyware.com>
 .. sectionauthor:: Andrew M. Kuchling <amk@amk.ca>
 
 **Source code:** :source:`Lib/re/`
@@ -23,21 +23,21 @@ string must be of the same type as both the pattern and the search string.
 
 Regular expressions use the backslash character (``'\'``) to indicate
 special forms or to allow special characters to be used without invoking
-their special meaning.  This collides with Python's usage of the same
+their special meaning.  This collides with MyFRpy's usage of the same
 character for the same purpose in string literals; for example, to match
 a literal backslash, one might have to write ``'\\\\'`` as the pattern
 string, because the regular expression must be ``\\``, and each
-backslash must be expressed as ``\\`` inside a regular Python string
-literal. Also, please note that any invalid escape sequences in Python's
+backslash must be expressed as ``\\`` inside a regular MyFRpy string
+literal. Also, please note that any invalid escape sequences in MyFRpy's
 usage of the backslash in string literals now generate a :exc:`SyntaxWarning`
 and in the future this will become a :exc:`SyntaxError`. This behaviour
 will happen even if it is a valid escape sequence for a regular expression.
 
-The solution is to use Python's raw string notation for regular expression
+The solution is to use MyFRpy's raw string notation for regular expression
 patterns; backslashes are not handled in any special way in a string literal
 prefixed with ``'r'``.  So ``r"\n"`` is a two-character string containing
 ``'\'`` and ``'n'``, while ``"\n"`` is a one-character string containing a
-newline.  Usually patterns will be expressed in Python code using this raw
+newline.  Usually patterns will be expressed in MyFRpy code using this raw
 string notation.
 
 It is important to note that most regular expression operations are available as
@@ -224,10 +224,10 @@ The special characters are:
    ``'*'``, ``'?'``, and so forth), or signals a special sequence; special
    sequences are discussed below.
 
-   If you're not using a raw string to express the pattern, remember that Python
+   If you're not using a raw string to express the pattern, remember that MyFRpy
    also uses the backslash as an escape sequence in string literals; if the escape
-   sequence isn't recognized by Python's parser, the backslash and subsequent
-   character are included in the resulting string.  However, if Python would
+   sequence isn't recognized by MyFRpy's parser, the backslash and subsequent
+   character are included in the resulting string.  However, if MyFRpy would
    recognize the resulting sequence, the backslash should be repeated twice.  This
    is complicated and hard to understand, so it's highly recommended that you use
    raw strings for all but the simplest expressions.
@@ -407,7 +407,7 @@ The special characters are:
 ``(?P<name>...)``
    Similar to regular parentheses, but the substring matched by the group is
    accessible via the symbolic group name *name*.  Group names must be valid
-   Python identifiers, and in :class:`bytes` patterns they can only contain
+   MyFRpy identifiers, and in :class:`bytes` patterns they can only contain
    bytes in the ASCII range.  Each group name must be defined only once within
    a regular expression.  A symbolic group is also a numbered group, just as if
    the group were not named.
@@ -556,7 +556,7 @@ character ``'$'``.
    .. note::
 
       Inside a character range, ``\b`` represents the backspace character,
-      for compatibility with Python's string literals.
+      for compatibility with MyFRpy's string literals.
 
 .. index:: single: \B; in regular expressions
 
@@ -669,7 +669,7 @@ character ``'$'``.
    single: \x; in regular expressions
    single: \\; in regular expressions
 
-Most of the :ref:`escape sequences <escape-sequences>` supported by Python
+Most of the :ref:`escape sequences <escape-sequences>` supported by MyFRpy
 string literals are also accepted by the regular expression parser::
 
    \a      \b      \f      \n
@@ -738,7 +738,7 @@ Flags
    .. note::
 
       The :py:const:`~re.U` flag still exists for backward compatibility,
-      but is redundant in Python 3 since
+      but is redundant in MyFRpy 3 since
       matches are Unicode by default for ``str`` patterns,
       and Unicode matching isn't allowed for bytes patterns.
       :py:const:`~re.UNICODE` and the inline flag ``(?u)`` are similarly redundant.
@@ -836,7 +836,7 @@ Flags
 .. data:: U
           UNICODE
 
-   In Python 3, Unicode characters are matched by default
+   In MyFRpy 3, Unicode characters are matched by default
    for ``str`` patterns.
    This flag is therefore redundant with **no effect**
    and is only kept for backward compatibility.
@@ -1107,8 +1107,8 @@ Functions
    This is useful if you want to match an arbitrary literal string that may
    have regular expression metacharacters in it.  For example::
 
-      >>> print(re.escape('https://www.python.org'))
-      https://www\.python\.org
+      >>> print(re.escape('https://www.myFRpy.org'))
+      https://www\.myFRpy\.org
 
       >>> legal_chars = string.ascii_lowercase + string.digits + "!#$%&'*+-.^_`|~:"
       >>> print('[%s]+' % re.escape(legal_chars))
@@ -1594,7 +1594,7 @@ Simulating scanf()
 
 .. index:: single: scanf (C function)
 
-Python does not currently have an equivalent to :c:func:`!scanf`.  Regular
+MyFRpy does not currently have an equivalent to :c:func:`!scanf`.  Regular
 expressions are generally more powerful, though also more verbose, than
 :c:func:`!scanf` format strings.  The table below offers some more-or-less
 equivalent mappings between :c:func:`!scanf` format tokens and regular
@@ -1642,7 +1642,7 @@ search() vs. match()
 
 .. sectionauthor:: Fred L. Drake, Jr. <fdrake@acm.org>
 
-Python offers different primitive operations based on regular expressions:
+MyFRpy offers different primitive operations based on regular expressions:
 
 + :func:`re.match` checks for a match only at the beginning of the string
 + :func:`re.search` checks for a match anywhere in the string
@@ -1655,9 +1655,9 @@ For example::
    >>> re.match("c", "abcdef")    # No match
    >>> re.search("c", "abcdef")   # Match
    <re.Match object; span=(2, 3), match='c'>
-   >>> re.fullmatch("p.*n", "python") # Match
-   <re.Match object; span=(0, 6), match='python'>
-   >>> re.fullmatch("r.*n", "python") # No match
+   >>> re.fullmatch("p.*n", "myFRpy") # Match
+   <re.Match object; span=(0, 6), match='myFRpy'>
+   >>> re.fullmatch("r.*n", "myFRpy") # No match
 
 Regular expressions beginning with ``'^'`` can be used with :func:`search` to
 restrict the match at the beginning of the string::
@@ -1681,7 +1681,7 @@ Making a Phonebook
 
 :func:`split` splits a string into a list delimited by the passed pattern.  The
 method is invaluable for converting textual data into data structures that can be
-easily read and modified by Python as demonstrated in the following example that
+easily read and modified by MyFRpy as demonstrated in the following example that
 creates a phonebook.
 
 First, here is the input.  Normally it may come from a file, here we are using
@@ -1897,6 +1897,6 @@ The tokenizer produces the following output::
 
 
 .. [Frie09] Friedl, Jeffrey. Mastering Regular Expressions. 3rd ed., O'Reilly
-   Media, 2009. The third edition of the book no longer covers Python at all,
+   Media, 2009. The third edition of the book no longer covers MyFRpy at all,
    but the first edition covered writing good regular expression patterns in
    great detail.

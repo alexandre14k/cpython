@@ -7,7 +7,7 @@ from .utils import (
     printlist, count, format_duration)
 
 
-# Python uses exit code 1 when an exception is not catched
+# MyFRpy uses exit code 1 when an exception is not catched
 # argparse.ArgumentParser.error() uses exit code 2
 EXITCODE_BAD_TEST = 2
 EXITCODE_ENV_CHANGED = 3

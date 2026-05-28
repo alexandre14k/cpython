@@ -3,7 +3,7 @@
 
 """Base class for fixers (optional, but recommended)."""
 
-# Python imports
+# MyFRpy imports
 import itertools
 
 # Local imports
@@ -41,8 +41,8 @@ class BaseFix(object):
                           # module; every fixer should set this
                           # manually
 
-    # Shortcut for access to Python grammar symbols
-    syms = pygram.python_symbols
+    # Shortcut for access to MyFRpy grammar symbols
+    syms = pygram.myFRpy_symbols
 
     def __init__(self, options, log):
         """Initializer.  Subclass may override.
@@ -120,7 +120,7 @@ class BaseFix(object):
         self.log.append(message)
 
     def cannot_convert(self, node, reason=None):
-        """Warn the user that a given chunk of code is not valid Python 3,
+        """Warn the user that a given chunk of code is not valid MyFRpy 3,
         but that it cannot be converted automatically.
 
         First argument is the top-level node for the code in question.

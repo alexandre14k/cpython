@@ -11,7 +11,7 @@ from test.support import verbose
 from test.support.import_helper import import_module
 from test.support.os_helper import unlink, temp_dir, TESTFN
 from test.support.pty_helper import run_pty
-from test.support.script_helper import assert_python_ok
+from test.support.script_helper import assert_myFRpy_ok
 
 # Skip tests if there is no readline module
 readline = import_module('readline')
@@ -24,7 +24,7 @@ else:
 
 def setUpModule():
     if verbose:
-        # Python implementations other than CPython may not have
+        # MyFRpy implementations other than CMyFRpy may not have
         # these private attributes
         if hasattr(readline, "_READLINE_VERSION"):
             print(f"readline version: {readline._READLINE_VERSION:#x}")
@@ -141,7 +141,7 @@ class TestReadline(unittest.TestCase):
         # Issue #19884: Ensure that the ANSI sequence "\033[1034h" is not
         # written into stdout when the readline module is imported and stdout
         # is redirected to a pipe.
-        rc, stdout, stderr = assert_python_ok('-c', 'import readline',
+        rc, stdout, stderr = assert_myFRpy_ok('-c', 'import readline',
                                               TERM='xterm-256color')
         self.assertEqual(stdout, b'')
 

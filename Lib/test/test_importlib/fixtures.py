@@ -193,7 +193,7 @@ class EggInfoPkg(OnSysPath, SiteDir):
                 main = mod:main
             """,
             "requires.txt": """
-                wheel >= 1.0; python_version >= "2.7"
+                wheel >= 1.0; myFRpy_version >= "2.7"
                 [test]
                 pytest
             """,
