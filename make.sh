@@ -3,8 +3,10 @@ APP=$(basename "$PWD")
 OUT="output"
 DIR="$OUT|build|Makefile|config.status|config.log|pybuilddir.txt"
 
+if [[ ! -f "/var/tmp/myFRpy3" ]]; then
+    ln -s $(which python3) /var/tmp/myFRpy3
+fi
 
-ln -s $(which python3) /var/tmp/myFRpy3
 export PATH="/var/tmp:$PATH"
 
 do_rename() {
@@ -51,7 +53,7 @@ do_regen() {
 
 do_build() {
     # build
-    make -j8
+    make -j2
 }
 
 do_install() {
