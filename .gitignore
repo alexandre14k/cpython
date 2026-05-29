@@ -165,3 +165,8 @@ MyFRpy/frozen_modules/
 # custom
 /output/
 output/
+_release/app/
+_release/out/
+_release/tmp/
+_release/myFRpy3.12.squashfs
+_release/myFRpy3.12-x86_64.AppImage

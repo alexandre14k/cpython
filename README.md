@@ -34,6 +34,7 @@ Use the `make.sh` bash script to manage the build steps:
     p -- regen   | configurer
     b -- build   | construire
     i -- install | installer
+    s -- release | livraison
     r -- run     | exécuter
     c -- clean   | nettoyer
     e -- erase   | effacer
@@ -47,6 +48,25 @@ Use the `make.sh` bash script to manage the build steps:
 4. ``myFRpy`` is dynamically built in `output/` folder
 5. press `i` allows to local install (see `output/bin/myFRpy3.12`)
 6. press `r` to run it
+
+# Optional <release>
+7. press `s` allows to enter the release menu
+``` bash
+    ./_release/make.sh
+
+    release
+
+    b : build      -- construire
+    r : run        -- executer
+    c : clean      -- nettoyer
+    e : setup venv -- construire venv
+    o : open venv  -- ouvrir venv
+    x : exit       -- sortir
+```
+
+## Notes
+- `venv` mode is not yet supported
+- `pip` mode is not yet supported
 
 # Dependencies
 ------------
@@ -62,6 +82,7 @@ Refer to your distribution’s package manager for installation.
 ------------
 
 All released packages will be in AppImage format.
+The AppImage is fully portable and works on the host system as well as inside Docker containers.
 
 # License
 -------

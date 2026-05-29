@@ -11667,7 +11667,7 @@ such as "def" or "class".
 
 static PyObject *
 unicode_isidentifier_impl(PyObject *self)
-/*[clinic end generated code: output=fe585a9666572905 input=2d807a104f21c0c5]*/
+/*[clinic end generated code: output=fe585a9666572905 input=ae0e463754632f0f]*/
 {
     return PyBool_FromLong(PyUnicode_IsIdentifier(self));
 }

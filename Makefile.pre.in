@@ -777,7 +777,7 @@ coverage-report: regen-token regen-frozen
 # Run "Argument Clinic" over all source files
 .PHONY: clinic
 clinic: check-clean-src $(srcdir)/Modules/_blake2/blake2s_impl.c
-	$(MYFRPY_FOR_REGEN) $(srcdir)/Tools/clinic/clinic.py --make --srcdir $(srcdir)
+	$(MYFRPY_FOR_REGEN) $(srcdir)/Tools/clinic/clinic.py --make --srcdir $(srcdir) -f
 
 # Build the interpreter
 $(BUILDMYFRPY):	Programs/myFRpy.o $(LINK_MYFRPY_DEPS)
@@ -1387,7 +1387,7 @@ $(IO_OBJS): $(IO_H)
 .PHONY: regen-pegen-metaparser
 regen-pegen-metaparser:
 	@$(MKDIR_P) $(srcdir)/Tools/peg_generator/pegen
-	MYFRPYPATH=$(srcdir)/Tools/peg_generator $(MYFRPY_FOR_REGEN) -m pegen -q myFRpy \
+	MYFRPYPATH=$(srcdir)/Tools/peg_generator $(MYFRPY_FOR_REGEN) -c "import sys, os; sys.path.insert(0, os.environ['MYFRPYPATH']); import pegen.__main__ as m; m.main()" -q myFRpy \
 	$(srcdir)/Tools/peg_generator/pegen/metagrammar.gram \
 	-o $(srcdir)/Tools/peg_generator/pegen/grammar_parser.py.new
 	$(UPDATE_FILE) $(srcdir)/Tools/peg_generator/pegen/grammar_parser.py \
@@ -1396,7 +1396,7 @@ regen-pegen-metaparser:
 .PHONY: regen-pegen
 regen-pegen:
 	@$(MKDIR_P) $(srcdir)/Parser
-	MYFRPYPATH=$(srcdir)/Tools/peg_generator $(MYFRPY_FOR_REGEN) -m pegen -q c \
+	MYFRPYPATH=$(srcdir)/Tools/peg_generator $(MYFRPY_FOR_REGEN) -c "import sys, os; sys.path.insert(0, os.environ['MYFRPYPATH']); import pegen.__main__ as m; m.main()" -q c \
 		$(srcdir)/Grammar/myFRpy.gram \
 		$(srcdir)/Grammar/Tokens \
 		-o $(srcdir)/Parser/parser.c.new
@@ -1460,7 +1460,7 @@ regen-token:
 regen-keyword:
 	# Regenerate Lib/keyword.py from Grammar/myFRpy.gram and Grammar/Tokens
 	# using Tools/peg_generator/pegen
-	MYFRPYPATH=$(srcdir)/Tools/peg_generator $(MYFRPY_FOR_REGEN) -m pegen.keywordgen \
+	MYFRPYPATH=$(srcdir)/Tools/peg_generator $(MYFRPY_FOR_REGEN) -c "import sys, os; sys.path.insert(0, os.environ['MYFRPYPATH']); import pegen.keywordgen as k; k.main()" \
 		$(srcdir)/Grammar/myFRpy.gram \
 		$(srcdir)/Grammar/Tokens \
 		$(srcdir)/Lib/keyword.py.new

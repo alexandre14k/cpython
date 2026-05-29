@@ -325,4 +325,4 @@ float___format__(PyObject *self, PyObject *arg)
 exit:
     return return_value;
 }
-/*[clinic end generated code: output=ea329577074911b9 input=a9049054013a1b77]*/
+/*[clinic end generated code: output=3ebd7d8137da4cd9 input=a9049054013a1b77]*/

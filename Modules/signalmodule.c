@@ -226,7 +226,7 @@ It raises KeyboardInterrupt.
 static PyObject *
 signal_default_int_handler_impl(PyObject *module, int signalnum,
                                 PyObject *frame)
-/*[clinic end generated code: output=bb11c2eb115ace4e input=efcd4a56a207acfd]*/
+/*[clinic end generated code: output=bb11c2eb115ace4e input=d3596e0c2c7ddddb]*/
 {
     PyErr_SetNone(PyExc_KeyboardInterrupt);
     return NULL;
@@ -475,7 +475,7 @@ the first is the signal number, the second is the interrupted stack frame.
 
 static PyObject *
 signal_signal_impl(PyObject *module, int signalnum, PyObject *handler)
-/*[clinic end generated code: output=b44cfda43780f3a1 input=deee84af5fa0432c]*/
+/*[clinic end generated code: output=b44cfda43780f3a1 input=12a4c89fb0205a83]*/
 {
     _signal_module_state *modstate = get_signal_state(module);
     PyObject *old_handler;
@@ -563,7 +563,7 @@ The return value can be:
 
 static PyObject *
 signal_getsignal_impl(PyObject *module, int signalnum)
-/*[clinic end generated code: output=35b3e0e796fd555e input=ac23a00f19dfa509]*/
+/*[clinic end generated code: output=35b3e0e796fd555e input=5219b5e13f974f69]*/
 {
     PyObject *old_handler;
     if (signalnum < 1 || signalnum >= Py_NSIG) {

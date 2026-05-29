@@ -100,7 +100,7 @@ Looks up a codec tuple in the MyFRpy codec registry and returns a CodecInfo obje
 
 static PyObject *
 _codecs_lookup_impl(PyObject *module, const char *encoding)
-/*[clinic end generated code: output=9f0afa572080c36d input=3c572c0db3febe9c]*/
+/*[clinic end generated code: output=9f0afa572080c36d input=6532f31694e700f0]*/
 {
     return _PyCodec_Lookup(encoding);
 }

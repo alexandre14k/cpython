@@ -1741,7 +1741,7 @@ dump(), load() will substitute None for the unmarshallable type.
 
 static PyObject *
 marshal_load(PyObject *module, PyObject *file)
-/*[clinic end generated code: output=f8e5c33233566344 input=c85c2b594cd8124a]*/
+/*[clinic end generated code: output=f8e5c33233566344 input=1091fab8e6bc92e1]*/
 {
     PyObject *data, *result;
     RFILE rf;

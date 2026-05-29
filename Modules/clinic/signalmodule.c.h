@@ -705,4 +705,4 @@ exit:
 #ifndef SIGNAL_PIDFD_SEND_SIGNAL_METHODDEF
     #define SIGNAL_PIDFD_SEND_SIGNAL_METHODDEF
 #endif /* !defined(SIGNAL_PIDFD_SEND_SIGNAL_METHODDEF) */
-/*[clinic end generated code: output=2b54dc607f6e3146 input=a9049054013a1b77]*/
+/*[clinic end generated code: output=465c260276f64f31 input=a9049054013a1b77]*/

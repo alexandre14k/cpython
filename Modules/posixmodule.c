@@ -3332,7 +3332,7 @@ dir_fd and follow_symlinks may not be implemented on your platform.
 static PyObject *
 os_chmod_impl(PyObject *module, path_t *path, int mode, int dir_fd,
               int follow_symlinks)
-/*[clinic end generated code: output=5cf6a94915cc7bff input=674a14bc998de09d]*/
+/*[clinic end generated code: output=5cf6a94915cc7bff input=09e6a10cad82e2de]*/
 {
     int result;
 
@@ -3476,7 +3476,7 @@ Equivalent to os.chmod(fd, mode).
 
 static PyObject *
 os_fchmod_impl(PyObject *module, int fd, int mode)
-/*[clinic end generated code: output=afd9bc05b4e426b3 input=b5594618bbbc22df]*/
+/*[clinic end generated code: output=afd9bc05b4e426b3 input=08794e7f9e9047a7]*/
 {
     int res;
     int async_err = 0;

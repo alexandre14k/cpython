@@ -3,33 +3,34 @@
 # -----------------------------------------------------------------------------
 # auteur : alexander14k28@gmail.com
 # date   : 2026-05-21
-# desc   : compiler et empaqueter un binaire en AppImage
+# desc   : compile & pack bins to AppImage
 # -----------------------------------------------------------------------------
 
-# --- chemins ---
+# --- paths ---
 DIR_INPUT="app"
 DIR_OUTPUT="tmp"
+DIR_ENV="env"
 DIR_DEPS="${DIR_OUTPUT}/deps"
 DIR_SHIP="out"
 
 # --- configuration ---
 BIN_EXEC="myFRpy3.12"
-# télécharger appimagetool ici : https://github.com/AppImage/appimagetool
+# tool source origin : https://github.com/AppImage/appimagetool
 APPIMAGE_BUILDER="appimagetool-x86_64.appimage"
-APPIMAGE_OUT="${DIR_OUTPUT}/${BIN_EXEC}.AppImage"
+APPIMAGE_OUT="myFRpy3.12-x86_64.AppImage"
 
-# --- fonctions ---
+# --- functions ---
 
-init_dossiers() {
+init_folders() {
     mkdir -p "${DIR_OUTPUT}" "${DIR_DEPS}"
 }
 
-copier_binaire() {
+copy_binaries() {
     cp "${DIR_INPUT}/${BIN_EXEC}/bin/${BIN_EXEC}" "${DIR_OUTPUT}/${BIN_EXEC}"
     chmod +x "${DIR_OUTPUT}/${BIN_EXEC}"
 }
 
-collecter_deps() {
+fetch_dependencies() {
     ldd "${DIR_INPUT}/${BIN_EXEC}/bin/${BIN_EXEC}" \
         | awk '{print $3}' \
         | grep '^/'
@@ -39,7 +40,7 @@ MYFRPY_VERSION="3.12"
 MYFRPY_STDLIB="${DIR_INPUT}/${BIN_EXEC}/lib/myFRpy${MYFRPY_VERSION}"
 DIR_STDLIB="${DIR_OUTPUT}/lib/myFRpy${MYFRPY_VERSION}"
 
-copier_deps() {
+copy_dependencies() {
     local paths="$1"
     mkdir -p "${DIR_DEPS}"
     while IFS= read -r lib; do
@@ -47,26 +48,26 @@ copier_deps() {
     done <<< "$paths"
 }
 
-collecter_deps_dynload() {
+fetch_dependencies_dynload() {
     find "${DIR_STDLIB}/lib-dynload" -name "*.so*" 2>/dev/null | while read -r so; do
         ldd "$so" 2>/dev/null | awk '{print $3}' | grep '^/'
     done | sort -u
 }
 
-copier_deps_dynload() {
+copy_dependencies_dynload() {
     local paths
-    paths="$(collecter_deps_dynload)"
+    paths="$(fetch_dependencies_dynload)"
     while IFS= read -r lib; do
         cp "$lib" "${DIR_DEPS}/"
     done <<< "$paths"
 }
 
-copier_stdlib() {
+copy_stdlib() {
     mkdir -p "${DIR_STDLIB}"
     cp -r "${MYFRPY_STDLIB}/." "${DIR_STDLIB}/"
 }
 
-creer_bureau() {
+create_desktop_file() {
     cat > "${DIR_OUTPUT}/${BIN_EXEC}.desktop" << DESKTOP
 [Desktop Entry]
 Name=${BIN_EXEC}
@@ -77,10 +78,10 @@ Categories=Utility;
 DESKTOP
 }
 
-copier_icone() {
+copy_icon_file() {
     if [[ ! -f "ress/icon.png" ]]; then
-        echo "icone absente -- veuillez vérifier"
-        echo "entrer pour quitter ..."
+        echo "icon not found -- do check"
+        echo "enter to quit ..."
         read
         exit
     else
@@ -89,7 +90,7 @@ copier_icone() {
     fi
 }
 
-creer_apprun() {
+create_apprun() {
     cat > "${DIR_OUTPUT}/AppRun" << APPRUN
 #!/usr/bin/env bash
 HERE="\$(dirname "\$(readlink -f "\$0")")"
@@ -101,40 +102,45 @@ APPRUN
     chmod +x "${DIR_OUTPUT}/AppRun"
 }
 
-construire_appimage() {
-    if "${APPIMAGE_BUILDER}" "${DIR_OUTPUT}" "${APPIMAGE_OUT}"; then
+build_appimage() {
+    mksquashfs "${DIR_OUTPUT}" myFRpy3.12.squashfs \
+    -comp zstd -Xcompression-level 19 -b 1M -noappend
+
+    if "${APPIMAGE_BUILDER}" --no-appstream "${DIR_OUTPUT}" "${APPIMAGE_OUT}"; then
         mkdir -p "${DIR_SHIP}"
         cp "${APPIMAGE_OUT}" "${DIR_SHIP}/"
-        (cd "${DIR_SHIP}" && md5sum "${BIN_EXEC}.AppImage" > "${BIN_EXEC}.AppImage.md5sum")
-        cp "${APPIMAGE_OUT}" "$(dirname "$(readlink -f "$0")")/"
+        cd "${DIR_SHIP}"
+        sha256sum "myFRpy3.12-x86_64.AppImage" > "myFRpy3.12-x86_64.AppImage.sha256sum"
+        cp "../../LICENSE"* .
+        cp "../../README"* .
+        cd ..
     fi
 }
 
-faire_construire() {
-    verifier_installation
-
-    init_dossiers
-    copier_binaire
-    DEP_PATHS="$(collecter_deps)"
-    copier_deps "$DEP_PATHS"
-    copier_stdlib
-    copier_deps_dynload
-    creer_bureau
-    copier_icone
-    creer_apprun
-    construire_appimage
+do_build() {
+    check_setup
+    init_folders
+    copy_binaries
+    DEP_PATHS="$(fetch_dependencies)"
+    copy_dependencies "$DEP_PATHS"
+    copy_stdlib
+    copy_dependencies_dynload
+    create_desktop_file
+    copy_icon_file
+    create_apprun
+    build_appimage
 }
 
-ouvrir_venv() {
-    if [ ! -d "env" ]; then
-        echo "  aucun venv trouvé, lancez m d'abord"
+open_venv() {
+    if [ ! -d "$DIR_ENV" ]; then
+        echo "  no venv found, build it with <e>"
         return
     fi
     bash --rcfile <(echo 'export PATH="'$(pwd)'/env/bin:$PATH"
 source '$(pwd)'/env/bin/activate') -i
 }
 
-faire_venv() {
+build_venv() {
     "${APPIMAGE_OUT}" -m venv env
     local appimage_abs
     appimage_abs="$(readlink -f "${APPIMAGE_OUT}")"
@@ -145,93 +151,111 @@ faire_venv() {
     ln -sf "$appimage_abs" "env/bin/${BIN_EXEC}"
 }
 
-faire_nettoyer() {
-    rm -rf "${DIR_SHIP}" "${DIR_OUTPUT}" "env"
+do_clean() {
+    if [[ -d "${DIR_OUTPUT}" ]]; then
+        rm -rf "${DIR_OUTPUT}"
+    fi
+    if [[ -d "${DIR_ENV}" ]]; then
+        rm -rf "${DIR_ENV}"
+    fi
+    if [[ -d "${DIR_INPUT}/${BIN_EXEC}" ]]; then
+        rm -rf "${DIR_INPUT}/${BIN_EXEC}"
+    fi
+    if [[ -f "${BIN_EXEC}.squashfs" ]]; then
+        rm "${BIN_EXEC}.squashfs"
+    fi
+    if [[ -f "${APPIMAGE_OUT}" ]]; then
+        rm "${APPIMAGE_OUT}"
+    fi
+    if [[ -f "${DIR_INPUT}/${BIN_EXEC}.png" ]]; then
+        rm "${DIR_INPUT}/${BIN_EXEC}.png"
+    fi
     find "${DIR_INPUT}" -name "*.pyc" -delete
     find "${DIR_INPUT}" -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null
 }
 
-faire_executer() {
-    "${APPIMAGE_OUT}"
+do_run() {
+    ./"${APPIMAGE_OUT}"
 }
 
-appeler_terminal() {
+open_console() {
     local title="$1"
     local cmd="$2"
     xfce4-terminal --title="${title}" -e "bash -c '${cmd}'"
 }
 
-afficher_menu() {
+show_menu() {
     clear
+    echo "  release"
     echo ""
-    echo "  c : construire"
-    echo "  e : executer"
-    echo "  f : nettoyer"
-    echo "  m : env virtuel"
-    echo "  o : ouvrir venv"
-    echo "  s : sortir"
+    echo "  b : build      -- construire"
+    echo "  r : run        -- executer"
+    echo "  c : clean      -- nettoyer"
+    echo "  e : setup venv -- construire venv"
+    echo "  o : open venv  -- ouvrir venv"
+    echo "  x : exit       -- sortir"
     echo ""
     printf "  > "
 }
 
-verifier_installation() {
+check_setup() {
     if [[ ! -d "../output" ]]; then
-        echo "installation absente -- veuillez vérifier"
-        echo "entrer pour continuer ..."
+        echo "setup not found -- do check"
+        echo "enter to continue ..."
         read
     else
-        copier_installation
+        copy_setup
     fi
 
     if [[ ! -d "$DIR_INPUT/$BIN_EXEC" ]]; then
-        echo "$DIR_INPUT/$BIN_EXEC absent -- veuillez vérifier"
-        echo "entrer pour quitter ..."
+        echo "$DIR_INPUT/$BIN_EXEC not found -- do check"
+        echo "enter to quit ..."
         read
         exit
     else
-        verifier_appimagetool
+        check_appimagetool
     fi
 }
 
-verifier_appimagetool() {
+check_appimagetool() {
     if ! command -v $APPIMAGE_BUILDER >/dev/null 2>&1; then
-        echo "$APPIMAGE_BUILDER pas trouvé"
-        echo "voir ici : https://github.com/AppImage/appimagetool"
-        echo "entrer pour quitter ..."
+        echo "$APPIMAGE_BUILDER not found"
+        echo "check : https://github.com/AppImage/appimagetool"
+        echo "enter to quit ..."
         read
         exit
     fi
 }
 
-copier_installation() {
-    mv "../output" "$DIR_INPUT/$BIN_EXEC"
+copy_setup() {
+    cp -rf "../output" "$DIR_INPUT/$BIN_EXEC"
 }
 
-boucle_menu() {
+menu_loop() {
     local choice
 
-    afficher_menu
+    show_menu
     while IFS= read -r choice; do
         case "${choice}" in
-            c) faire_construire ;;
-            e) faire_executer ;;
-            f) faire_nettoyer ;;
-            m) faire_venv ;;
-            o) ouvrir_venv ;;
-            s) exit 0 ;;
-            "") afficher_menu; continue ;;
-            *) echo "  option inconnue : ${choice}" ;;
+            b) do_build ;;
+            r) do_run ;;
+            c) do_clean ;;
+            e) build_venv ;;
+            o) open_venv ;;
+            x) exit 0 ;;
+            "") show_menu; continue ;;
+            *) echo "  unsupported: ${choice}" ;;
         esac
         printf "  > "
     done
 }
 
-# --- principal ---
+# --- main ---
 
-# si lancé depuis le bureau (sans tty), ouvrir un terminal et se relancer
+# if called from desktop (no tty), open a console and relaunch
 if [ ! -t 0 ]; then
-    appeler_terminal "${BIN_EXEC} lanceur" "bash -i '$(readlink -f "$0")'"
+    open_console "${BIN_EXEC} release" "bash -i '$(readlink -f "$0")'"
     exit 0
 fi
 
-boucle_menu
+menu_loop

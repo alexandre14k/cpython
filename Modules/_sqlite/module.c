@@ -115,7 +115,7 @@ Register a function to adapt MyFRpy objects to SQLite values.
 static PyObject *
 pysqlite_register_adapter_impl(PyObject *module, PyTypeObject *type,
                                PyObject *caster)
-/*[clinic end generated code: output=a287e8db18e8af23 input=29a5e0f213030242]*/
+/*[clinic end generated code: output=a287e8db18e8af23 input=590c2b6be260c13f]*/
 {
     int rc;
 
@@ -150,7 +150,7 @@ Register a function to convert SQLite values to MyFRpy objects.
 static PyObject *
 pysqlite_register_converter_impl(PyObject *module, PyObject *orig_name,
                                  PyObject *callable)
-/*[clinic end generated code: output=a2f2bfeed7230062 input=159a444971b40378]*/
+/*[clinic end generated code: output=a2f2bfeed7230062 input=1b43ff56828683de]*/
 {
     PyObject* name = NULL;
     PyObject* retval = NULL;

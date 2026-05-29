@@ -17,7 +17,7 @@ Return True if the tracemalloc module is tracing MyFRpy memory allocations.
 
 static PyObject *
 _tracemalloc_is_tracing_impl(PyObject *module)
-/*[clinic end generated code: output=2d763b42601cd3ef input=af104b0a00192f63]*/
+/*[clinic end generated code: output=2d763b42601cd3ef input=b0334bdc8a475f8f]*/
 {
     return PyBool_FromLong(_PyTraceMalloc_IsTracing());
 }
@@ -31,7 +31,7 @@ Clear traces of memory blocks allocated by MyFRpy.
 
 static PyObject *
 _tracemalloc_clear_traces_impl(PyObject *module)
-/*[clinic end generated code: output=a86080ee41b84197 input=0dab5b6c785183a5]*/
+/*[clinic end generated code: output=a86080ee41b84197 input=a212a332fb942b4d]*/
 {
     _PyTraceMalloc_ClearTraces();
     Py_RETURN_NONE;
@@ -51,7 +51,7 @@ Return an empty list if the tracemalloc module is disabled.
 
 static PyObject *
 _tracemalloc__get_traces_impl(PyObject *module)
-/*[clinic end generated code: output=e9929876ced4b5cc input=6c7d2230b24255aa]*/
+/*[clinic end generated code: output=e9929876ced4b5cc input=b5b9fa33ccc32c12]*/
 {
     return _PyTraceMalloc_GetTraces();
 }
@@ -73,7 +73,7 @@ trace the allocation of the object.
 
 static PyObject *
 _tracemalloc__get_object_traceback(PyObject *module, PyObject *obj)
-/*[clinic end generated code: output=41ee0553a658b0aa input=29495f1b21c53212]*/
+/*[clinic end generated code: output=41ee0553a658b0aa input=21a591c330ff0000]*/
 {
     return _PyTraceMalloc_GetObjectTraceback(obj);
 }
@@ -93,7 +93,7 @@ trace to nframe.
 
 static PyObject *
 _tracemalloc_start_impl(PyObject *module, int nframe)
-/*[clinic end generated code: output=caae05c23c159d3c input=40d849b5b29d1933]*/
+/*[clinic end generated code: output=caae05c23c159d3c input=4cc6fc905e1f03ab]*/
 {
     if (_PyTraceMalloc_Start(nframe) < 0) {
         return NULL;
@@ -112,7 +112,7 @@ Also clear traces of memory blocks allocated by MyFRpy.
 
 static PyObject *
 _tracemalloc_stop_impl(PyObject *module)
-/*[clinic end generated code: output=c3c42ae03e3955cd input=7478f075e51dae18]*/
+/*[clinic end generated code: output=c3c42ae03e3955cd input=754f73a0c73d3c3b]*/
 {
     _PyTraceMalloc_Stop();
     Py_RETURN_NONE;

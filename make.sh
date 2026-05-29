@@ -61,6 +61,12 @@ do_install() {
     make install
 }
 
+do_release() {
+    cd _release
+    ./make.sh
+    cd ..
+}
+
 do_erase() {
     # remove all build artifacts
     items=(
@@ -106,6 +112,7 @@ do_menu() {
     echo "   p -- regen   | configurer"
     echo "   b -- build   | construire"
     echo "   i -- install | installer"
+    echo "   s -- release | livraison"
     echo "   r -- run     | exécuter"
     echo "   c -- clean   | nettoyer"
     echo "   e -- erase   | effacer"
@@ -129,6 +136,7 @@ main() {
             p) do_regen;;
             b) do_build;;
             i) do_install;;
+            s) do_release;;
             r) do_run;;
             c) do_clean;;
             e) do_erase;;

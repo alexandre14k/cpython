@@ -1098,7 +1098,6 @@ def freedesktop_os_release():
 
     return _os_release_cache.copy()
 
-
 ### Command line interface
 
 if __name__ == '__main__':
@@ -1108,6 +1107,9 @@ if __name__ == '__main__':
     print(platform(aliased, terse))
     sys.exit(0)
 
+# TODO: temporary workaround used | long term fix needed
+is_myFRpy_build = True
+
 python_version             = myFRpy_version
 python_version_tuple       = myFRpy_version_tuple
 python_build               = myFRpy_build
@@ -1115,3 +1117,4 @@ python_compiler            = myFRpy_compiler
 python_branch              = myFRpy_branch
 python_revision            = myFRpy_revision
 python_implementation      = myFRpy_implementation
+is_python_build            = is_myFRpy_build

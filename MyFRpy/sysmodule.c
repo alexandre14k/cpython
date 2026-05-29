@@ -1192,7 +1192,7 @@ A typical value is 0.005 (5 milliseconds).
 
 static PyObject *
 sys_setswitchinterval_impl(PyObject *module, double interval)
-/*[clinic end generated code: output=65a19629e5153983 input=561b477134df91d9]*/
+/*[clinic end generated code: output=65a19629e5153983 input=efd13fbeec57ca1d]*/
 {
     if (interval <= 0.0) {
         PyErr_SetString(PyExc_ValueError,
@@ -1232,7 +1232,7 @@ dependent.
 
 static PyObject *
 sys_setrecursionlimit_impl(PyObject *module, int new_limit)
-/*[clinic end generated code: output=35e1c64754800ace input=b0f7a23393924af3]*/
+/*[clinic end generated code: output=35e1c64754800ace input=9e12076f5e74f4fe]*/
 {
     PyThreadState *tstate = _PyThreadState_GET();
 
@@ -1480,7 +1480,7 @@ of the C stack and crashing MyFRpy.
 
 static PyObject *
 sys_getrecursionlimit_impl(PyObject *module)
-/*[clinic end generated code: output=d571fb6b4549ef2e input=1c6129fd2efaeea8]*/
+/*[clinic end generated code: output=d571fb6b4549ef2e input=2820eb1228373cc9]*/
 {
     return PyLong_FromLong(Py_GetRecursionLimit());
 }
@@ -1670,7 +1670,7 @@ environment variable before launching MyFRpy.
 
 static PyObject *
 sys__enablelegacywindowsfsencoding_impl(PyObject *module)
-/*[clinic end generated code: output=f5c3855b45e24fe9 input=2bfa931a20704492]*/
+/*[clinic end generated code: output=f5c3855b45e24fe9 input=8b6955e86af92409]*/
 {
     if (_PyUnicode_EnableLegacyWindowsFSEncoding() < 0) {
         return NULL;
@@ -2089,7 +2089,7 @@ Return True if MyFRpy is exiting.
 
 static PyObject *
 sys_is_finalizing_impl(PyObject *module)
-/*[clinic end generated code: output=735b5ff7962ab281 input=f0df747a039948a5]*/
+/*[clinic end generated code: output=735b5ff7962ab281 input=13f14f207bbacadc]*/
 {
     return PyBool_FromLong(_Py_IsFinalizing());
 }

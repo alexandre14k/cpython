@@ -270,7 +270,7 @@ is the number of parent directories to search relative to the current module.
 static PyObject *
 builtin___import___impl(PyObject *module, PyObject *name, PyObject *globals,
                         PyObject *locals, PyObject *fromlist, int level)
-/*[clinic end generated code: output=4febeda88a0cd245 input=73f4b960ea5b9dd6]*/
+/*[clinic end generated code: output=4febeda88a0cd245 input=5b0cc34acba12ddc]*/
 {
     return PyImport_ImportModuleLevelObject(name, globals, locals,
                                             fromlist, level);
@@ -407,7 +407,7 @@ to that returned by repr() in MyFRpy 2.
 
 static PyObject *
 builtin_ascii(PyObject *module, PyObject *obj)
-/*[clinic end generated code: output=6d37b3f0984c7eb9 input=4c62732e1b3a3cc9]*/
+/*[clinic end generated code: output=6d37b3f0984c7eb9 input=b00cff5acf89891a]*/
 {
     return PyObject_ASCII(obj);
 }
@@ -740,7 +740,7 @@ static PyObject *
 builtin_compile_impl(PyObject *module, PyObject *source, PyObject *filename,
                      const char *mode, int flags, int dont_inherit,
                      int optimize, int feature_version)
-/*[clinic end generated code: output=b0c09c84f116d3d7 input=cc78e20e7c7682ba]*/
+/*[clinic end generated code: output=b0c09c84f116d3d7 input=d88e8be243815bfa]*/
 {
     PyObject *source_copy;
     const char *str;
@@ -905,7 +905,7 @@ If only globals is given, locals defaults to it.
 static PyObject *
 builtin_eval_impl(PyObject *module, PyObject *source, PyObject *globals,
                   PyObject *locals)
-/*[clinic end generated code: output=0a0824aa70093116 input=11ee718a8640e527]*/
+/*[clinic end generated code: output=0a0824aa70093116 input=0dfc06119ec6cb11]*/
 {
     PyObject *result = NULL, *source_copy;
     const char *str;
@@ -1008,7 +1008,7 @@ when source is a code object requiring exactly that many cellvars.
 static PyObject *
 builtin_exec_impl(PyObject *module, PyObject *source, PyObject *globals,
                   PyObject *locals, PyObject *closure)
-/*[clinic end generated code: output=7579eb4e7646743d input=f13a7e2b503d1d9a]*/
+/*[clinic end generated code: output=7579eb4e7646743d input=a38279da3a6cbdc2]*/
 {
     PyObject *v;
 
@@ -1238,7 +1238,7 @@ This is guaranteed to be unique among simultaneously existing objects.
 
 static PyObject *
 builtin_id(PyModuleDef *self, PyObject *v)
-/*[clinic end generated code: output=0aa640785f697f65 input=5a534136419631f4]*/
+/*[clinic end generated code: output=0aa640785f697f65 input=0426f145e377e017]*/
 {
     PyObject *id = PyLong_FromVoidPtr(v);
 

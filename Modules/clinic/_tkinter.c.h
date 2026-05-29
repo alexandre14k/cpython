@@ -865,4 +865,4 @@ exit:
 #ifndef _TKINTER_TKAPP_DELETEFILEHANDLER_METHODDEF
     #define _TKINTER_TKAPP_DELETEFILEHANDLER_METHODDEF
 #endif /* !defined(_TKINTER_TKAPP_DELETEFILEHANDLER_METHODDEF) */
-/*[clinic end generated code: output=2a4e3bf8448604b5 input=a9049054013a1b77]*/
+/*[clinic end generated code: output=c4309ebf2d5aef6a input=a9049054013a1b77]*/

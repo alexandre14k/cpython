@@ -4770,7 +4770,7 @@ static int
 _pickle_Pickler___init___impl(PicklerObject *self, PyObject *file,
                               PyObject *protocol, int fix_imports,
                               PyObject *buffer_callback)
-/*[clinic end generated code: output=0abedc50590d259b input=a7c969699bf5dad3]*/
+/*[clinic end generated code: output=0abedc50590d259b input=db1e7c34fd267854]*/
 {
     /* In case of multiple __init__() calls, clear previous content. */
     if (self->write != NULL)
@@ -7236,7 +7236,7 @@ static int
 _pickle_Unpickler___init___impl(UnpicklerObject *self, PyObject *file,
                                 int fix_imports, const char *encoding,
                                 const char *errors, PyObject *buffers)
-/*[clinic end generated code: output=09f0192649ea3f85 input=ca4c1faea9553121]*/
+/*[clinic end generated code: output=09f0192649ea3f85 input=5090409a4fb33c8f]*/
 {
     /* In case of multiple __init__() calls, clear previous content. */
     if (self->read != NULL)
@@ -7631,7 +7631,7 @@ static PyObject *
 _pickle_dump_impl(PyObject *module, PyObject *obj, PyObject *file,
                   PyObject *protocol, int fix_imports,
                   PyObject *buffer_callback)
-/*[clinic end generated code: output=706186dba996490c input=5ed6653da99cd97c]*/
+/*[clinic end generated code: output=706186dba996490c input=a03dce96e066375e]*/
 {
     PickleState *state = _Pickle_GetState(module);
     PicklerObject *pickler = _Pickler_New(state);
@@ -7696,7 +7696,7 @@ into *file* as part of the pickle stream.  It is an error if
 static PyObject *
 _pickle_dumps_impl(PyObject *module, PyObject *obj, PyObject *protocol,
                    int fix_imports, PyObject *buffer_callback)
-/*[clinic end generated code: output=fbab0093a5580fdf input=e543272436c6f987]*/
+/*[clinic end generated code: output=fbab0093a5580fdf input=8736f51eb405e33a]*/
 {
     PyObject *result;
     PickleState *state = _Pickle_GetState(module);
@@ -7763,7 +7763,7 @@ static PyObject *
 _pickle_load_impl(PyObject *module, PyObject *file, int fix_imports,
                   const char *encoding, const char *errors,
                   PyObject *buffers)
-/*[clinic end generated code: output=250452d141c23e76 input=46c7c31c92f4f371]*/
+/*[clinic end generated code: output=250452d141c23e76 input=b35af14f51e8beda]*/
 {
     PyObject *result;
     UnpicklerObject *unpickler = _Unpickler_New(module);
@@ -7824,7 +7824,7 @@ static PyObject *
 _pickle_loads_impl(PyObject *module, PyObject *data, int fix_imports,
                    const char *encoding, const char *errors,
                    PyObject *buffers)
-/*[clinic end generated code: output=82ac1e6b588e6d02 input=b3615540d0535087]*/
+/*[clinic end generated code: output=82ac1e6b588e6d02 input=87e4ecc9bb03a65d]*/
 {
     PyObject *result;
     UnpicklerObject *unpickler = _Unpickler_New(module);
