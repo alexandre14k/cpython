@@ -1,9 +1,8 @@
 # myFRpy — A Python 3.12–based Interpreter
 ========================================
 
-myFRpy is a customized fork of the Python 3.12 interpreter, adapted for
-Linux-only environments and simplified for experimentation, research, or
-lightweight embedding.
+myFRpy is a Python 3.12 based interpreter (customized fork)
+with bilingual en|fr keywords
 
 The original CPython README is preserved for reference in
 [README.old.rst](README.old.rst).
@@ -17,15 +16,14 @@ The original CPython README is preserved for reference in
 # Using myFRpy
 ------------
 
-Prebuilt packages or installation instructions may be provided separately.
-This repository contains the full source code for building the interpreter
-from scratch on Linux.
+This repository contains the full source code for building
+the interpreter from scratch on Linux.
 
-# Build Instructions (Linux Mint 22.2)
+# Build Instructions
 --------------------------
+**Target** is Linux Mint 22.2 x86_64
 
-To build myFRpy from source on Linux or other Unix-like systems:
-
+Use the `make.sh` bash script to manage the build steps:
 ``` bash
     ./make.sh
 
@@ -42,13 +40,13 @@ To build myFRpy from source on Linux or other Unix-like systems:
     x -- exit    | quitter
 ```
 
-# Todo
+# Steps
 1. on a new setup press `c` to clean the environment and reconfigure
-2. press `p` to regen after grammar `myFRpy.gram` has changed
-3. press `b` to make. This creates the interpreter as ``myFRpy``
-4. output ``myFRpy`` is dynamically built
-5. pressing `r` allows to run from the bash menu
-6. pressing `i` allows to local install (see `output/bin/myFRpy3.12`)
+2. press `p` to regen grammar (if `myFRpy.gram` changed)
+3. press `b` to make (creates the ``myFRpy`` binary)
+4. ``myFRpy`` is dynamically built in `output/` folder
+5. press `i` allows to local install (see `output/bin/myFRpy3.12`)
+6. press `r` to run it
 
 # Dependencies
 ------------
@@ -59,6 +57,11 @@ Building myFRpy requires standard development tools and libraries :
 - development headers for zlib, libffi, OpenSSL, SQLite, and others
 
 Refer to your distribution’s package manager for installation.
+
+# Test Release
+------------
+
+All released packages will be in AppImage format.
 
 # License
 -------
