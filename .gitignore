@@ -172,3 +172,4 @@ _release/myFRpy3.12.squashfs
 _release/myFRpy3.12-x86_64.AppImage
 _release/appimagetool-x86_64.appimage
 _bin/out/
+_bin/

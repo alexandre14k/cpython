@@ -55,7 +55,7 @@ Run the interpreter:
 ./myFRpy3.12-x86_64.AppImage
 ```
 
-Run with the `test.py` script (reguires os with GUI):
+Run with the `test.py` script (requires os with GUI):
 ```bash
 ./myFRpy3.12-x86_64.AppImage test.py
 ```
