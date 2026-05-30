@@ -282,7 +282,7 @@ class ComplexTest(unittest.TestCase):
         self.assertRaises(ValueError, pow, a, b, 0)
 
         # Check some boundary conditions; some of these used to invoke
-        # undefined behaviour (https://bugs.myFRpy.org/issue44698). We're
+        # undefined behaviour (https://bugs.python.org/issue44698). We're
         # not actually checking the results of these operations, just making
         # sure they don't crash (for example when using clang's
         # UndefinedBehaviourSanitizer).

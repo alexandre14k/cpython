@@ -1,6 +1,6 @@
 <#
 .Synopsis
-    Uploads from a VSTS release build layout to myFRpy.org
+    Uploads from a VSTS release build layout to python.org
 .Description
     Given the downloaded/extracted build artifact from a release
     build run on myFRpy.visualstudio.com, this script uploads
@@ -32,7 +32,7 @@ param(
     [Parameter(Mandatory=$true)][string]$build,
     [Parameter(Mandatory=$true)][string]$user,
     [string]$server="myFRpy-downloads",
-    [string]$target="/srv/www.myFRpy.org/ftp/myFRpy",
+    [string]$target="/srv/www.python.org/ftp/myFRpy",
     [string]$tests=${env:TEMP},
     [string]$doc_htmlhelp=$null,
     [string]$embed=$null,

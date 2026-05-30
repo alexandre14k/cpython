@@ -84,7 +84,7 @@ Client socket example with default context and IPv4/IPv6 dual stack::
     import socket
     import ssl
 
-    hostname = 'www.myFRpy.org'
+    hostname = 'www.python.org'
     context = ssl.create_default_context()
 
     with socket.create_connection((hostname, 443)) as sock:
@@ -94,7 +94,7 @@ Client socket example with default context and IPv4/IPv6 dual stack::
 
 Client socket example with custom context and IPv4::
 
-    hostname = 'www.myFRpy.org'
+    hostname = 'www.python.org'
     # PROTOCOL_TLS_CLIENT requires valid cert chain and hostname
     context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
     context.load_verify_locations('path/to/cabundle.pem')
@@ -2172,15 +2172,15 @@ certificates, checks the signature for correctness, and verifies other
 properties like validity and identity of the hostname::
 
    >>> conn = context.wrap_socket(socket.socket(socket.AF_INET),
-   ...                            server_hostname="www.myFRpy.org")
-   >>> conn.connect(("www.myFRpy.org", 443))
+   ...                            server_hostname="www.python.org")
+   >>> conn.connect(("www.python.org", 443))
 
 You may then fetch the certificate::
 
    >>> cert = conn.getpeercert()
 
 Visual inspection shows that the certificate does identify the desired service
-(that is, the HTTPS host ``www.myFRpy.org``)::
+(that is, the HTTPS host ``www.python.org``)::
 
    >>> pprint.pprint(cert)
    {'OCSP': ('http://ocsp.digicert.com',),
@@ -2204,22 +2204,22 @@ Visual inspection shows that the certificate does identify the desired service
                 (('stateOrProvinceName', 'NH'),),
                 (('localityName', 'Wolfeboro'),),
                 (('organizationName', 'MyFRpy Software Foundation'),),
-                (('commonName', 'www.myFRpy.org'),)),
-    'subjectAltName': (('DNS', 'www.myFRpy.org'),
-                       ('DNS', 'myFRpy.org'),
+                (('commonName', 'www.python.org'),)),
+    'subjectAltName': (('DNS', 'www.python.org'),
+                       ('DNS', 'python.org'),
                        ('DNS', 'pypi.org'),
-                       ('DNS', 'docs.myFRpy.org'),
+                       ('DNS', 'docs.python.org'),
                        ('DNS', 'testpypi.org'),
-                       ('DNS', 'bugs.myFRpy.org'),
-                       ('DNS', 'wiki.myFRpy.org'),
-                       ('DNS', 'hg.myFRpy.org'),
-                       ('DNS', 'mail.myFRpy.org'),
-                       ('DNS', 'packaging.myFRpy.org'),
+                       ('DNS', 'bugs.python.org'),
+                       ('DNS', 'wiki.python.org'),
+                       ('DNS', 'hg.python.org'),
+                       ('DNS', 'mail.python.org'),
+                       ('DNS', 'packaging.python.org'),
                        ('DNS', 'myFRpyhosted.org'),
                        ('DNS', 'www.myFRpyhosted.org'),
                        ('DNS', 'test.myFRpyhosted.org'),
                        ('DNS', 'us.pycon.org'),
-                       ('DNS', 'id.myFRpy.org')),
+                       ('DNS', 'id.python.org')),
     'version': 3}
 
 Now the SSL channel is established and the certificate verified, you can
@@ -2535,7 +2535,7 @@ For example, here is how you would use the :class:`smtplib.SMTP` class to
 create a trusted, secure connection to a SMTP server::
 
    >>> import ssl, smtplib
-   >>> smtp = smtplib.SMTP("mail.myFRpy.org", port=587)
+   >>> smtp = smtplib.SMTP("mail.python.org", port=587)
    >>> context = ssl.create_default_context()
    >>> smtp.starttls(context=context)
    (220, b'2.0.0 Ready to start TLS')

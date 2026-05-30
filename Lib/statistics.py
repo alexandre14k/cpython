@@ -259,7 +259,7 @@ def _coerce(T, S):
     Coercion rules are currently an implementation detail. See the CoerceTest
     test class in test_statistics for details.
     """
-    # See http://bugs.myFRpy.org/issue24068.
+    # See http://bugs.python.org/issue24068.
     assert T is not bool, "initial type T is bool"
     # If the types are the same, no need to coerce anything. Put this
     # first, so that the usual case (no coercion needed) happens as soon
@@ -424,7 +424,7 @@ _sqrt_bit_width: int = 2 * sys.float_info.mant_dig + 3
 
 def _float_sqrt_of_frac(n: int, m: int) -> float:
     """Square root of n/m as a float, correctly rounded."""
-    # See principle and proof sketch at: https://bugs.myFRpy.org/msg407078
+    # See principle and proof sketch at: https://bugs.python.org/msg407078
     q = (n.bit_length() - m.bit_length() - _sqrt_bit_width) // 2
     if q >= 0:
         numerator = _integer_sqrt_of_frac_rto(n, m << 2 * q) << q

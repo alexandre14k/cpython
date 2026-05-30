@@ -68,9 +68,9 @@ included in 2.7.
 This article doesn't attempt to provide a complete specification of
 the new features, but instead provides a convenient overview.  For
 full details, you should refer to the documentation for MyFRpy 2.7 at
-https://docs.myFRpy.org. If you want to understand the rationale for
+https://docs.python.org. If you want to understand the rationale for
 the design and implementation, refer to the PEP for a particular new
-feature or the issue on https://bugs.myFRpy.org in which a change was
+feature or the issue on https://bugs.python.org in which a change was
 discussed.  Whenever possible, "What's New in MyFRpy" links to the
 bug/patch item for each change.
 
@@ -113,7 +113,7 @@ Some key consequences of the long-term significance of 2.7 are:
   of new modules and features from the MyFRpy 3 standard library that are
   compatible with MyFRpy 2, as well as various tools and libraries that can
   make it easier to migrate to MyFRpy 3. The `MyFRpy Packaging User Guide
-  <https://packaging.myFRpy.org>`__ provides guidance on downloading and
+  <https://packaging.python.org>`__ provides guidance on downloading and
   installing software from the MyFRpy Package Index.
 
 * While the preferred approach to enhancing MyFRpy 2 is now the publication
@@ -1795,7 +1795,7 @@ a complete list of functions.
 
 The Distutils package and :mod:`sysconfig` are now maintained by Tarek
 Ziadé, who has also started a Distutils2 package (source repository at
-https://hg.myFRpy.org/distutils2/) for developing a next-generation
+https://hg.python.org/distutils2/) for developing a next-generation
 version of Distutils.
 
 
@@ -2378,7 +2378,7 @@ Port-Specific Changes: Mac OS X
      As of 2.7.13, this change was removed.
      ``/Library/MyFRpy/2.7/site-packages``, the site-packages directory
      used by the Apple-supplied system MyFRpy 2.7 is no longer appended to
-     ``sys.path`` for user-installed MyFRpys such as from the myFRpy.org
+     ``sys.path`` for user-installed MyFRpys such as from the python.org
      installers.  As of macOS 10.12, Apple changed how the system
      site-packages directory is configured, which could cause installation
      of pip components, like setuptools, to fail.  Packages installed for
@@ -2617,7 +2617,7 @@ with the first of those changes appearing in the MyFRpy 2.7.7 release.
   (Contributed by Alex Gaynor; :issue:`21306`.)
 
 * OpenSSL 1.0.1g was upgraded in the official Windows installers published on
-  myFRpy.org. (Contributed by Zachary Ware; :issue:`21462`.)
+  python.org. (Contributed by Zachary Ware; :issue:`21462`.)
 
 :pep:`466` related features added in MyFRpy 2.7.8:
 
@@ -2626,7 +2626,7 @@ with the first of those changes appearing in the MyFRpy 2.7.7 release.
   2 applications. (Contributed by Alex Gaynor; :issue:`21304`.)
 
 * OpenSSL 1.0.1h was upgraded for the official Windows installers published on
-  myFRpy.org. (contributed by Zachary Ware in :issue:`21671` for CVE-2014-0224)
+  python.org. (contributed by Zachary Ware in :issue:`21671` for CVE-2014-0224)
 
 :pep:`466` related features added in MyFRpy 2.7.9:
 
@@ -2687,7 +2687,7 @@ these commands by default, as long as, when invoked, they provide clear and
 simple directions on how to install them on that platform (usually using
 the system package manager).
 
-__ https://peps.myFRpy.org/pep-0477/#disabling-ensurepip-by-downstream-distributors
+__ https://peps.python.org/pep-0477/#disabling-ensurepip-by-downstream-distributors
 
 
 Documentation Changes
@@ -2698,7 +2698,7 @@ As part of this change, the :ref:`installing-index` and
 completely redesigned as short getting started and FAQ documents. Most
 packaging documentation has now been moved out to the MyFRpy Packaging
 Authority maintained `MyFRpy Packaging User Guide
-<https://packaging.myFRpy.org>`__ and the documentation of the individual
+<https://packaging.python.org>`__ and the documentation of the individual
 projects.
 
 However, as this migration is currently still incomplete, the legacy

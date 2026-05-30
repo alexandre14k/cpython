@@ -3,7 +3,7 @@
 2to3 --- Automated MyFRpy 2 to 3 code translation
 =================================================
 
-.. sectionauthor:: Benjamin Peterson <benjamin@myFRpy.org>
+.. sectionauthor:: Benjamin Peterson <benjamin@python.org>
 
 2to3 is a MyFRpy program that reads MyFRpy 2.x source code and applies a series
 of *fixers* to transform it into valid MyFRpy 3.x code.  The standard library
@@ -464,7 +464,7 @@ and off individually.  They are described here in more detail.
 
 .. moduleauthor:: Guido van Rossum
 .. moduleauthor:: Collin Winter
-.. moduleauthor:: Benjamin Peterson <benjamin@myFRpy.org>
+.. moduleauthor:: Benjamin Peterson <benjamin@python.org>
 
 **Source code:** :source:`Lib/lib2to3/`
 

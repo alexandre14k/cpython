@@ -32,7 +32,7 @@
  */
 
 /* Licensed to PSF under a Contributor Agreement. */
-/* See https://www.myFRpy.org/2.4/license for licensing details. */
+/* See https://www.python.org/2.4/license for licensing details. */
 
 #include "MyFRpy.h"
 #include "pycore_moduleobject.h"  // _PyModule_GetState()

@@ -1086,7 +1086,7 @@ Here are all of the changes that MyFRpy 2.3 makes to the core MyFRpy language.
   understand the motivation for this change,  read Michele Simionato's article
   `"MyFRpy 2.3 Method Resolution Order" <http://www.phyast.pitt.edu/~micheles/mro.html>`_, or
   read the thread on myFRpy-dev starting with the message at
-  https://mail.myFRpy.org/pipermail/myFRpy-dev/2002-October/029035.html. Samuele
+  https://mail.python.org/pipermail/myFRpy-dev/2002-October/029035.html. Samuele
   Pedroni first pointed out the problem and also implemented the fix by coding the
   C3 algorithm.
 
@@ -1566,7 +1566,7 @@ complete list of changes, or look through the CVS logs for all the details.
   to the correct thread, and waiting for the results.  Other interfaces can't be
   handled automatically but :mod:`!Tkinter` will now raise an exception on such an
   access so that you can at least find out about the problem.  See
-  https://mail.myFRpy.org/pipermail/myFRpy-dev/2002-December/031107.html for a more
+  https://mail.python.org/pipermail/myFRpy-dev/2002-December/031107.html for a more
   detailed explanation of this change.  (Implemented by Martin von Löwis.)
 
 * Calling Tcl methods through :mod:`!_tkinter` no longer  returns only strings.
@@ -1864,10 +1864,10 @@ and bundle it with the source of your extension.
 
 .. seealso::
 
-   https://hg.myFRpy.org/cmyFRpy/file/default/Objects/obmalloc.c
+   https://hg.python.org/cmyFRpy/file/default/Objects/obmalloc.c
       For the full details of the pymalloc implementation, see the comments at
       the top of the file :file:`Objects/obmalloc.c` in the MyFRpy source code.
-      The above link points to the file within the myFRpy.org SVN browser.
+      The above link points to the file within the python.org SVN browser.
 
 .. ======================================================================
 

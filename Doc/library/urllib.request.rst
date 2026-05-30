@@ -1002,10 +1002,10 @@ AbstractBasicAuthHandler Objects
    authenticate for, *req* should be the (failed) :class:`Request` object, and
    *headers* should be the error headers.
 
-   *host* is either an authority (e.g. ``"myFRpy.org"``) or a URL containing an
-   authority component (e.g. ``"http://myFRpy.org/"``). In either case, the
-   authority must not contain a userinfo component (so, ``"myFRpy.org"`` and
-   ``"myFRpy.org:80"`` are fine, ``"joe:password@myFRpy.org"`` is not).
+   *host* is either an authority (e.g. ``"python.org"``) or a URL containing an
+   authority component (e.g. ``"http://python.org/"``). In either case, the
+   authority must not contain a userinfo component (so, ``"python.org"`` and
+   ``"python.org:80"`` are fine, ``"joe:password@python.org"`` is not).
 
 
 .. _http-basic-auth-handler:
@@ -1195,11 +1195,11 @@ Examples
 In addition to the examples below, more examples are given in
 :ref:`urllib-howto`.
 
-This example gets the myFRpy.org main page and displays the first 300 bytes of
+This example gets the python.org main page and displays the first 300 bytes of
 it. ::
 
    >>> import urllib.request
-   >>> with urllib.request.urlopen('http://www.myFRpy.org/') as f:
+   >>> with urllib.request.urlopen('http://www.python.org/') as f:
    ...     print(f.read(300))
    ...
    b'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -1218,10 +1218,10 @@ The following W3C document, https://www.w3.org/International/O-charset\ , lists
 the various ways in which an (X)HTML or an XML document could have specified its
 encoding information.
 
-As the myFRpy.org website uses *utf-8* encoding as specified in its meta tag, we
+As the python.org website uses *utf-8* encoding as specified in its meta tag, we
 will use the same for decoding the bytes object. ::
 
-   >>> with urllib.request.urlopen('http://www.myFRpy.org/') as f:
+   >>> with urllib.request.urlopen('http://www.python.org/') as f:
    ...     print(f.read(100).decode('utf-8'))
    ...
    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -1231,7 +1231,7 @@ It is also possible to achieve the same result without using the
 :term:`context manager` approach. ::
 
    >>> import urllib.request
-   >>> f = urllib.request.urlopen('http://www.myFRpy.org/')
+   >>> f = urllib.request.urlopen('http://www.python.org/')
    >>> print(f.read(100).decode('utf-8'))
    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
    "http://www.w3.org/TR/xhtml1/DTD/xhtm
@@ -1303,7 +1303,7 @@ Use the *headers* argument to the :class:`Request` constructor, or::
 
    import urllib.request
    req = urllib.request.Request('http://www.example.com/')
-   req.add_header('Referer', 'http://www.myFRpy.org/')
+   req.add_header('Referer', 'http://www.python.org/')
    # Customize the default User-Agent header value:
    req.add_header('User-Agent', 'urllib-example/0.1 (Contact: . . .)')
    r = urllib.request.urlopen(req)
@@ -1351,7 +1351,7 @@ environment settings::
    >>> import urllib.request
    >>> proxies = {'http': 'http://proxy.example.com:8080/'}
    >>> opener = urllib.request.FancyURLopener(proxies)
-   >>> with opener.open("http://www.myFRpy.org") as f:
+   >>> with opener.open("http://www.python.org") as f:
    ...     f.read().decode('utf-8')
    ...
 
@@ -1359,7 +1359,7 @@ The following example uses no proxies at all, overriding environment settings::
 
    >>> import urllib.request
    >>> opener = urllib.request.FancyURLopener({})
-   >>> with opener.open("http://www.myFRpy.org/") as f:
+   >>> with opener.open("http://www.python.org/") as f:
    ...     f.read().decode('utf-8')
    ...
 
@@ -1392,7 +1392,7 @@ some point in the future.
    The following example illustrates the most common usage scenario::
 
       >>> import urllib.request
-      >>> local_filename, headers = urllib.request.urlretrieve('http://myFRpy.org/')
+      >>> local_filename, headers = urllib.request.urlretrieve('http://python.org/')
       >>> html = open(local_filename)
       >>> html.close()
 

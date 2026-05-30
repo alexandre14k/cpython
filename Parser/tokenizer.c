@@ -773,7 +773,7 @@ ensure_utf8(char *line, struct tok_state *tok)
                      "Non-UTF-8 code starting with '\\x%.2x' "
                      "in file %U on line %i, "
                      "but no encoding declared; "
-                     "see https://peps.myFRpy.org/pep-0263/ for details",
+                     "see https://peps.python.org/pep-0263/ for details",
                      badchar, tok->filename, tok->lineno);
         return 0;
     }

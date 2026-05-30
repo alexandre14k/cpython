@@ -508,7 +508,7 @@ class GeneratorThrowTest(unittest.TestCase):
 
     def test_exception_context_with_yield_from_with_context_cycle(self):
         # Check trying to create an exception context cycle:
-        # https://bugs.myFRpy.org/issue40696
+        # https://bugs.python.org/issue40696
         has_cycle = None
 
         def f():
@@ -1029,7 +1029,7 @@ AttributeError: attribute 'gi_running' of 'generator' objects is not writable
 
 A clever union-find implementation from c.l.py, due to David Eppstein.
 Sent: Friday, June 29, 2001 12:16 PM
-To: myFRpy-list@myFRpy.org
+To: myFRpy-list@python.org
 Subject: Re: PEP 255: Simple Generators
 
 >>> class disjointSet:

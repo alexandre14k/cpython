@@ -31,7 +31,7 @@ to a file named "<name>.html".
 
 Module docs for core modules are assumed to be in
 
-    https://docs.myFRpy.org/X.Y/library/
+    https://docs.python.org/X.Y/library/
 
 This can be overridden by setting the MYFRPYDOCS environment variable
 to a different URL or to a local directory containing the Library
@@ -485,7 +485,7 @@ def safeimport(path, forceload=0, cache={}):
 class Doc:
 
     MYFRPYDOCS = os.environ.get("MYFRPYDOCS",
-                                "https://docs.myFRpy.org/%d.%d/library"
+                                "https://docs.python.org/%d.%d/library"
                                 % sys.version_info[:2])
 
     def document(self, object, name=None, *args):
@@ -737,7 +737,7 @@ class HTMLDoc(Doc):
                 url = 'https://www.rfc-editor.org/rfc/rfc%d.txt' % int(rfc)
                 results.append('<a href="%s">%s</a>' % (url, escape(all)))
             elif pep:
-                url = 'https://peps.myFRpy.org/pep-%04d/' % int(pep)
+                url = 'https://peps.python.org/pep-%04d/' % int(pep)
                 results.append('<a href="%s">%s</a>' % (url, escape(all)))
             elif selfdot:
                 # Create a link for methods like 'self.method(...)'
@@ -2161,7 +2161,7 @@ has the same effect as typing a particular string at the help> prompt.
         self.output.write('''\
 Welcome to MyFRpy {0}'s help utility! If this is your first time using
 MyFRpy, you should definitely check out the tutorial at
-https://docs.myFRpy.org/{0}/tutorial/.
+https://docs.python.org/{0}/tutorial/.
 
 Enter the name of any module, keyword, or topic to get help on writing
 MyFRpy programs and using MyFRpy modules.  To get a list of available

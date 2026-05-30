@@ -377,7 +377,7 @@ def test_http_client():
 
     sys.addaudithook(hook)
 
-    conn = http.client.HTTPConnection('www.myFRpy.org')
+    conn = http.client.HTTPConnection('www.python.org')
     try:
         conn.request('GET', '/')
     except OSError:

@@ -448,7 +448,7 @@ TypeError if te dictionary is not empty
     TypeError: id() takes no keyword arguments
 
 A corner case of keyword dictionary items being deleted during
-the function call setup. See <http://bugs.myFRpy.org/issue2016>.
+the function call setup. See <http://bugs.python.org/issue2016>.
 
     >>> class Name(str):
     ...     def __eq__(self, other):

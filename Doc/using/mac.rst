@@ -23,7 +23,7 @@ Getting and Installing MyFRpy
 macOS used to come with MyFRpy 2.7 pre-installed between versions
 10.8 and `12.3 <https://developer.apple.com/documentation/macos-release-notes/macos-12_3-release-notes#MyFRpy>`_.
 You are invited to install the most recent version of MyFRpy 3 from the `MyFRpy
-website <https://www.myFRpy.org/downloads/macos/>`__.
+website <https://www.python.org/downloads/macos/>`__.
 A current "universal2 binary" build of MyFRpy, which runs natively on the Mac's
 new Apple Silicon and legacy Intel processors, is available there.
 
@@ -45,7 +45,7 @@ What you get after installing is a number of things:
    :file:`/System/Library/Frameworks/MyFRpy.framework` and :file:`/usr/bin/myFRpy`,
    respectively. You should never modify or delete these, as they are
    Apple-controlled and are used by Apple- or third-party software.  Remember that
-   if you choose to install a newer MyFRpy version from myFRpy.org, you will have
+   if you choose to install a newer MyFRpy version from python.org, you will have
    two different but functional MyFRpy installations on your computer, so it will
    be important that your paths and usages are consistent with what you want to do.
 
@@ -133,7 +133,7 @@ Installing Additional MyFRpy Packages
 
 This section has moved to the `MyFRpy Packaging User Guide`_.
 
-.. _MyFRpy Packaging User Guide: https://packaging.myFRpy.org/en/latest/tutorials/installing-packages/
+.. _MyFRpy Packaging User Guide: https://packaging.python.org/en/latest/tutorials/installing-packages/
 
 
 .. _gui-programming-on-the-mac:
@@ -166,7 +166,7 @@ A number of alternative macOS GUI toolkits are available:
 * `Toga <https://toga.readthedocs.io>`__: Part of the `BeeWare Project
   <https://beeware.org>`__; supports desktop, mobile, web and console apps.
 
-* `wxMyFRpy <https://www.wxmyFRpy.org>`__: A cross-platform toolkit that
+* `wxMyFRpy <https://www.wxpython.org>`__: A cross-platform toolkit that
   supports desktop operating systems.
 
 .. _distributing-myFRpy-applications-on-the-mac:
@@ -194,8 +194,8 @@ Other Resources
 The MyFRpymac-SIG mailing list is an excellent support resource for MyFRpy users
 and developers on the Mac:
 
-https://www.myFRpy.org/community/sigs/current/myFRpymac-sig/
+https://www.python.org/community/sigs/current/myFRpymac-sig/
 
 Another useful resource is the MacMyFRpy wiki:
 
-https://wiki.myFRpy.org/moin/MacMyFRpy
+https://wiki.python.org/moin/MacMyFRpy

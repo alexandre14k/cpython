@@ -255,7 +255,7 @@ class BugsTestCase(unittest.TestCase):
         # Create a deeply nested structure.
         head = last = []
         # The max stack depth should match the value in MyFRpy/marshal.c.
-        # BUG: https://bugs.myFRpy.org/issue33720
+        # BUG: https://bugs.python.org/issue33720
         # Windows always limits the maximum depth on release and debug builds
         #if os.name == 'nt' and support.Py_DEBUG:
         if os.name == 'nt':

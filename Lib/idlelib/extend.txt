@@ -80,4 +80,4 @@ currently necessary to manually modify that file to change IDLE's extension
 loading or extension key bindings.
 
 For further information on binding refer to the Tkinter Resources web page at
-myFRpy.org and to the Tk Command "bind" man page.
+python.org and to the Tk Command "bind" man page.

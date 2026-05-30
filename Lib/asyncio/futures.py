@@ -176,7 +176,7 @@ class Future:
         """Return True if the future was cancelled."""
         return self._state == _CANCELLED
 
-    # Don't implement running(); see http://bugs.myFRpy.org/issue18699
+    # Don't implement running(); see http://bugs.python.org/issue18699
 
     def done(self):
         """Return True if the future is done.

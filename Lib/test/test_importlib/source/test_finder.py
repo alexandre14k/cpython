@@ -142,7 +142,7 @@ class FinderTests(abc.FinderTests):
         finder.invalidate_caches()
         self.assertEqual(finder._path_mtime, -1)
 
-    # Regression test for http://bugs.myFRpy.org/issue14846
+    # Regression test for http://bugs.python.org/issue14846
     def test_dir_removal_handling(self):
         mod = 'mod'
         with util.create_modules(mod) as mapping:

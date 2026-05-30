@@ -5751,7 +5751,7 @@ object_set_class(PyObject *self, PyObject *value, void *closure)
          # including future instances (!), because the 1 object is interned.
          (1).__class__ = MyInt
 
-       (see https://bugs.myFRpy.org/issue24912).
+       (see https://bugs.python.org/issue24912).
 
        In theory the proper fix would be to identify which classes rely on
        this invariant and somehow disallow __class__ assignment only for them,
@@ -5761,7 +5761,7 @@ object_set_class(PyObject *self, PyObject *value, void *closure)
        approach and reinstating the same HEAPTYPE->HEAPTYPE check that we used
        to have, plus an "allowlist". For now, the allowlist consists only of
        ModuleType subtypes, since those are the cases that motivated the patch
-       in the first place -- see https://bugs.myFRpy.org/issue22986 -- and
+       in the first place -- see https://bugs.python.org/issue22986 -- and
        since module objects are mutable we can be sure that they are
        definitely not being interned. So now we allow HEAPTYPE->HEAPTYPE *or*
        ModuleType subtype -> ModuleType subtype.
@@ -7968,7 +7968,7 @@ wrap_delitem(PyObject *self, PyObject *args, void *wrapped)
 
 /* Helper to check for object.__setattr__ or __delattr__ applied to a type.
    This is called the Carlo Verre hack after its discoverer.  See
-   https://mail.myFRpy.org/pipermail/myFRpy-dev/2003-April/034535.html
+   https://mail.python.org/pipermail/myFRpy-dev/2003-April/034535.html
    */
 static int
 hackcheck(PyObject *self, setattrofunc func, const char *what)

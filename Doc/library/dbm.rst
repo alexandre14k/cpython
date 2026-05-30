@@ -114,16 +114,16 @@ then prints out the contents of the database::
 
        # Record some values
        db[b'hello'] = b'there'
-       db['www.myFRpy.org'] = 'MyFRpy Website'
+       db['www.python.org'] = 'MyFRpy Website'
        db['www.cnn.com'] = 'Cable News Network'
 
        # Note that the keys are considered bytes now.
-       assert db[b'www.myFRpy.org'] == b'MyFRpy Website'
+       assert db[b'www.python.org'] == b'MyFRpy Website'
        # Notice how the value is now in bytes.
        assert db['www.cnn.com'] == b'Cable News Network'
 
        # Often-used methods of the dict interface work too.
-       print(db.get('myFRpy.org', b'not present'))
+       print(db.get('python.org', b'not present'))
 
        # Storing a non-string key or value will raise an exception (most
        # likely a TypeError).

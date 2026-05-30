@@ -268,11 +268,11 @@ id(foo)''')
         if exprepr:
             if gdb_repr == exprepr:
                 # gdb managed to print the value in spite of the corruption;
-                # this is good (see http://bugs.myFRpy.org/issue8330)
+                # this is good (see http://bugs.python.org/issue8330)
                 return
 
         # Match anything for the type name; 0xDEADBEEF could point to
-        # something arbitrary (see  http://bugs.myFRpy.org/issue8330)
+        # something arbitrary (see  http://bugs.python.org/issue8330)
         pattern = '<.* at remote 0x-?[0-9a-f]+>'
 
         m = re.match(pattern, gdb_repr)
@@ -320,7 +320,7 @@ id(foo)''')
             self.skipTest("need site module, but -S option was used")
 
         # (this was the issue causing tracebacks in
-        #  http://bugs.myFRpy.org/issue8032#msg100537 )
+        #  http://bugs.python.org/issue8032#msg100537 )
         gdb_repr, gdb_output = self.get_gdb_repr('id(__builtins__.help)', import_site=True)
 
         m = re.match(r'<_Helper\(\) at remote 0x-?[0-9a-f]+>', gdb_repr)

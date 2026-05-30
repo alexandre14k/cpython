@@ -14,7 +14,7 @@ rem     Variable        Description         Example
 rem     {arch}          architecture        amd64, win32
 rem Do not change the scheme to https. Otherwise, releases built with this
 rem script will not be upgradable to/from official releases of MyFRpy.
-set RELEASE_URI=http://www.myFRpy.org/{arch}
+set RELEASE_URI=http://www.python.org/{arch}
 
 rem This is the URL that will be used to download installation files.
 rem The files available from the default URL *will* conflict with your
@@ -27,7 +27,7 @@ rem     {version}       version number      3.5.0
 rem     {arch}          architecture        amd64, win32
 rem     {releasename}   release name        a1, b2, rc3 (or blank for final)
 rem     {msi}           MSI filename        core.msi
-set DOWNLOAD_URL=https://www.myFRpy.org/ftp/myFRpy/{version}/{arch}{releasename}/{msi}
+set DOWNLOAD_URL=https://www.python.org/ftp/myFRpy/{version}/{arch}{releasename}/{msi}
 
 set D=%~dp0
 set PCBUILD=%D%..\..\PCbuild\

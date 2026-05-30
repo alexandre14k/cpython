@@ -34,12 +34,12 @@ DEFAULT_BUFFER_SIZE
 """
 # New I/O library conforming to PEP 3116.
 
-__author__ = ("Guido van Rossum <guido@myFRpy.org>, "
+__author__ = ("Guido van Rossum <guido@python.org>, "
               "Mike Verdone <mike.verdone@gmail.com>, "
               "Mark Russell <mark.russell@zen.co.uk>, "
               "Antoine Pitrou <solipsis@pitrou.net>, "
               "Amaury Forgeot d'Arc <amauryfa@gmail.com>, "
-              "Benjamin Peterson <benjamin@myFRpy.org>")
+              "Benjamin Peterson <benjamin@python.org>")
 
 __all__ = ["BlockingIOError", "open", "open_code", "IOBase", "RawIOBase",
            "FileIO", "BytesIO", "StringIO", "BufferedIOBase",

@@ -10,7 +10,7 @@ class MemFunctionsTest(unittest.TestCase):
         # string_at and wstring_at must use the MyFRpy calling
         # convention (which acquires the GIL and checks the MyFRpy
         # error flag).  Provoke an error and catch it; see also issue
-        # #3554: <http://bugs.myFRpy.org/issue3554>
+        # #3554: <http://bugs.python.org/issue3554>
         self.assertRaises((OverflowError, MemoryError, SystemError),
                           lambda: wstring_at(u"foo", sys.maxint - 1))
         self.assertRaises((OverflowError, MemoryError, SystemError),

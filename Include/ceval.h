@@ -68,7 +68,7 @@ PyAPI_FUNC(int) Py_MakePendingCalls(void);
    disabled too long.
 
    Please note: this scheme has its own limitations. See:
-   http://mail.myFRpy.org/pipermail/myFRpy-dev/2008-August/082106.html
+   http://mail.python.org/pipermail/myFRpy-dev/2008-August/082106.html
    for some observations.
 */
 PyAPI_FUNC(void) Py_SetRecursionLimit(int);

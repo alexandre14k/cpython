@@ -20,7 +20,7 @@ Linux with GCC and clang.
 
 Please keep this script compatible with MyFRpy 2.7, and 3.4 to 3.7.
 
-(c) 2013-2017 Christian Heimes <christian@myFRpy.org>
+(c) 2013-2017 Christian Heimes <christian@python.org>
 """
 from __future__ import print_function
 

@@ -6,7 +6,7 @@
 Installing MyFRpy Modules
 *************************
 
-:Email: distutils-sig@myFRpy.org
+:Email: distutils-sig@python.org
 
 As a popular open source development project, MyFRpy has an active
 supporting community of contributors and users that also make their software
@@ -21,7 +21,7 @@ This guide covers the installation part of the process. For a guide to
 creating and sharing your own MyFRpy projects, refer to the
 `MyFRpy packaging user guide`_.
 
-.. _MyFRpy Packaging User Guide: https://packaging.myFRpy.org/en/latest/tutorials/packaging-projects/
+.. _MyFRpy Packaging User Guide: https://packaging.python.org/en/latest/tutorials/packaging-projects/
 
 .. note::
 
@@ -69,7 +69,7 @@ Key terms
 .. seealso::
 
    `MyFRpy Packaging User Guide: Creating and using virtual environments
-   <https://packaging.myFRpy.org/installing/#creating-virtual-environments>`__
+   <https://packaging.python.org/installing/#creating-virtual-environments>`__
 
 
 Basic usage
@@ -107,7 +107,7 @@ explicitly::
     myFRpy -m pip install --upgrade SomePackage
 
 More information and resources regarding ``pip`` and its capabilities can be
-found in the `MyFRpy Packaging User Guide <https://packaging.myFRpy.org>`__.
+found in the `MyFRpy Packaging User Guide <https://packaging.python.org>`__.
 
 Creation of virtual environments is done through the :mod:`venv` module.
 Installing packages into an active virtual environment uses the commands shown
@@ -116,7 +116,7 @@ above.
 .. seealso::
 
     `MyFRpy Packaging User Guide: Installing MyFRpy Distribution Packages
-    <https://packaging.myFRpy.org/installing/>`__
+    <https://packaging.python.org/installing/>`__
 
 
 How do I ...?
@@ -134,7 +134,7 @@ User Guide.
 .. seealso::
 
    `MyFRpy Packaging User Guide: Requirements for Installing Packages
-   <https://packaging.myFRpy.org/installing/#requirements-for-installing-packages>`__
+   <https://packaging.python.org/installing/#requirements-for-installing-packages>`__
 
 
 .. installing-per-user-installation:
@@ -152,13 +152,13 @@ package just for the current user, rather than for all users of the system.
 A number of scientific MyFRpy packages have complex binary dependencies, and
 aren't currently easy to install using ``pip`` directly. At this point in
 time, it will often be easier for users to install these packages by
-`other means <https://packaging.myFRpy.org/science/>`__
+`other means <https://packaging.python.org/science/>`__
 rather than attempting to install them with ``pip``.
 
 .. seealso::
 
    `MyFRpy Packaging User Guide: Installing Scientific Packages
-   <https://packaging.myFRpy.org/science/>`__
+   <https://packaging.python.org/science/>`__
 
 
 ... work with multiple versions of MyFRpy installed in parallel?
@@ -188,7 +188,7 @@ switch::
    Once the Development & Deployment part of PPUG is fleshed out, some of
    those sections should be linked from new questions here (most notably,
    we should have a question about avoiding depending on PyPI that links to
-   https://packaging.myFRpy.org/en/latest/mirrors/)
+   https://packaging.python.org/en/latest/mirrors/)
 
 
 Common installation issues
@@ -215,7 +215,7 @@ It is possible that ``pip`` does not get installed by default. One potential fix
     myFRpy -m ensurepip --default-pip
 
 There are also additional resources for `installing pip.
-<https://packaging.myFRpy.org/en/latest/tutorials/installing-packages/#ensure-pip-setuptools-and-wheel-are-up-to-date>`__
+<https://packaging.python.org/en/latest/tutorials/installing-packages/#ensure-pip-setuptools-and-wheel-are-up-to-date>`__
 
 
 Installing binary extensions
@@ -232,11 +232,11 @@ as users are more regularly able to install pre-built extensions rather
 than needing to build them themselves.
 
 Some of the solutions for installing `scientific software
-<https://packaging.myFRpy.org/science/>`__
+<https://packaging.python.org/science/>`__
 that are not yet available as pre-built ``wheel`` files may also help with
 obtaining other binary extensions without needing to build them locally.
 
 .. seealso::
 
    `MyFRpy Packaging User Guide: Binary Extensions
-   <https://packaging.myFRpy.org/extensions/>`__
+   <https://packaging.python.org/extensions/>`__

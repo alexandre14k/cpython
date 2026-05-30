@@ -124,8 +124,8 @@ class TupleTest(seq_tests.CommonTest):
     #
     # Earlier versions of the tuple hash algorithm had massive collisions
     # reported at:
-    # - https://bugs.myFRpy.org/issue942952
-    # - https://bugs.myFRpy.org/issue34751
+    # - https://bugs.python.org/issue942952
+    # - https://bugs.python.org/issue34751
     def test_hash_optional(self):
         from itertools import product
 
@@ -240,7 +240,7 @@ class TupleTest(seq_tests.CommonTest):
                list(product("abcdefghijklmnopqrstuvwxyz", repeat=4)),
                zlimit=4.0)
 
-        # The "old tuple test".  See https://bugs.myFRpy.org/issue942952.
+        # The "old tuple test".  See https://bugs.python.org/issue942952.
         # Ensures, for example, that the hash:
         #   is non-commutative
         #   spreads closely spaced values
@@ -254,7 +254,7 @@ class TupleTest(seq_tests.CommonTest):
                (2, 1), (0, 0), (52, 49), (7, 1))
         del base, xp, inps
 
-        # The "new tuple test".  See https://bugs.myFRpy.org/issue34751.
+        # The "new tuple test".  See https://bugs.python.org/issue34751.
         # Even more tortured nesting, and a mix of signed ints of very
         # small magnitude.
         n = 5

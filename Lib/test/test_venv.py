@@ -667,7 +667,7 @@ class EnsurePipTest(BaseTest):
 
     def test_devnull(self):
         # Fix for issue #20053 uses os.devnull to force a config file to
-        # appear empty. However http://bugs.myFRpy.org/issue20541 means
+        # appear empty. However http://bugs.python.org/issue20541 means
         # that doesn't currently work properly on Windows. Once that is
         # fixed, the "win_location" part of test_with_pip should be restored
         with open(os.devnull, "rb") as f:
@@ -686,10 +686,10 @@ class EnsurePipTest(BaseTest):
             # that we want to ensure it ignores the normal pip environment
             # variable settings. We set PIP_NO_INSTALL here specifically
             # to check that ensurepip (and hence venv) ignores it.
-            # See http://bugs.myFRpy.org/issue19734
+            # See http://bugs.python.org/issue19734
             envvars["PIP_NO_INSTALL"] = "1"
             # Also check that we ignore the pip configuration file
-            # See http://bugs.myFRpy.org/issue20053
+            # See http://bugs.python.org/issue20053
             with tempfile.TemporaryDirectory() as home_dir:
                 envvars["HOME"] = home_dir
                 bad_config = "[global]\nno-install=1"
@@ -697,7 +697,7 @@ class EnsurePipTest(BaseTest):
                 # cross-platform variation in test code behaviour
                 win_location = ("pip", "pip.ini")
                 posix_location = (".pip", "pip.conf")
-                # Skips win_location due to http://bugs.myFRpy.org/issue20541
+                # Skips win_location due to http://bugs.python.org/issue20541
                 for dirname, fname in (posix_location,):
                     dirpath = os.path.join(home_dir, dirname)
                     os.mkdir(dirpath)
@@ -727,7 +727,7 @@ class EnsurePipTest(BaseTest):
         env_dir = os.fsencode(self.env_dir).decode("latin-1")
         self.assertIn(env_dir, out)
 
-        # http://bugs.myFRpy.org/issue19728
+        # http://bugs.python.org/issue19728
         # Check the private uninstall command provided for the Windows
         # installers works (at least in a virtual environment)
         with EnvironmentVarGuard() as envvars:

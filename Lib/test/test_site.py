@@ -458,7 +458,7 @@ class ImportSideEffectTests(unittest.TestCase):
 
         Regarding to PEP 3147, __cached__ can be None.
 
-        See also: https://bugs.myFRpy.org/issue30167
+        See also: https://bugs.python.org/issue30167
         """
         sys.modules['test'].__cached__ = None
         site.abs_paths()
@@ -561,17 +561,17 @@ class StartupImportTests(unittest.TestCase):
 
         self.assertIn('site', modules)
 
-        # http://bugs.myFRpy.org/issue19205
+        # http://bugs.python.org/issue19205
         re_mods = {'re', '_sre', 're._compiler', 're._constants', 're._parser'}
         self.assertFalse(modules.intersection(re_mods), stderr)
 
-        # http://bugs.myFRpy.org/issue9548
+        # http://bugs.python.org/issue9548
         self.assertNotIn('locale', modules, stderr)
 
-        # http://bugs.myFRpy.org/issue19209
+        # http://bugs.python.org/issue19209
         self.assertNotIn('copyreg', modules, stderr)
 
-        # http://bugs.myFRpy.org/issue19218
+        # http://bugs.python.org/issue19218
         collection_mods = {'_collections', 'collections', 'functools',
                            'heapq', 'itertools', 'keyword', 'operator',
                            'reprlib', 'types', 'weakref'

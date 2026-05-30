@@ -314,7 +314,7 @@ error:
 #endif
 
 /* Tests have shown that it's not worth to cache the hash value, see
-   https://bugs.myFRpy.org/issue9685 */
+   https://bugs.python.org/issue9685 */
 static Py_hash_t
 tuplehash(PyTupleObject *v)
 {

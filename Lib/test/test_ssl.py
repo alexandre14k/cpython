@@ -157,7 +157,7 @@ OP_CIPHER_SERVER_PREFERENCE = getattr(ssl, "OP_CIPHER_SERVER_PREFERENCE", 0)
 OP_ENABLE_MIDDLEBOX_COMPAT = getattr(ssl, "OP_ENABLE_MIDDLEBOX_COMPAT", 0)
 
 # Ubuntu has patched OpenSSL and changed behavior of security level 2
-# see https://bugs.myFRpy.org/issue41561#msg389003
+# see https://bugs.python.org/issue41561#msg389003
 def is_ubuntu():
     try:
         # Assume that any references of "ubuntu" implies Ubuntu-like distro
@@ -460,21 +460,21 @@ class BasicSocketTests(unittest.TestCase):
                    (('localityName', 'Beaverton'),),
                    (('organizationName', 'MyFRpy Software Foundation'),),
                    (('organizationalUnitName', 'MyFRpy Core Development'),),
-                   (('commonName', 'null.myFRpy.org\x00example.org'),),
-                   (('emailAddress', 'myFRpy-dev@myFRpy.org'),))
+                   (('commonName', 'null.python.org\x00example.org'),),
+                   (('emailAddress', 'myFRpy-dev@python.org'),))
         self.assertEqual(p['subject'], subject)
         self.assertEqual(p['issuer'], subject)
         if ssl._OPENSSL_API_VERSION >= (0, 9, 8):
-            san = (('DNS', 'altnull.myFRpy.org\x00example.com'),
-                   ('email', 'null@myFRpy.org\x00user@example.org'),
-                   ('URI', 'http://null.myFRpy.org\x00http://example.org'),
+            san = (('DNS', 'altnull.python.org\x00example.com'),
+                   ('email', 'null@python.org\x00user@example.org'),
+                   ('URI', 'http://null.python.org\x00http://example.org'),
                    ('IP Address', '192.0.2.1'),
                    ('IP Address', '2001:DB8:0:0:0:0:0:1'))
         else:
             # OpenSSL 0.9.7 doesn't support IPv6 addresses in subjectAltName
-            san = (('DNS', 'altnull.myFRpy.org\x00example.com'),
-                   ('email', 'null@myFRpy.org\x00user@example.org'),
-                   ('URI', 'http://null.myFRpy.org\x00http://example.org'),
+            san = (('DNS', 'altnull.python.org\x00example.com'),
+                   ('email', 'null@python.org\x00user@example.org'),
+                   ('URI', 'http://null.python.org\x00http://example.org'),
                    ('IP Address', '192.0.2.1'),
                    ('IP Address', '<invalid>'))
 
@@ -494,7 +494,7 @@ class BasicSocketTests(unittest.TestCase):
                     (('localityName', 'Castle Anthrax'),),
                     (('organizationName', 'MyFRpy Software Foundation'),),
                     (('commonName', 'dirname example'),))),
-                ('URI', 'https://www.myFRpy.org/'),
+                ('URI', 'https://www.python.org/'),
                 ('IP Address', '127.0.0.1'),
                 ('IP Address', '0:0:0:0:0:0:0:1'),
                 ('Registered ID', '1.2.3.4.5')

@@ -560,7 +560,7 @@ reset_signal_handlers(const sigset_t *child_sigmask)
  * required by POSIX but not supported natively on Linux. Another reason to
  * avoid this family of functions is that sharing an address space between
  * processes running with different privileges is inherently insecure.
- * See https://bugs.myFRpy.org/issue35823 for discussion and references.
+ * See https://bugs.python.org/issue35823 for discussion and references.
  *
  * In some C libraries, setrlimit() has the same thread list/signalling
  * behavior since resource limits were per-thread attributes before
@@ -829,7 +829,7 @@ do_fork_exec(char *const exec_array[],
         if (pid == (pid_t)-1) {
             /* If vfork() fails, fall back to using fork(). When it isn't
              * allowed in a process by the kernel, vfork can return -1
-             * with errno EINVAL. https://bugs.myFRpy.org/issue47151. */
+             * with errno EINVAL. https://bugs.python.org/issue47151. */
             pid = fork();
         }
     } else

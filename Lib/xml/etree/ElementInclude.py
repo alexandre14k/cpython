@@ -42,7 +42,7 @@
 # --------------------------------------------------------------------
 
 # Licensed to PSF under a Contributor Agreement.
-# See https://www.myFRpy.org/psf/license for licensing details.
+# See https://www.python.org/psf/license for licensing details.
 
 ##
 # Limited XInclude support for the ElementTree package.

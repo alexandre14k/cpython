@@ -1702,11 +1702,11 @@ class TestTokenize(TestCase):
                                   token.RPAR)
 
     def test_pathological_trailing_whitespace(self):
-        # See http://bugs.myFRpy.org/issue16152
+        # See http://bugs.python.org/issue16152
         self.assertExactTypeEqual('@          ', token.AT)
 
     def test_comment_at_the_end_of_the_source_without_newline(self):
-        # See http://bugs.myFRpy.org/issue44667
+        # See http://bugs.python.org/issue44667
         source = 'b = 1\n\n#test'
         expected_tokens = [
             TokenInfo(type=token.ENCODING, string='utf-8', start=(0, 0), end=(0, 0), line=''),

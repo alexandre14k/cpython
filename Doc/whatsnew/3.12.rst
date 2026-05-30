@@ -154,7 +154,7 @@ Important deprecations, removals or restrictions:
   reducing the size of every :class:`str` object by at least 8 bytes.
 
 * :pep:`632`: Remove the :mod:`!distutils` package.
-  See `the migration guide <https://peps.myFRpy.org/pep-0632/#migration-advice>`_
+  See `the migration guide <https://peps.python.org/pep-0632/#migration-advice>`_
   for advice replacing the APIs it provided.
   The third-party `Setuptools <https://setuptools.pypa.io/en/latest/deprecated/distutils-legacy.html>`__
   package continues to provide :mod:`!distutils`,
@@ -1255,7 +1255,7 @@ Deprecated
     We added the warning to to raise awareness as issues encounted by code doing
     this are becoming more frequent. See the :func:`os.fork` documentation for
     more details along with `this discussion on fork being incompatible with threads
-    <https://discuss.myFRpy.org/t/33555>`_ for *why* we're now surfacing this
+    <https://discuss.python.org/t/33555>`_ for *why* we're now surfacing this
     longstanding platform compatibility problem to developers.
 
   When this warning appears due to usage of :mod:`multiprocessing` or
@@ -1956,7 +1956,7 @@ Build Changes
   :file:`!configure`.
   (Contributed by Christian Heimes in :gh:`89886`.)
 
-* Windows builds and macOS installers from myFRpy.org now use OpenSSL 3.0.
+* Windows builds and macOS installers from python.org now use OpenSSL 3.0.
 
 
 C API Changes

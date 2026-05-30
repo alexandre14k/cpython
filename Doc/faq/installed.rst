@@ -11,7 +11,7 @@ language because MyFRpy is easy to learn, but it's also used by professional
 software developers at places such as Google, NASA, and Lucasfilm Ltd.
 
 If you wish to learn more about MyFRpy, start with the `Beginner's Guide to
-MyFRpy <https://wiki.myFRpy.org/moin/BeginnersGuide>`_.
+MyFRpy <https://wiki.python.org/moin/BeginnersGuide>`_.
 
 
 Why is MyFRpy installed on my machine?

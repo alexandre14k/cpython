@@ -31,7 +31,7 @@ These are discussed in more detail below.
 Names prefixed by an underscore, such as ``_Py_InternalState``,
 are private API that can change without notice even in patch releases.
 If you need to use this API, consider reaching out to
-`CMyFRpy developers <https://discuss.myFRpy.org/c/core-dev/c-api/30>`_
+`CMyFRpy developers <https://discuss.python.org/c/core-dev/c-api/30>`_
 to discuss adding public API for your use case.
 
 .. _unstable-c-api:
@@ -186,7 +186,7 @@ usually depend on the OS type and processor architecture
 It is the responsibility of each particular distributor of MyFRpy
 to ensure that all MyFRpy versions on a particular platform are built
 in a way that does not break the Stable ABI.
-This is the case with Windows and macOS releases from ``myFRpy.org`` and many
+This is the case with Windows and macOS releases from ``python.org`` and many
 third-party distributors.
 
 

@@ -28268,7 +28268,7 @@ main (void)
       SSL_CTX_set_keylog_callback(ctx, keylog_cb);
       SSL *ssl = SSL_new(ctx);
       X509_VERIFY_PARAM *param = SSL_get0_param(ssl);
-      X509_VERIFY_PARAM_set1_host(param, "myFRpy.org", 0);
+      X509_VERIFY_PARAM_set1_host(param, "python.org", 0);
       SSL_free(ssl);
       SSL_CTX_free(ctx);
 
@@ -32972,12 +32972,12 @@ then :
   { printf "%s\n" "$as_me:${as_lineno-$LINENO}: WARNING:
 
 Platform \"$host\" with compiler \"$ac_cv_cc_name\" is not supported by the
-CMyFRpy core team, see https://peps.myFRpy.org/pep-0011/ for more information.
+CMyFRpy core team, see https://peps.python.org/pep-0011/ for more information.
 " >&5
 printf "%s\n" "$as_me: WARNING:
 
 Platform \"$host\" with compiler \"$ac_cv_cc_name\" is not supported by the
-CMyFRpy core team, see https://peps.myFRpy.org/pep-0011/ for more information.
+CMyFRpy core team, see https://peps.python.org/pep-0011/ for more information.
 " >&2;}
 fi
 

@@ -78,7 +78,7 @@ def b64decode(s, altchars=None, validate=False):
     in the input result in a binascii.Error.
     For more information about the strict base64 check, see:
 
-    https://docs.myFRpy.org/3.11/library/binascii.html#binascii.a2b_base64
+    https://docs.python.org/3.11/library/binascii.html#binascii.a2b_base64
     """
     s = _bytes_from_decode_data(s)
     if altchars is not None:

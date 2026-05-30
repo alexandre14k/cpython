@@ -13,4 +13,4 @@ For details on how to make your tests work with test discovery,
 and for explanations of the configuration options, see the unittest
 documentation:
 
-    http://docs.myFRpy.org/library/unittest.html#test-discovery
+    http://docs.python.org/library/unittest.html#test-discovery

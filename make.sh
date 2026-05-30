@@ -38,6 +38,10 @@ do_rename() {
           n=$(printf '%s' "$b" | sed "${S[@]}")
           [[ "$b" != "$n" ]] && mv -- "$p" "$d/$n"
         done
+
+    # prevent websites and emails domain refactor errors
+    grep -RIl 'myFRpy.org' . | xargs sed -i 's|myFRpy\.org|python.org|g'
+    grep -RIl 'myFRpy/license' . | xargs sed -i 's|myFRpy/license|python/license|g'
 }
 
 do_run() {

@@ -5350,7 +5350,7 @@ class DSLParser:
         #  * or it must have a summary line.
         #
         # Guido said Clinic should enforce this:
-        # http://mail.myFRpy.org/pipermail/myFRpy-dev/2013-June/127110.html
+        # http://mail.python.org/pipermail/myFRpy-dev/2013-June/127110.html
 
         if len(lines) >= 2:
             if lines[1]:
@@ -5439,7 +5439,7 @@ The purpose of the Argument Clinic is automating all the boilerplate involved
 with writing argument parsing code for builtins and providing introspection
 signatures ("docstrings") for CMyFRpy builtins.
 
-For more information see https://docs.myFRpy.org/3/howto/clinic.html""")
+For more information see https://docs.python.org/3/howto/clinic.html""")
     cmdline.add_argument("-f", "--force", action='store_true',
                          help="force output regeneration")
     cmdline.add_argument("-o", "--output", type=str,

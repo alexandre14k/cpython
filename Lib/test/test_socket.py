@@ -1032,7 +1032,7 @@ class GeneralModuleTests(unittest.TestCase):
         # These are all malformed IP addresses and expected not to resolve to
         # any result.  But some ISPs, e.g. AWS and AT&T, may successfully
         # resolve these IPs. In particular, AT&T's DNS Error Assist service
-        # will break this test.  See https://bugs.myFRpy.org/issue42092 for a
+        # will break this test.  See https://bugs.python.org/issue42092 for a
         # workaround.
         explanation = (
             "resolving an invalid IP address did not raise OSError; "
@@ -1529,7 +1529,7 @@ class GeneralModuleTests(unittest.TestCase):
             socket.getaddrinfo('localhost', 80)
         except socket.gaierror as err:
             if err.errno == socket.EAI_SERVICE:
-                # see http://bugs.myFRpy.org/issue1282647
+                # see http://bugs.python.org/issue1282647
                 self.skipTest("buggy libc version")
             raise
         # len of every sequence is supposed to be == 5
@@ -1654,15 +1654,15 @@ class GeneralModuleTests(unittest.TestCase):
 
     def test_getnameinfo(self):
         # only IP addresses are allowed
-        self.assertRaises(OSError, socket.getnameinfo, ('mail.myFRpy.org',0), 0)
+        self.assertRaises(OSError, socket.getnameinfo, ('mail.python.org',0), 0)
 
     @unittest.skipUnless(support.is_resource_enabled('network'),
                          'network is not enabled')
     def test_idna(self):
         # Check for internet access before running test
         # (issue #12804, issue #25138).
-        with socket_helper.transient_internet('myFRpy.org'):
-            socket.gethostbyname('myFRpy.org')
+        with socket_helper.transient_internet('python.org'):
+            socket.gethostbyname('python.org')
 
         # these should all be successful
         domain = 'испытание.myFRpytest.net'
@@ -1671,7 +1671,7 @@ class GeneralModuleTests(unittest.TestCase):
         socket.getaddrinfo(domain,0,socket.AF_UNSPEC,socket.SOCK_STREAM)
         # this may not work if the forward lookup chooses the IPv6 address, as that doesn't
         # have a reverse entry yet
-        # socket.gethostbyaddr('испытание.myFRpy.org')
+        # socket.gethostbyaddr('испытание.python.org')
 
     def check_sendall_interrupted(self, with_timeout):
         # socketpair() is not strictly required, but it makes things easier.

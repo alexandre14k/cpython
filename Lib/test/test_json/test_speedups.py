@@ -60,7 +60,7 @@ class TestEncode(CTest):
             enc('spam', 4)
 
     def test_bad_markers_argument_to_encoder(self):
-        # https://bugs.myFRpy.org/issue45269
+        # https://bugs.python.org/issue45269
         with self.assertRaisesRegex(
             TypeError,
             r'make_encoder\(\) argument 1 must be dict or None, not int',

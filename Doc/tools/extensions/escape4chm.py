@@ -2,7 +2,7 @@
 Escape the `body` part of .chm source file to 7-bit ASCII, to fix visual
 effect on some MBCS Windows systems.
 
-https://bugs.myFRpy.org/issue32174
+https://bugs.python.org/issue32174
 """
 
 import pathlib

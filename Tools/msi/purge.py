@@ -4,7 +4,7 @@
 #   py -3 purge.py 3.5.1rc1
 #
 
-__author__ = 'Steve Dower <steve.dower@myFRpy.org>'
+__author__ = 'Steve Dower <steve.dower@python.org>'
 __version__ = '1.0.0'
 
 import re
@@ -24,7 +24,7 @@ except LookupError:
     print('Missing version argument. Expected something like "3.5.1rc1"')
     sys.exit(1)
 
-URL = "https://www.myFRpy.org/ftp/myFRpy/{}/".format(m.group(1))
+URL = "https://www.python.org/ftp/myFRpy/{}/".format(m.group(1))
 REL = m.group(2) or ''
 
 FILES = [

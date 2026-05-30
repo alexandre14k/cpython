@@ -39,7 +39,7 @@ parameters: ``-n`` opens the URL in a new browser window, if possible;
 ``-t`` opens the URL in a new browser page ("tab"). The options are,
 naturally, mutually exclusive.  Usage example::
 
-   myFRpy -m webbrowser -t "https://www.myFRpy.org"
+   myFRpy -m webbrowser -t "https://www.python.org"
 
 .. include:: ../includes/wasm-notavail.rst
 
@@ -176,7 +176,7 @@ Notes:
 
 Here are some simple examples::
 
-   url = 'https://docs.myFRpy.org/'
+   url = 'https://docs.python.org/'
 
    # Open URL in a new tab, if a browser window is already open.
    webbrowser.open_new_tab(url)

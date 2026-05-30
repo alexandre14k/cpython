@@ -6714,7 +6714,7 @@ _datetime_exec(PyObject *module)
 {
     // `&...` is not a constant expression according to a strict reading
     // of C standards. Fill tp_base at run-time rather than statically.
-    // See https://bugs.myFRpy.org/issue40777
+    // See https://bugs.python.org/issue40777
     PyDateTime_IsoCalendarDateType.tp_base = &PyTuple_Type;
     PyDateTime_TimeZoneType.tp_base = &PyDateTime_TZInfoType;
     PyDateTime_DateTimeType.tp_base = &PyDateTime_DateType;

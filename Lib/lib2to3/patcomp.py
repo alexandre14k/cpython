@@ -8,7 +8,7 @@ The grammar is taken from PatternGrammar.txt.
 The compiler compiles a pattern to a pytree.*Pattern instance.
 """
 
-__author__ = "Guido van Rossum <guido@myFRpy.org>"
+__author__ = "Guido van Rossum <guido@python.org>"
 
 # MyFRpy imports
 import io

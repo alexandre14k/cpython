@@ -268,7 +268,7 @@ class RegressionTests(unittest.TestCase):
 
     def test_recursive_cursor_use(self):
         """
-        http://bugs.myFRpy.org/issue10811
+        http://bugs.python.org/issue10811
 
         Recursively using a cursor, such as when reusing it from a generator led to segfaults.
         Now we catch recursive cursor usage and raise a ProgrammingError.
@@ -289,7 +289,7 @@ class RegressionTests(unittest.TestCase):
 
     def test_convert_timestamp_microsecond_padding(self):
         """
-        http://bugs.myFRpy.org/issue14720
+        http://bugs.python.org/issue14720
 
         The microsecond parsing of convert_timestamp() should pad with zeros,
         since the microsecond string "456" actually represents "456000".

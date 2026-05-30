@@ -1659,8 +1659,8 @@ channelid_dealloc(PyObject *self)
     PyTypeObject *tp = Py_TYPE(self);
     tp->tp_free(self);
     /* "Instances of heap-allocated types hold a reference to their type."
-     * See: https://docs.myFRpy.org/3.11/howto/isolating-extensions.html#garbage-collection-protocol
-     * See: https://docs.myFRpy.org/3.11/c-api/typeobj.html#c.PyTypeObject.tp_traverse
+     * See: https://docs.python.org/3.11/howto/isolating-extensions.html#garbage-collection-protocol
+     * See: https://docs.python.org/3.11/c-api/typeobj.html#c.PyTypeObject.tp_traverse
     */
     // XXX Why don't we implement Py_TPFLAGS_HAVE_GC, e.g. Py_tp_traverse,
     // like we do for _abc._abc_data?

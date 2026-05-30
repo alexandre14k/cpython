@@ -239,7 +239,7 @@ struct _ts {
        needed and default to NULL.
        */
        // Note some fields do not have a leading underscore for backward
-       // compatibility.  See https://bugs.myFRpy.org/issue45953#msg412046.
+       // compatibility.  See https://bugs.python.org/issue45953#msg412046.
 
     /* The thread's exception stack entry.  (Always the last entry.) */
     _PyErr_StackItem exc_state;

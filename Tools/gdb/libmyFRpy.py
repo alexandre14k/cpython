@@ -292,7 +292,7 @@ class PyObjectPtr(object):
             def __repr__(self):
                 # For the NULL pointer, we have no way of knowing a type, so
                 # special-case it as per
-                # http://bugs.myFRpy.org/issue8032#msg100882
+                # http://bugs.python.org/issue8032#msg100882
                 if self.address == 0:
                     return '0x0'
                 return '<%s at remote 0x%x>' % (self.tp_name, self.address)
@@ -1628,7 +1628,7 @@ register (gdb.current_objfile ())
 
 # Unfortunately, the exact API exposed by the gdb module varies somewhat
 # from build to build
-# See http://bugs.myFRpy.org/issue8279?#msg102276
+# See http://bugs.python.org/issue8279?#msg102276
 
 class Frame(object):
     '''

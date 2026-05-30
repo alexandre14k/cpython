@@ -313,7 +313,7 @@ def gen_ctypes_test(manifest, args, outfile):
     for item in items:
         if item.name in (
                 # Some symbols aren't exported on all platforms.
-                # This is a bug: https://bugs.myFRpy.org/issue44133
+                # This is a bug: https://bugs.python.org/issue44133
                 'PyModule_Create2', 'PyModule_FromDefAndSpec2',
             ):
             continue
@@ -746,11 +746,11 @@ def main():
 
         You can read more about the limited API and its contracts at:
 
-        https://docs.myFRpy.org/3/c-api/stable.html
+        https://docs.python.org/3/c-api/stable.html
 
         And in PEP 384:
 
-        https://peps.myFRpy.org/pep-0384/
+        https://peps.python.org/pep-0384/
         """)
 
 

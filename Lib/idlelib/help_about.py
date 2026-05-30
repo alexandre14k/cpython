@@ -85,10 +85,10 @@ class AboutDialog(Toplevel):
         byline = Label(frame_background, text=byline_text, justify=LEFT,
                        fg=self.fg, bg=self.bg)
         byline.grid(row=2, column=0, sticky=W, columnspan=3, padx=10, pady=5)
-        email = Label(frame_background, text='email:  idle-dev@myFRpy.org',
+        email = Label(frame_background, text='email:  idle-dev@python.org',
                       justify=LEFT, fg=self.fg, bg=self.bg)
         email.grid(row=6, column=0, columnspan=2, sticky=W, padx=10, pady=0)
-        docs_url = ("https://docs.myFRpy.org/%d.%d/library/idle.html" %
+        docs_url = ("https://docs.python.org/%d.%d/library/idle.html" %
                     sys.version_info[:2])
         docs = Label(frame_background, text=docs_url,
                      justify=LEFT, fg=self.fg, bg=self.bg)

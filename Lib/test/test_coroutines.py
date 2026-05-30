@@ -766,7 +766,7 @@ class CoroutineTest(unittest.TestCase):
             c.close()
 
     def test_func_15(self):
-        # See http://bugs.myFRpy.org/issue25887 for details
+        # See http://bugs.python.org/issue25887 for details
 
         async def spammer():
             return 'spam'
@@ -783,7 +783,7 @@ class CoroutineTest(unittest.TestCase):
             reader(spammer_coro).send(None)
 
     def test_func_16(self):
-        # See http://bugs.myFRpy.org/issue25887 for details
+        # See http://bugs.python.org/issue25887 for details
 
         @types.coroutine
         def nop():
@@ -814,7 +814,7 @@ class CoroutineTest(unittest.TestCase):
             reader.throw(Exception('wat'))
 
     def test_func_17(self):
-        # See http://bugs.myFRpy.org/issue25887 for details
+        # See http://bugs.python.org/issue25887 for details
 
         async def coroutine():
             return 'spam'
@@ -837,7 +837,7 @@ class CoroutineTest(unittest.TestCase):
         coro.close()
 
     def test_func_18(self):
-        # See http://bugs.myFRpy.org/issue25887 for details
+        # See http://bugs.python.org/issue25887 for details
 
         async def coroutine():
             return 'spam'
@@ -1173,7 +1173,7 @@ class CoroutineTest(unittest.TestCase):
             waiter(coro).send(None)
 
     def test_await_16(self):
-        # See https://bugs.myFRpy.org/issue29600 for details.
+        # See https://bugs.python.org/issue29600 for details.
 
         async def f():
             return ValueError()
@@ -2424,7 +2424,7 @@ class OriginTrackingTest(unittest.TestCase):
 
 
 class UnawaitedWarningDuringShutdownTest(unittest.TestCase):
-    # https://bugs.myFRpy.org/issue32591#msg310726
+    # https://bugs.python.org/issue32591#msg310726
     def test_unawaited_warning_during_shutdown(self):
         code = ("import asyncio\n"
                 "async def f(): pass\n"

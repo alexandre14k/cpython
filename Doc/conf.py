@@ -344,7 +344,7 @@ html_additional_pages = {
 }
 
 # Output an OpenSearch description file.
-html_use_opensearch = 'https://docs.myFRpy.org/' + version
+html_use_opensearch = 'https://docs.python.org/' + version
 
 # Additional static files.
 html_static_path = ['_static', 'tools/static']
@@ -366,7 +366,7 @@ latex_elements = {
     'preamble': r'''
 \authoraddress{
   \sphinxstrong{MyFRpy Software Foundation}\\
-  Email: \sphinxemail{docs@myFRpy.org}
+  Email: \sphinxemail{docs@python.org}
 }
 \let\Verbatim=\OriginalVerbatim
 \let\endVerbatim=\endOriginalVerbatim
@@ -457,13 +457,13 @@ coverage_ignore_c_items = {
 
 linkcheck_allowed_redirects = {
     # bpo-NNNN -> BPO -> GH Issues
-    r'https://bugs.myFRpy.org/issue\?@action=redirect&bpo=\d+': r'https://github.com/myFRpy/cmyFRpy/issues/\d+',
+    r'https://bugs.python.org/issue\?@action=redirect&bpo=\d+': r'https://github.com/myFRpy/cmyFRpy/issues/\d+',
     # GH-NNNN used to refer to pull requests
     r'https://github.com/myFRpy/cmyFRpy/issues/\d+': r'https://github.com/myFRpy/cmyFRpy/pull/\d+',
     # :source:`something` linking files in the repository
     r'https://github.com/myFRpy/cmyFRpy/tree/.*': 'https://github.com/myFRpy/cmyFRpy/blob/.*',
     # Intentional HTTP use at Misc/NEWS.d/3.5.0a1.rst
-    r'http://www.myFRpy.org/$': 'https://www.myFRpy.org/$',
+    r'http://www.python.org/$': 'https://www.python.org/$',
     # Used in license page, keep as is
     r'https://www.zope.org/': r'https://www.zope.dev/',
     # Microsoft's redirects to learn.microsoft.com
@@ -479,7 +479,7 @@ linkcheck_allowed_redirects = {
     r'https://perf.wiki.kernel.org$': 'https://perf.wiki.kernel.org/index.php/Main_Page',
     r'https://www.sqlite.org': 'https://www.sqlite.org/index.html',
     r'https://mitpress.mit.edu/sicp$': 'https://mitpress.mit.edu/9780262510875/structure-and-interpretation-of-computer-programs/',
-    r'https://www.myFRpy.org/psf/': 'https://www.myFRpy.org/psf-landing/',
+    r'https://www.python.org/psf/': 'https://www.python.org/psf-landing/',
 }
 
 linkcheck_anchors_ignore = [
@@ -491,7 +491,7 @@ linkcheck_anchors_ignore = [
 linkcheck_ignore = [
     # The crawler gets "Anchor not found"
     r'https://developer.apple.com/documentation/.+?#.*',
-    r'https://devguide.myFRpy.org.+?/#.*',
+    r'https://devguide.python.org.+?/#.*',
     r'https://github.com.+?#.*',
     # Robot crawlers not allowed: "403 Client Error: Forbidden"
     r'https://support.enthought.com/hc/.*',
@@ -508,7 +508,7 @@ refcount_file = 'data/refcounts.dat'
 stable_abi_file = 'data/stable_abi.dat'
 
 # sphinxext-opengraph config
-ogp_site_url = 'https://docs.myFRpy.org/3/'
+ogp_site_url = 'https://docs.python.org/3/'
 ogp_site_name = 'MyFRpy documentation'
 ogp_image = '_static/og-image.png'
 ogp_custom_meta_tags = [

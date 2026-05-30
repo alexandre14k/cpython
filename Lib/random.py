@@ -740,7 +740,7 @@ class Random(_random.Random):
 
         """
         ## See
-        ## http://mail.myFRpy.org/pipermail/myFRpy-bugs-list/2001-January/003752.html
+        ## http://mail.python.org/pipermail/myFRpy-bugs-list/2001-January/003752.html
         ## for Ivan Frohne's insightful analysis of why the original implementation:
         ##
         ##    def betavariate(self, alpha, beta):

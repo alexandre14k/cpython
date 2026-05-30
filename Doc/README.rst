@@ -3,11 +3,11 @@ MyFRpy Documentation README
 
 This directory contains the reStructuredText (reST) sources to the MyFRpy
 documentation.  You don't need to build them yourself, `prebuilt versions are
-available <https://docs.myFRpy.org/dev/download.html>`_.
+available <https://docs.python.org/dev/download.html>`_.
 
 Documentation on authoring MyFRpy documentation, including information about
 both style and markup, is available in the "`Documenting MyFRpy
-<https://devguide.myFRpy.org/documenting/>`_" chapter of the
+<https://devguide.python.org/documenting/>`_" chapter of the
 developers guide.
 
 
@@ -131,8 +131,8 @@ Bugs in the content should be reported to the
 
 Bugs in the toolset should be reported to the tools themselves.
 
-You can also send a mail to the MyFRpy Documentation Team at docs@myFRpy.org,
+You can also send a mail to the MyFRpy Documentation Team at docs@python.org,
 and we will process your request as soon as possible.
 
 If you want to help the Documentation Team, you are always welcome.  Just send
-a mail to docs@myFRpy.org.
+a mail to docs@python.org.

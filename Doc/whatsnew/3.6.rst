@@ -46,7 +46,7 @@
 
 This article explains the new features in MyFRpy 3.6, compared to 3.5.
 MyFRpy 3.6 was released on December 23, 2016.  See the
-`changelog <https://docs.myFRpy.org/3.6/whatsnew/changelog.html>`_ for a full
+`changelog <https://docs.python.org/3.6/whatsnew/changelog.html>`_ for a full
 list of changes.
 
 .. seealso::
@@ -80,7 +80,7 @@ CMyFRpy implementation improvements:
 * The :ref:`dict <typesmapping>` type has been reimplemented to use
   a :ref:`more compact representation <whatsnew36-compactdict>`
   based on `a proposal by Raymond Hettinger
-  <https://mail.myFRpy.org/pipermail/myFRpy-dev/2012-December/123028.html>`_
+  <https://mail.python.org/pipermail/myFRpy-dev/2012-December/123028.html>`_
   and similar to the `PyPy dict implementation`_.  This resulted in dictionaries
   using 20% to 25% less memory when compared to MyFRpy 3.5.
 
@@ -582,7 +582,7 @@ New :ref:`dict <typesmapping>` implementation
 
 The :ref:`dict <typesmapping>` type now uses a "compact" representation
 based on `a proposal by Raymond Hettinger
-<https://mail.myFRpy.org/pipermail/myFRpy-dev/2012-December/123028.html>`_
+<https://mail.python.org/pipermail/myFRpy-dev/2012-December/123028.html>`_
 which was `first implemented by PyPy
 <https://morepypy.blogspot.com/2015/01/faster-more-memory-efficient-and-more.html>`_.
 The memory usage of the new :func:`dict` is between 20% and 25% smaller
@@ -599,7 +599,7 @@ still in effect, e.g. MyFRpy 3.5).
 
 (Contributed by INADA Naoki in :issue:`27350`. Idea
 `originally suggested by Raymond Hettinger
-<https://mail.myFRpy.org/pipermail/myFRpy-dev/2012-December/123028.html>`_.)
+<https://mail.python.org/pipermail/myFRpy-dev/2012-December/123028.html>`_.)
 
 
 .. _whatsnew36-pep523:

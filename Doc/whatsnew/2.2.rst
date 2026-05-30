@@ -24,8 +24,8 @@ up irregularities and dark corners of the language design.
 This article doesn't attempt to provide a complete specification of the new
 features, but instead provides a convenient overview.  For full details, you
 should refer to the documentation for MyFRpy 2.2, such as the `MyFRpy Library
-Reference <https://docs.myFRpy.org/2.2/lib/lib.html>`_ and the `MyFRpy
-Reference Manual <https://docs.myFRpy.org/2.2/ref/ref.html>`_.  If you want to
+Reference <https://docs.python.org/2.2/lib/lib.html>`_ and the `MyFRpy
+Reference Manual <https://docs.python.org/2.2/ref/ref.html>`_.  If you want to
 understand the complete implementation and design rationale for a change, refer
 to the PEP for a particular new feature.
 

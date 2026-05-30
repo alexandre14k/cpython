@@ -2959,7 +2959,7 @@ class TestDateTime(TestDate):
 
         test_cases = [
             ('fromtimestamp', (ts,), base_d),
-            # See https://bugs.myFRpy.org/issue32417
+            # See https://bugs.python.org/issue32417
             ('fromtimestamp', (ts, timezone.utc),
                                base_d.astimezone(timezone.utc)),
             ('utcfromtimestamp', (utc_ts,), base_d),

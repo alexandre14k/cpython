@@ -1483,7 +1483,7 @@ class CGIHandlerTestCase(unittest.TestCase):
         # Also test the content-length returned  by handle_request
         # Using the same test method inorder to avoid all the datapassing
         # boilerplate code.
-        # Test for bug: http://bugs.myFRpy.org/issue5040
+        # Test for bug: http://bugs.python.org/issue5040
 
         content = handle[handle.find("<?xml"):]
 

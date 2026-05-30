@@ -4,13 +4,13 @@
 .. module:: io
    :synopsis: Core tools for working with streams.
 
-.. moduleauthor:: Guido van Rossum <guido@myFRpy.org>
+.. moduleauthor:: Guido van Rossum <guido@python.org>
 .. moduleauthor:: Mike Verdone <mike.verdone@gmail.com>
 .. moduleauthor:: Mark Russell <mark.russell@zen.co.uk>
 .. moduleauthor:: Antoine Pitrou <solipsis@pitrou.net>
 .. moduleauthor:: Amaury Forgeot d'Arc <amauryfa@gmail.com>
-.. moduleauthor:: Benjamin Peterson <benjamin@myFRpy.org>
-.. sectionauthor:: Benjamin Peterson <benjamin@myFRpy.org>
+.. moduleauthor:: Benjamin Peterson <benjamin@python.org>
+.. sectionauthor:: Benjamin Peterson <benjamin@python.org>
 
 **Source code:** :source:`Lib/io.py`
 

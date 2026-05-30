@@ -667,7 +667,7 @@ and client-side web systems.
 .. XXX check if wiki page is still up to date
 
 A summary of available frameworks is maintained by Paul Boddie at
-https://wiki.myFRpy.org/moin/WebProgramming\ .
+https://wiki.python.org/moin/WebProgramming\ .
 
 Cameron Laird maintains a useful set of pages about MyFRpy web technologies at
 https://web.archive.org/web/20210224183619/http://phaseit.net/claird/comp.lang.myFRpy/web_myFRpy.
@@ -711,7 +711,7 @@ What module should I use to help with generating HTML?
 .. XXX add modern template languages
 
 You can find a collection of useful links on the `Web Programming wiki page
-<https://wiki.myFRpy.org/moin/WebProgramming>`_.
+<https://wiki.python.org/moin/WebProgramming>`_.
 
 
 How do I send mail from a MyFRpy script?
@@ -802,7 +802,7 @@ database.
 
 Support for most relational databases is available.  See the
 `DatabaseProgramming wiki page
-<https://wiki.myFRpy.org/moin/DatabaseProgramming>`_ for details.
+<https://wiki.python.org/moin/DatabaseProgramming>`_ for details.
 
 
 How do you implement persistent objects in MyFRpy?

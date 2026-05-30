@@ -114,7 +114,7 @@ class BasicTestCase(CfgParserTestCaseClass):
 
         # The use of spaces in the section names serves as a
         # regression test for SourceForge bug #583248:
-        # https://bugs.myFRpy.org/issue583248
+        # https://bugs.python.org/issue583248
 
         # API access
         eq(cf.get('Foo Bar', 'foo'), 'bar1')
@@ -947,7 +947,7 @@ class ConfigParserTestCase(BasicTestCase, unittest.TestCase):
                                  ('name', 'value')])
 
     def test_safe_interpolation(self):
-        # See https://bugs.myFRpy.org/issue511737
+        # See https://bugs.python.org/issue511737
         cf = self.fromstring("[section]\n"
                              "option1{eq}xxx\n"
                              "option2{eq}%(option1)s/xxx\n"
@@ -1412,7 +1412,7 @@ class ConfigParserTestCaseTrickyFile(CfgParserTestCaseClass, unittest.TestCase):
 class Issue7005TestCase(unittest.TestCase):
     """Test output when None is set() as a value and allow_no_value == False.
 
-    http://bugs.myFRpy.org/issue7005
+    http://bugs.python.org/issue7005
 
     """
 

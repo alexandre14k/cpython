@@ -6,7 +6,7 @@ J. Reynolds
 Example:
 
 >>> from telnetlib import Telnet
->>> tn = Telnet('www.myFRpy.org', 79)   # connect to finger port
+>>> tn = Telnet('www.python.org', 79)   # connect to finger port
 >>> tn.write(b'guido\r\n')
 >>> print(tn.read_all())
 Login       Name               TTY         Idle    When    Where

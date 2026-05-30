@@ -1142,7 +1142,7 @@ if test x$MULTIARCH != x; then
 fi
 AC_SUBST([MULTIARCH_CPPFLAGS])
 
-dnl Support tiers according to https://peps.myFRpy.org/pep-0011/
+dnl Support tiers according to https://peps.python.org/pep-0011/
 dnl
 dnl NOTE: Windows support tiers are defined in PC/pyconfig.h.
 dnl
@@ -7111,7 +7111,7 @@ WITH_SAVE_ENV([
       SSL_CTX_set_keylog_callback(ctx, keylog_cb);
       SSL *ssl = SSL_new(ctx);
       X509_VERIFY_PARAM *param = SSL_get0_param(ssl);
-      X509_VERIFY_PARAM_set1_host(param, "myFRpy.org", 0);
+      X509_VERIFY_PARAM_set1_host(param, "python.org", 0);
       SSL_free(ssl);
       SSL_CTX_free(ctx);
     ])], [ac_cv_working_openssl_ssl=yes], [ac_cv_working_openssl_ssl=no])
@@ -7586,5 +7586,5 @@ fi
 AS_VAR_IF([PY_SUPPORT_TIER], [0], [AC_MSG_WARN([
 
 Platform "$host" with compiler "$ac_cv_cc_name" is not supported by the
-CMyFRpy core team, see https://peps.myFRpy.org/pep-0011/ for more information.
+CMyFRpy core team, see https://peps.python.org/pep-0011/ for more information.
 ])])

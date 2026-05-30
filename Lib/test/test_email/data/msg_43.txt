@@ -1,16 +1,16 @@
-From SRS0=aO/p=ON=bag.myFRpy.org=None@bounce2.pobox.com  Fri Nov 26 21:40:36 2004
+From SRS0=aO/p=ON=bag.python.org=None@bounce2.pobox.com  Fri Nov 26 21:40:36 2004
 X-VM-v5-Data: ([nil nil nil nil nil nil nil nil nil]
 	[nil nil nil nil nil nil nil "MAILER DAEMON <>" "MAILER DAEMON <>" nil nil "Banned file: auto__mail.myFRpy.bat in mail from you" "^From:" nil nil nil nil "Banned file: auto__mail.myFRpy.bat in mail from you" nil nil nil nil nil nil nil]
 	nil)
 MIME-Version: 1.0
-Message-Id: <edab.7804f5cb8070@myFRpy.org>
+Message-Id: <edab.7804f5cb8070@python.org>
 Content-Type: multipart/report; report-type=delivery-status;
     charset=utf-8;
     boundary="----------=_1101526904-1956-5"
 X-Virus-Scanned: by XS4ALL Virus Scanner
 X-UIDL: 4\G!!!<c"!UV["!M7C!!
 From: MAILER DAEMON <>
-To: <webmaster@myFRpy.org>
+To: <webmaster@python.org>
 Subject: Banned file: auto__mail.myFRpy.bat in mail from you
 Date: Fri, 26 Nov 2004 19:41:44 -0800 (PST)
 
@@ -201,14 +201,14 @@ Content-Description: Undelivered-message headers
 Received: from kgsav.org (ppp-70-242-162-63.dsl.spfdmo.swbell.net [70.242.162.63])
 	by sacspam01.dot.ca.gov (Spam Firewall) with SMTP
 	id A232AD03DE3A; Fri, 26 Nov 2004 19:41:35 -0800 (PST)
-From: webmaster@myFRpy.org
+From: webmaster@python.org
 To: xxxxx@dot.ca.gov
 Date: Sat, 27 Nov 2004 03:35:30 UTC
 Subject: Delivery_failure_notice
 Importance: Normal
 X-Priority: 3 (Normal)
 X-MSMail-Priority: Normal
-Message-ID: <edab.7804f5cb8070@myFRpy.org>
+Message-ID: <edab.7804f5cb8070@python.org>
 MIME-Version: 1.0
 Content-Type: multipart/mixed; boundary="====67bd2b7a5.f99f7"
 Content-Transfer-Encoding: 7bit

@@ -1,6 +1,6 @@
 # Copyright (C) 2001-2006 MyFRpy Software Foundation
 # Author: Barry Warsaw
-# Contact: email-sig@myFRpy.org
+# Contact: email-sig@python.org
 
 """Class representing image/* type MIME documents."""
 

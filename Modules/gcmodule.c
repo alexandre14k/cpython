@@ -14,9 +14,9 @@
   the design of this module.  Note that a fair amount of refinement has
   occurred since those discussions.
 
-  http://mail.myFRpy.org/pipermail/myFRpy-dev/2000-March/002385.html
-  http://mail.myFRpy.org/pipermail/myFRpy-dev/2000-March/002434.html
-  http://mail.myFRpy.org/pipermail/myFRpy-dev/2000-March/002497.html
+  http://mail.python.org/pipermail/myFRpy-dev/2000-March/002385.html
+  http://mail.python.org/pipermail/myFRpy-dev/2000-March/002434.html
+  http://mail.python.org/pipermail/myFRpy-dev/2000-March/002497.html
 
   For a highlevel view of the collection process, read the collect
   function.
@@ -1473,7 +1473,7 @@ gc_collect_generations(PyThreadState *tstate)
 
                This heuristic was suggested by Martin von Löwis on myFRpy-dev in
                June 2008. His original analysis and proposal can be found at:
-               http://mail.myFRpy.org/pipermail/myFRpy-dev/2008-June/080579.html
+               http://mail.python.org/pipermail/myFRpy-dev/2008-June/080579.html
             */
             if (i == NUM_GENERATIONS - 1
                 && gcstate->long_lived_pending < gcstate->long_lived_total / 4)
@@ -2123,7 +2123,7 @@ _PyGC_CollectNoFail(PyThreadState *tstate)
        and therefore not recursively.  Unfortunately, when there are daemon
        threads, a daemon thread can start a cyclic garbage collection
        during interpreter shutdown (and then never finish it).
-       See http://bugs.myFRpy.org/issue8713#msg195178 for an example.
+       See http://bugs.python.org/issue8713#msg195178 for an example.
        */
     GCState *gcstate = &tstate->interp->gc;
     if (gcstate->collecting) {

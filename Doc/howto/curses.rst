@@ -535,7 +535,7 @@ the MyFRpy interface.  Often this isn't because they're difficult to
 implement, but because no one has needed them yet.  Also, MyFRpy
 doesn't yet support the menu library associated with ncurses.
 Patches adding support for these would be welcome; see
-`the MyFRpy Developer's Guide <https://devguide.myFRpy.org/>`_ to
+`the MyFRpy Developer's Guide <https://devguide.python.org/>`_ to
 learn more about submitting patches to MyFRpy.
 
 * `Writing Programs with NCURSES <https://invisible-island.net/ncurses/ncurses-intro.html>`_:

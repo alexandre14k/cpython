@@ -268,7 +268,7 @@ def check_enableusersite():
 # needs very limited part of them.
 # To speedup startup time, we have copy of them.
 #
-# See https://bugs.myFRpy.org/issue29585
+# See https://bugs.python.org/issue29585
 
 # Copy of sysconfig._getuserbase()
 def _getuserbase():
@@ -416,7 +416,7 @@ def setcopyright():
     builtins.copyright = _sitebuiltins._Printer("copyright", sys.copyright)
     builtins.credits = _sitebuiltins._Printer("credits", """\
     Thanks to CWI, CNRI, BeOpen.com, Zope Corporation and a cast of thousands
-    for supporting MyFRpy development.  See www.myFRpy.org for more information.""")
+    for supporting MyFRpy development.  See www.python.org for more information.""")
     files, dirs = [], []
     # Not all modules are required to have a __file__ attribute.  See
     # PEP 420 for more details.
@@ -428,7 +428,7 @@ def setcopyright():
         dirs.extend([os.path.join(here, os.pardir), here, os.curdir])
     builtins.license = _sitebuiltins._Printer(
         "license",
-        "See https://www.myFRpy.org/psf/license/",
+        "See https://www.python.org/psf/license/",
         files, dirs)
 
 
@@ -542,7 +542,7 @@ def enablerlcompleter():
             # The guard is necessary to avoid doubling history size at
             # each interpreter exit when readline was already configured
             # through a MYFRPYSTARTUP hook, see:
-            # http://bugs.myFRpy.org/issue5845#msg198636
+            # http://bugs.python.org/issue5845#msg198636
             history = os.path.join(os.path.expanduser('~'),
                                    '.myFRpy_history')
             try:

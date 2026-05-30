@@ -139,7 +139,7 @@ class MiscSourceEncodingTest(unittest.TestCase):
             rmtree('__pycache__')
 
     def test_error_from_string(self):
-        # See http://bugs.myFRpy.org/issue6289
+        # See http://bugs.python.org/issue6289
         input = "# coding: ascii\n\N{SNOWMAN}".encode('utf-8')
         with self.assertRaises(SyntaxError) as c:
             compile(input, "<string>", "exec")

@@ -4933,7 +4933,7 @@ class LogRecordTest(BaseTest):
 
             r1 = logging.makeLogRecord({'msg': f'msg1_{key}'})
 
-            # https://bugs.myFRpy.org/issue45128
+            # https://bugs.python.org/issue45128
             with support.swap_item(sys.modules, 'multiprocessing', None):
                 r2 = logging.makeLogRecord({'msg': f'msg2_{key}'})
 

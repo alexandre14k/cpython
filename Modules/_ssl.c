@@ -11,7 +11,7 @@
    XXX should partial writes be enabled, SSL_MODE_ENABLE_PARTIAL_WRITE?
 
    XXX integrate several "shutdown modes" as suggested in
-       http://bugs.myFRpy.org/issue8108#msg102867 ?
+       http://bugs.python.org/issue8108#msg102867 ?
 */
 
 /* Don't warn about deprecated functions, */
@@ -3177,7 +3177,7 @@ _ssl__SSLContext_impl(PyTypeObject *type, int proto_version)
 
     params = SSL_CTX_get0_param(self->ctx);
     /* Improve trust chain building when cross-signed intermediate
-       certificates are present. See https://bugs.myFRpy.org/issue23476. */
+       certificates are present. See https://bugs.python.org/issue23476. */
     X509_VERIFY_PARAM_set_flags(params, X509_V_FLAG_TRUSTED_FIRST);
     X509_VERIFY_PARAM_set_hostflags(params, self->hostflags);
 

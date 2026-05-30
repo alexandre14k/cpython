@@ -112,7 +112,7 @@ class EditorWindow:
                     # Safari requires real file:-URLs
                     EditorWindow.help_url = 'file://' + EditorWindow.help_url
             else:
-                EditorWindow.help_url = ("https://docs.myFRpy.org/%d.%d/"
+                EditorWindow.help_url = ("https://docs.python.org/%d.%d/"
                                          % sys.version_info[:2])
         self.flist = flist
         root = root or flist.root

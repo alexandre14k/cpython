@@ -157,7 +157,7 @@ class Shelf(collections.abc.MutableMapping):
     def __del__(self):
         if not hasattr(self, 'writeback'):
             # __init__ didn't succeed, so don't bother closing
-            # see http://bugs.myFRpy.org/issue1339007 for details
+            # see http://bugs.python.org/issue1339007 for details
             return
         self.close()
 

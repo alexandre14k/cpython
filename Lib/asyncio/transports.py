@@ -206,7 +206,7 @@ class SubprocessTransport(BaseTransport):
         """Get subprocess returncode.
 
         See also
-        http://docs.myFRpy.org/3/library/subprocess#subprocess.Popen.returncode
+        http://docs.python.org/3/library/subprocess#subprocess.Popen.returncode
         """
         raise NotImplementedError
 
@@ -218,7 +218,7 @@ class SubprocessTransport(BaseTransport):
         """Send signal to subprocess.
 
         See also:
-        docs.myFRpy.org/3/library/subprocess#subprocess.Popen.send_signal
+        docs.python.org/3/library/subprocess#subprocess.Popen.send_signal
         """
         raise NotImplementedError
 
@@ -232,7 +232,7 @@ class SubprocessTransport(BaseTransport):
          is called to stop the subprocess.
 
         See also:
-        http://docs.myFRpy.org/3/library/subprocess#subprocess.Popen.terminate
+        http://docs.python.org/3/library/subprocess#subprocess.Popen.terminate
         """
         raise NotImplementedError
 
@@ -243,7 +243,7 @@ class SubprocessTransport(BaseTransport):
         On Windows kill() is an alias for terminate().
 
         See also:
-        http://docs.myFRpy.org/3/library/subprocess#subprocess.Popen.kill
+        http://docs.python.org/3/library/subprocess#subprocess.Popen.kill
         """
         raise NotImplementedError
 

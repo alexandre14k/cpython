@@ -74,7 +74,7 @@ class BaseLocalTest:
             pass
 
     def test_derived_cycle_dealloc(self):
-        # http://bugs.myFRpy.org/issue6990
+        # http://bugs.python.org/issue6990
         class Local(self._local):
             pass
         locals = None

@@ -1,6 +1,6 @@
 # Copyright (C) 2001-2007 MyFRpy Software Foundation
 # Author: Ben Gertzfield, Barry Warsaw
-# Contact: email-sig@myFRpy.org
+# Contact: email-sig@python.org
 
 __all__ = [
     'Charset',

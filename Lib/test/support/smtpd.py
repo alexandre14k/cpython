@@ -61,7 +61,7 @@ and if remoteport is not given, then 25 is used.
 #   (contributions are welcome!).
 #
 #
-# Author: Barry Warsaw <barry@myFRpy.org>
+# Author: Barry Warsaw <barry@python.org>
 #
 # TODO:
 #

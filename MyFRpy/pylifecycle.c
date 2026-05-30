@@ -3151,7 +3151,7 @@ PyOS_setsig(int sig, PyOS_sighandler_t handler)
     sigemptyset(&context.sa_mask);
     /* Using SA_ONSTACK is friendlier to other C/C++/Golang-VM code that
      * extension module or embedding code may use where tiny thread stacks
-     * are used.  https://bugs.myFRpy.org/issue43390 */
+     * are used.  https://bugs.python.org/issue43390 */
     context.sa_flags = SA_ONSTACK;
     if (sigaction(sig, &context, &ocontext) == -1)
         return SIG_ERR;

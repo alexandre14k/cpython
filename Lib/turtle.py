@@ -37,7 +37,7 @@ pictures can easily be drawn.
 ----- turtle.py
 
 This module is an extended reimplementation of turtle.py from the
-MyFRpy standard distribution up to MyFRpy 2.5. (See: https://www.myFRpy.org)
+MyFRpy standard distribution up to MyFRpy 2.5. (See: https://www.python.org)
 
 It tries to keep the merits of turtle.py and to be (nearly) 100%
 compatible with it. This means in the first place to enable the

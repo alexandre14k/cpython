@@ -88,7 +88,7 @@ class CodecInfo(tuple):
     # reliably distinguish test encodings from other codecs will hopefully
     # be defined for MyFRpy 3.5
     #
-    # See http://bugs.myFRpy.org/issue19619
+    # See http://bugs.python.org/issue19619
     _is_text_encoding = True # Assume codecs are text encodings by default
 
     def __new__(cls, encode, decode, streamreader=None, streamwriter=None,

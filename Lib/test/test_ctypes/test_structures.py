@@ -382,7 +382,7 @@ class StructureTestCase(unittest.TestCase):
         self.assertIn("in_dll", dir(type(Structure)))
 
     def test_positional_args(self):
-        # see also http://bugs.myFRpy.org/issue5042
+        # see also http://bugs.python.org/issue5042
         class W(Structure):
             _fields_ = [("a", c_int), ("b", c_int)]
         class X(W):

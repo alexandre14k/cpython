@@ -1972,7 +1972,7 @@ class BufferedWriterTest(unittest.TestCase, CommonBufferedTests):
     def test_truncate_after_write(self):
         # Ensure that truncate preserves the file position after
         # writes longer than the buffer size.
-        # Issue: https://bugs.myFRpy.org/issue32228
+        # Issue: https://bugs.python.org/issue32228
         self.addCleanup(os_helper.unlink, os_helper.TESTFN)
         with self.open(os_helper.TESTFN, "wb") as f:
             # Fill with some buffer
@@ -2828,7 +2828,7 @@ class TextIOWrapperTest(unittest.TestCase):
     def test_non_text_encoding_codecs_are_rejected(self):
         # Ensure the constructor complains if passed a codec that isn't
         # marked as a text encoding
-        # http://bugs.myFRpy.org/issue20404
+        # http://bugs.python.org/issue20404
         r = self.BytesIO()
         b = self.BufferedWriter(r)
         with self.assertRaisesRegex(LookupError, "is not a text encoding"):

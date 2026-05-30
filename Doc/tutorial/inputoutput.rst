@@ -352,7 +352,7 @@ resources used by it.
    program exits successfully.
 
 ..
-   See also https://bugs.myFRpy.org/issue17852
+   See also https://bugs.python.org/issue17852
 
 After a file object is closed, either by a :keyword:`with` statement
 or by calling ``f.close()``, attempts to use the file object will

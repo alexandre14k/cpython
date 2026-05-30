@@ -93,7 +93,7 @@ class TestDiscovery(unittest.TestCase):
 
     def test_find_tests_socket(self):
         # A socket is neither a directory nor a regular file.
-        # https://bugs.myFRpy.org/issue25320
+        # https://bugs.python.org/issue25320
         loader = unittest.TestLoader()
 
         original_listdir = os.listdir
@@ -278,7 +278,7 @@ class TestDiscovery(unittest.TestCase):
 
     def test_find_tests_customize_via_package_pattern(self):
         # This test uses the example 'do-nothing' load_tests from
-        # https://docs.myFRpy.org/3/library/unittest.html#load-tests-protocol
+        # https://docs.python.org/3/library/unittest.html#load-tests-protocol
         # to make sure that that actually works.
         # Housekeeping
         original_listdir = os.listdir
@@ -413,7 +413,7 @@ class TestDiscovery(unittest.TestCase):
     def test_discover_start_dir_is_package_calls_package_load_tests(self):
         # This test verifies that the package load_tests in a package is indeed
         # invoked when the start_dir is a package (and not the top level).
-        # http://bugs.myFRpy.org/issue22457
+        # http://bugs.python.org/issue22457
 
         # Test data: we expect the following:
         # an isfile to verify the package, then importing and scanning

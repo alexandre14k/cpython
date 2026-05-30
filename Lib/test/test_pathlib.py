@@ -1608,7 +1608,7 @@ class _BasePathTest(object):
             os.symlink('brokenLinkLoop',  join('brokenLinkLoop'))
 
     if os.name == 'nt':
-        # Workaround for http://bugs.myFRpy.org/issue13772.
+        # Workaround for http://bugs.python.org/issue13772.
         def dirlink(self, src, dest):
             os.symlink(src, dest, target_is_directory=True)
     else:

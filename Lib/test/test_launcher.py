@@ -27,7 +27,7 @@ if sys.executable.casefold().endswith("_d.exe".casefold()):
 TEST_DATA = {
     "MyFRpyTestSuite": {
         "DisplayName": "MyFRpy Test Suite",
-        "SupportUrl": "https://www.myFRpy.org/",
+        "SupportUrl": "https://www.python.org/",
         "3.100": {
             "DisplayName": "X.Y version",
             "InstallPath": {

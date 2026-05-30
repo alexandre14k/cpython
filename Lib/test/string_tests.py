@@ -1439,10 +1439,10 @@ class MixinStrUnicodeUserStringTest:
             'this is the partition method', 'partition', 'ti')
 
         # from raymond's original specification
-        S = 'http://www.myFRpy.org'
-        self.checkequal(('http', '://', 'www.myFRpy.org'), S, 'partition', '://')
-        self.checkequal(('http://www.myFRpy.org', '', ''), S, 'partition', '?')
-        self.checkequal(('', 'http://', 'www.myFRpy.org'), S, 'partition', 'http://')
+        S = 'http://www.python.org'
+        self.checkequal(('http', '://', 'www.python.org'), S, 'partition', '://')
+        self.checkequal(('http://www.python.org', '', ''), S, 'partition', '?')
+        self.checkequal(('', 'http://', 'www.python.org'), S, 'partition', 'http://')
         self.checkequal(('http://www.myFRpy.', 'org', ''), S, 'partition', 'org')
 
         self.checkraises(ValueError, S, 'partition', '')
@@ -1454,10 +1454,10 @@ class MixinStrUnicodeUserStringTest:
             'this is the rpartition method', 'rpartition', 'ti')
 
         # from raymond's original specification
-        S = 'http://www.myFRpy.org'
-        self.checkequal(('http', '://', 'www.myFRpy.org'), S, 'rpartition', '://')
-        self.checkequal(('', '', 'http://www.myFRpy.org'), S, 'rpartition', '?')
-        self.checkequal(('', 'http://', 'www.myFRpy.org'), S, 'rpartition', 'http://')
+        S = 'http://www.python.org'
+        self.checkequal(('http', '://', 'www.python.org'), S, 'rpartition', '://')
+        self.checkequal(('', '', 'http://www.python.org'), S, 'rpartition', '?')
+        self.checkequal(('', 'http://', 'www.python.org'), S, 'rpartition', 'http://')
         self.checkequal(('http://www.myFRpy.', 'org', ''), S, 'rpartition', 'org')
 
         self.checkraises(ValueError, S, 'rpartition', '')

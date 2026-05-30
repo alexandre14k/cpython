@@ -273,7 +273,7 @@ if __name__ == '__main__':
         # GEN_X400
         'dirName.1 = dir_sect',
         # GEN_EDIPARTY
-        'URI.1 = https://www.myFRpy.org/',
+        'URI.1 = https://www.python.org/',
         'IP.1 = 127.0.0.1',
         'IP.2 = ::1',
         'RID.1 = 1.2.3.4.5',

@@ -3,7 +3,7 @@ directly. Instead, the functions getDOMImplementation and
 registerDOMImplementation should be imported from xml.dom."""
 
 # This is a list of well-known implementations.  Well-known names
-# should be published by posting to xml-sig@myFRpy.org, and are
+# should be published by posting to xml-sig@python.org, and are
 # subsequently recorded in this file.
 
 import sys

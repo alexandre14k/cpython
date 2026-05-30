@@ -2381,7 +2381,7 @@ converters_from_argtypes(PyObject *ob)
  *      how libffi handles unions (https://github.com/libffi/libffi/issues/33),
  *      there are numerous libraries which pass structures containing unions
  *      by values - especially on Windows but examples also exist on Linux
- *      (https://bugs.myFRpy.org/msg359834).
+ *      (https://bugs.python.org/msg359834).
  *
  *      It may not be possible to get proper support for unions and bitfields
  *      until support is forthcoming in libffi, but for now, adding the checks

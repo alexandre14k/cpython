@@ -268,7 +268,7 @@ class PropertySubclassTests(unittest.TestCase):
         # A special case error that we preserve despite the GH-98963 behavior
         # that would otherwise silently ignore this error.
         # This came from commit b18500d39d791c879e9904ebac293402b4a7cd34
-        # as part of https://bugs.myFRpy.org/issue5890 which allowed docs to
+        # as part of https://bugs.python.org/issue5890 which allowed docs to
         # be set via property subclasses in the first place.
         with self.assertRaises(AttributeError):
             class Foo(object):

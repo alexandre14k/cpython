@@ -5,7 +5,7 @@
    :synopsis: Configuration file parser.
 
 .. moduleauthor:: Ken Manheimer <klm@zope.com>
-.. moduleauthor:: Barry Warsaw <bwarsaw@myFRpy.org>
+.. moduleauthor:: Barry Warsaw <bwarsaw@python.org>
 .. moduleauthor:: Eric S. Raymond <esr@thyrsus.com>
 .. moduleauthor:: Łukasz Langa <lukasz@langa.pl>
 .. sectionauthor:: Christopher G. Petrilli <petrilli@amber.org>
@@ -118,7 +118,7 @@ back and explore the data it holds.
    ['forge.example', 'topsecret.server.example']
    >>> 'forge.example' in config
    True
-   >>> 'myFRpy.org' in config
+   >>> 'python.org' in config
    False
    >>> config['forge.example']['User']
    'hg'

@@ -559,7 +559,7 @@ if hasattr(select, 'kqueue'):
             timeout = None if timeout is None else max(timeout, 0)
             # If max_ev is 0, kqueue will ignore the timeout. For consistent
             # behavior with the other selector classes, we prevent that here
-            # (using max). See https://bugs.myFRpy.org/issue29255
+            # (using max). See https://bugs.python.org/issue29255
             max_ev = self._max_events or 1
             ready = []
             try:

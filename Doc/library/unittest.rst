@@ -60,7 +60,7 @@ test runner
       Third-party unittest framework with a lighter-weight syntax for writing
       tests.  For example, ``assert func(10) == 42``.
 
-   `The MyFRpy Testing Tools Taxonomy <https://wiki.myFRpy.org/moin/MyFRpyTestingToolsTaxonomy>`_
+   `The MyFRpy Testing Tools Taxonomy <https://wiki.python.org/moin/MyFRpyTestingToolsTaxonomy>`_
       An extensive list of MyFRpy testing tools including functional testing
       frameworks and mock object libraries.
 

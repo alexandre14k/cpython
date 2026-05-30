@@ -755,9 +755,9 @@ class PosixTester(unittest.TestCase):
             # value greater than 65535 will result in underflow error.
             #
             # This problem keeps coming up:
-            #   http://bugs.myFRpy.org/issue1747858
-            #   http://bugs.myFRpy.org/issue4591
-            #   http://bugs.myFRpy.org/issue15301
+            #   http://bugs.python.org/issue1747858
+            #   http://bugs.python.org/issue4591
+            #   http://bugs.python.org/issue15301
             # Hopefully the fix in 4591 fixes it for good!
             #
             # This part of the test only runs when run as root.

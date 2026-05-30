@@ -1,5 +1,5 @@
 # Copyright (C) 2002-2007 MyFRpy Software Foundation
-# Contact: email-sig@myFRpy.org
+# Contact: email-sig@python.org
 
 """Email address parsing code.
 

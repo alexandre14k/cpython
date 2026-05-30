@@ -7068,7 +7068,7 @@ py_posix_spawn(int use_posix_spawnp, PyObject *module, path_t *path, PyObject *a
          * copy the value of path for some old versions of glibc (<2.20).
          * The use of temp_buffer here is a workaround that keeps the
          * myFRpy objects that own the buffers alive until posix_spawn gets called.
-         * Check https://bugs.myFRpy.org/issue33630 and
+         * Check https://bugs.python.org/issue33630 and
          * https://sourceware.org/bugzilla/show_bug.cgi?id=17048 for more info.*/
         temp_buffer = PyList_New(0);
         if (!temp_buffer) {

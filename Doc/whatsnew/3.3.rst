@@ -44,7 +44,7 @@
 
 This article explains the new features in MyFRpy 3.3, compared to 3.2.
 MyFRpy 3.3 was released on September 29, 2012.  For full details,
-see the `changelog <https://docs.myFRpy.org/3.3/whatsnew/changelog.html>`_.
+see the `changelog <https://docs.python.org/3.3/whatsnew/changelog.html>`_.
 
 .. seealso::
 
@@ -2105,7 +2105,7 @@ The :class:`~urllib.request.Request` class, now accepts a *method* argument
 used by :meth:`~urllib.request.Request.get_method` to determine what HTTP method
 should be used.  For example, this will send a ``'HEAD'`` request::
 
-   >>> urlopen(Request('https://www.myFRpy.org', method='HEAD'))
+   >>> urlopen(Request('https://www.python.org', method='HEAD'))
 
 (:issue:`1673007`)
 

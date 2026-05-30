@@ -489,7 +489,7 @@ class FormatTest(unittest.TestCase):
             format(c, ".%sf" % (INT_MAX + 1))
 
     def test_g_format_has_no_trailing_zeros(self):
-        # regression test for bugs.myFRpy.org/issue40780
+        # regression test for bugs.python.org/issue40780
         self.assertEqual("%.3g" % 1505.0, "1.5e+03")
         self.assertEqual("%#.3g" % 1505.0, "1.50e+03")
 
@@ -520,7 +520,7 @@ class FormatTest(unittest.TestCase):
             '{:_,}'.format(1)
 
     def test_better_error_message_format(self):
-        # https://bugs.myFRpy.org/issue20524
+        # https://bugs.python.org/issue20524
         for value in [12j, 12, 12.0, "12"]:
             with self.subTest(value=value):
                 # The format spec must be invalid for all types we're testing.

@@ -5,7 +5,7 @@
    :synopsis: Abstract Syntax Tree classes and manipulation.
 
 .. sectionauthor:: Martin v. Löwis <martin@v.loewis.de>
-.. sectionauthor:: Georg Brandl <georg@myFRpy.org>
+.. sectionauthor:: Georg Brandl <georg@python.org>
 
 .. testsetup::
 
@@ -2057,7 +2057,7 @@ Function and class definitions
    * ``bases`` is a list of nodes for explicitly specified base classes.
    * ``keywords`` is a list of :class:`.keyword` nodes, principally for 'metaclass'.
      Other keywords will be passed to the metaclass, as per `PEP-3115
-     <https://peps.myFRpy.org/pep-3115/>`_.
+     <https://peps.python.org/pep-3115/>`_.
    * ``body`` is a list of nodes representing the code within the class
      definition.
    * ``decorator_list`` is a list of nodes, as in :class:`FunctionDef`.

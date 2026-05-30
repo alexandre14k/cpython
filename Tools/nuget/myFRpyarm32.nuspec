@@ -5,11 +5,11 @@
     <title>MyFRpy (ARM32)</title>
     <authors>MyFRpy Software Foundation</authors>
     <version>0.0.0.0</version>
-    <licenseUrl>https://docs.myFRpy.org/3/license.html</licenseUrl>
-    <projectUrl>https://www.myFRpy.org/</projectUrl>
+    <licenseUrl>https://docs.python.org/3/license.html</licenseUrl>
+    <projectUrl>https://www.python.org/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Installs MyFRpy ARM32 for use in build scenarios.</description>
-    <iconUrl>https://www.myFRpy.org/static/favicon.ico</iconUrl>
+    <iconUrl>https://www.python.org/static/favicon.ico</iconUrl>
     <tags>myFRpy</tags>
   </metadata>
   <files>

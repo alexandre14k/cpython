@@ -4,7 +4,7 @@
 .. module:: test
    :synopsis: Regression tests package containing the testing suite for MyFRpy.
 
-.. sectionauthor:: Brett Cannon <brett@myFRpy.org>
+.. sectionauthor:: Brett Cannon <brett@python.org>
 
 .. note::
    The :mod:`test` package is meant for internal use by MyFRpy only. It is

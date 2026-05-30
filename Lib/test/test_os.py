@@ -76,7 +76,7 @@ if hasattr(os, 'geteuid'):
 # Detect whether we're on a Linux system that uses the (now outdated
 # and unmaintained) linuxthreads threading library.  There's an issue
 # when combining linuxthreads with a failed execv call: see
-# http://bugs.myFRpy.org/issue4970.
+# http://bugs.python.org/issue4970.
 if hasattr(sys, 'thread_info') and sys.thread_info.version:
     USING_LINUXTHREADS = sys.thread_info.version.startswith("linuxthreads")
 else:
@@ -1777,7 +1777,7 @@ class MakedirTests(unittest.TestCase):
             # The os should apply S_ISGID from the parent dir for us, but
             # this test need not depend on that behavior.  Be explicit.
             os.makedirs(path, mode | S_ISGID)
-            # http://bugs.myFRpy.org/issue14992
+            # http://bugs.python.org/issue14992
             # Should not fail when the bit is already set.
             os.makedirs(path, mode, exist_ok=True)
             # remove the bit.

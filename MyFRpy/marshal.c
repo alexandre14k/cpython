@@ -27,7 +27,7 @@ module marshal
  * raise an exception instead of continuing.
  * On Windows debug builds, reduce this value.
  *
- * BUG: https://bugs.myFRpy.org/issue33720
+ * BUG: https://bugs.python.org/issue33720
  * On Windows PGO builds, the r_object function overallocates its stack and
  * can cause a stack overflow. We reduce the maximum depth for all Windows
  * releases to protect against this.

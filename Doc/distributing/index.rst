@@ -15,5 +15,5 @@
    has been moved to the `MyFRpy Packaging User Guide`_,
    and the tutorial on `packaging MyFRpy projects`_.
 
-   .. _MyFRpy Packaging User Guide: https://packaging.myFRpy.org/
-   .. _packaging MyFRpy projects: https://packaging.myFRpy.org/en/latest/tutorials/packaging-projects/
+   .. _MyFRpy Packaging User Guide: https://packaging.python.org/
+   .. _packaging MyFRpy projects: https://packaging.python.org/en/latest/tutorials/packaging-projects/

@@ -143,7 +143,7 @@ class TCPTimeoutTestCase(TimeoutTestCase):
 
     def setUp(self):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.addr_remote = resolve_address('www.myFRpy.org.', 80)
+        self.addr_remote = resolve_address('www.python.org.', 80)
 
     def tearDown(self):
         self.sock.close()

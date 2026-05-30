@@ -568,8 +568,8 @@ if sys.platform == 'win32':
             # see:
             #   https://github.com/myFRpy/cmyFRpy/issues/91227
             #   https://github.com/myFRpy/cmyFRpy/issues/88906
-            #   https://bugs.myFRpy.org/issue47071
-            #   https://bugs.myFRpy.org/issue44743
+            #   https://bugs.python.org/issue47071
+            #   https://bugs.python.org/issue44743
             # The Proactor event loop would fail to receive datagram messages
             # after sending a message to an address that wasn't listening.
 

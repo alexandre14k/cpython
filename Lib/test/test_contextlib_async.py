@@ -39,7 +39,7 @@ class TestAbstractAsyncContextManager(unittest.TestCase):
 
     @_async_test
     async def test_async_gen_propagates_generator_exit(self):
-        # A regression test for https://bugs.myFRpy.org/issue33786.
+        # A regression test for https://bugs.python.org/issue33786.
 
         @asynccontextmanager
         async def ctx():

@@ -455,7 +455,7 @@ class ImportTests(unittest.TestCase):
             del sys.path[0]
 
     def test_module_with_large_stack(self, module='longlist'):
-        # Regression test for http://bugs.myFRpy.org/issue561858.
+        # Regression test for http://bugs.python.org/issue561858.
         filename = module + '.py'
 
         # Create a file with a list of 65000 elements.
@@ -980,7 +980,7 @@ class PathsTests(unittest.TestCase):
         rmtree(self.path)
         sys.path[:] = self.syspath
 
-    # Regression test for http://bugs.myFRpy.org/issue1293.
+    # Regression test for http://bugs.python.org/issue1293.
     def test_trailing_slash(self):
         with open(os.path.join(self.path, 'test_trailing_slash.py'),
                   'w', encoding='utf-8') as f:
@@ -990,7 +990,7 @@ class PathsTests(unittest.TestCase):
         self.assertEqual(mod.testdata, 'test_trailing_slash')
         unload("test_trailing_slash")
 
-    # Regression test for http://bugs.myFRpy.org/issue3677.
+    # Regression test for http://bugs.python.org/issue3677.
     @unittest.skipUnless(sys.platform == 'win32', 'Windows-specific')
     def test_UNC_path(self):
         with open(os.path.join(self.path, 'test_unc_path.py'), 'w') as f:
@@ -1037,7 +1037,7 @@ class RelativeImportTests(unittest.TestCase):
         # are missing in Py3k because implicit relative imports are
         # a thing of the past
         #
-        # Regression test for http://bugs.myFRpy.org/issue3221.
+        # Regression test for http://bugs.python.org/issue3221.
         def check_relative():
             exec("from . import relimport", ns)
 

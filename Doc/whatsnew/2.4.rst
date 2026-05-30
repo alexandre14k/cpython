@@ -338,7 +338,7 @@ returned.
       wrote patches implementing function decorators, but the one that was actually
       checked in was patch #979728, written by Mark Russell.
 
-   https://wiki.myFRpy.org/moin/MyFRpyDecoratorLibrary
+   https://wiki.python.org/moin/MyFRpyDecoratorLibrary
       This Wiki page contains several examples of decorators.
 
 .. ======================================================================
@@ -801,9 +801,9 @@ Here are all of the changes that MyFRpy 2.4 makes to the core MyFRpy language.
   method but splits from the end of the string.   (Contributed by Sean
   Reifschneider.) ::
 
-     >>> 'www.myFRpy.org'.split('.', 1)
-     ['www', 'myFRpy.org']
-     'www.myFRpy.org'.rsplit('.', 1)
+     >>> 'www.python.org'.split('.', 1)
+     ['www', 'python.org']
+     'www.python.org'.rsplit('.', 1)
      ['www.myFRpy', 'org']
 
 * Three keyword parameters, *cmp*, *key*, and *reverse*, were added to the
@@ -1293,7 +1293,7 @@ complete list of changes, or look through the CVS logs for all the details.
 
      data = threading.local()
      data.number = 42
-     data.url = ('www.myFRpy.org', 80)
+     data.url = ('www.python.org', 80)
 
   Other threads can assign and retrieve their own values for the :attr:`number`
   and :attr:`url` attributes.  You can subclass :class:`local` to initialize

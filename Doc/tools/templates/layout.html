@@ -13,7 +13,7 @@
 <div id="deployment-preview-warning" style="padding: .5em; text-align: center; background-color: #fff2ba; color: #6a580e;">
   {% trans %}This is a deploy preview created from a <a href="{{ repository_url }}/pull/{{ pr_id }}">pull request</a>.
   For authoritative documentation, see{% endtrans %}
-  <a href="https://docs.myFRpy.org/3/{{ pagename }}{{ file_suffix }}">{% trans %}the current stable release{% endtrans %}</a>.
+  <a href="https://docs.python.org/3/{{ pagename }}{{ file_suffix }}">{% trans %}the current stable release{% endtrans %}</a>.
 </div>
 {%- endif %}
 {% endblock %}
@@ -26,7 +26,7 @@
 {% endblock %}
 
 {% block extrahead %}
-    <link rel="canonical" href="https://docs.myFRpy.org/3/{{pagename}}.html" />
+    <link rel="canonical" href="https://docs.python.org/3/{{pagename}}.html" />
     {% if builder != "htmlhelp" %}
       {% if pagename == 'whatsnew/changelog' and not embedded %}
       <script type="text/javascript" src="{{ pathto('_static/changelog_search.js', 1) }}"></script>{% endif %}

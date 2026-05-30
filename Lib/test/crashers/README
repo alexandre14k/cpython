@@ -8,7 +8,7 @@ Each test should fail when run from the command line:
 	./myFRpy Lib/test/crashers/weakref_in_del.py
 
 Put as much info into a docstring or comments to help determine the cause of the
-failure, as well as a bugs.myFRpy.org issue number if it exists.  Particularly
+failure, as well as a bugs.python.org issue number if it exists.  Particularly
 note if the cause is system or environment dependent and what the variables are.
 
 Once the crash is fixed, the test case should be moved into an appropriate test

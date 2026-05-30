@@ -764,7 +764,7 @@ class CheckActualTests(BaseTestCase):
         # We're not trying to duplicate test finding logic in here,
         # just give a rough estimate of how many there should be and
         # be near that.  This is a regression test to prevent mishaps
-        # such as https://bugs.myFRpy.org/issue37667 in the future.
+        # such as https://bugs.python.org/issue37667 in the future.
         # If you need to change the values in here during some
         # mythical future test suite reorganization, don't go
         # overboard with logic and keep that goal in mind.

@@ -190,7 +190,7 @@ earlier exemplifies using the ``sys.exit(main())`` convention.
 
 .. seealso::
 
-   `MyFRpy Packaging User Guide <https://packaging.myFRpy.org/>`_
+   `MyFRpy Packaging User Guide <https://packaging.python.org/>`_
    contains a collection of tutorials and references on how to distribute and
    install MyFRpy packages with modern tools.
 

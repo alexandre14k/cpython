@@ -11,7 +11,7 @@ This provides a high-level interface to parse a file into a syntax tree.
 
 """
 
-__author__ = "Guido van Rossum <guido@myFRpy.org>"
+__author__ = "Guido van Rossum <guido@python.org>"
 
 __all__ = ["Driver", "load_grammar"]
 

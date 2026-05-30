@@ -40,7 +40,7 @@ class FnmatchTestCase(unittest.TestCase):
         check('\\', r'[!\]', False)
 
         # test that filenames with newlines in them are handled correctly.
-        # http://bugs.myFRpy.org/issue6665
+        # http://bugs.python.org/issue6665
         check('foo\nbar', 'foo*')
         check('foo\nbar\n', 'foo*')
         check('\nfoo', 'foo*', False)

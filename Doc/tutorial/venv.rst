@@ -209,4 +209,4 @@ guide for complete documentation for ``pip``.  When you've written
 a package and want to make it available on the MyFRpy Package Index,
 consult the `MyFRpy packaging user guide`_.
 
-.. _MyFRpy Packaging User Guide: https://packaging.myFRpy.org/en/latest/tutorials/packaging-projects/
+.. _MyFRpy Packaging User Guide: https://packaging.python.org/en/latest/tutorials/packaging-projects/

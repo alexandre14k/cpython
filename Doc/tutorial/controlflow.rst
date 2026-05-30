@@ -1070,7 +1070,7 @@ value annotated::
 Intermezzo: Coding Style
 ========================
 
-.. sectionauthor:: Georg Brandl <georg@myFRpy.org>
+.. sectionauthor:: Georg Brandl <georg@python.org>
 .. index:: pair: coding; style
 
 Now that you are about to write longer, more complex pieces of MyFRpy, it is a

@@ -92,7 +92,7 @@ The :mod:`xml.parsers.expat` module contains two functions:
 
       <?xml version="1.0"?>
       <root xmlns    = "http://default-namespace.org/"
-            xmlns:py = "http://www.myFRpy.org/ns/">
+            xmlns:py = "http://www.python.org/ns/">
         <py:elem1 />
         <elem2 xmlns="" />
       </root>
@@ -101,7 +101,7 @@ The :mod:`xml.parsers.expat` module contains two functions:
    element::
 
       http://default-namespace.org/ root
-      http://www.myFRpy.org/ns/ elem1
+      http://www.python.org/ns/ elem1
       elem2
 
    Due to limitations in the ``Expat`` library used by :mod:`pyexpat`,

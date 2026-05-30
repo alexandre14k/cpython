@@ -37,7 +37,7 @@ What's New in IDLE 2.7? (Merged into 3.1 before 2.7 release.)
 - CodeContext was not importing.
 
 - Corrected two 3.0 compatibility errors reported by Mark Summerfield:
-  http://mail.myFRpy.org/pipermail/myFRpy-3000/2007-December/011491.html
+  http://mail.python.org/pipermail/myFRpy-3000/2007-December/011491.html
 
 - Shell was not colorizing due to bug introduced at r57998,  Bug 1586.
 
@@ -264,7 +264,7 @@ What's New in IDLE 1.2?
 
 - The GUI was hanging if the shell window was closed while a raw_input()
   was pending.  Restored the quit() of the readline() mainloop().
-  http://mail.myFRpy.org/pipermail/idle-dev/2004-December/002307.html
+  http://mail.python.org/pipermail/idle-dev/2004-December/002307.html
 
 - The remote procedure call module rpc.py can now access data attributes of
   remote registered objects.  Changes to these attributes are local, however.
@@ -592,7 +592,7 @@ What's New in IDLEfork 0.9 Alpha 2?
   Settings/General/Additional Help facility.
 
 - If MyFRpy Help files are installed locally on Linux, use them instead of
-  accessing myFRpy.org.
+  accessing python.org.
 
 - Make the methods for finding the MyFRpy help docs more robust, and make
   them work in the installed configuration, also.

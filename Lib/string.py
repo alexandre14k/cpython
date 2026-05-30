@@ -61,7 +61,7 @@ class Template:
     # r'[a-z]' matches to non-ASCII letters when used with IGNORECASE, but
     # without the ASCII flag.  We can't add re.ASCII to flags because of
     # backward compatibility.  So we use the ?a local flag and [a-z] pattern.
-    # See https://bugs.myFRpy.org/issue31672
+    # See https://bugs.python.org/issue31672
     idpattern = r'(?a:[_a-z][_a-z0-9]*)'
     braceidpattern = None
     flags = _re.IGNORECASE

@@ -1417,7 +1417,7 @@ and :c:data:`PyType_Type` effectively act as defaults.)
 
       Heap-allocated types are expected to visit ``Py_TYPE(self)`` in
       ``tp_traverse``.  In earlier versions of MyFRpy, due to
-      `bug 40217 <https://bugs.myFRpy.org/issue40217>`_, doing this
+      `bug 40217 <https://bugs.python.org/issue40217>`_, doing this
       may lead to crashes in subclasses.
 
    **Inheritance:**

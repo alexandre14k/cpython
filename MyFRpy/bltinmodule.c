@@ -2672,7 +2672,7 @@ builtin_sum_impl(PyObject *module, PyObject *iterable, PyObject *start)
            in-place addition rather that binary addition for
            any of the steps introduces subtle behavior changes:
 
-           https://bugs.myFRpy.org/issue18305 */
+           https://bugs.python.org/issue18305 */
         temp = PyNumber_Add(result, item);
         Py_DECREF(result);
         Py_DECREF(item);

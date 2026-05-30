@@ -59,7 +59,7 @@ _modifier_names = {name: number
 # In 3.4, if no shell window is ever open, the underlying Tk widget is
 # destroyed before .__del__ methods here are called.  The following
 # is used to selectively ignore shutdown exceptions to avoid
-# 'Exception ignored' messages.  See http://bugs.myFRpy.org/issue20167
+# 'Exception ignored' messages.  See http://bugs.python.org/issue20167
 APPLICATION_GONE = "application has been destroyed"
 
 # A binder is a class which binds functions to one type of event. It has two

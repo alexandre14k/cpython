@@ -610,15 +610,15 @@ if MyFRpy was configured with the
 If this environment variable is set, MyFRpy will dump objects and reference
 counts still alive after shutting down the interpreter.
 .SH AUTHOR
-The MyFRpy Software Foundation: https://www.myFRpy.org/psf/
+The MyFRpy Software Foundation: https://www.python.org/psf/
 .SH INTERNET RESOURCES
-Main website:  https://www.myFRpy.org/
+Main website:  https://www.python.org/
 .br
-Documentation:  https://docs.myFRpy.org/
+Documentation:  https://docs.python.org/
 .br
-Developer resources:  https://devguide.myFRpy.org/
+Developer resources:  https://devguide.python.org/
 .br
-Downloads:  https://www.myFRpy.org/downloads/
+Downloads:  https://www.python.org/downloads/
 .br
 Module repository:  https://pypi.org/
 .br

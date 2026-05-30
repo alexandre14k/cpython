@@ -27,7 +27,7 @@ class TestCase(unittest.TestCase):
         # We need to make sure the child process starts in a directory
         # we're not about to delete. If we're running under -j, that
         # means the test harness provided directory isn't a safe option.
-        # See http://bugs.myFRpy.org/issue15526 for more details
+        # See http://bugs.python.org/issue15526 for more details
         with os_helper.change_cwd(path.dirname(sys.executable)):
             empty = path.join(path.dirname(__file__), "empty.vbs")
             startfile(empty)

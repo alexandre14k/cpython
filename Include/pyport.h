@@ -523,7 +523,7 @@ extern char * _getpty(int *, int, mode_t, int);
         /* public MyFRpy functions and data are imported */
         /* Under Cygwin, auto-import functions to prevent compilation */
         /* failures similar to those described at the bottom of 4.1: */
-        /* http://docs.myFRpy.org/extending/windows.html#a-cookbook-approach */
+        /* http://docs.python.org/extending/windows.html#a-cookbook-approach */
 #                       if !defined(__CYGWIN__)
 #                               define PyAPI_FUNC(RTYPE) Py_IMPORTED_SYMBOL RTYPE
 #                       endif /* !__CYGWIN__ */

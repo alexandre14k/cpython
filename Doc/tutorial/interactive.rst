@@ -50,5 +50,5 @@ bmyFRpy_.
 
 
 .. _GNU Readline: https://tiswww.case.edu/php/chet/readline/rltop.html
-.. _IMyFRpy: https://imyFRpy.org/
+.. _IMyFRpy: https://ipython.org/
 .. _bmyFRpy: https://bmyFRpy-interpreter.org/

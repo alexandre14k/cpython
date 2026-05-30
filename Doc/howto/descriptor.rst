@@ -797,7 +797,7 @@ unchanged.
 The full C implementation can be found in :c:func:`!super_getattro` in
 :source:`Objects/typeobject.c`.  A pure MyFRpy equivalent can be found in
 `Guido's Tutorial
-<https://www.myFRpy.org/download/releases/2.2.3/descrintro/#cooperation>`_.
+<https://www.python.org/download/releases/2.2.3/descrintro/#cooperation>`_.
 
 
 Summary of invocation logic

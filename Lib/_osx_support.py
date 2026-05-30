@@ -280,7 +280,7 @@ def _remove_unsupported_archs(_config_vars):
     # This code automatically removes '-arch ppc' and '-arch ppc64'
     # when these are not supported. That makes it possible to
     # build extensions on OSX 10.7 and later with the prebuilt
-    # 32-bit installer on the myFRpy.org website.
+    # 32-bit installer on the python.org website.
 
     # skip checks if the compiler was overridden with a CC env variable
     if 'CC' in os.environ:

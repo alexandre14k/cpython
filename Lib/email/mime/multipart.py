@@ -1,6 +1,6 @@
 # Copyright (C) 2002-2006 MyFRpy Software Foundation
 # Author: Barry Warsaw
-# Contact: email-sig@myFRpy.org
+# Contact: email-sig@python.org
 
 """Base class for MIME multipart/* type messages."""
 

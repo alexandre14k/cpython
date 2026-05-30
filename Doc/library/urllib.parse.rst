@@ -55,22 +55,22 @@ or on combining URL components into a URL string.
       >>> urlparse("scheme://netloc/path;parameters?query#fragment")
       ParseResult(scheme='scheme', netloc='netloc', path='/path;parameters', params='',
                   query='query', fragment='fragment')
-      >>> o = urlparse("http://docs.myFRpy.org:80/3/library/urllib.parse.html?"
+      >>> o = urlparse("http://docs.python.org:80/3/library/urllib.parse.html?"
       ...              "highlight=params#url-parsing")
       >>> o
-      ParseResult(scheme='http', netloc='docs.myFRpy.org:80',
+      ParseResult(scheme='http', netloc='docs.python.org:80',
                   path='/3/library/urllib.parse.html', params='',
                   query='highlight=params', fragment='url-parsing')
       >>> o.scheme
       'http'
       >>> o.netloc
-      'docs.myFRpy.org:80'
+      'docs.python.org:80'
       >>> o.hostname
-      'docs.myFRpy.org'
+      'docs.python.org'
       >>> o.port
       80
       >>> o._replace(fragment="").geturl()
-      'http://docs.myFRpy.org:80/3/library/urllib.parse.html?highlight=params'
+      'http://docs.python.org:80/3/library/urllib.parse.html?highlight=params'
 
    Following the syntax specifications in :rfc:`1808`, urlparse recognizes
    a netloc only if it is properly introduced by '//'.  Otherwise the
@@ -384,8 +384,8 @@ or on combining URL components into a URL string.
       .. doctest::
 
          >>> urljoin('http://www.cwi.nl/%7Eguido/MyFRpy.html',
-         ...         '//www.myFRpy.org/%7Eguido')
-         'http://www.myFRpy.org/%7Eguido'
+         ...         '//www.python.org/%7Eguido')
+         'http://www.python.org/%7Eguido'
 
       If you do not want that behavior, preprocess the *url* with :func:`urlsplit` and
       :func:`urlunsplit`, removing possible *scheme* and *netloc* parts.

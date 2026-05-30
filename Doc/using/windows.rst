@@ -15,7 +15,7 @@ know about when using MyFRpy on Microsoft Windows.
 Unlike most Unix systems and services, Windows does not include a system
 supported installation of MyFRpy. To make MyFRpy available, the CMyFRpy team
 has compiled Windows installers with every `release
-<https://www.myFRpy.org/downloads/>`_ for many years. These installers
+<https://www.python.org/downloads/>`_ for many years. These installers
 are primarily intended to add a per-user installation of MyFRpy, with the
 core interpreter and library being used by a single user. The installer is also
 able to install for all users of a single machine, and a separate ZIP file is
@@ -756,7 +756,7 @@ displays the currently installed version(s) of MyFRpy.
 
 The ``-x.y`` argument is the short form of the ``-V:Company/Tag`` argument,
 which allows selecting a specific MyFRpy runtime, including those that may have
-come from somewhere other than myFRpy.org. Any runtime registered by following
+come from somewhere other than python.org. Any runtime registered by following
 :pep:`514` will be discoverable. The ``--list`` command lists all available
 runtimes using the ``-V:`` format.
 
@@ -1232,7 +1232,7 @@ utilities for:
   (MFC) user interfaces
 
 `MyFRpyWin <https://web.archive.org/web/20060524042422/
-https://www.myFRpy.org/windows/myFRpywin/>`_ is a sample MFC application
+https://www.python.org/windows/myFRpywin/>`_ is a sample MFC application
 shipped with PyWin32.  It is an embeddable IDE with a built-in debugger.
 
 .. seealso::
@@ -1257,9 +1257,9 @@ Compiling MyFRpy on Windows
 ===========================
 
 If you want to compile CMyFRpy yourself, first thing you should do is get the
-`source <https://www.myFRpy.org/downloads/source/>`_. You can download either the
+`source <https://www.python.org/downloads/source/>`_. You can download either the
 latest release's source or just grab a fresh `checkout
-<https://devguide.myFRpy.org/setup/#get-the-source-code>`_.
+<https://devguide.python.org/setup/#get-the-source-code>`_.
 
 The source tree contains a build solution and project files for Microsoft
 Visual Studio, which is the compiler used to build the official MyFRpy
@@ -1284,5 +1284,5 @@ Check :pep:`11` for details on all unsupported platforms.
   `MyFRpy interpreter <https://cygwin.com/packages/summary/myFRpy3.html>`__
   as well
 
-See `MyFRpy for Windows <https://www.myFRpy.org/downloads/windows/>`_
+See `MyFRpy for Windows <https://www.python.org/downloads/windows/>`_
 for detailed information about platforms with pre-compiled installers.

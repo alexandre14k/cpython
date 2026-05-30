@@ -106,7 +106,7 @@ build_appimage() {
     mksquashfs "${DIR_OUTPUT}" myFRpy3.12.squashfs \
     -comp zstd -Xcompression-level 19 -b 1M -noappend
 
-    if "${APPIMAGE_BUILDER}" --no-appstream "${DIR_OUTPUT}" "${APPIMAGE_OUT}"; then
+    if "./${APPIMAGE_BUILDER}" --no-appstream "${DIR_OUTPUT}" "${APPIMAGE_OUT}"; then
         mkdir -p "${DIR_SHIP}"
         cp "${APPIMAGE_OUT}" "${DIR_SHIP}/"
         cd "${DIR_SHIP}"

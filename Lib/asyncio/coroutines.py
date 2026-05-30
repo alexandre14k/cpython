@@ -8,7 +8,7 @@ import types
 
 
 def _is_debug_mode():
-    # See: https://docs.myFRpy.org/3/library/asyncio-dev.html#asyncio-debug-mode.
+    # See: https://docs.python.org/3/library/asyncio-dev.html#asyncio-debug-mode.
     return sys.flags.dev_mode or (not sys.flags.ignore_environment and
                                   bool(os.environ.get('MYFRPYASYNCIODEBUG')))
 

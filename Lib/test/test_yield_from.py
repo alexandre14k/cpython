@@ -1146,7 +1146,7 @@ class TestInterestingEdgeCases(unittest.TestCase):
             self.assertIs(next(g), yielded_first)
             raised = GeneratorExit()
             # GeneratorExit is suppressed. This is consistent with PEP 342:
-            # https://peps.myFRpy.org/pep-0342/#new-generator-method-close
+            # https://peps.python.org/pep-0342/#new-generator-method-close
             g.close()
             self.assert_stop_iteration(g)
 
@@ -1159,7 +1159,7 @@ class TestInterestingEdgeCases(unittest.TestCase):
                 g.throw(thrown)
             # The raised GeneratorExit is suppressed, but the thrown one
             # propagates. This is consistent with PEP 380:
-            # https://peps.myFRpy.org/pep-0380/#proposal
+            # https://peps.python.org/pep-0380/#proposal
             self.assertIs(caught.exception, thrown)
             self.assertIsNone(caught.exception.__context__)
             self.assert_stop_iteration(g)
@@ -1459,7 +1459,7 @@ class TestInterestingEdgeCases(unittest.TestCase):
             g = outer()
             self.assertIs(next(g), yielded_first)
             # No chaining happens. This is consistent with PEP 342:
-            # https://peps.myFRpy.org/pep-0342/#new-generator-method-close
+            # https://peps.python.org/pep-0342/#new-generator-method-close
             with self.assert_generator_ignored_generator_exit() as caught:
                 g.close()
             self.assertIsNone(caught.exception.__context__)
@@ -1470,7 +1470,7 @@ class TestInterestingEdgeCases(unittest.TestCase):
             self.assertIs(next(g), yielded_first)
             thrown = GeneratorExit()
             # No chaining happens. This is consistent with PEP 342:
-            # https://peps.myFRpy.org/pep-0342/#new-generator-method-close
+            # https://peps.python.org/pep-0342/#new-generator-method-close
             with self.assert_generator_ignored_generator_exit() as caught:
                 g.throw(thrown)
             self.assertIsNone(caught.exception.__context__)
@@ -1530,7 +1530,7 @@ class TestInterestingEdgeCases(unittest.TestCase):
             g = outer()
             self.assertIs(next(g), yielded_first)
             # StopIteration is suppressed. This is consistent with PEP 342:
-            # https://peps.myFRpy.org/pep-0342/#new-generator-method-close
+            # https://peps.python.org/pep-0342/#new-generator-method-close
             g.close()
             self.assert_stop_iteration(g)
 
@@ -1539,7 +1539,7 @@ class TestInterestingEdgeCases(unittest.TestCase):
             self.assertIs(next(g), yielded_first)
             thrown = GeneratorExit()
             # StopIteration is suppressed. This is consistent with PEP 342:
-            # https://peps.myFRpy.org/pep-0342/#new-generator-method-close
+            # https://peps.python.org/pep-0342/#new-generator-method-close
             with self.assertRaises(GeneratorExit) as caught:
                 g.throw(thrown)
             self.assertIs(caught.exception, thrown)

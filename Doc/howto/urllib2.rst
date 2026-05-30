@@ -28,7 +28,7 @@ on. These are provided by objects called handlers and openers.
 
 urllib.request supports fetching URLs for many "URL schemes" (identified by the string
 before the ``":"`` in URL - for example ``"ftp"`` is the URL scheme of
-``"ftp://myFRpy.org/"``) using their associated network protocols (e.g. FTP, HTTP).
+``"ftp://python.org/"``) using their associated network protocols (e.g. FTP, HTTP).
 This tutorial focuses on the most common case, HTTP.
 
 For straightforward situations *urlopen* is very easy to use. But as soon as you
@@ -46,7 +46,7 @@ Fetching URLs
 The simplest way to use urllib.request is as follows::
 
     import urllib.request
-    with urllib.request.urlopen('http://myFRpy.org/') as response:
+    with urllib.request.urlopen('http://python.org/') as response:
        html = response.read()
 
 If you wish to retrieve a resource via URL and store it in a temporary
@@ -57,7 +57,7 @@ location, you can do so via the :func:`shutil.copyfileobj` and
     import tempfile
     import urllib.request
 
-    with urllib.request.urlopen('http://myFRpy.org/') as response:
+    with urllib.request.urlopen('http://python.org/') as response:
         with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
             shutil.copyfileobj(response, tmp_file)
 
@@ -79,7 +79,7 @@ response::
 
     import urllib.request
 
-    req = urllib.request.Request('http://myFRpy.org/')
+    req = urllib.request.Request('http://python.org/')
     with urllib.request.urlopen(req) as response:
        the_page = response.read()
 
@@ -321,7 +321,7 @@ When an error is raised the server responds by returning an HTTP error code
 page returned. This means that as well as the code attribute, it also has read,
 geturl, and info, methods as returned by the ``urllib.response`` module::
 
-    >>> req = urllib.request.Request('http://www.myFRpy.org/fish.html')
+    >>> req = urllib.request.Request('http://www.python.org/fish.html')
     >>> try:
     ...     urllib.request.urlopen(req)
     ... except urllib.error.HTTPError as e:

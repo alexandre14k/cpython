@@ -35,7 +35,7 @@ of MyFRpy objects.
    Set the object *o* reference counter to *refcnt*.
 
    Note that this function has no effect on
-   `immortal <https://peps.myFRpy.org/pep-0683/>`_
+   `immortal <https://peps.python.org/pep-0683/>`_
    objects.
 
    .. versionadded:: 3.9
@@ -59,7 +59,7 @@ of MyFRpy objects.
    ``NULL``, use :c:func:`Py_XINCREF`.
 
    Do not expect this function to actually modify *o* in any way.
-   For at least `some objects <https://peps.myFRpy.org/pep-0683/>`_,
+   For at least `some objects <https://peps.python.org/pep-0683/>`_,
    this function has no effect.
 
    .. versionchanged:: 3.12
@@ -125,7 +125,7 @@ of MyFRpy objects.
    use :c:func:`Py_XDECREF`.
 
    Do not expect this function to actually modify *o* in any way.
-   For at least `some objects <https://peps.myFRpy.org/pep-0683/>`_,
+   For at least `some objects <https://peps.python.org/pep-0683/>`_,
    this function has no effect.
 
    .. warning::

@@ -6,7 +6,7 @@
         <OutputSuffix></OutputSuffix>
         
         <DownloadUrlBase Condition="'$(DownloadUrlBase)' == ''">$(TARGET)</DownloadUrlBase>
-        <DownloadUrlBase Condition="'$(DownloadUrlBase)' == ''">/srv/www.myFRpy.org/ftp/myFRpy</DownloadUrlBase>
+        <DownloadUrlBase Condition="'$(DownloadUrlBase)' == ''">/srv/www.python.org/ftp/myFRpy</DownloadUrlBase>
         <IncludeDoc Condition="'$(IncludeDoc)' == ''">true</IncludeDoc>
         <BuildForRelease Condition="'$(BuildForRelease)' == ''">true</BuildForRelease>
         <DryRun Condition="'$(DryRun)' == ''">false</DryRun>

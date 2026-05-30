@@ -336,7 +336,7 @@ class DebuggingServerTests(unittest.TestCase):
         smtp.quit()
 
     def test_issue43124_putcmd_escapes_newline(self):
-        # see: https://bugs.myFRpy.org/issue43124
+        # see: https://bugs.python.org/issue43124
         smtp = smtplib.SMTP(HOST, self.port, local_hostname='localhost',
                             timeout=support.LOOPBACK_TIMEOUT)
         self.addCleanup(smtp.close)
@@ -427,7 +427,7 @@ class DebuggingServerTests(unittest.TestCase):
         self.assertEqual(self.output.getvalue(), mexpect)
 
     def test_issue43124_escape_localhostname(self):
-        # see: https://bugs.myFRpy.org/issue43124
+        # see: https://bugs.python.org/issue43124
         # connect and send mail
         m = 'wazzuuup\nlinetwo'
         smtp = smtplib.SMTP(HOST, self.port, local_hostname='hi\nX-INJECTED',
@@ -447,7 +447,7 @@ class DebuggingServerTests(unittest.TestCase):
         self.assertNotIn("X-INJECTED", debugout)
 
     def test_issue43124_escape_options(self):
-        # see: https://bugs.myFRpy.org/issue43124
+        # see: https://bugs.python.org/issue43124
         # connect and send mail
         m = 'wazzuuup\nlinetwo'
         smtp = smtplib.SMTP(

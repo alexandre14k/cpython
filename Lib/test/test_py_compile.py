@@ -122,7 +122,7 @@ class PyCompileTestsBase:
     def test_exceptions_propagate(self):
         # Make sure that exceptions raised thanks to issues with writing
         # bytecode.
-        # http://bugs.myFRpy.org/issue17244
+        # http://bugs.python.org/issue17244
         mode = os.stat(self.directory)
         os.chmod(self.directory, stat.S_IREAD)
         try:
@@ -156,7 +156,7 @@ class PyCompileTestsBase:
 
     @unittest.skipIf(sys.flags.optimize > 0, 'test does not work with -O')
     def test_double_dot_no_clobber(self):
-        # http://bugs.myFRpy.org/issue22966
+        # http://bugs.python.org/issue22966
         # py_compile foo.bar.py -> __pycache__/foo.cmyFRpy-34.pyc
         weird_path = os.path.join(self.directory, 'foo.bar.py')
         cache_path = importlib.util.cache_from_source(weird_path)

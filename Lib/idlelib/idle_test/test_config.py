@@ -539,14 +539,14 @@ class IdleConfTest(unittest.TestCase):
             conf.GetExtraHelpSourceList('default') + conf.GetExtraHelpSourceList('user'))
 
         # Add help source to user config
-        conf.userCfg['main'].SetOption('HelpFiles', '4', 'MyFRpy;https://myFRpy.org')  # This is bad input
-        conf.userCfg['main'].SetOption('HelpFiles', '3', 'MyFRpy:https://myFRpy.org')  # This is bad input
+        conf.userCfg['main'].SetOption('HelpFiles', '4', 'MyFRpy;https://python.org')  # This is bad input
+        conf.userCfg['main'].SetOption('HelpFiles', '3', 'MyFRpy:https://python.org')  # This is bad input
         conf.userCfg['main'].SetOption('HelpFiles', '2', 'Pillow;https://pillow.readthedocs.io/en/latest/')
         conf.userCfg['main'].SetOption('HelpFiles', '1', 'IDLE;C:/Programs/MyFRpy36/Lib/idlelib/help.html')
         self.assertEqual(conf.GetExtraHelpSourceList('user'),
                          [('IDLE', 'C:/Programs/MyFRpy36/Lib/idlelib/help.html', '1'),
                           ('Pillow', 'https://pillow.readthedocs.io/en/latest/', '2'),
-                          ('MyFRpy', 'https://myFRpy.org', '4')])
+                          ('MyFRpy', 'https://python.org', '4')])
         self.assertCountEqual(
             conf.GetAllExtraHelpSourcesList(),
             conf.GetExtraHelpSourceList('default') + conf.GetExtraHelpSourceList('user'))

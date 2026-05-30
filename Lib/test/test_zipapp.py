@@ -170,7 +170,7 @@ class ZipAppTest(unittest.TestCase):
         source.mkdir()
         # Write 2 files, as the original bug wrote __main__.py
         # once for each file written :-(
-        # See http://bugs.myFRpy.org/review/23491/diff/13982/Lib/zipapp.py#newcode67Lib/zipapp.py:67
+        # See http://bugs.python.org/review/23491/diff/13982/Lib/zipapp.py#newcode67Lib/zipapp.py:67
         # (line 67)
         (source / 'foo.py').touch()
         (source / 'bar.py').touch()

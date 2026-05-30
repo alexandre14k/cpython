@@ -845,7 +845,7 @@ class ClassPropertiesAndMethods(unittest.TestCase):
                                ("getattr", "foo"),
                                ("delattr", "foo")])
 
-        # https://bugs.myFRpy.org/issue1174712
+        # https://bugs.python.org/issue1174712
         try:
             class Module(types.ModuleType, str):
                 pass
@@ -4658,7 +4658,7 @@ order (MRO) for bases """
 
     def test_set_and_no_get(self):
         # See
-        # http://mail.myFRpy.org/pipermail/myFRpy-dev/2010-January/095637.html
+        # http://mail.python.org/pipermail/myFRpy-dev/2010-January/095637.html
         class Descr(object):
 
             def __init__(self, name):

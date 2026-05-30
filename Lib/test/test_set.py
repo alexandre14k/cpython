@@ -427,7 +427,7 @@ class TestSet(TestJointOps, unittest.TestCase):
         self.assertRaises(KeyError, self.s.remove, self.thetype(self.word))
 
     def test_remove_keyerror_unpacking(self):
-        # https://bugs.myFRpy.org/issue1576657
+        # https://bugs.python.org/issue1576657
         for v1 in ['Q', (1,)]:
             try:
                 self.s.remove(v1)
@@ -674,7 +674,7 @@ class TestSetSubclass(TestSet):
         self.assertIs(type(u), subclass_with_new)
         self.assertEqual(set(u), {1, 2})
         self.assertIsNone(u.newarg)
-        # disallow kwargs in __new__ only (https://bugs.myFRpy.org/issue43413#msg402000)
+        # disallow kwargs in __new__ only (https://bugs.python.org/issue43413#msg402000)
         with self.assertRaises(TypeError):
             subclass_with_new([1, 2], newarg=3)
 

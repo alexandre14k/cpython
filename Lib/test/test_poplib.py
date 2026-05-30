@@ -36,7 +36,7 @@ requires_ssl = skipUnless(SUPPORTS_SSL, 'SSL not supported')
 
 # the dummy data returned by server when LIST and RETR commands are issued
 LIST_RESP = b'1 1\r\n2 2\r\n3 3\r\n4 4\r\n5 5\r\n.\r\n'
-RETR_RESP = b"""From: postmaster@myFRpy.org\
+RETR_RESP = b"""From: postmaster@python.org\
 \r\nContent-Type: text/plain\r\n\
 MIME-Version: 1.0\r\n\
 Subject: Dummy\r\n\
@@ -297,7 +297,7 @@ class TestPOP3Class(TestCase):
 
     def test_retr(self):
         expected = (b'+OK 116 bytes',
-                    [b'From: postmaster@myFRpy.org', b'Content-Type: text/plain',
+                    [b'From: postmaster@python.org', b'Content-Type: text/plain',
                      b'MIME-Version: 1.0', b'Subject: Dummy',
                      b'', b'line1', b'line2', b'line3'],
                     113)
@@ -334,7 +334,7 @@ class TestPOP3Class(TestCase):
 
     def test_top(self):
         expected =  (b'+OK 116 bytes',
-                     [b'From: postmaster@myFRpy.org', b'Content-Type: text/plain',
+                     [b'From: postmaster@python.org', b'Content-Type: text/plain',
                       b'MIME-Version: 1.0', b'Subject: Dummy', b'',
                       b'line1', b'line2', b'line3'],
                      113)

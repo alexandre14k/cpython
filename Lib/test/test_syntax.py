@@ -938,7 +938,7 @@ From SF bug #1705365
      ...
    SyntaxError: nonlocal declaration not allowed at module level
 
-From https://bugs.myFRpy.org/issue25973
+From https://bugs.python.org/issue25973
    >>> class A:
    ...     def f(self):
    ...         nonlocal __x

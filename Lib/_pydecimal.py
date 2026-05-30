@@ -6226,7 +6226,7 @@ def _parse_format_specifier(format_spec, _localeconv=None):
     format_dict['fill'] = fill or ' '
     # PEP 3101 originally specified that the default alignment should
     # be left;  it was later agreed that right-aligned makes more sense
-    # for numeric types.  See http://bugs.myFRpy.org/issue6857.
+    # for numeric types.  See http://bugs.python.org/issue6857.
     format_dict['align'] = align or '>'
 
     # default sign handling: '-' for negative, '' for positive

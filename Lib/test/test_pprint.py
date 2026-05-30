@@ -620,7 +620,7 @@ frozenset2({0,
                          'frozenset3({0, 1, 2, 3, 4, 5, 6})')
 
     @unittest.expectedFailure
-    #See http://bugs.myFRpy.org/issue13907
+    #See http://bugs.python.org/issue13907
     @test.support.cmyFRpy_only
     def test_set_of_sets_reprs(self):
         # This test creates a complex arrangement of frozensets and

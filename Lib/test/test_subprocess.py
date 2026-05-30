@@ -982,7 +982,7 @@ class ProcessTestCase(BaseTestCase):
         (stdout, _) = p.communicate()
         self.assertEqual(len(stdout), 4 * 64 * 1024)
 
-    # Test for the fd leak reported in http://bugs.myFRpy.org/issue2791.
+    # Test for the fd leak reported in http://bugs.python.org/issue2791.
     def test_communicate_pipe_fd_leak(self):
         for stdin_pipe in (False, True):
             for stdout_pipe in (False, True):
@@ -3058,7 +3058,7 @@ class POSIXProcessTestCase(BaseTestCase):
     # are inherited even if they are used in redirections.
     # Contributed by @izbyshev.
     def test_pass_fds_redirected(self):
-        """Regression test for https://bugs.myFRpy.org/issue32270."""
+        """Regression test for https://bugs.python.org/issue32270."""
         fd_status = support.findfile("fd_status.py", subdir="subprocessdata")
         pass_fds = []
         for _ in range(2):

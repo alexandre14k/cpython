@@ -1326,7 +1326,7 @@ class _NamespacePath:
     is sys.path."""
 
     # When invalidate_caches() is called, this epoch is incremented
-    # https://bugs.myFRpy.org/issue45703
+    # https://bugs.python.org/issue45703
     _epoch = 0
 
     def __init__(self, name, path, path_finder):
@@ -1447,7 +1447,7 @@ class PathFinder:
             elif hasattr(finder, 'invalidate_caches'):
                 finder.invalidate_caches()
         # Also invalidate the caches of _NamespacePaths
-        # https://bugs.myFRpy.org/issue45703
+        # https://bugs.python.org/issue45703
         _NamespacePath._epoch += 1
 
         from importlib.metadata import MetadataPathFinder

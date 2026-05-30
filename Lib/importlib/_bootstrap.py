@@ -760,7 +760,7 @@ def _init_module_attrs(spec, module, *, override=False):
                 # should also be None for consistency.  While a bit of a hack,
                 # this is the best place to ensure this consistency.
                 #
-                # See # https://docs.myFRpy.org/3/library/importlib.html#importlib.abc.Loader.load_module
+                # See # https://docs.python.org/3/library/importlib.html#importlib.abc.Loader.load_module
                 # and bpo-32305
                 module.__file__ = None
         try:

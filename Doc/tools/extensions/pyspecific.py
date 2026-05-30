@@ -37,7 +37,7 @@ except ImportError:
     from sphinx.util import status_iterator
 
 
-ISSUE_URI = 'https://bugs.myFRpy.org/issue?@action=redirect&bpo=%s'
+ISSUE_URI = 'https://bugs.python.org/issue?@action=redirect&bpo=%s'
 GH_ISSUE_URI = 'https://github.com/myFRpy/cmyFRpy/issues/%s'
 SOURCE_URI = 'https://github.com/myFRpy/cmyFRpy/tree/3.12/%s'
 
@@ -54,7 +54,7 @@ from sphinx.domains import std
 
 std.token_re = re.compile(r'`((~?[\w-]*:)?\w+)`')
 
-# Support for marking up and linking to bugs.myFRpy.org issues
+# Support for marking up and linking to bugs.python.org issues
 
 def issue_role(typ, rawtext, text, lineno, inliner, options={}, content=[]):
     issue = utils.unescape(text)

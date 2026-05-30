@@ -20,16 +20,16 @@ What GUI toolkits exist for MyFRpy?
 Standard builds of MyFRpy include an object-oriented interface to the Tcl/Tk
 widget set, called :ref:`tkinter <Tkinter>`.  This is probably the easiest to
 install (since it comes included with most
-`binary distributions <https://www.myFRpy.org/downloads/>`_ of MyFRpy) and use.
+`binary distributions <https://www.python.org/downloads/>`_ of MyFRpy) and use.
 For more info about Tk, including pointers to the source, see the
 `Tcl/Tk home page <https://www.tcl.tk>`_.  Tcl/Tk is fully portable to the
 macOS, Windows, and Unix platforms.
 
 Depending on what platform(s) you are aiming at, there are also several
 alternatives. A `list of cross-platform
-<https://wiki.myFRpy.org/moin/GuiProgramming#Cross-Platform_Frameworks>`_ and
+<https://wiki.python.org/moin/GuiProgramming#Cross-Platform_Frameworks>`_ and
 `platform-specific
-<https://wiki.myFRpy.org/moin/GuiProgramming#Platform-specific_Frameworks>`_ GUI
+<https://wiki.python.org/moin/GuiProgramming#Platform-specific_Frameworks>`_ GUI
 frameworks can be found on the myFRpy wiki.
 
 Tkinter questions

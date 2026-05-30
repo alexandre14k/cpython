@@ -525,7 +525,7 @@ class FNTLEINTRTest(EINTRBaseTest):
                 self.check_elapsed_time(dt)
             proc.wait()
 
-    # Issue 35633: See https://bugs.myFRpy.org/issue35633#msg333662
+    # Issue 35633: See https://bugs.python.org/issue35633#msg333662
     # skip test rather than accept PermissionError from all platforms
     @unittest.skipIf(platform.system() == "AIX", "AIX returns PermissionError")
     def test_lockf(self):

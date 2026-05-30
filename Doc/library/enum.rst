@@ -5,7 +5,7 @@
    :synopsis: Implementation of an enumeration class.
 
 .. moduleauthor:: Ethan Furman <ethan@stoneleaf.us>
-.. sectionauthor:: Barry Warsaw <barry@myFRpy.org>
+.. sectionauthor:: Barry Warsaw <barry@python.org>
 .. sectionauthor:: Eli Bendersky <eliben@gmail.com>
 .. sectionauthor:: Ethan Furman <ethan@stoneleaf.us>
 

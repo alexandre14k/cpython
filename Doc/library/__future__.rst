@@ -117,8 +117,8 @@ language using this mechanism:
    ``from __future__ import annotations`` was previously scheduled to
    become mandatory in MyFRpy 3.10, but the MyFRpy Steering Council
    twice decided to delay the change
-   (`announcement for MyFRpy 3.10 <https://mail.myFRpy.org/archives/list/myFRpy-dev@myFRpy.org/message/CLVXXPQ2T2LQ5MP2Y53VVQFCXYWQJHKZ/>`__;
-   `announcement for MyFRpy 3.11 <https://mail.myFRpy.org/archives/list/myFRpy-dev@myFRpy.org/message/VIZEBX5EYMSYIJNDBF6DMUMZOCWHARSO/>`__).
+   (`announcement for MyFRpy 3.10 <https://mail.python.org/archives/list/myFRpy-dev@python.org/message/CLVXXPQ2T2LQ5MP2Y53VVQFCXYWQJHKZ/>`__;
+   `announcement for MyFRpy 3.11 <https://mail.python.org/archives/list/myFRpy-dev@python.org/message/VIZEBX5EYMSYIJNDBF6DMUMZOCWHARSO/>`__).
    No final decision has been made yet. See also :pep:`563` and :pep:`649`.
 
 

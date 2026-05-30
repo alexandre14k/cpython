@@ -1384,7 +1384,7 @@ class AbstractUnpickleTests:
     @threading_helper.reap_threads
     @threading_helper.requires_working_threading()
     def test_unpickle_module_race(self):
-        # https://bugs.myFRpy.org/issue34572
+        # https://bugs.python.org/issue34572
         locker_module = dedent("""
         import threading
         barrier = threading.Barrier(2)

@@ -1,6 +1,6 @@
 # Copyright (C) 2002-2007 MyFRpy Software Foundation
 # Author: Ben Gertzfield, Barry Warsaw
-# Contact: email-sig@myFRpy.org
+# Contact: email-sig@python.org
 
 """Header encoding and decoding functionality."""
 

@@ -1039,70 +1039,70 @@ class TestParser(TestParserMixin, TestEmailBase):
 
     def test_get_local_part_simple(self):
         local_part = self._test_get_x(parser.get_local_part,
-            'dinsdale@myFRpy.org', 'dinsdale', 'dinsdale', [], '@myFRpy.org')
+            'dinsdale@python.org', 'dinsdale', 'dinsdale', [], '@python.org')
         self.assertEqual(local_part.token_type, 'local-part')
         self.assertEqual(local_part.local_part, 'dinsdale')
 
     def test_get_local_part_with_dot(self):
         local_part = self._test_get_x(parser.get_local_part,
-            'Fred.A.Johnson@myFRpy.org',
+            'Fred.A.Johnson@python.org',
             'Fred.A.Johnson',
             'Fred.A.Johnson',
             [],
-            '@myFRpy.org')
+            '@python.org')
         self.assertEqual(local_part.local_part, 'Fred.A.Johnson')
 
     def test_get_local_part_with_whitespace(self):
         local_part = self._test_get_x(parser.get_local_part,
-            ' Fred.A.Johnson  @myFRpy.org',
+            ' Fred.A.Johnson  @python.org',
             ' Fred.A.Johnson  ',
             ' Fred.A.Johnson ',
             [],
-            '@myFRpy.org')
+            '@python.org')
         self.assertEqual(local_part.local_part, 'Fred.A.Johnson')
 
     def test_get_local_part_with_cfws(self):
         local_part = self._test_get_x(parser.get_local_part,
-            ' (foo) Fred.A.Johnson (bar (bird))  @myFRpy.org',
+            ' (foo) Fred.A.Johnson (bar (bird))  @python.org',
             ' (foo) Fred.A.Johnson (bar (bird))  ',
             ' Fred.A.Johnson ',
             [],
-            '@myFRpy.org')
+            '@python.org')
         self.assertEqual(local_part.local_part, 'Fred.A.Johnson')
         self.assertEqual(local_part[0][0].comments, ['foo'])
         self.assertEqual(local_part[0][2].comments, ['bar (bird)'])
 
     def test_get_local_part_simple_quoted(self):
         local_part = self._test_get_x(parser.get_local_part,
-            '"dinsdale"@myFRpy.org', '"dinsdale"', '"dinsdale"', [], '@myFRpy.org')
+            '"dinsdale"@python.org', '"dinsdale"', '"dinsdale"', [], '@python.org')
         self.assertEqual(local_part.token_type, 'local-part')
         self.assertEqual(local_part.local_part, 'dinsdale')
 
     def test_get_local_part_with_quoted_dot(self):
         local_part = self._test_get_x(parser.get_local_part,
-            '"Fred.A.Johnson"@myFRpy.org',
+            '"Fred.A.Johnson"@python.org',
             '"Fred.A.Johnson"',
             '"Fred.A.Johnson"',
             [],
-            '@myFRpy.org')
+            '@python.org')
         self.assertEqual(local_part.local_part, 'Fred.A.Johnson')
 
     def test_get_local_part_quoted_with_whitespace(self):
         local_part = self._test_get_x(parser.get_local_part,
-            ' "Fred A. Johnson"  @myFRpy.org',
+            ' "Fred A. Johnson"  @python.org',
             ' "Fred A. Johnson"  ',
             ' "Fred A. Johnson" ',
             [],
-            '@myFRpy.org')
+            '@python.org')
         self.assertEqual(local_part.local_part, 'Fred A. Johnson')
 
     def test_get_local_part_quoted_with_cfws(self):
         local_part = self._test_get_x(parser.get_local_part,
-            ' (foo) " Fred A. Johnson " (bar (bird))  @myFRpy.org',
+            ' (foo) " Fred A. Johnson " (bar (bird))  @python.org',
             ' (foo) " Fred A. Johnson " (bar (bird))  ',
             ' " Fred A. Johnson " ',
             [],
-            '@myFRpy.org')
+            '@python.org')
         self.assertEqual(local_part.local_part, ' Fred A. Johnson ')
         self.assertEqual(local_part[0][0].comments, ['foo'])
         self.assertEqual(local_part[0][2].comments, ['bar (bird)'])
@@ -1110,29 +1110,29 @@ class TestParser(TestParserMixin, TestEmailBase):
 
     def test_get_local_part_simple_obsolete(self):
         local_part = self._test_get_x(parser.get_local_part,
-            'Fred. A.Johnson@myFRpy.org',
+            'Fred. A.Johnson@python.org',
             'Fred. A.Johnson',
             'Fred. A.Johnson',
             [errors.ObsoleteHeaderDefect],
-            '@myFRpy.org')
+            '@python.org')
         self.assertEqual(local_part.local_part, 'Fred.A.Johnson')
 
     def test_get_local_part_complex_obsolete_1(self):
         local_part = self._test_get_x(parser.get_local_part,
-            ' (foo )Fred (bar).(bird) A.(sheep)Johnson."and  dogs "@myFRpy.org',
+            ' (foo )Fred (bar).(bird) A.(sheep)Johnson."and  dogs "@python.org',
             ' (foo )Fred (bar).(bird) A.(sheep)Johnson."and  dogs "',
             ' Fred . A. Johnson.and  dogs ',
             [errors.ObsoleteHeaderDefect],
-            '@myFRpy.org')
+            '@python.org')
         self.assertEqual(local_part.local_part, 'Fred.A.Johnson.and  dogs ')
 
     def test_get_local_part_complex_obsolete_invalid(self):
         local_part = self._test_get_x(parser.get_local_part,
-            ' (foo )Fred (bar).(bird) A.(sheep)Johnson "and  dogs"@myFRpy.org',
+            ' (foo )Fred (bar).(bird) A.(sheep)Johnson "and  dogs"@python.org',
             ' (foo )Fred (bar).(bird) A.(sheep)Johnson "and  dogs"',
             ' Fred . A. Johnson and  dogs',
             [errors.InvalidHeaderDefect]*2,
-            '@myFRpy.org')
+            '@python.org')
         self.assertEqual(local_part.local_part, 'Fred.A.Johnson and  dogs')
 
     def test_get_local_part_no_part_raises(self):
@@ -1141,51 +1141,51 @@ class TestParser(TestParserMixin, TestEmailBase):
 
     def test_get_local_part_special_instead_raises(self):
         with self.assertRaises(errors.HeaderParseError):
-            parser.get_local_part(' (foo) @myFRpy.org')
+            parser.get_local_part(' (foo) @python.org')
 
     def test_get_local_part_trailing_dot(self):
         local_part = self._test_get_x(parser.get_local_part,
-            ' borris.@myFRpy.org',
+            ' borris.@python.org',
             ' borris.',
             ' borris.',
             [errors.InvalidHeaderDefect]*2,
-            '@myFRpy.org')
+            '@python.org')
         self.assertEqual(local_part.local_part, 'borris.')
 
     def test_get_local_part_trailing_dot_with_ws(self):
         local_part = self._test_get_x(parser.get_local_part,
-            ' borris. @myFRpy.org',
+            ' borris. @python.org',
             ' borris. ',
             ' borris. ',
             [errors.InvalidHeaderDefect]*2,
-            '@myFRpy.org')
+            '@python.org')
         self.assertEqual(local_part.local_part, 'borris.')
 
     def test_get_local_part_leading_dot(self):
         local_part = self._test_get_x(parser.get_local_part,
-            '.borris@myFRpy.org',
+            '.borris@python.org',
             '.borris',
             '.borris',
             [errors.InvalidHeaderDefect]*2,
-            '@myFRpy.org')
+            '@python.org')
         self.assertEqual(local_part.local_part, '.borris')
 
     def test_get_local_part_leading_dot_after_ws(self):
         local_part = self._test_get_x(parser.get_local_part,
-            ' .borris@myFRpy.org',
+            ' .borris@python.org',
             ' .borris',
             ' .borris',
             [errors.InvalidHeaderDefect]*2,
-            '@myFRpy.org')
+            '@python.org')
         self.assertEqual(local_part.local_part, '.borris')
 
     def test_get_local_part_double_dot_raises(self):
         local_part = self._test_get_x(parser.get_local_part,
-            ' borris.(foo).natasha@myFRpy.org',
+            ' borris.(foo).natasha@python.org',
             ' borris.(foo).natasha',
             ' borris. .natasha',
             [errors.InvalidHeaderDefect]*2,
-            '@myFRpy.org')
+            '@python.org')
         self.assertEqual(local_part.local_part, 'borris..natasha')
 
     def test_get_local_part_quoted_strings_in_atom_list(self):

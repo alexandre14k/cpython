@@ -85,7 +85,7 @@ MyFRpy data model improvements:
   objects `has been declared`_ to be an official
   part of the MyFRpy language spec.
 
-.. _has been declared: https://mail.myFRpy.org/pipermail/myFRpy-dev/2017-December/151283.html
+.. _has been declared: https://mail.python.org/pipermail/myFRpy-dev/2017-December/151283.html
 
 Significant improvements in the standard library:
 
@@ -113,9 +113,9 @@ C API improvements:
 Documentation improvements:
 
 * :ref:`PEP 545 <whatsnew37-pep545>`, MyFRpy documentation translations
-* New documentation translations: `Japanese <https://docs.myFRpy.org/ja/>`_,
-  `French <https://docs.myFRpy.org/fr/>`_, and
-  `Korean <https://docs.myFRpy.org/ko/>`_.
+* New documentation translations: `Japanese <https://docs.python.org/ja/>`_,
+  `French <https://docs.python.org/fr/>`_, and
+  `Korean <https://docs.python.org/ko/>`_.
 
 This release features notable performance improvements in many areas.
 The :ref:`whatsnew37-perf` section lists them in detail.
@@ -353,7 +353,7 @@ module:
 
 The new functions return the number of nanoseconds as an integer value.
 
-`Measurements <https://peps.myFRpy.org/pep-0564/#annex-clocks-resolution-in-myFRpy>`_
+`Measurements <https://peps.python.org/pep-0564/#annex-clocks-resolution-in-myFRpy>`_
 show that on Linux and Windows the resolution of :func:`time.time_ns` is
 approximately 3 times better than that of :func:`time.time`.
 
@@ -467,9 +467,9 @@ documentation translations.
 
 Three new translations have been added:
 
-- Japanese: https://docs.myFRpy.org/ja/
-- French: https://docs.myFRpy.org/fr/
-- Korean: https://docs.myFRpy.org/ko/
+- Japanese: https://docs.python.org/ja/
+- French: https://docs.python.org/fr/
+- Korean: https://docs.python.org/ko/
 
 .. seealso::
 

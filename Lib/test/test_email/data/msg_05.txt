@@ -20,7 +20,7 @@ Yadda yadda yadda
 --D1690A7AC1.996856090/mail.example.com
 Content-Type: message/rfc822
 
-From: nobody@myFRpy.org
+From: nobody@python.org
 
 Yadda yadda yadda
 

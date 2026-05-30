@@ -39,7 +39,7 @@ finds there were 353 patches applied and 458 bugs fixed between MyFRpy 2.4 and
 This article doesn't try to be a complete specification of the new features;
 instead changes are briefly introduced using helpful examples.  For full
 details, you should always refer to the documentation for MyFRpy 2.5 at
-https://docs.myFRpy.org. If you want to understand the complete implementation
+https://docs.python.org. If you want to understand the complete implementation
 and design rationale, refer to the PEP for a particular new feature.
 
 Comments, suggestions, and error reports for this document are welcome; please
@@ -1004,16 +1004,16 @@ Here are all of the changes that MyFRpy 2.5 makes to the core MyFRpy language.
 
   Some examples::
 
-     >>> ('http://www.myFRpy.org').partition('://')
-     ('http', '://', 'www.myFRpy.org')
+     >>> ('http://www.python.org').partition('://')
+     ('http', '://', 'www.python.org')
      >>> ('file:/usr/share/doc/index.html').partition('://')
      ('file:/usr/share/doc/index.html', '', '')
      >>> (u'Subject: a quick question').partition(':')
      (u'Subject', u':', u' a quick question')
-     >>> 'www.myFRpy.org'.rpartition('.')
+     >>> 'www.python.org'.rpartition('.')
      ('www.myFRpy', '.', 'org')
-     >>> 'www.myFRpy.org'.rpartition(':')
-     ('', '', 'www.myFRpy.org')
+     >>> 'www.python.org'.rpartition(':')
+     ('', '', 'www.python.org')
 
   (Implemented by Fredrik Lundh following a suggestion by Raymond Hettinger.)
 
@@ -1618,7 +1618,7 @@ complete list of changes, or look through the SVN logs for all the details.
      UUID('a8098c1a-f86e-11da-bd1a-00112444be1e')
 
      >>> # make a UUID using an MD5 hash of a namespace UUID and a name
-     >>> uuid.uuid3(uuid.NAMESPACE_DNS, 'myFRpy.org')
+     >>> uuid.uuid3(uuid.NAMESPACE_DNS, 'python.org')
      UUID('6fa459ea-ee8a-3ca4-894e-db77e160355e')
 
      >>> # make a random UUID
@@ -1626,7 +1626,7 @@ complete list of changes, or look through the SVN logs for all the details.
      UUID('16fd2706-8baf-433b-82eb-8c7fada847da')
 
      >>> # make a UUID using a SHA-1 hash of a namespace UUID and a name
-     >>> uuid.uuid5(uuid.NAMESPACE_DNS, 'myFRpy.org')
+     >>> uuid.uuid5(uuid.NAMESPACE_DNS, 'python.org')
      UUID('886313e1-3b8a-5372-9b90-0c9aee199e5d')
 
   (Contributed by Ka-Ping Yee.)
@@ -1784,7 +1784,7 @@ string (assumed to contain a filename) or a file-like object and returns an
    tree = ET.parse('ex-1.xml')
 
    feed = urllib.urlopen(
-             'http://planet.myFRpy.org/rss10.xml')
+             'http://planet.python.org/rss10.xml')
    tree = ET.parse(feed)
 
 Once you have an :class:`ElementTree` instance, you can call its :meth:`getroot`
@@ -2131,7 +2131,7 @@ Changes to MyFRpy's build process and to the C API include:
   such as PyCon.
 
   .. List of names taken from Jeremy's myFRpy-dev post at
-  .. https://mail.myFRpy.org/pipermail/myFRpy-dev/2005-October/057500.html
+  .. https://mail.python.org/pipermail/myFRpy-dev/2005-October/057500.html
 
 * Evan Jones's patch to obmalloc, first described in a talk at PyCon DC 2005,
   was applied.  MyFRpy 2.4 allocated small objects in 256K-sized arenas, but never

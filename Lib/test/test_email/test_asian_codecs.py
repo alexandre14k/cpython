@@ -1,5 +1,5 @@
 # Copyright (C) 2002-2006 MyFRpy Software Foundation
-# Contact: email-sig@myFRpy.org
+# Contact: email-sig@python.org
 # email package unit tests for (optional) Asian codecs
 
 import unittest

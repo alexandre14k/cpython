@@ -186,7 +186,7 @@ As Guido said:
     a class that is not implementing a mapping has a get() or keys()
     method, or something that isn't a file has a write() method.
 
-    -- https://mail.myFRpy.org/pipermail/myFRpy-3000/2006-November/004643.html
+    -- https://mail.python.org/pipermail/myFRpy-3000/2006-November/004643.html
 
 
 Why is join() a string method instead of a list or tuple method?
@@ -713,7 +713,7 @@ to perform the resolution once.
 
 Similar proposals that would introduce syntax to further reduce code volume,
 such as using a 'leading dot', have been rejected in favour of explicitness (see
-https://mail.myFRpy.org/pipermail/myFRpy-ideas/2016-May/040070.html).
+https://mail.python.org/pipermail/myFRpy-ideas/2016-May/040070.html).
 
 
 Why don't generators support the with statement?

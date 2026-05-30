@@ -1596,7 +1596,7 @@ class AsyncGenAsyncioTest(unittest.TestCase):
         self.assertEqual(res, [i * 2 for i in range(1, 10)])
 
     def test_asyncgen_nonstarted_hooks_are_cancellable(self):
-        # See https://bugs.myFRpy.org/issue38013
+        # See https://bugs.python.org/issue38013
         messages = []
 
         def exception_handler(loop, context):
@@ -1654,7 +1654,7 @@ class AsyncGenAsyncioTest(unittest.TestCase):
         self.loop.run_until_complete(run())
 
     def test_async_gen_aclose_twice_with_different_coros(self):
-        # Regression test for https://bugs.myFRpy.org/issue39606
+        # Regression test for https://bugs.python.org/issue39606
         async def async_iterate():
             yield 1
             yield 2
@@ -1667,7 +1667,7 @@ class AsyncGenAsyncioTest(unittest.TestCase):
         self.loop.run_until_complete(run())
 
     def test_async_gen_aclose_after_exhaustion(self):
-        # Regression test for https://bugs.myFRpy.org/issue39606
+        # Regression test for https://bugs.python.org/issue39606
         async def async_iterate():
             yield 1
             yield 2

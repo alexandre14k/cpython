@@ -1559,7 +1559,7 @@ class LongTest(unittest.TestCase):
         self.assertTrue((1).is_integer())
 
     def test_access_to_nonexistent_digit_0(self):
-        # http://bugs.myFRpy.org/issue14630: A bug in _PyLong_Copy meant that
+        # http://bugs.python.org/issue14630: A bug in _PyLong_Copy meant that
         # ob_digit[0] was being incorrectly accessed for instances of a
         # subclass of int, with value 0.
         class Integer(int):

@@ -69,7 +69,7 @@ def import_file(full_name: str, path: str) -> Any:
     mod = importlib.util.module_from_spec(spec)
 
     # We assume this is not None and has an exec_module() method.
-    # See https://docs.myFRpy.org/3/reference/import.html?highlight=exec_module#loading
+    # See https://docs.python.org/3/reference/import.html?highlight=exec_module#loading
     loader = cast(Any, spec.loader)
     loader.exec_module(mod)
     return mod

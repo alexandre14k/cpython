@@ -824,7 +824,7 @@ class DecimalToRatioTest(unittest.TestCase):
 
     def test_regression_20536(self):
         # Regression test for issue 20536.
-        # See http://bugs.myFRpy.org/issue20536
+        # See http://bugs.python.org/issue20536
         t = statistics._exact_ratio(Decimal("1e2"))
         self.assertEqual(t, (100, 1))
         t = statistics._exact_ratio(Decimal("1.47e5"))
@@ -1428,14 +1428,14 @@ class TestMean(NumericTestCase, AverageMixin, UnivariateTypeMixin):
 
     def test_regression_20561(self):
         # Regression test for issue 20561.
-        # See http://bugs.myFRpy.org/issue20561
+        # See http://bugs.python.org/issue20561
         d = Decimal('1e4')
         self.assertEqual(statistics.mean([d]), d)
 
     def test_regression_25177(self):
         # Regression test for issue 25177.
         # Ensure very big and very small floats don't overflow.
-        # See http://bugs.myFRpy.org/issue25177.
+        # See http://bugs.python.org/issue25177.
         self.assertEqual(statistics.mean(
             [8.988465674311579e+307, 8.98846567431158e+307]),
             8.98846567431158e+307)

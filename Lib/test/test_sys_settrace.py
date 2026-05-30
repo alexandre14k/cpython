@@ -689,7 +689,7 @@ class TraceTestCase(unittest.TestCase):
              (2, 'return')])
 
     def test_loop_in_try_except(self):
-        # https://bugs.myFRpy.org/issue41670
+        # https://bugs.python.org/issue41670
 
         def func():
             try:

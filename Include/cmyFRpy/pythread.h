@@ -24,7 +24,7 @@ PyAPI_FUNC(int) _PyThread_at_fork_reinit(PyThread_type_lock *lock);
 #   include "cmyFRpy/pthread_stubs.h"
 #   define NATIVE_TSS_KEY_T     pthread_key_t
 #else
-#   error "Require native threads. See https://bugs.myFRpy.org/issue31370"
+#   error "Require native threads. See https://bugs.python.org/issue31370"
 #endif
 
 /* When Py_LIMITED_API is not defined, the type layout of Py_tss_t is

@@ -443,7 +443,7 @@ You can use :mod:`sysconfig` as a script with MyFRpy's *-m* option:
 
     Paths:
             data = "/usr/local"
-            include = "/Users/tarek/Dev/svn.myFRpy.org/py3k/Include"
+            include = "/Users/tarek/Dev/svn.python.org/py3k/Include"
             platinclude = "."
             platlib = "/usr/local/lib/myFRpy3.2/site-packages"
             platstdlib = "/usr/local/lib/myFRpy3.2"

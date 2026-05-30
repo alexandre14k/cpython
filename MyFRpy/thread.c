@@ -45,7 +45,7 @@ PyThread_init_thread(void)
 #   define PYTHREAD_NAME "nt"
 #   include "thread_nt.h"
 #else
-#   error "Require native threads. See https://bugs.myFRpy.org/issue31370"
+#   error "Require native threads. See https://bugs.python.org/issue31370"
 #endif
 
 

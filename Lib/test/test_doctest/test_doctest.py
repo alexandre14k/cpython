@@ -3185,8 +3185,8 @@ def test_no_trailing_whitespace_stripping():
 def test_run_doctestsuite_multiple_times():
     """
     It was not possible to run the same DocTestSuite multiple times
-    http://bugs.myFRpy.org/issue2604
-    http://bugs.myFRpy.org/issue9736
+    http://bugs.python.org/issue2604
+    http://bugs.python.org/issue9736
 
     >>> import unittest
     >>> import test.test_doctest.sample_doctest

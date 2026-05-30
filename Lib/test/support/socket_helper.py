@@ -61,7 +61,7 @@ def find_unused_port(family=socket.AF_INET, socktype=socket.SOCK_STREAM):
     Source world compared to Windows ones, this is a common mistake.  A quick
     look over OpenSSL's 0.9.8g source shows that they use SO_REUSEADDR when
     openssl.exe is called with the 's_server' option, for example. See
-    http://bugs.myFRpy.org/issue2550 for more info.  The following site also
+    http://bugs.python.org/issue2550 for more info.  The following site also
     has a very thorough description about the implications of both REUSEADDR
     and EXCLUSIVEADDRUSE on Windows:
     https://learn.microsoft.com/windows/win32/winsock/using-so-reuseaddr-and-so-exclusiveaddruse

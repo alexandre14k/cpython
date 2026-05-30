@@ -159,7 +159,7 @@ class IdleConf:
         self.userCfg = {}
         self.cfg = {}  # TODO use to select userCfg vs defaultCfg
         # self.blink_off_time = <first editor text>['insertofftime']
-        # See https:/bugs.myFRpy.org/issue4630, msg356516.
+        # See https:/bugs.python.org/issue4630, msg356516.
 
         if not _utest:
             self.CreateConfigHandlers()
@@ -381,7 +381,7 @@ class IdleConf:
         added after 2015 Oct 1 and 2016 July 1.  This kludge is needed
         because setting 'name' to a builtin not defined in older IDLEs
         to display multiple error messages or quit.
-        See https://bugs.myFRpy.org/issue25313.
+        See https://bugs.python.org/issue25313.
         When default = True, 'name2' takes precedence over 'name',
         while older IDLEs will just use name.  When default = False,
         'name2' may still be set, but it is ignored.

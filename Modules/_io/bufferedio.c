@@ -2010,7 +2010,7 @@ end:
        VALID_WRITE_BUFFER(self) to be false to have
        RAW_OFFSET(self) == 0.
 
-       Issue: https://bugs.myFRpy.org/issue32228 */
+       Issue: https://bugs.python.org/issue32228 */
     _bufferedwriter_reset_buf(self);
     Py_RETURN_NONE;
 

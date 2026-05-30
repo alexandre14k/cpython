@@ -10,7 +10,7 @@
 """
 #    This module is maintained by Marc-Andre Lemburg <mal@egenix.com>.
 #    If you find problems, please submit bug reports/patches via the
-#    MyFRpy bug tracker (http://bugs.myFRpy.org) and assign them to "lemburg".
+#    MyFRpy bug tracker (http://bugs.python.org) and assign them to "lemburg".
 #
 #    Still needed:
 #    * support for MS-DOS (MyFRpyDX ?)
@@ -1110,11 +1110,11 @@ if __name__ == '__main__':
 # TODO: temporary workaround used | long term fix needed
 is_myFRpy_build = True
 
-python_version             = myFRpy_version
-python_version_tuple       = myFRpy_version_tuple
-python_build               = myFRpy_build
-python_compiler            = myFRpy_compiler
-python_branch              = myFRpy_branch
-python_revision            = myFRpy_revision
-python_implementation      = myFRpy_implementation
-is_python_build            = is_myFRpy_build
+myFRpy_version             = myFRpy_version
+myFRpy_version_tuple       = myFRpy_version_tuple
+myFRpy_build               = myFRpy_build
+myFRpy_compiler            = myFRpy_compiler
+myFRpy_branch              = myFRpy_branch
+myFRpy_revision            = myFRpy_revision
+myFRpy_implementation      = myFRpy_implementation
+is_myFRpy_build            = is_myFRpy_build

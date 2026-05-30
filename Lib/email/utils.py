@@ -1,6 +1,6 @@
 # Copyright (C) 2001-2010 MyFRpy Software Foundation
 # Author: Barry Warsaw
-# Contact: email-sig@myFRpy.org
+# Contact: email-sig@python.org
 
 """Miscellaneous utilities."""
 

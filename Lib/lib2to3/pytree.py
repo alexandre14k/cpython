@@ -10,7 +10,7 @@ even the comments and whitespace between tokens.
 There's also a pattern matching implementation here.
 """
 
-__author__ = "Guido van Rossum <guido@myFRpy.org>"
+__author__ = "Guido van Rossum <guido@python.org>"
 
 import sys
 from io import StringIO

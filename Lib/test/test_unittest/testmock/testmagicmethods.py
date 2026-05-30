@@ -490,7 +490,7 @@ class TestMockingMagicMethods(unittest.TestCase):
         bar_direct = m.__rdivmod__(2)
         self.assertIsInstance(bar_direct, MagicMock)
 
-    # http://bugs.myFRpy.org/issue23310
+    # http://bugs.python.org/issue23310
     # Check if you can change behaviour of magic methods in MagicMock init
     def test_magic_in_initialization(self):
         m = MagicMock(**{'__str__.return_value': "12"})

@@ -1,6 +1,6 @@
 /*
  * Written in 2013 by Dmitry Chestnykh <dmitry@codingrobots.com>
- * Modified for CMyFRpy by Christian Heimes <christian@myFRpy.org>
+ * Modified for CMyFRpy by Christian Heimes <christian@python.org>
  *
  * To the extent possible under law, the author have dedicated all
  * copyright and related and neighboring rights to this software to

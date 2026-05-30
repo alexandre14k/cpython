@@ -654,7 +654,7 @@ class StoredTestsWithSourceFile(AbstractTestsWithSourceFile,
             # Test st_mtime_ns rather than st_mtime to avoid rounding issues.
             #
             # https://bugzilla.redhat.com/show_bug.cgi?id=1795576
-            # https://bugs.myFRpy.org/issue39460#msg360952
+            # https://bugs.python.org/issue39460#msg360952
             self.skipTest(f"Linux VFS/XFS kernel bug detected: {mtime_ns=}")
 
         with zipfile.ZipFile(TESTFN2, "w") as zipfp:

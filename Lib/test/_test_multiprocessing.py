@@ -4451,7 +4451,7 @@ class _TestSharedMemory(BaseTestCase):
                 #   UserWarning: resource_tracker:
                 #   There appear to be 1 leaked shared_memory
                 #   objects to clean up at shutdown
-                # See: https://bugs.myFRpy.org/issue45209
+                # See: https://bugs.python.org/issue45209
                 resource_tracker.unregister(f"/{name}", "shared_memory")
 
                 # A warning was emitted by the subprocess' own
@@ -5905,7 +5905,7 @@ class TestSyncManagerTypes(unittest.TestCase):
 
     @classmethod
     def _test_pool(cls, obj):
-        # TODO: fix https://bugs.myFRpy.org/issue35919
+        # TODO: fix https://bugs.python.org/issue35919
         with obj:
             pass
 

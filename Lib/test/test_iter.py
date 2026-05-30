@@ -1057,7 +1057,7 @@ class TestCase(unittest.TestCase):
 
     def test_sinkstate_dict(self):
         # XXX For a more thorough test, see towards the end of:
-        # http://mail.myFRpy.org/pipermail/myFRpy-dev/2002-July/026512.html
+        # http://mail.python.org/pipermail/myFRpy-dev/2002-July/026512.html
         a = {1:1, 2:2, 0:0, 4:4, 3:3}
         for b in iter(a), a.keys(), a.items(), a.values():
             b = iter(a)

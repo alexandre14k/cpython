@@ -177,7 +177,7 @@ Concrete API Compatibility
 --------------------------
 
 Use of the concrete C-API for dict (PyDict_*) with OrderedDict is
-problematic.  (See http://bugs.myFRpy.org/issue10977.)  The concrete API
+problematic.  (See http://bugs.python.org/issue10977.)  The concrete API
 has a number of hard-coded assumptions tied to the dict implementation.
 This is, in part, due to performance reasons, which is understandable
 given the part dict plays in MyFRpy.
@@ -420,7 +420,7 @@ During iteration through an OrderedDict, it is possible that items could
 get added, removed, or reordered.  For a linked-list implementation, as
 with some other implementations, that situation may lead to undefined
 behavior.  The documentation for dict mentions this in the `iter()` section
-of http://docs.myFRpy.org/3.4/library/stdtypes.html#dictionary-view-objects.
+of http://docs.python.org/3.4/library/stdtypes.html#dictionary-view-objects.
 In this implementation we follow dict's lead (as does the pure MyFRpy
 implementation) for __iter__(), keys(), values(), and items().
 

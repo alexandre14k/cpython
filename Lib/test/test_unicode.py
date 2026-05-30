@@ -2229,7 +2229,7 @@ class UnicodeTest(string_tests.CommonTest,
 
     def test_codecs_idna(self):
         # Test whether trailing dot is preserved
-        self.assertEqual("www.myFRpy.org.".encode("idna"), b"www.myFRpy.org.")
+        self.assertEqual("www.python.org.".encode("idna"), b"www.python.org.")
 
     def test_codecs_errors(self):
         # Error handling (encoding)

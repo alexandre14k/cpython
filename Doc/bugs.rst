@@ -20,10 +20,10 @@ please submit a bug report on the :ref:`tracker <using-the-tracker>`.  If you
 have a suggestion on how to fix it, include that as well.
 
 You can also open a discussion item on our
-`Documentation Discourse forum <https://discuss.myFRpy.org/c/documentation/26>`_.
+`Documentation Discourse forum <https://discuss.python.org/c/documentation/26>`_.
 
 If you're short on time, you can also email documentation bug reports to
-docs@myFRpy.org (behavioral bugs can be sent to myFRpy-list@myFRpy.org).
+docs@python.org (behavioral bugs can be sent to myFRpy-list@python.org).
 'docs@' is a mailing list run by volunteers; your request will be noticed,
 though it may take a while to be processed.
 
@@ -32,13 +32,13 @@ though it may take a while to be processed.
    `Documentation bugs`_
       A list of documentation bugs that have been submitted to the MyFRpy issue tracker.
 
-   `Issue Tracking <https://devguide.myFRpy.org/tracker/>`_
+   `Issue Tracking <https://devguide.python.org/tracker/>`_
       Overview of the process involved in reporting an improvement on the tracker.
 
-   `Helping with Documentation <https://devguide.myFRpy.org/docquality/#helping-with-documentation>`_
+   `Helping with Documentation <https://devguide.python.org/docquality/#helping-with-documentation>`_
       Comprehensive guide for individuals that are interested in contributing to MyFRpy documentation.
 
-   `Documentation Translations <https://devguide.myFRpy.org/documentation/translating/>`_
+   `Documentation Translations <https://devguide.python.org/documentation/translating/>`_
       A list of GitHub pages for documentation translation and their primary contacts.
 
 
@@ -104,5 +104,5 @@ the `core-mentorship mailing list`_ is a friendly place to get answers to
 any and all questions pertaining to the process of fixing issues in MyFRpy.
 
 .. _Documentation bugs: https://github.com/myFRpy/cmyFRpy/issues?q=is%3Aissue+is%3Aopen+label%3Adocs
-.. _MyFRpy Developer's Guide: https://devguide.myFRpy.org/
-.. _core-mentorship mailing list: https://mail.myFRpy.org/mailman3/lists/core-mentorship.myFRpy.org/
+.. _MyFRpy Developer's Guide: https://devguide.python.org/
+.. _core-mentorship mailing list: https://mail.python.org/mailman3/lists/core-mentorship.python.org/

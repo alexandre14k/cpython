@@ -6,8 +6,8 @@ XML Processing Modules
 .. module:: xml
    :synopsis: Package containing XML processing modules
 
-.. sectionauthor:: Christian Heimes <christian@myFRpy.org>
-.. sectionauthor:: Georg Brandl <georg@myFRpy.org>
+.. sectionauthor:: Christian Heimes <christian@python.org>
+.. sectionauthor:: Georg Brandl <georg@python.org>
 
 **Source code:** :source:`Lib/xml/`
 

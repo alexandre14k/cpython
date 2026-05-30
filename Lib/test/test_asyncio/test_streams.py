@@ -881,7 +881,7 @@ os.close(fd)
         self.loop.run_until_complete(main())
 
     def test_drain_raises(self):
-        # See http://bugs.myFRpy.org/issue25441
+        # See http://bugs.python.org/issue25441
 
         # This test should not use asyncio for the mock server; the
         # whole point of the test is to test for a bug in drain()
@@ -1055,7 +1055,7 @@ os.close(fd)
         self.assertEqual(messages, [])
 
     def test_eof_feed_when_closing_writer(self):
-        # See http://bugs.myFRpy.org/issue35065
+        # See http://bugs.python.org/issue35065
         messages = []
         self.loop.set_exception_handler(lambda loop, ctx: messages.append(ctx))
 

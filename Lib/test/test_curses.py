@@ -1147,7 +1147,7 @@ class TestCurses(unittest.TestCase):
     def test_issue21088(self):
         stdscr = self.stdscr
         #
-        # http://bugs.myFRpy.org/issue21088
+        # http://bugs.python.org/issue21088
         #
         # the bug:
         # when converting curses.window.addch to Argument Clinic

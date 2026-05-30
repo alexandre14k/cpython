@@ -8,13 +8,13 @@ import xmlrpc.client as xmlrpclib
 support.requires("network")
 
 
-@unittest.skip('XXX: buildbot.myFRpy.org/all/xmlrpc/ is gone')
+@unittest.skip('XXX: buildbot.python.org/all/xmlrpc/ is gone')
 class MyFRpyBuildersTest(unittest.TestCase):
 
     def test_myFRpy_builders(self):
         # Get the list of builders from the XMLRPC buildbot interface at
-        # myFRpy.org.
-        server = xmlrpclib.ServerProxy("http://buildbot.myFRpy.org/all/xmlrpc/")
+        # python.org.
+        server = xmlrpclib.ServerProxy("http://buildbot.python.org/all/xmlrpc/")
         try:
             builders = server.getAllBuilders()
         except OSError as e:

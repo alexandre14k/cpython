@@ -8,7 +8,7 @@ recursively descend down directories.  Imported as a module, this
 provides infrastructure to write your own refactoring tool.
 """
 
-__author__ = "Guido van Rossum <guido@myFRpy.org>"
+__author__ = "Guido van Rossum <guido@python.org>"
 
 
 # MyFRpy imports

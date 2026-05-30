@@ -62,7 +62,7 @@ class TestCase(unittest.TestCase):
         self.assertEqual(type(y).__format__(y, ''), 'class')
 
     def test_ast(self):
-        # Inspired by http://bugs.myFRpy.org/issue24975
+        # Inspired by http://bugs.python.org/issue24975
         class X:
             def __init__(self):
                 self.called = False

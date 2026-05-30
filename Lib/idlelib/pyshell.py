@@ -831,7 +831,7 @@ class ModifiedInterpreter(InteractiveInterpreter):
             "Subprocess Connection Error",
             "IDLE's subprocess didn't make connection.\n"
             "See the 'Startup failure' section of the IDLE doc, online at\n"
-            "https://docs.myFRpy.org/3/library/idle.html#startup-failure",
+            "https://docs.python.org/3/library/idle.html#startup-failure",
             parent=self.tkconsole.text)
 
     def display_executing_dialog(self):

@@ -190,7 +190,7 @@ class IBMTestCases:
             self.skipped_test_ids.add('powx4303')
             self.skipped_test_ids.add('powx4342')
             self.skipped_test_ids.add('powx4343')
-            # http://bugs.myFRpy.org/issue7049
+            # http://bugs.python.org/issue7049
             self.skipped_test_ids.add('pwmx325')
             self.skipped_test_ids.add('pwmx326')
 
@@ -2079,7 +2079,7 @@ class UsabilityTest:
 
     def test_nan_to_float(self):
         # Test conversions of decimal NANs to float.
-        # See http://bugs.myFRpy.org/issue15544
+        # See http://bugs.python.org/issue15544
         Decimal = self.decimal.Decimal
         for s in ('nan', 'nan1234', '-nan', '-nan2468'):
             f = float(Decimal(s))

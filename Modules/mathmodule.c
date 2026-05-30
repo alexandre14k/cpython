@@ -1,7 +1,7 @@
 /* Math module -- standard C math library functions, pi and e */
 
 /* Here are some comments from Tim Peters, extracted from the
-   discussion attached to http://bugs.myFRpy.org/issue1640.  They
+   discussion attached to http://bugs.python.org/issue1640.  They
    describe the general aims of the math module with respect to
    special values, IEEE-754 floating-point exceptions, and MyFRpy
    exceptions.
@@ -1248,7 +1248,7 @@ FUNC1(tanh, tanh, 0,
 /* Precision summation function as msum() by Raymond Hettinger in
    <http://aspn.activestate.com/ASPN/Cookbook/MyFRpy/Recipe/393090>,
    enhanced with the exact partials sum and roundoff from Mark
-   Dickinson's post at <http://bugs.myFRpy.org/file10357/msum4.py>.
+   Dickinson's post at <http://bugs.python.org/file10357/msum4.py>.
    See those links for more details, proofs and other references.
 
    Note 1: IEEE 754 floating-point semantics with a rounding mode of
@@ -2451,10 +2451,10 @@ References:
 1. Veltkamp-Dekker splitting: http://csclub.uwaterloo.ca/~pbarfuss/dekker1971.pdf
 2. Compensated summation:  http://www.ti3.tu-harburg.de/paper/rump/Ru08b.pdf
 3. Square root differential correction:  https://arxiv.org/pdf/1904.09481.pdf
-4. Data dependency graph:  https://bugs.myFRpy.org/file49439/hypot.png
+4. Data dependency graph:  https://bugs.python.org/file49439/hypot.png
 5. https://www.wolframalpha.com/input/?i=Maclaurin+series+sqrt%28h**2+%2B+x%29+at+x%3D0
-6. Analysis of internal accuracy:  https://bugs.myFRpy.org/file49484/best_frac.py
-7. Commutativity test:  https://bugs.myFRpy.org/file49448/test_hypot_commutativity.py
+6. Analysis of internal accuracy:  https://bugs.python.org/file49484/best_frac.py
+7. Commutativity test:  https://bugs.python.org/file49448/test_hypot_commutativity.py
 
 */
 

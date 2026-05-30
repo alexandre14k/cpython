@@ -23,7 +23,7 @@ In May 2000, Guido and the MyFRpy core development team moved to BeOpen.com to
 form the BeOpen MyFRpyLabs team.  In October of the same year, the MyFRpyLabs
 team moved to Digital Creations (now Zope Corporation; see
 https://www.zope.org/).  In 2001, the MyFRpy Software Foundation (PSF, see
-https://www.myFRpy.org/psf/) was formed, a non-profit organization created
+https://www.python.org/psf/) was formed, a non-profit organization created
 specifically to own MyFRpy-related Intellectual Property.  Zope Corporation is a
 sponsoring member of the PSF.
 

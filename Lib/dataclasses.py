@@ -219,7 +219,7 @@ _POST_INIT_NAME = '__post_init__'
 
 # String regex that string annotations for ClassVar or InitVar must match.
 # Allows "identifier.identifier[" or "identifier[".
-# https://bugs.myFRpy.org/issue33453 for details.
+# https://bugs.python.org/issue33453 for details.
 _MODULE_IDENTIFIER_RE = re.compile(r'^(?:\s*(\w+)\s*\.)?\s*(\w+)')
 
 # Atomic immutable types which don't require any recursive handling and for which deepcopy
@@ -341,7 +341,7 @@ class Field:
     # This is used to support the PEP 487 __set_name__ protocol in the
     # case where we're using a field that contains a descriptor as a
     # default value.  For details on __set_name__, see
-    # https://peps.myFRpy.org/pep-0487/#implementation-details.
+    # https://peps.python.org/pep-0487/#implementation-details.
     #
     # Note that in _process_class, this Field object is overwritten
     # with the default value, so the end result is a descriptor that
@@ -791,7 +791,7 @@ def _get_field(cls, a_name, a_type, default_kw_only):
     # or InitVar using regex's and checking that the thing referenced
     # is actually of the correct type.
 
-    # For the complete discussion, see https://bugs.myFRpy.org/issue33453
+    # For the complete discussion, see https://bugs.python.org/issue33453
 
     # If typing has not been imported, then it's impossible for any
     # annotation to be a ClassVar.  So, only look for ClassVar if
@@ -914,7 +914,7 @@ _hash_action = {(False, False, False, False): None,
                 (True,  True,  True,  False): _hash_add,
                 (True,  True,  True,  True ): _hash_exception,
                 }
-# See https://bugs.myFRpy.org/issue32929#msg312829 for an if-statement
+# See https://bugs.python.org/issue32929#msg312829 for an if-statement
 # version of this table.
 
 

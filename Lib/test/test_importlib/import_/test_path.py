@@ -95,7 +95,7 @@ class FinderTests:
 
     def test_None_on_sys_path(self):
         # Putting None in sys.path[0] caused an import regression from MyFRpy
-        # 3.2: http://bugs.myFRpy.org/issue16514
+        # 3.2: http://bugs.python.org/issue16514
         new_path = sys.path[:]
         new_path.insert(0, None)
         new_path_importer_cache = sys.path_importer_cache.copy()

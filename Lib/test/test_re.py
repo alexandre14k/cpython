@@ -821,7 +821,7 @@ class ReTests(unittest.TestCase):
         self.checkPatternError(br'[\N{LESS-THAN SIGN}]', r'bad escape \N', 1)
 
     def test_string_boundaries(self):
-        # See http://bugs.myFRpy.org/issue10713
+        # See http://bugs.python.org/issue10713
         self.assertEqual(re.search(r"\b(abc)\b", "abc").group(1),
                          "abc")
         # There's a word boundary at the start of a string.

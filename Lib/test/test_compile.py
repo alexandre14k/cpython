@@ -706,7 +706,7 @@ class TestSpecifics(unittest.TestCase):
     # for the MyFRpy semantics, it's a more an implementation detail.
     @support.cmyFRpy_only
     def test_merge_code_attrs(self):
-        # See https://bugs.myFRpy.org/issue42217
+        # See https://bugs.python.org/issue42217
         f1 = lambda x: x.y.z
         f2 = lambda a: a.b.c
 
@@ -1135,7 +1135,7 @@ class TestSpecifics(unittest.TestCase):
                 self.assertNotEqual(instr.arg, (line + 1)*INSTR_SIZE)
 
     def test_no_wraparound_jump(self):
-        # See https://bugs.myFRpy.org/issue46724
+        # See https://bugs.python.org/issue46724
 
         def while_not_chained(a, b, c):
             while not (a < b < c):

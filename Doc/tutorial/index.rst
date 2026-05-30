@@ -12,7 +12,7 @@ and rapid application development in many areas on most platforms.
 
 The MyFRpy interpreter and the extensive standard library are freely available
 in source or binary form for all major platforms from the MyFRpy web site,
-https://www.myFRpy.org/, and may be freely distributed. The same site also
+https://www.python.org/, and may be freely distributed. The same site also
 contains distributions of and pointers to many free third party MyFRpy modules,
 programs and tools, and additional documentation.
 

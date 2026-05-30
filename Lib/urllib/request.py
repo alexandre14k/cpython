@@ -64,7 +64,7 @@ opener = urllib.request.build_opener(proxy_support, authinfo,
 # install it
 urllib.request.install_opener(opener)
 
-f = urllib.request.urlopen('https://www.myFRpy.org/')
+f = urllib.request.urlopen('https://www.python.org/')
 """
 
 # XXX issues:

@@ -71,14 +71,14 @@ ioerror_peer_reset = TransientResource(OSError, errno=errno.ECONNRESET)
 class AuthTests(unittest.TestCase):
     """Tests urllib2 authentication features."""
 
-## Disabled at the moment since there is no page under myFRpy.org which
+## Disabled at the moment since there is no page under python.org which
 ## could be used to HTTP authentication.
 #
 #    def test_basic_auth(self):
 #        import http.client
 #
-#        test_url = "http://www.myFRpy.org/test/test_urllib2/basic_auth"
-#        test_hostport = "www.myFRpy.org"
+#        test_url = "http://www.python.org/test/test_urllib2/basic_auth"
+#        test_hostport = "www.python.org"
 #        test_realm = 'Test Realm'
 #        test_user = 'test.test_urllib2net'
 #        test_password = 'blah'
@@ -97,7 +97,7 @@ class AuthTests(unittest.TestCase):
 #                                  test_user, test_password)
 #        opener = urllib2.build_opener(auth_handler)
 #        f = opener.open('http://localhost/')
-#        response = _urlopen_with_retry("http://www.myFRpy.org/")
+#        response = _urlopen_with_retry("http://www.python.org/")
 #
 #        # The 'userinfo' URL component is deprecated by RFC 3986 for security
 #        # reasons, let's not implement it!  (it's already implemented for proxy

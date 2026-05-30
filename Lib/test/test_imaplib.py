@@ -261,7 +261,7 @@ class NewIMAPTestsMixin():
         self.thread = None
 
     def test_EOF_without_complete_welcome_message(self):
-        # http://bugs.myFRpy.org/issue5949
+        # http://bugs.python.org/issue5949
         class EOFHandler(socketserver.StreamRequestHandler):
             def handle(self):
                 self.wfile.write(b'* OK')
@@ -937,7 +937,7 @@ class ThreadedNetworkedTests(unittest.TestCase):
     @cmyFRpy_only
     @unittest.skipUnless(__debug__, "Won't work if __debug__ is False")
     def test_dump_ur(self):
-        # See: http://bugs.myFRpy.org/issue26543
+        # See: http://bugs.python.org/issue26543
         untagged_resp_dict = {'READ-WRITE': [b'']}
 
         with self.reaped_server(SimpleIMAPHandler) as server:

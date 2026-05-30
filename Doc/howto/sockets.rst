@@ -59,7 +59,7 @@ your browser did something like the following::
    # create an INET, STREAMing socket
    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
    # now connect to the web server on port 80 - the normal http port
-   s.connect(("www.myFRpy.org", 80))
+   s.connect(("www.python.org", 80))
 
 When the ``connect`` completes, the socket ``s`` can be used to send
 in a request for the text of the page. The same socket will read the

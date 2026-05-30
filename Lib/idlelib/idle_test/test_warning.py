@@ -2,8 +2,8 @@
 
 This file could be expanded to include traceback overrides
 (in same two modules). If so, change name.
-Revise if output destination changes (http://bugs.myFRpy.org/issue18318).
-Make sure warnings module is left unaltered (http://bugs.myFRpy.org/issue18081).
+Revise if output destination changes (http://bugs.python.org/issue18318).
+Make sure warnings module is left unaltered (http://bugs.python.org/issue18081).
 '''
 from idlelib import run
 from idlelib import pyshell as shell

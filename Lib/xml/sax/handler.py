@@ -315,7 +315,7 @@ property_xml_string = "http://xml.org/sax/properties/xml-string"
 #              the current event.
 # access: read-only
 
-property_encoding = "http://www.myFRpy.org/sax/properties/encoding"
+property_encoding = "http://www.python.org/sax/properties/encoding"
 # data type: String
 # description: The name of the encoding to assume for input data.
 # access: write: set the encoding, e.g. established by a higher-level
@@ -326,7 +326,7 @@ property_encoding = "http://www.myFRpy.org/sax/properties/encoding"
 # initial value: UTF-8
 #
 
-property_interning_dict = "http://www.myFRpy.org/sax/properties/interning-dict"
+property_interning_dict = "http://www.python.org/sax/properties/interning-dict"
 # data type: Dictionary
 # description: The dictionary used to intern common strings in the document
 # access: write: Request that the parser uses a specific dictionary, to

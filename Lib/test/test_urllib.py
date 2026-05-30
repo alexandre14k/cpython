@@ -346,17 +346,17 @@ class urlopen_HttpTests(unittest.TestCase, FakeHTTPMixin, FakeFTPMixin):
     def check_read(self, ver):
         self.fakehttp(b"HTTP/" + ver + b" 200 OK\r\n\r\nHello!")
         try:
-            fp = urlopen("http://myFRpy.org/")
+            fp = urlopen("http://python.org/")
             self.assertEqual(fp.readline(), b"Hello!")
             self.assertEqual(fp.readline(), b"")
-            self.assertEqual(fp.geturl(), 'http://myFRpy.org/')
+            self.assertEqual(fp.geturl(), 'http://python.org/')
             self.assertEqual(fp.getcode(), 200)
         finally:
             self.unfakehttp()
 
     def test_url_fragment(self):
         # Issue #11703: geturl() omits fragments in the original URL.
-        url = 'http://docs.myFRpy.org/library/urllib.html#OK'
+        url = 'http://docs.python.org/library/urllib.html#OK'
         self.fakehttp(b"HTTP/1.1 200 OK\r\n\r\nHello!")
         try:
             fp = urllib.request.urlopen(url)
@@ -367,7 +367,7 @@ class urlopen_HttpTests(unittest.TestCase, FakeHTTPMixin, FakeFTPMixin):
     def test_willclose(self):
         self.fakehttp(b"HTTP/1.1 200 OK\r\n\r\nHello!")
         try:
-            resp = urlopen("http://www.myFRpy.org")
+            resp = urlopen("http://www.python.org")
             self.assertTrue(resp.fp.will_close)
         finally:
             self.unfakehttp()
@@ -477,7 +477,7 @@ Connection: close
 Content-Type: text/html; charset=iso-8859-1
 ''', mock_close=True)
         try:
-            self.assertRaises(OSError, urlopen, "http://myFRpy.org/")
+            self.assertRaises(OSError, urlopen, "http://python.org/")
         finally:
             self.unfakehttp()
 
@@ -486,14 +486,14 @@ Content-Type: text/html; charset=iso-8859-1
         self.fakehttp(b'''HTTP/1.1 302 Found
 Date: Wed, 02 Jan 2008 03:03:54 GMT
 Server: Apache/1.3.33 (Debian GNU/Linux) mod_ssl/2.8.22 OpenSSL/0.9.7e
-Location: file://guidocomputer.athome.com:/myFRpy/license
+Location: file://guidocomputer.athome.com:/python/license
 Connection: close
 Content-Type: text/html; charset=iso-8859-1
 ''', mock_close=True)
         try:
             msg = "Redirection to url 'file:"
             with self.assertRaisesRegex(urllib.error.HTTPError, msg):
-                urlopen("http://myFRpy.org/")
+                urlopen("http://python.org/")
         finally:
             self.unfakehttp()
 
@@ -502,7 +502,7 @@ Content-Type: text/html; charset=iso-8859-1
         # own retry limit.
         for i in range(FancyURLopener().maxtries):
             self.fakehttp(b'''HTTP/1.1 302 Found
-Location: file://guidocomputer.athome.com:/myFRpy/license
+Location: file://guidocomputer.athome.com:/python/license
 Connection: close
 ''', mock_close=True)
             try:
@@ -566,10 +566,10 @@ Connection: close
     def test_userpass_inurl(self):
         self.fakehttp(b"HTTP/1.0 200 OK\r\n\r\nHello!")
         try:
-            fp = urlopen("http://user:pass@myFRpy.org/")
+            fp = urlopen("http://user:pass@python.org/")
             self.assertEqual(fp.readline(), b"Hello!")
             self.assertEqual(fp.readline(), b"")
-            self.assertEqual(fp.geturl(), 'http://user:pass@myFRpy.org/')
+            self.assertEqual(fp.geturl(), 'http://user:pass@python.org/')
             self.assertEqual(fp.getcode(), 200)
         finally:
             self.unfakehttp()
@@ -578,7 +578,7 @@ Connection: close
         self.fakehttp(b"HTTP/1.0 200 OK\r\n\r\nHello!")
         try:
             userpass = "a b:c d"
-            url = "http://{}@myFRpy.org/".format(userpass)
+            url = "http://{}@python.org/".format(userpass)
             fakehttp_wrapper = http.client.HTTPConnection
             authorization = ("Authorization: Basic %s\r\n" %
                              b64encode(userpass.encode("ASCII")).decode("ASCII"))
@@ -1601,7 +1601,7 @@ class URLopener_Tests(FakeHTTPMixin, unittest.TestCase):
 
     @warnings_helper.ignore_warnings(category=DeprecationWarning)
     def test_urlopener_retrieve_remote(self):
-        url = "http://www.myFRpy.org/file.txt"
+        url = "http://www.python.org/file.txt"
         self.fakehttp(b"HTTP/1.1 200 OK\r\n\r\nHello!")
         self.addCleanup(self.unfakehttp)
         filename, _ = urllib.request.URLopener().retrieve(url)
@@ -1626,20 +1626,20 @@ class RequestTests(unittest.TestCase):
 
     def test_default_values(self):
         Request = urllib.request.Request
-        request = Request("http://www.myFRpy.org")
+        request = Request("http://www.python.org")
         self.assertEqual(request.get_method(), 'GET')
-        request = Request("http://www.myFRpy.org", {})
+        request = Request("http://www.python.org", {})
         self.assertEqual(request.get_method(), 'POST')
 
     def test_with_method_arg(self):
         Request = urllib.request.Request
-        request = Request("http://www.myFRpy.org", method='HEAD')
+        request = Request("http://www.python.org", method='HEAD')
         self.assertEqual(request.method, 'HEAD')
         self.assertEqual(request.get_method(), 'HEAD')
-        request = Request("http://www.myFRpy.org", {}, method='HEAD')
+        request = Request("http://www.python.org", {}, method='HEAD')
         self.assertEqual(request.method, 'HEAD')
         self.assertEqual(request.get_method(), 'HEAD')
-        request = Request("http://www.myFRpy.org", method='GET')
+        request = Request("http://www.python.org", method='GET')
         self.assertEqual(request.get_method(), 'GET')
         request.method = 'HEAD'
         self.assertEqual(request.get_method(), 'HEAD')

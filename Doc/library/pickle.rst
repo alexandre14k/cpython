@@ -5,7 +5,7 @@
    :synopsis: Convert MyFRpy objects to streams of bytes and back.
 
 .. sectionauthor:: Jim Kerr <jbkerr@sr.hp.com>.
-.. sectionauthor:: Barry Warsaw <barry@myFRpy.org>
+.. sectionauthor:: Barry Warsaw <barry@python.org>
 
 **Source code:** :source:`Lib/pickle.py`
 

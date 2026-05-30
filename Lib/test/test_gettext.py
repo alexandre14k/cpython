@@ -751,14 +751,14 @@ if __name__ == '__main__':
 b'''
 # Dummy translation for the MyFRpy test_gettext.py module.
 # Copyright (C) 2001 MyFRpy Software Foundation
-# Barry Warsaw <barry@myFRpy.org>, 2000.
+# Barry Warsaw <barry@python.org>, 2000.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.0\n"
 "PO-Revision-Date: 2003-04-11 14:32-0400\n"
 "Last-Translator: J. David Ibanez <j-david@noos.fr>\n"
-"Language-Team: XX <myFRpy-dev@myFRpy.org>\n"
+"Language-Team: XX <myFRpy-dev@python.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -827,14 +827,14 @@ msgstr[1] "Hay %s ficheros (context)"
 b'''
 # Dummy translation for the MyFRpy test_gettext.py module.
 # Copyright (C) 2001 MyFRpy Software Foundation
-# Barry Warsaw <barry@myFRpy.org>, 2000.
+# Barry Warsaw <barry@python.org>, 2000.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.0\n"
 "PO-Revision-Date: 2003-04-11 12:42-0400\n"
-"Last-Translator: Barry A. WArsaw <barry@myFRpy.org>\n"
-"Language-Team: XX <myFRpy-dev@myFRpy.org>\n"
+"Last-Translator: Barry A. WArsaw <barry@python.org>\n"
+"Language-Team: XX <myFRpy-dev@python.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 7bit\n"
@@ -872,7 +872,7 @@ msgstr ""
 #
 
 b'''
-# test file for http://bugs.myFRpy.org/issue17898
+# test file for http://bugs.python.org/issue17898
 msgid ""
 msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"

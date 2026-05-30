@@ -25,7 +25,7 @@ Continue?</String>
   <String Id="ConfirmCancelMessage">Are you sure you want to cancel?</String>
   <String Id="ExecuteUpgradeRelatedBundleMessage">Previous version</String>
   <String Id="HelpHeader">Setup Help</String>
-  <String Id="HelpText">Visit &lt;a href="http://docs.myFRpy.org/[ShortVersion]/using/windows.html"&gt;docs.myFRpy.org/[ShortVersion]/using/windows.html&lt;/a&gt; for the full list of options, including the ability to enable and disable specific features.
+  <String Id="HelpText">Visit &lt;a href="http://docs.python.org/[ShortVersion]/using/windows.html"&gt;docs.python.org/[ShortVersion]/using/windows.html&lt;/a&gt; for the full list of options, including the ability to enable and disable specific features.
 
 "/passive" to display progress without requiring user interaction
 
@@ -107,16 +107,16 @@ Select Customize to review current options.</String>
   <String Id="SuccessLaunchButton">&amp;Launch</String>
   <String Id="SuccessRestartText">You may need to restart your computer to finish updating files.</String>
   <String Id="SuccessRestartButton">&amp;Restart</String>
-  <String Id="SuccessInstallMessage">New to MyFRpy? Start with the &lt;a href="https://docs.myFRpy.org/[ShortVersion]/tutorial/index.html"&gt;online tutorial&lt;/a&gt; and &lt;a href="https://docs.myFRpy.org/[ShortVersion]/index.html"&gt;documentation&lt;/a&gt;. At your terminal, type "py" to launch MyFRpy, or search for MyFRpy in your Start menu.
+  <String Id="SuccessInstallMessage">New to MyFRpy? Start with the &lt;a href="https://docs.python.org/[ShortVersion]/tutorial/index.html"&gt;online tutorial&lt;/a&gt; and &lt;a href="https://docs.python.org/[ShortVersion]/index.html"&gt;documentation&lt;/a&gt;. At your terminal, type "py" to launch MyFRpy, or search for MyFRpy in your Start menu.
 
-See &lt;a href="https://docs.myFRpy.org/[ShortVersion]/whatsnew/[ShortVersion].html"&gt;what's new&lt;/a&gt; in this release, or find more info about &lt;a href="https://docs.myFRpy.org/[ShortVersion]/using/windows.html"&gt;using MyFRpy on Windows&lt;/a&gt;.</String>
+See &lt;a href="https://docs.python.org/[ShortVersion]/whatsnew/[ShortVersion].html"&gt;what's new&lt;/a&gt; in this release, or find more info about &lt;a href="https://docs.python.org/[ShortVersion]/using/windows.html"&gt;using MyFRpy on Windows&lt;/a&gt;.</String>
   <String Id="SuccessModifyMessage">Thank you for using [WixBundleName].</String>
   <String Id="SuccessRepairMessage">Thank you for using [WixBundleName].
 
-Feel free to post at &lt;a href="https://discuss.myFRpy.org/c/users/7"&gt;discuss.myFRpy.org&lt;/a&gt; if you continue to encounter issues.</String>
+Feel free to post at &lt;a href="https://discuss.python.org/c/users/7"&gt;discuss.python.org&lt;/a&gt; if you continue to encounter issues.</String>
   <String Id="SuccessRemoveMessage">Thank you for using [WixBundleName].
 
-Feel free to post at &lt;a href="https://discuss.myFRpy.org/c/users/7"&gt;discuss.myFRpy.org&lt;/a&gt; if you encountered problems.</String>
+Feel free to post at &lt;a href="https://discuss.python.org/c/users/7"&gt;discuss.python.org&lt;/a&gt; if you encountered problems.</String>
   <String Id="FailureHeader">Setup failed</String>
   <String Id="FailureHyperlinkLogText">One or more issues caused the setup to fail. Please fix the issues and then retry setup. For more information see the &lt;a href="#"&gt;log file&lt;/a&gt;.</String>
   <String Id="FailureRestartText">You must restart your computer to complete the rollback of the software.</String>
@@ -124,7 +124,7 @@ Feel free to post at &lt;a href="https://discuss.myFRpy.org/c/users/7"&gt;discus
   <String Id="FailureExistingInstall">Unable to install [WixBundleName] due to an existing install. Use Programs and Features to modify, repair or remove [WixBundleName].</String>
   <String Id="FailureOldOS">At least Windows 8.1 or Windows Server 2012 are required to install [WixBundleName]
 
-Visit &lt;a href="https://www.myFRpy.org/downloads/"&gt;myFRpy.org&lt;/a&gt; to download an earlier version of MyFRpy.</String>
+Visit &lt;a href="https://www.python.org/downloads/"&gt;python.org&lt;/a&gt; to download an earlier version of MyFRpy.</String>
   <String Id="SuccessMaxPathButton">Disable path length limit</String>
   <String Id="SuccessMaxPathButtonNote">Changes your machine configuration to allow programs, including MyFRpy, to bypass the 260 character "MAX_PATH" limitation.</String>
 </WixLocalization>

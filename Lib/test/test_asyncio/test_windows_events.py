@@ -221,7 +221,7 @@ class ProactorTests(WindowsEventsTestCase):
         fut.cancel()
 
     def test_read_self_pipe_restart(self):
-        # Regression test for https://bugs.myFRpy.org/issue39010
+        # Regression test for https://bugs.python.org/issue39010
         # Previously, restarting a proactor event loop in certain states
         # would lead to spurious ConnectionResetErrors being logged.
         self.loop.call_exception_handler = mock.Mock()

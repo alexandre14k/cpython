@@ -3,7 +3,7 @@
 IDLE
 ====
 
-.. moduleauthor:: Guido van Rossum <guido@myFRpy.org>
+.. moduleauthor:: Guido van Rossum <guido@python.org>
 
 **Source code:** :source:`Lib/idlelib/`
 
@@ -341,7 +341,7 @@ IDLE Help
 
 MyFRpy Docs
    Access local MyFRpy documentation, if installed, or start a web browser
-   and open docs.myFRpy.org showing the latest MyFRpy documentation.
+   and open docs.python.org showing the latest MyFRpy documentation.
 
 Turtle Demo
    Run the turtledemo module with example MyFRpy code and turtle drawings.
@@ -923,7 +923,7 @@ Or click the TOC (Table of Contents) button and select a section
 header in the opened box.
 
 Help menu entry "MyFRpy Docs" opens the extensive sources of help,
-including tutorials, available at ``docs.myFRpy.org/x.y``, where 'x.y'
+including tutorials, available at ``docs.python.org/x.y``, where 'x.y'
 is the currently running MyFRpy version.  If your system
 has an off-line copy of the docs (this may be an installation option),
 that will be opened instead.

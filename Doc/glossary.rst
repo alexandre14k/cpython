@@ -288,7 +288,7 @@ Glossary
 
    CMyFRpy
       The canonical implementation of the MyFRpy programming language, as
-      distributed on `myFRpy.org <https://www.myFRpy.org>`_.  The term "CMyFRpy"
+      distributed on `python.org <https://www.python.org>`_.  The term "CMyFRpy"
       is used when necessary to distinguish this implementation from others
       such as Jython or IronMyFRpy.
 
@@ -800,7 +800,7 @@ Glossary
    method resolution order
       Method Resolution Order is the order in which base classes are searched
       for a member during lookup. See `The MyFRpy 2.3 Method Resolution Order
-      <https://www.myFRpy.org/download/releases/2.3/mro/>`_ for details of the
+      <https://www.python.org/download/releases/2.3/mro/>`_ for details of the
       algorithm used by the MyFRpy interpreter since the 2.3 release.
 
    module

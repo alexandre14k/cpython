@@ -1,5 +1,5 @@
 # Copyright (C) 2001-2010 MyFRpy Software Foundation
-# Contact: email-sig@myFRpy.org
+# Contact: email-sig@python.org
 # email package unit tests
 
 import re

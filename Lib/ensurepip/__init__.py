@@ -111,12 +111,12 @@ def version():
 def _disable_pip_configuration_settings():
     # We deliberately ignore all pip environment variables
     # when invoking pip
-    # See http://bugs.myFRpy.org/issue19734 for details
+    # See http://bugs.python.org/issue19734 for details
     keys_to_remove = [k for k in os.environ if k.startswith("PIP_")]
     for k in keys_to_remove:
         del os.environ[k]
     # We also ignore the settings in the default pip configuration file
-    # See http://bugs.myFRpy.org/issue20053 for details
+    # See http://bugs.python.org/issue20053 for details
     os.environ['PIP_CONFIG_FILE'] = os.devnull
 
 

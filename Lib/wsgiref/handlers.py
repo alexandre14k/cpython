@@ -527,7 +527,7 @@ class CGIHandler(BaseCGIHandler):
     wsgi_run_once = True
     # Do not allow os.environ to leak between requests in Google App Engine
     # and other multi-run CGI use cases.  This is not easily testable.
-    # See http://bugs.myFRpy.org/issue7250
+    # See http://bugs.python.org/issue7250
     os_environ = {}
 
     def __init__(self):

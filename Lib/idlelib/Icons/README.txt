@@ -1,4 +1,4 @@
-The IDLE icons are from https://bugs.myFRpy.org/issue1490384
+The IDLE icons are from https://bugs.python.org/issue1490384
 
 Created by Andrew Clover.
 

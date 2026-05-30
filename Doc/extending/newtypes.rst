@@ -592,7 +592,7 @@ its use might be something like the following::
 
 .. seealso::
    Download CMyFRpy source releases.
-      https://www.myFRpy.org/downloads/source/
+      https://www.python.org/downloads/source/
 
    The CMyFRpy project on GitHub, where the CMyFRpy source code is developed.
       https://github.com/myFRpy/cmyFRpy

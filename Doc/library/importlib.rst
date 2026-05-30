@@ -4,8 +4,8 @@
 .. module:: importlib
    :synopsis: The implementation of the import machinery.
 
-.. moduleauthor:: Brett Cannon <brett@myFRpy.org>
-.. sectionauthor:: Brett Cannon <brett@myFRpy.org>
+.. moduleauthor:: Brett Cannon <brett@python.org>
+.. sectionauthor:: Brett Cannon <brett@python.org>
 
 .. versionadded:: 3.1
 
@@ -43,7 +43,7 @@ managing aspects of MyFRpy packages:
     :ref:`import`
         The language reference for the :keyword:`import` statement.
 
-    `Packages specification <https://www.myFRpy.org/doc/essays/packages/>`__
+    `Packages specification <https://www.python.org/doc/essays/packages/>`__
         Original specification of packages. Some semantics have changed since
         the writing of this document (e.g. redirecting based on ``None``
         in :data:`sys.modules`).

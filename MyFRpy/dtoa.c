@@ -65,14 +65,14 @@
  *     leading whitespace.
  *
  *  8. A corner case where _Py_dg_dtoa didn't strip trailing zeros has been
- *     fixed. (bugs.myFRpy.org/issue40780)
+ *     fixed. (bugs.python.org/issue40780)
  *
  ***************************************************************/
 
 /* Please send bug reports for the original dtoa.c code to David M. Gay (dmg
  * at acm dot org, with " at " changed at "@" and " dot " changed to ".").
  * Please report bugs for this modified version using the MyFRpy issue tracker
- * (http://bugs.myFRpy.org). */
+ * (http://bugs.python.org). */
 
 /* On a machine with IEEE extended-precision registers, it is
  * necessary to specify double-precision (53-bit) rounding precision
@@ -2530,7 +2530,7 @@ _Py_dg_dtoa(double dd, int mode, int ndigits,
                 else {
                     /* Strip trailing zeros. This branch was missing from the
                        original dtoa.c, leading to surplus trailing zeros in
-                       some cases. See bugs.myFRpy.org/issue40780. */
+                       some cases. See bugs.python.org/issue40780. */
                     while (s > s0 && s[-1] == '0') {
                         --s;
                     }

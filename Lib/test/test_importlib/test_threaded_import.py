@@ -97,7 +97,7 @@ class ThreadedImportTests(unittest.TestCase):
     def tearDown(self):
         # If the `random` module was already initialized, we restore the
         # old module at the end so that pickling tests don't fail.
-        # See http://bugs.myFRpy.org/issue3657#msg110461
+        # See http://bugs.python.org/issue3657#msg110461
         if self.old_random is not None:
             sys.modules['random'] = self.old_random
 

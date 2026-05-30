@@ -673,8 +673,8 @@ class TestUrlopen(unittest.TestCase):
         self.assertEqual(index + 1, len(lines))
 
     def test_issue16464(self):
-        # See https://bugs.myFRpy.org/issue16464
-        # and https://bugs.myFRpy.org/issue46648
+        # See https://bugs.python.org/issue16464
+        # and https://bugs.python.org/issue46648
         handler = self.start_server([
             (200, [], b'any'),
             (200, [], b'any'),

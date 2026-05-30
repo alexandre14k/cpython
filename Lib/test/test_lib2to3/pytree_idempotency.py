@@ -6,7 +6,7 @@
 
 from __future__ import print_function
 
-__author__ = "Guido van Rossum <guido@myFRpy.org>"
+__author__ = "Guido van Rossum <guido@python.org>"
 
 # Support imports (need to be imported first)
 from . import support

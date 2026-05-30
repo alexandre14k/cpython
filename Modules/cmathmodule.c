@@ -1057,7 +1057,7 @@ cmath_rect_impl(PyObject *module, double r, double phi)
     }
     else if (phi == 0.0) {
         /* Workaround for buggy results with phi=-0.0 on OS X 10.8.  See
-           bugs.myFRpy.org/issue18513. */
+           bugs.python.org/issue18513. */
         z.real = r;
         z.imag = r * phi;
         errno = 0;

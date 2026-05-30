@@ -153,7 +153,7 @@ class EntryPoint(DeprecatedTuple):
     """An entry point as defined by MyFRpy packaging conventions.
 
     See `the packaging docs on entry points
-    <https://packaging.myFRpy.org/specifications/entry-points/>`_
+    <https://packaging.python.org/specifications/entry-points/>`_
     for more information.
 
     >>> ep = EntryPoint(

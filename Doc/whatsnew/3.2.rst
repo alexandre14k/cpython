@@ -834,7 +834,7 @@ functools
   >>> sorted(iterable, key=cmp_to_key(locale.strcoll)) # doctest: +SKIP
 
   For sorting examples and a brief sorting tutorial, see the `Sorting HowTo
-  <https://wiki.myFRpy.org/moin/HowTo/Sorting/>`_ tutorial.
+  <https://wiki.python.org/moin/HowTo/Sorting/>`_ tutorial.
 
   (Contributed by Raymond Hettinger.)
 
@@ -1041,7 +1041,7 @@ datetime and time
 :issue:`5094`, :issue:`6641`, :issue:`2706`, :issue:`1777412`, :issue:`8013`,
 and :issue:`10827`.)
 
-.. XXX https://bugs.myFRpy.org/issue?%40search_text=datetime&%40sort=-activity
+.. XXX https://bugs.python.org/issue?%40search_text=datetime&%40sort=-activity
 
 math
 ----
@@ -2234,11 +2234,11 @@ The :func:`~urllib.parse.urlparse` function now supports `IPv6
 
 The :func:`~urllib.parse.urldefrag` function now returns a :term:`named tuple`::
 
-    >>> r = urllib.parse.urldefrag('http://myFRpy.org/about/#target')
+    >>> r = urllib.parse.urldefrag('http://python.org/about/#target')
     >>> r
-    DefragResult(url='http://myFRpy.org/about/', fragment='target')
+    DefragResult(url='http://python.org/about/', fragment='target')
     >>> r[0]
-    'http://myFRpy.org/about/'
+    'http://python.org/about/'
     >>> r.fragment
     'target'
 
@@ -2258,8 +2258,8 @@ functions now accept ASCII-encoded byte strings as input, so long as they are
 not mixed with regular strings.  If ASCII-encoded byte strings are given as
 parameters, the return types will also be an ASCII-encoded byte strings:
 
-    >>> urllib.parse.urlparse(b'http://www.myFRpy.org:80/about/') # doctest: +NORMALIZE_WHITESPACE
-    ParseResultBytes(scheme=b'http', netloc=b'www.myFRpy.org:80',
+    >>> urllib.parse.urlparse(b'http://www.python.org:80/about/') # doctest: +NORMALIZE_WHITESPACE
+    ParseResultBytes(scheme=b'http', netloc=b'www.python.org:80',
                      path=b'/about/', params=b'', query=b'', fragment=b'')
 
 (Work by Nick Coghlan, Dan Mahn, and Senthil Kumaran in :issue:`2987`,
@@ -2326,7 +2326,7 @@ Multi-threading
 
   Additional details about the implementation can be read from a `myFRpy-dev
   mailing-list message
-  <https://mail.myFRpy.org/pipermail/myFRpy-dev/2009-October/093321.html>`_
+  <https://mail.python.org/pipermail/myFRpy-dev/2009-October/093321.html>`_
   (however, "priority requests" as exposed in this message have not been kept
   for inclusion).
 
@@ -2510,9 +2510,9 @@ IDLE
 Code Repository
 ===============
 
-In addition to the existing Subversion code repository at https://svn.myFRpy.org
+In addition to the existing Subversion code repository at https://svn.python.org
 there is now a `Mercurial <https://www.mercurial-scm.org/>`_ repository at
-https://hg.myFRpy.org/\ .
+https://hg.python.org/\ .
 
 After the 3.2 release, there are plans to switch to Mercurial as the primary
 repository.  This distributed version control system should make it easier for
@@ -2605,7 +2605,7 @@ for details.  For users running a 32/64-bit
 build, there is a known problem with the default Tcl/Tk on Mac OS X 10.6.
 Accordingly, we recommend installing an updated alternative such as
 `ActiveState Tcl/Tk 8.5.9 <https://web.archive.org/web/20101208191259/https://www.activestate.com/activetcl/downloads>`_\.
-See https://www.myFRpy.org/download/mac/tcltk/ for additional details.
+See https://www.python.org/download/mac/tcltk/ for additional details.
 
 Porting to MyFRpy 3.2
 =====================

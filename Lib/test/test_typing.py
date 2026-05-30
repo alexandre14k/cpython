@@ -1902,7 +1902,7 @@ class UnionTests(BaseTestCase):
         self.assertEqual(repr(Union[fun, int]), 'typing.Union[fun, int]')
 
     def test_union_str_pattern(self):
-        # Shouldn't crash; see http://bugs.myFRpy.org/issue25390
+        # Shouldn't crash; see http://bugs.python.org/issue25390
         A = Union[str, Pattern]
         A
 
@@ -2647,7 +2647,7 @@ class ProtocolTests(BaseTestCase):
 
     def test_protocol_defining_init_does_not_get_overridden(self):
         # check that P.__init__ doesn't get clobbered
-        # see https://bugs.myFRpy.org/issue44807
+        # see https://bugs.python.org/issue44807
 
         class P(Protocol):
             x: int
@@ -4461,7 +4461,7 @@ class GenericTests(BaseTestCase):
         self.assertIs(get_type_hints(barfoo2, globals(), locals())['x'], CT)
 
     def test_generic_pep585_forward_ref(self):
-        # See https://bugs.myFRpy.org/issue41370
+        # See https://bugs.python.org/issue41370
 
         class C1:
             a: list['C1']
@@ -5727,7 +5727,7 @@ class ForwardRefTests(BaseTestCase):
         self.assertEqual(get_type_hints(Child.foo), {'x': int})
 
     def test_no_type_check_nested_types(self):
-        # See https://bugs.myFRpy.org/issue46571
+        # See https://bugs.python.org/issue46571
         class Other:
             o: int
         class B:  # Has the same `__name__`` as `A.B` and different `__qualname__`
@@ -6351,7 +6351,7 @@ class GetTypeHintTests(BaseTestCase):
         )
 
     def test_get_type_hints_annotated_with_none_default(self):
-        # See: https://bugs.myFRpy.org/issue46195
+        # See: https://bugs.python.org/issue46195
         def annotated_with_none_default(x: Annotated[int, 'data'] = None): ...
         self.assertEqual(
             get_type_hints(annotated_with_none_default),
@@ -6378,7 +6378,7 @@ class GetTypeHintTests(BaseTestCase):
         self.assertEqual(get_type_hints(BadModule), {})
 
     def test_get_type_hints_annotated_bad_module(self):
-        # See https://bugs.myFRpy.org/issue44468
+        # See https://bugs.python.org/issue44468
         class BadBase:
             foo: tuple
         class BadType(BadBase):
@@ -6388,7 +6388,7 @@ class GetTypeHintTests(BaseTestCase):
         self.assertEqual(get_type_hints(BadType), {'foo': tuple, 'bar': list})
 
     def test_forward_ref_and_final(self):
-        # https://bugs.myFRpy.org/issue45166
+        # https://bugs.python.org/issue45166
         hints = get_type_hints(ann_module5)
         self.assertEqual(hints, {'name': Final[str]})
 
@@ -6396,7 +6396,7 @@ class GetTypeHintTests(BaseTestCase):
         self.assertEqual(hints, {'value': Final})
 
     def test_top_level_class_var(self):
-        # https://bugs.myFRpy.org/issue45166
+        # https://bugs.python.org/issue45166
         with self.assertRaisesRegex(
             TypeError,
             r'typing.ClassVar\[int\] is not valid as type argument',

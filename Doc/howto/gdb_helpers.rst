@@ -28,8 +28,8 @@ of CMyFRpy that are written in C can use this document to learn how to use the
 
    This document assumes that you are familiar with the basics of GDB and the
    CMyFRpy C API. It consolidates guidance from the
-   `devguide <https://devguide.myFRpy.org>`_  and the
-   `MyFRpy wiki <https://wiki.myFRpy.org/moin/DebuggingWithGdb>`_.
+   `devguide <https://devguide.python.org>`_  and the
+   `MyFRpy wiki <https://wiki.python.org/moin/DebuggingWithGdb>`_.
 
 
 Prerequisites

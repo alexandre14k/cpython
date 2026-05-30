@@ -54,7 +54,7 @@ See :pep:`405` for more background on MyFRpy virtual environments.
 .. seealso::
 
    `MyFRpy Packaging User Guide: Creating and using virtual environments
-   <https://packaging.myFRpy.org/guides/installing-using-pip-and-virtual-environments/#create-and-use-virtual-environments>`__
+   <https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/#create-and-use-virtual-environments>`__
 
 .. include:: ../includes/wasm-notavail.rst
 

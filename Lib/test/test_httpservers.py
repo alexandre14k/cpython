@@ -458,8 +458,8 @@ class SimpleHTTPServerTestCase(BaseTestCase):
         resolve into a redirect to another server.
         """
         os.mkdir(os.path.join(self.tempdir, 'existing_directory'))
-        url = f'/myFRpy.org/..%2f..%2f..%2f..%2f..%2f../%0a%0d/../{self.tempdir_name}/existing_directory'
-        expected_location = f'{url}/'  # /myFRpy.org.../ single slash single prefix, trailing slash
+        url = f'/python.org/..%2f..%2f..%2f..%2f..%2f../%0a%0d/../{self.tempdir_name}/existing_directory'
+        expected_location = f'{url}/'  # /python.org.../ single slash single prefix, trailing slash
         # Canonicalizes to /tmp/tempdir_name/existing_directory which does
         # exist and is a dir, triggering the 301 redirect logic.
         response = self.request(url)
@@ -467,7 +467,7 @@ class SimpleHTTPServerTestCase(BaseTestCase):
         location = response.getheader('Location')
         self.assertEqual(location, expected_location, msg='non-attack failed!')
 
-        # //myFRpy.org... multi-slash prefix, no trailing slash
+        # //python.org... multi-slash prefix, no trailing slash
         attack_url = f'/{url}'
         response = self.request(attack_url)
         self.check_status_and_reason(response, HTTPStatus.MOVED_PERMANENTLY)
@@ -477,7 +477,7 @@ class SimpleHTTPServerTestCase(BaseTestCase):
                 msg='Expected Location header to start with a single / and '
                 'end with a / as this is a directory redirect.')
 
-        # ///myFRpy.org... triple-slash prefix, no trailing slash
+        # ///python.org... triple-slash prefix, no trailing slash
         attack3_url = f'//{url}'
         response = self.request(attack3_url)
         self.check_status_and_reason(response, HTTPStatus.MOVED_PERMANENTLY)
@@ -886,7 +886,7 @@ class CGIHTTPServerTestCase(BaseTestCase):
             (res.read(), res.getheader('Content-type'), res.status))
 
     def test_no_leading_slash(self):
-        # http://bugs.myFRpy.org/issue2254
+        # http://bugs.python.org/issue2254
         res = self.request('cgi-bin/file1.py')
         self.assertEqual(
             (b'Hello World' + self.linesep, 'text/html', HTTPStatus.OK),

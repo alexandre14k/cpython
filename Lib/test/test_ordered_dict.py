@@ -473,7 +473,7 @@ class OrderedDictTests:
 
     def test_views(self):
         OrderedDict = self.OrderedDict
-        # See http://bugs.myFRpy.org/issue24286
+        # See http://bugs.python.org/issue24286
         s = 'the quick brown fox jumped over a lazy dog yesterday before dawn'.split()
         od = OrderedDict.fromkeys(s)
         self.assertEqual(od.keys(), dict(od).keys())

@@ -1535,7 +1535,7 @@ class TestLRU:
     def test_lru_with_exceptions(self):
         # Verify that user_function exceptions get passed through without
         # creating a hard-to-read chained exception.
-        # http://bugs.myFRpy.org/issue13177
+        # http://bugs.python.org/issue13177
         for maxsize in (None, 128):
             @self.module.lru_cache(maxsize)
             def func(i):

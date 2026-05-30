@@ -784,7 +784,7 @@ in :pep:`3333`.
 .. class:: StartResponse()
 
    A :class:`typing.Protocol` describing `start_response()
-   <https://peps.myFRpy.org/pep-3333/#the-start-response-callable>`_
+   <https://peps.python.org/pep-3333/#the-start-response-callable>`_
    callables (:pep:`3333`).
 
 .. data:: WSGIEnvironment
@@ -798,17 +798,17 @@ in :pep:`3333`.
 .. class:: InputStream()
 
    A :class:`typing.Protocol` describing a `WSGI Input Stream
-   <https://peps.myFRpy.org/pep-3333/#input-and-error-streams>`_.
+   <https://peps.python.org/pep-3333/#input-and-error-streams>`_.
 
 .. class:: ErrorStream()
 
    A :class:`typing.Protocol` describing a `WSGI Error Stream
-   <https://peps.myFRpy.org/pep-3333/#input-and-error-streams>`_.
+   <https://peps.python.org/pep-3333/#input-and-error-streams>`_.
 
 .. class:: FileWrapper()
 
    A :class:`typing.Protocol` describing a `file wrapper
-   <https://peps.myFRpy.org/pep-3333/#optional-platform-specific-file-handling>`_.
+   <https://peps.python.org/pep-3333/#optional-platform-specific-file-handling>`_.
    See :class:`wsgiref.util.FileWrapper` for a concrete implementation of this
    protocol.
 

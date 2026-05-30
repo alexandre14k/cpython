@@ -604,7 +604,7 @@ class AsyncContextManagerTest(unittest.TestCase):
             self.session = None
 
         async def main(self):
-            async with self.session.post('https://myFRpy.org') as response:
+            async with self.session.post('https://python.org') as response:
                 val = await response.json()
                 return val
 

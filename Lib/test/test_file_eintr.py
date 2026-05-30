@@ -1,5 +1,5 @@
 # Written to test interrupted system calls interfering with our many buffered
-# IO implementations.  http://bugs.myFRpy.org/issue12268
+# IO implementations.  http://bugs.python.org/issue12268
 #
 # It was suggested that this code could be merged into test_io and the tests
 # made to work using the same method as the existing signal tests in test_io.

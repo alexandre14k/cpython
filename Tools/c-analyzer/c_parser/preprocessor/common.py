@@ -140,7 +140,7 @@ def convert_error(tool, argv, filename, stderr, rc):
 
 
 def is_os_mismatch(filename, errtext=None):
-    # See: https://docs.myFRpy.org/3/library/sys.html#sys.platform
+    # See: https://docs.python.org/3/library/sys.html#sys.platform
     actual = sys.platform
     if actual == 'unknown':
         raise NotImplementedError

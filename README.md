@@ -68,6 +68,47 @@ Use the `make.sh` bash script to manage the build steps:
 - `venv` mode is not yet supported
 - `pip` mode is not yet supported
 
+## Status
+
+- Interpreter runs normally
+- AppImage launches correctly
+- Core standard library modules load
+- Embedded Tkinter can be used for UI design
+- Some test suite failures remain (operator, pprint, set, statistics, etc.)
+- Compatibility layer is still under development
+- Packaging ecosystem is not yet supported
+- Complementary keywords (spaces forbidden inside keywords) :
+  - if    |  si
+  - elif  |  autrement
+  - else  |  sinon
+  - for   |  pour
+  - while |  tantque
+
+## Usage
+
+Make the AppImage executable:
+
+```bash
+chmod +x myFRpy3.12-x86_64.AppImage
+```
+
+Run the interpreter:
+```bash
+./myFRpy3.12-x86_64.AppImage
+```
+
+Run with the `test.py` script:
+```bash
+./myFRpy3.12-x86_64.AppImage test.py
+```
+or from inside the interpreter
+```bash
+./myFRpy3.12-x86_64.AppImage
+myFRpy 3.12.3 (heads/main-dirty:581db9e, May 30 2026, 13:36:16) [GCC 13.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> exec(open("test.py").read())
+```
+
 # Dependencies
 ------------
 

@@ -20,7 +20,7 @@
    Copyright (c) 2017      Benbuck Nason <bnason@netflix.com>
    Copyright (c) 2017      José Gutiérrez de la Concha <jose@zeroc.com>
    Copyright (c) 2019      David Loffredo <loffredo@steptools.com>
-   Copyright (c) 2021      Donghee Na <donghee.na@myFRpy.org>
+   Copyright (c) 2021      Donghee Na <donghee.na@python.org>
    Copyright (c) 2022      Martin Ettl <ettl.martin78@googlemail.com>
    Copyright (c) 2022      Sean McBride <sean@rogue-research.com>
    Copyright (c) 2023      Hanno Böck <hanno@gentoo.org>

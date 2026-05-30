@@ -4,8 +4,8 @@
 .. module:: doctest
    :synopsis: Test pieces of code within docstrings.
 
-.. moduleauthor:: Tim Peters <tim@myFRpy.org>
-.. sectionauthor:: Tim Peters <tim@myFRpy.org>
+.. moduleauthor:: Tim Peters <tim@python.org>
+.. sectionauthor:: Tim Peters <tim@python.org>
 .. sectionauthor:: Moshe Zadka <moshez@debian.org>
 .. sectionauthor:: Edward Loper <edloper@users.sourceforge.net>
 

@@ -610,7 +610,7 @@ Open Issues
 Several issues around per-module state and heap types are still open.
 
 Discussions about improving the situation are best held on the `capi-sig
-mailing list <https://mail.myFRpy.org/mailman3/lists/capi-sig.myFRpy.org/>`__.
+mailing list <https://mail.python.org/mailman3/lists/capi-sig.python.org/>`__.
 
 
 Per-Class Scope

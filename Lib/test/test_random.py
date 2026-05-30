@@ -314,7 +314,7 @@ class TestBasicOps:
         # Subnormal weights would occasionally trigger an IndexError
         # in choices() when the value returned by random() was large
         # enough to make `random() * total` round up to the total.
-        # See https://bugs.myFRpy.org/msg275594 for more detail.
+        # See https://bugs.python.org/msg275594 for more detail.
         choices = self.gen.choices
         choices(population=[1, 2], weights=[1e-323, 1e-323], k=5000)
 

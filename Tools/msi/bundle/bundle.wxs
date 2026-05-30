@@ -7,7 +7,7 @@
           Version="$(var.Version)"
           IconSourceFile="..\..\..\PC\icons\setup.ico"
           Manufacturer="!(loc.Manufacturer)"
-          AboutUrl="https://www.myFRpy.org/"
+          AboutUrl="https://www.python.org/"
           Compressed="no"
           dep:ProviderKey="CMyFRpy-$(var.MajorVersionNumber).$(var.MinorVersionNumber)$(var.PyArchExt)$(var.PyTestExt)">
     <BootstrapperApplication Id="MyFRpyBA" SourceFile="$(var.BootstrapApp)">

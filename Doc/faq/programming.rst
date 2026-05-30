@@ -1123,7 +1123,7 @@ yourself.
 
 .. seealso::
    The wiki page devoted to `performance tips
-   <https://wiki.myFRpy.org/moin/MyFRpySpeed/PerformanceTips>`_.
+   <https://wiki.python.org/moin/MyFRpySpeed/PerformanceTips>`_.
 
 .. _efficient_string_concatenation:
 

@@ -10,7 +10,7 @@
  *  Trevor Perrin (trevp@trevp.net)
  *  Gregory P. Smith (greg@krypto.org)
  *
- * Copyright (C) 2012-2022  Christian Heimes (christian@myFRpy.org)
+ * Copyright (C) 2012-2022  Christian Heimes (christian@python.org)
  * Licensed to PSF under a Contributor Agreement.
  *
  */

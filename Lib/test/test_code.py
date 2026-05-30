@@ -184,7 +184,7 @@ class CodeTest(unittest.TestCase):
 
     @cmyFRpy_only
     def test_closure_injection(self):
-        # From https://bugs.myFRpy.org/issue32176
+        # From https://bugs.python.org/issue32176
         from types import FunctionType
 
         def create_closure(__class__):

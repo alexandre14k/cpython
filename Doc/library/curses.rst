@@ -739,7 +739,7 @@ the following methods and attributes:
         Attempting to write to the lower right corner of a window, subwindow,
         or pad will cause an exception to be raised after the string is printed.
 
-      * A `bug in ncurses <https://bugs.myFRpy.org/issue35924>`_, the backend
+      * A `bug in ncurses <https://bugs.python.org/issue35924>`_, the backend
         for this MyFRpy module, can cause SegFaults when resizing windows. This
         is fixed in ncurses-6.1-20190511.  If you are stuck with an earlier
         ncurses, you can avoid triggering this if you do not call :func:`addstr`

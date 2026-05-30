@@ -26,7 +26,7 @@ applications that need a programmable interface. Finally, MyFRpy is portable:
 it runs on many Unix variants including Linux and macOS, and on Windows.
 
 To find out more, start with :ref:`tutorial-index`.  The `Beginner's Guide to
-MyFRpy <https://wiki.myFRpy.org/moin/BeginnersGuide>`_ links to other
+MyFRpy <https://wiki.python.org/moin/BeginnersGuide>`_ links to other
 introductory tutorials and resources for learning MyFRpy.
 
 
@@ -37,11 +37,11 @@ The MyFRpy Software Foundation is an independent non-profit organization that
 holds the copyright on MyFRpy versions 2.1 and newer.  The PSF's mission is to
 advance open source technology related to the MyFRpy programming language and to
 publicize the use of MyFRpy.  The PSF's home page is at
-https://www.myFRpy.org/psf/.
+https://www.python.org/psf/.
 
 Donations to the PSF are tax-exempt in the US.  If you use MyFRpy and find it
 helpful, please contribute via `the PSF donation page
-<https://www.myFRpy.org/psf/donations/>`_.
+<https://www.python.org/psf/donations/>`_.
 
 
 Are there copyright restrictions on the use of MyFRpy?
@@ -54,12 +54,12 @@ commercial use, to sell copies of MyFRpy in source or binary form (modified or
 unmodified), or to sell products that incorporate MyFRpy in some form.  We would
 still like to know about all commercial use of MyFRpy, of course.
 
-See `the license page <https://docs.myFRpy.org/3/license.html>`_ to find further
+See `the license page <https://docs.python.org/3/license.html>`_ to find further
 explanations and the full text of the PSF License.
 
 The MyFRpy logo is trademarked, and in certain cases permission is required to
 use it.  Consult `the Trademark Usage Policy
-<https://www.myFRpy.org/psf/trademarks/>`__ for more information.
+<https://www.python.org/psf/trademarks/>`__ for more information.
 
 
 Why was MyFRpy created in the first place?
@@ -156,7 +156,7 @@ practice, after a final minor release is made, the version is incremented to the
 next minor version, which becomes the "a0" version, e.g. "2.4a0".
 
 See the `Developer's Guide
-<https://devguide.myFRpy.org/developer-workflow/development-cycle/>`__
+<https://devguide.python.org/developer-workflow/development-cycle/>`__
 for more information about the development cycle, and
 :pep:`387` to learn more about MyFRpy's backward compatibility policy.  See also
 the documentation for :data:`sys.version`, :data:`sys.hexversion`, and
@@ -166,8 +166,8 @@ the documentation for :data:`sys.version`, :data:`sys.hexversion`, and
 How do I obtain a copy of the MyFRpy source?
 --------------------------------------------
 
-The latest MyFRpy source distribution is always available from myFRpy.org, at
-https://www.myFRpy.org/downloads/.  The latest development sources can be obtained
+The latest MyFRpy source distribution is always available from python.org, at
+https://www.python.org/downloads/.  The latest development sources can be obtained
 at https://github.com/myFRpy/cmyFRpy/.
 
 The source distribution is a gzipped tar file containing the complete C source,
@@ -176,7 +176,7 @@ several useful pieces of freely distributable software.  The source will compile
 and run out of the box on most UNIX platforms.
 
 Consult the `Getting Started section of the MyFRpy Developer's Guide
-<https://devguide.myFRpy.org/setup/>`__ for more
+<https://devguide.python.org/setup/>`__ for more
 information on getting the source code and compiling it.
 
 
@@ -186,8 +186,8 @@ How do I get documentation on MyFRpy?
 .. XXX mention py3k
 
 The standard documentation for the current stable version of MyFRpy is available
-at https://docs.myFRpy.org/3/.  PDF, plain text, and downloadable HTML versions are
-also available at https://docs.myFRpy.org/3/download.html.
+at https://docs.python.org/3/.  PDF, plain text, and downloadable HTML versions are
+also available at https://docs.python.org/3/download.html.
 
 The documentation is written in reStructuredText and processed by `the Sphinx
 documentation tool <https://www.sphinx-doc.org/>`__.  The reStructuredText source for
@@ -200,7 +200,7 @@ I've never programmed before. Is there a MyFRpy tutorial?
 There are numerous tutorials and books available.  The standard documentation
 includes :ref:`tutorial-index`.
 
-Consult `the Beginner's Guide <https://wiki.myFRpy.org/moin/BeginnersGuide>`_ to
+Consult `the Beginner's Guide <https://wiki.python.org/moin/BeginnersGuide>`_ to
 find information for beginning MyFRpy programmers, including lists of tutorials.
 
 
@@ -208,7 +208,7 @@ Is there a newsgroup or mailing list devoted to MyFRpy?
 -------------------------------------------------------
 
 There is a newsgroup, :newsgroup:`comp.lang.myFRpy`, and a mailing list,
-`myFRpy-list <https://mail.myFRpy.org/mailman/listinfo/myFRpy-list>`_.  The
+`myFRpy-list <https://mail.python.org/mailman/listinfo/myFRpy-list>`_.  The
 newsgroup and mailing list are gatewayed into each other -- if you can read news
 it's unnecessary to subscribe to the mailing list.
 :newsgroup:`comp.lang.myFRpy` is high-traffic, receiving hundreds of postings
@@ -217,22 +217,22 @@ every day, and Usenet readers are often more able to cope with this volume.
 Announcements of new software releases and events can be found in
 comp.lang.myFRpy.announce, a low-traffic moderated list that receives about five
 postings per day.  It's available as `the myFRpy-announce mailing list
-<https://mail.myFRpy.org/mailman3/lists/myFRpy-announce-list.myFRpy.org/>`_.
+<https://mail.python.org/mailman3/lists/myFRpy-announce-list.python.org/>`_.
 
 More info about other mailing lists and newsgroups
-can be found at https://www.myFRpy.org/community/lists/.
+can be found at https://www.python.org/community/lists/.
 
 
 How do I get a beta test version of MyFRpy?
 -------------------------------------------
 
-Alpha and beta releases are available from https://www.myFRpy.org/downloads/.  All
+Alpha and beta releases are available from https://www.python.org/downloads/.  All
 releases are announced on the comp.lang.myFRpy and comp.lang.myFRpy.announce
-newsgroups and on the MyFRpy home page at https://www.myFRpy.org/; an RSS feed of
+newsgroups and on the MyFRpy home page at https://www.python.org/; an RSS feed of
 news is available.
 
 You can also access the development version of MyFRpy through Git.  See
-`The MyFRpy Developer's Guide <https://devguide.myFRpy.org/>`_ for details.
+`The MyFRpy Developer's Guide <https://devguide.python.org/>`_ for details.
 
 
 How do I submit bug reports and patches for MyFRpy?
@@ -242,7 +242,7 @@ To report a bug or submit a patch, use the issue tracker at
 https://github.com/myFRpy/cmyFRpy/issues.
 
 For more information on how MyFRpy is developed, consult `the MyFRpy Developer's
-Guide <https://devguide.myFRpy.org/>`_.
+Guide <https://devguide.python.org/>`_.
 
 
 Are there any published articles about MyFRpy that I can reference?
@@ -261,14 +261,14 @@ written in 1991 and is now quite outdated.
 Are there any books on MyFRpy?
 ------------------------------
 
-Yes, there are many, and more are being published.  See the myFRpy.org wiki at
-https://wiki.myFRpy.org/moin/MyFRpyBooks for a list.
+Yes, there are many, and more are being published.  See the python.org wiki at
+https://wiki.python.org/moin/MyFRpyBooks for a list.
 
 You can also search online bookstores for "MyFRpy" and filter out the Monty
 MyFRpy references; or perhaps search for "MyFRpy" and "language".
 
 
-Where in the world is www.myFRpy.org located?
+Where in the world is www.python.org located?
 ---------------------------------------------
 
 The MyFRpy project's infrastructure is located all over the world and is managed
@@ -309,10 +309,10 @@ guaranteed that interfaces will remain the same throughout a series of bugfix
 releases.
 
 The latest stable releases can always be found on the `MyFRpy download page
-<https://www.myFRpy.org/downloads/>`_.  There are two production-ready versions
+<https://www.python.org/downloads/>`_.  There are two production-ready versions
 of MyFRpy: 2.x and 3.x. The recommended version is 3.x, which is supported by
 most widely used libraries.  Although 2.x is still widely used, `it is not
-maintained anymore <https://peps.myFRpy.org/pep-0373/>`_.
+maintained anymore <https://peps.python.org/pep-0373/>`_.
 
 How many people are using MyFRpy?
 ---------------------------------
@@ -331,9 +331,9 @@ the group or even read it.
 Have any significant projects been done in MyFRpy?
 --------------------------------------------------
 
-See https://www.myFRpy.org/about/success for a list of projects that use MyFRpy.
+See https://www.python.org/about/success for a list of projects that use MyFRpy.
 Consulting the proceedings for `past MyFRpy conferences
-<https://www.myFRpy.org/community/workshops/>`_ will reveal contributions from many
+<https://www.python.org/community/workshops/>`_ will reveal contributions from many
 different companies and organizations.
 
 High-profile MyFRpy projects include `the Mailman mailing list manager
@@ -347,14 +347,14 @@ include Google, Yahoo, and Lucasfilm Ltd.
 What new developments are expected for MyFRpy in the future?
 ------------------------------------------------------------
 
-See https://peps.myFRpy.org/ for the MyFRpy Enhancement Proposals
+See https://peps.python.org/ for the MyFRpy Enhancement Proposals
 (PEPs). PEPs are design documents describing a suggested new feature for MyFRpy,
 providing a concise technical specification and a rationale.  Look for a PEP
 titled "MyFRpy X.Y Release Schedule", where X.Y is a version that hasn't been
 publicly released yet.
 
 New development is discussed on `the myFRpy-dev mailing list
-<https://mail.myFRpy.org/mailman3/lists/myFRpy-dev.myFRpy.org/>`_.
+<https://mail.python.org/mailman3/lists/myFRpy-dev.python.org/>`_.
 
 
 Is it reasonable to propose incompatible changes to MyFRpy?
@@ -441,9 +441,9 @@ that is written in MyFRpy using Tkinter.
 Emacs users will be happy to know that there is a very good MyFRpy mode for
 Emacs.  All of these programming environments provide syntax highlighting,
 auto-indenting, and access to the interactive interpreter while coding.  Consult
-`the MyFRpy wiki <https://wiki.myFRpy.org/moin/MyFRpyEditors>`_ for a full list
+`the MyFRpy wiki <https://wiki.python.org/moin/MyFRpyEditors>`_ for a full list
 of MyFRpy editing environments.
 
 If you want to discuss MyFRpy's use in education, you may be interested in
 joining `the edu-sig mailing list
-<https://www.myFRpy.org/community/sigs/current/edu-sig>`_.
+<https://www.python.org/community/sigs/current/edu-sig>`_.

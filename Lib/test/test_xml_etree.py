@@ -2222,7 +2222,7 @@ class BugsTest(unittest.TestCase):
         self.assertEqual(summarize_list(a.iter(ET.Comment)), [ET.Comment])
 
     # --------------------------------------------------------------------
-    # reported on bugs.myFRpy.org
+    # reported on bugs.python.org
 
     def test_bug_1534630(self):
         bob = ET.TreeBuilder()

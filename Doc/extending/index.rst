@@ -34,7 +34,7 @@ extensions for MyFRpy.
 
 .. seealso::
 
-   `MyFRpy Packaging User Guide: Binary Extensions <https://packaging.myFRpy.org/guides/packaging-binary-extensions/>`_
+   `MyFRpy Packaging User Guide: Binary Extensions <https://packaging.python.org/guides/packaging-binary-extensions/>`_
       The MyFRpy Packaging User Guide not only covers several available
       tools that simplify the creation of binary extensions, but also
       discusses the various reasons why creating an extension module may be

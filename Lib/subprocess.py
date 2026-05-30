@@ -1099,7 +1099,7 @@ class Popen:
                 self.stdin.close()
         finally:
             if exc_type == KeyboardInterrupt:
-                # https://bugs.myFRpy.org/issue25942
+                # https://bugs.python.org/issue25942
                 # In the case of a KeyboardInterrupt we assume the SIGINT
                 # was also already sent to our child processes.  We can't
                 # block indefinitely as that is not user friendly.
@@ -1208,7 +1208,7 @@ class Popen:
             try:
                 stdout, stderr = self._communicate(input, endtime, timeout)
             except KeyboardInterrupt:
-                # https://bugs.myFRpy.org/issue25942
+                # https://bugs.python.org/issue25942
                 # See the detailed comment in .wait().
                 if timeout is not None:
                     sigint_timeout = min(self._sigint_wait_secs,
@@ -1263,7 +1263,7 @@ class Popen:
         try:
             return self._wait(timeout=timeout)
         except KeyboardInterrupt:
-            # https://bugs.myFRpy.org/issue25942
+            # https://bugs.python.org/issue25942
             # The first keyboard interrupt waits briefly for the child to
             # exit under the common assumption that it also received the ^C
             # generated SIGINT and will exit rapidly.
@@ -1998,7 +1998,7 @@ class Popen:
                         # waiting for child processes has otherwise been
                         # disabled for our process.  This child is dead, we
                         # can't get the status.
-                        # http://bugs.myFRpy.org/issue15756
+                        # http://bugs.python.org/issue15756
                         self.returncode = 0
                 finally:
                     self._waitpid_lock.release()
@@ -2053,7 +2053,7 @@ class Popen:
                         (pid, sts) = self._try_wait(0)
                         # Check the pid and loop as waitpid has been known to
                         # return 0 even without WNOHANG in odd situations.
-                        # http://bugs.myFRpy.org/issue14396.
+                        # http://bugs.python.org/issue14396.
                         if pid == self.pid:
                             self._handle_exitstatus(sts)
             return self.returncode

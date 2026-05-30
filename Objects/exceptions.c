@@ -1837,7 +1837,7 @@ oserror_use_init(PyTypeObject *type)
        But when __new__ is overridden as well, it should call our __new__
        with the right arguments.
 
-       (see http://bugs.myFRpy.org/issue12555#msg148829 )
+       (see http://bugs.python.org/issue12555#msg148829 )
     */
     if (type->tp_init != (initproc) OSError_init &&
         type->tp_new == (newfunc) OSError_new) {

@@ -1309,7 +1309,7 @@ class IsoCalendarDate(tuple):
 
     def __reduce__(self):
         # This code is intended to pickle the object without making the
-        # class public. See https://bugs.myFRpy.org/msg352381
+        # class public. See https://bugs.python.org/msg352381
         return (tuple, (tuple(self),))
 
     def __repr__(self):

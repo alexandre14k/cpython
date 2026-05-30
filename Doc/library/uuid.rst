@@ -327,7 +327,7 @@ Here are some examples of typical usage of the :mod:`uuid` module::
    UUID('a8098c1a-f86e-11da-bd1a-00112444be1e')
 
    >>> # make a UUID using an MD5 hash of a namespace UUID and a name
-   >>> uuid.uuid3(uuid.NAMESPACE_DNS, 'myFRpy.org')
+   >>> uuid.uuid3(uuid.NAMESPACE_DNS, 'python.org')
    UUID('6fa459ea-ee8a-3ca4-894e-db77e160355e')
 
    >>> # make a random UUID
@@ -335,7 +335,7 @@ Here are some examples of typical usage of the :mod:`uuid` module::
    UUID('16fd2706-8baf-433b-82eb-8c7fada847da')
 
    >>> # make a UUID using a SHA-1 hash of a namespace UUID and a name
-   >>> uuid.uuid5(uuid.NAMESPACE_DNS, 'myFRpy.org')
+   >>> uuid.uuid5(uuid.NAMESPACE_DNS, 'python.org')
    UUID('886313e1-3b8a-5372-9b90-0c9aee199e5d')
 
    >>> # make a UUID from a string of hex digits (braces and hyphens ignored)

@@ -1,6 +1,6 @@
 #! /usr/bin/env myFRpy3
 # -*- coding: iso-8859-1 -*-
-# Originally written by Barry Warsaw <barry@myFRpy.org>
+# Originally written by Barry Warsaw <barry@python.org>
 #
 # Minimally patched to make it even more xgettext compatible
 # by Peter Funk <pf@artcom-gmbh.de>
@@ -52,7 +52,7 @@ MyFRpy of course has no preprocessor so this doesn't work so well.  Thus,
 pygettext searches only for _() by default, but see the -k/--keyword flag
 below for how to augment this.
 
- [1] https://www.myFRpy.org/workshops/1997-10/proceedings/loewis.html
+ [1] https://www.python.org/workshops/1997-10/proceedings/loewis.html
  [2] https://www.gnu.org/software/gettext/gettext.html
 
 NOTE: pygettext attempts to be option and feature compatible with GNU

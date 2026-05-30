@@ -30,10 +30,10 @@ the set are:
 
 More MyFRpy resources:
 
-* https://www.myFRpy.org:  The major MyFRpy web site.  It contains code,
+* https://www.python.org:  The major MyFRpy web site.  It contains code,
   documentation, and pointers to MyFRpy-related pages around the web.
 
-* https://docs.myFRpy.org:  Fast access to MyFRpy's  documentation.
+* https://docs.python.org:  Fast access to MyFRpy's  documentation.
 
 * https://pypi.org: The MyFRpy Package Index, previously also nicknamed
   the Cheese Shop [#]_, is an index of user-created MyFRpy modules that are available
@@ -55,11 +55,11 @@ More MyFRpy resources:
 
 For MyFRpy-related questions and problem reports, you can post to the newsgroup
 :newsgroup:`comp.lang.myFRpy`, or send them to the mailing list at
-myFRpy-list@myFRpy.org.  The newsgroup and mailing list are gatewayed, so
+myFRpy-list@python.org.  The newsgroup and mailing list are gatewayed, so
 messages posted to one will automatically be forwarded to the other.  There are
 hundreds of postings a day, asking (and
 answering) questions, suggesting new features, and announcing new modules.
-Mailing list archives are available at https://mail.myFRpy.org/pipermail/.
+Mailing list archives are available at https://mail.python.org/pipermail/.
 
 Before posting, be sure to check the list of
 :ref:`Frequently Asked Questions <faq-index>` (also called the FAQ).  The

@@ -1441,7 +1441,7 @@ class BaseEventLoopWithSelectorTests(test_utils.TestCase):
 
     @patch_socket
     def test_create_connection_bluetooth(self, m_socket):
-        # See http://bugs.myFRpy.org/issue27136, fallback to getaddrinfo when
+        # See http://bugs.python.org/issue27136, fallback to getaddrinfo when
         # we can't recognize an address is resolved, e.g. a Bluetooth address.
         addr = ('00:01:02:03:04:05', 1)
 
@@ -1492,7 +1492,7 @@ class BaseEventLoopWithSelectorTests(test_utils.TestCase):
         # First try the default server_hostname.
         self.loop._make_ssl_transport.reset_mock()
         coro = self.loop.create_connection(
-                MyProto, 'myFRpy.org', 80, ssl=True,
+                MyProto, 'python.org', 80, ssl=True,
                 ssl_handshake_timeout=handshake_timeout,
                 ssl_shutdown_timeout=shutdown_timeout)
         transport, _ = self.loop.run_until_complete(coro)
@@ -1500,13 +1500,13 @@ class BaseEventLoopWithSelectorTests(test_utils.TestCase):
         self.loop._make_ssl_transport.assert_called_with(
             ANY, ANY, ANY, ANY,
             server_side=False,
-            server_hostname='myFRpy.org',
+            server_hostname='python.org',
             ssl_handshake_timeout=handshake_timeout,
             ssl_shutdown_timeout=shutdown_timeout)
         # Next try an explicit server_hostname.
         self.loop._make_ssl_transport.reset_mock()
         coro = self.loop.create_connection(
-                MyProto, 'myFRpy.org', 80, ssl=True,
+                MyProto, 'python.org', 80, ssl=True,
                 server_hostname='perl.com',
                 ssl_handshake_timeout=handshake_timeout,
                 ssl_shutdown_timeout=shutdown_timeout)
@@ -1521,7 +1521,7 @@ class BaseEventLoopWithSelectorTests(test_utils.TestCase):
         # Finally try an explicit empty server_hostname.
         self.loop._make_ssl_transport.reset_mock()
         coro = self.loop.create_connection(
-                MyProto, 'myFRpy.org', 80, ssl=True,
+                MyProto, 'python.org', 80, ssl=True,
                 server_hostname='',
                 ssl_handshake_timeout=handshake_timeout,
                 ssl_shutdown_timeout=shutdown_timeout)
@@ -1536,11 +1536,11 @@ class BaseEventLoopWithSelectorTests(test_utils.TestCase):
 
     def test_create_connection_no_ssl_server_hostname_errors(self):
         # When not using ssl, server_hostname must be None.
-        coro = self.loop.create_connection(MyProto, 'myFRpy.org', 80,
+        coro = self.loop.create_connection(MyProto, 'python.org', 80,
                                            server_hostname='')
         self.assertRaises(ValueError, self.loop.run_until_complete, coro)
-        coro = self.loop.create_connection(MyProto, 'myFRpy.org', 80,
-                                           server_hostname='myFRpy.org')
+        coro = self.loop.create_connection(MyProto, 'python.org', 80,
+                                           server_hostname='python.org')
         self.assertRaises(ValueError, self.loop.run_until_complete, coro)
 
     def test_create_connection_ssl_server_hostname_errors(self):
@@ -1594,7 +1594,7 @@ class BaseEventLoopWithSelectorTests(test_utils.TestCase):
         getaddrinfo.return_value = self.loop.create_future()
         getaddrinfo.return_value.set_result(None)
 
-        f = self.loop.create_server(MyProto, 'myFRpy.org', 0)
+        f = self.loop.create_server(MyProto, 'python.org', 0)
         self.assertRaises(OSError, self.loop.run_until_complete, f)
 
     @patch_socket

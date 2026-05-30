@@ -92,7 +92,7 @@ def error_if(value: bool, error_message: str) -> None:
     """Prints an error if a comparison fails along with a link to the devguide"""
     if value:
         print(error_message)
-        print("See 'https://devguide.myFRpy.org/developer-workflow/sbom' for more information.")
+        print("See 'https://devguide.python.org/developer-workflow/sbom' for more information.")
         sys.exit(1)
 
 

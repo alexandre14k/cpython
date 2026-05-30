@@ -698,7 +698,7 @@ class CookieTests(unittest.TestCase):
 
         # test if fractional expiry is accepted
         cookie  = Cookie(0, "name", "value",
-                         None, False, "www.myFRpy.org",
+                         None, False, "www.python.org",
                          True, False, "/",
                          False, False, "1444312383.018307",
                          False, None, None,

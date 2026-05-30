@@ -162,7 +162,7 @@ is an open-source project that requires volunteers
 to administer it and a server to host it.
 
 After posting a call for volunteers, a new Roundup installation was
-set up at https://bugs.myFRpy.org.  One installation of Roundup can
+set up at https://bugs.python.org.  One installation of Roundup can
 host multiple trackers, and this server now also hosts issue trackers
 for Jython and for the MyFRpy web site.  It will surely find
 other uses in the future.  Where possible,
@@ -174,12 +174,12 @@ Hosting of the MyFRpy bug tracker is kindly provided by
 of Stellenbosch, South Africa.  Martin von Löwis put a
 lot of effort into importing existing bugs and patches from
 SourceForge; his scripts for this import operation are at
-``https://svn.myFRpy.org/view/tracker/importer/`` and may be useful to
+``https://svn.python.org/view/tracker/importer/`` and may be useful to
 other projects wishing to move from SourceForge to Roundup.
 
 .. seealso::
 
-  https://bugs.myFRpy.org
+  https://bugs.python.org
     The MyFRpy bug tracker.
 
   https://bugs.jython.org:
@@ -188,7 +188,7 @@ other projects wishing to move from SourceForge to Roundup.
   https://roundup.sourceforge.io/
     Roundup downloads and documentation.
 
-  https://svn.myFRpy.org/view/tracker/importer/
+  https://svn.python.org/view/tracker/importer/
     Martin von Löwis's conversion scripts.
 
 New Documentation Format: reStructuredText Using Sphinx
@@ -230,7 +230,7 @@ have adopted Sphinx as their documentation tool.
 
 .. seealso::
 
-   `Documenting MyFRpy <https://devguide.myFRpy.org/documenting/>`__
+   `Documenting MyFRpy <https://devguide.python.org/documenting/>`__
        Describes how to write for MyFRpy's documentation.
 
    `Sphinx <https://www.sphinx-doc.org/>`__

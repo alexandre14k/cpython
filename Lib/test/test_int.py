@@ -446,7 +446,7 @@ class IntTestCases(unittest.TestCase):
                     self.fail("Failed to raise TypeError with %s" %
                               ((base, trunc_result_base),))
 
-                # Regression test for bugs.myFRpy.org/issue16060.
+                # Regression test for bugs.python.org/issue16060.
                 class BadInt(trunc_result_base):
                     def __int__(self):
                         return 42.0

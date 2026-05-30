@@ -46,7 +46,7 @@
 
 This article explains the new features in MyFRpy 3.5, compared to 3.4.
 MyFRpy 3.5 was released on September 13, 2015.  See the
-`changelog <https://docs.myFRpy.org/3.5/whatsnew/changelog.html>`_ for a full
+`changelog <https://docs.python.org/3.5/whatsnew/changelog.html>`_ for a full
 list of changes.
 
 .. seealso::
@@ -1208,7 +1208,7 @@ is a subclass) is raised, the client socket is now closed automatically,
 and will reconnect on the next request::
 
     import http.client
-    conn = http.client.HTTPConnection('www.myFRpy.org')
+    conn = http.client.HTTPConnection('www.python.org')
     for retries in range(3):
         try:
             conn.request('GET', '/')

@@ -482,7 +482,7 @@ class BaseTaskTests:
 
     def test_exception_chaining_after_await_with_context_cycle(self):
         # Check trying to create an exception context cycle:
-        # https://bugs.myFRpy.org/issue40696
+        # https://bugs.python.org/issue40696
         has_cycle = None
         loop = asyncio.new_event_loop()
         self.set_event_loop(loop)
@@ -2201,7 +2201,7 @@ class BaseTaskTests:
                     )
 
     def test_exception_traceback(self):
-        # See http://bugs.myFRpy.org/issue28843
+        # See http://bugs.python.org/issue28843
 
         async def foo():
             1 / 0

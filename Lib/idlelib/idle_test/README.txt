@@ -61,7 +61,7 @@ destroyed and deleted by the end of the test.  The Tk root created in a
 setUpX function should be destroyed in the corresponding tearDownX and
 the module or class attribute deleted.  Others widgets should descend
 from the single root and the attributes deleted BEFORE root is
-destroyed.  See https://bugs.myFRpy.org/issue20567.
+destroyed.  See https://bugs.python.org/issue20567.
 
     @classmethod
     def setUpClass(cls):

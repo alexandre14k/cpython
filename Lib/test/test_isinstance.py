@@ -82,7 +82,7 @@ class TestIsInstanceExceptions(unittest.TestCase):
         self.assertRaises(TypeError, isinstance, I(), C())
 
     # check that we don't mask non AttributeErrors
-    # see: http://bugs.myFRpy.org/issue1574217
+    # see: http://bugs.python.org/issue1574217
     def test_isinstance_dont_mask_non_attribute_error(self):
         class C(object):
             def getclass(self):

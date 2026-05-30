@@ -78,7 +78,7 @@ Jeff Bauer suggests:
 
 The last suggestion is already a reality, but not yet
 integrated into IDLE.  I use a module called inspector.py,
-that used to be available from myFRpy.org(?)  It no longer
+that used to be available from python.org(?)  It no longer
 appears to be in the contributed section, and the source
 has no author attribution.
 

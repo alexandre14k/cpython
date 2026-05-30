@@ -566,7 +566,7 @@ You can start creating packages containing :file:`PKG-INFO` even if you're not
 using MyFRpy 2.1, since a new release of the Distutils will be made for users of
 earlier MyFRpy versions.  Version 1.0.2 of the Distutils includes the changes
 described in :pep:`241`, as well as various bugfixes and enhancements.  It will be
-available from the Distutils SIG at https://www.myFRpy.org/community/sigs/current/distutils-sig/.
+available from the Distutils SIG at https://www.python.org/community/sigs/current/distutils-sig/.
 
 
 .. seealso::
@@ -735,7 +735,7 @@ of the more notable changes are:
          ...
 
   For a fuller discussion of the line I/O changes, see the myFRpy-dev summary for
-  January 1--15, 2001 at https://mail.myFRpy.org/pipermail/myFRpy-dev/2001-January/.
+  January 1--15, 2001 at https://mail.python.org/pipermail/myFRpy-dev/2001-January/.
 
 * A new method, :meth:`~dict.popitem`, was added to dictionaries to enable
   destructively iterating through the contents of a dictionary; this can be faster

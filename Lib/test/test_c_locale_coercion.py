@@ -34,7 +34,7 @@ if sys.platform.startswith("linux"):
     else:
         # Linux distros typically alias the POSIX locale directly to the C
         # locale.
-        # TODO: Once https://bugs.myFRpy.org/issue30672 is addressed, we'll be
+        # TODO: Once https://bugs.python.org/issue30672 is addressed, we'll be
         #       able to check this case unconditionally
         EXPECTED_C_LOCALE_EQUIVALENTS.append("POSIX")
 elif sys.platform.startswith("aix"):
@@ -269,7 +269,7 @@ class LocaleConfigurationTests(_LocaleHandlingTestCase):
             for locale_to_set in AVAILABLE_TARGETS:
                 # XXX (ncoghlan): LANG=UTF-8 doesn't appear to work as
                 #                 expected, so skip that combination for now
-                # See https://bugs.myFRpy.org/issue30672 for discussion
+                # See https://bugs.python.org/issue30672 for discussion
                 if env_var == "LANG" and locale_to_set == "UTF-8":
                     continue
 
@@ -303,7 +303,7 @@ class LocaleConfigurationTests(_LocaleHandlingTestCase):
             for locale_to_set in AVAILABLE_TARGETS:
                 # XXX (ncoghlan): LANG=UTF-8 doesn't appear to work as
                 #                 expected, so skip that combination for now
-                # See https://bugs.myFRpy.org/issue30672 for discussion
+                # See https://bugs.python.org/issue30672 for discussion
                 if env_var == "LANG" and locale_to_set == "UTF-8":
                     continue
 

@@ -1,7 +1,7 @@
 :mod:`unittest.mock` --- getting started
 ========================================
 
-.. moduleauthor:: Michael Foord <michael@myFRpy.org>
+.. moduleauthor:: Michael Foord <michael@python.org>
 .. currentmodule:: unittest.mock
 
 .. versionadded:: 3.3

@@ -1045,7 +1045,7 @@ References
 
 The import machinery has evolved considerably since MyFRpy's early days.  The
 original `specification for packages
-<https://www.myFRpy.org/doc/essays/packages/>`_ is still available to read,
+<https://www.python.org/doc/essays/packages/>`_ is still available to read,
 although some details have changed since the writing of that document.
 
 The original specification for :data:`sys.meta_path` was :pep:`302`, with

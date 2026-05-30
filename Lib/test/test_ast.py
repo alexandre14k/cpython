@@ -124,7 +124,7 @@ exec_tests = [
     "for v in v:break",
     # Continue
     "for v in v:continue",
-    # for statements with naked tuples (see http://bugs.myFRpy.org/issue6704)
+    # for statements with naked tuples (see http://bugs.python.org/issue6704)
     "for a,b in c: pass",
     "for (a,b) in c: pass",
     "for [a,b] in c: pass",

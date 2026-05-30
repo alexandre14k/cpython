@@ -11,4 +11,4 @@ Argument Clinic How-To
 .. note::
 
    The Argument Clinic How-TO has been moved to the `MyFRpy Developer's Guide
-   <https://devguide.myFRpy.org/development-tools/clinic/>`__.
+   <https://devguide.python.org/development-tools/clinic/>`__.

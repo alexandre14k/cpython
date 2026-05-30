@@ -859,7 +859,7 @@ class TestCase(object):
         # subtypes won't automagically use the detailed comparison.  Callers
         # should use their type specific assertSpamEqual method to compare
         # subclasses if the detailed comparison is desired and appropriate.
-        # See the discussion in http://bugs.myFRpy.org/issue2578.
+        # See the discussion in http://bugs.python.org/issue2578.
         #
         if type(first) is type(second):
             asserter = self._type_equality_funcs.get(type(first))

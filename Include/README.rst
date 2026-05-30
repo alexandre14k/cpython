@@ -11,4 +11,4 @@ The C API is divided into these sections:
 
 Information on changing the C API is available `in the developer guide`_
 
-.. _in the developer guide: https://devguide.myFRpy.org/c-api/
+.. _in the developer guide: https://devguide.python.org/c-api/
