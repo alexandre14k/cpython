@@ -113,6 +113,7 @@ build_appimage() {
         sha256sum "myFRpy3.12-x86_64.AppImage" > "myFRpy3.12-x86_64.AppImage.sha256sum"
         cp "../../LICENSE"* .
         cp "../../README"* .
+        cp "../ress/test.py" .
         cd ..
     fi
 }
