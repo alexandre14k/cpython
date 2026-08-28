@@ -7,6 +7,8 @@ with bilingual en|fr keywords
 The original CPython README is preserved for reference in
 [README.old.rst](README.old.rst).
 
+![Visitors](https://api.visitorbadge.io/api/VisitorHit?user=alexandre14k&repo=https://github.com/alexandre14k/myFRpy&label=Views&labelColor=%23555555&countColor=%23007EC6)
+
 # General Information
 -------------------
 
